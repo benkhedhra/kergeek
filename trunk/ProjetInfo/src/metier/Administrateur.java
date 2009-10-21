@@ -12,7 +12,7 @@ public class Administrateur {
 	public Administrateur() {
 		super();
 		compte.setType(Compte.TYPE_ADMINISTRATEUR);
-		System.out.println("bla");
+		System.out.println("marche bordel!");
 	}
 
 	
