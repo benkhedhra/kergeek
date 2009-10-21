@@ -13,7 +13,7 @@ public class Administrateur {
 		super();
 		compte.setType(Compte.TYPE_ADMINISTRATEUR);
 	}
-
+	
 	
 	
 	//Accesseurs
