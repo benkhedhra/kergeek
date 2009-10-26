@@ -33,22 +33,31 @@ public class Administrateur {
 
 	public Compte creerCompte(){
 		Compte c = new Compte();
-		Compte.NUMERO_DERNIER_ID_CREE = Compte.NUMERO_DERNIER_ID_CREE+1;
+		/*TODO
+		 * Compte.NUMERO_DERNIER_ID_CREE = Compte.NUMERO_DERNIER_ID_CREE+1;
+		 */
 		return c;
 		
 		
 	}
 	
 	public void resilierCompte(String idCompte){
+		/*TODO
+		 * getCompteById(idCompte).set()
+		 */
 		
 	}
 	
 	public void editerCompte(String idCompte){
-		
+		/*TODO
+		 * 
+		 */
 	}
 	
 	public void demanderAssignation(boolean ajout, Lieu lieu){
-		
+		/*TODO
+		 * 
+		 */
 	}
 
 	
