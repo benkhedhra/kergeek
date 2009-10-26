@@ -1,5 +1,9 @@
 package metier;
 
+import java.sql.SQLException;
+
+import gestionBaseDeDonnees.DAOCompte;
+
 public class Administrateur {
 	
 	//Attributs
@@ -27,7 +31,7 @@ public class Administrateur {
 	}
 	
 	
-	//Méthodes
+	//Methodes
 
 
 
@@ -41,11 +45,9 @@ public class Administrateur {
 		
 	}
 	
-	public void resilierCompte(String idCompte){
-		/*TODO
-		 * getCompteById(idCompte).set()
-		 */
-		
+	
+	public void resilierCompte(String idCompte) throws SQLException, ClassNotFoundException{
+		DAOCompte.getCompteById(idCompte).setActif(false);	
 	}
 	
 	public void editerCompte(String idCompte){
