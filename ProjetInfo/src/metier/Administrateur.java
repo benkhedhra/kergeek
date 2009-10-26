@@ -50,11 +50,7 @@ public class Administrateur {
 		DAOCompte.getCompteById(idCompte).setActif(false);	
 	}
 	
-	public void editerCompte(String idCompte){
-		/*TODO
-		 * 
-		 */
-	}
+	//editerCompte correspond ˆ l'ensemble des setters
 	
 	public void demanderAssignation(boolean ajout, Lieu lieu){
 		/*TODO
