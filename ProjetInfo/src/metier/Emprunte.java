@@ -1,16 +1,17 @@
 package metier;
 
-import java.sql.Time;
+
+import java.util.Date;
 
 public class Emprunte {
-	private Time dateEmprunt;
-	private Time dateRetour;
+	private Date dateEmprunt;
+	private Date dateRetour;
 	private Lieu lieuEmprunt;
 	private Lieu lieuRetour;
 	
 	//Constructeur
 	
-	public Emprunte(Time dateEmprunt, Lieu lieuEmprunt) {
+	public Emprunte(Date dateEmprunt, Lieu lieuEmprunt) {
 		super();
 		this.setDateEmprunt(dateEmprunt);
 		this.setLieuEmprunt(lieuEmprunt);
@@ -18,16 +19,16 @@ public class Emprunte {
 	
 	//Accesseurs
 	
-	public Time getDateEmprunt() {
+	public Date getDateEmprunt() {
 		return dateEmprunt;
 	}
-	public void setDateEmprunt(Time dateEmprunt) {
+	public void setDateEmprunt(Date dateEmprunt) {
 		this.dateEmprunt = dateEmprunt;
 	}
-	public Time getDateRetour() {
+	public Date getDateRetour() {
 		return dateRetour;
 	}
-	public void setDateRetour(Time dateRetour) {
+	public void setDateRetour(Date dateRetour) {
 		this.dateRetour = dateRetour;
 	}
 
