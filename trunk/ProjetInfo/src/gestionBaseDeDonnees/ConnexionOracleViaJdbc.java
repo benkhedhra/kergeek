@@ -8,21 +8,36 @@ package gestionBaseDeDonnees;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
 	
 	static private Connection c;
-	static private String idUtilisateur = identifiantBDD.UTILISATEUR;
-	static private String motPasse = identifiantBDD.MOTDEPASSE;
+	static private String idUtilisateur; 
+	static private String motPasse; //= identifiantBDD.MOTDEPASSE;
+	
+	/*pour ecrire l'id et le mp pour acceder ˆ la base de donnees "en dur"
+	*package gestionBaseDeDonnees;
+	*
+	*public class identifiantBDD {
+	*
+	*	public static final String UTILISATEUR ="id3033";
+	*	public static final String MOTDEPASSE ="id3033";
+	*}
+	*
+	*static private String idUtilisateur = identifiantBDD.UTILISATEUR;
+	*static private String motPasse = identifiantBDD.MOTDEPASSE;
+	*
+	*/
 	
 	// avec un constructeur "private"
-	// comme la Connection est static private, on ne pourra avoir qu'une seule connexion à la fois
-	// le constructeur ne pourra être appelé en dehors de la classe
+	// comme la Connection est static private, on ne pourra avoir qu'une seule connexion a la fois
+	// le constructeur ne pourra etre appele en dehors de la classe
 	// ici on ne fait pas appel au constructeur dans la classe, elle n'est donc pas instanciable
 	private ConnexionOracleViaJdbc(){
-		ConnexionOracleViaJdbc.setIdUtilisateur(identifiantBDD.UTILISATEUR);
-		ConnexionOracleViaJdbc.setIdUtilisateur(identifiantBDD.MOTDEPASSE);
+		//ConnexionOracleViaJdbc.setIdUtilisateur(identifiantBDD.UTILISATEUR);
+		//ConnexionOracleViaJdbc.setIdUtilisateur(identifiantBDD.MOTDEPASSE);
 	}
 	
 	
@@ -75,8 +90,17 @@ public class ConnexionOracleViaJdbc {
 		}
 	   catch (NullPointerException e){
 			// c'est  la 1ere connexion a la BD au cours du programme
-			// demander identifiant et mot de passe ici...
+			// on demande identifiant et mot de passe
+		   /*TODO
+			 * obtenir l'id et mot de passe du compte courant... du boulot!!!
+			 */
+		   	System.out.println(" Donner votre identifiant puis votre mot de passe pour vous connecter a la base");
+			Scanner sc= new Scanner(System.in);
+			ConnexionOracleViaJdbc.setIdUtilisateur(sc.next());
+			ConnexionOracleViaJdbc.setMotDePasse(sc.next());
+			
 			connecter();
+			
 		}
 	}
 	
