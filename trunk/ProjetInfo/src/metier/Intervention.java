@@ -3,6 +3,9 @@ package metier;
 import java.util.Date;
 
 public class Intervention {
+	
+	//Attributs
+	
 	private Date date;
 	private TypeIntervention typeOperation;
 	public static final int PNEU_CREVE=1;
@@ -11,12 +14,13 @@ public class Intervention {
 	
 	
 	
+	//Constructeur
+	
 	public Intervention() {
 		super();
 	}
 
-
-
+	
 	public Intervention(Date date, TypeIntervention typeOperation) {
 		super();
 		this.date = date;
@@ -24,6 +28,8 @@ public class Intervention {
 	}
 	
 	
+
+	//Accesseurs
 	
 	public Date getDate() {
 		return date;
