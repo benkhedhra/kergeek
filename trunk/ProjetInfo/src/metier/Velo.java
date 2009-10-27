@@ -1,7 +1,8 @@
 package metier;
 
 public class Velo {
-	private String idVelo;
+	private String id;
+	private Lieu lieu;
 	private boolean enPanne;
 	
 	
@@ -15,21 +16,31 @@ public class Velo {
 	
 	
 	
-	public Velo(String idVelo, boolean enPanne) {
+	public Velo(String identifiant, boolean enPanne) {
 		super();
-		this.idVelo = idVelo;
-		this.enPanne = enPanne;
+		this.setId(id);
+		this.setEnPanne(enPanne);
 	}
 
 	
 	
+	//Accesseurs
 	
-	public String getIdVelo() {
-		return idVelo;
+	public String getId() {
+		return id;
 	}
 
-	public void setIdVelo(String idVelo) {
-		this.idVelo = idVelo;
+	public void setId(String idVelo) {
+		this.id = idVelo;
+	}
+	
+	
+	public Lieu getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
 	}
 
 	public boolean isEnPanne() {
