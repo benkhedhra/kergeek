@@ -46,7 +46,7 @@ public class Compte {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	public Boolean getActif() {
+	public Boolean isActif() {
 		return actif;
 	}
 	public void setActif(Boolean actif) {

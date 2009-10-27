@@ -1,9 +1,9 @@
 package metier;
 
-import java.sql.Time;
+import java.util.Date;
 
 public class Intervention {
-	private Time date;
+	private Date date;
 	private TypeIntervention typeOperation;
 	public static final int PNEU_CREVE=1;
 	public static final int LUMIERE_CASSEE=2;
@@ -17,7 +17,7 @@ public class Intervention {
 
 
 
-	public Intervention(Time date, TypeIntervention typeOperation) {
+	public Intervention(Date date, TypeIntervention typeOperation) {
 		super();
 		this.date = date;
 		this.typeOperation = typeOperation;
@@ -25,10 +25,10 @@ public class Intervention {
 	
 	
 	
-	public Time getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(Time date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public TypeIntervention getTypeOperation() {

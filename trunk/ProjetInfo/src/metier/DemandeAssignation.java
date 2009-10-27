@@ -1,31 +1,36 @@
 package metier;
 
-import java.sql.Time;
+import java.util.Date;
 
 public class DemandeAssignation {
 	
-	private Time date;
+	private Date date;
 	private boolean ajout;
+	private Lieu lieu;
+	
+	//ajout==true correspond à une demande d'ajout de vélo
+	//ajout==false correspond à une demande de retrait de vélo
 
 	
 	//Constructeur
 	
 	
-	public DemandeAssignation(Time date, boolean ajout) {
+	public DemandeAssignation(Date date, boolean ajout, Lieu lieu) {
 		super();
 		this.setDate(date);
 		this.setAjout(ajout);
+		this.setLieu(lieu);
 	}
 
 	
 	// Accesseur
 	
-	public Time getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 
-	public void setDate(Time date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -37,6 +42,16 @@ public class DemandeAssignation {
 
 	public void setAjout(boolean ajout) {
 		this.ajout = ajout;
+	}
+
+
+	public Lieu getLieu() {
+		return lieu;
+	}
+
+
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
 	}
 
 	
