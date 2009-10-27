@@ -18,11 +18,11 @@ public class Compte {
 	
 	//Constructeur
 	
-	public Compte(String id, String motDePasse, Boolean actif, int type) {
+	public Compte(String id, String motDePasse, int type) {
 		super();
 		this.setId(id);
 		this.setMotDePasse(motDePasse);
-		this.setActif(actif);
+		this.setActif(true);
 		this.setType(type);
 	}
 	

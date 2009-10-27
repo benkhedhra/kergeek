@@ -13,12 +13,12 @@ public class DAODemandeAssignation {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		if (ddeAssignation.isAjout()){
 			s.executeUpdate("INSERT into DemandeAssignation values ('" 
-					+ ddeAssignation.getDate() + "', '" + ddeAssignation.getLieu() + "','ajout'");
+					+ ddeAssignation.getDate() + "', '" + ddeAssignation.getLieu() + "','ajout')");
 		}
 		
 		else{
 			s.executeUpdate("INSERT into DemandeAssignation values ('" 
-					+ ddeAssignation.getDate() + "', '" + ddeAssignation.getLieu() + "','retrait'");
+					+ ddeAssignation.getDate() + "', '" + ddeAssignation.getLieu() + "','retrait')");
 		}
 
 		s.executeUpdate("COMMIT");
