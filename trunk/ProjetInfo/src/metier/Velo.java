@@ -1,20 +1,22 @@
 package metier;
 
 public class Velo {
+	
+	// Attributs
+	
 	private String id;
 	private Lieu lieu;
 	private boolean enPanne;
 	
 	
 	
+	// Constructeurs
 	
 	public Velo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	
 	public Velo(String identifiant, boolean enPanne) {
 		super();

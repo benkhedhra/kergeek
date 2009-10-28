@@ -4,7 +4,7 @@ public class TypeIntervention {
 	
 	//Attributs
 	
-	private int id;
+	private int type;
 	private String description;
 	
 	
@@ -12,20 +12,20 @@ public class TypeIntervention {
 	
 	public TypeIntervention(int numero, String description) {
 		super();
-		this.id = numero;
+		this.type = numero;
 		this.description = description;
 	}
 
 
 	//Accesseurs
 	
-	public int getNumero() {
-		return id;
+	public int getType() {
+		return type;
 	}
 
 
-	public void setNumero(int numero) {
-		this.id = numero;
+	public void setType(int numero) {
+		this.type = numero;
 	}
 
 

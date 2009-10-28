@@ -33,6 +33,10 @@ public class Technicien {
 		return velo;
 		
 	}
+	
+	public void intervenir(){//Lorsqu'un technicien retire un velo d'une station (pour le reparer)
+		
+	}
 }
 	
 
