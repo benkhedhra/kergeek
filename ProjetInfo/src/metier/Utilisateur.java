@@ -98,6 +98,9 @@ public class Utilisateur {
 	}
 	
 	public Velo rendreVelo(Station station){
+		/*TODO
+		 * mettre ˆ jour bloque si temps d'emprunt trop long
+		 */
 		Velo velo = new Velo();
 		return(velo);
 		
