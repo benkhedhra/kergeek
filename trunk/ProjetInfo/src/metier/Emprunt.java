@@ -9,25 +9,56 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Emprunte {
+public class Emprunt {
+	private Utilisateur Utilisateur;
+	private Velo velo;
 	private Date dateEmprunt;
 	private Date dateRetour;
 	private Lieu lieuEmprunt;
 	private Lieu lieuRetour;
-	long diff = dateRetour.getTime() - dateEmprunt.getTime();
-	float tpsEmprunt = diff / 3600000.0f;
+	/*TODO
+	 * Boris A Beranger : s'agit-il d'attribut? private? public?
+	 * je pense qu'il s'agit d'attributs donc je rajoute des private
+	 */
+	private long diff = dateRetour.getTime() - dateEmprunt.getTime();
+	private float tpsEmprunt = diff / 3600000.0f;
+	
+	
+	//Constantes
+	
+	public static float TPS_EMPRUNT_MAX = 1;
 
+	
+	
 	//Constructeur
 
 
-	public Emprunte(Date dateEmprunt, Lieu lieuEmprunt) {
+	public Emprunt(Date dateEmprunt, Lieu lieuEmprunt) {
 		super();
 		this.setDateEmprunt(dateEmprunt);
 		this.setLieuEmprunt(lieuEmprunt);
 	}
 
+	
+	
 	//Accesseurs
 
+	public Utilisateur getUtilisateur() {
+		return Utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		Utilisateur = utilisateur;
+	}
+
+	public Velo getVelo() {
+		return velo;
+	}
+
+	public void setVelo(Velo velo) {
+		this.velo = velo;
+	}
+	
 	public Date getDateEmprunt() {
 		return dateEmprunt;
 	}
@@ -64,6 +95,14 @@ public class Emprunte {
 	public void setTpsEmprunt(float tpsEmprunt) {
 		this.tpsEmprunt = tpsEmprunt;
 	}
+	
+	public long getDiff() {
+		return diff;
+	}
+
+	public void setDiff(long diff) {
+		this.diff = diff;
+	}
 
 
 	//Methodes
@@ -85,7 +124,8 @@ public class Emprunte {
 			}
 		}
 		catch (NumberFormatException e) {
-			System.out.println("Je n'ai pas compris votre reponse, veuillez entrer soit un 1 soit un 2 s'il vous plait.");
+			System.out.println("Je n'ai pas compris votre reponse, " +
+					"veuillez entrer soit un 1, soit un 2 s'il vous plait.");
 			proposerDemanderIntervention(velo, utilisateur);
 		}
 		catch (SQLException e){

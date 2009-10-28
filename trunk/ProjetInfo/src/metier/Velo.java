@@ -7,6 +7,7 @@ public class Velo {
 	private String id;
 	private Lieu lieu;
 	private boolean enPanne;
+	private Emprunt emprunt;
 	
 	
 	
@@ -51,6 +52,16 @@ public class Velo {
 
 	public void setEnPanne(boolean enPanne) {
 		this.enPanne = enPanne;
+	}
+
+
+	public Emprunt getEmprunt() {
+		return emprunt;
+	}
+
+
+	public void setEmprunt(Emprunt emprunt) {
+		this.emprunt = emprunt;
 	}
 	
 	

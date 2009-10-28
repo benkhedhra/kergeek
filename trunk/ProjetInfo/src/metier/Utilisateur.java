@@ -15,7 +15,6 @@ public class Utilisateur {
 	private String adresse;
 	private boolean bloque;
 	private Velo velo;
-	private float tpsEmpruntMax; 
 	
 	//Constructeur
 
@@ -101,15 +100,19 @@ public class Utilisateur {
 
 	public void emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException{
 		Lieu.enleverVelo(velo);
+		this.setEmprunt(new Emprunt(velo.getLieu))
 	}
 	
-	public Velo rendreVelo(Station station){
+	public Velo rendreVelo(Station station) throws SQLException, ClassNotFoundException{
 		/*TODO
-		 * mettre ˆ jour bloque si temps d'emprunt trop long
+		 * Avant tout, tester si le velo est bien dehors, condition indispensable pour qu'on
+		 * puisse obtenir son emprunt
 		 */
-		/*if (Emprunte.getTpsEmprunt() >= tpsEmpruntMax){	je sais pas comment s'apelle cet attribut, donc je le crée!
+		
+		station.ajouterVelo(velo);
+		if (this.getVelo().getEmprunt().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){	//je sais pas comment s'apelle cet attribut, donc je le crée!
 			bloque = true;
-		}*/
+		}
 		
 		Velo velo = new Velo();
 		return(velo);
