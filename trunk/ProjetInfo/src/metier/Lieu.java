@@ -23,6 +23,7 @@ public abstract class Lieu {
 	public static final String ID_GARAGE="";
 	public static final String ADRESSE_GARAGE="";
 	public static final int CAPACITE_GARAGE=1000;
+	private static final String SORTI = null;
 	
 
 	//pas de constructeur puisqu'il s'agit d'une classe abstraite
@@ -59,11 +60,14 @@ public abstract class Lieu {
 	//Methodes
 
 
-	public void enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
+	public static void enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'");
+			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'" +
+					" INSERT into Velo values('"+ velo.getId() + "', '"+ SORTI + "')");
+			//autre requete possible : "UPDATE Velo SET idLieu = '" + SORTI + "' WHERE idVelo = '"+ velo.getId() + "'
+			//moins sûr que ça marche
 			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){

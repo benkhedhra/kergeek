@@ -1,5 +1,10 @@
 package metier;
 
+import gestionBaseDeDonnees.ConnexionOracleViaJdbc;
+
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Utilisateur {
 	
 	//Attributs
@@ -93,14 +98,16 @@ public class Utilisateur {
 	
 	
 
-	public void emprunteVelo(Velo velo){
-		
+	public void emprunteVelo(Velo velo) throws ClassNotFoundException, SQLException{
+		Lieu.enleverVelo(velo);
+	
 	}
 	
 	public Velo rendreVelo(Station station){
 		/*TODO
 		 * mettre ˆ jour bloque si temps d'emprunt trop long
 		 */
+		if (Emprunte.getDateRetour() - Emprunte.getDateEmprunt()>= tpsEmpruntMax // je sais pas comment s'apelle cet attribut!
 		Velo velo = new Velo();
 		return(velo);
 		
