@@ -90,7 +90,7 @@ public class Administrateur {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		ResultSet res = s.executeQuery("Select idLieu from Lieu Where idLieu ='" + lieu.getId()+"'");
 		
-		/*verification de la prŽsence du lieu en question dans la base de donnees.
+		/*verification de la présence du lieu en question dans la base de donnees.
 		 * A terme, l'administrateur demandera une assignation alors qu'il s'interesse deja
 		 * a une station particuliere, cette verification sera alors superflue.
 		 */
