@@ -14,8 +14,11 @@ public class Emprunte {
 	private Date dateRetour;
 	private Lieu lieuEmprunt;
 	private Lieu lieuRetour;
+	long diff = dateRetour.getTime() - dateEmprunt.getTime();
+	float tpsEmprunt = diff / 3600000.0f;
 
 	//Constructeur
+
 
 	public Emprunte(Date dateEmprunt, Lieu lieuEmprunt) {
 		super();
@@ -52,6 +55,14 @@ public class Emprunte {
 
 	public void setLieuRetour(Lieu lieuRetour) {
 		this.lieuRetour = lieuRetour;
+	}
+	
+	public float getTpsEmprunt() {
+		return tpsEmprunt;
+	}
+
+	public void setTpsEmprunt(float tpsEmprunt) {
+		this.tpsEmprunt = tpsEmprunt;
 	}
 
 

@@ -14,7 +14,8 @@ public class Utilisateur {
 	private String prenom;
 	private String adresse;
 	private boolean bloque;
-	private Velo velo; 
+	private Velo velo;
+	private float tpsEmpruntMax; 
 	
 	//Constructeur
 
@@ -98,16 +99,18 @@ public class Utilisateur {
 	
 	
 
-	public void emprunteVelo(Velo velo) throws ClassNotFoundException, SQLException{
+	public void emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException{
 		Lieu.enleverVelo(velo);
-	
 	}
 	
 	public Velo rendreVelo(Station station){
 		/*TODO
 		 * mettre ˆ jour bloque si temps d'emprunt trop long
 		 */
-		if (Emprunte.getDateRetour() - Emprunte.getDateEmprunt()>= tpsEmpruntMax // je sais pas comment s'apelle cet attribut!
+		/*if (Emprunte.getTpsEmprunt() >= tpsEmpruntMax){	je sais pas comment s'apelle cet attribut, donc je le crée!
+			bloque = true;
+		}*/
+		
 		Velo velo = new Velo();
 		return(velo);
 		
