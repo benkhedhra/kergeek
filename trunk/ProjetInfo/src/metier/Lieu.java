@@ -60,13 +60,15 @@ public abstract class Lieu {
 
 
 	public void enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-		/*TODO
-		 * s.executeUpdate(//requete SQL ˆ ecrire);
-		 */
-		ConnexionOracleViaJdbc.fermer();
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'");
+			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e){
+			ConnexionOracleViaJdbc.fermer();// (Bér)J'ai mis pareil que les exceptions en-dessous, faut peut-être changé
+		}
 		/*TODO
 		 * gerer les exceptions
 		 */
