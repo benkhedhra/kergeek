@@ -65,7 +65,8 @@ public abstract class Lieu {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'" +
-					" INSERT into Velo values('"+ velo.getId() + "', '"+ SORTI + "')");
+					" INSERT into Velo values('"+ velo.getId() + "', '"+ SORTI + 
+					"', '" + velo.isEnPanne() + "')");
 			/*TODO
 			 * autre requete possible : "UPDATE Velo SET idLieu = '" + SORTI + "' WHERE idVelo = '"+ velo.getId() + "'
 			 *moins sur que ca marche
@@ -82,8 +83,13 @@ public abstract class Lieu {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("INSERT into Velo values ('" 
-					+ velo.getId() + "', '"+ velo.getLieu().getId() + "')");
+			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'" +
+					" INSERT into Velo values('"+ velo.getId() + "', '"+ this.getId() + 
+					"', '" + velo.isEnPanne() + "')");
+			/*TODO
+			 *autre requete possible : "UPDATE Velo SET idLieu = '" + this.getId() + "' WHERE idVelo = '"+ velo.getId() + "'
+			 *moins sur que ca marche
+			 */
 			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
