@@ -10,6 +10,12 @@ public class Station extends Lieu {
 	
 	//Constructeur
 	
+	
+	public Station() {
+		super();
+		this.setType(TYPE_STATION);
+	}
+	
 	public Station(String id, String adresse,int capacite) {
 		super();
 		this.setType(TYPE_STATION);
