@@ -110,10 +110,10 @@ public class Utilisateur {
 
 	//Méthodes
 
-	public void emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException{
+	public boolean emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException{
 		Lieu.enleverVelo(velo);
 		this.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		DAOEmprunt.createEmprunt(this.getEmprunt());
+		return(DAOEmprunt.createEmprunt(this.getEmprunt()));
 	}
 
 	public boolean rendreVelo(Station station) 

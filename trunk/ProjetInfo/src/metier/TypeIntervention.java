@@ -1,6 +1,6 @@
 package metier;
 
-public class TypeIntervention {
+public final class TypeIntervention {
 	
 	//Attributs
 	
@@ -37,8 +37,16 @@ public class TypeIntervention {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+
 	
+	//Methodes
 	
+	@Override
+	public String toString() {
+		return Integer.toString(this.getType());
+	}
 	
 
 }
