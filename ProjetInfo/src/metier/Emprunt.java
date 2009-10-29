@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Emprunt {
+	private String id;
 	private Utilisateur Utilisateur;
 	private Velo velo;
 	private Date dateEmprunt;
@@ -33,15 +34,35 @@ public class Emprunt {
 	//Constructeur
 
 
-	public Emprunt(Date dateEmprunt, Lieu lieuEmprunt) {
+	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt) {
 		super();
+		this.setUtilisateur(utilisateur);
+		this.setVelo(velo);
 		this.setDateEmprunt(dateEmprunt);
 		this.setLieuEmprunt(lieuEmprunt);
+	}
+	
+	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt, Date dateRetour, Lieu lieuRetour) {
+		super();
+		this.setUtilisateur(utilisateur);
+		this.setVelo(velo);
+		this.setDateEmprunt(dateEmprunt);
+		this.setLieuEmprunt(lieuEmprunt);
+		this.setDateRetour(dateRetour);
+		this.setLieuRetour(lieuRetour);
 	}
 
 	
 	
 	//Accesseurs
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Utilisateur getUtilisateur() {
 		return Utilisateur;

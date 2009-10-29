@@ -11,10 +11,25 @@ import metier.Lieu;
 import metier.Velo;
 
 public class DAOVelo {
-	
-	
-	
-	
+
+
+	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("INSERT into Velo values ('" 
+					+ velo.getId() + "', '"+ velo.getLieu().getId() + velo.getEmprunt().getId() + "')");
+			effectue=true;
+			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e){
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return effectue;
+	}
+
+
 	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException {
 		Velo velo = new Velo();
 
@@ -39,10 +54,10 @@ public class DAOVelo {
 
 		return velo;
 	}
-	
-	
-	
-	
+
+
+
+
 	//permet d'obtenir la liste des velos parques dans un lieu
 	public static ArrayList<Velo> getVeloByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
 		ArrayList<Velo> listeVelos = new ArrayList<Velo>();
