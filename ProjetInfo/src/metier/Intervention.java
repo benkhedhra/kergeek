@@ -6,42 +6,66 @@ public class Intervention {
 	
 	//Attributs
 	
+	private String id;
+	private Velo velo;
 	private Date date;
-	private TypeIntervention typeOperation;
-	public static final int PNEU_CREVE=1;
-	public static final int LUMIERE_CASSEE=2;
+	private TypeIntervention typeIntervention;
 	
 	
 	
 	
 	//Constructeur
 	
-	public Intervention() {
+	public Intervention(Velo velo, Date date) {
 		super();
+		this.setVelo(velo);
+		this.setDate(date);
+		this.setTypeIntervention(null);
 	}
 
 	
-	public Intervention(Date date, TypeIntervention typeOperation) {
+	public Intervention(Velo velo,Date date, TypeIntervention typeIntervention) {
 		super();
-		this.date = date;
-		this.typeOperation = typeOperation;
+		this.setVelo(velo);
+		this.setDate(date);
+		this.setTypeIntervention(typeIntervention);
 	}
 	
 	
 
 	//Accesseurs
 	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public Velo getVelo() {
+		return velo;
+	}
+
+
+	public void setVelo(Velo velo) {
+		this.velo = velo;
+	}
+
+
 	public Date getDate() {
 		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public TypeIntervention getTypeOperation() {
-		return typeOperation;
+	public TypeIntervention getTypeIntervention() {
+		return typeIntervention;
 	}
-	public void setTypeOperation(TypeIntervention typeOperation) {
-		this.typeOperation = typeOperation;
+	public void setTypeIntervention(TypeIntervention typeIntervention) {
+		this.typeIntervention = typeIntervention;
 	}
 
 	
