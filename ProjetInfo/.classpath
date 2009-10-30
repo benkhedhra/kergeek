@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/boris/Documents/ENSAI/2A/ProjetInfo/workspace/ojdbc14_g.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Béranger/Desktop/workspace/attachment.ashx"/>
+	<classpathentry kind="lib" path="F:/KerGeek/Library"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
