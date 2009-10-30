@@ -16,7 +16,7 @@ public class testMain {
 		
 		System.out.println(UtilitaireDate.dateCourante().toString());
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
-		
+		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 	}
 
 }
