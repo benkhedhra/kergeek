@@ -18,8 +18,6 @@ class Fenetre extends JFrame {
         setBounds(100,100,300,150);
         JLabel boutona = new JLabel("Oki");
         this.getContentPane().add(boutona);
-        
-        
-    }
-  */  
+        }
+  */
 }  
