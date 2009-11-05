@@ -18,9 +18,9 @@ public class Panneau extends JPanel {
 		 * int x1 = this.getWidth();
 		 * int y1 = this.getHeight();
 		 * */
-
+	
 		try {
-			Image img = ImageIO.read(new File(/*"ProjetInfo\\src\\ressources\\velo1.jpg"*/"C:\\Users\\Maëlle\\workspace\\ProjetInfo\\src\\ressources\\velo1.jpg"));
+			Image img = ImageIO.read(new File(/*"ProjetInfo\\src\\ressources\\velo1.jpg"*/System.getProperty("user.dir")+"/src/ressources/velo1.jpg"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

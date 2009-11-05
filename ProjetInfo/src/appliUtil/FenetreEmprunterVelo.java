@@ -23,6 +23,7 @@ public class FenetreEmprunterVelo extends JFrame {
 		this.setResizable(false);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
+		
 	/* les lignes suivantes servent à instancier un objet Jpanel et à définir sa couleur de fond
 	 * 
 	 * JPanel pan = new JPanel();
