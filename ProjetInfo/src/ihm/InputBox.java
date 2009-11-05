@@ -1,13 +1,13 @@
 package ihm;
 
-public class Inputbox extends javax.swing.JDialog {
+public class InputBox extends javax.swing.JDialog {
         /** A return status code - returned if Cancel button has been pressed */
         public static final int RET_CANCEL = 0;
         /** A return status code - returned if OK button has been pressed */
         public static final int RET_OK = 1;
 
         /** Creates new form InputBox */
-        public Inputbox(java.awt.Frame parent, boolean modal, String strMessage) {
+        public InputBox(java.awt.Frame parent, boolean modal, String strMessage) {
                 super(parent, modal);
                 InitInputBox(strMessage);
         }
