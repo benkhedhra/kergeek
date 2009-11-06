@@ -1,7 +1,7 @@
 package gestionBaseDeDonnees;
 
 /**
- * @author sbalmand
+ * @author KerGeek
  * @version 1.0
  */
 
