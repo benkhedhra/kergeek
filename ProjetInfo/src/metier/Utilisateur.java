@@ -14,7 +14,7 @@ public class Utilisateur {
 	private Compte compte;
 	private String nom;
 	private String prenom;
-	private String adresse;
+	private String adressePostale;
 	private boolean bloque;
 	private Velo velo;
 	private Emprunt emprunt;
@@ -28,7 +28,7 @@ public class Utilisateur {
 		this.setCompte(compte);
 		this.setNom(nom);
 		this.setPrenom(prenom);
-		this.setAdresse(adresse);
+		this.setAdressePostale(adresse);
 		this.setBloque(false);
 		this.setVelo(null);
 		this.setEmprunt(null);
@@ -72,12 +72,12 @@ public class Utilisateur {
 		this.prenom = prenom;
 	}
 
-	public String getAdresse() {
-		return adresse;
+	public String getAdressePostale() {
+		return adressePostale;
 	}
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public void setAdressePostale(String adresse) {
+		this.adressePostale = adresse;
 	}
 
 
