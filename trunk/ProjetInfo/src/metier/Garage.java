@@ -2,13 +2,15 @@ package metier;
 
 
 
-public final class Garage extends Lieu{
+public class Garage extends Lieu{
 
 	//Attributs
 
+	private static final Garage garage = new Garage();
+	
 	//Constructeurs
 	
-	public Garage() {
+	private Garage() {
 		super();
 		this.setType(TYPE_GARAGE);
 		this.setId(ID_GARAGE);
@@ -18,6 +20,10 @@ public final class Garage extends Lieu{
 	
 	//Accesseurs
 
-
+	//Methodes
+	
+	public static Garage getInstance(){
+		return garage;
+	}
 
 }

@@ -35,17 +35,25 @@ public class Technicien {
 	//MÈthodes
 
 	/**enregisterVelo()
-	 * @param Velo
-	 * @return vrai si le velo a bien été ajouter a la base de données, faux sinon
+	 * @return le nouveau velo  qui a ete ajoute a la base de donnees
 	 */
-	public boolean enregistrerVelo(Velo velo) throws SQLException, ClassNotFoundException{
-		return(DAOVelo.createVelo(velo));
+	public Velo enregistrerVelo() throws SQLException, ClassNotFoundException{
+		Velo velo = new Velo();
+		/*TODO 
+		 * COMMENT GENERER LES IDENTIFIANT EN SQL?
+		 *velo.setId();
+		 */
+		velo.setEnPanne(false);
+		velo.setLieu(Garage.getInstance());
+		DAOVelo.createVelo(velo);
+		return velo;
+		
 	}
 
 
-	public boolean intervenir(Velo velo) throws SQLException, ClassNotFoundException{
+	public boolean intervenir(Velo velo, Lieu lieu) throws SQLException, ClassNotFoundException{
 		//Lorsqu'un technicien retire un velo d'une station (pour le reparer)
-		Lieu.enleverVelo(velo);
+		lieu.enleverVelo(velo);
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return(DAOIntervention.createIntervention(intervention));
 

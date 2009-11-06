@@ -1,7 +1,7 @@
 package metier;
 
 import gestionBaseDeDonnees.ConnexionOracleViaJdbc;
-
+import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,11 +24,11 @@ public abstract class Lieu {
 	public static final String ADRESSE_GARAGE="";
 	public static final int CAPACITE_GARAGE=1000;
 	public static final String SORTI = null;
-	
+
 
 	//pas de constructeur puisqu'il s'agit d'une classe abstraite
 
-	
+
 	//Accesseurs
 
 	public String getId() {
@@ -60,42 +60,21 @@ public abstract class Lieu {
 	//Methodes
 
 
-	public static void enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
-		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'" +
-					" INSERT into Velo values('"+ velo.getId() + "', '"+ SORTI + 
-					"', '" + velo.isEnPanne() + "')");
-			/*TODO
-			 * autre requete possible : "UPDATE Velo SET idLieu = '" + SORTI + "' WHERE idVelo = '"+ velo.getId() + "'
-			 *moins sur que ca marche
-			 */
-			ConnexionOracleViaJdbc.fermer();
-		}
-		catch (SQLException e){
-			ConnexionOracleViaJdbc.fermer();
-		}
-
+	public boolean enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
+		velo.setLieu(null);
+		return DAOVelo.updateVelo(velo);
+		/*TODO
+		 * autre requete possible : "UPDATE Velo SET idLieu = '" + SORTI + "' WHERE idVelo = '"+ velo.getId() + "'
+		 *moins sur que ca marche
+		 */
 	}
 
-	public void ajouterVelo(Velo velo) throws SQLException, ClassNotFoundException{
-		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'" +
-					" INSERT into Velo values('"+ velo.getId() + "', '"+ this.getId() + 
-					"', '" + velo.isEnPanne() + "')");
-			/*TODO
-			 *autre requete possible : "UPDATE Velo SET idLieu = '" + this.getId() + "' WHERE idVelo = '"+ velo.getId() + "'
-			 *moins sur que ca marche
-			 */
-			ConnexionOracleViaJdbc.fermer();
-		}
-		catch (SQLException e){
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
-
+	public boolean ajouterVelo(Velo velo) throws SQLException, ClassNotFoundException{
+		velo.setLieu(this);
+		return DAOVelo.createVelo(velo);
+		/*TODO
+		 *autre requete possible : "UPDATE Velo SET idLieu = '" + this.getId() + "' WHERE idVelo = '"+ velo.getId() + "'
+		 *moins sur que ca marche
+		 */
 	}
-
 }

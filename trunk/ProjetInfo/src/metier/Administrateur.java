@@ -14,13 +14,9 @@ import java.util.Date;
 public class Administrateur {
 
 
-
-
 	// Attributs
 
 	private Compte compte;
-
-
 
 
 
@@ -30,8 +26,6 @@ public class Administrateur {
 		super();
 		compte.setType(Compte.TYPE_ADMINISTRATEUR);
 	}
-
-
 
 
 
@@ -50,16 +44,15 @@ public class Administrateur {
 
 
 
-
 	// Methodes
 
-	public Compte creerCompte() {
+	public Compte creerCompte() throws SQLException, ClassNotFoundException {
 
 		Compte c = new Compte();
 		/*TODO 
-		 * Compte.NUMERO_DERNIER_ID_CREE = Compte.NUMERO_DERNIER_ID_CREE+1;
 		 * COMMENT GENERER LES IDENTIFIANT EN SQL?
 		 */
+		DAOCompte.createCompte(compte);
 		return c;
 
 	}

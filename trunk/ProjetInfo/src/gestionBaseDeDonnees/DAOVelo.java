@@ -24,6 +24,46 @@ public class DAOVelo {
 			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return effectue;
+	}
+
+	public static boolean updateVelo(Velo velo) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("UPDATE Velo SET"
+					+ "idLieu = " + velo.getId() + ","
+					+ "enPanne = " + velo.isEnPanne() + ","
+					+ "idLieu = " + velo.getEmprunt()
+			);	
+			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return effectue;
+	}
+
+	public static boolean deleteVelo(Velo velo) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "')");	
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return effectue;
@@ -33,7 +73,7 @@ public class DAOVelo {
 	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException {
 		Velo velo = new Velo();
 
-		ConnexionOracleViaJdbc.getC();
+		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		ResultSet res = s.executeQuery("Select idVelo, idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
@@ -49,9 +89,11 @@ public class DAOVelo {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
+			ConnexionOracleViaJdbc.fermer();
 		}
-
-
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
 		return velo;
 	}
 
@@ -63,7 +105,7 @@ public class DAOVelo {
 		ArrayList<Velo> listeVelos = new ArrayList<Velo>();
 		Velo velo = null;
 
-		ConnexionOracleViaJdbc.getC();
+		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		ResultSet res = s.executeQuery("Select idVelo from Velo Where idLieu ='" + lieu.getId()+"'");
@@ -78,6 +120,9 @@ public class DAOVelo {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return listeVelos;
 

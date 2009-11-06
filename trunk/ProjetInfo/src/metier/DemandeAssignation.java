@@ -9,12 +9,11 @@ public class DemandeAssignation {
 	private int nombreVelos;
 	private Lieu lieu;
 	
-	//ajout==true correspond à une demande d'ajout de vélo
-	//ajout==false correspond à une demande de retrait de vélo
+	//ajout==true correspond à une demande d'ajout de velo
+	//ajout==false correspond à une demande de retrait de velo
 
 	
 	//Constructeur
-	
 	
 	public DemandeAssignation(Date date, boolean ajout, int nombre, Lieu lieu) {
 		super();

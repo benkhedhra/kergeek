@@ -15,7 +15,6 @@ public class Velo {
 	
 	public Velo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	

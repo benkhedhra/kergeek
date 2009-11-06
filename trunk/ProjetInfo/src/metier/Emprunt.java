@@ -1,11 +1,9 @@
 package metier;
 
 
-import gestionBaseDeDonnees.ConnexionOracleViaJdbc;
-import gestionBaseDeDonnees.UtilitaireDate;
+import gestionBaseDeDonnees.DAODemandeIntervention;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -17,10 +15,8 @@ public class Emprunt {
 	private Date dateRetour;
 	private Lieu lieuEmprunt;
 	private Lieu lieuRetour;
-	/*TODO
-	 * Boris A Beranger : s'agit-il d'attribut? private? public?
-	 * je pense qu'il s'agit d'attributs donc je rajoute des private
-	 */
+	
+	
 	private long diff = dateRetour.getTime() - dateEmprunt.getTime();
 	private float tpsEmprunt = diff / 3600000.0f;
 	
@@ -129,19 +125,17 @@ public class Emprunt {
 	//Methodes
 
 	public static void proposerDemanderIntervention(Velo velo, Utilisateur utilisateur) throws SQLException,ClassNotFoundException{
-		System.out.println("Souhaitez-vous demander une intervention sur ce vélo?\n Oui : 1\n Non : 2");
+		System.out.println("Souhaitez-vous demander une intervention sur ce velo?\n Oui : 1\n Non : 2");
 		Scanner sc= new Scanner(System.in);
 
 		try {
 			int rep = Integer.parseInt(sc.next());
 			if (rep == 1){
-
-				ConnexionOracleViaJdbc.ouvrir();
-				Statement s = ConnexionOracleViaJdbc.createStatement();
-				s.executeUpdate("INSERT into DemandeIntervention values ('" 
-						+ UtilitaireDate.dateCourante() + "', '"+ velo + "', '" 
-						+ velo.getLieu().getId() + "', '" + utilisateur.getCompte().getId() + "')");
-				ConnexionOracleViaJdbc.fermer();
+				/*TODO 
+				 * COMMENT GENERER LES IDENTIFIANT EN SQL?
+				 */
+				DemandeIntervention ddeIntervention = new DemandeIntervention(velo,utilisateur);
+				DAODemandeIntervention.createDemandeIntervention(ddeIntervention);
 			}
 		}
 		catch (NumberFormatException e) {
@@ -149,15 +143,11 @@ public class Emprunt {
 					"veuillez entrer soit un 1, soit un 2 s'il vous plait.");
 			proposerDemanderIntervention(velo, utilisateur);
 		}
-		catch (SQLException e){
-			ConnexionOracleViaJdbc.fermer();
-
-		}
-
-		/*TODO
-		 * rendreVelo : faire le test sur le temps d'emprunt puis appeler cette methode le cas echeant
-		 */
-
 	}
+	
+	
+	/*TODO
+	 * rendreVelo : faire le test sur le temps d'emprunt puis appeler cette methode le cas echeant
+	 */
 
 }
