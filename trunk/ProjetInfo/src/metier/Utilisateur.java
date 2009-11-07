@@ -3,6 +3,7 @@ package metier;
 import exception.PasDeVeloEmprunteException;
 import exception.VeloNonSortiException;
 import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.UtilitaireDate;
 
 import java.sql.SQLException;
@@ -110,11 +111,13 @@ public class Utilisateur {
 
 	//Méthodes
 
-	public boolean emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException{
-		Lieu.enleverVelo(velo);
+	public boolean emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
+		station.enleverVelo(velo);
 		this.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		return(DAOEmprunt.createEmprunt(this.getEmprunt()));
+		return(DAOEmprunt.createEmprunt(this.getEmprunt()) & DAOVelo.updateVelo(velo));
 	}
+	
+	
 
 	public boolean rendreVelo(Station station) 
 	throws SQLException, ClassNotFoundException, VeloNonSortiException, PasDeVeloEmprunteException{
@@ -126,7 +129,7 @@ public class Utilisateur {
 			throw new PasDeVeloEmprunteException();
 		}
 		else{
-			if (velo.getLieu().getId() != Lieu.SORTI){
+			if (velo.getLieu() != Lieu.SORTI){
 				throw new VeloNonSortiException();
 			}
 			else{
@@ -135,9 +138,12 @@ public class Utilisateur {
 				velo.getEmprunt().setLieuRetour(station);
 				boolean a = DAOEmprunt.updateDateRetour(emprunt);
 				boolean b = DAOEmprunt.updateLieuRetour(emprunt);
-				effectue= a && b ;
+				effectue= a && b;
 				if (velo.getEmprunt().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){
 					this.setBloque(true);
+				}
+				else if (velo.getEmprunt().getTpsEmprunt() <= Emprunt.TPS_EMPRUNT_MIN) {
+					Emprunt.proposerDemanderIntervention(velo, this);
 				}
 				velo.setEmprunt(null);
 			}
