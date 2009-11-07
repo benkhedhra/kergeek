@@ -47,16 +47,15 @@ public class Technicien {
 		velo.setLieu(Garage.getInstance());
 		DAOVelo.createVelo(velo);
 		return velo;
-		
 	}
 
 
 	public boolean intervenir(Velo velo, Lieu lieu) throws SQLException, ClassNotFoundException{
 		//Lorsqu'un technicien retire un velo d'une station (pour le reparer)
 		lieu.enleverVelo(velo);
+		velo.setLieu(Garage.getInstance());
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return(DAOIntervention.createIntervention(intervention));
-
 	}
 }
 

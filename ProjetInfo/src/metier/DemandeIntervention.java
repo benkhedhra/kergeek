@@ -53,7 +53,5 @@ public class DemandeIntervention {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	
-	
 
 }

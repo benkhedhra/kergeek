@@ -23,8 +23,8 @@ public class Emprunt {
 	
 	//Constantes
 	
-	public static float TPS_EMPRUNT_MAX = 1;
-
+	public static float TPS_EMPRUNT_MAX = 86400000.0f; //24h
+	public static float TPS_EMPRUNT_MIN = 120000.0f; //2min
 	
 	
 	//Constructeur
@@ -124,18 +124,20 @@ public class Emprunt {
 
 	//Methodes
 
-	public static void proposerDemanderIntervention(Velo velo, Utilisateur utilisateur) throws SQLException,ClassNotFoundException{
+	public static boolean proposerDemanderIntervention(Velo velo, Utilisateur utilisateur) throws SQLException,ClassNotFoundException{
 		System.out.println("Souhaitez-vous demander une intervention sur ce velo?\n Oui : 1\n Non : 2");
 		Scanner sc= new Scanner(System.in);
-
+		boolean acceptee = false;
 		try {
 			int rep = Integer.parseInt(sc.next());
 			if (rep == 1){
+				DemandeIntervention ddeIntervention = new DemandeIntervention(velo,utilisateur);
 				/*TODO 
 				 * COMMENT GENERER LES IDENTIFIANT EN SQL?
+				 * ddeIntervention.setId();
 				 */
-				DemandeIntervention ddeIntervention = new DemandeIntervention(velo,utilisateur);
 				DAODemandeIntervention.createDemandeIntervention(ddeIntervention);
+				acceptee = true;
 			}
 		}
 		catch (NumberFormatException e) {
@@ -143,11 +145,10 @@ public class Emprunt {
 					"veuillez entrer soit un 1, soit un 2 s'il vous plait.");
 			proposerDemanderIntervention(velo, utilisateur);
 		}
+		return acceptee;
 	}
 	
 	
-	/*TODO
-	 * rendreVelo : faire le test sur le temps d'emprunt puis appeler cette methode le cas echeant
-	 */
-
+	
+	
 }
