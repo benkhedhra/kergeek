@@ -10,7 +10,7 @@ public class Garage extends Lieu{
 	
 	//Constructeurs
 	
-	private Garage() {
+	public Garage() {
 		super();
 		this.setType(TYPE_GARAGE);
 		this.setId(ID_GARAGE);

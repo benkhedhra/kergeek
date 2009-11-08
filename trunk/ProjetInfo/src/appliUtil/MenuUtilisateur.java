@@ -4,14 +4,27 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import metier.Utilisateur;
 
-public class FenetreRendreVelo extends JFrame implements ActionListener {
+public class MenuUtilisateur extends JFrame implements ActionListener {
 
-	public FenetreRendreVelo(Utilisateur u){
+	public Utilisateur u;
+	
+	public Utilisateur getUtilisateur() {
+		return u;
+	}
+
+	public void setUtilisateur(Utilisateur u) {
+		this.u = u;
+	}
+
+	public MenuUtilisateur (Utilisateur u){
+
+		System.out.println("Affichage du menu de l'utilisateur");
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Menu de l'utilisateur");
 		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
@@ -32,10 +45,37 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		this.add(labelUtil,BorderLayout.NORTH);		
 
+		JButton bouton;
+
+		if (u.getEmprunt()==null){
+			bouton = new JButton("Emprunter un vélo");
+		}
+		else {
+			bouton = new JButton("Rendre un vélo");
+		}
+
+		this.add(bouton, BorderLayout.CENTER);
+		bouton.addActionListener(this);
+
+		this.setVisible(true);
 	}
+
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+		dispose();
+		if (u.getEmprunt()==null){
+			FenetreEmprunterVelo f = new FenetreEmprunterVelo(u);
+			f.setVisible(true);
+		}
+		else{
+			FenetreRendreVelo f = new FenetreRendreVelo(u);
+			f.setVisible(true);
+			}
+	}       
+
+
+
+
+
+
 
 }
