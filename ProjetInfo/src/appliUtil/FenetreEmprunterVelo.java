@@ -1,17 +1,19 @@
 package appliUtil;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-public class FenetreEmprunterVelo extends JFrame {
+import metier.Utilisateur;
 
-	public FenetreEmprunterVelo () {
+public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 
+	public FenetreEmprunterVelo(Utilisateur u){
 		//Définit un titre pour votre fenêtre
-		this.setTitle("Emprunter un vélo");
+		this.setTitle("Menu de l'utilisateur");
 		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
 		this.setSize(700, 500);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -23,19 +25,17 @@ public class FenetreEmprunterVelo extends JFrame {
 		this.setResizable(false);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
-		
-	/* les lignes suivantes servent à instancier un objet Jpanel et à définir sa couleur de fond
-	 * 
-	 * JPanel pan = new JPanel();
-	 * pan.setBackground(Color.BLUE);
-	 * */
 
-        this.setContentPane(new Panneau());
-        JButton bouton = new JButton("Bonjour bla bli blou");
-        this.getContentPane().add(bouton);    
+		this.setContentPane(new Panneau());	
+
+		JLabel labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
+		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		this.add(labelUtil,BorderLayout.NORTH);		
+
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
 		
-		
-		
-		this.setVisible(true);
-	}       
+	}
+
 }

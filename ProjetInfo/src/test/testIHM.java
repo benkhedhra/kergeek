@@ -1,7 +1,5 @@
 package test;
 
-import appliUtil.FenetreEmprunterVelo;
-
 public class testIHM {
 
 
@@ -11,9 +9,9 @@ public class testIHM {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("Demarrage");
-		FenetreEmprunterVelo fen = new FenetreEmprunterVelo();
-		fen.setVisible(true);
+		System.out.println("Démarrage");
+		//FenetreEmprunterVelo fen = new FenetreEmprunterVelo();
+		//fen.setVisible(true);
 
 	}
 }
