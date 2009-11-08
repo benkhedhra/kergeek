@@ -7,7 +7,7 @@ import metier.DemandeAssignation;
 
 public class DAODemandeAssignation {
 
-	public static void entrerDemandeAssignation(DemandeAssignation ddeAssignation) throws SQLException,ClassNotFoundException{
+	public static void createDemandeAssignation(DemandeAssignation ddeAssignation) throws SQLException,ClassNotFoundException{
 
 		ConnexionOracleViaJdbc.getC();
 		Statement s = ConnexionOracleViaJdbc.createStatement();

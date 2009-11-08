@@ -15,7 +15,7 @@ public class DAOLieu {
 		Lieu lieu;
 		
 		if (identifiant == Garage.ID_GARAGE){ // c'est LE garage (unique)
-			lieu = (Garage) new Garage();
+			lieu = (Garage) Garage.getInstance();
 		}
 
 		else{// alors il ne peut s'agir que d'une station

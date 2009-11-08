@@ -12,7 +12,7 @@ public class DAODemandeIntervention {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("INSERT into DemandeIntervention values ('" 
-					+ UtilitaireDate.dateCourante() + "', '"+ ddeIntervention.getVelo() + "', '" 
+					+ UtilitaireDate.dateCourante() + "', '"+ ddeIntervention.getVelo().getId() + "', '" 
 					+ ddeIntervention.getUtilisateur().getCompte().getId() + "')");
 			ConnexionOracleViaJdbc.fermer();
 			effectue=true;

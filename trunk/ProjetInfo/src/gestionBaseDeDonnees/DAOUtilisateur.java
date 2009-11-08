@@ -14,7 +14,7 @@ public class DAOUtilisateur {
 	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException {
 		Utilisateur u = new Utilisateur(new Compte(),"","","");
 
-		ConnexionOracleViaJdbc.getC();
+		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		ResultSet res = s.executeQuery("Select compte, nom, prenom, adresse from Utilisateur Where idUtilisateur ='" + identifiant+"'");
@@ -33,9 +33,33 @@ public class DAOUtilisateur {
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
 		}
-
-
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
 		return u;
+	}
+
+
+	public static boolean createUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("INSERT into Utilisateur values ('"  
+					/*TODO
+					 * 
+					 */
+					+ "')");
+			effectue=true;
+			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
+		}
+		return effectue;
 	}
 
 }

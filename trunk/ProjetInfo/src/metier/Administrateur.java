@@ -93,7 +93,7 @@ public class Administrateur {
 			//creation de la demande d'assignation
 
 
-			DAODemandeAssignation.entrerDemandeAssignation(ddeAssignation);
+			DAODemandeAssignation.createDemandeAssignation(ddeAssignation);
 			//entre la demande d'assignation dans la base de données
 		}
 
