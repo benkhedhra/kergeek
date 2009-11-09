@@ -7,7 +7,7 @@ public class Compte {
 	private String motDePasse;
 	private Boolean actif;
 	private int type;
-	public static int NUMERO_DERNIER_ID_CREE;
+	private String adresseEmail;
 	
 	//Constante
 	
@@ -24,6 +24,15 @@ public class Compte {
 		this.setMotDePasse(motDePasse);
 		this.setActif(true);
 		this.setType(type);
+	}
+	
+	public Compte(String id, String motDePasse, int type, String adresseEmail) {
+		super();
+		this.setId(id);
+		this.setMotDePasse(motDePasse);
+		this.setActif(true);
+		this.setType(type);
+		this.setAdresseEmail(adresseEmail);
 	}
 	
 	public Compte() {
@@ -58,4 +67,13 @@ public class Compte {
 	public void setType(int type) {
 		this.type = type;
 	}
+
+	public String getAdresseEmail() {
+		return adresseEmail;
+	}
+
+	public void setAdresseEmail(String adresseEmail) {
+		this.adresseEmail = adresseEmail;
+	}
+	
 }

@@ -34,32 +34,20 @@ public class DAOEmprunt {
 	
 	
 	
-	public static boolean updateDateRetour(Emprunt emprunt) throws SQLException, ClassNotFoundException{
+	public static boolean updateEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException{
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Emprunt SET dateRetour = '" + emprunt.getDateRetour() 
-					+ "' WHERE idEmprunt = '"+ emprunt.getId() + "'");
-			effectue=true;
-			ConnexionOracleViaJdbc.fermer();
-		}
-		catch (SQLException e){
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
-		return effectue;
-	}
-	
-	
-	
-	
-	public static boolean updateLieuRetour(Emprunt emprunt) throws SQLException, ClassNotFoundException{
-		boolean effectue = false;
-		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Emprunt SET idLieuRetour = '" + emprunt.getLieuRetour().getId() 
-					+ "' WHERE idEmprunt = '"+ emprunt.getId() + "'");
+			s.executeUpdate("UPDATE Emprunt SET"
+					+ "idUtilisateur = '" + emprunt.getUtilisateur().getCompte().getId() + "',"
+					+ "idvelo = '" + emprunt.getVelo().getId() 
+					+ "lieuEmprunt = '" + emprunt.getLieuEmprunt() + "',"
+					+ "lieuRetour = '" + emprunt.getLieuRetour() + "',"
+					+ "dateEmprunt = '" + emprunt.getDateEmprunt() + "',"
+					+ "dateRetour = '" + emprunt.getDateRetour() + "'" 
+					+ "WHERE idEmprunt = '"+ emprunt.getId() + "'"
+					);
 			effectue=true;
 			ConnexionOracleViaJdbc.fermer();
 		}

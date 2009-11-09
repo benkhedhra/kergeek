@@ -47,7 +47,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 
 		JButton bouton;
 
-		if (u.getEmprunt()==null){
+		if (u.getVelo() == null){
 			bouton = new JButton("Emprunter un vélo");
 		}
 		else {
@@ -62,7 +62,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		dispose();
-		if (u.getEmprunt()==null){
+		if (u.getVelo() == null){
 			FenetreEmprunterVelo f = new FenetreEmprunterVelo(u);
 			f.setVisible(true);
 		}

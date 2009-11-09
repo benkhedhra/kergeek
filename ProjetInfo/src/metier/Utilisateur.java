@@ -11,43 +11,68 @@ import java.sql.SQLException;
 public class Utilisateur {
 
 	//Attributs
-
+	private String id;
 	private Compte compte;
 	private String nom;
 	private String prenom;
 	private String adressePostale;
 	private boolean bloque;
 	private Velo velo;
-	private Emprunt emprunt;
 
-	//Constructeur
+	//Constructeurs
 
 
-	public Utilisateur(Compte compte, String nom, String prenom,
-			String adresse) {
+	public Utilisateur(String id, Compte compte, String nom, String prenom, String adresse) {
 		super();
+		this.setId(id);
 		this.setCompte(compte);
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setAdressePostale(adresse);
 		this.setBloque(false);
 		this.setVelo(null);
-		this.setEmprunt(null);
+	}
+	
+	public Utilisateur(String id, Compte compte, String nom, String prenom) {
+		super();
+		this.setId(id);
+		this.setCompte(compte);
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setBloque(false);
+		this.setVelo(null);
 	}
 
 
-	public Utilisateur(Compte compte) {
+	public Utilisateur(String id, Compte compte) {
 		super();
+		this.setId(id);
 		this.setCompte(compte);
 		this.setBloque(false);
 		this.setVelo(null);
-		this.setEmprunt(null);
 	}
-
+	
+	public Utilisateur(Compte compte) {
+		super();
+		this.setId(id);
+		this.setCompte(compte);
+		this.setBloque(false);
+		this.setVelo(null);
+	}
 
 
 
 	//Accesseurs
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Compte getCompte() {
 		return compte;
@@ -98,14 +123,6 @@ public class Utilisateur {
 		this.velo = velo;
 	}
 
-	public Emprunt getEmprunt() {
-		return emprunt;
-	}
-
-	public void setEmprunt(Emprunt emprunt) {
-		this.emprunt = emprunt;
-	}	
-
 
 
 
@@ -113,8 +130,9 @@ public class Utilisateur {
 
 	public boolean emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
 		station.enleverVelo(velo);
-		this.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		return(DAOEmprunt.createEmprunt(this.getEmprunt()) & DAOVelo.updateVelo(velo));
+		this.setVelo(velo);
+		velo.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
+		return(DAOEmprunt.createEmprunt(velo.getEmprunt()) & DAOVelo.updateVelo(velo));
 	}
 	
 	
@@ -124,7 +142,6 @@ public class Utilisateur {
 
 		boolean effectue = false;
 		Velo velo = this.getVelo();
-
 		if (velo == null){
 			throw new PasDeVeloEmprunteException();
 		}
@@ -136,9 +153,8 @@ public class Utilisateur {
 				station.ajouterVelo(velo);
 				velo.getEmprunt().setDateRetour(UtilitaireDate.dateCourante());
 				velo.getEmprunt().setLieuRetour(station);
-				boolean a = DAOEmprunt.updateDateRetour(emprunt);
-				boolean b = DAOEmprunt.updateLieuRetour(emprunt);
-				effectue= a && b;
+				effectue = DAOEmprunt.updateEmprunt(velo.getEmprunt());
+				
 				if (velo.getEmprunt().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){
 					this.setBloque(true);
 				}
