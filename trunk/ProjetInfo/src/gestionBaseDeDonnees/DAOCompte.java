@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import metier.Compte;
-import metier.Velo;
 
 public class DAOCompte {
 	
@@ -18,7 +17,12 @@ public class DAOCompte {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("INSERT into Velo values ('" 
-					+ compte.getId() + "', '" + compte.getMotDePasse() + "', '" + compte.isActif() + "', '" + compte.getType() + "')");
+					+ compte.getId() + "', '" 
+					+ compte.getMotDePasse() + "', '" 
+					+ compte.isActif() + "', '" 
+					+ compte.getType() + "', '" 
+					+ compte.getAdresseEmail()
+					+ "')");
 			effectue=true;
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -31,16 +35,45 @@ public class DAOCompte {
 		return effectue;
 	}
 	
+	
+	
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException {
 		Compte compte = new Compte();
-
+		
 		ConnexionOracleViaJdbc.getC();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select motDePasse, actif, type from Compte Where idCompte ='" + identifiant+"'");
+		ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseEmail from Compte Where idCompte ='" + identifiant + "'");
 		try {
 			if (res.next()) {
 				compte.setId(identifiant);
+				compte.setMotDePasse(res.getString("motDePasse"));
+				compte.setActif(res.getBoolean("actif"));
+				compte.setType(res.getInt("type"));
+				compte.setAdresseEmail(res.getString("adresseEmail"));
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException();
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("Erreur d'identifiant");
+		}
+		return compte;
+	}
+
+	
+	public static Compte getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
+		Compte compte = new Compte();
+		
+		ConnexionOracleViaJdbc.getC();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select idCompte, motDePasse, actif, type from Compte Where AdresseEmail ='" + email + "'");
+		try {
+			if (res.next()) {
+				compte.setAdresseEmail(email);
+				compte.setId(res.getString("idCompte"));
 				compte.setMotDePasse(res.getString("motDePasse"));
 				compte.setActif(res.getBoolean("actif"));
 				compte.setType(res.getInt("type"));
@@ -52,9 +85,8 @@ public class DAOCompte {
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
 		}
-
-
 		return compte;
 	}
-
+	
+	
 }

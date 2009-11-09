@@ -80,7 +80,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		//Lorsque nous cliquons sur notre bouton, on met à jour le JLabel
-		Utilisateur u = new Utilisateur(new Compte("000","",Compte.TYPE_UTILISATEUR),"Utilisateur","Test","1 rue des Lilas");
+		Utilisateur u = new Utilisateur("000", new Compte("000","",Compte.TYPE_UTILISATEUR),"Utilisateur","Test","1 rue des Lilas");
 		/*try {
 			u = this.getUtilisateurById(idARemplir.getText());
 		} catch (SQLException e1) {

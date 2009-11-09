@@ -5,39 +5,12 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import metier.Compte;
 import metier.Utilisateur;
 
 public class DAOUtilisateur {
-
-	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException {
-		Utilisateur u = new Utilisateur(new Compte(),"","","");
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select compte, nom, prenom, adresse from Utilisateur Where idUtilisateur ='" + identifiant+"'");
-		try {
-			if (res.next()) {
-				u.setCompte(new Compte (identifiant,"",Compte.TYPE_UTILISATEUR));
-				u.setNom(res.getString("nom"));
-				u.setPrenom(res.getString("prenom"));
-				u.setAdressePostale(res.getString("adressePostale"));
-
-			}
-			else {
-				throw new PasDansLaBaseDeDonneeException();
-			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();
-		}
-		return u;
-	}
 
 
 	public static boolean createUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException {
@@ -46,9 +19,13 @@ public class DAOUtilisateur {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("INSERT into Utilisateur values ('"  
-					/*TODO
-					 * 
-					 */
+					+ utilisateur.getId() + "', '"
+					+ utilisateur.getNom() + "', '"
+					+ utilisateur.getPrenom() + "', '"
+					+ utilisateur.getAdressePostale() + "', '"
+					+ utilisateur.isBloque() + "', '"
+					+ utilisateur.getCompte().getId() + "', '"
+					+ utilisateur.getVelo()
 					+ "')");
 			effectue=true;
 			ConnexionOracleViaJdbc.fermer();
@@ -62,4 +39,167 @@ public class DAOUtilisateur {
 		return effectue;
 	}
 
+	public static boolean updateUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("UPDATE Utilisateur SET"  
+					+ "nom = '" + utilisateur.getNom() + "',"
+					+ "prenom = '"+ utilisateur.getPrenom() + "',"
+					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "',"
+					+ "bloque = '"+ utilisateur.isBloque() + "',"
+					+ "idVelo = '"+ utilisateur.getVelo() + "'"
+					+ "' WHERE idUtilisateur = '"+ utilisateur.getCompte().getId() + "'"
+					);
+			effectue=true;
+			ConnexionOracleViaJdbc.fermer();
+			/*TODO
+			 * peut-etre qu'on fait un updateCompte(utilisateur.getCompte().getId()); ici... 
+			 * a voir et dans ce cas la, faire effectue = true; ensuite 
+			 */
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
+		}
+		return effectue;
+	}
+	
+	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException {
+		Utilisateur u = new Utilisateur(new Compte());
+		
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where idUtilisateur ='" + identifiant+"'");
+		try {
+			if (res.next()) {
+				u.setId(identifiant);
+				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
+				u.setNom(res.getString("nom"));
+				u.setPrenom(res.getString("prenom"));
+				u.setAdressePostale(res.getString("adressePostale"));
+				u.setBloque(res.getBoolean("bloque"));
+				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException();
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("Erreur d'identifiant");
+		}
+		
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return u;
+	}
+	
+	
+	
+	public static Utilisateur getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
+		Utilisateur u = new Utilisateur(new Compte());
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select idUtilisateur, nom, prenom, adressePostale, bloque, idVelo from Utilisateur Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
+		try {
+			if (res.next()) {
+				u.setId(res.getString("idUtilisateur"));
+				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
+				u.setNom(res.getString("nom"));
+				u.setPrenom(res.getString("prenom"));
+				u.setAdressePostale(res.getString("adressePostale"));
+				u.setBloque(res.getBoolean("bloque"));
+				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException();
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("Erreur d'identifiant");
+		}
+		
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return u;
+	}
+	
+	
+	
+	public static ArrayList<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException {
+		ArrayList<Utilisateur> listeUtils = null;
+		/*
+		 * TODOOn peut peut-etre utiliser une HashMap (peut-etre que c'est mieux)
+		 */
+		
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select idUtilisateur, prenom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where nom ='" + nom +"'");
+		try {
+			while (res.next()) {
+				Utilisateur u = new Utilisateur(new Compte());
+				u.setNom(nom);
+				u.setPrenom(res.getString("prenom"));
+				u.setAdressePostale(res.getString("adressePostale"));
+				u.setBloque(res.getBoolean("bloque"));
+				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
+				listeUtils.add(u);
+			}
+			if(listeUtils == null){
+				throw new PasDansLaBaseDeDonneeException();
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("Erreur d'identifiant");
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return listeUtils;
+	}
+	
+	
+	public static ArrayList<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException {
+		ArrayList<Utilisateur> listeUtils = null;
+		/*
+		 * TODOOn peut peut-etre utiliser une HashMap (peut-etre que c'est mieux)
+		 */
+		
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select idUtilisateur, nom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where prenom ='" + prenom +"'");
+		try {
+			while (res.next()) {
+				Utilisateur u = new Utilisateur(new Compte());
+				u.setPrenom(prenom);
+				u.setNom(res.getString("nom"));
+				u.setAdressePostale(res.getString("adressePostale"));
+				u.setBloque(res.getBoolean("bloque"));
+				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
+				listeUtils.add(u);
+			}
+			if(listeUtils == null){
+				throw new PasDansLaBaseDeDonneeException();
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("Erreur d'identifiant");
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return listeUtils;
+	}
 }
