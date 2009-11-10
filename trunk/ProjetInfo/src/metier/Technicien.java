@@ -15,6 +15,12 @@ public class Technicien {
 
 	//Constructeur
 
+	public Technicien(Compte compte) {
+		super();
+		this.setCompte(compte);
+	}
+	
+	
 	public Technicien() {
 		super();
 		compte.setType(Compte.TYPE_TECHNICIEN);
