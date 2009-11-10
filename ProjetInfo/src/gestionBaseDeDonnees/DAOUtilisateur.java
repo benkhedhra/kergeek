@@ -18,13 +18,12 @@ public class DAOUtilisateur {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("INSERT into Utilisateur values ('"  
-					+ utilisateur.getId() + "', '"
+			s.executeUpdate("INSERT into Utilisateur values ('"
+					+ utilisateur.getCompte().getId() + "', '"
 					+ utilisateur.getNom() + "', '"
 					+ utilisateur.getPrenom() + "', '"
 					+ utilisateur.getAdressePostale() + "', '"
 					+ utilisateur.isBloque() + "', '"
-					+ utilisateur.getCompte().getId() + "', '"
 					+ utilisateur.getVelo()
 					+ "')");
 			effectue=true;
@@ -50,14 +49,11 @@ public class DAOUtilisateur {
 					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "',"
 					+ "bloque = '"+ utilisateur.isBloque() + "',"
 					+ "idVelo = '"+ utilisateur.getVelo() + "'"
-					+ "' WHERE idUtilisateur = '"+ utilisateur.getCompte().getId() + "'"
+					+ "' WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
 					);
-			effectue=true;
+			
 			ConnexionOracleViaJdbc.fermer();
-			/*TODO
-			 * peut-etre qu'on fait un updateCompte(utilisateur.getCompte().getId()); ici... 
-			 * a voir et dans ce cas la, faire effectue = true; ensuite 
-			 */
+			effectue = DAOCompte.updateCompte(utilisateur.getCompte());
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -74,11 +70,10 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where idUtilisateur ='" + identifiant+"'");
+		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo from Utilisateur Where idCompte ='" + identifiant+"'");
 		try {
 			if (res.next()) {
-				u.setId(identifiant);
-				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
+				u.setCompte(DAOCompte.getCompteById(res.getString(identifiant)));
 				u.setNom(res.getString("nom"));
 				u.setPrenom(res.getString("prenom"));
 				u.setAdressePostale(res.getString("adressePostale"));
@@ -107,10 +102,9 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idUtilisateur, nom, prenom, adressePostale, bloque, idVelo from Utilisateur Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
+		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo from Utilisateur Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
 		try {
 			if (res.next()) {
-				u.setId(res.getString("idUtilisateur"));
 				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
 				u.setNom(res.getString("nom"));
 				u.setPrenom(res.getString("prenom"));
@@ -143,7 +137,7 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idUtilisateur, prenom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where nom ='" + nom +"'");
+		ResultSet res = s.executeQuery("Select prenom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where nom ='" + nom +"'");
 		try {
 			while (res.next()) {
 				Utilisateur u = new Utilisateur(new Compte());
@@ -172,13 +166,14 @@ public class DAOUtilisateur {
 	public static ArrayList<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException {
 		ArrayList<Utilisateur> listeUtils = null;
 		/*
-		 * TODOOn peut peut-etre utiliser une HashMap (peut-etre que c'est mieux)
+		 * TODO
+		 * On peut peut-etre utiliser une HashMap (peut-etre que c'est mieux)
 		 */
 		
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idUtilisateur, nom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where prenom ='" + prenom +"'");
+		ResultSet res = s.executeQuery("Select nom, adressePostale, bloque, idCompte, idVelo from Utilisateur Where prenom ='" + prenom +"'");
 		try {
 			while (res.next()) {
 				Utilisateur u = new Utilisateur(new Compte());

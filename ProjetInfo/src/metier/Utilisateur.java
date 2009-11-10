@@ -11,7 +11,6 @@ import java.sql.SQLException;
 public class Utilisateur {
 
 	//Attributs
-	private String id;
 	private Compte compte;
 	private String nom;
 	private String prenom;
@@ -22,9 +21,8 @@ public class Utilisateur {
 	//Constructeurs
 
 
-	public Utilisateur(String id, Compte compte, String nom, String prenom, String adresse) {
+	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
 		super();
-		this.setId(id);
 		this.setCompte(compte);
 		this.setNom(nom);
 		this.setPrenom(prenom);
@@ -33,9 +31,8 @@ public class Utilisateur {
 		this.setVelo(null);
 	}
 	
-	public Utilisateur(String id, Compte compte, String nom, String prenom) {
+	public Utilisateur(Compte compte, String nom, String prenom) {
 		super();
-		this.setId(id);
 		this.setCompte(compte);
 		this.setNom(nom);
 		this.setPrenom(prenom);
@@ -43,18 +40,9 @@ public class Utilisateur {
 		this.setVelo(null);
 	}
 
-
-	public Utilisateur(String id, Compte compte) {
-		super();
-		this.setId(id);
-		this.setCompte(compte);
-		this.setBloque(false);
-		this.setVelo(null);
-	}
 	
 	public Utilisateur(Compte compte) {
 		super();
-		this.setId(id);
 		this.setCompte(compte);
 		this.setBloque(false);
 		this.setVelo(null);
@@ -63,16 +51,6 @@ public class Utilisateur {
 
 
 	//Accesseurs
-
-
-	public String getId() {
-		return id;
-	}
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public Compte getCompte() {
 		return compte;

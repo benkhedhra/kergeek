@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import metier.Compte;
+import metier.Utilisateur;
 
 public class DAOCompte {
 	
@@ -34,6 +35,36 @@ public class DAOCompte {
 		}
 		return effectue;
 	}
+	
+	
+	
+	
+	
+	
+	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			s.executeUpdate("UPDATE Compte SET"  
+					+ "motDePasse = '" + compte.getMotDePasse() + "',"
+					+ "actif = '"+ compte.isActif() + "',"
+					+ "adresseEmail = '" + compte.getAdresseEmail() + "',"
+					+ "' WHERE idCompte = '"+ compte.getId() + "'"
+					);
+			effectue=true;
+			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
+		}
+		return effectue;
+	}
+	
+	
 	
 	
 	

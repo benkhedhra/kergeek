@@ -22,6 +22,13 @@ public class Administrateur {
 
 	// Constructeur
 
+	
+	public Administrateur(Compte compte) {
+		super();
+		this.setCompte(compte);
+	}
+	
+	
 	public Administrateur() {
 		super();
 		compte.setType(Compte.TYPE_ADMINISTRATEUR);
