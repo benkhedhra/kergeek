@@ -61,7 +61,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		dispose();
+		this.dispose();
 		if (u.getVelo() == null){
 			FenetreEmprunterVelo f = new FenetreEmprunterVelo(u);
 			f.setVisible(true);
