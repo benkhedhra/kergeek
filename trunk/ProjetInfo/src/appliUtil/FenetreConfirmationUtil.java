@@ -5,11 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class FenetreConfirmation extends JFrame {
+public class FenetreConfirmationUtil extends JFrame {
 
 	private JLabel labelConfirm = new JLabel("");
 
-	public FenetreConfirmation(String msg){
+	public FenetreConfirmationUtil(String msg){
 		this.setTitle("Ecran de confirmation");
 		this.setSize(700, 500);
 		this.setLocationRelativeTo(null);

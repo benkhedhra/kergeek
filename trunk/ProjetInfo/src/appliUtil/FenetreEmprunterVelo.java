@@ -85,7 +85,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 			try {
 				velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
 				u.emprunteVelo(velo,(Station)(velo.getLieu()));
-				FenetreConfirmation f = new FenetreConfirmation("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
+				FenetreConfirmationUtil f = new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
 				f.setVisible(true);
 				System.out.println("L'emprunt a bien été enregistré");
 			} catch (SQLException e) {
@@ -97,7 +97,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 			}
 		}
 		else{
-			FenetreConfirmation f = new FenetreConfirmation("Merci et à bientôt ! ");
+			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Merci et à bientôt ! ");
 			f.setVisible(true);
 		}
 

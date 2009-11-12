@@ -93,7 +93,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	public void actionPerformed(ActionEvent arg0) {
 		Utilisateur u = LancerAppliUtil.UTEST;
 		/*try {
-			u = this.DAOUtilisateur.getUtilisateurById(idARemplir.getText());
+			u = this.getUtilisateur();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
