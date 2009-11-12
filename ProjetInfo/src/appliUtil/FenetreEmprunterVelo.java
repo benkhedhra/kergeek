@@ -1,6 +1,9 @@
 package appliUtil;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -8,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import metier.Station;
@@ -26,11 +30,16 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.u = u;
 	}
 
+	JLabel labelUtil = new JLabel("");
+	JButton boutonDeconnexion = new JButton("Déconnexion");
 	JLabel labelVelo = new JLabel ("Veuillez entrer l'identifiant du vélo emprunté");
 	JTextField veloARemplir = new JTextField ("");
 	JButton boutonValider = new JButton ("Valider");
 
 	public FenetreEmprunterVelo(Utilisateur u){
+
+		this.setUtilisateur(u);
+		System.out.println("Affichage de la fenêtre d'emprunt d'un vélo");
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Emprunter un vélo");
 		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
@@ -46,38 +55,51 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 
 		this.setContentPane(new Panneau());	
+		this.setLayout(new BorderLayout());
 
-		JLabel labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
+		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
-		this.add(labelUtil,BorderLayout.NORTH);
+		boutonDeconnexion.addActionListener(this);
+		JPanel north = new JPanel();
+		north.add(labelUtil);
+		north.add(boutonDeconnexion);
+		this.getContentPane().add(north,BorderLayout.NORTH);
 
-		JLabel labelVelo = new JLabel ("Veuillez entrer l'identifiant du vélo emprunté");
-		JTextField veloARemplir = new JTextField ("");
-		JButton boutonValider = new JButton ("Valider");
 		boutonValider.addActionListener(this);
+		veloARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
+		veloARemplir.setPreferredSize(new Dimension(150, 30));
+		veloARemplir.setForeground(Color.BLUE);
+		JPanel center = new JPanel();
+		center.add(labelVelo);
+		center.add(veloARemplir);
+		this.getContentPane().add(center,BorderLayout.CENTER);
 
-		this.add(labelVelo);
-		this.add(veloARemplir);
-		this.add(boutonValider);
+		this.getContentPane().add(boutonValider,BorderLayout.SOUTH);
 
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		Velo velo;
-		try {
-			velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
-			u.emprunteVelo(velo,(Station)(velo.getLieu()));
-			this.dispose();
-			FenetreConfirmation f = new FenetreConfirmation(u,"Vous pouvez retirer le vélo de la station. Merci et à bientôt ! ",velo);
-			f.setVisible(true);
-			System.out.println("l'emprunt a bien été enregistré");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		this.dispose();
+		if(arg0.getSource()==boutonValider){
+			try {
+				velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
+				u.emprunteVelo(velo,(Station)(velo.getLieu()));
+				FenetreConfirmation f = new FenetreConfirmation("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
+				f.setVisible(true);
+				System.out.println("L'emprunt a bien été enregistré");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-	}
+		else{
+			FenetreConfirmation f = new FenetreConfirmation("Merci et à bientôt ! ");
+			f.setVisible(true);
+		}
 
+	}
 }

@@ -1,81 +1,39 @@
 package appliUtil;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import metier.Station;
-import metier.Utilisateur;
-import metier.Velo;
+public class FenetreConfirmation extends JFrame {
 
-public class FenetreConfirmation extends JFrame implements ActionListener {
+	private JLabel labelConfirm = new JLabel("");
 
-	public Utilisateur u;
-
-	public Utilisateur getUtilisateur() {
-		return u;
-	}
-
-	public void setUtilisateur(Utilisateur u) {
-		this.u = u;
-	}
-
-	private final JLabel labelConfirm = new JLabel("");
-	private final JButton boutonRetourMenuPpal = new JButton ("Retour au menu principal");
-	private final JButton boutonRetourMenuLePlusProche = new JButton("");
-
-	public FenetreConfirmation(Utilisateur u, String s,Velo v){
-		//Définit un titre pour votre fenêtre
+	public FenetreConfirmation(String msg){
 		this.setTitle("Ecran de confirmation");
-		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
 		this.setSize(700, 500);
-		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
-		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//pour que la fenêtre ne se redimensionne pas à chaque fois
 		this.setResizable(false);
-		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
-		this.setContentPane(new Panneau());	
+		this.setContentPane(new Panneau());
+		this.getContentPane().setLayout(new BorderLayout());
+		JLabel labelConfirm = new JLabel (msg);
 
-		JLabel labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
-		this.add(labelUtil,BorderLayout.NORTH);
-
-		JLabel labelConfirm = new JLabel (s);
-
-		boutonRetourMenuPpal.addActionListener(this);
-
-		this.add(labelConfirm,BorderLayout.CENTER);
-		this.add(boutonRetourMenuPpal);
-
-
-	}
-	public void actionPerformed(ActionEvent arg0,Velo v) {
-		try {
-			u.emprunteVelo(v,(Station)(v.getLieu()));
+		this.getContentPane().add(labelConfirm,BorderLayout.CENTER);
+		
+		this.setVisible(true);
+		
+		try{
+			//on veut attendre 3 secondes, puis fermer la fenêtre et ouvrir une nouvelle fenêtre d'authentification (solution à trouver)
+			this.wait(3000); 
 			this.dispose();
-			MenuUtilisateur m = new MenuUtilisateur(u);
-			m.setVisible(true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+			FenetreAuthentificationUtil f= new FenetreAuthentificationUtil(false);
+			f.setVisible(true);
+			}catch(InterruptedException e){
+			System.out.println(e.getMessage());
+			} 
 		
 	}
 }
