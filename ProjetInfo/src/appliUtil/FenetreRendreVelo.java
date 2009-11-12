@@ -1,9 +1,10 @@
 package appliUtil;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -43,11 +44,15 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 
-		this.setContentPane(new Panneau());	
+		this.setContentPane(new Panneau());
 		this.getContentPane().setLayout(new BorderLayout());
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setPreferredSize(new Dimension(400,30));
+		boutonDeconnexion.setForeground(Color.MAGENTA);
+		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.add(labelUtil);
@@ -62,18 +67,22 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		DefaultComboBoxModel model = new DefaultComboBoxModel(stations);
 		JPanel center = new JPanel();
 		JComboBox combo = new JComboBox(model);
+		combo.setFont(FenetreAuthentificationUtil.POLICE1);
 		combo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				Station s = (Station)o;
 				labelMsg.setText("Station sélectionnée : " + s.getId());
+				labelMsg.setFont(FenetreAuthentificationUtil.POLICE1);
 			}
 
 		});
 		center.add(combo);
 
+		boutonValider.setFont(FenetreAuthentificationUtil.POLICE1);
 		boutonValider.addActionListener(this);
-		labelMsg = new JLabel("Sélectionnez la station où vous vous trouvez");
+		labelMsg.setText("Sélectionnez la station où vous vous trouvez");
+		labelMsg.setFont(FenetreAuthentificationUtil.POLICE1);
 		center.add(labelMsg);
 		center.add(boutonValider);
 		this.getContentPane().add(center, BorderLayout.CENTER);
@@ -95,12 +104,12 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			//à trouver : moyen de récupérer la station sélectionnée
 			//Station s = (Station)(JComboBox)ae.getSource()).getSelectedItem();
 			//this.getUtilisateur().rendreVelo(s);
-			FenetreConfirmation f = new FenetreConfirmation("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
+			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
 			f.setVisible(true);
 			System.out.println("Le vélo a bien été rendu");
 		}
 		else if (arg0.getSource()==boutonDeconnexion){
-			FenetreConfirmation f = new FenetreConfirmation("Merci et à bientôt ! ");
+			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Merci et à bientôt ! ");
 			f.setVisible(true);
 		}
 		else{

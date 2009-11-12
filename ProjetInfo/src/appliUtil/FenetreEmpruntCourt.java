@@ -69,7 +69,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 			f.setVisible(true);
 		}
 		else if (arg0.getSource()==boutonNon){
-			FenetreConfirmation f = new FenetreConfirmation("Au revoir et à bientôt ! ");
+			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 			f.setVisible(true);
 		}
 	}
