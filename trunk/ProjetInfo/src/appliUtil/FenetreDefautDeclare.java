@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import metier.Utilisateur;
 
-public class FenetreEmpruntCourt extends JFrame implements ActionListener {
+public class FenetreDefautDeclare extends JFrame implements ActionListener {
 
 	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
 	private JLabel labelUtil = new JLabel("");
@@ -29,7 +29,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		this.utilisateur = utilisateur;
 	}
 
-	public FenetreEmpruntCourt (Utilisateur u){
+	public FenetreDefautDeclare (Utilisateur u) {
 
 		this.setUtilisateur(u);
 		System.out.println("Le temps d'emprunt a été très court");
@@ -47,7 +47,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		this.getContentPane().add(labelUtil,BorderLayout.NORTH);
 
-		labelMsg.setText("Vous avez emprunté ce vélo pendant un laps de temps très court. Souhaitez-vous signaler un défaut sur celui-ci ? ");
+		labelMsg.setText("La présence d’un défaut a bien été signalée. Souhaitez-vous emprunter un autre vélo ? ");
 		boutonOui.setPreferredSize(new Dimension(200,150));
 		boutonNon.setPreferredSize(new Dimension(200,150));
 		
@@ -65,7 +65,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){
-			FenetreDefautDeclare f = new FenetreDefautDeclare(utilisateur);
+			FenetreEmprunterVelo f = new FenetreEmprunterVelo(utilisateur);
 			f.setVisible(true);
 		}
 		else if (arg0.getSource()==boutonNon){

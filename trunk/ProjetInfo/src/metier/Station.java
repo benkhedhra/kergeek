@@ -36,7 +36,10 @@ public class Station extends Lieu {
 		int a = nbVelo/this.getCapacite();
 		return a;
 	}
-
+	
+	public String toString(){
+		return this.getId();
+	}
 
 
 }

@@ -21,46 +21,58 @@ import metier.Compte;
 import metier.Utilisateur;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
+
 	// définition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
 	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,14);
 
-	private final JLabel labelUtil = new JLabel("");
-	private final JLabel labelInvitation = new JLabel ("Veuillez vous identifier. ");
-	private final JLabel labelErreur = new JLabel("Login inconnu. Veuillez vous réidentifier. ");
-	private final Panneau container = new Panneau();
-	private final JLabel labelLogin = new JLabel("login");
-	private final JTextField idARemplir = new JTextField("");
-	private final JButton boutonValider = new JButton ("Valider");
+	private Panneau p = new Panneau();
+	private JPanel container = new JPanel();
+	private JLabel labelBienvenue = new JLabel("");
+	private JLabel labelInvitation = new JLabel("");
+	private JTextField idARemplir = new JTextField("");
+	private JButton boutonValider = new JButton ("Valider");
 
-	public FenetreAuthentificationUtil(){
+	public FenetreAuthentificationUtil(Boolean erreurAuthent){
 
 		System.out.println("Ouverture d'une fenêtre d'authentification de l'utilisateur");
+
 		this.setTitle("Authentification");
 		this.setSize(700,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
+		// on définit un BorderLayout
 		container.setLayout(new BorderLayout());
+		container.add(p,BorderLayout.CENTER);
 
-		JPanel top = new JPanel();
+		labelBienvenue.setText("Bienvenue ! ");
+		container.add(labelBienvenue,BorderLayout.NORTH);
 
+		if(erreurAuthent){
+			labelInvitation.setText("Identifiant inconnu. Veuillez à nouveau entrer votre identifiant");
+			labelInvitation.setForeground(Color.RED);
+		}
+		else{
+			labelInvitation.setText("Veuillez entrer votre identifiant");		
+		}
 		labelInvitation.setFont(POLICE1);
-		top.add(labelInvitation);
-		labelLogin.setFont(POLICE2);
-		top.add(labelLogin);
+
+		JPanel center = new JPanel();
+		labelInvitation.setFont(POLICE2);
+		center.add(labelInvitation);
 		idARemplir.setFont(POLICE3);
 		idARemplir.setPreferredSize(new Dimension(150, 30));
 		idARemplir.setForeground(Color.BLUE);
-		top.add(idARemplir);
-		top.add(boutonValider);
+		center.add(idARemplir);
+		container.add(center, BorderLayout.CENTER);
 
+		container.add(boutonValider,BorderLayout.SOUTH);
 		//On ajoute notre Fenetre à la liste des auditeurs de notre Bouton
 		boutonValider.addActionListener(this);
 
-		container.add(top, BorderLayout.SOUTH);
 		this.setContentPane(container);
 		this.setVisible(true);
 	}
@@ -79,10 +91,9 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 * C'est la méthode qui sera appelée lors d'un clic sur notre bouton
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		//Lorsque nous cliquons sur notre bouton, on met à jour le JLabel
-		Utilisateur u = new Utilisateur(new Compte("000","",Compte.TYPE_UTILISATEUR),"Utilisateur","Test","1 rue des Lilas");
+		Utilisateur u = LancerAppliUtil.UTEST;
 		/*try {
-			u = this.getUtilisateurById(idARemplir.getText());
+			u = this.DAOUtilisateur.getUtilisateurById(idARemplir.getText());
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -90,10 +101,6 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}*/
-
-		labelUtil.setFont(POLICE4);
-		labelUtil.setText("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		this.add(labelUtil,BorderLayout.NORTH);
 
 		//vérification des paramètres de connexion.
 		try {
@@ -105,16 +112,15 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			//d'authentification et on ouvre la fenetre de l'utilisateur
 
 			if (UtilitaireSQL.testerIdent(idARemplir.getText())){
+				this.dispose();
 				MenuUtilisateur m = new MenuUtilisateur(u);
 				m.setVisible(true);
 			}
 		}
 		catch (Exception e) {
 			//si une exception est levée on affiche une popup d'erreur
-			dispose();
-			FenetreAuthentificationUtil f = new FenetreAuthentificationUtil();
-			f.add(labelErreur,BorderLayout.NORTH);
-			labelErreur.setForeground(Color.RED);
+			this.setVisible(false);
+			FenetreAuthentificationUtil f = new FenetreAuthentificationUtil(true);
 			f.setVisible(true);
 		}
 	}

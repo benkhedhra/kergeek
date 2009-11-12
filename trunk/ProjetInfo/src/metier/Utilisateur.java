@@ -20,7 +20,6 @@ public class Utilisateur {
 
 	//Constructeurs
 
-
 	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
 		super();
 		this.setCompte(compte);

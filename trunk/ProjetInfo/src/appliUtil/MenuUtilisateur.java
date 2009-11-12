@@ -1,29 +1,38 @@
 package appliUtil;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import metier.Utilisateur;
 
 public class MenuUtilisateur extends JFrame implements ActionListener {
 
-	public Utilisateur u;
-	
+	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
+	private JLabel labelUtil = new JLabel("");
+	private JButton boutonDeconnexion = new JButton("Déconnexion");
+	private JButton boutonEmprunter = new JButton("Emprunter un vélo");
+	private JButton boutonRendre = new JButton("Rendre un vélo");
+	Boolean empruntEnCours=false;
+
 	public Utilisateur getUtilisateur() {
-		return u;
+		return utilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur u) {
-		this.u = u;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public MenuUtilisateur (Utilisateur u){
 
+		this.setUtilisateur(u);
 		System.out.println("Affichage du menu de l'utilisateur");
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Menu de l'utilisateur");
@@ -40,42 +49,53 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 
 		this.setContentPane(new Panneau());	
+		this.setLayout(new BorderLayout());
 
-		JLabel labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
+		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
-		this.add(labelUtil,BorderLayout.NORTH);		
+		boutonDeconnexion.addActionListener(this);
+		JPanel north = new JPanel();
+		north.add(labelUtil);
+		north.add(boutonDeconnexion);
+		this.getContentPane().add(north,BorderLayout.NORTH);
 
-		JButton bouton;
+		
+		empruntEnCours = (u.getVelo()!=null);
+		boutonEmprunter.setPreferredSize(new Dimension(200,150));
+		boutonRendre.setPreferredSize(new Dimension(200,150));
+		
+		Color translucide = new Color(255,255,255, 240);
 
-		if (u.getVelo() == null){
-			bouton = new JButton("Emprunter un vélo");
+		if (!empruntEnCours){
+			boutonRendre.setEnabled(true);
+			boutonRendre.setForeground(translucide);
 		}
 		else {
-			bouton = new JButton("Rendre un vélo");
+			boutonEmprunter.setEnabled(true);
+			boutonEmprunter.setForeground(translucide);
 		}
-
-		this.add(bouton, BorderLayout.CENTER);
-		bouton.addActionListener(this);
+		
+		boutonEmprunter.addActionListener(this);
+		JPanel center = new JPanel();
+		center.add(boutonEmprunter);
+		center.add(boutonRendre);
+		this.add(center, BorderLayout.CENTER);
 
 		this.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if (u.getVelo() == null){
-			FenetreEmprunterVelo f = new FenetreEmprunterVelo(u);
+		if(arg0.getSource()==boutonEmprunter){
+			FenetreEmprunterVelo f = new FenetreEmprunterVelo(utilisateur);
 			f.setVisible(true);
 		}
-		else{
-			FenetreRendreVelo f = new FenetreRendreVelo(u);
+		else if (arg0.getSource()==boutonRendre){
+			FenetreRendreVelo f = new FenetreRendreVelo(utilisateur);
 			f.setVisible(true);
-			}
-	}       
-
-
-
-
-
-
-
+		}
+		else if (arg0.getSource()==boutonDeconnexion){
+			FenetreConfirmation f = new FenetreConfirmation("Au revoir et à bientôt ! ");
+		}
+	}
 }
