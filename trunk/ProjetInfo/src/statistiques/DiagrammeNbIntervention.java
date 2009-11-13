@@ -26,16 +26,33 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 	 *
 	 * @param title  the frame title.
 	 */
-	public DiagrammeNbIntervention(String title) {
+	
+	private JFreeChart chart;
+	
+	public DiagrammeNbIntervention(String title, JFreeChart chart) {
 		
 		super(title);
 		CategoryDataset dataset = createDataset();
-		JFreeChart chart = createChart(dataset);
+		this.setChart(createChart(dataset));
 		ChartPanel chartPanel = new ChartPanel(chart, false);
 		chartPanel.setPreferredSize(new Dimension(500, 270));
 		setContentPane(chartPanel);
 
 	}
+
+	
+	
+	public JFreeChart getChart() {
+		return chart;
+	}
+
+
+
+	public void setChart(JFreeChart chart) {
+		this.chart = chart;
+	}
+
+
 
 	/**
 	 * Returns a sample dataset.
@@ -124,13 +141,9 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 				0.0f, 0.0f, Color.blue, 
 				0.0f, 0.0f, new Color(0, 0, 64)
 		);
-		GradientPaint gp1 = new GradientPaint(
-				0.0f, 0.0f, Color.green, 
-				0.0f, 0.0f, new Color(0, 64, 0)
-		);
+
 
 		renderer.setSeriesPaint(0, gp0);
-		renderer.setSeriesPaint(1, gp1);
 
 
 		CategoryAxis domainAxis = plot.getDomainAxis();
@@ -142,17 +155,19 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 		return chart;
 
 	}
+	
+	
 
      // Starting point for the demonstration application.
 
-    public static void main(String[] args) {
+   /*public static void main(String[] args) {
 
-    	DiagrammeNbIntervention demo = new DiagrammeNbIntervention("");
+    	DiagrammeNbIntervention demo = new DiagrammeNbIntervention("", );
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
-    }
+    }*/
 
 
 }
