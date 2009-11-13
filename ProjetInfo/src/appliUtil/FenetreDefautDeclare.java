@@ -15,6 +15,10 @@ import metier.Utilisateur;
 
 public class FenetreDefautDeclare extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
 	private JLabel labelUtil = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
@@ -31,29 +35,46 @@ public class FenetreDefautDeclare extends JFrame implements ActionListener {
 
 	public FenetreDefautDeclare (Utilisateur u) {
 
-		this.setUtilisateur(u);
-		System.out.println("Le temps d'emprunt a été très court");
-		this.setTitle("Temps d'emprunt < 2 minutes");
-		this.setSize(700, 500);
-		this.setLocationRelativeTo(null);
+		this.setContentPane(new Panneau());
+		System.out.println("Fenêtre proposant emprunt après déclaration d'un vélo défectueux");
+		//Définit un titre pour notre fenêtre
+		this.setTitle("Fenêtre défaut déclaré");
+		//Définit une taille pour celle-ci
+		this.setSize(new Dimension(700,500));		
+		this.setMinimumSize(new Dimension(700,500));
+		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//Nous allons maintenant dire à notre objet de se positionner au centre
+		this.setLocationRelativeTo(null);
+		// on définit un BorderLayout
+		this.getContentPane().setLayout(new BorderLayout());
+		//pour que la fenêtre ne se redimensionne pas à chaque fois
 		this.setResizable(false);
+		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
-		this.setContentPane(new Panneau());	
-		this.getContentPane().setLayout(new BorderLayout());
+		this.setUtilisateur(u);
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
-		this.getContentPane().add(labelUtil,BorderLayout.NORTH);
+		labelUtil.setPreferredSize(new Dimension(500,30));
+		JPanel north = new JPanel();
+		north.setPreferredSize(new Dimension(700,150));
+		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.add(labelUtil);
+		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		labelMsg.setText("La présence d’un défaut a bien été signalée. Souhaitez-vous emprunter un autre vélo ? ");
-		boutonOui.setPreferredSize(new Dimension(200,150));
-		boutonNon.setPreferredSize(new Dimension(200,150));
-		
+		labelMsg.setPreferredSize(new Dimension(550,30));
+		boutonOui.setPreferredSize(new Dimension(150,50));
+		boutonOui.setBackground(Color.CYAN);
+		boutonNon.setPreferredSize(new Dimension(150,50));
+		boutonNon.setBackground(Color.CYAN);
+
 		boutonOui.addActionListener(this);
 		boutonNon.addActionListener(this);
 		JPanel center = new JPanel();
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.add(labelMsg);
 		center.add(boutonOui);
 		center.add(boutonNon);
