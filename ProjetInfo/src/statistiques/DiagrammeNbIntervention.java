@@ -19,14 +19,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-public class DiagrammeFreqStations extends ApplicationFrame {
+public class DiagrammeNbIntervention extends ApplicationFrame {
 
 	/**
 	 * Creates a new demo instance.
 	 *
 	 * @param title  the frame title.
 	 */
-	public DiagrammeFreqStations(String title) {
+	public DiagrammeNbIntervention(String title) {
 		
 		super(title);
 		CategoryDataset dataset = createDataset();
@@ -43,20 +43,20 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	 * @return The dataset.
 	 */
 	private static CategoryDataset createDataset() {
-/**TODO
- * Changer nombre stations si different de 3
-		*/
 		
 		
 		// row keys...
-		String series1 = "Vélos sortis";
-		String series2 = "Vélos entrés";
+		String series1 = "nombre d'intervention de ce type";
+
 
 		// column keys...
-		
-		String category1 = "Station A";
-		String category2 = "Station B";
-		String category3 = "Station C";
+		String category1 = "pneu crevé";
+		String category2 = "selle";
+		String category3 = "pédale";
+		String category4 = "déraillement";
+		String category5 = "frein";
+		String category6 = "autres";
+
 
 		// create the dataset...
 		
@@ -65,14 +65,13 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		 */
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		dataset.addValue(1.0, series1, category1);
-		dataset.addValue(4.0, series1, category2);
-		dataset.addValue(3.0, series1, category3);
+		dataset.addValue(5.0, series1, category1);
+		dataset.addValue(11.0, series1, category2);
+		dataset.addValue(12.0, series1, category3);
+		dataset.addValue(3.0, series1, category4);
+		dataset.addValue(8.0, series1, category5);
+		dataset.addValue(10.0, series1, category6);
 
-
-		dataset.addValue(5.0, series2, category1);
-		dataset.addValue(7.0, series2, category2);
-		dataset.addValue(6.0, series2, category3);
 
 
 		return dataset;
@@ -90,10 +89,9 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 		// create the chart...
 		JFreeChart chart = ChartFactory.createBarChart(
-				"Fréquentation Stations sur les X derniers jours", /*X=nombre de jours suivant le choix de l'administrateur*/
-				// chart title
-				"Stations",               // domain axis label
-				"Nombre de vélos",                  // range axis label
+				"Nombre d'interventions ces six derniers mois", 	// chart title
+				"Types d'intervention",               // domain axis label
+				"Nombre d'intervention",                  // range axis label
 				dataset,                  // data
 				PlotOrientation.VERTICAL, // orientation
 				true,                     // include legend
@@ -130,13 +128,10 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 				0.0f, 0.0f, Color.green, 
 				0.0f, 0.0f, new Color(0, 64, 0)
 		);
-		GradientPaint gp2 = new GradientPaint(
-				0.0f, 0.0f, Color.red, 
-				0.0f, 0.0f, new Color(64, 0, 0)
-		);
+
 		renderer.setSeriesPaint(0, gp0);
 		renderer.setSeriesPaint(1, gp1);
-		renderer.setSeriesPaint(2, gp2);
+
 
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(
@@ -152,7 +147,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
     public static void main(String[] args) {
 
-    	DiagrammeFreqStations demo = new DiagrammeFreqStations("");
+    	DiagrammeNbIntervention demo = new DiagrammeNbIntervention("");
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -161,3 +156,4 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 
 }
+
