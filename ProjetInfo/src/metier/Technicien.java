@@ -6,6 +6,15 @@ import gestionBaseDeDonnees.UtilitaireDate;
 
 import java.sql.SQLException;
 
+/** 
+ * Technicien est la classe representant un technicien du parc a velos
+ * Un technicien est caracterise par un compte
+ * 
+ * @see Compte
+ * @see enregistrerVelo
+ * @see intervenir
+ */
+
 public class Technicien {
 
 	//Attributs

@@ -17,6 +17,8 @@ import java.util.Date;
  * 
  * @see Compte
  * @see creerCompte
+ * @see resilierCompte
+ * @see demanderAssignation
  */
 
 public class Administrateur {
