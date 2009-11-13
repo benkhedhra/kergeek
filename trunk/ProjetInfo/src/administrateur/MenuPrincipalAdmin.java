@@ -12,9 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+
+import org.jfree.chart.JFreeChart;
+
 import appliAdminTech.FenetreAuthentification;
-import appliUtil.FenetreEmprunterVelo;
-import appliUtil.FenetreRendreVelo;
 
 public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
@@ -80,8 +81,8 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		//la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
-/*
-		if(arg0.getSource()==boutonComptes){
+
+/*		if(arg0.getSource()==boutonComptes){
 			MenuGererComptesAdmin m = new MenuGererComptesAdmin(this.getAdministrateur());
 			m.setVisible(true);
 		}
@@ -96,7 +97,6 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		else if (arg0.getSource()==boutonDeconnexion){
 			FenetreConfirmation f = new FenetreConfirmation("Au revoir et à bientôt ! ");
 			f.setVisible(true);
-		}
-*/
+		}*/
 	}
 }
