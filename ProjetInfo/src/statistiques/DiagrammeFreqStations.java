@@ -4,6 +4,11 @@ package statistiques;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -21,6 +26,8 @@ import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeFreqStations extends ApplicationFrame {
 
+	private JFreeChart chart;
+	
 	/**
 	 * Creates a new demo instance.
 	 *
@@ -30,11 +37,15 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		
 		super(title);
 		CategoryDataset dataset = createDataset();
-		JFreeChart chart = createChart(dataset);
+		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
 		chartPanel.setPreferredSize(new Dimension(500, 270));
 		setContentPane(chartPanel);
-
+		
+	}
+	
+	public Image getImage() {
+		return this.chart.createBufferedImage(500, 500);
 	}
 
 	/**
@@ -153,10 +164,13 @@ public class DiagrammeFreqStations extends ApplicationFrame {
     public static void main(String[] args) {
 
     	DiagrammeFreqStations demo = new DiagrammeFreqStations("");
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
-
+        //demo.pack();
+        //RefineryUtilities.centerFrameOnScreen(demo);
+        //demo.setVisible(true);
+    	JFrame myFrame = new JFrame();
+    	myFrame.getGraphics().drawImage(demo.getImage(), 0, 0, myFrame);
+    	myFrame.add(new JButton("Mon bouton"));
+    	myFrame.setVisible(true);
     }
 
 
