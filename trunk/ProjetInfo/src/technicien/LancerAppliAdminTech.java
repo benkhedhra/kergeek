@@ -1,4 +1,4 @@
-package appliAdminTech;
+package technicien;
 
 public class LancerAppliAdminTech {
 

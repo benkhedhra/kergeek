@@ -1,4 +1,4 @@
-package appliAdminTech;
+package administrateur;
 
 public class MenuDemanderStatsAdmin {
 

@@ -118,7 +118,6 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			}
 		}
 		catch (Exception e) {
-			//si une exception est levée on affiche une popup d'erreur
 			this.setVisible(false);
 			FenetreAuthentificationUtil f = new FenetreAuthentificationUtil(true);
 			f.setVisible(true);

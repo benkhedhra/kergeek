@@ -1,6 +1,6 @@
-package appliAdminTech;
+package administrateur;
 
-public class FenetreCreationCompte {		
+public class FenetreCreationCompteAdmin {		
 	/* les lignes suivantes servent à instancier un objet Jpanel et à définir sa couleur de fond
 	 * 
 	 * JPanel pan = new JPanel();
