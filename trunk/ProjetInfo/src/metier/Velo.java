@@ -15,6 +15,8 @@ public class Velo {
 	
 	public Velo() {
 		super();
+		this.setEnPanne(true);
+		this.setLieu(Garage.getInstance());
 	}
 
 	
