@@ -12,13 +12,13 @@ import java.sql.Statement;
 import java.util.Date;
 
 /** 
- * Administrateur est la classe representant un administrateur du parc a velos
- * Un administrateur est caracterise par un compte
+ * Administrateur est la classe representant un administrateur du parc a velos.
+ * Un administrateur est caracterise par un compte.
  * 
  * @see Compte
- * @see creerCompte
- * @see resilierCompte
- * @see demanderAssignation
+ * @see ConnexionViaJdbc
+ * @see DAOCompte
+ * @see DAODemandeAssignation
  */
 
 public class Administrateur {
@@ -26,7 +26,7 @@ public class Administrateur {
 	// Attribut 
 	
 	/**
-	 * Compte de l'administrateur. Ce compte est modifiable
+	 * Compte de l'administrateur. Ce compte est modifiable.
 	 * 
 	 * @see Compte
 	 * @see Administrateur#Administrateur(compte)
@@ -51,7 +51,7 @@ public class Administrateur {
 	}
 	
 	 /**
-	  * Constructeur d'initialisation d'Administrateur
+	  * Constructeur d'initialisation d'Administrateur.
 	  * L'objet administrateur est creer a partir d'un compte
 	  * 
 	  * @param  compte, le compte de l'administrateur
@@ -68,6 +68,7 @@ public class Administrateur {
 
 	/**
      * retourne le compte de l'administrateur
+     * 
      * @return compte, le compte de l'administrateur 
      */
 	
@@ -78,7 +79,7 @@ public class Administrateur {
 	/**
      * Met à jour le compte de l'administrateur
      * 
-     * @param compte, le nouveau compte du membre
+     * @param compte, le nouveau compte de l'administrateur
      * @see Compte
      */
 	
