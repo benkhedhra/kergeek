@@ -20,13 +20,17 @@ import metier.Utilisateur;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// définition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 24);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 20);
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
 	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,16);
 
-	public static final Color transparence = new Color(0,0,0,0);
+	public static final Color TRANSPARENCE = new Color(0,0,0,0);
 
 	private JLabel labelBienvenue = new JLabel("");
 	private JLabel labelInvitation = new JLabel("");
@@ -67,7 +71,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 		JPanel center = new JPanel();
 
-		center.setBackground(transparence);
+		center.setBackground(TRANSPARENCE);
 		center.setPreferredSize(new Dimension());
 		labelInvitation.setFont(POLICE2);
 		center.add(labelInvitation);
@@ -78,7 +82,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		this.getContentPane().add(center,BorderLayout.CENTER);
 		
 		JPanel south = new JPanel();
-		south.setBackground(transparence);
+		south.setBackground(TRANSPARENCE);
 		south.setPreferredSize(new Dimension(700,150));
 		boutonValider.setPreferredSize(new Dimension(100,30));
 		boutonValider.setMaximumSize(new Dimension(100,30));

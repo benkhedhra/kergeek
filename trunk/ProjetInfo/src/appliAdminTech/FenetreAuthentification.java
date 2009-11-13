@@ -165,7 +165,9 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	
 	
 	public static void main (String [] args){
-		System.out.println("Création d'une fenêtre d'authentification pour l'application AdminTech");
-		FenetreAuthentification f = new FenetreAuthentification(false);
+		//System.out.println("Création d'une fenêtre d'authentification pour l'application AdminTech");
+		//FenetreAuthentification f = new FenetreAuthentification(false);
+		Administrateur ATEST = new Administrateur(new Compte("","",Compte.TYPE_ADMINISTRATEUR));
+		MenuPrincipalAdmin m = new MenuPrincipalAdmin(ATEST);
 	}
 }
