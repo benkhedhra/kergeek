@@ -1,4 +1,4 @@
-package appliAdminTech;
+package administrateur;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import appliAdminTech.FenetreAuthentification;
 import appliUtil.FenetreEmprunterVelo;
 import appliUtil.FenetreRendreVelo;
 

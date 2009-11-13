@@ -1,4 +1,4 @@
-package appliAdminTech;
+package technicien;
 
 import java.awt.event.ActionListener;
 
@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Technicien;
+import appliAdminTech.FenetreAuthentification;
 import appliUtil.FenetreEmprunterVelo;
 import appliUtil.FenetreRendreVelo;
 

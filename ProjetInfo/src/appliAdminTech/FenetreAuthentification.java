@@ -19,10 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import technicien.MenuPrincipalTech;
+
 import metier.Administrateur;
 import metier.Compte;
 import metier.Technicien;
 import metier.Utilisateur;
+import administrateur.MenuPrincipalAdmin;
 import appliUtil.FenetreAuthentificationUtil;
 import appliUtil.LancerAppliUtil;
 import appliUtil.Panneau;
