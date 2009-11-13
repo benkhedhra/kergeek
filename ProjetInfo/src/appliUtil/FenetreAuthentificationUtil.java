@@ -13,23 +13,21 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import metier.Compte;
 import metier.Utilisateur;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
 	// définition des polices
-	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
-	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
+	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 24);
+	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 20);
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
-	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,14);
+	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,16);
 
-	private Panneau p = new Panneau();
-	private JPanel container = new JPanel();
+	public static final Color transparence = new Color(0,0,0,0);
+
 	private JLabel labelBienvenue = new JLabel("");
 	private JLabel labelInvitation = new JLabel("");
 	private JTextField idARemplir = new JTextField("");
@@ -39,41 +37,57 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 		System.out.println("Ouverture d'une fenêtre d'authentification de l'utilisateur");
 
+		this.setContentPane(new Panneau());
 		this.setTitle("Authentification");
-		this.setSize(700,500);
+		this.setSize(new Dimension(700,500));		
+		this.setMinimumSize(new Dimension(700,500));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
 		// on définit un BorderLayout
-		container.setLayout(new BorderLayout());
-		container.add(p,BorderLayout.CENTER);
-
-		labelBienvenue.setText("Bienvenue ! ");
-		container.add(labelBienvenue,BorderLayout.NORTH);
+		this.getContentPane().setLayout(new BorderLayout());
+		
+		labelBienvenue.setPreferredSize(new Dimension(200,50));		
+		labelBienvenue.setMaximumSize(new Dimension(500,50));
+		labelBienvenue.setText("   Bienvenue ! ");
+		labelBienvenue.setFont(POLICE1);
+		this.getContentPane().add(labelBienvenue,BorderLayout.NORTH);
 
 		if(erreurAuthent){
 			labelInvitation.setText("Identifiant inconnu. Veuillez à nouveau entrer votre identifiant");
 			labelInvitation.setForeground(Color.RED);
+			labelInvitation.setPreferredSize(new Dimension(480,300));
+			labelInvitation.setMaximumSize(new Dimension(480,300));
 		}
 		else{
-			labelInvitation.setText("Veuillez entrer votre identifiant");		
+			labelInvitation.setText("Veuillez entrer votre identifiant");
+			labelInvitation.setPreferredSize(new Dimension(300,300));
+			labelInvitation.setMaximumSize(new Dimension(300,300));
 		}
-		labelInvitation.setFont(POLICE1);
 
 		JPanel center = new JPanel();
+
+		center.setBackground(transparence);
+		center.setPreferredSize(new Dimension());
 		labelInvitation.setFont(POLICE2);
 		center.add(labelInvitation);
 		idARemplir.setFont(POLICE3);
 		idARemplir.setPreferredSize(new Dimension(150, 30));
 		idARemplir.setForeground(Color.BLUE);
 		center.add(idARemplir);
-		container.add(center, BorderLayout.CENTER);
-
-		container.add(boutonValider,BorderLayout.SOUTH);
-		//On ajoute notre Fenetre à la liste des auditeurs de notre Bouton
+		this.getContentPane().add(center,BorderLayout.CENTER);
+		
+		JPanel south = new JPanel();
+		south.setBackground(transparence);
+		south.setPreferredSize(new Dimension(700,150));
+		boutonValider.setPreferredSize(new Dimension(100,30));
+		boutonValider.setMaximumSize(new Dimension(100,30));
+		boutonValider.setBackground(Color.CYAN);
+		boutonValider.setFont(POLICE3);
 		boutonValider.addActionListener(this);
+		south.add(boutonValider);
+		this.getContentPane().add(south,BorderLayout.SOUTH);
 
-		this.setContentPane(container);
 		this.setVisible(true);
 	}
 
@@ -96,10 +110,10 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			u = this.getUtilisateur();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			MsgBox.afficheMsg(e1.printStackTrace());
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			MsgBox.afficheMsg(e1.printStackTrace());
 		}*/
 
 		//vérification des paramètres de connexion.
