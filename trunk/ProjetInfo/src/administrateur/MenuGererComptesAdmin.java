@@ -12,65 +12,99 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import appliAdminTech.FenetreAuthentification;
+import metier.Compte;
+import appliUtil.FenetreAuthentificationUtil;
 
 public class MenuGererComptesAdmin extends JFrame implements ActionListener {
-	
-	private Administrateur admin;
-	private JLabel labelAdmin = new JLabel("");
-	private JButton boutonRetour = new JButton("Retour au menu principal");
-	private JButton boutonCreation = new JButton("Création d'un nouveau compte");
-	private JButton boutonInformations = new JButton("Afficher informations sur un compte");
 
-	public Administrateur getAdministrateur() {
-		return admin;
-	}
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
-	public void setAdministrateur(Administrateur admin) {
-		this.admin = admin;
-	}
+		private Administrateur admin;
+		private JLabel labelAdmin = new JLabel("");
+		private JButton boutonRetour = new JButton("Retour au menu principal");
+		private JButton boutonCreation = new JButton("Création d'un nouveau compte");
+		private JButton boutonInformations = new JButton("Afficher informations sur un compte");
 
-	public MenuGererComptesAdmin(Administrateur a){
+		public Administrateur getAdministrateur() {
+			return admin;
+		}
 
-		this.setAdministrateur(a);
-		System.out.println("Menu gérer comptes de l'administrateur");
-		this.setTitle("Menu gérer comptes de l'administrateur");
-		this.setSize(700, 500);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.setAlwaysOnTop(true);
+		public void setAdministrateur(Administrateur admin) {
+			this.admin = admin;
+		}
 
-		this.getContentPane().setBackground(Color.BLUE);
-		this.setLayout(new BorderLayout());
+		public MenuGererComptesAdmin(Administrateur a){
 
-		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentification.POLICE4);
-		
-		this.getContentPane().add(labelAdmin,BorderLayout.CENTER);
-		
-		JPanel center = new JPanel();
-		boutonCreation.addActionListener(this);
-		boutonCreation.setPreferredSize(new Dimension(50,50));
-		center.add(boutonCreation);
-		boutonInformations.addActionListener(this);
-		boutonInformations.setPreferredSize(new Dimension(50,50));
-		center.add(boutonInformations);
-		this.getContentPane().add(center,BorderLayout.CENTER);
-		
-		boutonRetour.addActionListener(this);
-		this.getContentPane().add(boutonRetour,BorderLayout.SOUTH);
-		
-		this.setVisible(true);
-	} 
-	
+			this.setContentPane(new PanneauAdmin());
+			System.out.println("Menu gérer comptes de l'administrateur");
+			//Définit un titre pour notre fenêtre
+			this.setTitle("Menu gérer comptes de l'administrateur");
+			//Définit une taille pour celle-ci
+			this.setSize(new Dimension(700,500));		
+			this.setMinimumSize(new Dimension(700,500));
+			//Terminer le processus lorsqu'on clique sur "Fermer"
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//Nous allons maintenant dire à notre objet de se positionner au centre
+			this.setLocationRelativeTo(null);
+			//pour que la fenêtre ne se redimensionne pas à chaque fois
+			this.setResizable(false);
+			//pour que la fenêtre soit toujours au premier plan
+			this.setAlwaysOnTop(true);
+
+			// on définit un BorderLayout
+			this.getContentPane().setLayout(new BorderLayout());
+
+			this.setAdministrateur(a);
+
+				
+			labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
+			labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+			labelAdmin.setPreferredSize(new Dimension(500,30));
+			JPanel north = new JPanel();
+			north.setPreferredSize(new Dimension(700,150));
+			north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			north.add(labelAdmin);
+			this.getContentPane().add(north,BorderLayout.NORTH);
+
+			JPanel center = new JPanel();
+			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			boutonCreation.setPreferredSize(new Dimension(250,150));
+			boutonCreation.setMaximumSize(new Dimension(250,150));
+			boutonCreation.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonCreation.addActionListener(this);
+			center.add(boutonCreation);
+			boutonInformations.setPreferredSize(new Dimension(250,150));
+			boutonInformations.setMaximumSize(new Dimension(250,150));
+			boutonInformations.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonInformations.addActionListener(this);
+			center.add(boutonInformations);
+			this.add(center, BorderLayout.CENTER);
+
+			JPanel south = new JPanel();
+			south.setPreferredSize(new Dimension(700,40));
+			south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			south.setLayout(new BorderLayout());
+			boutonRetour.setPreferredSize(new Dimension(250,40));
+			boutonRetour.setMaximumSize(new Dimension(250,40));
+			boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonRetour.setBackground(Color.YELLOW);
+			boutonRetour.addActionListener(this);
+			south.add(boutonRetour,BorderLayout.EAST);
+			this.getContentPane().add(south,BorderLayout.SOUTH);
+
+			this.setVisible(true);
+		}
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		/*if(arg0.getSource()==boutonRetour){
-			MenuPrincipalAdmin m = new MenuPrincipalAdmin();
+		if(arg0.getSource()==boutonRetour){
+			MenuPrincipalAdmin m = new MenuPrincipalAdmin(this.getAdministrateur());
 			m.setVisible(true);
 		}
-		else if (arg0.getSource()==boutonCreation){
+		/*else if (arg0.getSource()==boutonCreation){
 			FenetreCreationCompteAdmin f = new FenetreCreationCompteAdmin();
 			f.setVisible(true);
 		}

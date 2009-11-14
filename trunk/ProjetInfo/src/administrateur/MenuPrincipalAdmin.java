@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
-
+import appliAdminTech.FenetreConfirmation;
 import appliUtil.FenetreAuthentificationUtil;
 
 public class MenuPrincipalAdmin extends JFrame implements ActionListener {
@@ -63,7 +63,8 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 			
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
+		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setMaximumSize(new Dimension(550,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -101,7 +102,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		//la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
 
-/*		if(arg0.getSource()==boutonComptes){
+		if(arg0.getSource()==boutonComptes){
 			MenuGererComptesAdmin m = new MenuGererComptesAdmin(this.getAdministrateur());
 			m.setVisible(true);
 		}
@@ -110,10 +111,10 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 			m.setVisible(true);
 		}
 		else if (arg0.getSource()==boutonEtat){
-			MenuVoirEtat m = new MenuVoirEtat(this.getAdministrateur());
+			MenuVoirEtatAdmin m = new MenuVoirEtatAdmin(this.getAdministrateur());
 			m.setVisible(true);
 		}		
-		else if (arg0.getSource()==boutonDeconnexion){
+		/*else if (arg0.getSource()==boutonDeconnexion){
 			FenetreConfirmation f = new FenetreConfirmation("Au revoir et à bientôt ! ");
 			f.setVisible(true);
 		}*/
