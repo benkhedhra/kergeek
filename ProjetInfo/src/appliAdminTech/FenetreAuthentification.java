@@ -33,14 +33,17 @@ import appliUtil.Panneau;
 public class FenetreAuthentification extends JFrame implements ActionListener {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	// définition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
 	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,14);
 
-	private Panneau p = new Panneau();
-	private JPanel container = new JPanel();
 	private JLabel labelInvitation = new JLabel("");
 	private JLabel labelId = new JLabel("identifiant");
 	private JTextField idARemplir = new JTextField("");
@@ -52,53 +55,85 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		System.out.println("Ouverture d'une fenêtre d'authentification de l'utilisateur");
 
+		this.setContentPane(new Panneau());
 		this.setTitle("Authentification");
 		this.setSize(700,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
-		// on définit un BorderLayout
-		container.setLayout(new BorderLayout());
-		container.add(p,BorderLayout.CENTER);
-
+		this.getContentPane().setLayout(new BorderLayout());
+		
+		JPanel north = new JPanel();
+		north.setPreferredSize(new Dimension(700,150));
+		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		
 		if(erreurAuthent){
 			labelInvitation.setText("Combinaison identifiant / mot de passe incorrecte. Veuillez à nouveau vous authentifier");
 			labelInvitation.setForeground(Color.RED);
+			labelInvitation.setPreferredSize(new Dimension(500,40));
 		}
 		else{
 			labelInvitation.setText("Bienvenue ! Veuillez vous authentifier");		
+			labelInvitation.setPreferredSize(new Dimension(400,40));
 		}
-		labelInvitation.setFont(POLICE1);
-		container.add(labelInvitation,BorderLayout.NORTH);
-
+		labelInvitation.setFont(POLICE2);
+		north.add(labelInvitation);
+		this.getContentPane().add(north,BorderLayout.NORTH);
+		
 		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(2,2));
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setLayout(new GridLayout(3,2));
+		
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelId.setFont(POLICE3);
 		labelId.setPreferredSize(new Dimension(150,30));
-		center.add(labelId);
+		labelId.setMaximumSize(new Dimension(150,30));
+		panel1.add(labelId);
+		center.add(panel1);
 
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		idARemplir.setFont(POLICE3);
 		idARemplir.setPreferredSize(new Dimension(150, 30));
+		idARemplir.setMaximumSize(new Dimension(150, 30));
 		idARemplir.setForeground(Color.BLUE);
-		center.add(idARemplir);
+		panel2.add(idARemplir);
+		center.add(panel2);
 		
+		JPanel panel3 = new JPanel();
+		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelMotDePasse.setFont(POLICE3);
 		labelMotDePasse.setPreferredSize(new Dimension(150,30));
-		center.add(labelMotDePasse);
+		labelMotDePasse.setMaximumSize(new Dimension(150,30));
+		panel3.add(labelMotDePasse);
+		center.add(panel3);
 		
+		JPanel panel4 = new JPanel();
+		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		motDePasseARemplir.setFont(POLICE3);
 		motDePasseARemplir.setPreferredSize(new Dimension(150, 30));
-		motDePasseARemplir.setForeground(Color.BLUE);
-		center.add(motDePasseARemplir);
+		motDePasseARemplir.setMaximumSize(new Dimension(150, 30));
+		panel4.add(motDePasseARemplir);
+		center.add(panel4);
 
-		container.add(center, BorderLayout.CENTER);
-
-		boutonValider.setPreferredSize(new Dimension(50,50));
-		container.add(boutonValider,BorderLayout.SOUTH);
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		center.add(panel5);
+		
+		JPanel panel6 = new JPanel();
+		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);		
+		boutonValider.setPreferredSize(new Dimension(150,30));
+		boutonValider.setMaximumSize(new Dimension(150,30));
+		boutonValider.setBackground(Color.CYAN);
+		boutonValider.setFont(POLICE3);
 		//On ajoute notre Fenetre à la liste des auditeurs de notre Bouton
 		boutonValider.addActionListener(this);
+		panel6.add(boutonValider);
+		center.add(panel6);
 
-		this.setContentPane(container);
+		this.getContentPane().add(center, BorderLayout.CENTER);
+
 		this.setVisible(true);
 	}
 
@@ -165,9 +200,6 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	
 	
 	public static void main (String [] args){
-		//System.out.println("Création d'une fenêtre d'authentification pour l'application AdminTech");
-		//FenetreAuthentification f = new FenetreAuthentification(false);
-		Administrateur ATEST = new Administrateur(new Compte("","",Compte.TYPE_ADMINISTRATEUR));
-		MenuPrincipalAdmin m = new MenuPrincipalAdmin(ATEST);
+		new FenetreAuthentification(false);
 	}
 }
