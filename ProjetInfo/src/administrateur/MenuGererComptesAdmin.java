@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import metier.Compte;
 import appliUtil.FenetreAuthentificationUtil;
 
 public class MenuGererComptesAdmin extends JFrame implements ActionListener {
@@ -104,11 +103,11 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 			MenuPrincipalAdmin m = new MenuPrincipalAdmin(this.getAdministrateur());
 			m.setVisible(true);
 		}
-		/*else if (arg0.getSource()==boutonCreation){
-			FenetreCreationCompteAdmin f = new FenetreCreationCompteAdmin();
+		else if (arg0.getSource()==boutonCreation){
+			FenetreCreationCompteAdmin f = new FenetreCreationCompteAdmin(this.getAdministrateur());
 			f.setVisible(true);
 		}
-		else if (arg0.getSource()==boutonInformations){
+		/*else if (arg0.getSource()==boutonInformations){
 			FenetreRechercherCompteAdmin f = new FenetreRechercherCompteAdmin();
 			f.setVisible(true);
 		}*/

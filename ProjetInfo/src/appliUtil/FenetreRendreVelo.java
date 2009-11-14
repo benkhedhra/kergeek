@@ -114,12 +114,13 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		center.add(labelMsg);
 		center.add(boutonValider);
 		this.getContentPane().add(center, BorderLayout.CENTER);
+		
+		this.setVisible(true);
 	}
 
 
 	public static void main(String[] args) {
-		FenetreRendreVelo combo = new FenetreRendreVelo(LancerAppliUtil.UTEST);
-		combo.setVisible(true);
+		new FenetreRendreVelo(LancerAppliUtil.UTEST);
 	}
 
 
