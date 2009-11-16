@@ -2,6 +2,10 @@ package metier;
 
 public final class TypeIntervention {
 	
+	/*TODO
+	 * Une HashMap c'est mieux!!
+	 */
+	
 	//Attributs
 	
 	private int type;
