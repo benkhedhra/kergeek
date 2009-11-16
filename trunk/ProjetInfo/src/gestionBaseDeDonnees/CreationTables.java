@@ -19,6 +19,9 @@ public class CreationTables {
 
 		/*TODO
 		 * COMMENT GENERER LES IDENTIFIANTS EN SQL?
+		 * s.executeQuery("CREATE SEQUENCE utilisateur_sequence 
+		 * START WITH 1 INCREMENT BY 1 
+		 * NOMAXVALUE NOMINVALUE)";
 		 */
 		try{
 			/*s.executeUpdate (

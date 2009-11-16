@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="Librairies supplementaires/jcommon-1.0.16.jar"/>
 	<classpathentry kind="lib" path="Librairies supplementaires/jfreechart-1.0.13.jar"/>
-	<classpathentry kind="lib" path="Librairies supplementaires/junit.jar"/>
 	<classpathentry kind="lib" path="Librairies supplementaires/ojdbc14_g.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

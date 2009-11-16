@@ -4,8 +4,12 @@ import junit.framework.TestCase;
 import metier.Compte;
 import metier.Utilisateur;
 
-public class UtilisateurTest extends TestCase{
-	public void rendreVeloTest(){
+import org.junit.Test;
+
+public class TestUtilisateur extends TestCase{
+	
+	@Test
+	public void testRendreVeloTest(){
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 	}
