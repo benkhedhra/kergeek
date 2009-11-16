@@ -14,8 +14,9 @@ public class TestAdministrateur extends TestCase{
 	
 	@Test
 	public void testResilierCompte() throws SQLException, ClassNotFoundException{
-		Administrateur a = new Administrateur();
-		Compte c = new Compte("id","id",3);
+		Compte c = new Compte("",Compte.TYPE_ADMINISTRATEUR);
+		Administrateur a = new Administrateur(c);
+		c.setId("id");
 		a.resilierCompte("id");
 		Boolean b = DAOCompte.getCompteById("id").isActif();
 		assertEquals("test",(Boolean)b,0);

@@ -18,14 +18,17 @@ public class CreationTables {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		/*TODO
-		 * COMMENT GENERER LES IDENTIFIANTS EN SQL?
-		 * s.executeQuery("CREATE SEQUENCE utilisateur_sequence 
-		 * START WITH 1 INCREMENT BY 1 
-		 * NOMAXVALUE NOMINVALUE)";
+		 * Il nous manque des tables
+		 *  
+		 * Utilisateur, sur
+		 * Administrateur, peut-etre compte suffit
+		 * Technicien, peut-etre compte suffit
+		 * 
+		 * Station a la place de Lieu? (Garage pas besoin de table : 1 instance)
 		 */
 		try{
-			/*s.executeUpdate (
-					"CREATE SEQUENCE seqCompte INCREMENT BY 1 START WITH 1 MINVALUE 0");*/
+			s.executeUpdate (
+					"CREATE SEQUENCE seqCompte INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Compte (idCompte char(4),	"+
 					"motDePasse varchar2(20),"+
@@ -37,18 +40,27 @@ public class CreationTables {
 					"bloque number,"+
 					"type number(1),"+
 			"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte))");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Lieu (idLieu char(4),	"+
 					"adresseLieu varchar2(250),"+
 					"capacite number(4),"+
 					"typeLieu number(1),"+
 			"CONSTRAINT pk_Lieu  PRIMARY KEY(idLieu))");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqVelo INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Velo (idVelo char(4),	"+
 					"enPanne number,"+
 					"idLieu char(4),"+
 			"CONSTRAINT pk_Velo  PRIMARY KEY(idVelo),"+
-			"CONSTRAINT fk_Velo_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");	
+			"CONSTRAINT fk_Velo_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqDemandeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE DemandeIntervention (idDemandeI char(4)," +
 					"dateDemandeI date NOT NULL," +
@@ -57,11 +69,17 @@ public class CreationTables {
 			"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
 			"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
 			"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte)");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE TypeIntervention (idTypeIntervention char(4)," +
 					"numero number(2)," +
 					"description char(250)," +
 			"CONSTRAINT pk_TypeIntervention  PRIMARY KEY(idTypeIntervention))");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Intervention (idIntervention char(4)," +
 					"dateIntervention date NOT NULL," +
@@ -70,6 +88,9 @@ public class CreationTables {
 			"CONSTRAINT pk_Intervention  PRIMARY KEY(idIntervention),"+
 			"CONSTRAINT fk_Inter_TypeInter FOREIGN KEY(idTypeIntervention) REFERENCES TypeIntervention," +
 			"CONSTRAINT fk_Intervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo)");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqDemandeAssignation INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE DemandeAssignation (idDemande char(4),	"+
 					"dateAssignation date NOT NULL,"+
@@ -78,6 +99,9 @@ public class CreationTables {
 					"idLieu char(4),"+
 					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemande),"+
 			"CONSTRAINT fk_DemandeAssignation_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqEmprunt INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Emprunt (idEmprunt char(4)," +
 					"dateEmprunt date NOT NULL," +
@@ -91,8 +115,12 @@ public class CreationTables {
 					"CONSTRAINT fk_Emprunt_Compte FOREIGN KEY(idCompte) REFERENCES Compte," +
 					"CONSTRAINT fk_Emprunt_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
 			"CONSTRAINT fk_Emprunt_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
+			
 			s.executeUpdate("COMMIT");
+			
 			System.out.println("Base creee");
+			
+			
 			/*
 			// Insertion administrateur
 			s.executeUpdate("insert into Compte values(seqCompte.nextval,'lapin','Ker','Geek','Ensai 35 172 Bruz', 'kergeek@gmail.com', '1', '0','1')");
@@ -147,10 +175,10 @@ public class CreationTables {
 			s.executeUpdate("COMMIT");
 			System.out.println("Update effectuee.");
 		}
-		/*catch (SQLException e){
+		catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();
 			System.out.println(e.getMessage());
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

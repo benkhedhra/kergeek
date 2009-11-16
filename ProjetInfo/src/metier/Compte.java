@@ -1,47 +1,45 @@
 package metier;
 
 public class Compte {
-	
+
 	//Attributs
 	private String id;
 	private String motDePasse;
 	private Boolean actif;
 	private int type;
 	private String adresseEmail;
-	
+
 	//Constante
-	
+
 	public static final int TYPE_ADMINISTRATEUR = 1;
 	public static final int TYPE_TECHNICIEN = 2;
 	public static final int TYPE_UTILISATEUR = 3;
-	
-	
+
+
 	//Constructeur
-	
-	public Compte(String id, String motDePasse, int type) {
+
+	public Compte(String motDePasse, int type) {
 		super();
-		this.setId(id);
 		this.setMotDePasse(motDePasse);
 		this.setActif(true);
 		this.setType(type);
 	}
-	
-	public Compte(String id, String motDePasse, int type, String adresseEmail) {
+
+	public Compte(String motDePasse, int type, String adresseEmail) {
 		super();
-		this.setId(id);
 		this.setMotDePasse(motDePasse);
 		this.setActif(true);
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);
 	}
-	
+
 	public Compte() {
 		super();
 	}
-	
-	
+
+
 	//Accesseurs
-	
+
 
 	public String getId() {
 		return id;
@@ -75,5 +73,15 @@ public class Compte {
 	public void setAdresseEmail(String adresseEmail) {
 		this.adresseEmail = adresseEmail;
 	}
-	
+
+	public String getTypeLettre() {
+		String lettre = null;
+		switch(this.getType()){
+		case TYPE_ADMINISTRATEUR : lettre = "a";
+		case TYPE_TECHNICIEN : lettre = "t";
+		case TYPE_UTILISATEUR : lettre = "u";
+		}
+		return lettre;
+	}
+
 }
