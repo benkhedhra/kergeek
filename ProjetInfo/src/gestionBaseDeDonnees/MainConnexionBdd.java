@@ -1,10 +1,9 @@
-package test;
+package gestionBaseDeDonnees;
 
-import gestionBaseDeDonnees.UtilitaireDate;
 
 import java.sql.SQLException;
 
-public class testConnexionBdd {
+public class MainConnexionBdd {
 
 	/**
 	 * @param args
