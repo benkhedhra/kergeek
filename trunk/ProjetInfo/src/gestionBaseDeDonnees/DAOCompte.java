@@ -7,16 +7,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import metier.Compte;
-import metier.Utilisateur;
 
 public class DAOCompte {
-	
-	
+
+
 	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL From dual");
+			if (res.next()){
+				String id = res.getString("dummy");
+				compte.setId(compte.getTypeLettre() + id);
+				/**TODO
+				 * a verifier...
+				 */
+			}
+			else{
+				throw new SQLException("probleme de sequence");
+			}
 			s.executeUpdate("INSERT into Velo values ('" 
 					+ compte.getId() + "', '" 
 					+ compte.getMotDePasse() + "', '" 
@@ -35,12 +45,12 @@ public class DAOCompte {
 		}
 		return effectue;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException {
 		boolean effectue = false;
 		try{
@@ -51,7 +61,7 @@ public class DAOCompte {
 					+ "actif = '"+ compte.isActif() + "',"
 					+ "adresseEmail = '" + compte.getAdresseEmail() + "',"
 					+ "' WHERE idCompte = '"+ compte.getId() + "'"
-					);
+			);
 			effectue=true;
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -63,14 +73,14 @@ public class DAOCompte {
 		}
 		return effectue;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException {
 		Compte compte = new Compte();
-		
+
 		ConnexionOracleViaJdbc.getC();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
@@ -93,10 +103,10 @@ public class DAOCompte {
 		return compte;
 	}
 
-	
+
 	public static Compte getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
 		Compte compte = new Compte();
-		
+
 		ConnexionOracleViaJdbc.getC();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
@@ -114,10 +124,10 @@ public class DAOCompte {
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println("Erreur d'adresse email");
 		}
 		return compte;
 	}
-	
-	
+
+
 }

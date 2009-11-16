@@ -39,16 +39,6 @@ public class Administrateur {
 
 
 	// Constructeurs
-    
-	/**Constructeur par defaut d'Administrateur
-	 * 
-	 * @see Compte
-	 */
-	
-	public Administrateur() {
-		super();
-		compte.setType(Compte.TYPE_ADMINISTRATEUR);
-	}
 	
 	 /**
 	  * Constructeur d'initialisation d'Administrateur.

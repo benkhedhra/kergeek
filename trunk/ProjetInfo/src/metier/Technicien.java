@@ -48,15 +48,7 @@ public class Technicien {
 		this.setCompte(compte);
 	}
 	
-	/**Constructeur par defaut du technicien
-	 * 
-	 * @see Compte
-	 */
 	
-	public Technicien() {
-		super();
-		compte.setType(Compte.TYPE_TECHNICIEN);
-	}
 
 	// Accesseurs et modificateurs
 	

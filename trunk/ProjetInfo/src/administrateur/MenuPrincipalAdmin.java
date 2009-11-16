@@ -121,7 +121,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	}
 	
 	public static void main (String [] args){
-		Administrateur ATEST = new Administrateur(new Compte("administrateurTest","",Compte.TYPE_ADMINISTRATEUR));
+		Administrateur ATEST = new Administrateur(new Compte("",Compte.TYPE_ADMINISTRATEUR));
 		new MenuPrincipalAdmin(ATEST);
 	}
 }

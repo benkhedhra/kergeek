@@ -20,6 +20,15 @@ public class Utilisateur {
 
 	//Constructeurs
 
+	
+
+	public Utilisateur(Compte compte) {
+		super();
+		this.setCompte(compte);
+		this.setBloque(false);
+		this.setVelo(null);
+	}
+	
 	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
 		super();
 		this.setCompte(compte);
@@ -30,7 +39,8 @@ public class Utilisateur {
 		this.setVelo(null);
 	}
 	
-	public Utilisateur(Compte compte, String nom, String prenom) {
+	/*
+	 public Utilisateur(Compte compte, String nom, String prenom) {
 		super();
 		this.setCompte(compte);
 		this.setNom(nom);
@@ -38,14 +48,9 @@ public class Utilisateur {
 		this.setBloque(false);
 		this.setVelo(null);
 	}
+	*/
 
 	
-	public Utilisateur(Compte compte) {
-		super();
-		this.setCompte(compte);
-		this.setBloque(false);
-		this.setVelo(null);
-	}
 
 
 
