@@ -1,13 +1,16 @@
 package gestionBaseDeDonnees;
 
+import exception.PasDansLaBaseDeDonneeException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import metier.Garage;
 import metier.Lieu;
 import metier.Station;
-import metier.Garage;
-import exception.PasDansLaBaseDeDonneeException;
 
 public class DAOLieu {
 
@@ -22,7 +25,7 @@ public class DAOLieu {
 
 			lieu = (Station) new Station();
 
-			ConnexionOracleViaJdbc.getC();
+			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
 			ResultSet res = s.executeQuery("Select adresse, capacite from Lieu Where idLieu ='" + identifiant+"'");
@@ -39,9 +42,43 @@ public class DAOLieu {
 				System.out.println("Erreur d'identifiant");
 				lieu = null;
 			}
+			finally{
+				ConnexionOracleViaJdbc.fermer();
+			}
 		}
 
 		return lieu;
 	}
+	
+	
+	public static List<Station> getAllStation() throws SQLException, ClassNotFoundException {
+		ArrayList<Station> liste = new ArrayList<Station>();
+
+			Station station = (Station) new Station();
+
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			ResultSet res = s.executeQuery("Select* from Lieu");
+			try {
+				if (res.next()) {
+					station = (Station) DAOLieu.getLieuById(res.getString("idLieu"));
+					liste.add(station);
+				}
+				else {
+					throw new SQLException("pas de station");
+				}
+			}
+			catch(SQLException e1){
+				liste = null;
+				ConnexionOracleViaJdbc.fermer();
+			}
+			finally{
+				ConnexionOracleViaJdbc.fermer();
+			}
+
+		return liste;
+	}
+
 
 }

@@ -92,9 +92,6 @@ public class Administrateur {
 	
 	public Compte creerCompte() throws SQLException, ClassNotFoundException {
 		Compte c = new Compte();
-		/*TODO 
-		 * COMMENT GENERER LES IDENTIFIANT EN SQL?
-		 */
 		DAOCompte.createCompte(compte);
 		return c;
 	}

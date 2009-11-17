@@ -19,7 +19,7 @@ public class LancerAppliUtil {
 		//FenetreAuthentificationUtil f1 = new FenetreAuthentificationUtil(false);
 		//MenuUtilisateur m1 = new MenuUtilisateur(UTEST);
 		//FenetreEmpruntCourt f2 = new FenetreEmpruntCourt(UTEST);
-		FenetreRendreVelo f = new FenetreRendreVelo(UTEST);
+		new FenetreEmprunterVelo(UTEST);
 
 	}
 }

@@ -16,11 +16,11 @@ public class DAOCompte {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL From dual");
+			ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL from dual");
 			if (res.next()){
 				String id = res.getString("dummy");
 				compte.setId(compte.getTypeLettre() + id);
-				/**TODO
+				/*TODO
 				 * a verifier...
 				 */
 			}
@@ -35,7 +35,6 @@ public class DAOCompte {
 					+ compte.getAdresseEmail()
 					+ "')");
 			effectue=true;
-			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());

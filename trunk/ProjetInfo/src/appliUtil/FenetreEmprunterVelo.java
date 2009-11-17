@@ -75,7 +75,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		this.getContentPane().add(boutonValider,BorderLayout.SOUTH);
-
+		this.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {

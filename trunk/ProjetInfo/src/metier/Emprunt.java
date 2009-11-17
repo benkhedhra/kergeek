@@ -132,10 +132,6 @@ public class Emprunt {
 			int rep = Integer.parseInt(sc.next());
 			if (rep == 1){
 				DemandeIntervention ddeIntervention = new DemandeIntervention(velo,utilisateur);
-				/*TODO 
-				 * COMMENT GENERER LES IDENTIFIANT EN SQL?
-				 * ddeIntervention.setId();
-				 */
 				DAODemandeIntervention.createDemandeIntervention(ddeIntervention);
 				acceptee = true;
 			}
