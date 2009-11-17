@@ -27,8 +27,6 @@ public class Garage extends Lieu{
 
 	@Override
 	public void setAdresse(String adresse) {
-		// TODO Auto-generated method stub
-		super.setAdresse(adresse);
 	}
 
 	@Override
