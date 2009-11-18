@@ -1,4 +1,4 @@
-package appliUtil;
+package ihm.appliUtil;
 
 import java.awt.Graphics;
 import java.awt.Image;

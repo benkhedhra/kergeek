@@ -1,4 +1,4 @@
-package appliUtil;
+package ihm.appliUtil;
 
 import metier.Compte;
 import metier.Utilisateur;

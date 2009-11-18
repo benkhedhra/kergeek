@@ -1,4 +1,4 @@
-package appliUtil;
+package ihm.appliUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

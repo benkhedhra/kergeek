@@ -1,4 +1,4 @@
-package appliUtil;
+package ihm.appliUtil;
 
 import ihm.MsgBox;
 
