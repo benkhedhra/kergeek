@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,11 +12,19 @@ public class DAODemandeIntervention {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("INSERT into DemandeIntervention values ('" 
-					+ UtilitaireDate.dateCourante() + "', '"+ ddeIntervention.getVelo().getId() + "', '" 
-					+ ddeIntervention.getUtilisateur().getCompte().getId() + "')");
-			ConnexionOracleViaJdbc.fermer();
-			effectue=true;
+			ResultSet res = s.executeQuery("Select seqDemandeIntervention.NEXTVAL from dual");
+			if (res.next()){
+				String id = res.getString("dummy");
+				/*TODO
+				 * a verifier...
+				 */
+
+				s.executeUpdate("INSERT into DemandeIntervention values ('" 
+						+ id + "', '"+ UtilitaireDate.dateCourante() + "', '"+ ddeIntervention.getVelo().getId() + "', '" 
+						+ ddeIntervention.getUtilisateur().getCompte().getId() + "')");
+				ConnexionOracleViaJdbc.fermer();
+				effectue=true;
+			}
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());

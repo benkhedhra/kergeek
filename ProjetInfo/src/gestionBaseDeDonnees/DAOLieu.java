@@ -2,6 +2,8 @@ package gestionBaseDeDonnees;
 
 import exception.PasDansLaBaseDeDonneeException;
 
+import ihm.appliUtil.FenetreEmprunterVelo;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,11 +30,12 @@ public class DAOLieu {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-			ResultSet res = s.executeQuery("Select adresse, capacite from Lieu Where idLieu ='" + identifiant+"'");
+			ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant+"'");
 			try {
 				if (res.next()) {
 					lieu.setId(identifiant);
 					lieu.setCapacite(res.getInt("capacite"));
+					lieu.setAdresse(res.getString("adresseLieu"));
 				}
 				else {
 					throw new PasDansLaBaseDeDonneeException();
@@ -61,16 +64,19 @@ public class DAOLieu {
 
 		ResultSet res = s.executeQuery("Select* from Lieu");
 		try {
-			if (res.next()) {
+			boolean vide=true;
+			while(res.next()) {
+				vide = false;
 				station = (Station) DAOLieu.getLieuById(res.getString("idLieu"));
 				liste.add(station);
 			}
-			else {
+			if(vide) {
 				throw new SQLException("pas de station");
 			}
 		}
 		catch(SQLException e1){
 			liste = null;
+			System.out.println(e1.getMessage());
 			ConnexionOracleViaJdbc.fermer();
 		}
 		finally{
