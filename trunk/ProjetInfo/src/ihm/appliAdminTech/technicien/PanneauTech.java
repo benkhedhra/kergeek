@@ -1,4 +1,4 @@
-package technicien;
+package ihm.appliAdminTech.technicien;
 
 import ihm.MsgBox;
 

@@ -1,4 +1,6 @@
-package administrateur;
+package ihm.appliAdminTech.administrateur;
+
+import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,7 +19,6 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
-import appliUtil.FenetreAuthentificationUtil;
 
 public class FenetreCreationCompteAdmin extends JFrame implements ActionListener {
 

@@ -1,6 +1,9 @@
-package appliAdminTech;
+package ihm.appliAdminTech;
 
 import ihm.MsgBox;
+import ihm.appliAdminTech.administrateur.PanneauAdmin;
+import ihm.appliAdminTech.technicien.PanneauTech;
+import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,9 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Compte;
-import technicien.PanneauTech;
-import administrateur.PanneauAdmin;
-import appliUtil.FenetreAuthentificationUtil;
 
 public class FenetreConfirmation extends JFrame implements ActionListener {
 

@@ -1,4 +1,6 @@
-package administrateur;
+package ihm.appliAdminTech.administrateur;
+
+import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,8 +15,6 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
-import appliAdminTech.FenetreConfirmation;
-import appliUtil.FenetreAuthentificationUtil;
 
 public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 

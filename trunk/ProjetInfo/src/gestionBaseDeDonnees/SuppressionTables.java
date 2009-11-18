@@ -8,9 +8,7 @@ public class SuppressionTables {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		/*TODO
-		 * COMMENT GENERER LES IDENTIFIANTS EN SQL?
-		 */
+
 		try{
 			s.executeUpdate("DROP TABLE Emprunt");
 			s.executeUpdate("DROP SEQUENCE seqEmprunt");
@@ -33,10 +31,10 @@ public class SuppressionTables {
 			
 			System.out.println("Suppression effectuee.");
 		}
-		catch (SQLException e){
+		/*catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();
 			System.out.println(e.getMessage());
-		}
+		}*/
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

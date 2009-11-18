@@ -1,4 +1,4 @@
-package administrateur;
+package ihm.appliAdminTech.administrateur;
 
 import java.awt.Graphics;
 import java.awt.Image;

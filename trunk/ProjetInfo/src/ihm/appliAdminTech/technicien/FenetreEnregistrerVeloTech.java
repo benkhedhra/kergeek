@@ -1,6 +1,6 @@
-package technicien;
+package ihm.appliAdminTech.technicien;
 
-import gestionBaseDeDonnees.DAOVelo;
+import ihm.appliAdminTech.FenetreAuthentification;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,11 +12,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import appliAdminTech.FenetreAuthentification;
-
-import metier.Administrateur;
 import metier.Technicien;
 import metier.Velo;
 

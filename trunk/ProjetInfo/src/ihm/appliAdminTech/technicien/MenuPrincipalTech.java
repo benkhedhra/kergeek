@@ -1,8 +1,6 @@
-package technicien;
+package ihm.appliAdminTech.technicien;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
+import ihm.appliAdminTech.FenetreAuthentification;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,9 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Technicien;
-import appliAdminTech.FenetreAuthentification;
-import appliUtil.FenetreEmprunterVelo;
-import appliUtil.FenetreRendreVelo;
 
 public class MenuPrincipalTech extends JFrame implements ActionListener {
 

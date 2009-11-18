@@ -1,6 +1,11 @@
-package appliAdminTech;
+package ihm.appliAdminTech;
 
 import gestionBaseDeDonnees.UtilitaireSQL;
+import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
+import ihm.appliAdminTech.technicien.MenuPrincipalTech;
+import ihm.appliUtil.FenetreAuthentificationUtil;
+import ihm.appliUtil.LancerAppliUtil;
+import ihm.appliUtil.Panneau;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,16 +23,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import technicien.MenuPrincipalTech;
-
 import metier.Administrateur;
 import metier.Compte;
 import metier.Technicien;
 import metier.Utilisateur;
-import administrateur.MenuPrincipalAdmin;
-import appliUtil.FenetreAuthentificationUtil;
-import appliUtil.LancerAppliUtil;
-import appliUtil.Panneau;
 
 public class FenetreAuthentification extends JFrame implements ActionListener {
 
