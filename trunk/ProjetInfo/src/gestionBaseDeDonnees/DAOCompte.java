@@ -83,14 +83,14 @@ public class DAOCompte {
 		ConnexionOracleViaJdbc.getC();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseEmail from Compte Where idCompte ='" + identifiant + "'");
+		ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
 		try {
 			if (res.next()) {
 				compte.setId(identifiant);
 				compte.setMotDePasse(res.getString("motDePasse"));
 				compte.setActif(res.getBoolean("actif"));
 				compte.setType(res.getInt("type"));
-				compte.setAdresseEmail(res.getString("adresseEmail"));
+				compte.setAdresseEmail(res.getString("adresseMail"));
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException();
@@ -106,10 +106,10 @@ public class DAOCompte {
 	public static Compte getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
 		Compte compte = new Compte();
 
-		ConnexionOracleViaJdbc.getC();
+		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idCompte, motDePasse, actif, type from Compte Where AdresseEmail ='" + email + "'");
+		ResultSet res = s.executeQuery("Select idCompte, motDePasse, actif, type from Compte Where AdresseMail ='" + email + "'");
 		try {
 			if (res.next()) {
 				compte.setAdresseEmail(email);
@@ -125,8 +125,17 @@ public class DAOCompte {
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'adresse email");
 		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
 		return compte;
 	}
 
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
+		Compte compte = getCompteByAdresseEmail("kergeek@gmail.com");
+		System.out.println(compte.getId());
+
+	}
 
 }

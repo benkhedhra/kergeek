@@ -25,7 +25,9 @@ public class SuppressionTables {
 			s.executeUpdate("DROP TABLE Lieu");
 			s.executeUpdate("DROP SEQUENCE seqLieu");
 			s.executeUpdate("DROP TABLE Compte");
-			s.executeUpdate("DROP SEQUENCE seqCompte");
+			s.executeUpdate("DROP SEQUENCE seqTechnicien");
+			s.executeUpdate("DROP SEQUENCE seqUtilisateur");
+			s.executeUpdate("DROP SEQUENCE seqAdministrateur");
 
 			s.executeUpdate("COMMIT");
 			

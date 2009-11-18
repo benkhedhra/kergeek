@@ -18,8 +18,8 @@ public abstract class Lieu {
 
 	public static final int TYPE_STATION=1;
 	public static final int TYPE_GARAGE=2;
-	public static final String ID_GARAGE="";
-	public static final String ADRESSE_GARAGE="";
+	public static final String ID_GARAGE="0";
+	public static final String ADRESSE_GARAGE="pool de velo";
 	public static final int CAPACITE_GARAGE=1000;
 	public static final Lieu SORTI = null;
 
