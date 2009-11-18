@@ -18,10 +18,19 @@ public class DAOVelo {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("INSERT into Velo values ('" 
-					+ velo.getId() + "', '"+ velo.getLieu().getId() + velo.getEmprunt().getId() + "')");
-			effectue=true;
-			ConnexionOracleViaJdbc.fermer();
+			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL from dual");
+			if (res.next()){
+				String id = res.getString("dummy");
+				velo.setId(id);
+
+				/*TODO
+				 * a verifier...
+				 */
+
+				s.executeUpdate("INSERT into Velo values ('" 
+						+ velo.getId() + "', '"+ velo.getLieu().getId() + velo.getEmprunt().getId() + "')");
+				effectue=true;
+			}
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());

@@ -31,7 +31,6 @@ public class Station extends Lieu {
 	//Methodes
 
 	public int calculerTx(String idStation) throws SQLException, ClassNotFoundException{
-		
 		int nbVelo = DAOVelo.getVeloByLieu(this).size();
 		int a = nbVelo/this.getCapacite();
 		return a;
