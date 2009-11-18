@@ -2,8 +2,6 @@ package gestionBaseDeDonnees;
 
 import exception.PasDansLaBaseDeDonneeException;
 
-import ihm.appliUtil.FenetreEmprunterVelo;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,6 +49,52 @@ public class DAOLieu {
 		}
 
 		return lieu;
+	}
+
+
+
+	public static boolean createLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			if (lieu.getType() == Lieu.TYPE_GARAGE){
+				s.executeUpdate("INSERT into Lieu values ('" 
+						+ Garage.ID_GARAGE + "', '" 
+						+ Garage.ADRESSE_GARAGE + "', '" 
+						+ Garage.CAPACITE_GARAGE + "', '" 
+						+ Garage.TYPE_GARAGE
+						+ "')");
+				effectue=true;
+			}
+			else{
+				ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL from dual");
+				if (res.next()){
+					String id = res.getString("dummy");
+					lieu.setId(id);
+					/*TODO
+					 * a verifier...
+					 */
+				}
+				else{
+					throw new SQLException("probleme de sequence");
+				}
+				s.executeUpdate("INSERT into Lieu values ('" 
+						+ lieu.getId() + "', '" 
+						+ lieu.getAdresse() + "', '" 
+						+ lieu.getCapacite() + "', '" 
+						+ Lieu.TYPE_STATION 
+						+ "')");
+				effectue=true;
+			}
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return effectue;
 	}
 
 

@@ -80,7 +80,7 @@ public class DAOCompte {
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException {
 		Compte compte = new Compte();
 
-		ConnexionOracleViaJdbc.getC();
+		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
@@ -98,6 +98,9 @@ public class DAOCompte {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return compte;
 	}
@@ -129,13 +132,6 @@ public class DAOCompte {
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return compte;
-	}
-
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-		Compte compte = getCompteByAdresseEmail("kergeek@gmail.com");
-		System.out.println(compte.getId());
-
 	}
 
 }

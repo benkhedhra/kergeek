@@ -15,10 +15,15 @@ public class DAODemandeIntervention {
 			ResultSet res = s.executeQuery("Select seqDemandeIntervention.NEXTVAL from dual");
 			if (res.next()){
 				String id = res.getString("dummy");
+				
 				/*TODO
 				 * a verifier...
 				 */
-
+				
+				/*TODO
+				 * ddeIntervention.setId(id); a-t-on besoin d'un id en java?
+				 */
+				
 				s.executeUpdate("INSERT into DemandeIntervention values ('" 
 						+ id + "', '"+ UtilitaireDate.dateCourante() + "', '"+ ddeIntervention.getVelo().getId() + "', '" 
 						+ ddeIntervention.getUtilisateur().getCompte().getId() + "')");
