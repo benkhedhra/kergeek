@@ -88,10 +88,6 @@ public class Technicien {
 	
 	public Velo enregistrerVelo() throws SQLException, ClassNotFoundException{
 		Velo velo = new Velo();
-		/*TODO 
-		 * COMMENT GENERER LES IDENTIFIANT EN SQL?
-		 *velo.setId();
-		 */
 		velo.setEnPanne(false);
 		velo.setLieu(Garage.getInstance());
 		DAOVelo.createVelo(velo);
