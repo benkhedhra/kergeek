@@ -1,56 +1,51 @@
 package metier;
 
-public final class TypeIntervention {
-	
-	/*TODO
-	 * Une HashMap c'est mieux!!
-	 */
-	
+import gestionBaseDeDonnees.DAOTypeIntervention;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+public class TypeIntervention {
+
 	//Attributs
-	
-	private int type;
-	private String description;
-	
-	
+
+	private Map<Integer,String> typeIntervention;
+
+
 	//Constructeur
-	
-	public TypeIntervention(int numero, String description) {
+
+	public TypeIntervention() throws SQLException, ClassNotFoundException {
 		super();
-		this.type = numero;
-		this.description = description;
+		Map<Integer,String> typeIntervention = DAOTypeIntervention.getAllTypeIntervention();
+		this.setTypeIntervention(typeIntervention);
 	}
 
 
 	//Accesseurs
-	
-	public int getType() {
+
+	public Map<Integer,String> getTypeIntervention() {
+		return typeIntervention;
+	}
+
+
+	public void setTypeIntervention(Map<Integer,String> typeIntervention) {
+		this.typeIntervention = typeIntervention;
+	}
+
+	//Methodes
+
+	public int getType(String description) {
+		int type = 0;
+		for (int cle : this.getTypeIntervention().keySet()) {
+			if(this.getTypeIntervention().get(cle) == description){
+				type = cle;
+			}
+		}
 		return type;
 	}
 
-
-	public void setType(int numero) {
-		this.type = numero;
+	public String getDescription(int type) {
+		return this.getTypeIntervention().get(type);
 	}
-
-
-	public String getDescription() {
-		return description;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-
-	
-	//Methodes
-	
-	@Override
-	public String toString() {
-		return Integer.toString(this.getType());
-	}
-	
 
 }
