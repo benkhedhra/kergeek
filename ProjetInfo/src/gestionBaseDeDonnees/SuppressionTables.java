@@ -20,14 +20,15 @@ public class SuppressionTables {
 			s.executeUpdate("DROP SEQUENCE seqTypeIntervention");
 			s.executeUpdate("DROP TABLE DemandeIntervention");
 			s.executeUpdate("DROP SEQUENCE seqDemandeIntervention");
-			s.executeUpdate("DROP TABLE Velo");
-			s.executeUpdate("DROP SEQUENCE seqVelo");
-			s.executeUpdate("DROP TABLE Lieu");
-			s.executeUpdate("DROP SEQUENCE seqLieu");
 			s.executeUpdate("DROP TABLE Compte");
 			s.executeUpdate("DROP SEQUENCE seqTechnicien");
 			s.executeUpdate("DROP SEQUENCE seqUtilisateur");
 			s.executeUpdate("DROP SEQUENCE seqAdministrateur");
+			s.executeUpdate("DROP TABLE Velo");
+			s.executeUpdate("DROP SEQUENCE seqVelo");
+			s.executeUpdate("DROP TABLE Lieu");
+			s.executeUpdate("DROP SEQUENCE seqLieu");
+			
 
 			s.executeUpdate("COMMIT");
 			

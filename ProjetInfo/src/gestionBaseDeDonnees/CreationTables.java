@@ -25,23 +25,6 @@ public class CreationTables {
 		 */
 		try{
 
-			s.executeUpdate ("CREATE SEQUENCE seqAdministrateur INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
-			s.executeUpdate ("CREATE SEQUENCE seqUtilisateur INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
-			s.executeUpdate ("CREATE SEQUENCE seqTechnicien INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
-
-			s.executeUpdate(
-					"CREATE TABLE Compte (idCompte char(4),	"+
-					"motDePasse varchar2(20),"+
-					"nom char(20) NOT NULL,"+
-					"prenom char(20),"+
-					"adressePostale varchar2(250),"+
-					"adresseMail varchar2(30),"+
-					"actif number,"+
-					"bloque number,"+
-					"type number(1),"+
-			"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte))");
-
-
 			s.executeUpdate (
 			"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
@@ -59,6 +42,25 @@ public class CreationTables {
 					"idLieu char(4),"+
 					"CONSTRAINT pk_Velo  PRIMARY KEY(idVelo),"+
 			"CONSTRAINT fk_Velo_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
+
+
+			s.executeUpdate ("CREATE SEQUENCE seqAdministrateur INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
+			s.executeUpdate ("CREATE SEQUENCE seqUtilisateur INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
+			s.executeUpdate ("CREATE SEQUENCE seqTechnicien INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
+			s.executeUpdate(
+					"CREATE TABLE Compte (idCompte char(4),	"+
+					"motDePasse varchar2(20),"+
+					"nom char(20) NOT NULL,"+
+					"prenom char(20),"+
+					"adressePostale varchar2(250),"+
+					"adresseMail varchar2(30),"+
+					"actif number,"+
+					"bloque number,"+
+					"type number(1),"+
+					"idVelo char(4),"+
+					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte)"+
+			"CONSTRAINT fk_Compte_Velo  FOREIGN KEY(idTypeIntervention) REFERENCES Velo)");
+
 
 			s.executeUpdate (
 			"CREATE SEQUENCE seqDemandeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
@@ -90,7 +92,7 @@ public class CreationTables {
 					"CONSTRAINT fk_Inter_TypeInter FOREIGN KEY(idTypeIntervention) REFERENCES TypeIntervention," +
 			"CONSTRAINT fk_Intervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo)");
 
-			
+
 			s.executeUpdate (
 			"CREATE SEQUENCE seqDemandeAssignation INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
@@ -102,7 +104,7 @@ public class CreationTables {
 					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemande),"+
 			"CONSTRAINT fk_DemandeAssignation_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
 
-			
+
 			s.executeUpdate (
 			"CREATE SEQUENCE seqEmprunt INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
@@ -117,7 +119,7 @@ public class CreationTables {
 					"CONSTRAINT fk_Emprunt_Compte FOREIGN KEY(idCompte) REFERENCES Compte," +
 					"CONSTRAINT fk_Emprunt_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
 					"CONSTRAINT fk_Emprunt_LieuEmprunt FOREIGN KEY(idLieuEmprunt) REFERENCES Lieu)," + 
-					"CONSTRAINT fk_Emprunt_LieuRetour FOREIGN KEY(idLieuRetour) REFERENCES Lieu)");
+			"CONSTRAINT fk_Emprunt_LieuRetour FOREIGN KEY(idLieuRetour) REFERENCES Lieu)");
 
 			s.executeUpdate("COMMIT");
 
@@ -126,20 +128,20 @@ public class CreationTables {
 
 
 			// Insertion administrateur
-			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','Ker','Geek','Ensai 35 172 Bruz', 'kergeek@gmail.com', '1', '0','1')");
+			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1')");
 
 
 			// Insertion utilisateurs
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 75 001 Paris', 'franckyvincent@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 17 000 La Rochelle', 'mathieuchedid@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 34 000 Sete', 'georgesbrassens@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 13 000 Marseille', 'bobmarley@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 06 400 Cannes', 'parishilton@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 75 001 Paris', 'franckyvincent@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 17 000 La Rochelle', 'mathieuchedid@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 34 000 Sete', 'georgesbrassens@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 13 000 Marseille', 'bobmarley@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 06 400 Cannes', 'parishilton@gmail.com', '1', '0','3','')");
 
 
 			// Insertion techniciens
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'chacal','Repartout','Didier','45 boulevard du cambouis 59 000 Lille', 'didierrepartout@gmail.com', '1', '0','2')");
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'castor','Debrouille','Jacky','26 allée de la vidange 57 000 Metz', 'jackydebrouille@gmail.com', '1', '0','2')");
+			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2')");
+			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2')");
 
 
 			// Insertion lieus
@@ -148,17 +150,17 @@ public class CreationTables {
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'ENSAI','10')");
 			DAOLieu.createLieu(Garage.getInstance());
 			s.executeUpdate("COMMIT");
-			
+
 			// Insertion velo
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'3')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Garage.ID_GARAGE + "')");
 
-			
+
 			//Insertion demande intervention
 			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1'"+")");
 			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u3'"+")");
-			
+
 
 			//Insertion types interventions
 			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'1','pneu creve')");
@@ -169,13 +171,13 @@ public class CreationTables {
 			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'5','frein')");
 			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'6','autres')");
 
-			
+
 			//Insertion interventions
 			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'1')");
 			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('19-12-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'1')");
 			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-09-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'6',"+"'2')");
 
-			
+
 			//Insertion demandes assignation
 			s.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('23-11-2009 15:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'5',"+"'1'"+")");
 			s.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'2'"+")");
@@ -183,14 +185,14 @@ public class CreationTables {
 
 			//Insertion emprunts
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"
-			+"TO_DATE('01-09-2009 9:21','DD-MM-YYYY HH24:MI')," 
-			+"TO_DATE('01-09-2009 9:45','DD-MM-YYYY HH24:MI'),"
-			+"'2','1','u1','1')");
+					+"TO_DATE('01-09-2009 9:21','DD-MM-YYYY HH24:MI')," 
+					+"TO_DATE('01-09-2009 9:45','DD-MM-YYYY HH24:MI'),"
+					+"'2','1','u1','1')");
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('05-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('05-09-2009 9:45','DD-MM-YYYY HH24:MI'), '3','3','u2','2')");
 			s.executeUpdate("COMMIT");
 			System.out.println("Update effectuee.");
-			
+
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());

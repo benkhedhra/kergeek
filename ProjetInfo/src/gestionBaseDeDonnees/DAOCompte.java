@@ -29,10 +29,14 @@ public class DAOCompte {
 			}
 			s.executeUpdate("INSERT into Velo values ('" 
 					+ compte.getId() + "', '" 
-					+ compte.getMotDePasse() + "', '" 
-					+ compte.isActif() + "', '" 
+					+ compte.getMotDePasse() + "', '"
+					+ "'',"
+					+ "'',"
+					+ "'',"
+					+ compte.getAdresseEmail() + "', '"
+					+ compte.isActif() + "', '"
+					+ "'',"
 					+ compte.getType() + "', '" 
-					+ compte.getAdresseEmail()
 					+ "')");
 			effectue=true;
 		}
@@ -58,7 +62,7 @@ public class DAOCompte {
 			s.executeUpdate("UPDATE Compte SET"  
 					+ "motDePasse = '" + compte.getMotDePasse() + "',"
 					+ "actif = '"+ compte.isActif() + "',"
-					+ "adresseEmail = '" + compte.getAdresseEmail() + "',"
+					+ "adresseMail = '" + compte.getAdresseEmail() + "',"
 					+ "' WHERE idCompte = '"+ compte.getId() + "'"
 			);
 			effectue=true;
