@@ -39,7 +39,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	private JButton bouton2 = new JButton("");
 	private JButton bouton3 = new JButton("");
 
-	public FenetreConfirmation(String msg,Compte c,JFrame fenetrePrec){
+	public FenetreConfirmation(Compte c,JFrame fenetrePrec){
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());
