@@ -68,7 +68,7 @@ public class CreationTables {
 					"idCompte char(4),"+
 					"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
 					"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
-			"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte)");
+			"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte,");
 
 			s.executeUpdate (
 			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
@@ -93,12 +93,12 @@ public class CreationTables {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqDemandeAssignation INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE DemandeAssignation (idDemande char(4),	"+
+					"CREATE TABLE DemandeAssignation (idDemandeA char(4),	"+
 					"dateAssignation date NOT NULL,"+
 					"ajout number,"+
 					"nombre number(2),"+
 					"idLieu char(4),"+
-					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemande),"+
+					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemandeA),"+
 			"CONSTRAINT fk_DemandeAssignation_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
 
 
@@ -141,11 +141,11 @@ public class CreationTables {
 			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1','')");
 
 			// Insertion utilisateurs
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 75 001 Paris', 'franckyvincent@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 17 000 La Rochelle', 'mathieuchedid@gmail.com', '1', '0','3','2')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 34 000 Sete', 'georgesbrassens@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 13 000 Marseille', 'bobmarley@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 06 400 Cannes', 'parishilton@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3','2')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3','')");
 
 			// Insertion techniciens
 			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2','')");
