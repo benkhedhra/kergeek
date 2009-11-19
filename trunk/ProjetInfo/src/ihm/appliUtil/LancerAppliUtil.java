@@ -18,7 +18,7 @@ public class LancerAppliUtil {
 		
 		//FenetreAuthentificationUtil f1 = new FenetreAuthentificationUtil(false);
 		//MenuUtilisateur m1 = new MenuUtilisateur(UTEST);
-		//FenetreEmpruntCourt f2 = new FenetreEmpruntCourt(UTEST);
+		//new FenetreEmpruntCourt(UTEST);
 		new FenetreEmprunterVelo(UTEST);
 
 	}
