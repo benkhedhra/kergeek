@@ -16,13 +16,14 @@ public class Station extends Lieu {
 	
 	
 	public Station() {
-		super();
-		this.setType(TYPE_STATION);
+	}
+	
+	public Station(String adresse,int capacite) {
+		this.setAdresse(adresse);
+		this.setCapacite(capacite);
 	}
 	
 	public Station(String id, String adresse,int capacite) {
-		super();
-		this.setType(TYPE_STATION);
 		this.setId(id);
 		this.setAdresse(adresse);
 		this.setCapacite(capacite);

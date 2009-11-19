@@ -34,10 +34,10 @@ public class SuppressionTables {
 			
 			System.out.println("Suppression effectuee.");
 		}
-		/*catch (SQLException e){
+		catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();
 			System.out.println(e.getMessage());
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

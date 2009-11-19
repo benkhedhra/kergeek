@@ -1,29 +1,29 @@
 package metier;
 
 
-/**La classe Garage est un peu particuliere car il n'existe qu'une seule instance du garage, qui ne 
- * peut etre modifiee (c'est pourquoi on override les setter et on utilise un constructeur prive
+/**La classe Garage est un peu particuliere (singleton) car il n'existe qu'une seule instance du garage, qui ne 
+ * peut etre modifiee (c'est pourquoi on override les setter et on utilise un constructeur prive)
  * 
  * @author boris
  *
  */
+
 public class Garage extends Lieu{
 
 	//Attributs
 
-	private static final Garage garage = new Garage();
+	private static Garage garage = null;
 	
 	//Constructeurs
 	
 	private Garage() {
-		super();
-		this.setType(TYPE_GARAGE);
-		this.setId(ID_GARAGE);
-		this.setAdresse(ADRESSE_GARAGE);
-		this.setCapacite(CAPACITE_GARAGE);
+		super.id = Lieu.ID_GARAGE;
+		super.adresse = Lieu.ADRESSE_GARAGE;
+		super.capacite = Lieu.CAPACITE_GARAGE;
 	}
 	
 	//Accesseurs
+
 
 	@Override
 	public void setAdresse(String adresse) {
@@ -37,13 +37,13 @@ public class Garage extends Lieu{
 	public void setId(String id) {
 	}
 
-	@Override
-	public void setType(int type) {
-	}
-	
+
 	//Methodes
 	
 	public static Garage getInstance(){
+		if (garage == null){
+			garage = new Garage();
+		}
 		return garage;
 	}
 

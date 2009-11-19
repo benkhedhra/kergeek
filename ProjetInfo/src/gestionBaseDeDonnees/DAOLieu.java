@@ -58,13 +58,12 @@ public class DAOLieu {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			if (lieu.getType() == Lieu.TYPE_GARAGE){
+			if (lieu.getId() == Lieu.ID_GARAGE){
 				s.executeUpdate("INSERT into Lieu values ('" 
 						+ Garage.ID_GARAGE + "', '" 
 						+ Garage.ADRESSE_GARAGE + "', '" 
-						+ Garage.CAPACITE_GARAGE + "', '" 
-						+ Garage.TYPE_GARAGE
-						+ "')");
+						+ Garage.CAPACITE_GARAGE+ "')"
+						);
 				effectue=true;
 			}
 			else{
@@ -82,8 +81,7 @@ public class DAOLieu {
 				s.executeUpdate("INSERT into Lieu values ('" 
 						+ lieu.getId() + "', '" 
 						+ lieu.getAdresse() + "', '" 
-						+ lieu.getCapacite() + "', '" 
-						+ Lieu.TYPE_STATION 
+						+ lieu.getCapacite() + "', '"
 						+ "')");
 				effectue=true;
 			}
