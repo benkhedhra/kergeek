@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import metier.Garage;
+import metier.Lieu;
 
 public class CreationTables {
 
@@ -49,8 +50,8 @@ public class CreationTables {
 			s.executeUpdate ("CREATE SEQUENCE seqTechnicien INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Compte (idCompte char(4),	"+
-					"motDePasse varchar2(20),"+
-					"nom char(20) NOT NULL,"+
+					"motDePasse varchar2(20) NOT NULL,"+
+					"nom char(20),"+
 					"prenom char(20),"+
 					"adressePostale varchar2(250),"+
 					"adresseMail varchar2(30),"+
@@ -58,8 +59,8 @@ public class CreationTables {
 					"bloque number,"+
 					"type number(1),"+
 					"idVelo char(4),"+
-					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte)"+
-			"CONSTRAINT fk_Compte_Velo  FOREIGN KEY(idTypeIntervention) REFERENCES Velo)");
+					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte),"+
+			"CONSTRAINT fk_Compte_Velo  FOREIGN KEY(idVelo) REFERENCES Velo)");
 
 
 			s.executeUpdate (
@@ -111,39 +112,21 @@ public class CreationTables {
 					"CREATE TABLE Emprunt (idEmprunt char(4)," +
 					"dateEmprunt date NOT NULL," +
 					"dateRetour date NOT NULL, "+
-					"idlieuEmprunt char(4) NOT NULL," +
-					"idlieuRetour char(4) NOT NULL, "+
+					"idLieuEmprunt char(4) NOT NULL," +
+					"idLieuRetour char(4) NOT NULL, "+
 					"idCompte char(4),"+
 					"idVelo char(4),"+
 					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt),"+
 					"CONSTRAINT fk_Emprunt_Compte FOREIGN KEY(idCompte) REFERENCES Compte," +
 					"CONSTRAINT fk_Emprunt_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
-					"CONSTRAINT fk_Emprunt_LieuEmprunt FOREIGN KEY(idLieuEmprunt) REFERENCES Lieu)," + 
-			"CONSTRAINT fk_Emprunt_LieuRetour FOREIGN KEY(idLieuRetour) REFERENCES Lieu)");
+					"CONSTRAINT fk_Emprunt_LieuEmprunt FOREIGN KEY(idLieuEmprunt) REFERENCES Lieu (idLieu)," + 
+			"CONSTRAINT fk_Emprunt_LieuRetour FOREIGN KEY(idLieuRetour) REFERENCES Lieu (idLieu))");
 
 			s.executeUpdate("COMMIT");
 
 			System.out.println("Base creee");
 
-
-
-			// Insertion administrateur
-			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1')");
-
-
-			// Insertion utilisateurs
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 75 001 Paris', 'franckyvincent@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 17 000 La Rochelle', 'mathieuchedid@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 34 000 Sete', 'georgesbrassens@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 13 000 Marseille', 'bobmarley@gmail.com', '1', '0','3','')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 06 400 Cannes', 'parishilton@gmail.com', '1', '0','3','')");
-
-
-			// Insertion techniciens
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2')");
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2')");
-
-
+			
 			// Insertion lieus
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Gare du Campus','15')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Forum du Campus','10')");
@@ -151,10 +134,26 @@ public class CreationTables {
 			DAOLieu.createLieu(Garage.getInstance());
 			s.executeUpdate("COMMIT");
 
+			
 			// Insertion velo
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'3')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Garage.ID_GARAGE + "')");
+			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
+
+			
+			// Insertion administrateur
+			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1','')");
+
+			// Insertion utilisateurs
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 75 001 Paris', 'franckyvincent@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 17 000 La Rochelle', 'mathieuchedid@gmail.com', '1', '0','3','2')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 34 000 Sete', 'georgesbrassens@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 13 000 Marseille', 'bobmarley@gmail.com', '1', '0','3','')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 06 400 Cannes', 'parishilton@gmail.com', '1', '0','3','')");
+
+			// Insertion techniciens
+			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2','')");
+			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2','')");
 
 
 			//Insertion demande intervention
