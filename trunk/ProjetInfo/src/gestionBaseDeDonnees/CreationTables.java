@@ -19,11 +19,7 @@ public class CreationTables {
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		/*TODO
-		 * Il nous manque la table Utilisateur
-		 *
-		 */
+		
 		try{
 
 			s.executeUpdate (
