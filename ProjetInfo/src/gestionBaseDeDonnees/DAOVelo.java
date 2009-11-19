@@ -21,6 +21,7 @@ public class DAOVelo {
 			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL from dual");
 			if (res.next()){
 				String id = res.getString("dummy");
+				System.out.println("coucou");
 				velo.setId(id);
 
 				/*TODO
@@ -47,11 +48,11 @@ public class DAOVelo {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Velo SET"
-					+ "idLieu = '" + velo.getId() + "',"
+					+ "idVelo = '" + velo.getId() + "',"
 					+ "enPanne = '" + velo.isEnPanne() + "',"
 					+ "idLieu = '" + velo.getLieu().getId() + "',"
 					+ "idEmprunt = '" + velo.getEmprunt().getId() + "'"
-					+ "' WHERE idVelo = '"+ velo.getId() + "'"
+					+ "WHERE idVelo = '"+ velo.getId() + "'"
 			);	
 			ConnexionOracleViaJdbc.fermer();
 		}
