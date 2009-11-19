@@ -68,13 +68,12 @@ public class CreationTables {
 					"idCompte char(4),"+
 					"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
 					"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
-			"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte,");
+			"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte)");
 
 			s.executeUpdate (
 			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE TypeIntervention (idTypeIntervention char(4)," +
-					"numero number(2)," +
 					"description char(250)," +
 			"CONSTRAINT pk_TypeIntervention  PRIMARY KEY(idTypeIntervention))");
 
@@ -158,13 +157,12 @@ public class CreationTables {
 
 
 			//Insertion types interventions
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'1','pneu creve')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'1','pneu creve')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'2','selle')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'3','pedale')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'4','deraillement')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'5','frein')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'6','autres')");
+			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pneu creve')");
+			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'selle manquante')");
+			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pedale cassee')");
+			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'deraillement')");
+			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
+			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
 
 
 			//Insertion interventions

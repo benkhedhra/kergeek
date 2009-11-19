@@ -19,7 +19,7 @@ public class DAOTypeIntervention {
 			boolean vide = true;
 			while (res.next()) {
 				vide = false;
-				typeIntervention.put((res.getInt("numero")),(res.getString("descritpion")));
+				typeIntervention.put((res.getInt("idTypeIntervention")),(res.getString("descritpion")));
 			}
 			if(vide){
 				throw new SQLException("pas de type d'intervention reference");
@@ -27,7 +27,6 @@ public class DAOTypeIntervention {
 		}
 		catch(SQLException e1){
 			typeIntervention = null;
-			ConnexionOracleViaJdbc.fermer();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
