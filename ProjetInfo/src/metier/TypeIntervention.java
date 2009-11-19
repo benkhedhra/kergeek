@@ -35,13 +35,13 @@ public class TypeIntervention {
 	//Methodes
 
 	public int getType(String description) {
-		int type = 0;
+		int id = 0;
 		for (int cle : this.getTypeIntervention().keySet()) {
 			if(this.getTypeIntervention().get(cle) == description){
-				type = cle;
+				id = cle;
 			}
 		}
-		return type;
+		return id;
 	}
 
 	public String getDescription(int type) {
