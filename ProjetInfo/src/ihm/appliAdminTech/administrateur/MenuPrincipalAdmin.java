@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -105,21 +106,17 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		//la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
 
 		if(arg0.getSource()==boutonComptes){
-			MenuGererComptesAdmin m = new MenuGererComptesAdmin(this.getAdministrateur());
-			m.setVisible(true);
+			new MenuGererComptesAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonStats){
-			MenuDemanderStatsAdmin m = new MenuDemanderStatsAdmin(this.getAdministrateur());
-			m.setVisible(true);
+			new MenuDemanderStatsAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonEtat){
-			MenuVoirEtatAdmin m = new MenuVoirEtatAdmin(this.getAdministrateur());
-			m.setVisible(true);
+			new MenuVoirEtatAdmin(this.getAdministrateur());
 		}		
-		/*else if (arg0.getSource()==boutonDeconnexion){
-			FenetreConfirmation f = new FenetreConfirmation("Au revoir et à bientôt ! ");
-			f.setVisible(true);
-		}*/
+		else if (arg0.getSource()==boutonDeconnexion){
+			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+		}
 	}
 	
 	public static void main (String [] args){

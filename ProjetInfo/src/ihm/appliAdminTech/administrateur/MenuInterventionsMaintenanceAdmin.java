@@ -101,8 +101,7 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonRetour){
-			MenuPrincipalAdmin m = new MenuPrincipalAdmin(this.getAdministrateur());
-			m.setVisible(true);
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 		/*else if (arg0.getSource()==boutonHistorique){
 			new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
