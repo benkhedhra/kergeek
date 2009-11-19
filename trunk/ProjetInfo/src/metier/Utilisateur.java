@@ -18,6 +18,11 @@ public class Utilisateur {
 	private boolean bloque;
 	private Velo velo;
 
+	/*TODO
+	 * attribut emprunt? comment gerer les emprunts en cours?
+	 * je pense que velo est suffisant mais ˆ creuser
+	 */
+	
 	//Constructeurs
 
 	
