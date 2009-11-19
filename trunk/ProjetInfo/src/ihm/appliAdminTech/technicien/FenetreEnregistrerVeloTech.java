@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.appliAdminTech.FenetreAuthentification;
 
 import java.awt.BorderLayout;
@@ -57,10 +58,10 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		this.getContentPane().add(labelTech,BorderLayout.NORTH);
 		
 		Velo velo = new Velo();
-		//DAOVelo.createVelo(velo);
+		DAOVelo.createVelo(velo);
 
 		id.setFont(POLICE1);
-		//id.setText(velo.getId().toString());
+		id.setText(velo.getId());
 		this.getContentPane().add(id,BorderLayout.CENTER);
 
 		labelId.setFont(POLICE3);

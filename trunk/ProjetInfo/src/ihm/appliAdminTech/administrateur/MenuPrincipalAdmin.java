@@ -39,6 +39,9 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 	public MenuPrincipalAdmin(Administrateur a){
 
+
+		this.setAdministrateur(a);
+		
 		this.setContentPane(new PanneauAdmin());
 		System.out.println("Affichage du menu de l'administrateur");
 		//Définit un titre pour notre fenêtre
@@ -58,7 +61,6 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
-		this.setAdministrateur(a);
 
 			
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
