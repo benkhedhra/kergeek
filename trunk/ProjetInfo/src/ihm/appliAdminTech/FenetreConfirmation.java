@@ -1,7 +1,11 @@
 package ihm.appliAdminTech;
 
 import ihm.MsgBox;
+import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
+import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
+import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
+import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -16,7 +20,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.Compte;
+import metier.Technicien;
 
 public class FenetreConfirmation extends JFrame implements ActionListener {
 
@@ -24,7 +30,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	private Compte compte;
+	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
 	private JLabel labelConfirm = new JLabel("");
 	private JButton bouton1 = new JButton("");
@@ -32,14 +40,17 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	private JButton bouton3 = new JButton("");
 
 	public FenetreConfirmation(String msg,Compte c,JFrame fenetrePrec){
-		
+
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());
 		}
 		else if(c.getType()==Compte.TYPE_TECHNICIEN){
 			this.setContentPane(new PanneauTech());
 		}
-		
+
+		compte=c;
+		fenetrePrecedente=fenetrePrec;
+
 		this.setTitle("Ecran de confirmation");
 		this.setSize(700, 500);
 		this.setLocationRelativeTo(null);
@@ -55,7 +66,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,40));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -148,7 +159,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			south.add(bouton1);
 			south.add(bouton2);
 		}
-		
+
 		//situations possibles dans tous les cas : déconnexion
 		else if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
 			labelConfirm.setText("Au revoir et à bientôt ! ");
@@ -158,9 +169,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
-				}
-			new FenetreAuthentification(false);
 			}
+			new FenetreAuthentification(false);
+		}
 		labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
 		this.getContentPane().add(labelConfirm,BorderLayout.CENTER);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
@@ -169,7 +180,59 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		this.dispose();
+		if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){
+			if(arg0.getSource()==bouton1){
+				new FenetreCreationCompteAdmin(new Administrateur (compte));
+			}
+			else if (arg0.getSource()==bouton2){
+				new MenuPrincipalAdmin(new Administrateur (compte));
+			}
+		}
+		else if(fenetrePrecedente.getTitle().equals("Modification d'un compte")){
+			if(arg0.getSource()==bouton1){
+				//new FenetreRechercherCompteAdmin(new Administrateur (compte));
+			}
+			else if (arg0.getSource()==bouton2){
+				new MenuPrincipalAdmin(new Administrateur (compte));
+			}
+		}
+		else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
+			if(arg0.getSource()==bouton1){
+				//new FenetreEtatStation(new Administrateur (compte));
+			}
+			else if (arg0.getSource()==bouton2){
+				//new FenetreStationsSurSous(new Administrateur (compte));
+			}
+			else if (arg0.getSource()==bouton3){
+				new MenuPrincipalAdmin(new Administrateur (compte));
+			}
+		}
+		else if(fenetrePrecedente.getTitle().equals("Enregistrer un nouveau vélo")){
+			if(arg0.getSource()==bouton1){
+				//new FenetreEnregistrerVeloTech(new Technicien (compte));
+			}
+			else if (arg0.getSource()==bouton2){
+				new MenuPrincipalTech(new Technicien (compte));
+			}
+		}
+		else if(fenetrePrecedente.getTitle().equals("Retirer un vélo défectueux d'une station")){
+			if(arg0.getSource()==bouton1){
+				//new FenetreRetirerVeloTech(new Technicien (compte));
+			}
+			else if (arg0.getSource()==bouton2){
+				new MenuPrincipalTech(new Technicien (compte));
+			}
+		}
+		else if(fenetrePrecedente.getTitle().equals("Prendre en charge l'assignation")){
+			if(arg0.getSource()==bouton1){
+				//new FenetreGererUneDemandeTech(new Technicien (compte));
+			}
+			else if (arg0.getSource()==bouton2){
+				new MenuPrincipalTech(new Technicien (compte));
+			}
+		}
+
 	}
+
 }
