@@ -26,7 +26,7 @@ public class MainConnexionBdd {
 		 System.out.println(DAOLieu.createLieu(Garage.getInstance()));
 		 */
 		 
-		 Compte c =new Compte();
+		 Compte c =new Compte(2);
 		 System.out.println(c.getType());
 		 System.out.println(DAOCompte.createCompte(c));
 		 System.out.println(c.getId());
