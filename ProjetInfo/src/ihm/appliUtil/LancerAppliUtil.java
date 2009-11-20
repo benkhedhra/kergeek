@@ -16,10 +16,10 @@ public class LancerAppliUtil {
 
 		
 		
-		//FenetreAuthentificationUtil f1 = new FenetreAuthentificationUtil(false);
+		FenetreAuthentificationUtil f1 = new FenetreAuthentificationUtil(false);
 		//MenuUtilisateur m1 = new MenuUtilisateur(UTEST);
 		//new FenetreEmpruntCourt(UTEST);
-		new FenetreEmprunterVelo(UTEST);
+		//new FenetreEmprunterVelo(UTEST);
 
 	}
 }
