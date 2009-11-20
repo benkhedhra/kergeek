@@ -5,7 +5,7 @@ import java.util.Date;
 public class DemandeAssignation {
 	
 	private Date date;
-	private boolean ajout;
+	private boolean priseEnCharge;
 	private int nombreVelos;
 	private Lieu lieu;
 	
@@ -18,7 +18,7 @@ public class DemandeAssignation {
 	public DemandeAssignation(Date date, boolean ajout, int nombre, Lieu lieu) {
 		super();
 		this.setDate(date);
-		this.setAjout(ajout);
+		this.setPriseEnCharge(priseEnCharge);
 		this.setNombreVelos(nombre);
 		this.setLieu(lieu);
 	}
@@ -36,13 +36,13 @@ public class DemandeAssignation {
 	}
 
 
-	public boolean isAjout() {
-		return ajout;
+	public boolean isPriseEnCharge() {
+		return priseEnCharge;
 	}
 
 
-	public void setAjout(boolean ajout) {
-		this.ajout = ajout;
+	public void setPriseEnCharge(boolean priseEnCharge) {
+		this.priseEnCharge = priseEnCharge;
 	}
 
 

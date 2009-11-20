@@ -1,25 +1,26 @@
 package ihm.appliUtil;
 
-import gestionBaseDeDonnees.UtilitaireSQL;
+import gestionBaseDeDonnees.DAOCompte;
+
+import gestionBaseDeDonnees.DAOUtilisateur;
+import ihm.MsgBox;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import metier.Compte;
 import metier.Utilisateur;
-import statistiques.DiagrammeFreqStations;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
@@ -53,7 +54,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 		// on définit un BorderLayout
 		this.getContentPane().setLayout(new BorderLayout());
-		
+
 		labelBienvenue.setPreferredSize(new Dimension(200,50));		
 		labelBienvenue.setMaximumSize(new Dimension(500,50));
 		labelBienvenue.setText("   Bienvenue ! ");
@@ -83,7 +84,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		idARemplir.setForeground(Color.BLUE);
 		center.add(idARemplir);
 		this.getContentPane().add(center,BorderLayout.CENTER);
-		
+
 		JPanel south = new JPanel();
 		south.setBackground(TRANSPARENCE);
 		south.setPreferredSize(new Dimension(700,150));
@@ -96,53 +97,40 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);
-		
+
 	}
 
 	public Utilisateur getUtilisateur() throws SQLException, ClassNotFoundException {
 		return gestionBaseDeDonnees.DAOUtilisateur.getUtilisateurById(idARemplir.getText());
 	}
 
-	//on vérifie que les paramètres de connexion sont bons
-	protected void authentifier(String pseudo) throws SQLException, ClassNotFoundException {
-		UtilitaireSQL.testerIdent(pseudo);
-		System.out.println("résultat de testerIdent = "+UtilitaireSQL.testerIdent(pseudo));
+	public boolean testerIdent (String idUtilisateur) throws SQLException, ClassNotFoundException{
+		boolean resul;
+		if(DAOCompte.estDansLaBdd(idUtilisateur)){resul=true;}
+		else {resul=false;}
+		return resul;
 	}
 
-	/**
-	 * C'est la méthode qui sera appelée lors d'un clic sur notre bouton
-	 */
 	public void actionPerformed(ActionEvent arg0) {
-		Utilisateur u = LancerAppliUtil.UTEST;
-		/*try {
-			u = this.getUtilisateur();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			MsgBox.afficheMsg(e1.printStackTrace());
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			MsgBox.afficheMsg(e1.printStackTrace());
-		}*/
+		this.dispose();
 
-		//vérification des paramètres de connexion.
+		String id = idARemplir.getText();
+		System.out.println("id renseigné = "+id);
 		try {
-			//test des paramètres
-			String id = idARemplir.getText();
-			System.out.println("id renseigné = "+id);
-			authentifier(idARemplir.getText());
-			//si aucune exception levée et si l'utilisateur existe bien dans la base, on ferme la fenetre
-			//d'authentification et on ouvre la fenetre de l'utilisateur
-
-			if (UtilitaireSQL.testerIdent(idARemplir.getText())){
-				this.dispose();
-				MenuUtilisateur m = new MenuUtilisateur(u);
-				m.setVisible(true);
+			if (testerIdent(id)){
+				Utilisateur u;
+				u = DAOUtilisateur.getUtilisateurById(id);
+				//si aucune exception levée et si l'utilisateur existe bien dans la base, on ferme la fenetre
+				//d'authentification et on ouvre la fenetre de l'utilisateur
+				new MenuUtilisateur(u);
 			}
-		}
-		catch (Exception e) {
-			this.setVisible(false);
-			FenetreAuthentificationUtil f = new FenetreAuthentificationUtil(true);
-			f.setVisible(true);
+			else{
+				new FenetreAuthentificationUtil(true);
+			}
+		}catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
 	}
 }

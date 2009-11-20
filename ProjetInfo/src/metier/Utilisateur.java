@@ -124,7 +124,6 @@ public class Utilisateur {
 
 	public boolean rendreVelo(Station station) 
 	throws SQLException, ClassNotFoundException, VeloNonSortiException, PasDeVeloEmprunteException{
-
 		boolean effectue = false;
 		Velo velo = this.getVelo();
 		if (velo == null){
@@ -143,8 +142,8 @@ public class Utilisateur {
 				if (velo.getEmpruntEnCours().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){
 					this.setBloque(true);
 				}
-				else if (velo.getEmpruntEnCours().getTpsEmprunt() <= Emprunt.TPS_EMPRUNT_MIN) {
-					Emprunt.proposerDemanderIntervention(velo, this);
+				else{
+					//TODO
 				}
 				velo.setEmprunt(null);
 			}
@@ -152,6 +151,4 @@ public class Utilisateur {
 		
 		return effectue;
 	}
-
-
 }

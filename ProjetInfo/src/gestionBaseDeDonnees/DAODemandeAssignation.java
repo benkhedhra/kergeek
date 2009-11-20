@@ -20,7 +20,7 @@ public class DAODemandeAssignation {
 				/*TODO
 				 * ddeAssignation.setId(id); a-t-on besoin d'un id en java?
 				 */
-				if (ddeAssignation.isAjout()){
+				if (ddeAssignation.isPriseEnCharge()){
 					s.executeUpdate("INSERT into DemandeAssignation values ('"
 							+ id + "', '"
 							+ ddeAssignation.getDate() + "', '" 

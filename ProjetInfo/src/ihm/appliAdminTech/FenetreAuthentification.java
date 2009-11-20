@@ -1,6 +1,8 @@
 package ihm.appliAdminTech;
 
+import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.UtilitaireSQL;
+import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -35,7 +37,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	// définition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
@@ -51,7 +53,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 	public FenetreAuthentification (Boolean erreurAuthent){
 
-		System.out.println("Ouverture d'une fenêtre d'authentification de l'utilisateur");
+		System.out.println("Ouverture d'une fenêtre d'authentification de l'appli admin tech");
 
 		this.setContentPane(new Panneau());
 		this.setTitle("Authentification");
@@ -60,15 +62,15 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 
 		this.getContentPane().setLayout(new BorderLayout());
-		
+
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		if(erreurAuthent){
-			labelInvitation.setText("Combinaison identifiant / mot de passe incorrecte. Veuillez à nouveau vous authentifier");
+			labelInvitation.setText("Combinaison identifiant/mot de passe incorrecte. Veuillez à nouveau vous authentifier");
 			labelInvitation.setForeground(Color.RED);
-			labelInvitation.setPreferredSize(new Dimension(500,40));
+			labelInvitation.setPreferredSize(new Dimension(650,40));
 		}
 		else{
 			labelInvitation.setText("Bienvenue ! Veuillez vous authentifier");		
@@ -77,11 +79,11 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		labelInvitation.setFont(POLICE2);
 		north.add(labelInvitation);
 		this.getContentPane().add(north,BorderLayout.NORTH);
-		
+
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.setLayout(new GridLayout(3,2));
-		
+
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelId.setFont(POLICE3);
@@ -98,7 +100,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		idARemplir.setForeground(Color.BLUE);
 		panel2.add(idARemplir);
 		center.add(panel2);
-		
+
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelMotDePasse.setFont(POLICE3);
@@ -106,7 +108,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		labelMotDePasse.setMaximumSize(new Dimension(150,30));
 		panel3.add(labelMotDePasse);
 		center.add(panel3);
-		
+
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		motDePasseARemplir.setFont(POLICE3);
@@ -118,7 +120,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		center.add(panel5);
-		
+
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);		
 		boutonValider.setPreferredSize(new Dimension(150,30));
@@ -138,65 +140,57 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	public Administrateur getAdministrateur() throws SQLException, ClassNotFoundException {
 		return gestionBaseDeDonnees.DAOAdministrateur.getAdministrateurById(idARemplir.getText());
 	}
-	
+
 	public Technicien getTechnicien() throws SQLException, ClassNotFoundException {
 		return gestionBaseDeDonnees.DAOTechnicien.getTechnicienById(idARemplir.getText());
 	}
-	
-	//on vérifie que les paramètres de connexion sont bons
-	protected void authentifier(String pseudo, String motDePasse) throws SQLException, ClassNotFoundException {
-		UtilitaireSQL.testerAuthent(pseudo,motDePasse);
-		System.out.println("résultat de testerAuthent = "+UtilitaireSQL.testerAuthent(pseudo,motDePasse));
-	}
-	
-	/**
-	 * C'est la méthode qui sera appelée lors d'un clic sur notre bouton
-	 */
-	public void actionPerformed(ActionEvent arg0) {
-		Utilisateur u = LancerAppliUtil.UTEST;
-		/*try {
-			u = this.getUtilisateur();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
 
-		//vérification des paramètres de connexion.
+	public int testerAuthent (String id,String motDePasse) throws SQLException, ClassNotFoundException{
+		//cette méthode rend -1 si la combinaison id/mdp est erronée, ou le type du compte si la combinaison est correcte
+		int resul=-1;
+		if(DAOCompte.estDansLaBdd(id)){
+			Compte compte = DAOCompte.getCompteById(id);
+			if(motDePasse.equals(compte.getMotDePasse())){
+				resul=compte.getType();
+			}
+		}
+		return resul;
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
+
+		String id = idARemplir.getText();
+		String mdp = motDePasseARemplir.getText();
+		System.out.println("id renseigné = "+id + "\nmot de passe renseigné = "+mdp);
+
 		try {
-			//test des paramètres
-			String id = idARemplir.getText();
-			String mdp = motDePasseARemplir.getText();
+			Compte c = DAOCompte.getCompteById(id);
+			gestionBaseDeDonnees.DAOAdministrateur.getAdministrateurById(idARemplir.getText());
 			System.out.println("id renseigné = "+id + "\n mot de passe renseigné = "+mdp);
-			authentifier(id,mdp);
-			int type = UtilitaireSQL.testerAuthent(id,mdp);
+			int resultatAuthent = testerAuthent(id,mdp);
+			System.out.println("resultatAuthent = "+resultatAuthent);
+
 			//si aucune exception levée et si l'utilisateur existe bien dans la base, on ferme la fenetre
 			//d'authentification et on ouvre la fenetre de l'utilisateur
 
-			this.dispose();
-
-			if (type==Compte.TYPE_ADMINISTRATEUR){
-				MenuPrincipalAdmin m = new MenuPrincipalAdmin(this.getAdministrateur());
-				m.setVisible(true);
+			if (resultatAuthent==Compte.TYPE_ADMINISTRATEUR){
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
-			else if (type==Compte.TYPE_TECHNICIEN){
-				MenuPrincipalTech m = new MenuPrincipalTech(this.getTechnicien());
-				m.setVisible(true);
+			else if (resultatAuthent==Compte.TYPE_TECHNICIEN){
+				new MenuPrincipalTech(this.getTechnicien());
+			}
+			else {
+				new FenetreAuthentification(true);
 			}
 		}
-		catch (Exception e) {
-			//si une exception est levée on affiche une popup d'erreur
-			this.setVisible(false);
-			FenetreAuthentification f = new FenetreAuthentification(true);
-			f.setVisible(true);
+		catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
 	}
-	
-	
-	
-	
+
 	public static void main (String [] args){
 		new FenetreAuthentification(false);
 	}

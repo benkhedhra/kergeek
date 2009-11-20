@@ -2,7 +2,6 @@ package ihm.appliUtil;
 
 import metier.Compte;
 import metier.Utilisateur;
-import metier.Velo;
 
 
 public class LancerAppliUtil {
@@ -16,7 +15,7 @@ public class LancerAppliUtil {
 
 		
 		
-		FenetreAuthentificationUtil f1 = new FenetreAuthentificationUtil(false);
+		new FenetreAuthentificationUtil(false);
 		//MenuUtilisateur m1 = new MenuUtilisateur(UTEST);
 		//new FenetreEmpruntCourt(UTEST);
 		//new FenetreEmprunterVelo(UTEST);

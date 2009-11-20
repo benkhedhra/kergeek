@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Emprunt;
 import metier.Station;
 import metier.Utilisateur;
 
@@ -134,8 +135,8 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonValider && this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>120){
-			//le 300 est arbitraire : à vérifier s'il s'agit de secondes ? 
+		if(arg0.getSource()==boutonValider && this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MIN){
+
 			try {
 				this.getUtilisateur().rendreVelo(stationEntree);
 			} catch (SQLException e) {
@@ -151,8 +152,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			}
-			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
-			f.setVisible(true);
+			new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
 			System.out.println("Le vélo a bien été rendu");
 		}
 		else if (arg0.getSource()==boutonDeconnexion){
