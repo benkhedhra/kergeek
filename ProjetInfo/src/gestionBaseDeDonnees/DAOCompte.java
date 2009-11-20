@@ -16,29 +16,54 @@ public class DAOCompte {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL as id from dual");
+			ResultSet res = null;
+			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
+				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as id from dual");
+			}
+			else if (compte.getType() == Compte.TYPE_UTILISATEUR){
+				res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
+			}
+			else if (compte.getType() == Compte.TYPE_TECHNICIEN){
+				res = s.executeQuery("Select seqTechnicien.NEXTVAL as id from dual");
+			}
 			if (res.next()){
 				String id = res.getString("id");
 				compte.setId(compte.getTypeLettre() + id);
-				/*TODO
-				 * a verifier...
-				 */
+
 			}
 			else{
 				throw new SQLException("probleme de sequence");
 			}
-			s.executeUpdate("INSERT into Velo values ('" 
-					+ compte.getId() + "', '" 
-					+ compte.getMotDePasse() + "', '"
-					+ "'',"
-					+ "'',"
-					+ "'',"
-					+ compte.getAdresseEmail() + "', '"
-					+ compte.isActif() + "', '"
-					+ "'',"
-					+ compte.getType() + "', '" 
-					+ "')");
-			effectue=true;
+			if(compte.isActif()){
+				s.executeUpdate("INSERT into Compte values (" 
+						+ "'" + compte.getId() + "'," 
+						+ "'" + compte.getMotDePasse() + "',"
+						+ "'',"
+						+ "'',"
+						+ "'',"
+						+ "'" + compte.getAdresseEmail() + "',"
+						+ "'1',"
+						+ "'',"
+						+ "'" + compte.getType() + "'," 
+						+ "''"
+						+ ")");
+				effectue=true;
+			}
+			else{
+				s.executeUpdate("INSERT into Velo values (" 
+						+ "'" + compte.getId() + "'," 
+						+ "'" + compte.getMotDePasse() + "',"
+						+ "'',"
+						+ "'',"
+						+ "'',"
+						+ "'" + compte.getAdresseEmail() + "',"
+						+ "'0',"
+						+ "'',"
+						+ "'" + compte.getType() + "'," 
+						+ "''"
+						+ ")");
+				effectue=true;
+			}
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());

@@ -18,16 +18,16 @@ public class Compte {
 
 	//Constructeur
 
-	public Compte(String motDePasse, int type) {
+	public Compte(int type) {
 		super();
-		this.setMotDePasse(motDePasse);
+		this.setMotDePasse("test");
 		this.setActif(true);
 		this.setType(type);
 	}
 
-	public Compte(String motDePasse, int type, String adresseEmail) {
+	public Compte(int type, String adresseEmail) {
 		super();
-		this.setMotDePasse(motDePasse);
+		this.setMotDePasse("test");
 		this.setActif(true);
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);
@@ -35,7 +35,7 @@ public class Compte {
 	
 	public Compte(int type, String adresseEmail, boolean actif) {
 		super();
-		this.setMotDePasse("");
+		this.setMotDePasse("test");
 		this.setActif(true);
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);

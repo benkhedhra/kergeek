@@ -3,7 +3,7 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
-import metier.Velo;
+import metier.Compte;
 
 public class MainConnexionBdd {
 
@@ -25,10 +25,10 @@ public class MainConnexionBdd {
 		 System.out.println(DAOLieu.createLieu(Garage.getInstance()));
 		 */
 		 
-		 Velo velo =new Velo();
-		 System.out.println(DAOVelo.createVelo(velo));
-		 System.out.println(velo.getId());
-		 System.out.println(DAOVelo.getVeloById(velo.getId()));
+		 Compte c =new Compte(1,"");
+		 System.out.println(DAOCompte.createCompte(c));
+		 System.out.println(c.getId());
+		 System.out.println(DAOCompte.getCompteById(c.getId()));
 		 
 		 gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		 System.out.println("Ferme");
