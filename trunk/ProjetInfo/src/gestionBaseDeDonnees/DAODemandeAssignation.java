@@ -14,19 +14,12 @@ public class DAODemandeAssignation {
 
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqDemandeAssignation.NEXTVAL from dual");
+			ResultSet res = s.executeQuery("Select seqDemandeAssignation.NEXTVAL as id from dual");
 			if (res.next()){
-				String id = res.getString("dummy");
-				/*TODO
-				 * a verifier...
-				 */
-				
-				
+				String id = res.getString("id");
 				/*TODO
 				 * ddeAssignation.setId(id); a-t-on besoin d'un id en java?
 				 */
-				
-
 				if (ddeAssignation.isAjout()){
 					s.executeUpdate("INSERT into DemandeAssignation values ('"
 							+ id + "', '"

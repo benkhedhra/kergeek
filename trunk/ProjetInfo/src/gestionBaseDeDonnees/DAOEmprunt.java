@@ -16,14 +16,10 @@ public class DAOEmprunt {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqEmprunt.NEXTVAL from dual");
+			ResultSet res = s.executeQuery("Select seqEmprunt.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("dummy");
 				emprunt.setId(id);
-
-				/*TODO
-				 * a verifier...
-				 */
 
 				s.executeUpdate("INSERT into Emprunt values ('" 
 						+ emprunt.getId() +  "', '"
