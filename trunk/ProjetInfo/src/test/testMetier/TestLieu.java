@@ -1,8 +1,14 @@
 package test.testMetier;
 
-import java.sql.SQLException;
+import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOVelo;
 
+import java.sql.SQLException;
+import java.util.Date;
+
+import metier.Emprunt;
 import metier.Station;
+import metier.Utilisateur;
 import metier.Velo;
 
 import org.junit.Test;
@@ -15,6 +21,7 @@ public class TestLieu extends TestCase {
 	public void testajouterVelo() throws SQLException, ClassNotFoundException{
 		Station s = new Station("id", "adresse", 50);
 		Velo v = new Velo(s, false);
+		DAOVelo.createVelo(v);
 		Boolean b = s.ajouterVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
 	}
@@ -23,6 +30,7 @@ public class TestLieu extends TestCase {
 	public void testEnleverVelo() throws SQLException, ClassNotFoundException{
 		Station s = new Station("id", "adresse", 50);
 		Velo v = new Velo(s, false);
+		DAOVelo.createVelo(v);
 		s.ajouterVelo(v);
 		Boolean b = s.enleverVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
