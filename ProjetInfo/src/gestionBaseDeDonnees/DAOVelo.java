@@ -35,9 +35,9 @@ public class DAOVelo {
 				}
 			}
 		}
-		/*catch (SQLException e){
+		catch (SQLException e){
 			System.out.println(e.getMessage());
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
@@ -103,7 +103,9 @@ public class DAOVelo {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
-			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -134,6 +136,9 @@ public class DAOVelo {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception

@@ -28,7 +28,7 @@ public class DAOLieu {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-			ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant+"'");
+			ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant +"'");
 			try {
 				if (res.next()) {
 					lieu.setId(identifiant);
@@ -67,13 +67,10 @@ public class DAOLieu {
 				effectue=true;
 			}
 			else{
-				ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL from dual");
+				ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL as id from dual");
 				if (res.next()){
-					String id = res.getString("dummy");
+					String id = res.getString("id");
 					lieu.setId(id);
-					/*TODO
-					 * a verifier...
-					 */
 				}
 				else{
 					throw new SQLException("probleme de sequence");

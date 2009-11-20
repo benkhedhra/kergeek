@@ -30,6 +30,13 @@ public class MainConnexionBdd {
 		 System.out.println(c.getId());
 		 System.out.println(DAOCompte.getCompteById(c.getId()));
 		 
+		 
+		 
+		 /*Velo velo =new Velo();
+		 System.out.println(DAOVelo.createVelo(velo));
+		 System.out.println(velo.getId());
+		 System.out.println(DAOVelo.getVeloById(velo.getId()));
+		 */
 		 gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		 System.out.println("Ferme");
 		 

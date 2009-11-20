@@ -19,14 +19,10 @@ public class DAOUtilisateur {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqUtilisateur.NEXTVAL from dual");
+			ResultSet res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
 			if (res.next()){
-				String id = "u" + res.getString("dummy");
+				String id = "u" + res.getString("id");
 				utilisateur.getCompte().setId(id);
-
-				/*TODO
-				 * a verifier...
-				 */
 			}
 		}
 		catch (SQLException e){
@@ -90,6 +86,9 @@ public class DAOUtilisateur {
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
 		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -121,7 +120,9 @@ public class DAOUtilisateur {
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
 		}
-
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -157,6 +158,9 @@ public class DAOUtilisateur {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

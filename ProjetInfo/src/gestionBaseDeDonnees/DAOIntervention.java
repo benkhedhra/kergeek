@@ -14,14 +14,11 @@ public class DAOIntervention {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqIntervention.NEXTVAL from dual");
+			ResultSet res = s.executeQuery("Select seqIntervention.NEXTVAL as id from dual");
 			if (res.next()){
-				String id = res.getString("dummy");
+				String id = res.getString("id");
 				intervention.setId(id);
 
-				/*TODO
-				 * a verifier...
-				 */
 				s.executeUpdate("INSERT into Intervention values ('" 
 						+ intervention.getId() +  "', '" 
 						+ intervention.getVelo().getId() + "', '" 
@@ -32,6 +29,9 @@ public class DAOIntervention {
 			}
 		}
 		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return effectue;
