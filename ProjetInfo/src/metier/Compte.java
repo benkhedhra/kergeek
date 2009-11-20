@@ -96,7 +96,7 @@ public class Compte {
 		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
 		String motDePasse = "";
 		for(int x=0;x<6;x++){
-			int i = (int)Math.floor(Math.random() * bibliotheque.length()-1);
+			int i = (int) Math.floor(Math.random() * bibliotheque.length()-1);
 			motDePasse += bibliotheque.charAt(i);
 		}
 		this.setMotDePasse(motDePasse);
