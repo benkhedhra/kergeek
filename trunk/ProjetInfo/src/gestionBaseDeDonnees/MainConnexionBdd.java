@@ -16,7 +16,8 @@ public class MainConnexionBdd {
 		// TODO Auto-generated method stub
 		
 		 //System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
-		 gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
+		 
+		gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
 		 System.out.println("Ouvert");
 		 
 		 /*System.out.println("id = "+Garage.getInstance().getId());
@@ -25,7 +26,7 @@ public class MainConnexionBdd {
 		 System.out.println(DAOLieu.createLieu(Garage.getInstance()));
 		 */
 		 
-		 Compte c =new Compte(1,"");
+		 Compte c =new Compte(2);
 		 System.out.println(DAOCompte.createCompte(c));
 		 System.out.println(c.getId());
 		 System.out.println(DAOCompte.getCompteById(c.getId()));
