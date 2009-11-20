@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.DAOUtilisateur;
+import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -9,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +20,7 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
+import metier.Utilisateur;
 
 public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
@@ -40,7 +44,9 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 	private JLabel labelPrenomCompte = new JLabel("");
 	private JLabel labelAdressePostale = new JLabel("Adresse Postale");
 	private JLabel labelAdressePostaleCompte = new JLabel("");
-
+	private JLabel labelStatut = new JLabel("Statut du compte");
+	private JLabel labelStatutCompte = new JLabel("");
+	
 	private JButton boutonChoix = new JButton("");
 	private JButton boutonAutreCompte = new JButton("Afficher informations sur un autre compte");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
@@ -105,7 +111,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(5,2));
+		centerWest.setLayout(new GridLayout(6,2));
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
@@ -133,21 +139,33 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		labelAdresseEMailCompte.setText(c.getAdresseEmail());
 		labelAdresseEMailCompte.setPreferredSize(new Dimension(150,30));
 		labelAdresseEMailCompte.setMaximumSize(new Dimension(150,30));
 		panel4.add(labelAdresseEMailCompte);
 		centerWest.add(panel4);	
 
-		JPanel panel5 = new JPanel();
-		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNom.setPreferredSize(new Dimension(150,30));
-		labelNom.setMaximumSize(new Dimension(150,30));
-		panel5.add(labelNom);
-		centerWest.add(panel5);	
-
-		if (c.getType()==Compte.TYPE_UTILISATEUR){
+		if (c.getType()==Compte.TYPE_UTILISATEUR){	
+			Utilisateur u = new Utilisateur();
+			try {
+				u = DAOUtilisateur.getUtilisateurById(c.getId());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				MsgBox.affMsg(e.getMessage());
+			}
+			JPanel panel5 = new JPanel();
+			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelNom.setPreferredSize(new Dimension(150,30));
+			labelNom.setMaximumSize(new Dimension(150,30));
+			panel5.add(labelNom);
+			centerWest.add(panel5);	
+			
 			JPanel panel6 = new JPanel();
-			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			labelNomCompte.setText(u.getNom());
 			labelNomCompte.setPreferredSize(new Dimension(150,30));
 			labelNomCompte.setMaximumSize(new Dimension(150,30));
 			panel6.add(labelNomCompte);
@@ -162,6 +180,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 			JPanel panel8 = new JPanel();
 			panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelNomCompte.setText(u.getPrenom());
 			labelPrenomCompte.setPreferredSize(new Dimension(150,30));
 			labelPrenomCompte.setMaximumSize(new Dimension(150,30));
 			panel8.add(labelPrenomCompte);
@@ -175,11 +194,30 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			centerWest.add(panel9);	
 
 			JPanel panel10 = new JPanel();
-			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			labelAdressePostaleCompte.setText(u.getAdressePostale());
 			labelAdressePostaleCompte.setPreferredSize(new Dimension(150,30));
 			labelAdressePostaleCompte.setMaximumSize(new Dimension(150,30));
 			panel10.add(labelAdressePostaleCompte);
 			centerWest.add(panel10);
+			
+			JPanel panel11 = new JPanel();
+			panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelStatut.setPreferredSize(new Dimension(150,30));
+			labelStatut.setMaximumSize(new Dimension(150,30));
+			panel11.add(labelStatut);
+			centerWest.add(panel11);	
+
+			JPanel panel12 = new JPanel();
+			panel12.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			String statut;
+			if(u.isBloque()){statut="bloqué";}
+			else{statut="non bloqué";}
+			labelStatutCompte.setText(statut);
+			labelStatutCompte.setPreferredSize(new Dimension(150,30));
+			labelStatutCompte.setMaximumSize(new Dimension(150,30));
+			panel12.add(labelStatutCompte);
+			centerWest.add(panel12);
 		}
 
 		center.add(centerWest,BorderLayout.WEST);
@@ -204,21 +242,21 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
-		JPanel panel11 = new JPanel();
-		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		JPanel panel13 = new JPanel();
+		panel13.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonAutreCompte.setPreferredSize(new Dimension(250,40));
 		boutonAutreCompte.setMaximumSize(new Dimension(250,40));
 		boutonAutreCompte.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonAutreCompte.setBackground(Color.GREEN);
 		boutonAutreCompte.addActionListener(this);
-		panel11.add(boutonAutreCompte);
+		panel13.add(boutonAutreCompte);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		panel11.add(boutonRetour);
-		south.add(panel11,BorderLayout.EAST);
+		panel13.add(boutonRetour);
+		south.add(panel13,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);
