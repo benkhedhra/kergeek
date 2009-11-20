@@ -87,7 +87,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-		
+
 		compte=c;
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
@@ -295,10 +295,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 				compte.setAdresseEmail(compte.getAdresseEmail());
 				DAOCompte.updateCompte(compte);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			}
 			if (compte.getType()==Compte.TYPE_UTILISATEUR){
@@ -311,10 +309,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 					u.setBloque(bloqueEntre);
 					DAOUtilisateur.updateUtilisateur(u);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					MsgBox.affMsg(e.getMessage());
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					MsgBox.affMsg(e.getMessage());
 				}
 			}

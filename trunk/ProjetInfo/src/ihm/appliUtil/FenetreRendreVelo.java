@@ -1,5 +1,8 @@
 package ihm.appliUtil;
 
+import exception.PasDeVeloEmprunteException;
+import exception.VeloNonSortiException;
+import gestionBaseDeDonnees.DAOLieu;
 import ihm.MsgBox;
 
 import java.awt.BorderLayout;
@@ -8,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,8 +22,6 @@ import javax.swing.JPanel;
 
 import metier.Station;
 import metier.Utilisateur;
-import exception.PasDeVeloEmprunteException;
-import exception.VeloNonSortiException;
 
 
 public class FenetreRendreVelo extends JFrame implements ActionListener {
@@ -82,38 +84,44 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		
-		//pour la suite besoin de DAOStation avec getAllStations 
-		//List<Station> stations = DAOLieu.getAllStations();
-		Station[] stations = new Station[3];
-		//idée : getAllStations : ici lignes suivantes pour tester provisoirement
-		stations[0] = new Station("Etangs", "1 rue des lilas", 30);
-		stations[1] = new Station("Coeur de campus","2 rue des lilas", 20);
-		stations[2] = new Station("Terrains de sport", "3 rue des lilas", 10);
-		DefaultComboBoxModel model = new DefaultComboBoxModel(stations);
-		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		JComboBox combo = new JComboBox(model);
-		combo.setFont(FenetreAuthentificationUtil.POLICE3);
-		combo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-				stationEntree = (Station)o;
-				labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
-				labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
-			}
+		//pour la suite besoin de DAOStation avec getAllStations
+		List<Station> listeStations;
+		try {
+			listeStations = DAOLieu.getAllStation();
+			Station [] tableauStations = new Station[listeStations.size()];
+			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
+			JPanel center = new JPanel();
+			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			JComboBox combo = new JComboBox(model);
+			combo.setFont(FenetreAuthentificationUtil.POLICE3);
+			combo.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent ae){
+					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+					stationEntree = (Station)o;
+					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
+					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+				}
 
-		});
-		center.add(combo);
+			});
+			center.add(combo);
 
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.addActionListener(this);
-		labelMsg.setText("Sélectionnez la station où vous vous trouvez");
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
-		center.add(labelMsg);
-		center.add(boutonValider);
-		this.getContentPane().add(center, BorderLayout.CENTER);
+			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonValider.setBackground(Color.CYAN);
+			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonValider.addActionListener(this);
+			labelMsg.setText("Sélectionnez la station où vous vous trouvez");
+			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+			center.add(labelMsg);
+			center.add(boutonValider);
+			this.getContentPane().add(center, BorderLayout.CENTER);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			MsgBox.affMsg(e.getMessage());
+		}
 		
 		this.setVisible(true);
 	}

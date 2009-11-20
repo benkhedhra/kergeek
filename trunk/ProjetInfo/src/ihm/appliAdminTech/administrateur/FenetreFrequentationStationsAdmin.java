@@ -1,5 +1,175 @@
 package ihm.appliAdminTech.administrateur;
 
-public class FenetreFrequentationStationsAdmin {
+import ihm.appliAdminTech.FenetreAffichageResultats;
+import ihm.appliUtil.FenetreAuthentificationUtil;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import metier.Administrateur;
+
+public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 1L;
+
+	private Administrateur administrateur;
+	private JLabel labelAdmin = new JLabel("");;
+	private JLabel labelMsg = new JLabel("Entrer les données du titulaire du nouveau compte");
+	private JLabel labelPeriode = new JLabel("Période sur laquelle vous voulez les statistiques");
+	private String periodeEntree;
+	private JButton boutonValider = new JButton("Valider");
+	private JButton boutonRetour = new JButton("Retour au menu principal");
+
+	public Administrateur getAdministrateur() {
+		return administrateur;
+	}
+
+	public void setAdministrateur(Administrateur administrateur) {
+		this.administrateur = administrateur;
+	}
+	
+	public String getPeriodeEntree() {
+		return periodeEntree;
+	}
+
+	public void setPeriodeEntree(String periodeEntree) {
+		this.periodeEntree = periodeEntree;
+	}
+
+	public FenetreFrequentationStationsAdmin(Administrateur a){
+
+		System.out.println("Fenêtre pour avoir la fréquentation des stations");
+		this.setContentPane(new PanneauAdmin());
+		//Définit un titre pour notre fenêtre
+		this.setTitle("Création d'un nouveau compte");
+		//Définit une taille pour celle-ci
+		this.setSize(new Dimension(700,500));		
+		this.setMinimumSize(new Dimension(700,500));
+		//Terminer le processus lorsqu'on clique sur "Fermer"
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//Nous allons maintenant dire à notre objet de se positionner au centre
+		this.setLocationRelativeTo(null);
+		//pour que la fenêtre ne se redimensionne pas à chaque fois
+		this.setResizable(false);
+		//pour que la fenêtre soit toujours au premier plan
+		this.setAlwaysOnTop(true);
+
+
+		// on définit un BorderLayout
+		this.getContentPane().setLayout(new BorderLayout());
+
+		this.setAdministrateur(a);
+
+		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
+		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setMaximumSize(new Dimension(550,30));
+		JPanel north = new JPanel();
+		north.setPreferredSize(new Dimension(700,50));
+		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.add(labelAdmin);
+		this.getContentPane().add(north,BorderLayout.NORTH);
+
+		JPanel center = new JPanel();
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(700,350));
+		center.setLayout(new BorderLayout());
+
+		JPanel centerNorth = new JPanel();
+		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		centerNorth.add(labelMsg);
+		center.add(centerNorth,BorderLayout.NORTH);
+
+		String[] periodes = new String[4];
+		periodes[0] = "30 derniers jours";
+		periodes[1] = "60 derniers jours";
+		periodes[2] = "6 derniers mois";
+		periodes[3] = "365 deniers jours";
+		DefaultComboBoxModel model = new DefaultComboBoxModel(periodes);
+		JComboBox periodeARemplir = new JComboBox(model);
+		periodeARemplir.setPreferredSize(new Dimension(150,30));
+		periodeARemplir.setMaximumSize(new Dimension(150,30));
+		periodeARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
+		periodeARemplir.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent ae){
+				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+				periodeEntree = (String)o;
+			}
+
+		});
+
+		JPanel centerWest = new JPanel();
+		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerWest.setLayout(new GridLayout(5,2));
+
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		labelPeriode.setPreferredSize(new Dimension(150,30));
+		labelPeriode.setMaximumSize(new Dimension(150,30));
+		panel1.add(labelPeriode);
+		centerWest.add(panel1);
+
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel2.add(periodeARemplir);
+		centerWest.add(panel2);	
+
+		center.add(centerWest,BorderLayout.WEST);
+
+		JPanel centerEast = new JPanel();
+		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerEast.setPreferredSize(new Dimension(200,350));
+		boutonValider.setPreferredSize(new Dimension(80,40));
+		boutonValider.setMaximumSize(new Dimension(80,40));
+		boutonValider.setBackground(Color.CYAN);
+		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.addActionListener(this);
+		centerEast.add(boutonValider);
+		center.add(centerEast,BorderLayout.EAST);
+
+		this.getContentPane().add(center,BorderLayout.CENTER);
+
+		JPanel south = new JPanel();
+		south.setPreferredSize(new Dimension(700,100));
+		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setLayout(new BorderLayout());
+
+		JPanel panel11 = new JPanel();
+		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,40));
+		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setBackground(Color.YELLOW);
+		boutonRetour.addActionListener(this);
+		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
+		this.getContentPane().add(south,BorderLayout.SOUTH);
+
+		this.setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
+		if (arg0.getSource()==boutonValider){
+			//new FenetreAffichageResultats(this,this.getAdministrateur().getCompte());
+		}
+		else if (arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
+		}
+
+	}
 
 }

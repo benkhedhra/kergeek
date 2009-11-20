@@ -1,14 +1,20 @@
 package statistiques;
 
 
+import gestionBaseDeDonnees.DAOLieu;
+
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import metier.Station;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -22,89 +28,73 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeFreqStations extends ApplicationFrame {
 
 	private JFreeChart chart;
-	
+
 	/**
 	 * Creates a new demo instance.
 	 *
 	 * @param title  the frame title.
 	 */
-	public DiagrammeFreqStations(String title) {
-		
-		super(title);
+	public DiagrammeFreqStations(String periodeEntree) {
+
+		super("Fréquentation des stations sur la période demandée");
 		CategoryDataset dataset = createDataset();
-		chart = createChart(dataset);
+		chart = createChart(dataset,periodeEntree);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(500, 270));
-		setContentPane(chartPanel);
-		
+		//chartPanel.setPreferredSize(new Dimension(500, 270));
+		this.setContentPane(chartPanel);
+
 	}
-	
+
 	public Image getImage() {
 		return this.chart.createBufferedImage(500, 500);
 	}
 
-	/**
-	 * Returns a sample dataset.
-	 * 
-	 * @return The dataset.
-	 */
 	private static CategoryDataset createDataset() {
-/**TODO
- * Changer nombre stations si different de 3
-		*/
-		
-		
-		// row keys...
-		String series1 = "Vélos sortis";
-		String series2 = "Vélos entrés";
 
-		// column keys...
-		
-		String category1 = "Station A";
-		String category2 = "Station B";
-		String category3 = "Station C";
-
-		// create the dataset...
-		
-		/**TODO changer les valeurs!!!
-		 * 
-		 */
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		dataset.addValue(1.0, series1, category1);
-		dataset.addValue(4.0, series1, category2);
-		dataset.addValue(3.0, series1, category3);
+		// row keys...
+		String sortis = "Vélos sortis";
+		String entres = "Vélos entrés";
 
+		// column keys...
+		try {
+			List<Station> stations = DAOLieu.getAllStation();
+			ArrayList<String> category = new ArrayList<String>(stations.size());
+			for (int i=0;i<stations.size();i++){
+				category.add(stations.get(i).getId());
+			}
 
-		dataset.addValue(5.0, series2, category1);
-		dataset.addValue(7.0, series2, category2);
-		dataset.addValue(6.0, series2, category3);
+			for(int i=0;i<category.size();i++){
+				dataset.addValue(3.0, sortis, category.get(i));
+				dataset.addValue(3.0, entres, category.get(i));
+			}
 
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return dataset;
 
 	}
 
-	/**
-	 * Creates a sample chart.
-	 * 
-	 * @param dataset  the dataset.
-	 * 
-	 * @return The chart.
-	 */
-	private static JFreeChart createChart(CategoryDataset dataset) {
+	private static JFreeChart createChart(CategoryDataset dataset,String periodeEntree) {
 
-		// create the chart...
+		// create the chart
 		JFreeChart chart = ChartFactory.createBarChart(
-				"Fréquentation Stations sur les X derniers jours", /*X=nombre de jours suivant le choix de l'administrateur*/
-				// chart title
+				("Fréquentation Stations sur les "+periodeEntree),
 				"Stations",               // domain axis label
-				"Nombre de vélos",                  // range axis label
+				"Nombre de vélos",        // range axis label
 				dataset,                  // data
 				PlotOrientation.VERTICAL, // orientation
 				true,                     // include legend
@@ -112,7 +102,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 				false                     // URLs?
 		);
 
-		// NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 
 		// set the background color for the chart...
 		chart.setBackgroundPaint(Color.white);
@@ -141,37 +130,31 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 				0.0f, 0.0f, Color.green, 
 				0.0f, 0.0f, new Color(0, 64, 0)
 		);
-		GradientPaint gp2 = new GradientPaint(
-				0.0f, 0.0f, Color.red, 
-				0.0f, 0.0f, new Color(64, 0, 0)
-		);
+
 		renderer.setSeriesPaint(0, gp0);
 		renderer.setSeriesPaint(1, gp1);
-		renderer.setSeriesPaint(2, gp2);
 
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(
 				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
 		);
-		// OPTIONAL CUSTOMISATION COMPLETED.
 
 		return chart;
 
 	}
 
-     // Starting point for the demonstration application.
+	// Starting point for the demonstration application.
 
-    public static void main(String[] args) {
-
-    	DiagrammeFreqStations demo = new DiagrammeFreqStations("");
-        //demo.pack();
-        //RefineryUtilities.centerFrameOnScreen(demo);
-        //demo.setVisible(true);
-    	JFrame myFrame = new JFrame();
-    	myFrame.getGraphics().drawImage(demo.getImage(), 0, 0, myFrame);
-    	myFrame.add(new JButton("Mon bouton"));
-    	myFrame.setVisible(true);
-    }
+	public static ImageIcon recupereImageFreqStations(String periodeEntree){
+		
+		DiagrammeFreqStations demo = new DiagrammeFreqStations(periodeEntree);
+		JFrame myFrame = new JFrame();
+		JLabel lblChart = new JLabel();
+		myFrame.getContentPane().add(lblChart);
+		ImageIcon img = new ImageIcon(demo.getImage());
+		return img;	
+		
+	}
 
 
 }
