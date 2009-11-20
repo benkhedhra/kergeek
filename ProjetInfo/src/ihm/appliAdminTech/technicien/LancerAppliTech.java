@@ -11,6 +11,6 @@ public class LancerAppliTech {
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		//FenetreEnregistrerVeloTech f = new FenetreEnregistrerVeloTech(TTEST);
-		MenuPrincipalTech m = new MenuPrincipalTech(TTEST);
+		new MenuPrincipalTech(TTEST);
 	}
 }

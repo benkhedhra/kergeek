@@ -90,9 +90,9 @@ public class Administrateur {
 	 * @throws ClassNotFoundException, si SQL Server ne retrouve pas la classe Compte ou DAOCompte
 	 */
 	
-	public Compte creerCompte() throws SQLException, ClassNotFoundException {
-		Compte c = new Compte();
-		DAOCompte.createCompte(compte);
+	public Compte creerCompte(String motDePasse, int type, String adresseEmail) throws SQLException, ClassNotFoundException {
+		Compte c = new Compte(motDePasse, type, adresseEmail);
+		DAOCompte.createCompte(c);
 		return c;
 	}
 
