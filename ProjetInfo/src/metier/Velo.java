@@ -1,5 +1,9 @@
 package metier;
 
+import java.sql.SQLException;
+
+import gestionBaseDeDonnees.DAOEmprunt;
+
 public class Velo {
 	
 	// Attributs
@@ -7,7 +11,7 @@ public class Velo {
 	private String id;
 	private Lieu lieu;
 	private boolean enPanne;
-	private Emprunt emprunt;
+	private Emprunt empruntEnCours;
 	
 	
 	
@@ -56,13 +60,13 @@ public class Velo {
 	}
 
 
-	public Emprunt getEmprunt() {
-		return emprunt;
+	public Emprunt getEmpruntEnCours() {
+		return empruntEnCours;
 	}
 
 
-	public void setEmprunt(Emprunt emprunt) {
-		this.emprunt = emprunt;
+	public void setEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException {
+		this.empruntEnCours = emprunt;
 	}
 	
 	

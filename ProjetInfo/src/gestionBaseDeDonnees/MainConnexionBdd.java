@@ -3,8 +3,7 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
-import metier.Administrateur;
-import metier.Compte;
+import metier.Velo;
 
 public class MainConnexionBdd {
 
@@ -41,17 +40,25 @@ public class MainConnexionBdd {
 		 System.out.println(c.getId());
 		 System.out.println(id.compareTo(c.getId()));
 		 */
-		Compte c1 = new Compte();
+		/*Compte c1 = new Compte();
 		Administrateur a = new Administrateur(c1);
 		Compte c2 = a.creerCompte(1,"mail2");
 		Compte c3 = DAOCompte.getCompteByAdresseEmail("mail2");
 		System.out.println("Id c2 :" + c2.getId() + " alors que Id c3:" + c3.getId());
-
-		/*Velo velo =new Velo();
-		 System.out.println(DAOVelo.createVelo(velo));
-		 System.out.println(velo.getId());
-		 System.out.println(DAOVelo.getVeloById(velo.getId()));
 		 */
+
+		Velo velo =new Velo();
+		System.out.println("creation du velo : " +DAOVelo.createVelo(velo));
+		System.out.println("id depart : " + velo.getId());
+		System.out.println("velo : " + DAOVelo.getVeloById(velo.getId()));
+		velo.setEnPanne(false);
+		System.out.println("enPanne mis a : " + velo.isEnPanne());
+		System.out.println("velo mis a jour : " + DAOVelo.updateVelo(velo));
+		velo = DAOVelo.getVeloById(velo.getId());
+		System.out.println("id du velo obtenu apres la mis a jour : " + velo.getId());
+		System.out.println("enPanne obtenue apres la mis a jour : " + velo.isEnPanne());
+		System.out.println("nouveau velo : " + DAOVelo.getVeloById(velo.getId()));
+
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 

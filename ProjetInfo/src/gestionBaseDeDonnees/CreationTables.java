@@ -129,7 +129,6 @@ public class CreationTables {
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Forum du Campus','10')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'ENSAI','10')");
 			DAOLieu.createLieu(Garage.getInstance());
-			s.executeUpdate("COMMIT");
 
 			
 			// Insertion velo
@@ -185,7 +184,9 @@ public class CreationTables {
 					+"'2','1','u1','1')");
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('05-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('05-09-2009 9:45','DD-MM-YYYY HH24:MI'), '3','3','u2','2')");
+			
 			s.executeUpdate("COMMIT");
+			
 			System.out.println("Update effectuee.");
 
 		}

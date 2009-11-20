@@ -117,7 +117,7 @@ public class Utilisateur {
 		station.enleverVelo(velo);
 		this.setVelo(velo);
 		velo.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		return(DAOEmprunt.createEmprunt(velo.getEmprunt()) & DAOVelo.updateVelo(velo));
+		return(DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo));
 	}
 	
 	
@@ -136,14 +136,14 @@ public class Utilisateur {
 			}
 			else{
 				station.ajouterVelo(velo);
-				velo.getEmprunt().setDateRetour(UtilitaireDate.dateCourante());
-				velo.getEmprunt().setLieuRetour(station);
-				effectue = DAOEmprunt.updateEmprunt(velo.getEmprunt());
+				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
+				velo.getEmpruntEnCours().setLieuRetour(station);
+				effectue = DAOEmprunt.updateEmprunt(velo.getEmpruntEnCours());
 				
-				if (velo.getEmprunt().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){
+				if (velo.getEmpruntEnCours().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){
 					this.setBloque(true);
 				}
-				else if (velo.getEmprunt().getTpsEmprunt() <= Emprunt.TPS_EMPRUNT_MIN) {
+				else if (velo.getEmpruntEnCours().getTpsEmprunt() <= Emprunt.TPS_EMPRUNT_MIN) {
 					Emprunt.proposerDemanderIntervention(velo, this);
 				}
 				velo.setEmprunt(null);
