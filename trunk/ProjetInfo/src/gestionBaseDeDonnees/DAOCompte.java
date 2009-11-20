@@ -154,6 +154,7 @@ public class DAOCompte {
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println("Erreur d'identifiant");
+			compte = null;
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -204,5 +205,10 @@ public class DAOCompte {
 		}
 		return compte;
 	}
+	
+	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
+		return (getCompteById(id)!=null);
+	}
+	
 
 }
