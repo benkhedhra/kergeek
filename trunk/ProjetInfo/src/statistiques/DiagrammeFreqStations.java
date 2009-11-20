@@ -9,13 +9,7 @@ import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import metier.Station;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -33,11 +27,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	private JFreeChart chart;
 
-	/**
-	 * Creates a new demo instance.
-	 *
-	 * @param title  the frame title.
-	 */
 	public DiagrammeFreqStations(String periodeEntree) {
 
 		super("Fréquentation des stations sur la période demandée");
@@ -57,11 +46,11 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		// row keys...
+		// étiquettes des lignes...
 		String sortis = "Vélos sortis";
 		String entres = "Vélos entrés";
 
-		// column keys...
+		// étiquettes des colonnes...
 		try {
 			List<Station> stations = DAOLieu.getAllStation();
 			ArrayList<String> category = new ArrayList<String>(stations.size());
@@ -90,7 +79,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	private static JFreeChart createChart(CategoryDataset dataset,String periodeEntree) {
 
-		// create the chart
+		// créer le chart
 		JFreeChart chart = ChartFactory.createBarChart(
 				("Fréquentation Stations sur les "+periodeEntree),
 				"Stations",               // domain axis label
@@ -103,7 +92,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		);
 
 
-		// set the background color for the chart...
+		// couleur de l'arrière plan du chart
 		chart.setBackgroundPaint(Color.white);
 
 		// get a reference to the plot for further customisation...
@@ -142,19 +131,5 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		return chart;
 
 	}
-
-	// Starting point for the demonstration application.
-
-	public static ImageIcon recupereImageFreqStations(String periodeEntree){
-		
-		DiagrammeFreqStations demo = new DiagrammeFreqStations(periodeEntree);
-		JFrame myFrame = new JFrame();
-		JLabel lblChart = new JLabel();
-		myFrame.getContentPane().add(lblChart);
-		ImageIcon img = new ImageIcon(demo.getImage());
-		return img;	
-		
-	}
-
 
 }
