@@ -28,9 +28,9 @@ public class TestDAOCompte extends TestCase{
 	}
 	@Test
 	public void testgetCompteById() throws SQLException, ClassNotFoundException{
-		Compte c1 = new Compte();
-		Administrateur a = new Administrateur(c1);
-		Compte c2 = a.creerCompte(3,"mail");
+		
+		Compte c2 = new Compte(3,"mail");
+		DAOCompte.createCompte(c2);
 		String s = c2.getId();
 		Compte c3 = DAOCompte.getCompteById(s);
 		assertEquals(s, c3.getId());
@@ -40,9 +40,9 @@ public class TestDAOCompte extends TestCase{
 	}
 	@Test
 	public void testgetCompteByAdresseEmail() throws SQLException, ClassNotFoundException{
-		Compte c1 = new Compte();
-		Administrateur a = new Administrateur(c1);
-		Compte c2 = a.creerCompte(3,"mail");
+
+		Compte c2 = new Compte(3,"mail");
+		DAOCompte.createCompte(c2);
 		Compte c3 = DAOCompte.getCompteByAdresseEmail("mail");
 		assertEquals(c2.getAdresseEmail(), c3.getAdresseEmail());
 		assertEquals(c2.getMotDePasse(), c3.getMotDePasse());
