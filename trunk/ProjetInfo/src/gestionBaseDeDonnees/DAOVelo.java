@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import metier.Emprunt;
 import metier.Lieu;
 import metier.Velo;
 
@@ -50,10 +51,17 @@ public class DAOVelo {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Velo SET "
 					+ "idVelo = '" + velo.getId() + "',"
-					+ "enPanne = '" + velo.isEnPanne() + "',"
 					+ "idLieu = '" + velo.getLieu().getId() + "' "
 					+ "WHERE idVelo = '"+ velo.getId() + "'"
-			);	
+			);
+			if (velo.isEnPanne()){
+				s.executeUpdate("UPDATE Velo SET enPanne = '1' WHERE idVelo = '"+ velo.getId() + "'");
+				effectue=true;
+			}
+			else{
+				s.executeUpdate("UPDATE Velo SET enPanne = '0' WHERE idVelo = '"+ velo.getId() + "'");
+				effectue=true;
+			}
 			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
@@ -144,5 +152,23 @@ public class DAOVelo {
 		return listeVelos;
 
 	}
+
+	public static Emprunt EmpruntEnCours(Velo velo) throws ClassNotFoundException, SQLException{
+		Emprunt emprunt = new Emprunt();
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet res= s.executeQuery("Select* from Emprunt Where dateRetour IS NULL AND idVelo = '" +velo.getId());
+			if(res.next()){
+				velo.setEmprunt(DAOEmprunt.getEmpruntById(res.getString("idEmprunt")));
+			}
+			ConnexionOracleViaJdbc.fermer();
+		}
+		catch (SQLException e){
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return emprunt;
+	}
+
 }
 

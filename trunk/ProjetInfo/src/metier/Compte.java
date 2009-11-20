@@ -42,7 +42,6 @@ public class Compte {
 	}
 
 	public Compte() {
-		super();
 	}
 
 

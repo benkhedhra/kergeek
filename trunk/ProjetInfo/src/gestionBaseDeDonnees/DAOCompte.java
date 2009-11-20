@@ -109,7 +109,6 @@ public class DAOCompte {
 				s.executeUpdate("UPDATE Compte SET actif = '0' WHERE idCompte = '"+ compte.getId() + "'");
 				effectue=true;
 			}
-			effectue=true;
 			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
@@ -190,7 +189,7 @@ public class DAOCompte {
 					throw new SQLException("actif non renseigné");
 				}
 			}
-			/*else {
+			else {
 				throw new PasDansLaBaseDeDonneeException();
 			}
 		}
@@ -199,7 +198,7 @@ public class DAOCompte {
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
-		}*/}
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

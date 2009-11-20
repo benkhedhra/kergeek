@@ -31,7 +31,6 @@ public class Emprunt {
 
 
 	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt) {
-		super();
 		this.setUtilisateur(utilisateur);
 		this.setVelo(velo);
 		this.setDateEmprunt(dateEmprunt);
@@ -39,13 +38,15 @@ public class Emprunt {
 	}
 	
 	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt, Date dateRetour, Lieu lieuRetour) {
-		super();
 		this.setUtilisateur(utilisateur);
 		this.setVelo(velo);
 		this.setDateEmprunt(dateEmprunt);
 		this.setLieuEmprunt(lieuEmprunt);
 		this.setDateRetour(dateRetour);
 		this.setLieuRetour(lieuRetour);
+	}
+	
+	public Emprunt(){
 	}
 
 	
