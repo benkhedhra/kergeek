@@ -17,8 +17,8 @@ public class Emprunt {
 	private Lieu lieuRetour;
 	
 	
-	private long diff = dateRetour.getTime() - dateEmprunt.getTime();
-	private float tpsEmprunt = diff / 3600000.0f;
+	private long diff;
+	private float tpsEmprunt;
 	
 	
 	//Constantes
@@ -124,7 +124,12 @@ public class Emprunt {
 
 
 	//Methodes
-
+	
+	public void calculTempsEmprunt(){
+		this.diff = dateRetour.getTime() - dateEmprunt.getTime();
+		this.tpsEmprunt = diff / 3600000.0f;
+	}
+	
 	public static boolean proposerDemanderIntervention(Velo velo, Utilisateur utilisateur) throws SQLException,ClassNotFoundException{
 		System.out.println("Souhaitez-vous demander une intervention sur ce velo?\n Oui : 1\n Non : 2");
 		Scanner sc= new Scanner(System.in);
