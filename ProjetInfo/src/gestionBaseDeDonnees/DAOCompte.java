@@ -76,9 +76,6 @@ public class DAOCompte {
 
 
 
-
-
-
 	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException {
 		boolean effectue = false;
 		try{

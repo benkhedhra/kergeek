@@ -42,16 +42,16 @@ public class Utilisateur {
 		this.setVelo(null);
 	}
 	
-	/*
-	 public Utilisateur(Compte compte, String nom, String prenom) {
+	
+	 public Utilisateur(Compte compte, String nom, String prenom, String adressePostale, boolean bloque) {
 		super();
 		this.setCompte(compte);
 		this.setNom(nom);
 		this.setPrenom(prenom);
-		this.setBloque(false);
+		this.setAdressePostale(adressePostale);
+		this.setBloque(bloque);
 		this.setVelo(null);
 	}
-	*/
 
 	
 
