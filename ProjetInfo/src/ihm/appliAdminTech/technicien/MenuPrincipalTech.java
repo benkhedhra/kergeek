@@ -48,14 +48,13 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// on définit un BorderLayout
-		this.getContentPane().setLayout(new BorderLayout());
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
 		this.setResizable(false);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
+		// on définit un BorderLayout
+		this.getContentPane().setLayout(new BorderLayout());
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentification.POLICE4);
@@ -87,6 +86,8 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton3.addActionListener(this);
 		center.add(bouton3);
+		
+		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		this.setVisible(true);
 	}

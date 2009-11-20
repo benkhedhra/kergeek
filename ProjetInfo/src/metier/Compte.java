@@ -32,6 +32,14 @@ public class Compte {
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);
 	}
+	
+	public Compte(int type, String adresseEmail, boolean actif) {
+		super();
+		this.setMotDePasse("");
+		this.setActif(true);
+		this.setType(type);
+		this.setAdresseEmail(adresseEmail);
+	}
 
 	public Compte() {
 		super();
