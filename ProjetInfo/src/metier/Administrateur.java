@@ -92,7 +92,6 @@ public class Administrateur {
 	
 	public Compte creerCompte(int type, String adresseEmail) throws SQLException, ClassNotFoundException {
 		Compte c = new Compte(type, adresseEmail);
-		DAOCompte.createCompte(c);
 		return c;
 	}
 

@@ -1,5 +1,7 @@
 package metier;
 
+import java.util.Random;
+
 public class Compte {
 
 	//Attributs
@@ -86,8 +88,9 @@ public class Compte {
 	public void genererMotDePasse() {
 		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
 		String motDePasse = null;
+		Random rd = new Random();
 		for(int x=0; x<6; x++){
-			int i = (int) Math.floor(Math.random() * bibliotheque.length()-1);
+			int i = rd.nextInt(bibliotheque.length());
 			motDePasse += bibliotheque.charAt(i);
 		}
 		this.setMotDePasse(motDePasse);
