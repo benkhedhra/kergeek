@@ -48,11 +48,10 @@ public class DAOVelo {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Velo SET"
+			s.executeUpdate("UPDATE Velo SET "
 					+ "idVelo = '" + velo.getId() + "',"
 					+ "enPanne = '" + velo.isEnPanne() + "',"
-					+ "idLieu = '" + velo.getLieu().getId() + "',"
-					+ "idEmprunt = '" + velo.getEmprunt().getId() + "'"
+					+ "idLieu = '" + velo.getLieu().getId() + "' "
 					+ "WHERE idVelo = '"+ velo.getId() + "'"
 			);	
 			ConnexionOracleViaJdbc.fermer();
