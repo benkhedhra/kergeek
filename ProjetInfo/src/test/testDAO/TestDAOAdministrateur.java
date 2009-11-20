@@ -1,4 +1,4 @@
-package test;
+package test.testDAO;
 
 import org.junit.Test;
 

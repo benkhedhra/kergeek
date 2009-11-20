@@ -1,4 +1,4 @@
-package test;
+package test.testMetier;
 
 import gestionBaseDeDonnees.DAOCompte;
 
@@ -23,8 +23,11 @@ public class TestAdministrateur extends TestCase{
 	}
 	
 	@Test
-	public void testCreerCompte(){
-		
+	public void testCreerCompte() throws SQLException, ClassNotFoundException{
+		Compte c1 = new Compte(Compte.TYPE_ADMINISTRATEUR);
+		Administrateur a = new Administrateur(c1);
+		Compte c2 = a.creerCompte(3, "mail");
+		assertEquals("mail", c2.getAdresseEmail());
 	}
 	
 	@Test

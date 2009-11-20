@@ -1,4 +1,4 @@
-package test;
+package test.testMetier;
 
 import java.sql.SQLException;
 
