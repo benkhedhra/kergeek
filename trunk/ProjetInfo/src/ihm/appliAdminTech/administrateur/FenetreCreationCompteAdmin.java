@@ -252,7 +252,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
-			Compte compte = new Compte("",typeEntre,adresseEMailARemplir.getText());
+			Compte compte = new Compte(typeEntre,adresseEMailARemplir.getText());
 			// PROBLEME AVEC LES CONSTRUCTEURS DE COMPTE : paramètres bizarres
 			try {
 				DAOCompte.createCompte(compte);
