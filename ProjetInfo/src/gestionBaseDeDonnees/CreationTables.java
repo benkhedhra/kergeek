@@ -107,10 +107,10 @@ public class CreationTables {
 			"CREATE SEQUENCE seqEmprunt INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Emprunt (idEmprunt char(4)," +
-					"dateEmprunt date NOT NULL," +
-					"dateRetour date NOT NULL, "+
+					"dateEmprunt date NOT NULL, " +
+					"dateRetour date, "+
 					"idLieuEmprunt char(4) NOT NULL," +
-					"idLieuRetour char(4) NOT NULL, "+
+					"idLieuRetour char(4),"+
 					"idCompte char(4),"+
 					"idVelo char(4),"+
 					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt),"+
