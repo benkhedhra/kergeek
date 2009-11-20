@@ -4,6 +4,7 @@ package statistiques;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
+import java.awt.Image;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -29,44 +30,29 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 	
 	private JFreeChart chart;
 	
-	public DiagrammeNbIntervention(String title, JFreeChart chart) {
+	public DiagrammeNbIntervention(String title) {
 		
 		super(title);
 		CategoryDataset dataset = createDataset();
-		this.setChart(createChart(dataset));
+		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(500, 270));
+		//chartPanel.setPreferredSize(new Dimension(500, 270));
 		setContentPane(chartPanel);
 
 	}
 
-	
-	
-	public JFreeChart getChart() {
-		return chart;
+	public Image getImage() {
+		return this.chart.createBufferedImage(500, 500);
 	}
-
-
-
-	public void setChart(JFreeChart chart) {
-		this.chart = chart;
-	}
-
-
-
-	/**
-	 * Returns a sample dataset.
-	 * 
-	 * @return The dataset.
-	 */
+	
 	private static CategoryDataset createDataset() {
 		
 		
-		// row keys...
+		// étiquettes des lignes...
 		String series1 = "nombre d'intervention de ce type";
 
 
-		// column keys...
+		// étiquettes des colonnes...
 		String category1 = "pneu crevé";
 		String category2 = "selle";
 		String category3 = "pédale";
@@ -75,7 +61,7 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 		String category6 = "autres";
 
 
-		// create the dataset...
+		// créer la dataset...
 		
 		/**TODO changer les valeurs!!!
 		 * 
@@ -95,16 +81,9 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 
 	}
 
-	/**
-	 * Creates a sample chart.
-	 * 
-	 * @param dataset  the dataset.
-	 * 
-	 * @return The chart.
-	 */
 	private static JFreeChart createChart(CategoryDataset dataset) {
 
-		// create the chart...
+		// créer la chart...
 		JFreeChart chart = ChartFactory.createBarChart(
 				"Nombre d'interventions ces six derniers mois", 	// chart title
 				"Types d'intervention",               // domain axis label
@@ -116,9 +95,9 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 				false                     // URLs?
 		);
 
-		// NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 
-		// set the background color for the chart...
+
+		// couleur de l'arrrière plan du chart
 		chart.setBackgroundPaint(Color.white);
 
 		// get a reference to the plot for further customisation...
@@ -150,25 +129,11 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 		domainAxis.setCategoryLabelPositions(
 				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
 		);
-		// OPTIONAL CUSTOMISATION COMPLETED.
 
 		return chart;
 
 	}
 	
-	
-
-     // Starting point for the demonstration application.
-
-   /*public static void main(String[] args) {
-
-    	DiagrammeNbIntervention demo = new DiagrammeNbIntervention("", );
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
-
-    }*/
-
 
 }
 
