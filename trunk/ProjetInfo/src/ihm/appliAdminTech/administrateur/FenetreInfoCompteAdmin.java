@@ -1,8 +1,8 @@
 package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAOUtilisateur;
+
 import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -47,7 +47,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 	private JLabel labelStatut = new JLabel("Statut du compte");
 	private JLabel labelStatutCompte = new JLabel("");
 	
-	private JButton boutonChoix = new JButton("");
+	private JButton boutonModifier = new JButton("Modifier des informations sur ce compte");
 	private JButton boutonAutreCompte = new JButton("Afficher informations sur un autre compte");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -225,14 +225,12 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(200,350));
-		if(fenetrePrec.getTitle().equals("Modifier informations sur un compte")){boutonChoix.setText("Modifier des informations sur ce compte");}
-		else if (fenetrePrec.getTitle().equals("Résilier un compte")){boutonChoix.setText("Résilier ce compte");}
-		boutonChoix.setPreferredSize(new Dimension(80,40));
-		boutonChoix.setMaximumSize(new Dimension(80,40));
-		boutonChoix.setBackground(Color.CYAN);
-		boutonChoix.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonChoix.addActionListener(this);
-		centerEast.add(boutonChoix);
+		boutonModifier.setPreferredSize(new Dimension(80,40));
+		boutonModifier.setMaximumSize(new Dimension(80,40));
+		boutonModifier.setBackground(Color.CYAN);
+		boutonModifier.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonModifier.addActionListener(this);
+		centerEast.add(boutonModifier);
 		center.add(centerEast,BorderLayout.EAST);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
@@ -264,11 +262,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Modifier des informations sur ce compte")){
+		if(arg0.getSource()==boutonModifier){
 			new FenetreModifCompteAdmin(compte,this.getAdministrateur());
-		}
-		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Résilier ce compte")){
-			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}
 		else if(arg0.getSource()==boutonAutreCompte){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur());

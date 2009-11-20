@@ -4,7 +4,6 @@ import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
-import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -90,7 +89,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		else if(fenetrePrec.getTitle().equals("Modification d'un compte")){
 			north.add(labelAdminTech);
 			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("La modification ou résiliation a bien été enregistrée. ");
+			labelConfirm.setText("La modification a bien été enregistrée. ");
 			bouton1.setText("Afficher informations sur un autre compte");
 			bouton1.addActionListener(this);
 			bouton2.setText("Retour au menu principal");
@@ -101,6 +100,22 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			south.add(bouton1);
 			south.add(bouton2);
 		}
+		
+		else if(fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation")){
+			north.add(labelAdminTech);
+			this.getContentPane().add(north,BorderLayout.NORTH);
+			labelConfirm.setText("La résiliation a bien été enregistrée. ");
+			bouton1.setText("Afficher informations sur un autre compte");
+			bouton1.addActionListener(this);
+			bouton2.setText("Retour au menu principal");
+			bouton2.addActionListener(this);
+			JPanel panel = new JPanel();
+			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			south.add(panel);
+			south.add(bouton1);
+			south.add(bouton2);
+		}
+		
 		else if(fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")){
 			north.add(labelAdminTech);
 			this.getContentPane().add(north,BorderLayout.NORTH);
@@ -189,7 +204,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				new MenuPrincipalAdmin(new Administrateur (compte));
 			}
 		}
-		else if(fenetrePrecedente.getTitle().equals("Modification d'un compte")){
+		else if(fenetrePrecedente.getTitle().equals("Modification d'un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
 			if(arg0.getSource()==bouton1){
 				//new FenetreRechercherCompteAdmin(new Administrateur (compte));
 			}
@@ -197,6 +212,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				new MenuPrincipalAdmin(new Administrateur (compte));
 			}
 		}
+	
 		else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
 			if(arg0.getSource()==bouton1){
 				//new FenetreEtatStation(new Administrateur (compte));
