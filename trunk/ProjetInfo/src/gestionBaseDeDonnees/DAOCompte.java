@@ -20,30 +20,30 @@ public class DAOCompte {
 			ResultSet res = null;
 			
 			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
-				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as ida from dual");
+				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as id from dual");
 				if (res.next()){
-					String id = res.getString("ida");
-					compte.setId(compte.getTypeLettre() + id);
+					String id = "a" + res.getString("id");
+					compte.setId(id);
 				}
 				else{
 					throw new SQLException("probleme de sequence");
 				}
 			}
 			else if (compte.getType() == Compte.TYPE_UTILISATEUR){
-				res = s.executeQuery("Select seqUtilisateur.NEXTVAL as idu from dual");
+				res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
 				if (res.next()){
-					String id = res.getString("idu");
-					compte.setId(compte.getTypeLettre() + id);
+					String id = "u" + res.getString("id");
+					compte.setId(id);
 				}
 				else{
 					throw new SQLException("probleme de sequence");
 				}
 			}
 			else if (compte.getType() == Compte.TYPE_TECHNICIEN){
-				res = s.executeQuery("Select seqTechnicien.NEXTVAL as idt from dual");
+				res = s.executeQuery("Select seqTechnicien.NEXTVAL as id from dual");
 				if (res.next()){
-					String id = res.getString("idt");
-					compte.setId(compte.getTypeLettre() + id);
+					String id = "t" + res.getString("id");
+					compte.setId(id);
 				}
 				else{
 					throw new SQLException("probleme de sequence");
