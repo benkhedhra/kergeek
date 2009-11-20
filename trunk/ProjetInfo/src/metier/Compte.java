@@ -20,22 +20,22 @@ public class Compte {
 
 	public Compte(int type) {
 		super();
-		this.setMotDePasse("test");
+		this.genererMotDePasse();
 		this.setActif(true);
 		this.setType(type);
 	}
 
 	public Compte(int type, String adresseEmail) {
 		super();
-		this.setMotDePasse("test");
+		this.genererMotDePasse();
 		this.setActif(true);
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);
 	}
-	
+
 	public Compte(int type, String adresseEmail, boolean actif) {
 		super();
-		this.setMotDePasse("test");
+		this.genererMotDePasse();
 		this.setActif(true);
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);
@@ -90,6 +90,16 @@ public class Compte {
 		case TYPE_UTILISATEUR : lettre = "u";
 		}
 		return lettre;
+	}
+
+	public void genererMotDePasse() {
+		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
+		String motDePasse = "";
+		for(int x=0;x<6;x++){
+			int i = (int)Math.floor(Math.random() * bibliotheque.length()-1);
+			motDePasse += bibliotheque.charAt(i);
+		}
+		this.setMotDePasse(motDePasse);
 	}
 
 }
