@@ -134,7 +134,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonValider && this.getUtilisateur().getVelo().getEmprunt().getDiff()>120){
+		if(arg0.getSource()==boutonValider && this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>120){
 			//le 300 est arbitraire : à vérifier s'il s'agit de secondes ? 
 			try {
 				this.getUtilisateur().rendreVelo(stationEntree);

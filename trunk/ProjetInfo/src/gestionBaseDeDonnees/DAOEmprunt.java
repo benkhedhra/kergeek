@@ -71,34 +71,6 @@ public class DAOEmprunt {
 		return effectue;
 	}
 	
-	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException {
-		Velo velo = new Velo();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select idVelo, idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
-		try {
-			if (res.next()) {
-				velo.setId(identifiant);
-				velo.setLieu(DAOLieu.getLieuById(res.getString("idLieu")));
-				velo.setEnPanne(res.getBoolean("enPanne"));
-			}
-			else {
-				throw new PasDansLaBaseDeDonneeException();
-			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
-		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
-		return velo;
-	}
 	
 	public static Emprunt getEmpruntById(String identifiant) throws SQLException, ClassNotFoundException {
 		Emprunt emprunt = new Emprunt();
