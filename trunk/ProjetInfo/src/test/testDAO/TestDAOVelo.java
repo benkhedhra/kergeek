@@ -1,4 +1,4 @@
-package test;
+package test.testDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,16 +24,15 @@ public class TestDAOVelo extends TestCase {
 	}
 	
 	@Test
-	public void testUpdateVelo() throws SQLException, ClassNotFoundException{
-		Velo v = new Velo();
-		DAOVelo.createVelo(v);
-		Boolean b = DAOVelo.updateVelo(v);
-		assertEquals((Boolean)true,(Boolean) b);
+	public void testUpdateVelo(){
 	}
 	
 	@Test
-	public void testDeleteVelo(){
-		
+	public void testDeleteVelo() throws SQLException, ClassNotFoundException{
+		Velo v = new Velo();
+		DAOVelo.createVelo(v);
+		Boolean b = DAOVelo.deleteVelo(v);
+		assertEquals((Boolean)true,(Boolean) b);
 	}
 	
 	@Test

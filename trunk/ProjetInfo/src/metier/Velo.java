@@ -20,9 +20,8 @@ public class Velo {
 	}
 
 	
-	public Velo(String identifiant, Lieu lieu, boolean enPanne) {
+	public Velo(Lieu lieu, boolean enPanne) {
 		super();
-		this.setId(id);
 		this.setLieu(lieu);
 		this.setEnPanne(enPanne);
 	}

@@ -82,6 +82,8 @@ public class Compte {
 		this.adresseEmail = adresseEmail;
 	}
 
+	//methodes
+
 	public void genererMotDePasse() {
 		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
 		String motDePasse = null;
