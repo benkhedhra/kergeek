@@ -57,6 +57,6 @@ public abstract class Lieu {
 
 	public boolean ajouterVelo(Velo velo) throws SQLException, ClassNotFoundException{
 		velo.setLieu(this);
-		return DAOVelo.createVelo(velo);
+		return DAOVelo.updateVelo(velo);
 	}
 }
