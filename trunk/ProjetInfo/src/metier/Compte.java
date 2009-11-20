@@ -82,20 +82,10 @@ public class Compte {
 		this.adresseEmail = adresseEmail;
 	}
 
-	public String getTypeLettre() {
-		String lettre = null;
-		switch(this.getType()){
-		case TYPE_ADMINISTRATEUR : lettre = "a";
-		case TYPE_TECHNICIEN : lettre = "t";
-		case TYPE_UTILISATEUR : lettre = "u";
-		}
-		return lettre;
-	}
-
 	public void genererMotDePasse() {
 		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
-		String motDePasse = "";
-		for(int x=0;x<6;x++){
+		String motDePasse = null;
+		for(int x=0; x<6; x++){
 			int i = (int) Math.floor(Math.random() * bibliotheque.length()-1);
 			motDePasse += bibliotheque.charAt(i);
 		}

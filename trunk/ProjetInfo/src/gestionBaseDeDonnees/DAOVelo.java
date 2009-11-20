@@ -21,7 +21,6 @@ public class DAOVelo {
 			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
-				System.out.println("coucou");
 				velo.setId(id);
 				if (velo.isEnPanne()){
 					s.executeUpdate("INSERT into Velo values ('" 
