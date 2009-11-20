@@ -19,8 +19,17 @@ public class TestAdministrateur extends TestCase{
 		c.setId("id");
 		a.resilierCompte("id");
 		Boolean b = DAOCompte.getCompteById("id").isActif();
-		assertEquals("test",(Boolean)b,0);
+		assertEquals(null,(Boolean)b);
 	}
 	
+	@Test
+	public void testCreerCompte(){
+		
+	}
+	
+	@Test
+	public void testDemanderAssignation(){
+		
+	}
 	
 }
