@@ -124,7 +124,7 @@ public class DAOVelo {
 
 
 	//permet d'obtenir la liste des velos parques dans un lieu
-	public static ArrayList<Velo> getVeloByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
+	public static ArrayList<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
 		ArrayList<Velo> listeVelos = new ArrayList<Velo>();
 		Velo velo = null;
 
