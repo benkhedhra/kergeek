@@ -273,7 +273,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			//new FenetreAffichageResultats(this,this.getAdministrateur().getCompte());
 		}
 		else if(arg0.getSource()==boutonAutreCompte){
-			new FenetreRechercherCompteAdmin(this.getAdministrateur());
+			new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

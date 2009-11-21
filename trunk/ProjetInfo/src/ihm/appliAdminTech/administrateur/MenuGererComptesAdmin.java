@@ -107,7 +107,7 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 			new FenetreCreationCompteAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonInformations){
-			 new FenetreRechercherCompteAdmin(this.getAdministrateur());
+			 new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
 		}
 	}
 
