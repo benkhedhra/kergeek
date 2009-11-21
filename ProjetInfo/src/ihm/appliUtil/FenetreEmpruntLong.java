@@ -57,16 +57,21 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
+		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
+		boutonDeconnexion.setBackground(Color.MAGENTA);
+		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		north.add(labelUtil);
+		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
+		// l'utilisateur est bloqué pendant une semaine
+		utilisateur.setBloque(true);
 		labelMsg.setText("Vous avez rendu le vélo plus de 12 heures après l'emprunt. Votre compte sera bloqué pendant une semaine. ");
 		labelMsg.setPreferredSize(new Dimension(650,30));
-		boutonDeconnexion.setPreferredSize(new Dimension(150,50));
-		boutonDeconnexion.setBackground(Color.CYAN);
 		
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);

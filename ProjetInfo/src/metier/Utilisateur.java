@@ -137,15 +137,7 @@ public class Utilisateur {
 				station.ajouterVelo(velo);
 				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
 				velo.getEmpruntEnCours().setLieuRetour(station);
-				effectue = DAOEmprunt.updateEmprunt(velo.getEmpruntEnCours());
-				
-				if (velo.getEmpruntEnCours().getTpsEmprunt() >= Emprunt.TPS_EMPRUNT_MAX){
-					this.setBloque(true);
-				}
-				else{
-					//TODO
-				}
-				velo.setEmprunt(null);
+				effectue = true;
 			}
 		}
 		
