@@ -88,7 +88,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 		List<Station> listeStations;
 		try {
-			listeStations = DAOLieu.getAllStation();
+			listeStations = DAOLieu.getAllStations();
 			Station [] tableauStations = new Station[listeStations.size()];
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
@@ -149,7 +149,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		south.setLayout(new BorderLayout());
+		
 		boutonEtatAutreStation.setPreferredSize(new Dimension(250,40));
 		boutonEtatAutreStation.setMaximumSize(new Dimension(250,40));
 		boutonEtatAutreStation.setFont(FenetreAuthentificationUtil.POLICE3);

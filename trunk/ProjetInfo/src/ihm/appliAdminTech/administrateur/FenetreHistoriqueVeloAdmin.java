@@ -1,6 +1,5 @@
 package ihm.appliAdminTech.administrateur;
 
-import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;

@@ -8,8 +8,8 @@ public class Station extends Lieu {
 	
 	//Attributs
 	
-	static final float TAUX_OCCUPATION_MIN = 1/10;
-	static final float TAUX_OCCUPATION_MAX = 5/10;
+	public static final float TAUX_OCCUPATION_MIN = 1/10;
+	public static final float TAUX_OCCUPATION_MAX = 5/10;
 	
 	
 	//Constructeur
@@ -31,8 +31,8 @@ public class Station extends Lieu {
 	
 	//Methodes
 
-	public int calculerTx(String idStation) throws SQLException, ClassNotFoundException{
-		int nbVelo = DAOVelo.getVeloByLieu(this).size();
+	public int calculerTx() throws SQLException, ClassNotFoundException{
+		int nbVelo = DAOVelo.getVelosByLieu(this).size();
 		int a = nbVelo/this.getCapacite();
 		return a;
 	}

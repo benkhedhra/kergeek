@@ -1,7 +1,9 @@
 package metier;
 
 import gestionBaseDeDonnees.DAOVelo;
+
 import java.sql.SQLException;
+import java.util.List;
 
 
 public abstract class Lieu {
@@ -11,7 +13,6 @@ public abstract class Lieu {
 	protected String id;
 	protected String adresse;
 	protected int capacite;
-
 
 	//Constantes
 
@@ -46,10 +47,8 @@ public abstract class Lieu {
 		this.capacite = capacite;
 	}
 
-
-	//Methodes
-
-
+	//Méthodes
+	
 	public boolean enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
 		velo.setLieu(SORTI);
 		return DAOVelo.updateVelo(velo);

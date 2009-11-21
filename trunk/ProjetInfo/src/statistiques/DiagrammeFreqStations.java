@@ -52,7 +52,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 		// étiquettes des colonnes...
 		try {
-			List<Station> stations = DAOLieu.getAllStation();
+			List<Station> stations = DAOLieu.getAllStations();
 			ArrayList<String> category = new ArrayList<String>(stations.size());
 			for (int i=0;i<stations.size();i++){
 				category.add(stations.get(i).getId());
