@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -112,13 +113,13 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		}
 		/*else if (arg0.getSource()==boutonStationsSurSous){
 			new FenetreStationsSurSousAdmin(MenuInterventionsMaintenanceAdmin );
-		}
+		}*/
 		else if (arg0.getSource()==boutonEtatStation){
-			new FenetreEtatStationAdmin(MenuInterventionsMaintenanceAdmin );
+			new FenetreEtatStationAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonVelosSortis){
-			new FenetreAffichageResultats(this);
-		}*/
+			new FenetreAffichageResultats(/*this,this.getAdministrateur().getCompte()*/);
+		}
 	}
 
 }
