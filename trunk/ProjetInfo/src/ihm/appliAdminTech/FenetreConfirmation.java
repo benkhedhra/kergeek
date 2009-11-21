@@ -2,6 +2,7 @@ package ihm.appliAdminTech;
 
 import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
+import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
@@ -215,10 +216,10 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	
 		else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
 			if(arg0.getSource()==bouton1){
-				//new FenetreEtatStation(new Administrateur (compte));
+				new FenetreEtatStationAdmin(new Administrateur (compte));
 			}
 			else if (arg0.getSource()==bouton2){
-				//new FenetreStationsSurSous(new Administrateur (compte));
+				//new FenetreStationsSurSousAdmin(new Administrateur (compte));
 			}
 			else if (arg0.getSource()==bouton3){
 				new MenuPrincipalAdmin(new Administrateur (compte));
