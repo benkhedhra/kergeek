@@ -5,6 +5,7 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import metier.Compte;
 
@@ -205,10 +206,57 @@ public class DAOCompte {
 		}
 		return compte;
 	}
-	
+
 	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
 		return (getCompteById(id)!=null);
 	}
-	
 
+	public static ArrayList<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail){
+		//le type est toujours renseigné, les autres peuvent valoir null
+		//on va compter le nombre de paramètres non-nuls
+		ArrayList<String> listeChamps = new ArrayList<String>();
+		listeChamps.add(ident);
+		listeChamps.add(nom);
+		listeChamps.add(prenom);
+		listeChamps.add(adresseEMail);
+
+		int nbChampsRemplis=0;
+		for (String champ : listeChamps){
+			if (champ!=null){nbChampsRemplis++;}
+		}
+
+		ArrayList<Compte> resul = new ArrayList<Compte>();
+		String requete = "select * from Compte";
+		if(nbChampsRemplis>0){
+			requete=requete+" where ";
+			if(ident!=null){
+				requete=requete+"Compte.id = "+ident;
+			}
+			if(adresseEMail!=null){
+				if (!requete.equals("select * from Compte where ")){
+					requete=requete+" and ";
+				}
+				requete=requete+" Compte.adresseEMail = "+adresseEMail;
+			}
+			if(type==Compte.TYPE_UTILISATEUR){
+				if (!requete.equals("select * from Compte where ")){
+					requete=requete+" and ";
+				}
+				requete=requete+" Compte.id = Utilisateur.id ";
+				if(nom!=null){
+					if (!requete.equals("select * from Compte where ")){
+						requete=requete+" and ";
+					}
+					requete=requete+"Utilisateur.nom = "+nom;
+				}
+				if(prenom!=null){
+					if (!requete.equals("select * from Compte where ")){
+						requete=requete+" and ";
+					}
+					requete=requete+" Utilisateur.prenom = "+prenom;
+				}
+			}
+		}
+		return resul;
+	}
 }

@@ -16,7 +16,7 @@ public class TestStation extends TestCase {
 		Velo v = new Velo();
 		s.ajouterVelo(v);
 		int a=1/50;
-		int b = s.calculerTx("id");
+		int b = s.calculerTx();
 		assertEquals(a,b);
 	}
 
