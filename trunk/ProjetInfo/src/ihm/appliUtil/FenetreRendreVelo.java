@@ -2,7 +2,10 @@ package ihm.appliUtil;
 
 import exception.PasDeVeloEmprunteException;
 import exception.VeloNonSortiException;
+import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
+import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 
 import java.awt.BorderLayout;
@@ -37,7 +40,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private Station stationEntree;
-	
+
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
@@ -47,7 +50,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 	}
 
 	public FenetreRendreVelo(Utilisateur u) {
-		
+
 		System.out.println("Fenêtre pour rendre un vélo");
 		this.setContentPane(new Panneau());
 		//Définit un titre pour notre fenêtre
@@ -69,7 +72,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 		this.setUtilisateur(u);
 
-		
+
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
@@ -84,8 +87,6 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
-		
-		//pour la suite besoin de DAOStation avec getAllStations
 		List<Station> listeStations;
 		try {
 			listeStations = DAOLieu.getAllStation();
@@ -115,56 +116,62 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			center.add(labelMsg);
 			center.add(boutonValider);
 			this.getContentPane().add(center, BorderLayout.CENTER);
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			MsgBox.affMsg(e.getMessage());
 		}
-		
+
 		this.setVisible(true);
-	}
-
-
-	public static void main(String[] args) {
-		new FenetreRendreVelo(LancerAppliUtil.UTEST);
 	}
 
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonValider && this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MIN){
-
-			try {
-				this.getUtilisateur().rendreVelo(stationEntree);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				MsgBox.affMsg(e.getMessage());
-			} catch (VeloNonSortiException e) {
-				// TODO Auto-generated catch block
-				MsgBox.affMsg(e.getMessage());
-			} catch (PasDeVeloEmprunteException e) {
-				// TODO Auto-generated catch block
-				MsgBox.affMsg(e.getMessage());
+		try {
+			if (arg0.getSource()==boutonDeconnexion){
+				new FenetreConfirmationUtil("Merci et à bientôt ! ");
 			}
-			new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
-			System.out.println("Le vélo a bien été rendu");
+			else if (arg0.getSource()==boutonValider){
+				if (this.getUtilisateur().rendreVelo(stationEntree)){
+					// l'utilisateur a bien rendu le vélo
+					DAOEmprunt.updateEmprunt(this.getUtilisateur().getVelo().getEmpruntEnCours());
+					this.getUtilisateur().getVelo().setEmprunt(null);
+					DAOVelo.updateVelo(this.getUtilisateur().getVelo());
+					if (this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MIN){
+						//emprunt trop court
+						new FenetreEmpruntCourt(this.getUtilisateur());
+					}
+					else if (this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MAX){
+						//emprunt trop long
+						new FenetreEmpruntLong(this.getUtilisateur());
+						this.getUtilisateur().setBloque(true);
+						DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+					}
+					else {
+						//emprunt ni trop court ni trop long
+						new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
+						System.out.println("Le vélo a bien été rendu");
+					}
+				}
+				else {
+					//le vélo n'a pas été rendu
+					MsgBox.affMsg("problème");
+				}
+			}
+		}//fin du try
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			MsgBox.affMsg(e.getMessage());
+		} catch (VeloNonSortiException e) {
+			// TODO Auto-generated catch block
+			MsgBox.affMsg(e.getMessage());
+		} catch (PasDeVeloEmprunteException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
-		else if (arg0.getSource()==boutonDeconnexion){
-			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Merci et à bientôt ! ");
-			f.setVisible(true);
-		}
-		else{
-			//c'est donc que l'utilisateur a cliqué sur valider et que l'emprunt est inférieur à 300 s
-			FenetreEmpruntCourt f = new FenetreEmpruntCourt(this.getUtilisateur());
-			f.setVisible(true);
-		}
-
 	}
-
 }

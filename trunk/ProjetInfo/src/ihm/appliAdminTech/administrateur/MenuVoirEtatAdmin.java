@@ -111,16 +111,13 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 			m.setVisible(true);
 		}
 		/*else if (arg0.getSource()==boutonStationsSurSous){
-			FenetreStationsSurSousAdmin f = new FenetreStationsSurSousAdmin(MenuInterventionsMaintenanceAdmin );
-			f.setVisible(true);
+			new FenetreStationsSurSousAdmin(MenuInterventionsMaintenanceAdmin );
 		}
 		else if (arg0.getSource()==boutonEtatStation){
-			FenetreEtatStationAdmin f = new FenetreEtatStationAdmin(MenuInterventionsMaintenanceAdmin );
-			f.setVisible(true);
+			new FenetreEtatStationAdmin(MenuInterventionsMaintenanceAdmin );
 		}
 		else if (arg0.getSource()==boutonVelosSortis){
-			FenetreAffichageResultatsn f = new FenetreAffichageResultats(this);
-			f.setVisible(true);
+			new FenetreAffichageResultats(this);
 		}*/
 	}
 

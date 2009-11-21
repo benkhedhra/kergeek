@@ -18,14 +18,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Compte;
 
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private Administrateur administrateur;
 	private JLabel labelAdmin = new JLabel("");;
-	private JLabel labelMsg = new JLabel("Entrer les données du titulaire du nouveau compte");
-	private JLabel labelPeriode = new JLabel("Période sur laquelle vous voulez les statistiques");
+	private JLabel labelMsg = new JLabel("Veuillez entrer la période sur laquelle vous voulez les statistiques");
 	private String periodeEntree;
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
@@ -37,7 +37,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 	public void setAdministrateur(Administrateur administrateur) {
 		this.administrateur = administrateur;
 	}
-	
+
 	public String getPeriodeEntree() {
 		return periodeEntree;
 	}
@@ -51,7 +51,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		System.out.println("Fenêtre pour avoir la fréquentation des stations");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Création d'un nouveau compte");
+		this.setTitle("Fréquentation des stations");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
@@ -113,19 +113,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(5,2));
-
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelPeriode.setPreferredSize(new Dimension(150,30));
-		labelPeriode.setMaximumSize(new Dimension(150,30));
-		panel1.add(labelPeriode);
-		centerWest.add(panel1);
-
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		panel2.add(periodeARemplir);
-		centerWest.add(panel2);	
+		centerWest.add(periodeARemplir);
 
 		center.add(centerWest,BorderLayout.WEST);
 
@@ -164,7 +152,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			//new FenetreAffichageResultats(this,this.getAdministrateur().getCompte());
+			new FenetreAffichageResultats(/*this,this.getAdministrateur().getCompte()*/);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
@@ -172,4 +160,8 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 
 	}
 
+	public static void main (String [] args){
+		Administrateur ATEST = new Administrateur(new Compte(Compte.TYPE_ADMINISTRATEUR));
+		new FenetreFrequentationStationsAdmin(ATEST);
+	}
 }
