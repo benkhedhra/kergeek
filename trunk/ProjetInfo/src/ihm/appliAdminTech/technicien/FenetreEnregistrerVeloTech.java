@@ -1,11 +1,14 @@
 package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAOVelo;
+import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
+import ihm.appliAdminTech.FenetreConfirmation;
+import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -13,23 +16,26 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import metier.Garage;
 import metier.Technicien;
 import metier.Velo;
 
 public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Technicien technicien;
 
-	// définition des polices
-	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
-	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
-	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
-	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,14);
-
-	private JLabel labelId = new JLabel("Le nouveau vélo est enregistré avec l'identifiant");
 	private JLabel labelTech = new JLabel("");
-	private JLabel id = new JLabel("");
+	private JLabel labelId = new JLabel("Veuillez entrer l'identifiant du nouveau vélo");
+	private JTextField idARemplir = new JTextField("");
+	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
 
 
@@ -41,45 +47,86 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		this.technicien = tech;
 	}
 
-	public FenetreEnregistrerVeloTech(Technicien tech) throws SQLException, ClassNotFoundException{
-		System.out.println("Ouverture d'une fenêtre d'enregistrement de velo du technicien");
-		this.setTitle("Enregistrement du nouveau velo");
-		this.setSize(700,500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public FenetreEnregistrerVeloTech(Technicien t) throws SQLException, ClassNotFoundException{
+		
+		System.out.println("Ouverture d'une fenêtre d'enregistrement de vélo du technicien");
+		
+		this.setTechnicien(t);
+		this.setContentPane(new PanneauTech());
+		
+		//Définit un titre pour votre fenêtre
+		this.setTitle("Enregistrer un nouveau vélo");
+		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
+		this.setSize(700, 500);
+		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
+		//Terminer le processus lorsqu'on clique sur "Fermer"
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pour que la fenêtre ne se redimensionne pas à chaque fois
+		this.setResizable(false);
+		//pour que la fenêtre soit toujours au premier plan
+		this.setAlwaysOnTop(true);
 
 		// on définit un BorderLayout
 		this.getContentPane().setLayout(new BorderLayout());
 
-		
 
-		labelTech = new JLabel("Vous êtes connecté en tant que "+ tech.getCompte().getId());
+		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentification.POLICE4);
-		this.getContentPane().add(labelTech,BorderLayout.NORTH);
+		labelTech.setPreferredSize(new Dimension(500,30));
+		JPanel north = new JPanel();
+		north.setPreferredSize(new Dimension(700,100));
+		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.add(labelTech);
+		this.getContentPane().add(north,BorderLayout.NORTH);
+
+		JPanel center = new JPanel();
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(70,350));
+		labelId.setFont(FenetreAuthentificationUtil.POLICE2);
+		labelId.setPreferredSize(new Dimension(600,100));
+		center.add(labelId);
+		idARemplir.setFont(FenetreAuthentificationUtil.POLICE2);
+		idARemplir.setPreferredSize(new Dimension(200,40));
+		center.add(idARemplir);
+		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setBackground(Color.CYAN);
+		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.addActionListener(this);
+		center.add(boutonValider);
 		
-		Velo velo = new Velo();
-		DAOVelo.createVelo(velo);
-
-		id.setFont(POLICE1);
-		id.setText(velo.getId());
-		this.getContentPane().add(id,BorderLayout.CENTER);
-
-		labelId.setFont(POLICE3);
-		this.getContentPane().add(labelId,BorderLayout.CENTER);
-
-		boutonRetour.setPreferredSize(new Dimension(50,50));
-		this.getContentPane().add(boutonRetour,BorderLayout.SOUTH);
-		//On ajoute notre Fenetre à la liste des auditeurs de notre Bouton
+		this.getContentPane().add(center,BorderLayout.CENTER);
+		
+		JPanel south = new JPanel();
+		south.setPreferredSize(new Dimension(700,100));
+		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,40));
+		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
+		south.add(boutonRetour);
+		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);
 	}
 
 
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==boutonRetour){
-			MenuPrincipalTech menuPrincip = new MenuPrincipalTech(this.getTechnicien());
-			menuPrincip.setVisible(true);
+		this.dispose();
+		if(arg0.getSource()==boutonValider){
+			Velo velo = new Velo(idARemplir.getText(),Garage.getInstance(),true);
+			try {
+				DAOVelo.createVelo(velo);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
+			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+		}
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalTech(this.getTechnicien());
 		}
 	}
 }

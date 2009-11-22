@@ -19,7 +19,7 @@ public class TestUtilisateur extends TestCase{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
-		Velo v = new Velo(s,false);
+		Velo v = new Velo("v",s,false);
 		DAOVelo.createVelo(v);
 		Boolean b = u.emprunteVelo(v, s);
 		assertEquals((Boolean)true,(Boolean) b);
@@ -30,7 +30,7 @@ public class TestUtilisateur extends TestCase{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
-		Velo v = new Velo(s,false);
+		Velo v = new Velo("v",s,false);
 		DAOVelo.createVelo(v);
 		u.emprunteVelo(v, s);
 		Boolean b = u.rendreVelo(s);

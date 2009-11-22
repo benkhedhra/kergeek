@@ -2,8 +2,6 @@ package metier;
 
 import java.sql.SQLException;
 
-import gestionBaseDeDonnees.DAOEmprunt;
-
 public class Velo {
 	
 	// Attributs
@@ -22,10 +20,12 @@ public class Velo {
 		this.setEnPanne(true);
 		this.setLieu(Garage.getInstance());
 	}
+	//?????????????? pourquoi true
 
 	
-	public Velo(Lieu lieu, boolean enPanne) {
+	public Velo(String idVelo, Lieu lieu, boolean enPanne) {
 		super();
+		this.setId(idVelo);
 		this.setLieu(lieu);
 		this.setEnPanne(enPanne);
 	}
@@ -69,6 +69,4 @@ public class Velo {
 		this.empruntEnCours = emprunt;
 	}
 	
-	
-
 }

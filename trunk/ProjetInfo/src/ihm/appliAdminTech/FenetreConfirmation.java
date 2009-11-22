@@ -1,10 +1,15 @@
 package ihm.appliAdminTech;
 
+import gestionBaseDeDonnees.DAOAdministrateur;
+import gestionBaseDeDonnees.DAOTechnicien;
 import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
+import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
+import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
+import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -14,15 +19,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import metier.Administrateur;
 import metier.Compte;
-import metier.Technicien;
 
 public class FenetreConfirmation extends JFrame implements ActionListener {
 
@@ -199,57 +203,143 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.dispose();
 		if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){
 			if(arg0.getSource()==bouton1){
-				new FenetreCreationCompteAdmin(new Administrateur (compte));
+				try {
+					new FenetreCreationCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if (arg0.getSource()==bouton2){
-				new MenuPrincipalAdmin(new Administrateur (compte));
+				try {
+					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		else if(fenetrePrecedente.getTitle().equals("Modification d'un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
 			if(arg0.getSource()==bouton1){
-				//new FenetreRechercherCompteAdmin(new Administrateur (compte));
+				try {
+					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()),false);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if (arg0.getSource()==bouton2){
-				new MenuPrincipalAdmin(new Administrateur (compte));
+				try {
+					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	
 		else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
 			if(arg0.getSource()==bouton1){
-				new FenetreEtatStationAdmin(new Administrateur (compte));
+				try {
+					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if (arg0.getSource()==bouton2){
-				//new FenetreStationsSurSousAdmin(new Administrateur (compte));
+				try {
+					new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if (arg0.getSource()==bouton3){
-				new MenuPrincipalAdmin(new Administrateur (compte));
+				try {
+					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		else if(fenetrePrecedente.getTitle().equals("Enregistrer un nouveau vélo")){
 			if(arg0.getSource()==bouton1){
-				//new FenetreEnregistrerVeloTech(new Technicien (compte));
+				try {
+					new FenetreEnregistrerVeloTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if (arg0.getSource()==bouton2){
-				new MenuPrincipalTech(new Technicien (compte));
+				try {
+					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		else if(fenetrePrecedente.getTitle().equals("Retirer un vélo défectueux d'une station")){
 			if(arg0.getSource()==bouton1){
-				//new FenetreRetirerVeloTech(new Technicien (compte));
+				//new FenetreRetirerVeloTech(DAOTechnicien.getTechnicienById(compte.getId()));
 			}
 			else if (arg0.getSource()==bouton2){
-				new MenuPrincipalTech(new Technicien (compte));
+				try {
+					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		else if(fenetrePrecedente.getTitle().equals("Prendre en charge l'assignation")){
 			if(arg0.getSource()==bouton1){
-				//new FenetreGererUneDemandeTech(new Technicien (compte));
+				//new FenetreGererUneDemandeTech(DAOTechnicien.getTechnicienById(compte.getId()));
 			}
 			else if (arg0.getSource()==bouton2){
-				new MenuPrincipalTech(new Technicien (compte));
+				try {
+					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-
 	}
-
 }
