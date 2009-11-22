@@ -1,8 +1,5 @@
 package metier;
 
-import java.sql.SQLException;
-
-import gestionBaseDeDonnees.DAOVelo;
 
 public class Station extends Lieu {
 	
@@ -30,12 +27,6 @@ public class Station extends Lieu {
 	}
 	
 	//Methodes
-
-	public int calculerTx() throws SQLException, ClassNotFoundException{
-		int nbVelo = DAOVelo.getVelosByLieu(this).size();
-		int a = nbVelo/this.getCapacite();
-		return a;
-	}
 	
 	public String toString(){
 		return this.getId();

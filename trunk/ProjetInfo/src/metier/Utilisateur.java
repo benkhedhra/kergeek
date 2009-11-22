@@ -2,8 +2,6 @@ package metier;
 
 import exception.PasDeVeloEmprunteException;
 import exception.VeloNonSortiException;
-import gestionBaseDeDonnees.DAOEmprunt;
-import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.UtilitaireDate;
 
 import java.sql.SQLException;
@@ -113,17 +111,21 @@ public class Utilisateur {
 
 	//Méthodes
 
-	public boolean emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
+	/*TODO
+	 * emprunte
+	 */
+	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
 		station.enleverVelo(velo);
 		this.setVelo(velo);
 		velo.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		return(DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo));
+		//DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo);
+		// a faire dans le controller
 	}
 	
 	
 
 	public boolean rendreVelo(Station station) 
-	throws SQLException, ClassNotFoundException, VeloNonSortiException, PasDeVeloEmprunteException{
+	throws VeloNonSortiException, PasDeVeloEmprunteException{
 		boolean effectue = false;
 		Velo velo = this.getVelo();
 		if (velo == null){

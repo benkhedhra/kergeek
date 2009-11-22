@@ -102,10 +102,10 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 				String[] lignei = tableauStations[i];
 				lignei[0] = "Station " + stationi.getId();
 				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
-				if (stationi.calculerTx()>Station.TAUX_OCCUPATION_MAX){
+				if (DAOLieu.calculerTx(stationi)>Station.TAUX_OCCUPATION_MAX){
 					lignei[2] = "sur-occupée";
 				}
-				else if (stationi.calculerTx()<Station.TAUX_OCCUPATION_MIN){
+				else if (DAOLieu.calculerTx(stationi)<Station.TAUX_OCCUPATION_MIN){
 					lignei[2] = "sous-occupée";
 				}
 			}

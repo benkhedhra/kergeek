@@ -1,9 +1,5 @@
 package metier;
 
-import gestionBaseDeDonnees.DAOVelo;
-
-import java.sql.SQLException;
-import java.util.List;
 
 
 public abstract class Lieu {
@@ -48,14 +44,16 @@ public abstract class Lieu {
 	}
 
 	//Méthodes
-	
-	public boolean enleverVelo(Velo velo) throws SQLException, ClassNotFoundException{
+
+	public void enleverVelo(Velo velo){
 		velo.setLieu(SORTI);
-		return DAOVelo.updateVelo(velo);
+		//DAOVelo.updateVelo(velo);
+		// a faire faire par le controller
 	}
 
-	public boolean ajouterVelo(Velo velo) throws SQLException, ClassNotFoundException{
+	public void ajouterVelo(Velo velo){
 		velo.setLieu(this);
-		return DAOVelo.updateVelo(velo);
+		//DAOVelo.updateVelo(velo);
+		// a faire faire par le controller
 	}
 }

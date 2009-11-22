@@ -63,7 +63,6 @@ public class DAOVelo {
 				s.executeUpdate("UPDATE Velo SET enPanne = '0' WHERE idVelo = '"+ velo.getId() + "'");
 				effectue=true;
 			}
-			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -163,9 +162,12 @@ public class DAOVelo {
 			if(res.next()){
 				velo.setEmprunt(DAOEmprunt.getEmpruntById(res.getString("idEmprunt")));
 			}
-			ConnexionOracleViaJdbc.fermer();
 		}
-		catch (SQLException e){
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+
+		finally {
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return emprunt;
