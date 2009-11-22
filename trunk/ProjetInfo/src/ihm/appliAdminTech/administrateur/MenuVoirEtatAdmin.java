@@ -118,7 +118,7 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 			new FenetreEtatStationAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonVelosSortis){
-			new FenetreAffichageResultats(/*this,this.getAdministrateur().getCompte()*/);
+			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
 		}
 	}
 

@@ -1,7 +1,6 @@
 package gestionBaseDeDonnees;
 
 import exception.PasDansLaBaseDeDonneeException;
-import ihm.MsgBox;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

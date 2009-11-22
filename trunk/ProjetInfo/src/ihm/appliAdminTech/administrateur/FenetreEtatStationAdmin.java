@@ -154,7 +154,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreAffichageResultats(/*this,this.getAdministrateur().getCompte()*/);
+			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
