@@ -63,7 +63,7 @@ public class DAOLieu {
 						+ Garage.ID_GARAGE + "', '" 
 						+ Garage.ADRESSE_GARAGE + "', '" 
 						+ Garage.CAPACITE_GARAGE+ "')"
-						);
+				);
 				effectue=true;
 			}
 			else{
@@ -116,7 +116,6 @@ public class DAOLieu {
 		catch(SQLException e1){
 			liste = null;
 			System.out.println(e1.getMessage());
-			ConnexionOracleViaJdbc.fermer();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -124,37 +123,40 @@ public class DAOLieu {
 
 		return liste;
 	}
-	
-	public static List<Station> getStationsSurSous() throws SQLException, ClassNotFoundException {
-		List<Station> liste = new ArrayList<Station>();
 
-		Station station = new Station();
 
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		/*ResultSet res = s.executeQuery("Select* from Lieu where " + ???.calculerTx()<Station.TAUX_OCCUPATION_MIN + "or" + ???.calculerTx()>Station.TAUX_OCCUPATION_MAX);
-		try {
-			boolean vide=true;
-			while(res.next()) {
-				vide = false;
-				station = (Station) DAOLieu.getLieuById(res.getString("idLieu"));
-				liste.add(station);
-			}
-			if(vide) {
-				throw new SQLException("pas de station");
-			}
-		}
-		catch(SQLException e1){
-			liste = null;
-			System.out.println(e1.getMessage());
-			ConnexionOracleViaJdbc.fermer();
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();
-		}*/
 
-		return liste;
+	public static int calculerTx(Station station) throws SQLException, ClassNotFoundException{
+		int nbVelo = DAOVelo.getVelosByLieu(station).size();
+		int a = nbVelo/station.getCapacite();
+		return a;
 	}
-	
+
+
+
+
+	public static List<List<Station>> getStationsSurSous() throws SQLException, ClassNotFoundException {
+
+		List<Station> listeToutesStation = getAllStations();
+
+		List<Station> listeStationsSurOccupees = new ArrayList<Station>();
+		List<Station> listeStationsSousOccupees = new ArrayList<Station>();
+		
+		List<List<Station>> liste = new ArrayList<List<Station>>();
+
+		for (Station station : listeToutesStation){
+			if (calculerTx(station)<Station.TAUX_OCCUPATION_MIN){
+				listeStationsSousOccupees.add(station);
+			}
+			else if (calculerTx(station)>Station.TAUX_OCCUPATION_MAX){
+				listeStationsSurOccupees.add(station);
+			}
+		}
+		liste.add(listeStationsSousOccupees);
+		liste.add(listeStationsSurOccupees);
+		
+		return liste; 
+	}
+
 }

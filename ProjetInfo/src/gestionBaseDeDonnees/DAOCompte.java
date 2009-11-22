@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import metier.Compte;
 
@@ -211,7 +212,7 @@ public class DAOCompte {
 		return (getCompteById(id)!=null);
 	}
 
-	public static ArrayList<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail){
+	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException{
 		//le type est toujours renseigné, les autres peuvent valoir null
 		//on va compter le nombre de paramètres non-nuls
 		ArrayList<String> listeChamps = new ArrayList<String>();
@@ -225,38 +226,52 @@ public class DAOCompte {
 			if (champ!=null){nbChampsRemplis++;}
 		}
 
-		ArrayList<Compte> resul = new ArrayList<Compte>();
+		List<Compte> listeComptes = new ArrayList<Compte>();
 		String requete = "select * from Compte";
 		if(nbChampsRemplis>0){
 			requete=requete+" where ";
 			if(ident!=null){
-				requete=requete+"Compte.id = "+ident;
+				requete=requete+"idCompte = '"+ident+"'";
 			}
 			if(adresseEMail!=null){
 				if (!requete.equals("select * from Compte where ")){
 					requete=requete+" and ";
 				}
-				requete=requete+" Compte.adresseEMail = "+adresseEMail;
+				requete=requete+" Compte.adresseEMail = '" + adresseEMail + "'";
 			}
 			if(type==Compte.TYPE_UTILISATEUR){
-				if (!requete.equals("select * from Compte where ")){
-					requete=requete+" and ";
-				}
-				requete=requete+" Compte.id = Utilisateur.id ";
 				if(nom!=null){
 					if (!requete.equals("select * from Compte where ")){
 						requete=requete+" and ";
 					}
-					requete=requete+"Utilisateur.nom = "+nom;
+					requete=requete+"nom = '" + nom  + "'";
 				}
 				if(prenom!=null){
 					if (!requete.equals("select * from Compte where ")){
 						requete=requete+" and ";
 					}
-					requete=requete+" Utilisateur.prenom = "+prenom;
+					requete=requete+" prenom = '" + prenom + "'";
 				}
 			}
 		}
-		return resul;
+		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			ResultSet res = s.executeQuery(requete);
+			Compte compte;
+			while(res.next()) {
+				compte =  getCompteById(res.getString("idCompte"));
+				listeComptes.add(compte);
+			}
+			
+		} catch(SQLException e1){
+			listeComptes = null;
+			System.out.println(e1.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return listeComptes;
 	}
 }
