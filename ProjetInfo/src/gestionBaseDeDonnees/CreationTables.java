@@ -96,7 +96,7 @@ public class CreationTables {
 			s.executeUpdate(
 					"CREATE TABLE DemandeAssignation (idDemandeA char(4),	"+
 					"dateAssignation date NOT NULL,"+
-					"ajout number,"+
+					"priseEnCharge number,"+
 					"nombre number(2),"+
 					"idLieu char(4),"+
 					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemandeA),"+
