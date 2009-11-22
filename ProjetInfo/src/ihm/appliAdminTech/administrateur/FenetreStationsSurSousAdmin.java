@@ -164,7 +164,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreAffichageResultats(/*this.getAdministrateur().getCompte(),this*/);
+			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
