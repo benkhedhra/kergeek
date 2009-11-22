@@ -20,7 +20,7 @@ public class TestLieu extends TestCase {
 	@Test
 	public void testajouterVelo() throws SQLException, ClassNotFoundException{
 		Station s = new Station("id", "adresse", 50);
-		Velo v = new Velo(s, false);
+		Velo v = new Velo("v", s, false);
 		DAOVelo.createVelo(v);
 		Boolean b = s.ajouterVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
@@ -29,7 +29,7 @@ public class TestLieu extends TestCase {
 	@Test
 	public void testEnleverVelo() throws SQLException, ClassNotFoundException{
 		Station s = new Station("id", "adresse", 50);
-		Velo v = new Velo(s, false);
+		Velo v = new Velo("v", s, false);
 		DAOVelo.createVelo(v);
 		s.ajouterVelo(v);
 		Boolean b = s.enleverVelo(v);

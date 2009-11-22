@@ -25,7 +25,8 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JButton bouton1 = new JButton("Enregistrer un nouveau vélo");
 	private JButton bouton2 = new JButton("Retirer un vélo défectueux d'une station");
-	private JButton bouton3 = new JButton("Gérer les demandes d'assignation");
+	private JButton bouton3 = new JButton("Remettre un vélo réparé dans une station");
+	private JButton bouton4 = new JButton("Gérer les demandes d'assignation");
 
 	public Technicien getTechnicien() {
 		return tech;
@@ -58,6 +59,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentification.POLICE4);
+		labelTech.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -71,21 +73,26 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		bouton1.setPreferredSize(new Dimension(80,60));
-		bouton1.setMaximumSize(new Dimension(80,60));
+		bouton1.setPreferredSize(new Dimension(120,100));
+		bouton1.setMaximumSize(new Dimension(120,100));
 		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton1.addActionListener(this);
 		center.add(bouton1);
-		bouton2.setPreferredSize(new Dimension(80,60));
-		bouton2.setMaximumSize(new Dimension(80,60));
+		bouton2.setPreferredSize(new Dimension(120,100));
+		bouton2.setMaximumSize(new Dimension(120,100));
 		bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton2.addActionListener(this);
 		center.add(bouton2);
-		bouton3.setPreferredSize(new Dimension(80,60));
-		bouton3.setMaximumSize(new Dimension(80,60));
+		bouton3.setPreferredSize(new Dimension(120,100));
+		bouton3.setMaximumSize(new Dimension(120,100));
 		bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton3.addActionListener(this);
 		center.add(bouton3);
+		bouton4.setPreferredSize(new Dimension(120,100));
+		bouton4.setMaximumSize(new Dimension(120,100));
+		bouton4.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton4.addActionListener(this);
+		center.add(bouton4);
 		
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
@@ -112,4 +119,5 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 			f.setVisible(true);
 		}*/
 	}
+	
 }

@@ -138,9 +138,9 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
-
-
+		
 		this.getContentPane().add(center,BorderLayout.CENTER);
+		
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
