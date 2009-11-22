@@ -41,7 +41,7 @@ public class DAOLieu {
 				}
 			}
 			catch(PasDansLaBaseDeDonneeException e1){
-				MsgBox.affMsg("Erreur d'identifiant");
+				System.out.println("Erreur d'identifiant");
 				lieu = null;
 			}
 			finally{
@@ -85,7 +85,7 @@ public class DAOLieu {
 			}
 		}
 		catch (SQLException e){
-		MsgBox.affMsg(e.getMessage());
+		System.out.println(e.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -116,7 +116,7 @@ public class DAOLieu {
 		}
 		catch(SQLException e1){
 			liste = null;
-			MsgBox.affMsg(e1.getMessage());
+			System.out.println(e1.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
