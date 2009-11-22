@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -23,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import metier.Administrateur;
+import metier.DemandeAssignation;
 import metier.Station;
 
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
@@ -149,7 +151,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		boutonEtatAutreStation.setPreferredSize(new Dimension(250,40));
 		boutonEtatAutreStation.setMaximumSize(new Dimension(250,40));
 		boutonEtatAutreStation.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -178,8 +180,14 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-			//il faut créer la demande d'assignation
+			try{
+				int nbVelos = 0;
+				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
+				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+				new DemandeAssignation(new Date(),nbVelos,stationEntree);
+			}catch(Exception e){
+				MsgBox.affMsg("Champ entré incorret");
+			}
 		}
 		else if (arg0.getSource()==boutonEtatAutreStation){
 			new FenetreEtatStationAdmin(this.getAdministrateur());

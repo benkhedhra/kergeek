@@ -1,10 +1,5 @@
 package metier;
 
-
-
-
-
-
 /** 
  * Administrateur est la classe representant un administrateur du parc a velos.
  * Un administrateur est caracterise par un compte.
