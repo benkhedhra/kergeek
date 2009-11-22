@@ -146,15 +146,15 @@ public class DAOLieu {
 		List<List<Station>> liste = new ArrayList<List<Station>>();
 
 		for (Station station : listeToutesStation){
-			if (calculerTx(station)<Station.TAUX_OCCUPATION_MIN){
-				listeStationsSousOccupees.add(station);
-			}
-			else if (calculerTx(station)>Station.TAUX_OCCUPATION_MAX){
+			if (calculerTx(station)>Station.TAUX_OCCUPATION_MAX){
 				listeStationsSurOccupees.add(station);
 			}
+			else if (calculerTx(station)<Station.TAUX_OCCUPATION_MIN){
+				listeStationsSousOccupees.add(station);
+			}
 		}
-		liste.add(listeStationsSousOccupees);
 		liste.add(listeStationsSurOccupees);
+		liste.add(listeStationsSousOccupees);
 		
 		return liste; 
 	}
