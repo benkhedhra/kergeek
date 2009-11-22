@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import junit.framework.TestCase;
 import metier.Compte;
+import metier.Lieu;
 import metier.Station;
 import metier.Utilisateur;
 import metier.Velo;
@@ -20,9 +21,11 @@ public class TestUtilisateur extends TestCase{
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
 		Velo v = new Velo("v",s,false);
-		DAOVelo.createVelo(v);
-		Boolean b = u.emprunteVelo(v, s);
-		assertEquals((Boolean)true,(Boolean) b);
+		u.emprunteVelo(v, s);
+		assertTrue(v == u.getVelo());
+		assertFalse(v.getEmpruntEnCours() == null);
+		assertFalse(v.getLieu() == s);
+		assertTrue(v.getLieu() == Lieu.SORTI);
 	}
 	
 	@Test
@@ -31,9 +34,11 @@ public class TestUtilisateur extends TestCase{
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
 		Velo v = new Velo("v",s,false);
-		DAOVelo.createVelo(v);
 		u.emprunteVelo(v, s);
-		Boolean b = u.rendreVelo(s);
-		assertEquals((Boolean)true,(Boolean) b);
+		u.rendreVelo(s);
+		assertFalse(v == u.getVelo());
+		assertFalse(v.getLieu() == Lieu.SORTI);
+		assertTrue(v.getLieu() == s);
+		assertTrue(v.getEmpruntEnCours() == null);
 	}
 }
