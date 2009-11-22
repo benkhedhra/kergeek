@@ -44,12 +44,12 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 	}
 
 	public FenetreEnregistrerVeloTech(Technicien t) throws SQLException, ClassNotFoundException{
-		
+
 		System.out.println("Ouverture d'une fenêtre d'enregistrement de vélo du technicien");
-		
+
 		this.setTechnicien(t);
 		this.setContentPane(new PanneauTech());
-		
+
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Enregistrer un nouveau vélo");
 		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
@@ -84,9 +84,9 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
-		
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
-		
+
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -104,19 +104,19 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonValider){
-			Velo velo = this.getTechnicien().enregistrerVelo();
-			try {
+		try {
+			if(arg0.getSource()==boutonValider){
+				Velo velo = this.getTechnicien().enregistrerVelo();
 				DAOVelo.createVelo(velo);
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
 			}
-			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+			else if(arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
+			}
+		} catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
-		else if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
-		}
+		new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 	}
 }

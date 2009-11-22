@@ -1,6 +1,7 @@
 package gestionBaseDeDonnees;
 
 import exception.PasDansLaBaseDeDonneeException;
+import ihm.MsgBox;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class DAOLieu {
 				}
 			}
 			catch(PasDansLaBaseDeDonneeException e1){
-				System.out.println("Erreur d'identifiant");
+				MsgBox.affMsg("Erreur d'identifiant");
 				lieu = null;
 			}
 			finally{
@@ -84,7 +85,7 @@ public class DAOLieu {
 			}
 		}
 		catch (SQLException e){
-			System.out.println(e.getMessage());
+		MsgBox.affMsg(e.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -115,7 +116,7 @@ public class DAOLieu {
 		}
 		catch(SQLException e1){
 			liste = null;
-			System.out.println(e1.getMessage());
+			MsgBox.affMsg(e1.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

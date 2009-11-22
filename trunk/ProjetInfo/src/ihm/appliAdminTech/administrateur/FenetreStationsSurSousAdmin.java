@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -93,23 +94,28 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		labelLegende.setFont(FenetreAuthentificationUtil.POLICE2);
 		center.add(labelLegende);
 
-		List<Station> listeStationsSurSous;
+		List<Station> listeStationsSur;
+		List<Station> listeStationsSous;
 		try {
-			listeStationsSurSous = DAOLieu.getStationsSurSous();
-			String [][] tableauStations = new String[listeStationsSurSous.size()][3];
-			for (int i=0;i<tableauStations.length;i++){
-				Station stationi = listeStationsSurSous.get(i);
+			listeStationsSur = DAOLieu.getStationsSurSous().get(0);
+			listeStationsSous = DAOLieu.getStationsSurSous().get(1);
+			
+			String [][] tableauStations = new String[(listeStationsSur.size()+listeStationsSous.size())][3];
+			for (int i=0;i<listeStationsSur.size();i++){
+				Station stationi = listeStationsSur.get(i);
 				String[] lignei = tableauStations[i];
 				lignei[0] = "Station " + stationi.getId();
 				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
-				if (DAOLieu.calculerTx(stationi)>Station.TAUX_OCCUPATION_MAX){
-					lignei[2] = "sur-occupée";
+				lignei[2] = "sur-occupée";
 				}
-				else if (DAOLieu.calculerTx(stationi)<Station.TAUX_OCCUPATION_MIN){
-					lignei[2] = "sous-occupée";
+			for (int i=0;i<listeStationsSous.size();i++){
+				Station stationi = listeStationsSous.get(i);
+				String[] lignei = tableauStations[i];
+				lignei[0] = "Station " + stationi.getId();
+				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
+				lignei[2] = "sous-occupée";
 				}
-			}
-
+			
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
 			JComboBox tableau = new JComboBox(model);
