@@ -17,9 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import metier.Garage;
 import metier.Technicien;
 import metier.Velo;
 
@@ -33,8 +31,6 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 	private Technicien technicien;
 
 	private JLabel labelTech = new JLabel("");
-	private JLabel labelId = new JLabel("Veuillez entrer l'identifiant du nouveau vélo");
-	private JTextField idARemplir = new JTextField("");
 	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
 
@@ -83,12 +79,6 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(70,350));
-		labelId.setFont(FenetreAuthentificationUtil.POLICE2);
-		labelId.setPreferredSize(new Dimension(600,100));
-		center.add(labelId);
-		idARemplir.setFont(FenetreAuthentificationUtil.POLICE2);
-		idARemplir.setPreferredSize(new Dimension(200,40));
-		center.add(idARemplir);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -115,7 +105,7 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
-			Velo velo = new Velo(idARemplir.getText(),Garage.getInstance(),true);
+			Velo velo = this.getTechnicien().enregistrerVelo();
 			try {
 				DAOVelo.createVelo(velo);
 			} catch (SQLException e) {

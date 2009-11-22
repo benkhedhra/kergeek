@@ -6,7 +6,7 @@ public class DemandeAssignation {
 	
 	private Date date;
 	private boolean priseEnCharge;
-	private int nombreVelos;
+	private int nombreVelosVouluDansStation;
 	private Lieu lieu;
 	
 	//ajout==true correspond ˆ une demande d'ajout de velo
@@ -15,11 +15,11 @@ public class DemandeAssignation {
 	
 	//Constructeur
 	
-	public DemandeAssignation(Date date, boolean ajout, int nombre, Lieu lieu) {
+	public DemandeAssignation(Date date, int nombre, Lieu lieu) {
 		super();
 		this.setDate(date);
-		this.setPriseEnCharge(priseEnCharge);
-		this.setNombreVelos(nombre);
+		this.setPriseEnCharge(false);
+		this.setNombreVelosVoulusDansStation(nombre);
 		this.setLieu(lieu);
 	}
 
@@ -46,13 +46,13 @@ public class DemandeAssignation {
 	}
 
 
-	public int getNombreVelos() {
-		return nombreVelos;
+	public int getNombreVelosVoulusDansStation() {
+		return nombreVelosVouluDansStation;
 	}
 
 
-	public void setNombreVelos(int nombreVelos) {
-		this.nombreVelos = nombreVelos;
+	public void setNombreVelosVoulusDansStation(int nombreVelos) {
+		this.nombreVelosVouluDansStation = nombreVelos;
 	}
 
 

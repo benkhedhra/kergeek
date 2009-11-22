@@ -1,11 +1,7 @@
 package metier;
 
 
-import gestionBaseDeDonnees.DAODemandeIntervention;
-
-import java.sql.SQLException;
 import java.util.Date;
-import java.util.Scanner;
 
 public class Emprunt {
 	private String id;
@@ -128,26 +124,6 @@ public class Emprunt {
 	public void calculTempsEmprunt(){
 		this.diff = dateRetour.getTime() - dateEmprunt.getTime();
 		this.tpsEmprunt = diff / 3600000.0f;
-	}
-	
-	public static boolean proposerDemanderIntervention(Velo velo, Utilisateur utilisateur) throws SQLException,ClassNotFoundException{
-		System.out.println("Souhaitez-vous demander une intervention sur ce velo?\n Oui : 1\n Non : 2");
-		Scanner sc= new Scanner(System.in);
-		boolean acceptee = false;
-		try {
-			int rep = Integer.parseInt(sc.next());
-			if (rep == 1){
-				DemandeIntervention ddeIntervention = new DemandeIntervention(velo,utilisateur);
-				DAODemandeIntervention.createDemandeIntervention(ddeIntervention);
-				acceptee = true;
-			}
-		}
-		catch (NumberFormatException e) {
-			System.out.println("Je n'ai pas compris votre reponse, " +
-					"veuillez entrer soit un 1, soit un 2 s'il vous plait.");
-			proposerDemanderIntervention(velo, utilisateur);
-		}
-		return acceptee;
 	}
 	
 	

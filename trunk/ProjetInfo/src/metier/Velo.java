@@ -1,20 +1,19 @@
 package metier;
 
-import java.sql.SQLException;
 
 public class Velo {
-	
+
 	// Attributs
-	
+
 	private String id;
 	private Lieu lieu;
 	private boolean enPanne;
 	private Emprunt empruntEnCours;
-	
-	
-	
+
+
+
 	// Constructeurs
-	
+
 	public Velo() {
 		super();
 		this.setEnPanne(true);
@@ -22,7 +21,7 @@ public class Velo {
 	}
 	//?????????????? pourquoi true
 
-	
+
 	public Velo(String idVelo, Lieu lieu, boolean enPanne) {
 		super();
 		this.setId(idVelo);
@@ -30,10 +29,10 @@ public class Velo {
 		this.setEnPanne(enPanne);
 	}
 
-	
-	
+
+
 	//Accesseurs
-	
+
 	public String getId() {
 		return id;
 	}
@@ -41,8 +40,8 @@ public class Velo {
 	public void setId(String idVelo) {
 		this.id = idVelo;
 	}
-	
-	
+
+
 	public Lieu getLieu() {
 		return lieu;
 	}
@@ -65,8 +64,8 @@ public class Velo {
 	}
 
 
-	public void setEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException {
+	public void setEmprunt(Emprunt emprunt){
 		this.empruntEnCours = emprunt;
 	}
-	
+
 }

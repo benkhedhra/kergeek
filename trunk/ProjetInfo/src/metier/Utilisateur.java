@@ -2,7 +2,6 @@ package metier;
 
 import exception.PasDeVeloEmprunteException;
 import exception.VeloNonSortiException;
-import gestionBaseDeDonnees.UtilitaireDate;
 
 import java.sql.SQLException;
 
