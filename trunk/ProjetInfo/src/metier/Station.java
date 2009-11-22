@@ -29,7 +29,7 @@ public class Station extends Lieu {
 	//Methodes
 	
 	public String toString(){
-		return this.getId();
+		return this.getId() + this.getAdresse();
 	}
 
 
