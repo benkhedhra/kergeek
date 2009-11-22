@@ -1,13 +1,16 @@
 package gestionBaseDeDonnees;
 
+import exception.PasDansLaBaseDeDonneeException;
+import ihm.MsgBox;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import exception.PasDansLaBaseDeDonneeException;
-
-import metier.Compte;
 import metier.DemandeAssignation;
+import metier.Station;
 
 public class DAODemandeAssignation {
 
@@ -54,9 +57,40 @@ public class DAODemandeAssignation {
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return effectue;
-
 	}
+	
+	public static void updateDemandeAssignation(DemandeAssignation demande){
+		//TODO
+	}
+	
+	public static List<DemandeAssignation> getAllDemandesAssignation() throws SQLException, ClassNotFoundException {
+		List<DemandeAssignation> liste = new ArrayList<DemandeAssignation>();
 
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+		ResultSet res = s.executeQuery("Select* from DemandeAssignation");
+		try {
+			boolean vide=true;
+			while(res.next()) {
+				vide = false;
+				//TODO
+				/*DemandeAssignation demande = DAOLieu.getDemandeAssignationById(res.getString("idDemandeAssignation"));
+				liste.add(demande);*/
+			}
+			if(vide) {
+				throw new SQLException("pas de demandes");
+			}
+		}
+		catch(SQLException e1){
+			liste = null;
+			MsgBox.affMsg(e1.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+
+		return liste;
+	}
 
 	public static DemandeAssignation getDemandeAssignationById(String identifiant) throws SQLException, ClassNotFoundException {
 		DemandeAssignation ddeAssignation = new DemandeAssignation();
