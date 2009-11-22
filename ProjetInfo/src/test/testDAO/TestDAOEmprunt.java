@@ -1,7 +1,6 @@
 package test.testDAO;
 
 import gestionBaseDeDonnees.DAOEmprunt;
-import gestionBaseDeDonnees.UtilitaireDate;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -10,6 +9,7 @@ import metier.Compte;
 import metier.Emprunt;
 import metier.Station;
 import metier.Utilisateur;
+import metier.UtilitaireDate;
 import metier.Velo;
 
 import org.junit.Test;

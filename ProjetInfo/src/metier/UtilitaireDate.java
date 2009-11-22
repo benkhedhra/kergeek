@@ -1,4 +1,4 @@
-package gestionBaseDeDonnees;
+package metier;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;

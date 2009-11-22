@@ -1,30 +1,22 @@
 package metier;
 
-import exception.PasDansLaBaseDeDonneeException;
-import gestionBaseDeDonnees.ConnexionOracleViaJdbc;
-import gestionBaseDeDonnees.DAOCompte;
-import gestionBaseDeDonnees.DAODemandeAssignation;
-import gestionBaseDeDonnees.UtilitaireDate;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
+
+
+
 
 /** 
  * Administrateur est la classe representant un administrateur du parc a velos.
  * Un administrateur est caracterise par un compte.
  * 
  * @see Compte
- * @see ConnexionViaJdbc
- * @see DAOCompte
- * @see DAODemandeAssignation
+ * @see Utilisateur
  */
 
 public class Administrateur {
 
 	// Attribut 
-	
+
 	/**
 	 * Compte de l'administrateur. Ce compte est modifiable.
 	 * 
@@ -39,16 +31,16 @@ public class Administrateur {
 
 
 	// Constructeurs
-	
-	 /**
-	  * Constructeur d'initialisation d'Administrateur.
-	  * L'objet administrateur est creer a partir d'un compte
-	  * 
-	  * @param  compte, le compte de l'administrateur
-	  * @see Compte
-	  * @see Administrateur#compte       
+
+	/**
+	 * Constructeur d'initialisation d'Administrateur.
+	 * L'objet administrateur est creer a partir d'un compte
+	 * 
+	 * @param  compte, le compte de l'administrateur
+	 * @see Compte
+	 * @see Administrateur#compte       
 	 */
-	    
+
 	public Administrateur(Compte compte) {
 		super();
 		this.setCompte(compte);
@@ -57,22 +49,22 @@ public class Administrateur {
 	// Accesseurs et modificateurs
 
 	/**
-     * retourne le compte de l'administrateur
-     * 
-     * @return compte, le compte de l'administrateur 
-     */
-	
+	 * retourne le compte de l'administrateur
+	 * 
+	 * @return compte, le compte de l'administrateur 
+	 */
+
 	public Compte getCompte() {
 		return this.compte;
 	}
-	
+
 	/**
-     * Met à jour le compte de l'administrateur
-     * 
-     * @param compte, le nouveau compte de l'administrateur
-     * @see Compte
-     */
-	
+	 * Met à jour le compte de l'administrateur
+	 * 
+	 * @param compte, le nouveau compte de l'administrateur
+	 * @see Compte
+	 */
+
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
@@ -85,28 +77,27 @@ public class Administrateur {
 	 * @param compte
 	 * @return c, nouveau compte 
 	 * @see Compte
-	 * @see DAOCompte
-	 * @throws SQLException, si SQL Server retourne un avertissement ou une erreur
-	 * @throws ClassNotFoundException, si SQL Server ne retrouve pas la classe Compte ou DAOCompte
 	 */
-	
-	public Compte creerCompte(int type, String adresseEmail) throws SQLException, ClassNotFoundException {
+
+	public Compte creerCompte(int type, String adresseEmail){
 		Compte c = new Compte(type, adresseEmail);
 		return c;
+	}
+
+	public Utilisateur creerUtilisateur(Compte compte, String nom, String prenom, String adressePostale){
+		Utilisateur u = new Utilisateur(compte, nom, prenom, adressePostale);
+		return u;
 	}
 
 	/**
 	 * Resilie un compte d'un abonne du parc a velos
 	 * 
-	 * @param idCompte
-	 * @see DAOCompte
-	 * @throws SQLException, si SQL Server retourne un avertissement ou une erreur
-	 * @throws ClassNotFoundException, si SQL Server ne retrouve pas la classe DAOCompte
+	 * @param compte
+	 * @see Compte
 	 */
-	
-	public void resilierCompte(String idCompte) throws SQLException,
-	ClassNotFoundException {
-		DAOCompte.getCompteById(idCompte).setActif(false);
+
+	public void resilierCompte(Compte compte){
+		compte.setActif(false);
 	}
 
 	// editerCompte() correspond a l'ensemble des setters!
@@ -115,38 +106,13 @@ public class Administrateur {
 	 * Cree une demande d'assignation, c'est a dire une demande de deplacement de velos 
 	 * d'une station a une autre
 	 * 
-	 * @param ajout
-	 * @param nombre
+	 * @param nombreVelosVouluDansStation
 	 * @param lieu
-	 * @see ConnexionViaJdbc
-	 * @see DAODemandeAssignation
-	 * @throws SQLException, si SQL Server retourne un avertissement ou une erreur
-	 * @throws ClassNotFoundException, si SQL Server ne retrouve pas la classe DAODemandeAssignation
-	 * @throws PasDansLaBaseDeDonneeException, si SQL Server ne retrouve pas la classe idLieu dans la BDD
+	 * @see DemandeAssignation
 	 */
-	
-	public void demanderAssignation(boolean ajout, int nombre, Lieu lieu) throws SQLException, ClassNotFoundException, PasDansLaBaseDeDonneeException{
 
-		Date dateCourante = UtilitaireDate.dateCourante();
-		//ouverture de la connexion a la bdd
-		ConnexionOracleViaJdbc.ouvrir();
-		/* verification de la presence du lieu en question dans la base de donnees.
-		 * A terme, l'administrateur demandera une assignation alors qu'il s'interesse deja
-		 * a une station particuliere, cette verification sera alors superflue.
-		 */
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select idLieu from Lieu Where idLieu ='" + lieu.getId()+"'");
-		//creation de la demande d'assignation
-		if (res.next()){
-			DemandeAssignation  ddeAssignation = new DemandeAssignation(dateCourante, ajout, nombre, lieu);
-			DAODemandeAssignation.createDemandeAssignation(ddeAssignation);
-			//entre la demande d'assignation dans la base de donnees
-		}
-		else{
-			System.out.println("La station en question n'existe pas.");
-			throw new PasDansLaBaseDeDonneeException();
-		}
-		// fermeture de la connexion
-		ConnexionOracleViaJdbc.fermer();
+	public DemandeAssignation demanderAssignation(int nombreVelosVouluDansStation, Lieu lieu){
+		DemandeAssignation  ddeAssignation = new DemandeAssignation(UtilitaireDate.dateCourante(), nombreVelosVouluDansStation, lieu);
+		return ddeAssignation;
 	}
 }

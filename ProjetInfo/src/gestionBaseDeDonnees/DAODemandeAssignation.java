@@ -25,7 +25,7 @@ public class DAODemandeAssignation {
 							+ id + "', '"
 							+ ddeAssignation.getDate() + "', '" 
 							+ "'1','"
-							+ ddeAssignation.getNombreVelos() + "',"
+							+ ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 							+ ddeAssignation.getLieu().getId()
 							+")");
 				}
@@ -35,7 +35,7 @@ public class DAODemandeAssignation {
 							+ id + "', '"
 							+ ddeAssignation.getDate() + "', '"
 							+ "'0','"
-							+ ddeAssignation.getNombreVelos() + "',"
+							+ ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 							+ ddeAssignation.getLieu().getId()
 							+")");
 				}
