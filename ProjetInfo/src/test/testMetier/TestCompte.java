@@ -16,6 +16,8 @@ public class TestCompte extends TestCase{
 		c2.genererMotDePasse();
 		String s2 = c2.getMotDePasse();
 		assertTrue(s1 instanceof String);
+		assertTrue(s1.length() == (int) 6);
+		assertTrue(s2.length() == (int) 6);
 		assertNotSame(s1, s2);
 		
 	}
