@@ -5,10 +5,10 @@ package gestionBaseDeDonnees;
  * @version 1.0
  */
 
+import ihm.MsgBox;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
@@ -55,7 +55,7 @@ public class ConnexionOracleViaJdbc {
 			c.setAutoCommit(false);
 		}
 		catch (SQLException e){
-			System.out.println("Echec de la tentative de connexion : " + e.getMessage());
+			MsgBox.affMsg("Echec de la tentative de connexion : " + e.getMessage());
 		}
 
 	}
@@ -102,7 +102,7 @@ public class ConnexionOracleViaJdbc {
 			st = c.createStatement();
 		}
 		catch(SQLException e){
-			System.out.println("Echec de la tentative de création d'instruction : " + e.getMessage());
+			MsgBox.affMsg("Echec de la tentative de création d'instruction : " + e.getMessage());
 		}
 		return st;
 	}
