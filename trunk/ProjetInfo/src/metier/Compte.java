@@ -95,5 +95,12 @@ public class Compte {
 		}
 		this.setMotDePasse(motDePasse);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Compte c = (Compte) o;
+		return (this.getId() == c.getId()) && (this.getAdresseEmail() == c.getAdresseEmail()) && (this.isActif() == c.isActif())&& (this.getMotDePasse() == c.getMotDePasse()) && (this.getType() == c.getType());
+	}
+	
 
 }

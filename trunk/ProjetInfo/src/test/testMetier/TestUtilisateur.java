@@ -4,19 +4,16 @@ import java.sql.SQLException;
 
 import junit.framework.TestCase;
 import metier.Compte;
-
 import metier.Emprunt;
-
 import metier.Lieu;
-
 import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 import metier.Velo;
-import exception.PasDeVeloEmprunteException;
-import exception.VeloNonSortiException;
 
 import org.junit.Test;
+
+import exception.PasDeVeloEmprunteException;
 
 public class TestUtilisateur extends TestCase{
 	
@@ -39,7 +36,7 @@ public class TestUtilisateur extends TestCase{
 	}
 	
 	@Test
-	public void testRendreVelo() throws SQLException, ClassNotFoundException, VeloNonSortiException, PasDeVeloEmprunteException{
+	public void testRendreVelo() throws SQLException, ClassNotFoundException, PasDeVeloEmprunteException{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);

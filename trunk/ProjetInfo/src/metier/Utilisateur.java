@@ -1,9 +1,8 @@
 package metier;
 
-import exception.PasDeVeloEmprunteException;
-import exception.VeloNonSortiException;
-
 import java.sql.SQLException;
+
+import exception.PasDeVeloEmprunteException;
 
 public class Utilisateur {
 
@@ -124,22 +123,18 @@ public class Utilisateur {
 	
 
 	public boolean rendreVelo(Station station) 
-	throws VeloNonSortiException, PasDeVeloEmprunteException{
+	throws PasDeVeloEmprunteException{
 		boolean effectue = false;
 		Velo velo = this.getVelo();
 		if (velo == null){
 			throw new PasDeVeloEmprunteException();
 		}
 		else{
-			if (velo.getLieu() != Lieu.SORTI){
-				throw new VeloNonSortiException();
-			}
-			else{
+			
 				station.ajouterVelo(velo);
 				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
 				velo.getEmpruntEnCours().setLieuRetour(station);
 				effectue = true;
-			}
 		}
 		
 		return effectue;

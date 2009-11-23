@@ -110,4 +110,11 @@ public class Administrateur {
 		DemandeAssignation  ddeAssignation = new DemandeAssignation(UtilitaireDate.dateCourante(), nombreVelosVouluDansStation, lieu);
 		return ddeAssignation;
 	}
+	
+	
+	@Override
+	public boolean equals(Object a) {
+		return this.getCompte().equals(((Administrateur) a).getCompte());
+	}
+	
 }

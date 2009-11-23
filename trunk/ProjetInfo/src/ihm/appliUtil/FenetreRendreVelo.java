@@ -1,7 +1,6 @@
 package ihm.appliUtil;
 
 import exception.PasDeVeloEmprunteException;
-import exception.VeloNonSortiException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
@@ -167,10 +166,8 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			MsgBox.affMsg(e.getMessage());
-		} catch (VeloNonSortiException e) {
-			// TODO Auto-generated catch block
-			MsgBox.affMsg(e.getMessage());
-		} catch (PasDeVeloEmprunteException e) {
+		}
+		catch (PasDeVeloEmprunteException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
 	}
