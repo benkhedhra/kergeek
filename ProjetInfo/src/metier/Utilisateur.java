@@ -84,7 +84,7 @@ public class Utilisateur {
 	}
 
 
-	public boolean isBloque() {
+	public Boolean isBloque() {
 		return bloque;
 	}
 
@@ -139,6 +139,6 @@ public class Utilisateur {
 	@Override
 	public boolean equals(Object o) {
 		Utilisateur u =(Utilisateur) o;
-		return this.getCompte().equals(u.getCompte()) && (this.getPrenom() == u.getPrenom()) && (this.getNom() == u.getNom()) && (this.isBloque() == u.isBloque()) && (this.getAdressePostale() == u.getAdressePostale()) && (this.getVelo().equals(u.getVelo()));
+		return this.getCompte().equals(u.getCompte()) && (this.getPrenom().equals(u.getPrenom())) && (this.getNom().equals(u.getNom())) && (this.isBloque().equals(u.isBloque())) && (this.getAdressePostale().equals(u.getAdressePostale())) && (this.getVelo().equals(u.getVelo()));
 	}
 }

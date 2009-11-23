@@ -54,4 +54,10 @@ public class DemandeIntervention {
 		this.utilisateur = utilisateur;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		DemandeIntervention d = (DemandeIntervention) o;
+		return (this.getId().equals(d.getId())) && (this.getDate().equals(d.getDate())) && (this.getVelo().equals(d.getVelo()))&& (this.getUtilisateur().equals(d.getUtilisateur()));
+	}
+	
 }

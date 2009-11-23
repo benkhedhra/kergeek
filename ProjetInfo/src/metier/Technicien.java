@@ -104,6 +104,12 @@ public class Technicien {
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return intervention;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Technicien t =(Technicien) o;
+		return this.getCompte().equals(t.getCompte());
+	}
 }
 
 

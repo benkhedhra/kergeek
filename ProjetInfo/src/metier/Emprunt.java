@@ -129,7 +129,7 @@ public class Emprunt {
 	@Override
 	public boolean equals(Object o) {
 		Emprunt e =(Emprunt) o;
-		return (this.getId()== e.getId()) && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateRetour())) && (this.getLieuEmprunt().equals(e.getLieuEmprunt())) && (this.getLieuRetour().equals(e.getLieuRetour()));
+		return (this.getId().equals(e.getId())) && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateRetour())) && (this.getLieuEmprunt().equals(e.getLieuEmprunt())) && (this.getLieuRetour().equals(e.getLieuRetour()));
 	}
 	
 	
