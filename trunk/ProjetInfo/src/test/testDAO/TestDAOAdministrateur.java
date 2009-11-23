@@ -1,23 +1,38 @@
 package test.testDAO;
 
+import java.sql.SQLException;
+
+import gestionBaseDeDonnees.DAOAdministrateur;
+import metier.Administrateur;
+import metier.Compte;
+
 import org.junit.Test;
 
 import junit.framework.TestCase;
 
 public class TestDAOAdministrateur extends TestCase{
 	@Test
-	public void testCreateAdministrateur(){
-		
+	public void testCreateAdministrateur() throws SQLException, ClassNotFoundException{
+		Compte c = new Compte();
+		Administrateur a = new Administrateur(c);
+		Boolean b = DAOAdministrateur.createAdministrateur(a);
+		assertEquals((Boolean)true,(Boolean) b);
 	}
 	
 	@Test
-	public void testUpdateAdministrateur(){
-		
+	public void testUpdateAdministrateur() throws SQLException, ClassNotFoundException{
+		Compte c = new Compte();
+		Administrateur a = new Administrateur(c);
+		DAOAdministrateur.createAdministrateur(a);
+		Boolean b = DAOAdministrateur.updateAdministrateur(a);
+		assertEquals((Boolean)true,(Boolean) b);
 	}
 	
 	@Test
-	public void testGetAdministrateurById(){
-		
+	public void testGetAdministrateurById() throws SQLException, ClassNotFoundException{
+		Compte c = new Compte();
+		Administrateur a = new Administrateur(c);
+		DAOAdministrateur.createAdministrateur(a);
 	}
 	
 	@Test
