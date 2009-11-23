@@ -65,7 +65,6 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 
 		this.setTechnicien(t);
 
-
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelTech.setPreferredSize(new Dimension(300,30));
@@ -107,14 +106,13 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					/*try {
-						// voir comment récupérer la demande
-						demandeEntree = DAOCompte.getDemandeAssignationById((String)o);
+					try {
+						demandeEntree = DAODemandeAssignation.getDemandeAssignationById((String)o);
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
-					}*/
+					}
 				}
 			});
 			center.add(combo);

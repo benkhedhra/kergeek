@@ -10,6 +10,7 @@ import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
+import ihm.appliAdminTech.technicien.FenetreGererAssignationsTech;
 import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
@@ -356,7 +357,13 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		}
 		else if(fenetrePrecedente.getTitle().equals("Prendre en charge l'assignation")){
 			if(arg0.getSource()==bouton1){
-				//new FenetreGererUneDemandeTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				try {
+					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+				}
 			}
 			else if (arg0.getSource()==boutonRetour){
 				try {

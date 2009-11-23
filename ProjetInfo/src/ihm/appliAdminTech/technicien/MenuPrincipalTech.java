@@ -1,8 +1,8 @@
 package ihm.appliAdminTech.technicien;
 
+import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -93,7 +94,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		bouton4.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton4.addActionListener(this);
 		center.add(bouton4);
-		
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		this.setVisible(true);
@@ -101,23 +102,33 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		//la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
-		/*if(arg0.getSource()==bouton1){
-			FenetreEnregistrerVeloTech f = new FenetreEnregistrerVeloTech(this.getTechnicien());
-			f.setVisible(true);
+		if(arg0.getSource()==bouton1){
+			try {
+				new FenetreEnregistrerVeloTech(this.getTechnicien());
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 		}
 		else if (arg0.getSource()==bouton2){
-			FenetreRetirerVeloTech f = new FenetreRetirerVeloTech(this.getTechnicien());
-			f.setVisible(true);
+			try {
+				new FenetreRetirerVeloTech(this.getTechnicien());
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 		}
 		else if (arg0.getSource()==bouton3){
-			FenetreGererAssignationsTech f = new FenetreGererAssignationsTech(this.getTechnicien());
-			f.setVisible(true);
-		}		
+			new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+		}
+		else if (arg0.getSource()==bouton4){
+			new FenetreGererAssignationsTech(this.getTechnicien());
+		}	
 		else if (arg0.getSource()==boutonDeconnexion){
-			FenetreConfirmation f = new FenetreConfirmation("Au revoir et à bientôt ! ", this.getTechnicien().getCompte(), this);
+			FenetreConfirmation f = new FenetreConfirmation(this.getTechnicien().getCompte(), this);
 			f.setVisible(true);
-		}*/
+		}
 	}
-	
 }

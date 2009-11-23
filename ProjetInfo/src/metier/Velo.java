@@ -16,15 +16,10 @@ public class Velo {
 
 	public Velo() {
 		super();
-		this.setEnPanne(true);
-		this.setLieu(Garage.getInstance());
 	}
-	//?????????????? pourquoi true
 
 
-	public Velo(String idVelo, Lieu lieu, boolean enPanne) {
-		super();
-		this.setId(idVelo);
+	public Velo(Lieu lieu, boolean enPanne) {
 		this.setLieu(lieu);
 		this.setEnPanne(enPanne);
 	}

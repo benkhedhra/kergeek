@@ -79,9 +79,7 @@ public class Technicien {
 	 */
 
 	public Velo enregistrerVelo(){
-		Velo velo = new Velo();
-		velo.setEnPanne(false);
-		velo.setLieu(Garage.getInstance());
+		Velo velo = new Velo(Garage.getInstance(), false);
 		return velo;
 	}
 

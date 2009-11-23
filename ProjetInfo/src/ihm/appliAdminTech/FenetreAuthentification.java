@@ -150,6 +150,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		int resul=-1;
 		if(DAOCompte.estDansLaBdd(id)){
 			Compte compte = DAOCompte.getCompteById(id);
+			System.out.println("id = "+compte.getId()+ " et mdp = "+compte.getMotDePasse());
 			if(motDePasse.equals(compte.getMotDePasse())){
 				resul=compte.getType();
 			}

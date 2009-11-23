@@ -254,6 +254,7 @@ public class DAOCompte {
 				}
 			}
 		}
+		System.out.println("requete = "+requete);
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
