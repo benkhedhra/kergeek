@@ -47,7 +47,7 @@ public class MainConnexionBdd {
 		System.out.println("Id c2 :" + c2.getId() + " alors que Id c3:" + c3.getId());
 		 */
 
-		Velo velo =new Velo();
+		/*Velo velo =new Velo();
 		System.out.println("creation du velo : " +DAOVelo.createVelo(velo));
 		System.out.println("id depart : " + velo.getId());
 		System.out.println("velo : " + DAOVelo.getVeloById(velo.getId()));
@@ -57,8 +57,10 @@ public class MainConnexionBdd {
 		velo = DAOVelo.getVeloById(velo.getId());
 		System.out.println("id du velo obtenu apres la mis a jour : " + velo.getId());
 		System.out.println("enPanne obtenue apres la mis a jour : " + velo.isEnPanne());
-		System.out.println("nouveau velo : " + DAOVelo.getVeloById(velo.getId()));
-
+		System.out.println("nouveau velo : " + DAOVelo.getVeloById(velo.getId()));*/
+		
+		DAOUtilisateur.getUtilisateurById("u1");
+		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 

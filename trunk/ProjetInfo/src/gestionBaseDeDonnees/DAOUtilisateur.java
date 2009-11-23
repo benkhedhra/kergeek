@@ -72,7 +72,7 @@ public class DAOUtilisateur {
 		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo from Compte Where idCompte ='" + identifiant+"'");
 		try {
 			if (res.next()) {
-				u.setCompte(DAOCompte.getCompteById(res.getString(identifiant)));
+				u.setCompte(DAOCompte.getCompteById(identifiant));
 				u.setNom(res.getString("nom"));
 				u.setPrenom(res.getString("prenom"));
 				u.setAdressePostale(res.getString("adressePostale"));

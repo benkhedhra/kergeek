@@ -1,5 +1,8 @@
 package ihm.appliUtil;
 
+import gestionBaseDeDonnees.DAOVelo;
+import ihm.MsgBox;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -56,7 +59,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 
 		this.setUtilisateur(u);
 
-		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
+		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
@@ -88,24 +91,28 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 
 		this.setVisible(true);
 	}
-	
-	
+
+
 	public void actionPerformed(ActionEvent arg0) {
 		Velo velo;
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
-				u.emprunteVelo(velo,(Station)(velo.getLieu()));
-				FenetreConfirmationUtil f = new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
-				f.setVisible(true);
-				System.out.println("L'emprunt a bien été enregistré");
+				if(DAOVelo.estDansLaBdd(veloARemplir.getText())){
+					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
+					u.emprunteVelo(velo,(Station)(velo.getLieu()));
+					FenetreConfirmationUtil f = new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
+					f.setVisible(true);
+					System.out.println("L'emprunt a bien été enregistré");
+				}
+				else {
+					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
+					new FenetreEmprunterVelo(this.getUtilisateur());
+					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MsgBox.affMsg(e.getMessage());
 			}
 		}
 		else{

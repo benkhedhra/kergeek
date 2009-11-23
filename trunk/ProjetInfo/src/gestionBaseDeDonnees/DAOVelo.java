@@ -13,7 +13,6 @@ import metier.Velo;
 
 public class DAOVelo {
 
-
 	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException {
 		boolean effectue = false;
 		try{
@@ -171,6 +170,10 @@ public class DAOVelo {
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return emprunt;
+	}
+	
+	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
+		return (getVeloById(id)!=null);
 	}
 
 }
