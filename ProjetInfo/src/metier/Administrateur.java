@@ -113,8 +113,9 @@ public class Administrateur {
 	
 	
 	@Override
-	public boolean equals(Object a) {
-		return this.getCompte().equals(((Administrateur) a).getCompte());
+	public boolean equals(Object o) {
+		Administrateur a =(Administrateur) o;
+		return this.getCompte().equals(a.getCompte());
 	}
 	
 }
