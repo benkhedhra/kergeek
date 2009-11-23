@@ -12,11 +12,13 @@ public class TestAdministrateur extends TestCase{
 	
 	@Test
 	public void testResilierCompte() throws SQLException, ClassNotFoundException{
-		Compte c1 = new Compte(Compte.TYPE_ADMINISTRATEUR);
-		Administrateur a = new Administrateur(c1);
-		Compte c2 = new Compte(Compte.TYPE_UTILISATEUR);
-		a.resilierCompte(c2);
-		assertFalse(c2.isActif());
+		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR);
+		Administrateur a = new Administrateur(c);
+		Compte compte = new Compte();
+		a.resilierCompte(compte);
+		Boolean b = compte.isActif();
+		assertEquals((Boolean)false,(Boolean)b);
+
 	}
 	
 	@Test
