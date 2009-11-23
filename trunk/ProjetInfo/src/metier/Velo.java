@@ -71,7 +71,7 @@ public class Velo {
 	@Override
 	public boolean equals(Object o) {
 		Velo v =(Velo) o;
-		return (this.getId()== v.getId()) && (this.getLieu()== v.getLieu())&& (this.isEnPanne()== v.isEnPanne()) && (this.getEmpruntEnCours().equals(v.getId()) );
+		return (this.getId()== v.getId()) && (this.getLieu()== v.getLieu())&& (this.isEnPanne()== v.isEnPanne()) && (this.getEmpruntEnCours().equals(v.getEmpruntEnCours()) );
 	}
 	
 }
