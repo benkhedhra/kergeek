@@ -31,7 +31,7 @@ import org.jfree.ui.ApplicationFrame;
 		public DiagrammeNbEmpruntsUtilisateur(Utilisateur u) {
 
 			super("Nombre d'emprunts de l'utilisateur demandé pour les six derniers mois");
-			CategoryDataset dataset = createDataset();
+			CategoryDataset dataset = createDataset(u);
 			chart = createChart(dataset,u);
 			ChartPanel chartPanel = new ChartPanel(chart, false);
 			//chartPanel.setPreferredSize(new Dimension(500, 270));
@@ -43,7 +43,7 @@ import org.jfree.ui.ApplicationFrame;
 			return this.chart.createBufferedImage(500, 500);
 		}
 
-		private static CategoryDataset createDataset() {
+		private static CategoryDataset createDataset(Utilisateur u) {
 
 			// étiquettes des lignes
 			String emprunts = "Nombre d'emprunts";
@@ -65,7 +65,7 @@ import org.jfree.ui.ApplicationFrame;
 			calendar.add(Calendar.MONTH, -1);
 			int moisent6 = calendar.get(Calendar.MONTH);
 			
-			//String nomMoisEnCours = Utils.Mois.values()[moisencours].name();
+			
 			ResourceBundle resourceBundle = ResourceBundle.getBundle("statistiques/utils",Locale.FRENCH);
 			String nomMoisEnCours = resourceBundle.getString("mois."+moisencours);
 			
