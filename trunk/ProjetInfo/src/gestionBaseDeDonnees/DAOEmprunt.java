@@ -5,12 +5,9 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
-import metier.Compte;
 import metier.Emprunt;
-import metier.Lieu;
-import metier.Velo;
+import metier.Station;
 
 public class DAOEmprunt {
 
@@ -22,7 +19,7 @@ public class DAOEmprunt {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res = s.executeQuery("Select seqEmprunt.NEXTVAL as id from dual");
 			if (res.next()){
-				String id = res.getString("dummy");
+				String id = res.getString("id");
 				emprunt.setId(id);
 
 				s.executeUpdate("INSERT into Emprunt values ('" 
@@ -70,8 +67,8 @@ public class DAOEmprunt {
 		}
 		return effectue;
 	}
-	
-	
+
+
 	public static Emprunt getEmpruntById(String identifiant) throws SQLException, ClassNotFoundException {
 		Emprunt emprunt = new Emprunt();
 
@@ -105,4 +102,56 @@ public class DAOEmprunt {
 		return emprunt;
 	}
 
+	
+	/**
+	 * 
+	 * @param station
+	 * @param depuisJours : nombre de jours sur lesquels ont veut avoir les nombre de velos sortis de la station
+	 * @return le nombre de velos rentres dans la staion depuis depuisJours jours.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static int NombreVelosSortis(Station station, int depuisJours) throws SQLException, ClassNotFoundException{
+		int nb =0;
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieu ='" + station.getId() + "' and dateEmprunt <= Values(SYSdate -'"+ depuisJours +"')");
+		try {
+			if (res.next()){
+				nb = res.getInt("nombreVeloSortis");
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+
+		return nb;
+	}
+	/**
+	 * 
+	 * @param station
+	 * @param depuisJours: nombre de jours sur lesquels ont veut avoir les nombre de vŽlos rentres dans la station
+	 * @return le nombre de velos rentres dans la station depuis depuisJours jours.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static int NombreVelosRentres(Station station, int depuisJours) throws SQLException, ClassNotFoundException{
+		int nb =0;
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieu ='" + station.getId() + "' and dateRetour >= Values(SYSdate -'"+ depuisJours +"')");
+		try {
+			if (res.next()){
+				nb = res.getInt("nombreVeloRentres");
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return nb;
+	}
 }

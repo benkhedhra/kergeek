@@ -1,8 +1,7 @@
 package metier;
 
-import gestionBaseDeDonnees.DAOTypeIntervention;
-
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class TypeIntervention {
@@ -15,9 +14,7 @@ public class TypeIntervention {
 	//Constructeur
 
 	public TypeIntervention() throws SQLException, ClassNotFoundException {
-		super();
-		Map<Integer,String> typeIntervention = DAOTypeIntervention.getAllTypeIntervention();
-		this.setTypeIntervention(typeIntervention);
+		this.setTypeIntervention(new HashMap<Integer,String>());
 	}
 
 

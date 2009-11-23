@@ -149,8 +149,9 @@ public class DAOVelo {
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return listeVelos;
-
 	}
+	
+	
 
 	public static Emprunt EmpruntEnCours(Velo velo) throws ClassNotFoundException, SQLException{
 		Emprunt emprunt = new Emprunt();
