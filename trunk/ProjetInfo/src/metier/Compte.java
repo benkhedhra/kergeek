@@ -99,7 +99,7 @@ public class Compte {
 	@Override
 	public boolean equals(Object o) {
 		Compte c = (Compte) o;
-		return (this.getId() == c.getId()) && (this.getAdresseEmail() == c.getAdresseEmail()) && (this.isActif() == c.isActif())&& (this.getMotDePasse() == c.getMotDePasse()) && (this.getType() == c.getType());
+		return (this.getId().equals(c.getId())) && (this.getAdresseEmail().equals(c.getAdresseEmail())) && (this.isActif().equals(c.isActif()))&& (this.getMotDePasse().equals(c.getMotDePasse())) && (this.getType() == c.getType());
 	}
 	
 
