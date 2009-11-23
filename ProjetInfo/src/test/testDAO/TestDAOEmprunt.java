@@ -26,9 +26,15 @@ public class TestDAOEmprunt extends TestCase{
 		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), s);
 		assertEquals(true, DAOEmprunt.createEmprunt(e));
 	}
-	
+
 	@Test
-	public void testUpdateEmprunt(){
-		
+	public void testUpdateEmprunt() throws SQLException, ClassNotFoundException{
+		Station s = new Station();
+		Compte c = new Compte();
+		Utilisateur u = new Utilisateur(c);
+		Velo v = new Velo();
+		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), s);
+		DAOEmprunt.createEmprunt(e);
+		assertEquals(true, DAOEmprunt.updateEmprunt(e));
 	}
 }
