@@ -3,6 +3,8 @@ package gestionBaseDeDonnees;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import metier.Intervention;
 
@@ -35,5 +37,29 @@ public class DAOIntervention {
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return effectue;
+	}
+
+	public static List<Integer> NombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException{
+
+		List <Integer> list = new ArrayList<Integer>();
+		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet res = null;
+			for (Integer type : DAOTypeIntervention.getAllTypeIntervention().keySet()){
+				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention Where idTypeIntervention ='" + type + "' and date >= Values(add_months(SYSdate,'"+ depuisMois +"'))");
+				if (res.next()){
+					list.add(res.getInt("nombreVelosTypeIntervention"));
+				}
+				else{
+					list.add(0);
+				}
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+
+		return list;
 	}
 }
