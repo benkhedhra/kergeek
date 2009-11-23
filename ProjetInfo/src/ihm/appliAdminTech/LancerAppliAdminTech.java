@@ -1,4 +1,4 @@
-package ihm.appliAdminTech.technicien;
+package ihm.appliAdminTech;
 
 public class LancerAppliAdminTech {
 

@@ -49,10 +49,6 @@ public class Utilisateur {
 		this.setVelo(null);
 	}
 
-	
-
-
-
 	//Accesseurs
 
 	public Compte getCompte() {

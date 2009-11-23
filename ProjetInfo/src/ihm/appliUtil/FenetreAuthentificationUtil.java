@@ -2,6 +2,7 @@ package ihm.appliUtil;
 
 import gestionBaseDeDonnees.DAOCompte;
 
+
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 
@@ -19,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import metier.Compte;
 import metier.Utilisateur;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {

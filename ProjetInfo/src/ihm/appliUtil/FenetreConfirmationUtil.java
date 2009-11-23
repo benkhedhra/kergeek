@@ -53,7 +53,6 @@ public class FenetreConfirmationUtil extends JFrame {
 			FenetreAuthentificationUtil f= new FenetreAuthentificationUtil(false);
 			f.setVisible(true);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			MsgBox.affMsg(e.getMessage());
 		}
 

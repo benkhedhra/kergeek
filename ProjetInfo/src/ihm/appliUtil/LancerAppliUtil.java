@@ -13,11 +13,9 @@ public class LancerAppliUtil {
 
 	public static void main(String[] args) {
 
-		
-		
 		new FenetreAuthentificationUtil(false);
 		//MenuUtilisateur m1 = new MenuUtilisateur(UTEST);
-		//new FenetreEmpruntCourt(UTEST);
+		//new FenetreEmpruntLong(UTEST);
 		//new FenetreEmprunterVelo(UTEST);
 
 	}
