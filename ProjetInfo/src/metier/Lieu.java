@@ -56,4 +56,14 @@ public abstract class Lieu {
 		//DAOVelo.updateVelo(velo);
 		// a faire faire par le controller
 	}
+	
+	
+	@Override
+	public boolean equals(Object o) {
+		Lieu l = (Lieu) o;
+		return (this.getId() == l.getId()) && (this.getAdresse() == l.getAdresse()) && (this.getCapacite() == l.getCapacite());
+	}
+	
+	
+	
 }
