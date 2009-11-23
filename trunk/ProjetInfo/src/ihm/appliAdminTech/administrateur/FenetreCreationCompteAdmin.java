@@ -4,6 +4,7 @@ import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -147,56 +148,56 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		panel2.add(qualiteARemplir);
 		centerWest.add(panel2);	
-	
+
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelAdresseEMail.setPreferredSize(new Dimension(150,30));
 		labelAdresseEMail.setMaximumSize(new Dimension(150,30));
 		panel3.add(labelAdresseEMail);
 		centerWest.add(panel3);	
-	
+
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		adresseEMailARemplir.setPreferredSize(new Dimension(150,30));
 		adresseEMailARemplir.setMaximumSize(new Dimension(150,30));
 		panel4.add(adresseEMailARemplir);
 		centerWest.add(panel4);	
-		
+
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelNom.setPreferredSize(new Dimension(150,30));
 		labelNom.setMaximumSize(new Dimension(150,30));
 		panel5.add(labelNom);
 		centerWest.add(panel5);	
-		
+
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		nomARemplir.setPreferredSize(new Dimension(150,30));
 		nomARemplir.setMaximumSize(new Dimension(150,30));
 		panel6.add(nomARemplir);
 		centerWest.add(panel6);			
-		
+
 		JPanel panel7 = new JPanel();
 		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelPrenom.setPreferredSize(new Dimension(150,30));
 		labelPrenom.setMaximumSize(new Dimension(150,30));
 		panel7.add(labelPrenom);
 		centerWest.add(panel7);	
-		
+
 		JPanel panel8 = new JPanel();
 		panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		prenomARemplir.setPreferredSize(new Dimension(150,30));
 		prenomARemplir.setMaximumSize(new Dimension(150,30));
 		panel8.add(prenomARemplir);
 		centerWest.add(panel8);	
-		
+
 		JPanel panel9 = new JPanel();
 		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelAdressePostale.setPreferredSize(new Dimension(150,30));
 		labelAdressePostale.setMaximumSize(new Dimension(150,30));
 		panel9.add(labelAdressePostale);
 		centerWest.add(panel9);	
-	
+
 		JPanel panel10 = new JPanel();
 		panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		adressePostaleARemplir.setPreferredSize(new Dimension(150,30));
@@ -205,7 +206,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		centerWest.add(panel10);	
 
 		center.add(centerWest,BorderLayout.WEST);
-		
+
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(200,350));
@@ -223,7 +224,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
-		
+
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
@@ -252,66 +253,55 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
-			Compte compte = new Compte(typeEntre,adresseEMailARemplir.getText());
-			// PROBLEME AVEC LES CONSTRUCTEURS DE COMPTE : paramètres bizarres
 			try {
+				Compte compte = new Compte(typeEntre,adresseEMailARemplir.getText());
+				this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 				DAOCompte.createCompte(compte);
+				// si c'est un compte utilisateur
+				if(compte.getType()==Compte.TYPE_UTILISATEUR){
+					Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
+					try {
+						DAOUtilisateur.createUtilisateur(utilisateur);
+					} catch (SQLException e) {
+						MsgBox.affMsg(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						MsgBox.affMsg(e.getMessage());
+					}
+				}
+
+				// si c'est un compte administrateur
+				else if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
+					Administrateur administrateur = new Administrateur (compte);
+					this.getAdministrateur().creerAdministrateur(compte);
+					try {
+						DAOAdministrateur.createAdministrateur(administrateur);
+					} catch (SQLException e) {
+						MsgBox.affMsg(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						MsgBox.affMsg(e.getMessage());
+					}
+				}
+
+				// si c'est un compte technicien
+				else if(compte.getType()==Compte.TYPE_TECHNICIEN){
+					Technicien technicien = new Technicien (compte);
+					try {
+						DAOTechnicien.createTechnicien(technicien);
+					} catch (SQLException e) {
+						MsgBox.affMsg(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						MsgBox.affMsg(e.getMessage());
+					}
+				}
+				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MsgBox.affMsg(e.getMessage());
 			}
-			
-			// si c'est un compte utilisateur
-			if(compte.getType()==Compte.TYPE_UTILISATEUR){
-				Utilisateur utilisateur = new Utilisateur (compte,nomARemplir.getText(),prenomARemplir.getText(),adressePostaleARemplir.getText());
-				try {
-					DAOUtilisateur.createUtilisateur(utilisateur);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			// si c'est un compte administrateur
-			else if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
-				Administrateur administrateur = new Administrateur (compte);
-				try {
-					DAOAdministrateur.createAdministrateur(administrateur);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			// si c'est un compte technicien
-			else if(compte.getType()==Compte.TYPE_TECHNICIEN){
-				Technicien technicien = new Technicien (compte);
-				try {
-					DAOTechnicien.createTechnicien(technicien);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-		
-
-	}		
-
+	}
 }

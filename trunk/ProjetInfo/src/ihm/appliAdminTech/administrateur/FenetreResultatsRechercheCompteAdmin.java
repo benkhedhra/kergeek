@@ -87,7 +87,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.add(labelMsg);
 		JLabel labelLegende = new JLabel();
-		labelLegende.setText("Nom     Prénom     Identifiant     Adresse e-mail");	
+		labelLegende.setText("Nom        Prénom        Identifiant        Adresse e-mail");
 		labelLegende.setFont(FenetreAuthentificationUtil.POLICE2);
 		center.add(labelLegende);
 
@@ -95,17 +95,16 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
 			String [][] tableauComptes = new String[listeComptes.size()][4];
+			
 			for (int i=0;i<tableauComptes.length;i++){
 				Compte comptei = listeComptes.get(i);
 				String[] lignei = tableauComptes[i];
 				lignei[0] = DAOUtilisateur.getUtilisateurById(comptei.getId()).getNom();
-
 				lignei[1] = DAOUtilisateur.getUtilisateurById(comptei.getId()).getPrenom();
-
 				lignei[2] = comptei.getId();
 				lignei[3] = comptei.getAdresseEmail();
 			}
-
+			
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauComptes);
 
 			JComboBox tableau = new JComboBox(model);

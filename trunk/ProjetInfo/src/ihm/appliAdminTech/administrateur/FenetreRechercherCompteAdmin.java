@@ -289,6 +289,11 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
+			this.setTypeEntre(typeEntre);
+			if(!idARemplir.getText().equals("")){this.setIdEntre(idARemplir.getText());}
+			if(!nomARemplir.getText().equals("")){this.setNomEntre(nomARemplir.getText());}
+			if(!prenomARemplir.getText().equals("")){this.setPrenomEntre(prenomARemplir.getText());}
+			if(!adresseEMailARemplir.getText().equals("")){this.setAdresseEMailEntree(adresseEMailARemplir.getText());}
 			new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
 		}
 		else if (arg0.getSource()==boutonRetour){

@@ -57,7 +57,7 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 	public FenetreRemettreVeloEnStationTech(Technicien t) {
 
 		System.out.println("Fenêtre pour remettre un vélo réparé en station");
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Remettre un vélo réparé en station");
 		//Définit une taille pour celle-ci

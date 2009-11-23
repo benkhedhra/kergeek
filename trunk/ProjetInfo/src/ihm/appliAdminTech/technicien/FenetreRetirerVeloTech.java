@@ -48,12 +48,12 @@ public class FenetreRetirerVeloTech extends JFrame implements ActionListener{
 	}
 
 	public FenetreRetirerVeloTech(Technicien t) throws SQLException, ClassNotFoundException{
-		
+
 		System.out.println("Ouverture d'une fenêtre pour retirer un vélo défectueux");
-		
+
 		this.setTechnicien(t);
 		this.setContentPane(new PanneauTech());
-		
+
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Retirer un vélo défectueux d'une station");
 		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
@@ -94,9 +94,9 @@ public class FenetreRetirerVeloTech extends JFrame implements ActionListener{
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
-		
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
-		
+
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -114,19 +114,30 @@ public class FenetreRetirerVeloTech extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonValider){
-			Velo velo = new Velo(idARemplir.getText(),Garage.getInstance(),true);
-			try {
-				DAOVelo.updateVelo(velo);
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
+		try {
+			if(arg0.getSource()==boutonValider){
+				Velo velo;
+
+				velo = DAOVelo.getVeloById(idARemplir.getText());
+				velo.setLieu(Garage.getInstance());
+				velo.setEnPanne(true);
+				try {
+					DAOVelo.updateVelo(velo);
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+				}
+				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 			}
-			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+			else if(arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
+			}
+		} catch (SQLException e1) {
+			MsgBox.affMsg(e1.getMessage());
+		} catch (ClassNotFoundException e2) {
+			MsgBox.affMsg(e2.getMessage());
 		}
-		else if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
-		}
+
 	}
 }

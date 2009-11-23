@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import metier.Technicien;
 import metier.Velo;
@@ -31,6 +32,7 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 	private Technicien technicien;
 
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelMsg = new JLabel("Voulez-vous ajouter un nouveau vélo ? Il sera affecté au lieu : Garage");
 	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
 
@@ -79,7 +81,9 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(70,350));
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		boutonValider.addActionListener(this);
+		center.add(labelMsg);	
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
@@ -100,14 +104,14 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 		this.setVisible(true);
 	}
-
-
+	
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonValider){
 				Velo velo = this.getTechnicien().enregistrerVelo();
 				DAOVelo.createVelo(velo);
+				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 			}
 			else if(arg0.getSource()==boutonRetour){
 				new MenuPrincipalTech(this.getTechnicien());
@@ -117,6 +121,5 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
-		new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 	}
 }

@@ -83,6 +83,16 @@ public class Administrateur {
 		Utilisateur u = new Utilisateur(compte, nom, prenom, adressePostale);
 		return u;
 	}
+	
+	public Administrateur creerAdministrateur(Compte compte){
+		Administrateur a = new Administrateur(compte);
+		return a;
+	}
+	
+	public Technicien creerTechnicien(Compte compte){
+		Technicien t = new Technicien(compte);
+		return t;
+	}
 
 	/**
 	 * Resilie un compte d'un abonne du parc a velos
