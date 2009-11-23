@@ -1,5 +1,6 @@
 package statistiques;
 
+import java.awt.Image;
 import java.util.Calendar;
 
 import metier.Station;
@@ -14,6 +15,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -34,6 +36,10 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		this.setContentPane(chartPanel);
 
     }
+    
+    public Image getImage() {
+		return this.chart.createBufferedImage(500, 500);
+	}
 
  JFreeChart createChart(Station s) {
 
@@ -62,12 +68,26 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 
     private XYDataset createDataset() {
-
+    	 
+    	
+    	//Changer de méthode cf site internet (marque pages)
     	Calendar calendar = Calendar.getInstance(); 
 		int heureencours = calendar.get(Calendar.HOUR);
+		calendar.add(Calendar.HOUR, -1);
+		int heureent1 = calendar.get(Calendar.MONTH);
+		calendar.add(Calendar.HOUR, -1);
+		int heureent2 = calendar.get(Calendar.MONTH);
+		calendar.add(Calendar.HOUR, -1);
+		int heureent3 = calendar.get(Calendar.MONTH);
+		calendar.add(Calendar.HOUR, -1);
+		int heureent4 = calendar.get(Calendar.MONTH);
     	
         final XYSeries series1 = new XYSeries("Taux d'occupation");
         series1.add(heureencours, 1);
+        series1.add(heureent1, 2);
+        series1.add(heureent2, 3);
+        series1.add(heureent3, 2.5);
+        series1.add(heureent4, 6);
        
         final XYSeries series2 = new XYSeries("Taux d'occupation minimum");
         series2.add(heureencours, Station.TAUX_OCCUPATION_MIN * 100);
