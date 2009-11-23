@@ -68,4 +68,10 @@ public class Velo {
 		this.empruntEnCours = emprunt;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		Velo v =(Velo) o;
+		return (this.getId()== v.getId()) && (this.getLieu()== v.getLieu())&& (this.isEnPanne()== v.isEnPanne()) && (this.getEmpruntEnCours().equals(v.getId()) );
+	}
+	
 }

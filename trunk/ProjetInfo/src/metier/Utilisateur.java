@@ -135,4 +135,10 @@ public class Utilisateur {
 		
 		return effectue;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Utilisateur u =(Utilisateur) o;
+		return this.getCompte().equals(u.getCompte()) && (this.getPrenom() == u.getPrenom()) && (this.getNom() == u.getNom()) && (this.isBloque() == u.isBloque()) && (this.getAdressePostale() == u.getAdressePostale()) && (this.getVelo().equals(u.getVelo()));
+	}
 }
