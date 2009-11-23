@@ -7,7 +7,7 @@ public class DemandeAssignation {
 	private String id;
 	private Date date;
 	private boolean priseEnCharge;
-	private int nombreVelosVouluDansStation;
+	private int nombreVelosVoulusDansStation;
 	private Lieu lieu;
 
 	//ajout==true correspond ˆ une demande d'ajout de velo
@@ -49,7 +49,7 @@ public class DemandeAssignation {
 	}
 
 
-	public boolean isPriseEnCharge() {
+	public Boolean isPriseEnCharge() {
 		return priseEnCharge;
 	}
 
@@ -60,12 +60,12 @@ public class DemandeAssignation {
 
 
 	public int getNombreVelosVoulusDansStation() {
-		return nombreVelosVouluDansStation;
+		return nombreVelosVoulusDansStation;
 	}
 
 
 	public void setNombreVelosVoulusDansStation(int nombreVelos) {
-		this.nombreVelosVouluDansStation = nombreVelos;
+		this.nombreVelosVoulusDansStation = nombreVelos;
 	}
 
 
@@ -78,6 +78,11 @@ public class DemandeAssignation {
 		this.lieu = lieu;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		DemandeAssignation d = (DemandeAssignation) o;
+		return (this.getId().equals(d.getId())) && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
+	}
 
 
 

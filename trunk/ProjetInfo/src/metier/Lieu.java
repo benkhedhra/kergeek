@@ -61,7 +61,7 @@ public abstract class Lieu {
 	@Override
 	public boolean equals(Object o) {
 		Lieu l = (Lieu) o;
-		return (this.getId() == l.getId()) && (this.getAdresse() == l.getAdresse()) && (this.getCapacite() == l.getCapacite());
+		return (this.getId().equals(l.getId())) && (this.getAdresse().equals(l.getAdresse())) && (this.getCapacite() == l.getCapacite());
 	}
 	
 	
