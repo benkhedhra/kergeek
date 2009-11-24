@@ -42,24 +42,31 @@ public class DAOUtilisateur {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Compte SET "  
-					+ "nom = '" + utilisateur.getNom() + "',"
-					+ "prenom = '"+ utilisateur.getPrenom() + "',"
-					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "',"
-					+ "bloque = '"+ utilisateur.isBloque() + "',"
-					+ "idVelo = '"+ utilisateur.getVelo() + "'"
-					+ " WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
+					+ "nom = '" + utilisateur.getNom() + "', "
+					+ "prenom = '"+ utilisateur.getPrenom() + "', "
+					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "' "
+					+ "WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
 			);
-
+			if (utilisateur.getVelo()!=null){
+				s.executeUpdate("UPDATE Compte SET idVelo = '" + utilisateur.getVelo().getId() + "'"); 	
+			}
+			if(utilisateur.isBloque()){
+				s.executeUpdate("UPDATE Compte SET bloque = '1'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
+			}
+			else {
+				s.executeUpdate("UPDATE Compte SET bloque = '0'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
+				
+			}
 			s.executeUpdate("COMMIT");
-
+			
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
+			effectue = DAOCompte.updateCompte(utilisateur.getCompte());
 		}
-		effectue = DAOCompte.updateCompte(utilisateur.getCompte());
 		return effectue;
 	}
 

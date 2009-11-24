@@ -28,6 +28,15 @@ public class Utilisateur {
 		this.setVelo(null);
 	}
 	
+	public Utilisateur(Compte compte, String nom, String prenom) {
+		super();
+		this.setCompte(compte);
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setBloque(false);
+		this.setVelo(null);
+	}
+	
 	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
 		super();
 		this.setCompte(compte);
@@ -139,10 +148,19 @@ public class Utilisateur {
 	@Override
 	public boolean equals(Object o) {
 		Utilisateur u =(Utilisateur) o;
-		return this.getCompte().equals(u.getCompte()) && (this.getPrenom().equals(u.getPrenom())) && (this.getNom().equals(u.getNom())) && (this.isBloque().equals(u.isBloque())) && (this.getAdressePostale().equals(u.getAdressePostale())) && (this.getVelo().equals(u.getVelo()));
+		Boolean v = false;
+		if(this.getVelo() != null){
+			v = this.getVelo().equals(u.getVelo());
+		}
+		else{
+			if(u.getVelo() == null){
+				v = true;
+			}
+		}
+		return v && this.getCompte().equals(u.getCompte()) && (this.getPrenom().equals(u.getPrenom())) && (this.getNom().equals(u.getNom())) && (this.isBloque().equals(u.isBloque())) && (this.getAdressePostale().equals(u.getAdressePostale()));
 	}
 	
 	public String toString(){
-		return this.getCompte().toString()+" - "+this.getPrenom()+" "+this.getNom();
+		return this.getCompte().toString()+"-"+this.getPrenom()+" "+this.getNom();
 	}
 }

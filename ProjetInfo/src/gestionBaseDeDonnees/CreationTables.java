@@ -47,10 +47,10 @@ public class CreationTables {
 			s.executeUpdate(
 					"CREATE TABLE Compte (idCompte char(4),	"+
 					"motDePasse varchar2(20) NOT NULL,"+
-					"nom char(20),"+
-					"prenom char(20),"+
+					"nom varchar2(20),"+
+					"prenom varchar2(20),"+
 					"adressePostale varchar2(250),"+
-					"adresseMail varchar2(50),"+
+					"adresseMail varchar2(50) NOT NULL,"+
 					"actif number,"+
 					"bloque number,"+
 					"type number(1),"+

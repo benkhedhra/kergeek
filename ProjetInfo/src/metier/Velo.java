@@ -66,7 +66,7 @@ public class Velo {
 	@Override
 	public boolean equals(Object o) {
 		Velo v =(Velo) o;
-		return (this.getId()== v.getId()) && (this.getLieu()== v.getLieu())&& (this.isEnPanne()== v.isEnPanne()) && (this.getEmpruntEnCours().getId().equals(v.getEmpruntEnCours().getId())) && (this.getEmpruntEnCours().getUtilisateur().equals(v.getEmpruntEnCours().getUtilisateur())) && (this.getEmpruntEnCours().getDateEmprunt().equals(v.getEmpruntEnCours().getDateRetour())) && (this.getEmpruntEnCours().getLieuEmprunt().equals(v.getEmpruntEnCours().getLieuEmprunt())) && (this.getEmpruntEnCours().getLieuRetour().equals(v.getEmpruntEnCours().getLieuRetour()));
+		return (this.getId().equals(v.getId())) && (this.getLieu().equals(v.getLieu()))&& (this.isEnPanne()== v.isEnPanne()) && (this.getEmpruntEnCours().getId().equals(v.getEmpruntEnCours().getId())) && (this.getEmpruntEnCours().getUtilisateur().equals(v.getEmpruntEnCours().getUtilisateur())) && (this.getEmpruntEnCours().getDateEmprunt().equals(v.getEmpruntEnCours().getDateRetour())) && (this.getEmpruntEnCours().getLieuEmprunt().equals(v.getEmpruntEnCours().getLieuEmprunt())) && (this.getEmpruntEnCours().getLieuRetour().equals(v.getEmpruntEnCours().getLieuRetour()));
 	}
 	
 }
