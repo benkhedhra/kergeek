@@ -50,8 +50,8 @@ public class DAOVelo {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Velo SET "
-					+ "idVelo = '" + velo.getId() + "',"
-					+ "enPanne = '" + velo.isEnPanne() + "',"
+					+ "idVelo = '" + velo.getId() + "', "
+					+ "enPanne = '" + velo.isEnPanne() + "', "
 					+ "idLieu = '" + velo.getLieu().getId() + "' "
 					+ "WHERE idVelo = '"+ velo.getId() + "'"
 			);
@@ -110,10 +110,12 @@ public class DAOVelo {
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println("Pas de velo");
+			velo = null;
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
+			velo = null;
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -143,7 +145,7 @@ public class DAOVelo {
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println("Pas de velos dans ce lieu");
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -165,6 +167,13 @@ public class DAOVelo {
 			if(res.next()){
 				velo.setEmprunt(DAOEmprunt.getEmpruntById(res.getString("idEmprunt")));
 			}
+			else {
+				throw new PasDansLaBaseDeDonneeException();
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("Pas d'emprunt en cours pour ce velo");
+			emprunt = null;
 		}
 		catch (SQLException e1){
 			System.out.println(e1.getMessage());

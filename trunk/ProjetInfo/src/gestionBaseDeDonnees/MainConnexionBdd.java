@@ -70,7 +70,9 @@ public class MainConnexionBdd {
 		System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(2));
 		*/
 		
-		System.out.println(DAOEmprunt.NombreVelosRentres(DAOLieu.getAllStations().get(1), 80));
+		//System.out.println(DAOEmprunt.NombreVelosRentres(DAOLieu.getAllStations().get(1), 80));
+		
+		
 		
 		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
