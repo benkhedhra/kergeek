@@ -135,7 +135,6 @@ public class Utilisateur {
 			throw new PasDeVeloEmprunteException();
 		}
 		else{
-			
 				station.ajouterVelo(velo);
 				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
 				velo.getEmpruntEnCours().setLieuRetour(station);

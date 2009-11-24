@@ -33,7 +33,7 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Voulez-vous ajouter un nouveau vélo ? Il sera affecté au lieu : Garage");
-	private JButton boutonValider = new JButton ("Valider");
+	private JButton boutonValider = new JButton ("Oui");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
 
 
@@ -80,10 +80,13 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(70,350));
+		center.setPreferredSize(new Dimension(700,350));
+		labelMsg.setPreferredSize(new Dimension(600,30));
+		labelMsg.setMaximumSize(new Dimension(600,30));
 		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
-		boutonValider.addActionListener(this);
 		center.add(labelMsg);	
+		boutonValider.setPreferredSize(new Dimension(150,30));
+		boutonValider.setMaximumSize(new Dimension(150,30));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);

@@ -77,10 +77,12 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 
-		List<Station> listeStations;
 		try {
-			listeStations = DAOLieu.getAllStations();
+			List<Station> listeStations = DAOLieu.getAllStations();
 			Station [] tableauStations = new Station[listeStations.size()];
+			for (int i=0;i<listeStations.size();i++){
+				tableauStations[i]=listeStations.get(i);
+			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			
 			JPanel center = new JPanel();

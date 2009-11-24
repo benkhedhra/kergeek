@@ -90,6 +90,9 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		try {
 			listeStations = DAOLieu.getAllStations();
 			Station [] tableauStations = new Station[listeStations.size()];
+			for (int i=0;i<listeStations.size();i++){
+				tableauStations[i]=listeStations.get(i);
+			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			JPanel center = new JPanel();
 			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);

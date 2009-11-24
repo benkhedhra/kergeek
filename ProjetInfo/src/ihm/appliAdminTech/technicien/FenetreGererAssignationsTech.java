@@ -1,7 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAODemandeAssignation;
-import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -79,10 +78,6 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 		center.setPreferredSize(new Dimension(700,400));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.add(labelMsg);
-		JLabel labelLegende = new JLabel();
-		labelLegende.setText("Demande     Nombre de vélos à déplacer     Type d'assignation     Station concernée");	
-		labelLegende.setFont(FenetreAuthentificationUtil.POLICE2);
-		center.add(labelLegende);
 
 		List<DemandeAssignation> listeDemandes;
 		try {
