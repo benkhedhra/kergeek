@@ -141,4 +141,8 @@ public class Utilisateur {
 		Utilisateur u =(Utilisateur) o;
 		return this.getCompte().equals(u.getCompte()) && (this.getPrenom().equals(u.getPrenom())) && (this.getNom().equals(u.getNom())) && (this.isBloque().equals(u.isBloque())) && (this.getAdressePostale().equals(u.getAdressePostale())) && (this.getVelo().equals(u.getVelo()));
 	}
+	
+	public String toString(){
+		return this.getCompte().toString()+" - "+this.getPrenom()+" - "+this.getPrenom();
+	}
 }

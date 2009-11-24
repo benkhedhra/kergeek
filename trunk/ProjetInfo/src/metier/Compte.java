@@ -102,5 +102,8 @@ public class Compte {
 		return (this.getId().equals(c.getId())) && (this.getAdresseEmail().equals(c.getAdresseEmail())) && (this.isActif().equals(c.isActif()))&& (this.getMotDePasse().equals(c.getMotDePasse())) && (this.getType() == c.getType());
 	}
 	
+	public String toString(){
+		return this.getId()+" - "+this.getAdresseEmail();
+	}
 
 }

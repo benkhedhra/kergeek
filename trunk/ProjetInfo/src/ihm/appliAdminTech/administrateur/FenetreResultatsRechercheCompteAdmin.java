@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
+import metier.Utilisateur;
 
 public class FenetreResultatsRechercheCompteAdmin extends JFrame implements ActionListener {
 
@@ -48,7 +49,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		return compteEntre;
 	}
 
-	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,boolean stat){
+	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,int typeEntre,boolean stat){
 		System.out.println("Fenêtre pour voir les résultats d'une recherche");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
@@ -94,15 +95,16 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
-			String [][] tableauComptes = new String[listeComptes.size()][4];
+			String [] tableauComptes = new String[listeComptes.size()];
 			
 			for (int i=0;i<tableauComptes.length;i++){
 				Compte comptei = listeComptes.get(i);
-				String[] lignei = tableauComptes[i];
-				lignei[0] = DAOUtilisateur.getUtilisateurById(comptei.getId()).getNom();
-				lignei[1] = DAOUtilisateur.getUtilisateurById(comptei.getId()).getPrenom();
-				lignei[2] = comptei.getId();
-				lignei[3] = comptei.getAdresseEmail();
+				if(typeEntre==Compte.TYPE_UTILISATEUR){
+					tableauComptes[i] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
+				}
+				else{
+					tableauComptes[i] = comptei.toString();
+				}
 			}
 			
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauComptes);

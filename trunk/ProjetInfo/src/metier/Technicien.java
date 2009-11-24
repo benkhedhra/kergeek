@@ -108,6 +108,10 @@ public class Technicien {
 		Technicien t =(Technicien) o;
 		return this.getCompte().equals(t.getCompte());
 	}
+	
+	public String toString(){
+		return this.getCompte().toString();
+	}
 }
 
 

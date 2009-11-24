@@ -237,7 +237,7 @@ public class DAOCompte {
 				if (!requete.equals("select * from Compte where ")){
 					requete=requete+" and ";
 				}
-				requete=requete+" Compte.adresseEMail = '" + adresseEMail + "'";
+				requete=requete+" Compte.adresseMail = '" + adresseEMail + "'";
 			}
 			if(type==Compte.TYPE_UTILISATEUR){
 				if(nom!=null){
