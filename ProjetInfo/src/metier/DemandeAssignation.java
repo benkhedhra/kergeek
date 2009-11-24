@@ -1,5 +1,9 @@
 package metier;
 
+import gestionBaseDeDonnees.DAOVelo;
+import ihm.MsgBox;
+
+import java.sql.SQLException;
 import java.util.Date;
 
 public class DemandeAssignation {
@@ -84,6 +88,23 @@ public class DemandeAssignation {
 		return (this.getId().equals(d.getId())) && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
 	}
 
+	public String toString(){
+		String resul = "Demande "+this.getId()+" - Station "+this.getLieu().getId()+" - ";
+		try {
+			int diff;
+			diff = this.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(this.getLieu()).size();
+			String type;
+			if(diff<0){type = "retrait";}
+			else{type = "ajout";}
+			resul = resul+type+ " de "+Math.abs(diff)+" vélos - "+this.getDate().toString();
+		} catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
+		}
+
+		return resul;
+	}
 
 
 

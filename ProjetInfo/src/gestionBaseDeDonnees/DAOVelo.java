@@ -32,6 +32,7 @@ public class DAOVelo {
 							+ velo.getId() + "', '0','"+ velo.getLieu().getId() + "')");
 					effectue=true;
 				}
+				s.executeUpdate("COMMIT");
 			}
 		}
 		catch (SQLException e){
@@ -62,6 +63,7 @@ public class DAOVelo {
 				s.executeUpdate("UPDATE Velo SET enPanne = '0' WHERE idVelo = '"+ velo.getId() + "'");
 				effectue=true;
 			}
+			s.executeUpdate("COMMIT");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -77,7 +79,8 @@ public class DAOVelo {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "')");	
+			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "')");
+			s.executeUpdate("COMMIT");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());

@@ -21,7 +21,7 @@ public class DAODemandeIntervention {
 				s.executeUpdate("INSERT into DemandeIntervention values ('" 
 						+ id + "', '"+ UtilitaireDate.dateCourante() + "', '"+ ddeIntervention.getVelo().getId() + "', '" 
 						+ ddeIntervention.getUtilisateur().getCompte().getId() + "')");
-				ConnexionOracleViaJdbc.fermer();
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
 		}

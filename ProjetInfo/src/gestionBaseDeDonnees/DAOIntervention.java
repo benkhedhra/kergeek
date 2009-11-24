@@ -27,7 +27,7 @@ public class DAOIntervention {
 						+ intervention.getDate() + "', '" 
 						+ intervention.getTypeIntervention() + "')");
 				effectue=true;
-				ConnexionOracleViaJdbc.fermer();
+				s.executeUpdate("COMMIT");
 			}
 		}
 		catch (SQLException e){

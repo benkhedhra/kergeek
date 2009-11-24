@@ -47,10 +47,10 @@ public class DAOUtilisateur {
 					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "',"
 					+ "bloque = '"+ utilisateur.isBloque() + "',"
 					+ "idVelo = '"+ utilisateur.getVelo() + "'"
-					+ "' WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
+					+ " WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
 			);
 
-			ConnexionOracleViaJdbc.fermer();
+			s.executeUpdate("COMMIT");
 
 		}
 		catch (SQLException e){
@@ -63,6 +63,8 @@ public class DAOUtilisateur {
 		return effectue;
 	}
 
+	
+	
 	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException {
 		Utilisateur u = new Utilisateur(new Compte());
 

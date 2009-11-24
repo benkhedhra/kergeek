@@ -80,6 +80,7 @@ public class DAOLieu {
 						+ lieu.getAdresse() + "', '" 
 						+ lieu.getCapacite() + "', '"
 						+ "')");
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
 		}
