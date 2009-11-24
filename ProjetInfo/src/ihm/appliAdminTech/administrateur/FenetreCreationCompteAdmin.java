@@ -107,6 +107,21 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
+
+		JPanel centerWest = new JPanel();
+		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerWest.setLayout(new GridLayout(5,2));
+
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		labelQualite.setPreferredSize(new Dimension(150,30));
+		labelQualite.setMaximumSize(new Dimension(150,30));
+		panel1.add(labelQualite);
+		centerWest.add(panel1);
+
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		String[] types = new String[4];
 		//idée : getAllStations : ici lignes suivantes pour tester provisoirement
 		types[0] = "Sélection à faire";
@@ -131,21 +146,6 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 			}
 
 		});
-
-		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(5,2));
-
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelQualite.setPreferredSize(new Dimension(150,30));
-		labelQualite.setMaximumSize(new Dimension(150,30));
-		panel1.add(labelQualite);
-		centerWest.add(panel1);
-
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		panel2.add(qualiteARemplir);
 		centerWest.add(panel2);	
 
@@ -217,7 +217,8 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		boutonValider.addActionListener(this);
 		centerEast.add(boutonValider);
 		center.add(centerEast,BorderLayout.EAST);
-
+		
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();

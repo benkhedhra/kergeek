@@ -128,4 +128,8 @@ public class Administrateur {
 		return this.getCompte().equals(a.getCompte());
 	}
 	
+	public String toString(){
+		return this.getCompte().toString();
+	}
+	
 }
