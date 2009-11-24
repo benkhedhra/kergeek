@@ -6,7 +6,6 @@ import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
-import ihm.appliUtil.Panneau;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -102,17 +101,22 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelVelo.setPreferredSize(new Dimension(250,40));
+		labelVelo.setMaximumSize(new Dimension(250,40));
 		panel1.add(labelVelo);
 		centerCenter.add(panel1);
 
-
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		idARemplir.setPreferredSize(new Dimension(250,40));
+		idARemplir.setMaximumSize(new Dimension(250,40));
 		panel2.add(idARemplir);
 		centerCenter.add(panel2);
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelStation.setPreferredSize(new Dimension(250,40));
+		labelStation.setMaximumSize(new Dimension(250,40));
 		panel3.add(labelStation);
 		centerCenter.add(panel3);
 
@@ -120,6 +124,9 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 			List<Station> listeStations;
 			listeStations = DAOLieu.getAllStations();
 			Station [] tableauStations = new Station[listeStations.size()];
+			for (int i=0;i<listeStations.size();i++){
+				tableauStations[i]=listeStations.get(i);
+			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
 			JComboBox combo = new JComboBox(model);
@@ -128,8 +135,6 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					stationEntree = (Station)o;
-					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
-					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
 
 			});
@@ -148,6 +153,8 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 		JPanel centerSouth = new JPanel();
 		centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		boutonValider.setPreferredSize(new Dimension(150,40));
+		boutonValider.setMaximumSize(new Dimension(150,40));
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.addActionListener(this);
@@ -170,8 +177,7 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 		this.setVisible(true);
 	}
-
-
+	
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {

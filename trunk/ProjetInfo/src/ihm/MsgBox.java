@@ -35,7 +35,7 @@ public class MsgBox extends JDialog implements ActionListener {
 		//dimensions et positionnement
 		pack();
 		Dimension d=getToolkit().getScreenSize();
-		setLocation(d.width/2,d.height/2);
+		setLocation(d.width/3,d.height/3);
 		//affichage
 		setVisible(true);
 	}
@@ -50,6 +50,6 @@ public class MsgBox extends JDialog implements ActionListener {
 
 	public static void affMsg(String msg) {
 		JFrame frame = new JFrame();
-		MsgBox message=new MsgBox(frame, msg);
+		new MsgBox(frame, msg);
 	}
 }

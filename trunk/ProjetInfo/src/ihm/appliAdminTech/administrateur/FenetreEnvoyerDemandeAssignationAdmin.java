@@ -92,6 +92,9 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		try {
 			listeStations = DAOLieu.getAllStations();
 			Station [] tableauStations = new Station[listeStations.size()];
+			for (int i=0;i<listeStations.size();i++){
+				tableauStations[i]=listeStations.get(i);
+			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
 			JPanel center = new JPanel();

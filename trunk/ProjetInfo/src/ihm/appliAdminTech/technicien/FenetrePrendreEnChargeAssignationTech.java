@@ -97,33 +97,57 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		JPanel centerNorth = new JPanel();
 		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
-		centerNorth.add(labelMsg);
-		center.add(centerNorth,BorderLayout.NORTH);
-
-		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		int nbVelosADeplacer;
+
 		try {
 			nbVelosADeplacer = Math.abs(demande.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(demande.getLieu()).size());
-			centerWest.setLayout(new GridLayout(nbVelosADeplacer,2));
 
-			labelVelo.setPreferredSize(new Dimension(200,30));
-			veloARemplir.setPreferredSize(new Dimension(200,30));
+			labelMsg.setPreferredSize(new Dimension(600,50));
+			labelMsg.setMaximumSize(new Dimension(600,50));
+			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 
-			JPanel panel1 = new JPanel();
-			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			JPanel panel2 = new JPanel();
-			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			if(nbVelosADeplacer==0){
+				labelMsg.setText("Il n'y a aucun vélo à déplacer. Le nombre de vélos dans la station est le nombre voulu. ");
+				centerNorth.add(labelMsg);
+				center.add(centerNorth,BorderLayout.NORTH);
+			}
+			else{
+				labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
+				centerNorth.add(labelMsg);
+				center.add(centerNorth,BorderLayout.NORTH);
 
-			for (int i =0;i<nbVelosADeplacer;i++){
-				labelVelo.setText("Vélo "+(i+1));
-				panel1.add(labelVelo);
-				centerWest.add(panel1);
-				panel2.add(veloARemplir);
-				centerWest.add(panel2);
+				JPanel centerWest = new JPanel();
+				centerWest.setPreferredSize(new Dimension(550,350));
+				centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+
+				centerWest.setLayout(new GridLayout(nbVelosADeplacer,2));
+
+				labelVelo.setPreferredSize(new Dimension(200,30));
+				veloARemplir.setPreferredSize(new Dimension(300,30));
+
+				JPanel panel1 = new JPanel();
+				panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				JPanel panel2 = new JPanel();
+				panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+
+				for (int i =0;i<nbVelosADeplacer;i++){
+					labelVelo.setText("Vélo "+(i+1));
+					panel1.add(labelVelo);
+					centerWest.add(panel1);
+					panel2.add(veloARemplir);
+					centerWest.add(panel2);
+				}
+				center.add(centerWest,BorderLayout.WEST);
+				
+				JPanel centerSouth = new JPanel();
+				centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.setBackground(Color.CYAN);
+				boutonValider.addActionListener(this);
+				centerSouth.add(boutonValider);
+				center.add(centerSouth, BorderLayout.SOUTH);
+				
 			}
 
 		} catch (SQLException e) {
@@ -131,16 +155,6 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
-
-		center.add(centerWest,BorderLayout.WEST);
-
-		JPanel centerSouth = new JPanel();
-		centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.setBackground(Color.CYAN);
-		boutonValider.addActionListener(this);
-		centerSouth.add(boutonValider);
-		center.add(centerSouth, BorderLayout.SOUTH);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
 

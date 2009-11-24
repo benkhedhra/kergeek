@@ -230,7 +230,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			this.getContentPane().add(south,BorderLayout.SOUTH);
 
 			this.setVisible(true);
-		}// fin du else : pas de fenêtre de déconnexion
+		}// fin du else si on n'est pas dans le cas d'une fenêtre de déconnexion
 	}
 
 	
