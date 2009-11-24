@@ -224,9 +224,11 @@ public class DAOCompte {
 		listeChamps.add(adresseEMail);
 
 		int nbChampsRemplis=0;
+		if (!listeChamps.get(0).equals("")){nbChampsRemplis++;}
 		for (String champ : listeChamps){
 			if (champ!=null){nbChampsRemplis++;}
 		}
+		nbChampsRemplis--;
 
 		List<Compte> listeComptes = new ArrayList<Compte>();
 		String requete = "select * from Compte";

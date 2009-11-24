@@ -111,9 +111,9 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 			MenuPrincipalAdmin m = new MenuPrincipalAdmin(this.getAdministrateur());
 			m.setVisible(true);
 		}
-		/*else if (arg0.getSource()==boutonStationsSurSous){
-			new FenetreStationsSurSousAdmin(MenuInterventionsMaintenanceAdmin );
-		}*/
+		else if (arg0.getSource()==boutonStationsSurSous){
+			new FenetreStationsSurSousAdmin(this.getAdministrateur());
+		}
 		else if (arg0.getSource()==boutonEtatStation){
 			new FenetreEtatStationAdmin(this.getAdministrateur());
 		}
