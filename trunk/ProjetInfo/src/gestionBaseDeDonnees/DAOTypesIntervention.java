@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DAOTypeIntervention {
+public class DAOTypesIntervention {
 
-	public static Map<Integer,String> getAllTypeIntervention() throws SQLException, ClassNotFoundException{
-		Map<Integer,String> typeIntervention = new HashMap<Integer,String>();
+	public static Map<Integer,String> getAllTypesIntervention() throws SQLException, ClassNotFoundException{
+		Map<Integer,String> typesIntervention = new HashMap<Integer,String>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -21,19 +21,20 @@ public class DAOTypeIntervention {
 			boolean vide = true;
 			while (res.next()) {
 				vide = false;
-				typeIntervention.put((res.getInt("idTypeIntervention")),(res.getString("descritpion")));
+				typesIntervention.put((res.getInt("idTypeIntervention")),(res.getString("description")));
 			}
 			if(vide){
 				throw new SQLException("pas de type d'intervention reference");
 			}
 		}
 		catch(SQLException e1){
-			typeIntervention = null;
+			typesIntervention = null;
+			System.out.println(e1.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
-		return typeIntervention;
+		return typesIntervention;
 	}
 	
 }

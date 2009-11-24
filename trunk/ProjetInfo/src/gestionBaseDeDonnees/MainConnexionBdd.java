@@ -59,7 +59,19 @@ public class MainConnexionBdd {
 		System.out.println("enPanne obtenue apres la mis a jour : " + velo.isEnPanne());
 		System.out.println("nouveau velo : " + DAOVelo.getVeloById(velo.getId()));*/
 		
-		DAOUtilisateur.getUtilisateurById("u1");
+		
+		/*
+		//System.out.println(DAOTypesIntervention.getAllTypesIntervention());
+		System.out.println(DAOTypesIntervention.getAllTypesIntervention().keySet());
+		for (String value : DAOTypesIntervention.getAllTypesIntervention().values()){
+			System.out.println(value);
+		}
+		//System.out.println(DAOTypesIntervention.getAllTypesIntervention().values());
+		System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(2));
+		*/
+		
+		System.out.println(DAOEmprunt.NombreVelosRentres(DAOLieu.getAllStations().get(1), 80));
+		
 		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");

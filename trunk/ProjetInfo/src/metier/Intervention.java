@@ -9,7 +9,7 @@ public class Intervention {
 	private String id;
 	private Velo velo;
 	private Date date;
-	private TypeIntervention typeIntervention;
+	private TypesIntervention typeIntervention;
 	
 	
 	
@@ -24,7 +24,7 @@ public class Intervention {
 	}
 
 	
-	public Intervention(Velo velo,Date date, TypeIntervention typeIntervention) {
+	public Intervention(Velo velo,Date date, TypesIntervention typeIntervention) {
 		super();
 		this.setVelo(velo);
 		this.setDate(date);
@@ -61,10 +61,10 @@ public class Intervention {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public TypeIntervention getTypeIntervention() {
+	public TypesIntervention getTypeIntervention() {
 		return typeIntervention;
 	}
-	public void setTypeIntervention(TypeIntervention typeIntervention) {
+	public void setTypeIntervention(TypesIntervention typeIntervention) {
 		this.typeIntervention = typeIntervention;
 	}
 

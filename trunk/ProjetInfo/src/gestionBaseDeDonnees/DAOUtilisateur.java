@@ -41,7 +41,7 @@ public class DAOUtilisateur {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Compte SET"  
+			s.executeUpdate("UPDATE Compte SET "  
 					+ "nom = '" + utilisateur.getNom() + "',"
 					+ "prenom = '"+ utilisateur.getPrenom() + "',"
 					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "',"

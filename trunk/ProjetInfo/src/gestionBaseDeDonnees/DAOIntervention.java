@@ -39,15 +39,15 @@ public class DAOIntervention {
 		return effectue;
 	}
 
-	public static List<Integer> NombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException{
+	public static List<Integer> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException{
 
 		List <Integer> list = new ArrayList<Integer>();
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res = null;
-			for (Integer type : DAOTypeIntervention.getAllTypeIntervention().keySet()){
-				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention Where idTypeIntervention ='" + type + "' and date >= Values(add_months(SYSdate,'"+ depuisMois +"'))");
+			for (Integer type : DAOTypesIntervention.getAllTypesIntervention().keySet()){
+				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention Where idTypeIntervention = '" + type + "' and date >= Values(add_months(SYSdate,-'"+ depuisMois +"'))");
 				if (res.next()){
 					list.add(res.getInt("nombreVelosTypeIntervention"));
 				}
