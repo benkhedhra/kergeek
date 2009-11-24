@@ -50,7 +50,7 @@ public class CreationTables {
 					"nom char(20),"+
 					"prenom char(20),"+
 					"adressePostale varchar2(250),"+
-					"adresseMail varchar2(30),"+
+					"adresseMail varchar2(50),"+
 					"actif number,"+
 					"bloque number,"+
 					"type number(1),"+

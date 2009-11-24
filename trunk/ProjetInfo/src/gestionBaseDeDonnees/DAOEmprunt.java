@@ -32,10 +32,13 @@ public class DAOEmprunt {
 						+ emprunt.getVelo().getId() + 
 				"')");
 				effectue=true;
-				ConnexionOracleViaJdbc.fermer();
+				s.executeUpdate("COMMIT");
 			}
 		}
 		catch (SQLException e){
+			System.out.println(e.getMessage());//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return effectue;

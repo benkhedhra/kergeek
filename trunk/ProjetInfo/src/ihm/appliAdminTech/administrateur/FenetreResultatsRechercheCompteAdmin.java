@@ -1,6 +1,8 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
+import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -22,7 +24,6 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
-import metier.Utilisateur;
 
 public class FenetreResultatsRechercheCompteAdmin extends JFrame implements ActionListener {
 
@@ -30,7 +31,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 	private Administrateur administrateur;
 	private JLabel labelAdmin = new JLabel("");
-	private JLabel labelMsg = new JLabel("Résultats de la recherche : veuillez sélectionner un compte");
+	private JLabel labelMsg = new JLabel("");
 	private Compte compteEntre;
 	private boolean stat;
 	private JButton boutonValider = new JButton("Valider");
@@ -47,6 +48,18 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 	public Compte getCompteEntre() {
 		return compteEntre;
+	}
+
+	public void setCompteEntre(Compte compteEntre) {
+		this.compteEntre = compteEntre;
+	}
+
+	public boolean isStat() {
+		return stat;
+	}
+
+	public void setStat(boolean stat) {
+		this.stat = stat;
 	}
 
 	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,int typeEntre,boolean stat){
@@ -71,7 +84,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-		this.stat=stat;
+		this.setStat(stat);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -87,48 +100,61 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		center.setPreferredSize(new Dimension(700,400));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.add(labelMsg);
-		JLabel labelLegende = new JLabel();
-		labelLegende.setText("Nom        Prénom        Identifiant        Adresse e-mail");
-		labelLegende.setFont(FenetreAuthentificationUtil.POLICE2);
-		center.add(labelLegende);
 
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
-			String [] tableauComptes = new String[listeComptes.size()];
-			
-			for (int i=0;i<tableauComptes.length;i++){
-				Compte comptei = listeComptes.get(i);
-				if(typeEntre==Compte.TYPE_UTILISATEUR){
-					tableauComptes[i] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
-				}
-				else{
-					tableauComptes[i] = comptei.toString();
-				}
-			}
-			
-			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauComptes);
 
-			JComboBox tableau = new JComboBox(model);
-			tableau.setFont(FenetreAuthentificationUtil.POLICE3);
-			tableau.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent ae){
-					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					try {
-						compteEntre = DAOCompte.getCompteById((String)o);
-					} catch (SQLException e) {
-						MsgBox.affMsg(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						MsgBox.affMsg(e.getMessage());
+			if(listeComptes.size()>0){
+				labelMsg.setText("Résultats de la recherche : veuillez sélectionner un compte");
+				String [] tableauComptes = new String[listeComptes.size()];
+
+				for (int i=0;i<tableauComptes.length;i++){
+					Compte comptei = listeComptes.get(i);
+					if(typeEntre==Compte.TYPE_UTILISATEUR){
+						tableauComptes[i] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
+					}
+					else if(typeEntre==Compte.TYPE_ADMINISTRATEUR){
+						tableauComptes[i] = DAOAdministrateur.getAdministrateurById(comptei.getId()).toString();
+					}
+					else if(typeEntre==Compte.TYPE_TECHNICIEN){
+						tableauComptes[i] = DAOTechnicien.getTechnicienById(comptei.getId()).toString();
 					}
 				}
-			});
-			center.add(tableau);
-		} catch (SQLException e) {
+
+				DefaultComboBoxModel model = new DefaultComboBoxModel(tableauComptes);
+
+				JComboBox tableau = new JComboBox(model);
+				tableau.setFont(FenetreAuthentificationUtil.POLICE3);
+				tableau.setPreferredSize(new Dimension(400,50));
+				tableau.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent ae){
+						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+						try {
+							String chaineSelectionnee = (String)(o);
+							String idCompteEntre = chaineSelectionnee.substring(0,2);
+							compteEntre = DAOCompte.getCompteById(idCompteEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
+					}
+				});
+				center.add(labelMsg);
+				center.add(tableau);
+			}
+			else{
+				labelMsg.setText("Il n'y a aucun résultat pour cette recherche. ");
+				center.add(labelMsg);
+			}
+
+		}catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
-		}		
+		}	
+
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);

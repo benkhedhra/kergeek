@@ -42,12 +42,21 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		this.administrateur = administrateur;
 	}
 	
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
+
 	public FenetreDemandeConfirmationAdmin(Administrateur a, Compte c, FenetreModifCompteAdmin fenetrePrec){
 
 		this.setContentPane(new PanneauAdmin());
 
-		compte=c;
-
+		this.setAdministrateur(a);
+		this.setCompte(c);
+		
 		this.setTitle("Fenêtre de demande de confirmation");
 		this.setSize(700, 500);
 		this.setLocationRelativeTo(null);
@@ -89,16 +98,14 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 			try {
 				DAOCompte.updateCompte(compte);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			}
 			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonNon){
-			
+			new FenetreModifCompteAdmin(compte,administrateur);
 		}
 	}
 }

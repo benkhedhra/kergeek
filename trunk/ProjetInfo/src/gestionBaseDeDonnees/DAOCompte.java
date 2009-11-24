@@ -81,6 +81,7 @@ public class DAOCompte {
 						+ ")");
 				effectue=true;
 			}
+			s.executeUpdate("COMMIT");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -104,14 +105,14 @@ public class DAOCompte {
 					+ "WHERE idCompte = '"+ compte.getId() + "'"
 			);
 			if (compte.isActif()){
-				s.executeUpdate("UPDATE Compte SET actif = '1' WHERE idCompte = '"+ compte.getId() + "'");
+				s.executeUpdate("UPDATE Compte SET actif = 1 WHERE idCompte = '"+ compte.getId() + "'");
 				effectue=true;
 			}
 			else{
-				s.executeUpdate("UPDATE Compte SET actif = '0' WHERE idCompte = '"+ compte.getId() + "'");
+				s.executeUpdate("UPDATE Compte SET actif = 0 WHERE idCompte = '"+ compte.getId() + "'");
 				effectue=true;
 			}
-			ConnexionOracleViaJdbc.fermer();
+			s.executeUpdate("COMMIT");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -216,6 +217,7 @@ public class DAOCompte {
 		//le type est toujours renseigné, les autres peuvent valoir null
 		//on va compter le nombre de paramètres non-nuls
 		ArrayList<String> listeChamps = new ArrayList<String>();
+		listeChamps.add(""+type);
 		listeChamps.add(ident);
 		listeChamps.add(nom);
 		listeChamps.add(prenom);
@@ -230,6 +232,12 @@ public class DAOCompte {
 		String requete = "select * from Compte";
 		if(nbChampsRemplis>0){
 			requete=requete+" where ";
+			if(type!=0){
+				if (!requete.equals("select * from Compte where ")){
+					requete=requete+" and ";
+				}
+				requete=requete+" Compte.type = " + type;
+			}
 			if(ident!=null){
 				requete=requete+"idCompte = '"+ident+"'";
 			}

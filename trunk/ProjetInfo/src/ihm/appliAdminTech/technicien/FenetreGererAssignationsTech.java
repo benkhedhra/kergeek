@@ -87,16 +87,10 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 		List<DemandeAssignation> listeDemandes;
 		try {
 			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
-			String [][] tableauDemandes = new String[listeDemandes.size()][4];
+			String [] tableauDemandes = new String[listeDemandes.size()];
 			for (int i=0;i<tableauDemandes.length;i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
-				String[] lignei = tableauDemandes[i];
-				lignei[0] = "Demande "+(i+1);
-				int diff = demandei.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(demandei.getLieu()).size();
-				lignei[1] = ""+Math.abs(diff);
-				if(diff<0){lignei[2] = "retrait";}
-				else{lignei[2] = "ajout";}
-				lignei[3] = demandei.getLieu().getId();
+				tableauDemandes[i] = demandei.toString();
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
@@ -107,8 +101,10 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
-						demandeEntree = DAODemandeAssignation.getDemandeAssignationById((String)o);
-					} catch (SQLException e) {
+						String chaineSelectionnee = (String)(o);
+						String idDemandeEntre=chaineSelectionnee.substring(8,2);
+						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
+						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());

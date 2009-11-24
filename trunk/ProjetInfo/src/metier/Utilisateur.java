@@ -143,6 +143,6 @@ public class Utilisateur {
 	}
 	
 	public String toString(){
-		return this.getCompte().toString()+" - "+this.getPrenom()+" - "+this.getPrenom();
+		return this.getCompte().toString()+" - "+this.getPrenom()+" "+this.getNom();
 	}
 }

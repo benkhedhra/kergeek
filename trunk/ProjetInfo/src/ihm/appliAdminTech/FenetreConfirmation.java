@@ -84,7 +84,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		bouton1.setMaximumSize(new Dimension(250,40));
 		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton1.setBackground(Color.GREEN);
-		
+
 		bouton2.setPreferredSize(new Dimension(250,40));
 		bouton2.setMaximumSize(new Dimension(250,40));
 		bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -94,135 +94,146 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
-	
-		//situations possibles pour un administrateur
-		if (fenetrePrec.getTitle().equals("Création d'un nouveau compte")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("Le nouveau compte a bien été créé. ");
-			bouton1.setText("Créer un autre compte");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}
-		else if(fenetrePrec.getTitle().equals("Modification d'un compte")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("La modification a bien été enregistrée. ");
-			bouton1.setText("Afficher informations sur un autre compte");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}
-		
-		else if(fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("La résiliation a bien été enregistrée. ");
-			bouton1.setText("Afficher informations sur un autre compte");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}
-		
-		else if(fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("La demande d'assignation a bien été envoyée. ");
-			bouton1.setText("Voir l'état d'une autre station");
-			bouton1.addActionListener(this);
-			bouton2.setText("Voir les stations sur et sous-occupées");
-			bouton2.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			south.add(bouton1);
-			south.add(bouton2);
-			south.add(boutonRetour);
-		}
 
-		//situations possibles pour un technicien
-		else if(fenetrePrec.getTitle().equals("Enregistrer un nouveau vélo")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("Le vélo a bien été ajouté et affecté au garage. ");
-			bouton1.setText("Enregistrer un autre nouveau vélo");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}
-		else if(fenetrePrec.getTitle().equals("Retirer un vélo défectueux d'une station")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("Le vélo défectueux a bien été retiré de la station et affecté au garage. ");
-			bouton1.setText("Retirer un autre vélo défectueux");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}
-		else if(fenetrePrec.getTitle().equals("Remettre un vélo réparé en station")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("Le changement de lieu du vélo a bien été enregistré. ");
-			bouton1.setText("Remettre un autre vélo en station");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}		
-		else if(fenetrePrec.getTitle().equals("Prendre en charge l'assignation")){
-			north.add(labelAdminTech);
-			this.getContentPane().add(north,BorderLayout.NORTH);
-			labelConfirm.setText("Le déplacement de ces vélos a bien été confirmé. ");
-			bouton1.setText("Gérer une autre demande d'assignation");
-			bouton1.addActionListener(this);
-			boutonRetour.addActionListener(this);
-			JPanel panel = new JPanel();
-			panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			south.add(panel);
-			south.add(bouton1);
-			south.add(boutonRetour);
-		}
-
-		//situations possibles dans tous les cas : déconnexion
-		else if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
+		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
+			JPanel center = new JPanel();
+			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
 			labelConfirm.setText("Au revoir et à bientôt ! ");
-			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaîtautomatiquement au terme des 3 secondes
+			center.add(labelConfirm);
+			this.getContentPane().add(center,BorderLayout.CENTER);
+			this.setVisible(true);
+			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaît automatiquement au terme des 3 secondes
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
+			this.dispose();
 			new FenetreAuthentification(false);
 		}
-		labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
-		this.getContentPane().add(labelConfirm,BorderLayout.CENTER);
-		this.getContentPane().add(south,BorderLayout.SOUTH);
+		else {
+			//situations possibles pour un administrateur
+			if (fenetrePrec.getTitle().equals("Création d'un nouveau compte")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("Le nouveau compte a bien été créé. ");
+				bouton1.setText("Créer un autre compte");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
+			else if(fenetrePrec.getTitle().equals("Modifier informations sur un compte")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("La modification a bien été enregistrée. ");
+				bouton1.setText("Afficher informations sur un autre compte");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
 
-		this.setVisible(true);
+			else if(fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("La résiliation a bien été enregistrée. ");
+				bouton1.setText("Afficher informations sur un autre compte");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
+
+			else if(fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("La demande d'assignation a bien été envoyée. ");
+				bouton1.setText("Voir l'état d'une autre station");
+				bouton1.addActionListener(this);
+				bouton2.setText("Voir les stations sur et sous-occupées");
+				bouton2.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				south.add(bouton1);
+				south.add(bouton2);
+				south.add(boutonRetour);
+			}
+
+			//situations possibles pour un technicien
+			else if(fenetrePrec.getTitle().equals("Enregistrer un nouveau vélo")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("Le vélo a bien été ajouté et affecté au garage. ");
+				bouton1.setText("Enregistrer un autre nouveau vélo");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
+			else if(fenetrePrec.getTitle().equals("Retirer un vélo défectueux d'une station")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("Le vélo défectueux a bien été retiré de la station et affecté au garage. ");
+				bouton1.setText("Retirer un autre vélo défectueux");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
+			else if(fenetrePrec.getTitle().equals("Remettre un vélo réparé en station")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("Le changement de lieu du vélo a bien été enregistré. ");
+				bouton1.setText("Remettre un autre vélo en station");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}		
+			else if(fenetrePrec.getTitle().equals("Prendre en charge une assignation")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("Le déplacement de ces vélos a bien été confirmé. ");
+				bouton1.setText("Gérer une autre demande d'assignation");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
+			JPanel center = new JPanel();
+			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
+			center.add(labelConfirm);
+			this.getContentPane().add(center,BorderLayout.CENTER);
+			this.getContentPane().add(south,BorderLayout.SOUTH);
+
+			this.setVisible(true);
+		}// fin du else : pas de fenêtre de déconnexion
 	}
 
+	
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){
@@ -245,7 +256,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				}
 			}
 		}
-		else if(fenetrePrecedente.getTitle().equals("Modification d'un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
+		else if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
 			if(arg0.getSource()==bouton1){
 				try {
 					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()),false);
@@ -265,7 +276,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				}
 			}
 		}
-	
+
 		else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
 			if(arg0.getSource()==bouton1){
 				try {
@@ -355,7 +366,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				}
 			}
 		}
-		else if(fenetrePrecedente.getTitle().equals("Prendre en charge l'assignation")){
+		else if(fenetrePrecedente.getTitle().equals("Prendre en charge une assignation")){
 			if(arg0.getSource()==bouton1){
 				try {
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));

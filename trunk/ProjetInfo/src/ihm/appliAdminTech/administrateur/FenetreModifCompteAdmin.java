@@ -154,10 +154,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			try {
 				u = DAOUtilisateur.getUtilisateurById(c.getId());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				MsgBox.affMsg(e.getMessage());
 			}
 
@@ -177,7 +175,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			centerWest.add(panel6);			
 
 			JPanel panel7 = new JPanel();
-			panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			prenomCompte.setText(u.getPrenom());
 			labelPrenom.setPreferredSize(new Dimension(150,30));
 			labelPrenom.setMaximumSize(new Dimension(150,30));
 			panel7.add(labelPrenom);
@@ -292,7 +291,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				compte.setAdresseEmail(compte.getAdresseEmail());
+				compte.setAdresseEmail(adresseEMailCompte.getText());
 				DAOCompte.updateCompte(compte);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
@@ -301,7 +300,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			}
 			if (compte.getType()==Compte.TYPE_UTILISATEUR){
 				try {
-					Utilisateur u = new Utilisateur();
+					Utilisateur u = DAOUtilisateur.getUtilisateurById(compte.getId());
 					u.setCompte(compte);
 					u.setNom(nomCompte.getText());
 					u.setPrenom(prenomCompte.getText());

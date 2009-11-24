@@ -60,7 +60,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Gérer une demande d'assignation");
+		this.setTitle("Prendre en charge une assignation");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
