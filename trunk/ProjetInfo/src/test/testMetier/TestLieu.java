@@ -17,7 +17,7 @@ public class TestLieu extends TestCase {
 	@Test
 	public void testAjouterVelo() throws SQLException, ClassNotFoundException{
 		Station s = new Station("id", "adresse", 50);
-		Velo v = new Velo("v", s, false);
+		Velo v = new Velo(s, false);
 		s.ajouterVelo(v);
 		assertEquals(s, v.getLieu());
 
@@ -26,7 +26,7 @@ public class TestLieu extends TestCase {
 	@Test
 	public void testEnleverVelo() throws SQLException, ClassNotFoundException{
 		Station s = new Station("id", "adresse", 50);
-		Velo v = new Velo("v", s, false);
+		Velo v = new Velo(s, false);
 		s.ajouterVelo(v);
 
 		s.enleverVelo(v);
