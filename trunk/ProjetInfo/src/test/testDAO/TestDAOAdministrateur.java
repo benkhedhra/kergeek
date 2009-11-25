@@ -14,17 +14,16 @@ import junit.framework.TestCase;
 public class TestDAOAdministrateur extends TestCase{
 	@Test
 	public void testCreateAdministrateur() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte();
+		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR);
 		Administrateur a = new Administrateur(c);
 		DAOCompte.createCompte(c);
 		Boolean b = DAOAdministrateur.createAdministrateur(a);
-		System.out.println(b);
 		assertEquals((Boolean)true,(Boolean) b);
 	}
 	
 	@Test
 	public void testUpdateAdministrateur() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte();
+		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR);
 		Administrateur a = new Administrateur(c);
 		DAOAdministrateur.createAdministrateur(a);
 		Boolean b = DAOAdministrateur.updateAdministrateur(a);
@@ -33,14 +32,19 @@ public class TestDAOAdministrateur extends TestCase{
 	
 	@Test
 	public void testGetAdministrateurById() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte();
+		
+		Administrateur admin = DAOAdministrateur.getAdministrateurById("a43");
+		System.out.println(admin);
+		
+	}
+	@Test
+	public void testGetAdministrateurByAdresseEmail() throws SQLException, ClassNotFoundException{
+		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR);
 		Administrateur a = new Administrateur(c);
 		DAOAdministrateur.createAdministrateur(a);
-	}
-	
-	@Test
-	public void testGetAdministrateurByAdresseEmail(){
-		
+		String s = c.getAdresseEmail();
+		Administrateur admin = DAOAdministrateur.getAdministrateurByAdresseEmail(s);
+		assertTrue(a.equals(admin));
 	}
 
 }

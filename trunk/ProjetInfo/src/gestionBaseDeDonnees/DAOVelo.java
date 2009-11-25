@@ -110,7 +110,7 @@ public class DAOVelo {
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Pas de velo");
+			//System.out.println("Pas de velo");
 			velo = null;
 		}
 		catch (SQLException e2){
