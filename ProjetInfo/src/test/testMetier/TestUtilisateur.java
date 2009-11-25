@@ -22,7 +22,7 @@ public class TestUtilisateur extends TestCase{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
-		Velo v = new Velo("v",s,false);
+		Velo v = new Velo(s,false);
 
 		u.emprunteVelo(v, s);
 		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), s);
@@ -40,7 +40,7 @@ public class TestUtilisateur extends TestCase{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
-		Velo v = new Velo("v",s,false);
+		Velo v = new Velo(s,false);
 		u.emprunteVelo(v, s);
 		u.rendreVelo(s);
 		assertFalse(v == u.getVelo());
