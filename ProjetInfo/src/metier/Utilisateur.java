@@ -14,9 +14,7 @@ public class Utilisateur {
 	private boolean bloque;
 	private Velo velo;
 
-	public Utilisateur() {
-		//constructeur vide
-		super();
+	public Utilisateur(){
 		this.setBloque(false);
 		this.setVelo(null);
 	}	

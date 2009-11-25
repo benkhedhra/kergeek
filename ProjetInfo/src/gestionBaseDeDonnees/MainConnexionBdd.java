@@ -3,7 +3,8 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
-import metier.Velo;
+import metier.Station;
+import metier.Utilisateur;
 
 public class MainConnexionBdd {
 
@@ -70,9 +71,25 @@ public class MainConnexionBdd {
 		System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(2));
 		*/
 		
-		//System.out.println(DAOEmprunt.NombreVelosRentres(DAOLieu.getAllStations().get(1), 80));
 		
 		
+		/*
+		Station station1 = (Station) DAOLieu.getAllStations().get(1);
+		Station station2 = (Station) DAOLieu.getAllStations().get(2);
+		Station station3 = (Station) DAOLieu.getAllStations().get(3);
+		
+		System.out.println(DAOEmprunt.NombreVelosSortis(station3,100));
+		System.out.println(DAOEmprunt.NombreVelosSortis(station1,100));
+		System.out.println(DAOEmprunt.NombreVelosSortis(station2,100));
+		System.out.println(DAOEmprunt.NombreVelosRentres(station1,100));
+		System.out.println(DAOEmprunt.NombreVelosRentres(station3,100));
+		*/
+		
+		
+		/*System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(4));
+		*/
+		Utilisateur u2 = DAOUtilisateur.getUtilisateurById("u2"); 
+		System.out.println(DAOEmprunt.getNombreEmpruntParUtilisateurParMois( u2, 4));
 		
 		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
