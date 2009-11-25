@@ -67,7 +67,7 @@ public class DAOLieu {
 				effectue=true;
 			}
 			else{
-				ResultSet res = s.executeQuery("Select seqCompte.NEXTVAL as id from dual");
+				ResultSet res = s.executeQuery("Select seqLieu.NEXTVAL as id from dual");
 				if (res.next()){
 					String id = res.getString("id");
 					lieu.setId(id);
@@ -78,7 +78,7 @@ public class DAOLieu {
 				s.executeUpdate("INSERT into Lieu values ('" 
 						+ lieu.getId() + "', '" 
 						+ lieu.getAdresse() + "', '" 
-						+ lieu.getCapacite() + "', '"
+						+ lieu.getCapacite() 
 						+ "')");
 				s.executeUpdate("COMMIT");
 				effectue=true;
