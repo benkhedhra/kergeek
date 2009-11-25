@@ -1,9 +1,5 @@
 package metier;
 
-import gestionBaseDeDonnees.DAOVelo;
-import ihm.MsgBox;
-
-import java.sql.SQLException;
 import java.util.Date;
 
 public class DemandeAssignation {
@@ -87,7 +83,10 @@ public class DemandeAssignation {
 		DemandeAssignation d = (DemandeAssignation) o;
 		return (this.getId().equals(d.getId())) && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
 	}
-
+	/*TODO 
+	 * NON, NON et NON!
+	 * pas de DAO ni d'ihm dans les classes metiers!
+	 
 	public String toString(){
 		String resul = "Demande "+this.getId()+" - Station "+this.getLieu().getId()+" - ";
 		try {
@@ -104,7 +103,7 @@ public class DemandeAssignation {
 		}
 
 		return resul;
-	}
+	}*/
 
 
 

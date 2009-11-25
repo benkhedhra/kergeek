@@ -1,12 +1,8 @@
 package test.testMetier;
 
-import gestionBaseDeDonnees.DAOVelo;
-
 import java.sql.SQLException;
 
 import junit.framework.TestCase;
-import metier.Garage;
-import metier.Lieu;
 import metier.Station;
 import metier.Velo;
 

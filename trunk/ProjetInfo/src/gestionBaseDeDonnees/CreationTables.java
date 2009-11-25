@@ -119,8 +119,6 @@ public class CreationTables {
 					"CONSTRAINT fk_Emprunt_LieuEmprunt FOREIGN KEY(idLieuEmprunt) REFERENCES Lieu (idLieu)," + 
 			"CONSTRAINT fk_Emprunt_LieuRetour FOREIGN KEY(idLieuRetour) REFERENCES Lieu (idLieu))");
 
-			s.executeUpdate("COMMIT");
-
 			System.out.println("Base creee");
 
 			
@@ -185,14 +183,13 @@ public class CreationTables {
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('05-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('05-09-2009 9:45','DD-MM-YYYY HH24:MI'), '3','3','u2','2')");
 			
-			s.executeUpdate("COMMIT");
 			
 			System.out.println("Update effectuee.");
 
 		}
-		/*catch (SQLException e){
+		catch (SQLException e){
 			System.out.println(e.getMessage());
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

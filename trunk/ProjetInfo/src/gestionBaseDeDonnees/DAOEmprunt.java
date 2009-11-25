@@ -5,9 +5,13 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import metier.Emprunt;
 import metier.Station;
+import metier.Utilisateur;
+import metier.UtilitaireDate;
 
 public class DAOEmprunt {
 
@@ -105,12 +109,12 @@ public class DAOEmprunt {
 		return emprunt;
 	}
 
-	
+
 	/**
 	 * 
 	 * @param station
 	 * @param depuisJours : nombre de jours sur lesquels ont veut avoir les nombre de velos sortis de la station
-	 * @return le nombre de velos rentres dans la staion depuis depuisJours jours.
+	 * @return le nombre de velos rentres dans la staion depuis depuisJours jours (depuisJours doit etre positif).
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -120,7 +124,13 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieu ='" + station.getId() + "' and dateEmprunt <= Values(SYSdate -'"+ depuisJours +"')");
+		java.sql.Date dateSql = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+
+		/*TODO
+		 * System.out.println(dateSql.toString());
+		 */
+
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + station.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloSortis");
@@ -132,6 +142,14 @@ public class DAOEmprunt {
 
 		return nb;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 
 	 * @param station
@@ -146,7 +164,13 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieu ='" + station.getId() + "' and dateRetour >= Values(SYSdate -'"+ depuisJours +"')");
+		java.sql.Date dateSql = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+
+		/*TODO
+		 * System.out.println(dateSql.toString());
+		 */
+
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + station.getId() + "' and dateRetour >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloRentres");
@@ -156,5 +180,58 @@ public class DAOEmprunt {
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return nb;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param u
+	 * @param nbMois
+	 * @return la liste des nombre d'emprunts effectue par l'utilisateur u au cours
+	 *			des nbMois derniers mois, pour chacun de ces mois.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static List<Integer> getNombreEmpruntParUtilisateurParMois(Utilisateur u, int nbMois) throws SQLException, ClassNotFoundException{
+
+		List <Integer> liste = new ArrayList<Integer>();
+		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			
+			
+			
+			/*TODO
+			 * System.out.println(dateSql.toString());
+			 */
+			
+			ResultSet res = null;
+			for (int i=1; i <= nbMois; i++){
+				java.sql.Date dateSqlSupTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i);
+				java.sql.Date dateSqlSup = UtilitaireDate.initialisationDebutMois(dateSqlSupTemp);
+				
+				java.sql.Date dateSqlMinTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i+1);
+				java.sql.Date dateSqlMin = UtilitaireDate.initialisationDebutMois(dateSqlMinTemp);
+				
+				res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + u.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + dateSqlSup + "','YYYY-MM-DD-HH24:MI') and dateEmprunt >= TO_DATE('" + dateSqlMin + "','YYYY-MM-DD-HH24:MI')");
+				if (res.next()){
+					liste.add(res.getInt("nombreEmpruntParMois"));
+				}
+				else{
+					liste.add(0);
+				}
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+
+		return liste;
 	}
 }
