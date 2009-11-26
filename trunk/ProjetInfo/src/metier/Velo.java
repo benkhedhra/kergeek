@@ -18,6 +18,9 @@ public class Velo {
 		super();
 	}
 
+	public Velo(Lieu lieu) {
+		this.setLieu(lieu);
+	}
 
 	public Velo(Lieu lieu, boolean enPanne) {
 		this.setLieu(lieu);
@@ -59,14 +62,33 @@ public class Velo {
 	}
 
 
-	public void setEmprunt(Emprunt emprunt){
+	public void setEmpruntEnCours(Emprunt emprunt){
 		this.empruntEnCours = emprunt;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		Velo v =(Velo) o;
-		return (this.getId().equals(v.getId())) && (this.getLieu().equals(v.getLieu()))&& (this.isEnPanne()== v.isEnPanne()) && (this.getEmpruntEnCours().getId().equals(v.getEmpruntEnCours().getId())) && (this.getEmpruntEnCours().getUtilisateur().equals(v.getEmpruntEnCours().getUtilisateur())) && (this.getEmpruntEnCours().getDateEmprunt().equals(v.getEmpruntEnCours().getDateRetour())) && (this.getEmpruntEnCours().getLieuEmprunt().equals(v.getEmpruntEnCours().getLieuEmprunt())) && (this.getEmpruntEnCours().getLieuRetour().equals(v.getEmpruntEnCours().getLieuRetour()));
+		Boolean a = false;
+		Boolean b = false;
+		if (this.getId() == null){
+			a = v.getId() == null;
+		}
+		else{
+			a = this.getId().equals(v.getId());
+		}
+		if (this.getEmpruntEnCours() == null){
+			b = v.getEmpruntEnCours() == null;
+		}
+		else{
+			if (this.getEmpruntEnCours().getId() ==null){
+				b =	v.getEmpruntEnCours().getId() == null && (this.getEmpruntEnCours().getUtilisateur().equals(v.getEmpruntEnCours().getUtilisateur())) && (this.getEmpruntEnCours().getDateEmprunt().equals(v.getEmpruntEnCours().getDateEmprunt())) && (this.getEmpruntEnCours().getLieuEmprunt().equals(v.getEmpruntEnCours().getLieuEmprunt()));
+			}
+			else {
+				b =	(this.getEmpruntEnCours().getId().equals(v.getEmpruntEnCours().getId())) && (this.getEmpruntEnCours().getUtilisateur().equals(v.getEmpruntEnCours().getUtilisateur())) && (this.getEmpruntEnCours().getDateEmprunt().equals(v.getEmpruntEnCours().getDateEmprunt())) && (this.getEmpruntEnCours().getLieuEmprunt().equals(v.getEmpruntEnCours().getLieuEmprunt()));
+			}
+		}
+		return a && b && (this.getLieu().equals(v.getLieu())) && (this.isEnPanne()== v.isEnPanne());
 	}
-	
+
 }

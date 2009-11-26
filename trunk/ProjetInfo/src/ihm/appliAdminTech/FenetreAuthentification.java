@@ -1,12 +1,10 @@
 package ihm.appliAdminTech;
 
 import gestionBaseDeDonnees.DAOCompte;
-import gestionBaseDeDonnees.UtilitaireSQL;
 import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
-import ihm.appliUtil.LancerAppliUtil;
 import ihm.appliUtil.Panneau;
 
 import java.awt.BorderLayout;
@@ -28,7 +26,6 @@ import javax.swing.JTextField;
 import metier.Administrateur;
 import metier.Compte;
 import metier.Technicien;
-import metier.Utilisateur;
 
 public class FenetreAuthentification extends JFrame implements ActionListener {
 

@@ -1,7 +1,7 @@
 package metier;
 
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Emprunt {
 	private String id;
@@ -129,7 +129,21 @@ public class Emprunt {
 	@Override
 	public boolean equals(Object o) {
 		Emprunt e =(Emprunt) o;
-		return (this.getId().equals(e.getId())) && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateRetour())) && (this.getLieuEmprunt().equals(e.getLieuEmprunt())) && (this.getLieuRetour().equals(e.getLieuRetour()));
+		Boolean a =false;
+		Boolean b = false;
+		if(this.getId() == null){
+			a = e.getId() == null;
+		}
+		else{
+			this.getId().equals(e.getId());
+		}
+		if(this.getDateRetour() == null){
+			b = e.getDateRetour() == null && e.getLieuRetour() == null;
+		}
+		else{
+			b = (this.getDateRetour().equals(e.getDateRetour())) && (this.getLieuRetour().equals(e.getLieuRetour()));
+		}
+		return a && b && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateEmprunt()))  && (this.getLieuEmprunt().equals(e.getLieuEmprunt()));
 	}
 	
 	

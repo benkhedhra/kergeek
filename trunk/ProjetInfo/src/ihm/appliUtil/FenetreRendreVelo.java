@@ -136,10 +136,10 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				new FenetreConfirmationUtil("Merci et à bientôt ! ");
 			}
 			else if (arg0.getSource()==boutonValider){
-				if (this.getUtilisateur().rendreVelo(stationEntree)){
+				if (this.getUtilisateur().rendreVelo(stationEntree) != null){
 					// l'utilisateur a bien rendu le vélo
 					DAOEmprunt.updateEmprunt(this.getUtilisateur().getVelo().getEmpruntEnCours());
-					this.getUtilisateur().getVelo().setEmprunt(null);
+					this.getUtilisateur().getVelo().setEmpruntEnCours(null);
 					DAOVelo.updateVelo(this.getUtilisateur().getVelo());
 					if (this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MIN){
 						//emprunt trop court

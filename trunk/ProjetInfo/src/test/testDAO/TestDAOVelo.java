@@ -1,17 +1,13 @@
 package test.testDAO;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import gestionBaseDeDonnees.DAOVelo;
-import metier.Garage;
-import metier.Lieu;
-import metier.Station;
+
+import java.sql.SQLException;
+
+import junit.framework.TestCase;
 import metier.Velo;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOVelo extends TestCase {
 	

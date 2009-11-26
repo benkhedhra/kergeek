@@ -37,7 +37,6 @@ public class Administrateur {
 	 */
 
 	public Administrateur(Compte compte) {
-		super();
 		this.setCompte(compte);
 	}
 
@@ -128,6 +127,8 @@ public class Administrateur {
 		return this.getCompte().equals(a.getCompte());
 	}
 	
+	
+	@Override
 	public String toString(){
 		return this.getCompte().toString();
 	}

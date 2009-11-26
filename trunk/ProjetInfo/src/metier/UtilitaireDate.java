@@ -1,7 +1,6 @@
 package metier;
 
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -56,6 +55,19 @@ public class UtilitaireDate {
 		// initialise le calendrier à la date courante;
 		  gCal.setTime(dateSql);
 		  gCal.set(gCal.get(Calendar.YEAR), gCal.get(Calendar.MONTH), gCal.getMinimum(Calendar.DAY_OF_MONTH), gCal.getMinimum(Calendar.HOUR_OF_DAY), gCal.getMinimum(Calendar.MINUTE));
+		  java.util.Date dateUtil = gCal.getTime();
+		  java.sql.Date nouvelleDateSql = new java.sql.Date(dateUtil.getTime());
+		  
+		  return nouvelleDateSql;
+	}
+	
+	public static java.sql.Date initialisationDebutJour(java.sql.Date dateSql){
+		
+		// déclaration d'un calendrier
+		  GregorianCalendar gCal = new GregorianCalendar();
+		// initialise le calendrier à la date courante;
+		  gCal.setTime(dateSql);
+		  gCal.set(gCal.get(Calendar.YEAR), gCal.get(Calendar.MONTH), gCal.get(Calendar.DATE), gCal.getMinimum(Calendar.HOUR_OF_DAY), gCal.getMinimum(Calendar.MINUTE));
 		  java.util.Date dateUtil = gCal.getTime();
 		  java.sql.Date nouvelleDateSql = new java.sql.Date(dateUtil.getTime());
 		  

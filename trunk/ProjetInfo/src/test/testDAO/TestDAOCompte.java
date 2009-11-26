@@ -4,12 +4,10 @@ import gestionBaseDeDonnees.DAOCompte;
 
 import java.sql.SQLException;
 
-import metier.Administrateur;
+import junit.framework.TestCase;
 import metier.Compte;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOCompte extends TestCase{
 	@Test

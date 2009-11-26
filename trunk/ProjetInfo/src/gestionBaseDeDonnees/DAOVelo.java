@@ -5,7 +5,8 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import metier.Emprunt;
 import metier.Lieu;
@@ -32,7 +33,6 @@ public class DAOVelo {
 							+ velo.getId() + "', '0','"+ velo.getLieu().getId() + "')");
 					effectue=true;
 				}
-				s.executeUpdate("COMMIT");
 			}
 		}
 		catch (SQLException e){
@@ -57,13 +57,15 @@ public class DAOVelo {
 			);
 			if (velo.isEnPanne()){
 				s.executeUpdate("UPDATE Velo SET enPanne = '1' WHERE idVelo = '"+ velo.getId() + "'");
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
 			else{
 				s.executeUpdate("UPDATE Velo SET enPanne = '0' WHERE idVelo = '"+ velo.getId() + "'");
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
-			s.executeUpdate("COMMIT");
+			
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -81,6 +83,7 @@ public class DAOVelo {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "')");
 			s.executeUpdate("COMMIT");
+			effectue = true;
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -106,11 +109,11 @@ public class DAOVelo {
 				velo.setEnPanne(res.getBoolean("enPanne"));
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du velo");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			//System.out.println("Pas de velo");
+			System.out.println(e1.getMessage());
 			velo = null;
 		}
 		catch (SQLException e2){
@@ -127,8 +130,8 @@ public class DAOVelo {
 
 
 	//permet d'obtenir la liste des velos parques dans un lieu
-	public static ArrayList<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
-		ArrayList<Velo> listeVelos = new ArrayList<Velo>();
+	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
+		List<Velo> listeVelos = new LinkedList<Velo>();
 		Velo velo = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -141,11 +144,11 @@ public class DAOVelo {
 				listeVelos.add(velo);
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Pas de velo dans ce lieu");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Pas de velos dans ce lieu");
+			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -165,14 +168,14 @@ public class DAOVelo {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res= s.executeQuery("Select* from Emprunt Where dateRetour IS NULL AND idVelo = '" +velo.getId());
 			if(res.next()){
-				velo.setEmprunt(DAOEmprunt.getEmpruntById(res.getString("idEmprunt")));
+				velo.setEmpruntEnCours(DAOEmprunt.getEmpruntById(res.getString("idEmprunt")));
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Pas d'emprunt en cours pour ce velo");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Pas d'emprunt en cours pour ce velo");
+			System.out.println(e1.getMessage());
 			emprunt = null;
 		}
 		catch (SQLException e1){

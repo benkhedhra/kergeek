@@ -103,12 +103,17 @@ public class Technicien {
 		return intervention;
 	}
 	
+	
+	
 	@Override
 	public boolean equals(Object o) {
 		Technicien t =(Technicien) o;
 		return this.getCompte().equals(t.getCompte());
 	}
 	
+	
+	
+	@Override
 	public String toString(){
 		return this.getCompte().toString();
 	}

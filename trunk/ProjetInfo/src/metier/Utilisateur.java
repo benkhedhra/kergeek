@@ -25,7 +25,7 @@ public class Utilisateur {
 		this.setBloque(false);
 		this.setVelo(null);
 	}
-	
+
 	public Utilisateur(Compte compte, String nom, String prenom) {
 		super();
 		this.setCompte(compte);
@@ -34,7 +34,7 @@ public class Utilisateur {
 		this.setBloque(false);
 		this.setVelo(null);
 	}
-	
+
 	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
 		super();
 		this.setCompte(compte);
@@ -44,9 +44,9 @@ public class Utilisateur {
 		this.setBloque(false);
 		this.setVelo(null);
 	}
-	
-	
-	 public Utilisateur(Compte compte, String nom, String prenom, String adressePostale, boolean bloque) {
+
+
+	public Utilisateur(Compte compte, String nom, String prenom, String adressePostale, boolean bloque) {
 		super();
 		this.setCompte(compte);
 		this.setNom(nom);
@@ -112,51 +112,88 @@ public class Utilisateur {
 
 	//Méthodes
 
-	/*TODO
-	 * emprunte
-	 */
+	
 	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
 		station.enleverVelo(velo);
 		this.setVelo(velo);
-		velo.setEmprunt(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		//DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo);
-		// a faire dans le controller
+		velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
+		
+		/*TODO a faire dans le controller
+		 * DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo);
+		 */ 
 	}
-	
-	
 
-	public boolean rendreVelo(Station station) 
+
+
+	public Emprunt rendreVelo(Station station) 
 	throws PasDeVeloEmprunteException{
-		boolean effectue = false;
+		Emprunt emprunt = null;
 		Velo velo = this.getVelo();
-		if (velo == null){
-			throw new PasDeVeloEmprunteException();
-		}
-		else{
+		try{
+			if (velo == null){
+				throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunte de velo");
+			}
+			else{
 				station.ajouterVelo(velo);
 				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
 				velo.getEmpruntEnCours().setLieuRetour(station);
-				effectue = true;
-		}
-		
-		return effectue;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		Utilisateur u =(Utilisateur) o;
-		Boolean v = false;
-		if(this.getVelo() != null){
-			v = this.getVelo().equals(u.getVelo());
-		}
-		else{
-			if(u.getVelo() == null){
-				v = true;
+				emprunt = new Emprunt(this, velo, velo.getEmpruntEnCours().getDateEmprunt(), velo.getEmpruntEnCours().getLieuEmprunt(), velo.getEmpruntEnCours().getDateRetour(), velo.getEmpruntEnCours().getLieuRetour());
+				velo.setEmpruntEnCours(null);
+				this.setVelo(null);
 			}
 		}
-		return v && this.getCompte().equals(u.getCompte()) && (this.getPrenom().equals(u.getPrenom())) && (this.getNom().equals(u.getNom())) && (this.isBloque().equals(u.isBloque())) && (this.getAdressePostale().equals(u.getAdressePostale()));
+		catch(PasDeVeloEmprunteException e){
+			System.out.println(e.getMessage());
+		}
+		return emprunt;
 	}
-	
+
+
+
+	@Override
+	public boolean equals(Object o) {
+
+		Utilisateur u =(Utilisateur) o;
+
+		Boolean v = false;
+		Boolean n = false;
+		Boolean p = false;
+		Boolean a = false;
+
+		if(this.getVelo() == null){
+			v = u.getVelo() == null;
+		}
+		else{
+			v = this.getVelo().equals(u.getVelo());	
+		}
+
+		if(this.getNom() == null){
+			n = u.getNom() == null;
+		}
+		else{
+			n = this.getNom().equals(u.getNom());
+		}
+
+		if(this.getPrenom() == null){
+			p = u.getPrenom() == null;
+		}
+		else{
+			p = this.getPrenom().equals(u.getPrenom());
+		}
+
+		if(this.getAdressePostale() == null){
+			a = u.getAdressePostale() == null;
+		}
+		else{
+			a = this.getAdressePostale().equals(u.getAdressePostale());
+		}
+
+		return a && v && n && this.getCompte().equals(u.getCompte()) && (this.isBloque().equals(u.isBloque()));
+	}
+
+
+
+	@Override
 	public String toString(){
 		return this.getCompte().toString()+"-"+this.getPrenom()+" "+this.getNom();
 	}

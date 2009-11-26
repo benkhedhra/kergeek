@@ -12,7 +12,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -26,6 +25,7 @@ import javax.swing.JTextField;
 import metier.Administrateur;
 import metier.DemandeAssignation;
 import metier.Station;
+import metier.UtilitaireDate;
 
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
 
@@ -187,7 +187,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 				int nbVelos = 0;
 				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
 				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-				new DemandeAssignation(new Date(),nbVelos,stationEntree);
+				new DemandeAssignation(UtilitaireDate.dateCourante(),nbVelos,stationEntree);
 			}catch(Exception e){
 				MsgBox.affMsg("Champ entré incorret");
 			}

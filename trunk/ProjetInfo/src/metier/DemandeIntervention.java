@@ -1,6 +1,6 @@
 package metier;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class DemandeIntervention {
 
@@ -10,9 +10,15 @@ public class DemandeIntervention {
 	private Date date;
 	private Velo velo;
 	private Utilisateur utilisateur;
+	private Lieu lieu = this.getVelo().getLieu();
+	private Intervention intervention;
 
 	//Constructeur
 
+
+	public DemandeIntervention() {
+		super();
+	}
 	
 	public DemandeIntervention(Velo velo, Utilisateur utilisateur) {
 		super();
@@ -20,8 +26,9 @@ public class DemandeIntervention {
 		this.setUtilisateur(utilisateur);
 	}
 	
-	//Accesseurs
 	
+	//Accesseurs
+
 	public String getId() {
 		return id;
 	}
@@ -54,10 +61,43 @@ public class DemandeIntervention {
 		this.utilisateur = utilisateur;
 	}
 
+	public Intervention getIntervention() {
+		return intervention;
+	}
+
+	public void setIntervention(Intervention intervention) {
+		this.intervention = intervention;
+	}
+
+	
+	
+	//Methodes
+	
+	public Intervention priseEnCharge(TypeIntervention typeIntervention){
+		Intervention intervention = new Intervention(this.getVelo(), this.getDate(), typeIntervention);
+		this.setIntervention(intervention);
+		return intervention;
+	}
+	
+	
 	@Override
 	public boolean equals(Object o) {
 		DemandeIntervention d = (DemandeIntervention) o;
-		return (this.getId().equals(d.getId())) && (this.getDate().equals(d.getDate())) && (this.getVelo().equals(d.getVelo()))&& (this.getUtilisateur().equals(d.getUtilisateur()));
+		Boolean a =false;
+		Boolean b =false;
+		if(this.getId() == null){
+			a = d.getId() == null;
+		}
+		else{
+			a =this.getId().equals(d.getId());
+		}
+		if(this.getIntervention() == null){
+			a = d.getIntervention() == null;
+		}
+		else{
+			a =this.getIntervention().equals(d.getIntervention());
+		}
+		return a && b && (this.getDate().equals(d.getDate())) && (this.getVelo().equals(d.getVelo()))&& (this.getUtilisateur().equals(d.getUtilisateur()));
 	}
 	
 }

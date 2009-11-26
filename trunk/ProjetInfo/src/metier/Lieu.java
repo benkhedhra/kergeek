@@ -47,23 +47,40 @@ public abstract class Lieu {
 
 	public void enleverVelo(Velo velo){
 		velo.setLieu(SORTI);
-		//DAOVelo.updateVelo(velo);
-		// a faire faire par le controller
+		/*TODO a faire faire par le controller
+		 * DAOVelo.updateVelo(velo);
+		 */
 	}
 
 	public void ajouterVelo(Velo velo){
 		velo.setLieu(this);
-		//DAOVelo.updateVelo(velo);
-		// a faire faire par le controller
+		/*TODO a faire faire par le controller
+		 * DAOVelo.updateVelo(velo);
+		 */
+
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object o) {
 		Lieu l = (Lieu) o;
-		return (this.getId().equals(l.getId())) && (this.getAdresse().equals(l.getAdresse())) && (this.getCapacite() == l.getCapacite());
+		Boolean a =false;
+		Boolean b =false;
+		if (this.getId() == null){
+			a = l.getId() == null;
+		}
+		else{
+			a = this.getId().equals(l.getId());
+		}
+		if (this instanceof Station){
+			b = l instanceof Station;
+		}
+		else{
+			b = (this == Garage.getInstance()) && (l == Garage.getInstance());
+		}
+		return a && b && (this.getAdresse().equals(l.getAdresse())) && (this.getCapacite() == l.getCapacite());
 	}
-	
-	
-	
+
+
+
 }

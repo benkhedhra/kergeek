@@ -14,12 +14,12 @@ public class SuppressionTables {
 			s.executeUpdate("DROP SEQUENCE seqEmprunt");
 			s.executeUpdate("DROP TABLE DemandeAssignation ");
 			s.executeUpdate("DROP SEQUENCE seqDemandeAssignation");
+			s.executeUpdate("DROP TABLE DemandeIntervention");
+			s.executeUpdate("DROP SEQUENCE seqDemandeIntervention");
 			s.executeUpdate("DROP TABLE Intervention");
 			s.executeUpdate("DROP SEQUENCE seqIntervention");
 			s.executeUpdate("DROP TABLE TypeIntervention ");	
 			s.executeUpdate("DROP SEQUENCE seqTypeIntervention");
-			s.executeUpdate("DROP TABLE DemandeIntervention");
-			s.executeUpdate("DROP SEQUENCE seqDemandeIntervention");
 			s.executeUpdate("DROP TABLE Compte");
 			s.executeUpdate("DROP SEQUENCE seqTechnicien");
 			s.executeUpdate("DROP SEQUENCE seqUtilisateur");

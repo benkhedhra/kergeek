@@ -3,11 +3,9 @@ package ihm.appliAdminTech;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
-import ihm.appliUtil.LancerAppliUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +15,6 @@ import javax.swing.JPanel;
 
 import metier.Compte;
 import statistiques.DiagrammeFreqStations;
-import statistiques.DiagrammeNbEmpruntsUtilisateur;
 
 public class FenetreAffichageResultats extends JFrame {
 

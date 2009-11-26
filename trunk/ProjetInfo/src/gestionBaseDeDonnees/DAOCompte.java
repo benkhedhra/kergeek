@@ -64,6 +64,7 @@ public class DAOCompte {
 						+ "'" + compte.getType() + "'," 
 						+ "''"
 						+ ")");
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
 			else{
@@ -79,9 +80,10 @@ public class DAOCompte {
 						+ "'" + compte.getType() + "'," 
 						+ "''"
 						+ ")");
+				s.executeUpdate("COMMIT");
 				effectue=true;
+				System.out.println("Compte ajoutee a la base de donnees");
 			}
-			s.executeUpdate("COMMIT");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -101,18 +103,20 @@ public class DAOCompte {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Compte SET "
 					+ "motDePasse = '" + compte.getMotDePasse() + "', "
-					+ "adresseMail = '" + compte.getAdresseEmail() + "' "
-					+ "WHERE idCompte = '"+ compte.getId() + "'"
+					+ "adresseMail = '" + compte.getAdresseEmail() + "'"
+					+ " WHERE idCompte = '"+ compte.getId() + "'"
 			);
 			if (compte.isActif()){
 				s.executeUpdate("UPDATE Compte SET actif = 1 WHERE idCompte = '"+ compte.getId() + "'");
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
 			else{
 				s.executeUpdate("UPDATE Compte SET actif = 0 WHERE idCompte = '"+ compte.getId() + "'");
+				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
-			s.executeUpdate("COMMIT");
+			System.out.println("Compte mis a jour dans la base de donnees");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -152,11 +156,11 @@ public class DAOCompte {
 				}
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println(e1.getMessage());
 			compte = null;
 		}
 		catch (SQLException e2){
@@ -194,11 +198,11 @@ public class DAOCompte {
 				}
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Erreur d'adresse email");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'adresse email");
+			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());

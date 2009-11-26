@@ -13,6 +13,7 @@ public class Station extends Lieu {
 	
 	
 	public Station() {
+		super();
 	}
 	
 	public Station(String adresse,int capacite) {

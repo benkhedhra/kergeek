@@ -19,15 +19,15 @@ public class CreationTables {
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		
+
 		try{
 
 			s.executeUpdate (
-			"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
+					"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Lieu (idLieu char(4),	"+
-					"adresseLieu varchar2(250),"+
-					"capacite number(4),"+
+					"adresseLieu varchar2(250) NOT NULL,"+
+					"capacite number(4) NOT NULL,"+
 			"CONSTRAINT pk_Lieu  PRIMARY KEY(idLieu))");
 
 
@@ -53,25 +53,12 @@ public class CreationTables {
 					"adresseMail varchar2(50) NOT NULL,"+
 					"actif number,"+
 					"bloque number,"+
-					"type number(1),"+
+					"type number(1) NOT NULL,"+
 					"idVelo char(4),"+
 					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte),"+
 			"CONSTRAINT fk_Compte_Velo  FOREIGN KEY(idVelo) REFERENCES Velo)");
 
-
-			s.executeUpdate (
-			"CREATE SEQUENCE seqDemandeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
-			s.executeUpdate(
-					"CREATE TABLE DemandeIntervention (idDemandeI char(4)," +
-					"dateDemandeI date NOT NULL," +
-					"idVelo char(4),"+
-					"idCompte char(4),"+
-					"idLieu char(4),"+
-					"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
-					"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
-			"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte,"+
-			"CONSTRAINT fk_DemandeIntervention_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
-
+	
 			s.executeUpdate (
 			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
@@ -79,6 +66,7 @@ public class CreationTables {
 					"description char(250)," +
 			"CONSTRAINT pk_TypeIntervention  PRIMARY KEY(idTypeIntervention))");
 
+			
 			s.executeUpdate (
 			"CREATE SEQUENCE seqIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
@@ -90,6 +78,21 @@ public class CreationTables {
 					"CONSTRAINT fk_Inter_TypeInter FOREIGN KEY(idTypeIntervention) REFERENCES TypeIntervention," +
 			"CONSTRAINT fk_Intervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo)");
 
+			
+			s.executeUpdate (
+			"CREATE SEQUENCE seqDemandeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
+			s.executeUpdate(
+					"CREATE TABLE DemandeIntervention (idDemandeI char(4)," +
+					"dateDemandeI date NOT NULL," +
+					"idVelo char(4) NOT NULL,"+
+					"idCompte char(4) NOT NULL,"+
+					"idLieu char(4),"+
+					"idIntervention char(4),"+
+					"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
+					"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
+					"CONSTRAINT fk_DemandeI_Intervention FOREIGN KEY(idIntervention) REFERENCES Intervention," +
+					"CONSTRAINT fk_DemandeIntervention_Compte FOREIGN KEY(idCompte) REFERENCES Compte,"+
+			"CONSTRAINT fk_DemandeIntervention_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
 
 			s.executeUpdate (
 			"CREATE SEQUENCE seqDemandeAssignation INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
@@ -119,22 +122,23 @@ public class CreationTables {
 					"CONSTRAINT fk_Emprunt_LieuEmprunt FOREIGN KEY(idLieuEmprunt) REFERENCES Lieu (idLieu)," + 
 			"CONSTRAINT fk_Emprunt_LieuRetour FOREIGN KEY(idLieuRetour) REFERENCES Lieu (idLieu))");
 
+			s.executeUpdate("COMMIT");
 			System.out.println("Base creee");
 
-			
+
 			// Insertion lieus
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Gare du Campus','15')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Forum du Campus','10')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'ENSAI','10')");
 			DAOLieu.createLieu(Garage.getInstance());
 
-			
+
 			// Insertion velo
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'3')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
 
-			
+
 			// Insertion administrateur
 			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1','')");
 
@@ -151,8 +155,8 @@ public class CreationTables {
 
 
 			//Insertion demande intervention
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u3',"+ "'2'"+")");
+			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"''"+")");
+			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u3',"+ "'2',"+"''"+")");
 
 
 			//Insertion types interventions
@@ -182,8 +186,8 @@ public class CreationTables {
 					+"'2','1','u1','1')");
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('05-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('05-09-2009 9:45','DD-MM-YYYY HH24:MI'), '3','3','u2','2')");
-			
-			
+
+			s.executeUpdate("COMMIT");
 			System.out.println("Update effectuee.");
 
 		}

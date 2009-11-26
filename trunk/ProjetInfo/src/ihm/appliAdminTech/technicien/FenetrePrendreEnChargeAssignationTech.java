@@ -177,7 +177,15 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			demande.setPriseEnCharge(true);
-			DAODemandeAssignation.updateDemandeAssignation(demande);
+			try {
+				DAODemandeAssignation.updateDemandeAssignation(demande);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}
 		else if(arg0.getSource()==boutonRetour){

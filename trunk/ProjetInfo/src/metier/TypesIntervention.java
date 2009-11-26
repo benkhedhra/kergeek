@@ -45,15 +45,6 @@ public class TypesIntervention {
 		return this.getTypesIntervention().get(type);
 	}
 
-
-	@Override
-	public boolean equals(Object o) {
-		TypesIntervention t = (TypesIntervention) o;
-		return this.getTypesIntervention().equals(t.getTypesIntervention());
-		/*TODO
-		 * a verifier
-		 */
-	}
 	
 	
 

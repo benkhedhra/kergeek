@@ -8,7 +8,6 @@ import metier.Emprunt;
 import metier.Lieu;
 import metier.Station;
 import metier.Utilisateur;
-import metier.UtilitaireDate;
 import metier.Velo;
 
 import org.junit.Test;
@@ -23,11 +22,10 @@ public class TestUtilisateur extends TestCase{
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
 		Velo v = new Velo(s,false);
-
+		
 		u.emprunteVelo(v, s);
-		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), s);
+		
 		assertEquals(null, v.getLieu());
-
 		assertTrue(v == u.getVelo());
 		assertFalse(v.getEmpruntEnCours() == null);
 		assertFalse(v.getLieu() == s);
@@ -42,10 +40,30 @@ public class TestUtilisateur extends TestCase{
 		Station s = new Station("id","adresse", 50);
 		Velo v = new Velo(s,false);
 		u.emprunteVelo(v, s);
-		u.rendreVelo(s);
+		Emprunt e = u.rendreVelo(s);
 		assertFalse(v == u.getVelo());
 		assertFalse(v.getLieu() == Lieu.SORTI);
 		assertTrue(v.getLieu() == s);
 		assertTrue(v.getEmpruntEnCours() == null);
+		assertTrue(e != null);
+	}
+	
+	
+	@Test
+	public void testEqualsUtil(){
+		Compte c1 = new Compte(Compte.TYPE_UTILISATEUR, "email");
+		Utilisateur u1 = new Utilisateur(c1);
+		Compte c2 = new Compte(Compte.TYPE_UTILISATEUR, "email");
+		Utilisateur u2 = new Utilisateur(c2);
+		Utilisateur u3 = new Utilisateur(c2);
+		assertFalse(u1.equals(u2));
+		assertTrue(u2.equals(u3));
+		assertFalse(u1.equals(u3));
+		u2.getCompte().setMotDePasse(c1.getMotDePasse());
+		assertTrue(u1.equals(u2));
+		u2.getCompte().setAdresseEmail("email2");
+		assertFalse(u1.equals(u2));
+		u2.getCompte().setActif(false);
+		assertFalse(u1.equals(u2));
 	}
 }
