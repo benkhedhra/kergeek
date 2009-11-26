@@ -1,6 +1,6 @@
 package metier;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class DemandeAssignation {
 
@@ -81,8 +81,17 @@ public class DemandeAssignation {
 	@Override
 	public boolean equals(Object o) {
 		DemandeAssignation d = (DemandeAssignation) o;
-		return (this.getId().equals(d.getId())) && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
+		Boolean a =false;
+		if(this.getId() == null){
+			a = d.getId() == null;
+		}
+		else{
+			this.getId().equals(d.getId());
+		}
+		return a && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
 	}
+	
+	
 	/*TODO 
 	 * NON, NON et NON!
 	 * pas de DAO ni d'ihm dans les classes metiers!

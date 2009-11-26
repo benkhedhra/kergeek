@@ -36,11 +36,11 @@ public class DAOLieu {
 					lieu.setAdresse(res.getString("adresseLieu"));
 				}
 				else {
-					throw new PasDansLaBaseDeDonneeException();
+					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du Lieu");
 				}
 			}
 			catch(PasDansLaBaseDeDonneeException e1){
-				System.out.println("Erreur d'identifiant");
+				System.out.println(e1.getMessage());
 				lieu = null;
 			}
 			finally{

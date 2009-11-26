@@ -30,9 +30,23 @@ public class TestAdministrateur extends TestCase{
 		assertEquals(Compte.TYPE_UTILISATEUR, c2.getType());
 	}
 	
+
 	@Test
-	public void testDemanderAssignation(){
-		
+	public void testEqualsAdmin(){
+		Compte c1 = new Compte(Compte.TYPE_ADMINISTRATEUR, "email");
+		Administrateur a1 = new Administrateur(c1);
+		Compte c2 = new Compte(Compte.TYPE_ADMINISTRATEUR, "email");
+		Administrateur a2 = new Administrateur(c2);
+		Administrateur a3 = new Administrateur(c2);
+		assertFalse(a1.equals(a2));
+		assertTrue(a2.equals(a3));
+		assertFalse(a1.equals(a3));
+		a2.getCompte().setMotDePasse(c1.getMotDePasse());
+		assertTrue(a1.equals(a2));
+		a2.getCompte().setAdresseEmail("email2");
+		assertFalse(a1.equals(a2));
+		a2.getCompte().setActif(false);
+		assertFalse(a1.equals(a2));
 	}
 	
 }

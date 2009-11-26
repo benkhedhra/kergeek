@@ -1,7 +1,5 @@
 package ihm.appliAdminTech.technicien;
 
-import gestionBaseDeDonnees.DAODemandeAssignation;
-import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 

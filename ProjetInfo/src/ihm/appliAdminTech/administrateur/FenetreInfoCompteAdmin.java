@@ -2,7 +2,6 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;

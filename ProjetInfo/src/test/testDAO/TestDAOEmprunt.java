@@ -2,9 +2,9 @@ package test.testDAO;
 
 import gestionBaseDeDonnees.DAOEmprunt;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
+import junit.framework.TestCase;
 import metier.Compte;
 import metier.Emprunt;
 import metier.Station;
@@ -13,8 +13,6 @@ import metier.UtilitaireDate;
 import metier.Velo;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOEmprunt extends TestCase{
 	@Test

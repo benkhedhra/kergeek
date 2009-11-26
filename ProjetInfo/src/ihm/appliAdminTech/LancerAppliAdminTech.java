@@ -1,7 +1,5 @@
 package ihm.appliAdminTech;
 
-import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
-
 import java.sql.SQLException;
 
 import metier.Compte;

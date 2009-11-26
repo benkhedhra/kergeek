@@ -1,6 +1,6 @@
 package metier;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Intervention {
 	
@@ -9,12 +9,17 @@ public class Intervention {
 	private String id;
 	private Velo velo;
 	private Date date;
-	private TypesIntervention typeIntervention;
+	private TypeIntervention typeIntervention;
 	
 	
 	
 	
-	//Constructeur
+	//Constructeurs
+	
+	
+	public Intervention() {
+		super();
+	}
 	
 	public Intervention(Velo velo, Date date) {
 		super();
@@ -24,7 +29,7 @@ public class Intervention {
 	}
 
 	
-	public Intervention(Velo velo,Date date, TypesIntervention typeIntervention) {
+	public Intervention(Velo velo,Date date, TypeIntervention typeIntervention) {
 		super();
 		this.setVelo(velo);
 		this.setDate(date);
@@ -34,7 +39,8 @@ public class Intervention {
 	
 
 	//Accesseurs
-	
+
+
 	public String getId() {
 		return id;
 	}
@@ -58,21 +64,34 @@ public class Intervention {
 	public Date getDate() {
 		return date;
 	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public TypesIntervention getTypeIntervention() {
+	
+	public TypeIntervention getTypeIntervention() {
 		return typeIntervention;
 	}
-	public void setTypeIntervention(TypesIntervention typeIntervention) {
+	
+	public void setTypeIntervention(TypeIntervention typeIntervention) {
 		this.typeIntervention = typeIntervention;
 	}
 
 
+	
+	
+	
 	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+	public boolean equals(Object o) {
+		Intervention i =(Intervention) o;
+		Boolean a =false;
+		if(this.getId() == null){
+			a = i.getId() == null;
+		}
+		else{
+			a = this.getId().equals(i.getId());
+		}
+		return a && (this.getVelo().equals(i.getVelo())) && (this.getDate().equals(i.getDate())) && (this.getTypeIntervention().equals(i.getTypeIntervention()));
 	}
 
 	

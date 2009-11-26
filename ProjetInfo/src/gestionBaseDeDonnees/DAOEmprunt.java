@@ -36,7 +36,6 @@ public class DAOEmprunt {
 						+ emprunt.getVelo().getId() + 
 				"')");
 				effectue=true;
-				s.executeUpdate("COMMIT");
 			}
 		}
 		catch (SQLException e){
@@ -57,20 +56,22 @@ public class DAOEmprunt {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Emprunt SET"
-					+ "idUtilisateur = '" + emprunt.getUtilisateur().getCompte().getId() + "',"
+			s.executeUpdate("UPDATE Emprunt SET "
+					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "',"
 					+ "idvelo = '" + emprunt.getVelo().getId() 
-					+ "lieuEmprunt = '" + emprunt.getLieuEmprunt() + "',"
-					+ "lieuRetour = '" + emprunt.getLieuRetour() + "',"
+					+ "idlieuEmprunt = '" + emprunt.getLieuEmprunt() + "',"
+					+ "idlieuRetour = '" + emprunt.getLieuRetour() + "',"
 					+ "dateEmprunt = '" + emprunt.getDateEmprunt() + "',"
 					+ "dateRetour = '" + emprunt.getDateRetour() + "'" 
-					+ "WHERE idEmprunt = '"+ emprunt.getId() + "'"
+					+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
 			);
 			effectue=true;
-			ConnexionOracleViaJdbc.fermer();
 		}
 		catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -94,11 +95,11 @@ public class DAOEmprunt {
 				emprunt.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de l'Emprunt");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -124,8 +125,8 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		java.sql.Date dateSql = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
-
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		/*TODO
 		 * System.out.println(dateSql.toString());
 		 */
@@ -164,8 +165,8 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		java.sql.Date dateSql = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
-
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		/*TODO
 		 * System.out.println(dateSql.toString());
 		 */

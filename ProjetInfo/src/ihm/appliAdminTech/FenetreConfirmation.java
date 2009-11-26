@@ -10,7 +10,6 @@ import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
-import ihm.appliAdminTech.technicien.FenetreGererAssignationsTech;
 import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;

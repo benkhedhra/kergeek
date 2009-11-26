@@ -5,7 +5,7 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import metier.Compte;
@@ -58,6 +58,7 @@ public class DAOUtilisateur {
 				
 			}
 			s.executeUpdate("COMMIT");
+			effectue = true;
 			
 		}
 		catch (SQLException e){
@@ -89,11 +90,11 @@ public class DAOUtilisateur {
 				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte de l'utilisateur");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -123,7 +124,7 @@ public class DAOUtilisateur {
 				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Erreur d'adresse email");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
@@ -140,11 +141,8 @@ public class DAOUtilisateur {
 
 
 
-	public static ArrayList<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException {
-		ArrayList<Utilisateur> listeUtils = null;
-		/*
-		 * TODOOn peut peut-etre utiliser une HashMap (peut-etre que c'est mieux)
-		 */
+	public static List<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException {
+		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -162,11 +160,11 @@ public class DAOUtilisateur {
 				listeUtils.add(u);
 			}
 			if(listeUtils == null){
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Nom absent de la base de données");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -179,7 +177,7 @@ public class DAOUtilisateur {
 
 
 	public static List<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException {
-		List<Utilisateur> listeUtils = new ArrayList<Utilisateur>();
+		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -197,11 +195,11 @@ public class DAOUtilisateur {
 				listeUtils.add(u);
 			}
 			if(listeUtils == null){
-				throw new PasDansLaBaseDeDonneeException();
+				throw new PasDansLaBaseDeDonneeException("Prénom absent de la base de données");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
+			System.out.println(e1.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

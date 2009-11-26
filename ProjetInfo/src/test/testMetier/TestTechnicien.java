@@ -1,19 +1,13 @@
 package test.testMetier;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 import junit.framework.TestCase;
 import metier.Compte;
-
-import metier.Intervention;
-
 import metier.Garage;
-
-
+import metier.Intervention;
 import metier.Station;
 import metier.Technicien;
-import metier.UtilitaireDate;
 import metier.Velo;
 
 import org.junit.Test;
@@ -36,12 +30,23 @@ public class TestTechnicien extends TestCase{
 		Station s = new Station();
 
 		Intervention i = t.intervenir(v, s);
-		java.util.Date d = UtilitaireDate.dateCourante();
-		//ce test sur la date ne marche bien que la date soit la meme,cmt faire?
-		assertEquals(d , i.getDate());
 		assertTrue(t.intervenir(v, s) instanceof Intervention);
 		assertEquals(v , i.getVelo());
-		
-
+		}
+	
+	@Test
+	public void testEqualsTechnicien(){
+		Compte c1 = new Compte(Compte.TYPE_TECHNICIEN, "email");
+		Technicien t1 = new Technicien(c1);
+		Compte c2 = new Compte(Compte.TYPE_TECHNICIEN, "email");
+		Technicien t2 = new Technicien(c2);
+		Technicien t3 = new Technicien(c2);
+		assertTrue(t2.equals(t3));
+		assertFalse(t1.equals(t2));
+		assertFalse(t1.equals(t3));
+		t2.getCompte().setMotDePasse(c1.getMotDePasse());
+		assertTrue(t1.equals(t2));
 	}
+
+	
 }

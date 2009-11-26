@@ -21,14 +21,12 @@ public class Compte {
 	//Constructeur
 
 	public Compte(int type) {
-		super();
 		this.genererMotDePasse();
 		this.setActif(true);
 		this.setType(type);
 	}
 
 	public Compte(int type, String adresseEmail) {
-		super();
 		this.genererMotDePasse();
 		this.setActif(true);
 		this.setType(type);
@@ -36,9 +34,8 @@ public class Compte {
 	}
 
 	public Compte(int type, String adresseEmail, boolean actif) {
-		super();
 		this.genererMotDePasse();
-		this.setActif(true);
+		this.setActif(actif);
 		this.setType(type);
 		this.setAdresseEmail(adresseEmail);
 	}
@@ -87,7 +84,7 @@ public class Compte {
 
 	public void genererMotDePasse() {
 		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
-		String motDePasse = null;
+		String motDePasse="";
 		Random rd = new Random();
 		for(int x=0; x<6; x++){
 			int i = rd.nextInt(bibliotheque.length());
@@ -95,13 +92,35 @@ public class Compte {
 		}
 		this.setMotDePasse(motDePasse);
 	}
+
+	
+	
 	
 	@Override
 	public boolean equals(Object o) {
 		Compte c = (Compte) o;
-		return (this.getId().equals(c.getId())) && (this.getAdresseEmail().equals(c.getAdresseEmail())) && (this.isActif().equals(c.isActif()))&& (this.getMotDePasse().equals(c.getMotDePasse())) && (this.getType() == c.getType());
+		Boolean a = false;
+		Boolean b = false;
+		if (this.getAdresseEmail() == null){
+			a = c.getAdresseEmail() == null;
+		}
+		else{
+			a = this.getAdresseEmail().equals(c.getAdresseEmail());
+		}
+		
+		if (this.getId() == null){
+			b = c.getId() == null;
+		}
+		else{
+			b = this.getId().equals(c.getId());
+		}
+		return a && b  && (this.isActif().equals(c.isActif())) && (this.getMotDePasse().equals(c.getMotDePasse())) && (this.getType() == c.getType());
 	}
+
 	
+	
+	
+	@Override
 	public String toString(){
 		return this.getId()+" - "+this.getAdresseEmail();
 	}
