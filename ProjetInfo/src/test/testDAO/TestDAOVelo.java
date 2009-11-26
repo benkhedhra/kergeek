@@ -1,10 +1,15 @@
 package test.testDAO;
 
+import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
+import metier.Lieu;
+import metier.Station;
 import metier.Velo;
 
 import org.junit.Test;
@@ -14,18 +19,26 @@ public class TestDAOVelo extends TestCase {
 
 	@Test
 	public void testCreateVelo() throws SQLException, ClassNotFoundException{
-		Velo v = new Velo();
+		Lieu l = DAOLieu.getLieuById("1");
+		Velo v = new Velo(l, true);
+		
 		Boolean b = DAOVelo.createVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
 	}
 	
 	@Test
-	public void testUpdateVelo(){
+	public void testUpdateVelo() throws SQLException, ClassNotFoundException{
+		Velo v = DAOVelo.getVeloById("1");
+		
+		Boolean b =DAOVelo.updateVelo(v);
+		assertEquals((Boolean)true,(Boolean) b);
 	}
-	
-	/*@Test
+	/*
+	@Test
 	public void testDeleteVelo() throws SQLException, ClassNotFoundException{
-		Velo v = new Velo();
+		Lieu l = DAOLieu.getLieuById("1");
+		Velo v = new Velo(l,false);
+		l.ajouterVelo(v);
 		DAOVelo.createVelo(v);
 		Boolean b = DAOVelo.deleteVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
@@ -33,20 +46,18 @@ public class TestDAOVelo extends TestCase {
 	
 	@Test
 	public void testGetVeloById() throws SQLException, ClassNotFoundException{
-		Velo v1 = new Velo();
-		DAOVelo.createVelo(v1);
-		Velo v2 = DAOVelo.getVeloById(v1.getId());
-		assertEquals(v1.getId(), v2.getId());
-		assertEquals(v1.getLieu().getId(), v2.getLieu().getId());
+		Velo v = DAOVelo.getVeloById("1");
+		Lieu l = DAOLieu.getLieuById("1");
+		assertEquals(l.getAdresse(), v.getLieu().getAdresse());
+		assertEquals(false, v.isEnPanne());
 	}
 	
-	/*@Test
+	@Test
 	public void testGetVeloByLieu() throws SQLException, ClassNotFoundException{
-		Station s =new Station("id", "adresse", 50);
-		Velo v1 = new Velo();
-		v1.setLieu(s);
-		ArrayList<Velo> l =new ArrayList<Velo>();
-		l.add(v1);
-		assertEquals(l, DAOVelo.getVeloByLieu(s));
-	}*/
+		Lieu l = DAOLieu.getLieuById("2");
+		List<Velo> liste = DAOVelo.getVelosByLieu(l);
+		
+		assertEquals(0,liste.size());
+		
+	}
 }

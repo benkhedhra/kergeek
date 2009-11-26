@@ -1,8 +1,11 @@
 package test.testDAO;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.DAOVelo;
 import metier.Compte;
 import metier.Utilisateur;
 
@@ -11,14 +14,14 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 public class TestDAOUtilisateur extends TestCase {
-	/*
+	
 	@Test
 	public void testcreateUtilisateur() throws SQLException, ClassNotFoundException{
 		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail1", true);
 		Utilisateur u1 = new Utilisateur(c,"john", "michel", "3 rue jaune");
 		Boolean b = DAOUtilisateur.createUtilisateur(u1);
 		assertEquals(b,(Boolean)true);
-	}*/
+	}
 	
 	@Test
 	public void testUpdateUtilisateur() throws SQLException, ClassNotFoundException{
@@ -50,17 +53,22 @@ public class TestDAOUtilisateur extends TestCase {
 		Utilisateur u2 = DAOUtilisateur.getUtilisateurById(u1.getCompte().getId());
 		assertTrue(u1.equals(u2));
 	}
-	
+
 	@Test
 	public void testGetUtilisateurByAdresseEmail() throws SQLException, ClassNotFoundException{
-		System.out.println("coucou");
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
-		
-		System.out.println(u.getPrenom());
-		assertEquals("francky", u.getPrenom());
+		assertEquals("Mathieu", u.getPrenom());
 	}
+	
 	@Test
-	public void testGetUtilisateurByNom(){
-		
+	public void testGetUtilisateurByNom() throws SQLException, ClassNotFoundException{
+		List<Utilisateur> l =  DAOUtilisateur.getUtilisateurByNom("Chedid");
+		assertEquals("mathieuchedid@gmail.com", l.get(0).getCompte().getAdresseEmail());
+	}
+	
+	@Test
+	public void testGetUtilisateurByPrenom() throws SQLException, ClassNotFoundException{
+		List<Utilisateur> l =  DAOUtilisateur.getUtilisateurByPrenom("Mathieu");
+		assertEquals("mathieuchedid@gmail.com", l.get(0).getCompte().getAdresseEmail());
 	}
 }

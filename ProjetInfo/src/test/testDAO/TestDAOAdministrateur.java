@@ -33,18 +33,14 @@ public class TestDAOAdministrateur extends TestCase{
 	@Test
 	public void testGetAdministrateurById() throws SQLException, ClassNotFoundException{
 		
-		Administrateur admin = DAOAdministrateur.getAdministrateurById("a43");
-		System.out.println(admin);
+		Administrateur admin = DAOAdministrateur.getAdministrateurById("a1");
+		assertEquals("kergeek@gmail.com", admin.getCompte().getAdresseEmail());
 		
 	}
 	@Test
 	public void testGetAdministrateurByAdresseEmail() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR);
-		Administrateur a = new Administrateur(c);
-		DAOAdministrateur.createAdministrateur(a);
-		String s = c.getAdresseEmail();
-		Administrateur admin = DAOAdministrateur.getAdministrateurByAdresseEmail(s);
-		assertTrue(a.equals(admin));
+		Administrateur admin = DAOAdministrateur.getAdministrateurByAdresseEmail("kergeek@gmail.com");
+		assertEquals("lapin", admin.getCompte().getMotDePasse());
 	}
 
 }

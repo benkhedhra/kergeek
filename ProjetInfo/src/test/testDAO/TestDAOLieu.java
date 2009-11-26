@@ -26,16 +26,19 @@ public class TestDAOLieu extends TestCase{
 	
 	@Test
 	public void testCreateLieu() throws SQLException, ClassNotFoundException{
-		Station s = new Station("ENSAI", 50);
+		Station s = new Station("R.U", 50);
 		Boolean b = DAOLieu.createLieu(s);
-		System.out.println(s.getId());
-		System.out.println(s.getAdresse());
 		assertEquals((Boolean)true,(Boolean) b) ;
 	}
 	
 	@Test
 	public void testGetAllStations() throws SQLException, ClassNotFoundException{
 		List<Station> liste = DAOLieu.getAllStations();
+		System.out.println(liste.get(0));
+		System.out.println(liste.get(1));
+		System.out.println(liste.get(2));
+		System.out.println(liste.get(3));
+		System.out.println(liste.get(4));
 		assertEquals("pool de velo", liste.get(0).getAdresse());
 		assertEquals("Gare du Campus", liste.get(1).getAdresse());
 		assertEquals(10, liste.get(2).getCapacite());
