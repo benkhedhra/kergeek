@@ -47,11 +47,12 @@ public class DAOVelo {
 	public static boolean updateVelo(Velo velo) throws SQLException, ClassNotFoundException {
 		boolean effectue = false;
 		try{
+			Boolean b = false;
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Velo SET "
 					+ "idVelo = '" + velo.getId() + "', "
-					+ "enPanne = '" + velo.isEnPanne() + "', "
+					+ "enPanne = '" + -b.compareTo(velo.isEnPanne()) + "', "
 					+ "idLieu = '" + velo.getLieu().getId() + "' "
 					+ "WHERE idVelo = '"+ velo.getId() + "'"
 			);
@@ -81,7 +82,7 @@ public class DAOVelo {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "')");
+			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'");
 			s.executeUpdate("COMMIT");
 			effectue = true;
 		}

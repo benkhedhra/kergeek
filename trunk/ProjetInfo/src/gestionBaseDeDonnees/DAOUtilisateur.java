@@ -113,7 +113,7 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo from Compte Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
+		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo, idCompte from Compte Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
 		try {
 			if (res.next()) {
 				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
