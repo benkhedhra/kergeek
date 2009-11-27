@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.DemandeAssignation;
-import metier.DemandeIntervention;
 
 public class DAODemandeAssignation {
 

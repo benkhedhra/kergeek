@@ -3,8 +3,6 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
-import metier.Utilisateur;
-
 public class MainConnexionBdd {
 
 	/**
@@ -87,8 +85,14 @@ public class MainConnexionBdd {
 		
 		/*System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(4));
 		*/
-		Utilisateur u2 = DAOUtilisateur.getUtilisateurById("u2"); 
-		System.out.println(DAOEmprunt.getNombreEmpruntParUtilisateurParMois( u2, 4));
+		
+		//Utilisateur u2 = DAOUtilisateur.getUtilisateurById("u2"); 
+		//System.out.println(DAOEmprunt.getNombreEmpruntParUtilisateurParMois( u2, 4));
+		
+		/*Boolean b = false;
+		Boolean c = true;
+		System.out.println(-b.compareTo(c));
+		*/
 		
 		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();

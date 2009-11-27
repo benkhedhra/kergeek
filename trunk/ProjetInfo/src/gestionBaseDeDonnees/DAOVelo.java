@@ -56,17 +56,9 @@ public class DAOVelo {
 					+ "idLieu = '" + velo.getLieu().getId() + "' "
 					+ "WHERE idVelo = '"+ velo.getId() + "'"
 			);
-			if (velo.isEnPanne()){
-				s.executeUpdate("UPDATE Velo SET enPanne = '1' WHERE idVelo = '"+ velo.getId() + "'");
-				s.executeUpdate("COMMIT");
-				effectue=true;
-			}
-			else{
-				s.executeUpdate("UPDATE Velo SET enPanne = '0' WHERE idVelo = '"+ velo.getId() + "'");
-				s.executeUpdate("COMMIT");
-				effectue=true;
-			}
-			
+			s.executeUpdate("COMMIT");
+			effectue=true;
+
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -159,8 +151,8 @@ public class DAOVelo {
 		}
 		return listeVelos;
 	}
-	
-	
+
+
 
 	public static Emprunt EmpruntEnCours(Velo velo) throws ClassNotFoundException, SQLException{
 		Emprunt emprunt = new Emprunt();
@@ -188,7 +180,7 @@ public class DAOVelo {
 		}
 		return emprunt;
 	}
-	
+
 	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
 		return (getVeloById(id)!=null);
 	}
