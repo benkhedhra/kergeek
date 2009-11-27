@@ -30,8 +30,8 @@ public class DAOEmprunt {
 
 				s.executeUpdate("INSERT into Emprunt values ('" 
 						+ emprunt.getId() + "', '"
-						+ emprunt.getDateEmprunt() + "', '"
-						+ emprunt.getDateRetour() + "', '"
+						+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'), '"
+						+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'), '"
 						+ emprunt.getLieuEmprunt().getId() + "', '"
 						+ emprunt.getLieuRetour().getId() + "', '"
 						+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
@@ -59,12 +59,12 @@ public class DAOEmprunt {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE Emprunt SET "
-					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "',"
-					+ "idvelo = '" + emprunt.getVelo().getId() 
-					+ "idlieuEmprunt = '" + emprunt.getLieuEmprunt() + "',"
-					+ "idlieuRetour = '" + emprunt.getLieuRetour() + "',"
-					+ "dateEmprunt = '" + emprunt.getDateEmprunt() + "',"
-					+ "dateRetour = '" + emprunt.getDateRetour() + "'" 
+					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "', "
+					+ "idvelo = '" + emprunt.getVelo().getId() + "', "
+					+ "idlieuEmprunt = '" + emprunt.getLieuEmprunt().getId() + "', "
+					+ "idlieuRetour = '" + emprunt.getLieuRetour().getId() + "', "
+					+ "dateEmprunt = '" + "TO_DATE('" + emprunt.getDateEmprunt() + "','YYYY-MM-DD-HH24:MI'), "
+					+ "dateRetour = '" +  "TO_DATE('" + emprunt.getDateRetour()  + "','YYYY-MM-DD-HH24:MI')"
 					+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
 			);
 			effectue=true;
