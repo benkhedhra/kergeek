@@ -5,6 +5,7 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,15 +26,20 @@ public class DAOEmprunt {
 			if (res.next()){
 				String id = res.getString("id");
 				emprunt.setId(id);
+				
+				java.util.Date date = new java.util.Date(); 
+				SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY HH24:MI");
+				
+
 
 				s.executeUpdate("INSERT into Emprunt values ('" 
-						+ emprunt.getId() +  "', '"
+						+ emprunt.getId() + "', '"
 						+ emprunt.getDateEmprunt() + "', '"
 						+ emprunt.getDateRetour() + "', '"
 						+ emprunt.getLieuEmprunt().getId() + "', '"
 						+ emprunt.getLieuRetour().getId() + "', '"
-						+ emprunt.getUtilisateur().getCompte().getId() +  "', '" 
-						+ emprunt.getVelo().getId() + 
+						+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
+						+ emprunt.getVelo().getId() +
 				"')");
 				effectue=true;
 			}
