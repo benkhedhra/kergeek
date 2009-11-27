@@ -1,6 +1,7 @@
 package statistiques;
 
 
+import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 
 import java.awt.Color;
@@ -60,8 +61,8 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			}
 
 			for(int i=0;i<category.size();i++){
-				dataset.addValue(3.0, sortis, category.get(i));
-				dataset.addValue(3.0, entres, category.get(i));
+				dataset.addValue(DAOEmprunt.NombreVelosSortis(DAOLieu.getLieuById(stations.get(i).getId()), 30), sortis, category.get(i));
+				dataset.addValue(DAOEmprunt.NombreVelosRentres(DAOLieu.getLieuById(stations.get(i).getId()), 30), entres, category.get(i));
 			}
 
 		}

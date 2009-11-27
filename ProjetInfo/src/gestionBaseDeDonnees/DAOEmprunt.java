@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import metier.Emprunt;
+import metier.Lieu;
 import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
@@ -125,7 +126,7 @@ public class DAOEmprunt {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static int NombreVelosSortis(Station station, int depuisJours) throws SQLException, ClassNotFoundException{
+	public static int NombreVelosSortis(Lieu lieu, int depuisJours) throws SQLException, ClassNotFoundException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -137,7 +138,7 @@ public class DAOEmprunt {
 		 * System.out.println(dateSql.toString());
 		 */
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + station.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloSortis");
@@ -165,7 +166,7 @@ public class DAOEmprunt {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static int NombreVelosRentres(Station station, int depuisJours) throws SQLException, ClassNotFoundException{
+	public static int NombreVelosRentres(Lieu lieu, int depuisJours) throws SQLException, ClassNotFoundException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -177,7 +178,7 @@ public class DAOEmprunt {
 		 * System.out.println(dateSql.toString());
 		 */
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + station.getId() + "' and dateRetour >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloRentres");

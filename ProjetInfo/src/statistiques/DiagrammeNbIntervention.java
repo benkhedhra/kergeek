@@ -1,6 +1,8 @@
 package statistiques;
 
 
+import gestionBaseDeDonnees.DAOIntervention;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Image;
@@ -66,7 +68,7 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 		 */
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		dataset.addValue(5.0, series1, category1);
+		dataset.addValue(6.0, series1, category1);
 		dataset.addValue(11.0, series1, category2);
 		dataset.addValue(12.0, series1, category3);
 		dataset.addValue(3.0, series1, category4);
