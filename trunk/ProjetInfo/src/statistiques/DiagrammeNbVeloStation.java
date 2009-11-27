@@ -27,12 +27,11 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-
-public class DiagrammeTxOccupationStation extends ApplicationFrame {
+public class DiagrammeNbVeloStation extends ApplicationFrame {
 
 	private JFreeChart chart;
 
-	public DiagrammeTxOccupationStation(String title, Lieu lieu) {
+	public DiagrammeNbVeloStation(String title, Lieu lieu) {
 
 		super("");
 		chart = createChart(lieu);
@@ -68,7 +67,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		plot.setOrientation(PlotOrientation.VERTICAL);
 
 		// return a new chart containing the overlaid plot...
-		return new JFreeChart("Taux d' occupation de la station " + lieu.getAdresse() + " le " + UtilitaireDate.dateCourante(),
+		return new JFreeChart("Nombre de vélos de la station " + lieu.getAdresse()+ " le " + UtilitaireDate.dateCourante(),
 				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 
 	}
@@ -86,14 +85,13 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		int heure2 = calendar.get(Calendar.HOUR_OF_DAY);
 		calendar.add(Calendar.HOUR_OF_DAY, -1);
 		int heure1 = calendar.get(Calendar.HOUR_OF_DAY);
-		
 
-		final XYSeries series = new XYSeries("Taux d'occupation");
+		final XYSeries series = new XYSeries("Nombre de vélos");
 		try {
-			series.add(heureencours, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
-			series.add(heure1, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
-			series.add(heure2, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
-			series.add(heure3, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
+			series.add(heureencours, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
+			series.add(heure3, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
+			series.add(heure2, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
+			series.add(heure1, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,30 +99,25 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 
-		final XYSeries series2 = new XYSeries("Taux d'occupation minimum");
-		series2.add(heureencours, Station.TAUX_OCCUPATION_MIN * 100);
-		series2.add(heure3, Station.TAUX_OCCUPATION_MIN * 100);
-		series2.add(heure2, Station.TAUX_OCCUPATION_MIN * 100);
-		series2.add(heure1, Station.TAUX_OCCUPATION_MIN * 100);
+		final XYSeries series2 = new XYSeries("Capacité de la station");
+		series2.add(heureencours, lieu.getCapacite());
+		series2.add(heure3, lieu.getCapacite());
+		series2.add(heure2, lieu.getCapacite());
+		series2.add(heure1, lieu.getCapacite());
 
-		final XYSeries series3 = new XYSeries("Taux d'occupation maximum");
-		series3.add(heureencours, Station.TAUX_OCCUPATION_MAX * 100);
-		series3.add(heure3, Station.TAUX_OCCUPATION_MAX * 100);
-		series3.add(heure2, Station.TAUX_OCCUPATION_MAX * 100);
-		series3.add(heure1, Station.TAUX_OCCUPATION_MAX * 100);
 
 		final XYSeriesCollection collection = new XYSeriesCollection();
 		collection.addSeries(series);
 		collection.addSeries(series2);
-		collection.addSeries(series3);
 		return collection;
 
 	}
 
 	public static void main(final String[] args) throws SQLException, ClassNotFoundException {
-		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation("", DAOLieu.getLieuById("3"));
+		final DiagrammeNbVeloStation demo = new DiagrammeNbVeloStation("", DAOLieu.getLieuById("3"));
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);

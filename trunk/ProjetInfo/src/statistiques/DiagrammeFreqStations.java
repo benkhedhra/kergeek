@@ -22,6 +22,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeFreqStations extends ApplicationFrame {
 
@@ -55,7 +56,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			List<Station> stations = DAOLieu.getAllStations();
 			ArrayList<String> category = new ArrayList<String>(stations.size());
 			for (int i=0;i<stations.size();i++){
-				category.add(stations.get(i).getId());
+				category.add(DAOLieu.getLieuById(stations.get(i).getId()).getAdresse());
 			}
 
 			for(int i=0;i<category.size();i++){
@@ -129,6 +130,14 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		);
 
 		return chart;
+
+	}
+	
+	public static void main(final String[] args) {
+		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
+		demo.pack();
+		RefineryUtilities.centerFrameOnScreen(demo);
+		demo.setVisible(true);
 
 	}
 
