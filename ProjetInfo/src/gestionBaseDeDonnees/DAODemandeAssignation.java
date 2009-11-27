@@ -25,8 +25,8 @@ public class DAODemandeAssignation {
 
 				if (ddeAssignation.isPriseEnCharge()){
 					s.executeUpdate("INSERT into DemandeAssignation values ("
-							+ "'" + id + "'," 
-							+ "'" + ddeAssignation.getDate() + "',"
+							+ "'" + id + "', " 
+							+ "TO_DATE('" + ddeAssignation.getDate() +"','YYYY-MM-DD-HH24:MI'), "
 							+ "'1',"
 							+ "'" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 							+ "'" + ddeAssignation.getLieu().getId() + "'" 
@@ -36,7 +36,7 @@ public class DAODemandeAssignation {
 				else{
 					s.executeUpdate("INSERT into DemandeAssignation values (" 
 							+ "'" + id + "'," 
-							+ "'" + ddeAssignation.getDate() + "',"
+							+ "TO_DATE('" + ddeAssignation.getDate() +"','YYYY-MM-DD-HH24:MI'), "
 							+ "'0',"
 							+ "'" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 							+ "'" + ddeAssignation.getLieu().getId() + "'" 
@@ -60,28 +60,28 @@ public class DAODemandeAssignation {
 
 
 
-	public static boolean updateDemandeAssignation(DemandeAssignation demande) throws ClassNotFoundException, SQLException{
+	public static boolean updateDemandeAssignation(DemandeAssignation ddeAssignation) throws ClassNotFoundException, SQLException{
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-			if (demande.isPriseEnCharge()){
+			if (ddeAssignation.isPriseEnCharge()){
 				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = '" + demande.getDate() + "',"
-						+ "nombre = '" + demande.getNombreVelosVoulusDansStation() + "',"
+						+ "dateAssignation = TO_DATE('" + ddeAssignation.getDate() +"','YYYY-MM-DD-HH24:MI'), "
+						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 						+ "priseEnCharge = '1',"
-						+ "idLieu = '" + demande.getLieu().getId() + "' "
-						+ "WHERE idDemandeA = '"+ demande.getId() + "'"
+						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
+						+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
 				);
 			}
 			else{
 				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = '" + demande.getDate() + "',"
-						+ "nombre = '" + demande.getNombreVelosVoulusDansStation() + "',"
+						+ "dateAssignation = + TO_DATE('" + ddeAssignation.getDate() +"','YYYY-MM-DD-HH24:MI'), "
+						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 						+ "priseEnCharge = '0',"
-						+ "idLieu = '" + demande.getLieu().getId() + "' "
-						+ "WHERE idDemandeA = '"+ demande.getId() + "'"
+						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
+						+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
 
 				);
 			}

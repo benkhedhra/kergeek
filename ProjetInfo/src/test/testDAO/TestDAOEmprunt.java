@@ -6,7 +6,6 @@ import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 
 import junit.framework.TestCase;
 import metier.Emprunt;
@@ -16,8 +15,6 @@ import metier.UtilitaireDate;
 import metier.Velo;
 
 import org.junit.Test;
-
-import com.sun.jmx.snmp.Timestamp;
 
 public class TestDAOEmprunt extends TestCase{
 	@Test
