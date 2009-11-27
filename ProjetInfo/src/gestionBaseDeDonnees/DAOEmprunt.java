@@ -27,11 +27,6 @@ public class DAOEmprunt {
 			if (res.next()){
 				String id = res.getString("id");
 				emprunt.setId(id);
-				
-				java.util.Date date = new java.util.Date(); 
-				SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY HH24:MI");
-				
-
 
 				s.executeUpdate("INSERT into Emprunt values ('" 
 						+ emprunt.getId() + "', '"
