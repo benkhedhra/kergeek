@@ -1,19 +1,18 @@
 package test.testDAO;
 
-import java.sql.SQLException;
-
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
-import gestionBaseDeDonnees.DAOVelo;
+
+import java.sql.SQLException;
+
+import junit.framework.TestCase;
 import metier.DemandeIntervention;
 import metier.Lieu;
 import metier.Utilisateur;
 import metier.Velo;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAODemandeIntervention extends TestCase{
 	

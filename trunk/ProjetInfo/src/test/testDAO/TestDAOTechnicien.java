@@ -1,11 +1,10 @@
 package test.testDAO;
 
+import gestionBaseDeDonnees.DAOTechnicien;
+
 import java.sql.SQLException;
 
-import gestionBaseDeDonnees.DAOCompte;
-import gestionBaseDeDonnees.DAOTechnicien;
 import junit.framework.TestCase;
-
 import metier.Compte;
 import metier.Technicien;
 

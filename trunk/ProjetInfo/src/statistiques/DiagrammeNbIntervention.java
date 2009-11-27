@@ -1,8 +1,6 @@
 package statistiques;
 
 
-import gestionBaseDeDonnees.DAOIntervention;
-
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Image;

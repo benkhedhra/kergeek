@@ -27,7 +27,7 @@ public class DAOIntervention {
 				s.executeUpdate("INSERT into Intervention values ('" 
 						+ intervention.getId() +  "', '" 
 						+ intervention.getVelo().getId() + "', '" 
-						+ intervention.getDate() + "', '" 
+						+ "TO_DATE('" + intervention.getDate() +"','YYYY-MM-DD-HH24:MI'), '"
 						+ intervention.getTypeIntervention() + "')");
 				effectue=true;
 			}

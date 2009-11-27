@@ -23,7 +23,8 @@ public class DAODemandeIntervention {
 				ddeIntervention.setId(id);
 				
 				s.executeUpdate("INSERT into DemandeIntervention values ('" 
-						+ id + "', '"+ UtilitaireDate.dateCourante() + "', '" 
+						+ id + "', '"
+						+ "TO_DATE('" + UtilitaireDate.dateCourante() +"','YYYY-MM-DD-HH24:MI'), '"
 						+ ddeIntervention.getVelo().getId() + "', '" 
 						+ ddeIntervention.getUtilisateur().getCompte().getId() +"', '" 
 						+ ddeIntervention.getVelo().getLieu().getId() + "')"
