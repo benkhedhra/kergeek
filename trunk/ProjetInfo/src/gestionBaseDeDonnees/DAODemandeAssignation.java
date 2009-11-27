@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.DemandeAssignation;
+import metier.DemandeIntervention;
 
 public class DAODemandeAssignation {
 
@@ -200,4 +201,24 @@ public class DAODemandeAssignation {
 		return ddeAssignation;
 	}
 
+	
+	//fonction écrite pour remplacer le toString qui n'allait effectivement pas dans métier, mais voir s'il faut encore la déplacer
+	public static String ligne(DemandeAssignation d){
+		String resul = "Demande "+d.getId()+" - Station "+d.getLieu().getId()+" - ";
+		try {
+			int diff;
+			diff = d.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(d.getLieu()).size();
+			String type;
+			if(diff<0){type = "retrait";}
+			else{type = "ajout";}
+			resul = resul+type+ " de "+Math.abs(diff)+" vélos - "+d.getDate().toString();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return resul;
+	}
+	
 }

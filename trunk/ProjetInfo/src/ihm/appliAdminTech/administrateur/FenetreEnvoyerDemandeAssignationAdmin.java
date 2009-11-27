@@ -119,7 +119,14 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					stationEntree = (Station)o;
+					String idStationEntre = (String)(o);
+					try {
+						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+					} catch (SQLException e) {
+						MsgBox.affMsg(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						MsgBox.affMsg(e.getMessage());
+					}
 					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
 					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
@@ -196,7 +203,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 			new FenetreEtatStationAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonStationsSurSous){
-			//new FenetreStationsSurSousAdmin(new Administrateur (compte));
+			new FenetreStationsSurSousAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

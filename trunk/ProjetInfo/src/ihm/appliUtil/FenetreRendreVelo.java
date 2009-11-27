@@ -101,7 +101,14 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					stationEntree = (Station)o;
+					String idStationEntre = (String)(o);
+					try {
+						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+					} catch (SQLException e) {
+						MsgBox.affMsg(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						MsgBox.affMsg(e.getMessage());
+					}
 					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
 					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
