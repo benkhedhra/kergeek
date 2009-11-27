@@ -85,7 +85,7 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 			String [] tableauDemandes = new String[listeDemandes.size()];
 			for (int i=0;i<tableauDemandes.length;i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
-				tableauDemandes[i] = demandei.toString();
+				tableauDemandes[i] = DAODemandeAssignation.ligne(demandei);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);

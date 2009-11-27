@@ -9,11 +9,7 @@ public class DemandeAssignation {
 	private boolean priseEnCharge;
 	private int nombreVelosVoulusDansStation;
 	private Lieu lieu;
-
-	//ajout==true correspond ˆ une demande d'ajout de velo
-	//ajout==false correspond ˆ une demande de retrait de velo
-
-
+	
 	//Constructeur
 
 	public DemandeAssignation(){
@@ -90,30 +86,4 @@ public class DemandeAssignation {
 		}
 		return a && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
 	}
-	
-	
-	/*TODO 
-	 * NON, NON et NON!
-	 * pas de DAO ni d'ihm dans les classes metiers!
-	 
-	public String toString(){
-		String resul = "Demande "+this.getId()+" - Station "+this.getLieu().getId()+" - ";
-		try {
-			int diff;
-			diff = this.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(this.getLieu()).size();
-			String type;
-			if(diff<0){type = "retrait";}
-			else{type = "ajout";}
-			resul = resul+type+ " de "+Math.abs(diff)+" vélos - "+this.getDate().toString();
-		} catch (SQLException e) {
-			MsgBox.affMsg(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			MsgBox.affMsg(e.getMessage());
-		}
-
-		return resul;
-	}*/
-
-
-
 }
