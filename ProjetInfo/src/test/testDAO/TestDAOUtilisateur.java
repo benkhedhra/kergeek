@@ -1,17 +1,15 @@
 package test.testDAO;
 
+import gestionBaseDeDonnees.DAOUtilisateur;
+
 import java.sql.SQLException;
 import java.util.List;
 
-import gestionBaseDeDonnees.DAOLieu;
-import gestionBaseDeDonnees.DAOUtilisateur;
-import gestionBaseDeDonnees.DAOVelo;
+import junit.framework.TestCase;
 import metier.Compte;
 import metier.Utilisateur;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOUtilisateur extends TestCase {
 	

@@ -4,12 +4,10 @@ import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 import metier.Lieu;
-import metier.Station;
 import metier.Velo;
 
 import org.junit.Test;

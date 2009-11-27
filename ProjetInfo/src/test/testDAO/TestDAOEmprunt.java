@@ -8,10 +8,8 @@ import gestionBaseDeDonnees.DAOVelo;
 import java.sql.SQLException;
 
 import junit.framework.TestCase;
-import metier.Compte;
 import metier.Emprunt;
 import metier.Lieu;
-import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 import metier.Velo;
