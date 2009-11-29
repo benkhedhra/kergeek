@@ -8,6 +8,7 @@ import metier.Garage;
 import metier.Intervention;
 import metier.Station;
 import metier.Technicien;
+import metier.TypeIntervention;
 import metier.Velo;
 
 import org.junit.Test;
@@ -28,9 +29,10 @@ public class TestTechnicien extends TestCase{
 		Technicien t = new Technicien(c);
 		Velo v = new Velo();
 		Station s = new Station();
-
-		Intervention i = t.intervenir(v, s);
-		assertTrue(t.intervenir(v, s) instanceof Intervention);
+		TypeIntervention typeInt = new TypeIntervention("pneu Crevé");
+		Intervention i = t.intervenir(v, s, typeInt);
+		
+		assertTrue(t.intervenir(v, s, typeInt) instanceof Intervention);
 		assertEquals(v , i.getVelo());
 		}
 	
@@ -41,6 +43,7 @@ public class TestTechnicien extends TestCase{
 		Compte c2 = new Compte(Compte.TYPE_TECHNICIEN, "email");
 		Technicien t2 = new Technicien(c2);
 		Technicien t3 = new Technicien(c2);
+		
 		assertTrue(t2.equals(t3));
 		assertFalse(t1.equals(t2));
 		assertFalse(t1.equals(t3));

@@ -47,9 +47,6 @@ public class DAOUtilisateur {
 					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "' "
 					+ "WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
 			);
-			if (utilisateur.getVelo()!=null){
-				s.executeUpdate("UPDATE Compte SET idVelo = '" + utilisateur.getVelo().getId() + "'"); 	
-			}
 			if(utilisateur.isBloque()){
 				s.executeUpdate("UPDATE Compte SET bloque = '1'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
 			}
@@ -79,7 +76,7 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo from Compte Where idCompte ='" + identifiant+"'");
+		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
 		try {
 			if (res.next()) {
 				u.setCompte(DAOCompte.getCompteById(identifiant));
@@ -87,7 +84,7 @@ public class DAOUtilisateur {
 				u.setPrenom(res.getString("prenom"));
 				u.setAdressePostale(res.getString("adressePostale"));
 				u.setBloque(res.getBoolean("bloque"));
-				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(identifiant));
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte de l'utilisateur");
@@ -113,7 +110,7 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idVelo, idCompte from Compte Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
+		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idCompte from Compte Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
 		try {
 			if (res.next()) {
 				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
@@ -121,7 +118,7 @@ public class DAOUtilisateur {
 				u.setPrenom(res.getString("prenom"));
 				u.setAdressePostale(res.getString("adressePostale"));
 				u.setBloque(res.getBoolean("bloque"));
-				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(res.getString("idCompte")));
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'adresse email");
@@ -147,7 +144,7 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select prenom, adressePostale, bloque, idCompte, idVelo from Compte Where nom ='" + nom +"'");
+		ResultSet res = s.executeQuery("Select prenom, adressePostale, bloque, idCompte from Compte Where nom ='" + nom +"'");
 		try {
 			while (res.next()) {
 				Utilisateur u = new Utilisateur(new Compte());
@@ -155,7 +152,7 @@ public class DAOUtilisateur {
 				u.setPrenom(res.getString("prenom"));
 				u.setAdressePostale(res.getString("adressePostale"));
 				u.setBloque(res.getBoolean("bloque"));
-				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(res.getString("idCompte")));
 				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
 				listeUtils.add(u);
 			}
@@ -182,7 +179,7 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select nom, adressePostale, bloque, idCompte, idVelo from Compte Where prenom ='" + prenom +"'");
+		ResultSet res = s.executeQuery("Select nom, adressePostale, bloque, idCompte from Compte Where prenom ='" + prenom +"'");
 		try {
 			while (res.next()) {
 				Utilisateur u = new Utilisateur(new Compte());
@@ -190,7 +187,7 @@ public class DAOUtilisateur {
 				u.setNom(res.getString("nom"));
 				u.setAdressePostale(res.getString("adressePostale"));
 				u.setBloque(res.getBoolean("bloque"));
-				u.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(res.getString("idCompte")));
 				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
 				listeUtils.add(u);
 			}

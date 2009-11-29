@@ -12,18 +12,18 @@ public class Utilisateur {
 	private String prenom;
 	private String adressePostale;
 	private boolean bloque;
-	private Velo velo;
+	private Emprunt empruntEnCours;
 
 	public Utilisateur(){
 		this.setBloque(false);
-		this.setVelo(null);
+		this.setEmpruntEnCours(null);
 	}	
 
 	public Utilisateur(Compte compte) {
 		super();
 		this.setCompte(compte);
 		this.setBloque(false);
-		this.setVelo(null);
+		this.setEmpruntEnCours(null);
 	}
 
 	public Utilisateur(Compte compte, String nom, String prenom) {
@@ -32,7 +32,7 @@ public class Utilisateur {
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setBloque(false);
-		this.setVelo(null);
+		this.setEmpruntEnCours(null);
 	}
 
 	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
@@ -42,7 +42,7 @@ public class Utilisateur {
 		this.setPrenom(prenom);
 		this.setAdressePostale(adresse);
 		this.setBloque(false);
-		this.setVelo(null);
+		this.setEmpruntEnCours(null);
 	}
 
 
@@ -53,7 +53,7 @@ public class Utilisateur {
 		this.setPrenom(prenom);
 		this.setAdressePostale(adressePostale);
 		this.setBloque(bloque);
-		this.setVelo(null);
+		this.setEmpruntEnCours(null);
 	}
 
 	//Accesseurs
@@ -99,12 +99,12 @@ public class Utilisateur {
 		this.bloque = bloque;
 	}
 
-	public Velo getVelo() {
-		return velo;
+	public Emprunt getEmpruntEnCours() {
+		return empruntEnCours;
 	}
 
-	public void setVelo(Velo velo) {
-		this.velo = velo;
+	public void setEmpruntEnCours(Emprunt emprunt) {
+		this.empruntEnCours = emprunt;
 	}
 
 
@@ -115,8 +115,13 @@ public class Utilisateur {
 
 	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
 		station.enleverVelo(velo);
-		this.setVelo(velo);
 		velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
+		this.setEmpruntEnCours(velo.getEmpruntEnCours());
+
+		/*TODO a faire dans le controller
+		 * DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo);
+		 */ 
+
 	}
 
 
@@ -125,21 +130,26 @@ public class Utilisateur {
 	throws PasDeVeloEmprunteException{
 		Emprunt emprunt = null;
 		// cet emprunt sera une trace de l'ancien emprunt pour pallier au this.setVelo(null);
-		Velo velo = this.getVelo();
-		if (velo == null){
-			throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunte de velo");
-		}
-		else{
-			station.ajouterVelo(velo);
-			velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
-			velo.getEmpruntEnCours().setLieuRetour(station);
-			emprunt = new Emprunt(this, velo, velo.getEmpruntEnCours().getDateEmprunt(), velo.getEmpruntEnCours().getLieuEmprunt(), velo.getEmpruntEnCours().getDateRetour(), velo.getEmpruntEnCours().getLieuRetour());
-			velo.setEmpruntEnCours(null);
-			this.setVelo(null);
-			if (this.getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MAX){
-				//emprunt trop long
-				this.setBloque(true);
+		Velo velo = this.getEmpruntEnCours().getVelo();
+		try{
+			if (velo == null){
+				throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunte de velo");
 			}
+			else{
+				station.ajouterVelo(velo);
+				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
+				velo.getEmpruntEnCours().setLieuRetour(station);
+				emprunt = new Emprunt(this, velo, this.getEmpruntEnCours().getDateEmprunt(), this.getEmpruntEnCours().getLieuEmprunt(), this.getEmpruntEnCours().getDateRetour(), this.getEmpruntEnCours().getLieuRetour());
+				velo.setEmpruntEnCours(null);
+				this.setEmpruntEnCours(null);
+				if (this.getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MAX){
+					//emprunt trop long
+					this.setBloque(true);
+				}
+			}
+		}
+		catch(PasDeVeloEmprunteException e){
+			System.out.println(e.getMessage());
 		}
 		return emprunt;
 	}
@@ -150,16 +160,16 @@ public class Utilisateur {
 
 		Utilisateur u =(Utilisateur) o;
 
-		Boolean v = false;
+		Boolean e = false;
 		Boolean n = false;
 		Boolean p = false;
 		Boolean a = false;
 
-		if(this.getVelo() == null){
-			v = u.getVelo() == null;
+		if(this.getEmpruntEnCours() == null){
+			e = u.getEmpruntEnCours() == null;
 		}
 		else{
-			v = this.getVelo().equals(u.getVelo());	
+			e = this.getEmpruntEnCours().equals(u.getEmpruntEnCours());	
 		}
 
 		if(this.getNom() == null){
@@ -182,8 +192,7 @@ public class Utilisateur {
 		else{
 			a = this.getAdressePostale().equals(u.getAdressePostale());
 		}
-
-		return a && v && p && n && this.getCompte().equals(u.getCompte()) && (this.isBloque().equals(u.isBloque()));
+		return a && e && p && n && this.getCompte().equals(u.getCompte()) && (this.isBloque().equals(u.isBloque()));
 	}
 
 

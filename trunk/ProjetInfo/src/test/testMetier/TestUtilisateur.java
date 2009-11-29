@@ -26,7 +26,8 @@ public class TestUtilisateur extends TestCase{
 		u.emprunteVelo(v, s);
 		
 		assertEquals(null, v.getLieu());
-		assertTrue(v == u.getVelo());
+		assertFalse(null == u.getEmpruntEnCours());
+		assertTrue(v == u.getEmpruntEnCours().getVelo());
 		assertFalse(v.getEmpruntEnCours() == null);
 		assertFalse(v.getLieu() == s);
 		assertTrue(v.getLieu() == Lieu.SORTI);
@@ -41,7 +42,8 @@ public class TestUtilisateur extends TestCase{
 		Velo v = new Velo(s,false);
 		u.emprunteVelo(v, s);
 		Emprunt e = u.rendreVelo(s);
-		assertFalse(v == u.getVelo());
+		assertFalse(e == u.getEmpruntEnCours());
+		assertTrue(null == u.getEmpruntEnCours());
 		assertFalse(v.getLieu() == Lieu.SORTI);
 		assertTrue(v.getLieu() == s);
 		assertTrue(v.getEmpruntEnCours() == null);

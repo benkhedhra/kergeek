@@ -55,8 +55,7 @@ public class CreationTables {
 					"bloque number,"+
 					"type number(1) NOT NULL,"+
 					"idVelo char(4),"+
-					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte),"+
-			"CONSTRAINT fk_Compte_Velo  FOREIGN KEY(idVelo) REFERENCES Velo)");
+					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte)");
 
 	
 			s.executeUpdate (
