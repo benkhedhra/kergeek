@@ -100,6 +100,7 @@ public class DAOVelo {
 				velo.setId(identifiant);
 				velo.setLieu(DAOLieu.getLieuById(res.getString("idLieu")));
 				velo.setEnPanne(res.getBoolean("enPanne"));
+				velo.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByVelo(identifiant));
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du velo");
@@ -151,35 +152,8 @@ public class DAOVelo {
 		}
 		return listeVelos;
 	}
-
-
-
-	public static Emprunt EmpruntEnCours(Velo velo) throws ClassNotFoundException, SQLException{
-		Emprunt emprunt = new Emprunt();
-		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res= s.executeQuery("Select* from Emprunt Where dateRetour IS NULL AND idVelo = '" +velo.getId());
-			if(res.next()){
-				velo.setEmpruntEnCours(DAOEmprunt.getEmpruntById(res.getString("idEmprunt")));
-			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Pas d'emprunt en cours pour ce velo");
-			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
-			emprunt = null;
-		}
-		catch (SQLException e1){
-			System.out.println(e1.getMessage());
-		}
-
-		finally {
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
-		return emprunt;
-	}
+	
+	
 
 	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
 		return (getVeloById(id)!=null);

@@ -82,7 +82,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 		this.setUtilisateur(u);
 
-		this.setVelo(this.getUtilisateur().getVelo());
+		this.setVelo(this.getUtilisateur().getEmpruntEnCours().getVelo());
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -158,8 +158,8 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
 				if (emprunt!=null){
 					// l'utilisateur a bien rendu le vélo
-					DAOEmprunt.updateEmprunt(this.getUtilisateur().getVelo().getEmpruntEnCours());
-					DAOVelo.updateVelo(this.getUtilisateur().getVelo());
+					DAOEmprunt.updateEmprunt(this.getUtilisateur().getEmpruntEnCours());
+					DAOVelo.updateVelo(this.getUtilisateur().getEmpruntEnCours().getVelo());
 
 					if (emprunt.getDiff()>Emprunt.TPS_EMPRUNT_MIN){
 						//emprunt trop court

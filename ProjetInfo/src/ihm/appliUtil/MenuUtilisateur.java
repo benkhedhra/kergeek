@@ -74,7 +74,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		
-		empruntEnCours = (u.getVelo()!=null);
+		empruntEnCours = (u.getEmpruntEnCours().getVelo()!=null);
 		boutonChoix.setPreferredSize(new Dimension(200,100));
 		boutonChoix.setMaximumSize(new Dimension(200,100));
 		boutonChoix.setBackground(Color.CYAN);

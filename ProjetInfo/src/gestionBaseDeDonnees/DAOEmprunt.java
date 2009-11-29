@@ -12,6 +12,7 @@ import metier.Emprunt;
 import metier.Lieu;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
+import metier.Velo;
 
 public class DAOEmprunt {
 
@@ -143,14 +144,14 @@ public class DAOEmprunt {
 
 		return nb;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	/**
 	 * 
 	 * @param station
@@ -182,14 +183,14 @@ public class DAOEmprunt {
 		}
 		return nb;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	/**
 	 * 
 	 * @param u
@@ -205,21 +206,21 @@ public class DAOEmprunt {
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			
-			
-			
+
+
+
 			/*TODO
 			 * System.out.println(dateSql.toString());
 			 */
-			
+
 			ResultSet res = null;
 			for (int i=1; i <= nbMois; i++){
 				java.sql.Date dateSqlSupTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i);
 				java.sql.Date dateSqlSup = UtilitaireDate.initialisationDebutMois(dateSqlSupTemp);
-				
+
 				java.sql.Date dateSqlMinTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i+1);
 				java.sql.Date dateSqlMin = UtilitaireDate.initialisationDebutMois(dateSqlMinTemp);
-				
+
 				res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + u.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + dateSqlSup + "','YYYY-MM-DD-HH24:MI') and dateEmprunt >= TO_DATE('" + dateSqlMin + "','YYYY-MM-DD-HH24:MI')");
 				if (res.next()){
 					liste.add(res.getInt("nombreEmpruntParMois"));
@@ -234,5 +235,68 @@ public class DAOEmprunt {
 		}
 
 		return liste;
+	}
+
+	
+	
+	
+	public static Emprunt getEmpruntEnCoursByVelo(String identifiant) throws ClassNotFoundException, SQLException{
+		Emprunt emprunt = null;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet res= s.executeQuery("Select* from Emprunt WHERE dateRetour IS NULL AND idVelo = '" + identifiant + "'");
+			if(res.next()){
+				emprunt = new Emprunt();
+				emprunt = DAOEmprunt.getEmpruntById(res.getString("idEmprunt"));
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Pas d'emprunt en cours pour ce velo");
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
+		}
+
+		finally {
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return emprunt;
+	}
+	
+	
+	
+	
+
+	public static Emprunt getEmpruntEnCoursByIdUtilisateur (String identifiant) throws SQLException, ClassNotFoundException{
+		Emprunt emprunt = null;
+		
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = s.executeQuery("Select* from Emprunt WHERE dateRetour IS NULL AND idCompte = '" + identifiant + "'");
+		try {
+			if (res.next()) {
+				emprunt = new Emprunt();
+				emprunt = DAOEmprunt.getEmpruntById(res.getString("idEmprunt"));
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Pas d'emprunt en cours pour cet utilisateur");
+			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		
+		return emprunt;
 	}
 }
