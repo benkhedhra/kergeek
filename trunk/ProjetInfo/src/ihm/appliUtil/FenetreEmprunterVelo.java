@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 
@@ -22,6 +23,11 @@ import metier.Velo;
 
 public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Utilisateur u;
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
@@ -101,14 +107,15 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 				if(DAOVelo.estDansLaBdd(veloARemplir.getText())){
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
 					u.emprunteVelo(velo,(Station)(velo.getLieu()));
-					FenetreConfirmationUtil f = new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
-					f.setVisible(true);
+					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
+					DAOVelo.updateVelo(velo);
+					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
 					System.out.println("L'emprunt a bien été enregistré");
 				}
 				else {
 					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
 					new FenetreEmprunterVelo(this.getUtilisateur());
-					}
+				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
@@ -116,8 +123,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 			}
 		}
 		else{
-			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Merci et à bientôt ! ");
-			f.setVisible(true);
+			new FenetreConfirmationUtil("Merci et à bientôt ! ");
 		}
 
 	}

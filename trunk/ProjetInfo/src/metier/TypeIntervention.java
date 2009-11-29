@@ -58,6 +58,9 @@ public class TypeIntervention {
 		return a && (this.getDescription().equals(t.getDescription()));
 	}
 	
+	public String toString(){
+		return this.getType()+" - "+this.getDescription();
+	}
 	
 
 }

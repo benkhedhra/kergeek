@@ -104,4 +104,10 @@ public class DAODemandeIntervention {
 		}
 		return ddeIntervention;
 	}
+	
+	
+	public static String ligne(DemandeIntervention d){
+		return "Demande "+d.getId()+" - Vélo "+d.getVelo().getId()+" - Station "+d.getVelo().getLieu().getId();
+	}
+	
 }

@@ -10,6 +10,8 @@ import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
+import ihm.appliAdminTech.technicien.FenetreGererAssignationsTech;
+import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
 import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
@@ -221,6 +223,20 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
+			else if(fenetrePrec.getTitle().equals("Prendre en charge une intervention")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("L'intervention a bien été enregistrée. ");
+				bouton1.setText("Gérer une autre demande d'intervention");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
+			
 			JPanel center = new JPanel();
 			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
@@ -368,7 +384,27 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		else if(fenetrePrecedente.getTitle().equals("Prendre en charge une assignation")){
 			if(arg0.getSource()==bouton1){
 				try {
+					new FenetreGererAssignationsTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+				}
+			}
+			else if (arg0.getSource()==boutonRetour){
+				try {
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+				}
+			}
+		}
+		else if(fenetrePrecedente.getTitle().equals("Prendre en charge une intervention")){
+			if(arg0.getSource()==bouton1){
+				try {
+					new FenetreGererInterventionsTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				} catch (SQLException e) {
 					MsgBox.affMsg(e.getMessage());
 				} catch (ClassNotFoundException e) {

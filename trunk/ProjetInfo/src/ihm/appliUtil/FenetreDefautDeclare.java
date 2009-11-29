@@ -86,12 +86,10 @@ public class FenetreDefautDeclare extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){
-			FenetreEmprunterVelo f = new FenetreEmprunterVelo(utilisateur);
-			f.setVisible(true);
+			new FenetreEmprunterVelo(utilisateur);
 		}
 		else if (arg0.getSource()==boutonNon){
-			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
-			f.setVisible(true);
+			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
 	}
 }

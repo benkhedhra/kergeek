@@ -1,17 +1,23 @@
 package ihm.appliUtil;
 
+import gestionBaseDeDonnees.DAODemandeIntervention;
+import ihm.MsgBox;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.DemandeIntervention;
 import metier.Utilisateur;
+import metier.Velo;
 
 public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 
@@ -19,7 +25,8 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
+	private Utilisateur utilisateur;
+	private Velo velo;
 	private JLabel labelUtil = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JButton boutonOui = new JButton("OUI");
@@ -32,8 +39,16 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+	
+	public Velo getVelo() {
+		return velo;
+	}
 
-	public FenetreEmpruntCourt (Utilisateur u){
+	public void setVelo(Velo velo) {
+		this.velo = velo;
+	}
+
+	public FenetreEmpruntCourt (Utilisateur u,Velo v){
 
 		this.setContentPane(new Panneau());
 		System.out.println("Le temps d'emprunt a été très court");
@@ -54,7 +69,8 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 
 		this.setUtilisateur(u);
-
+		this.setVelo(v);
+		
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
@@ -70,7 +86,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		boutonOui.setBackground(Color.CYAN);
 		boutonNon.setPreferredSize(new Dimension(150,50));
 		boutonNon.setBackground(Color.CYAN);
-		
+
 		boutonOui.addActionListener(this);
 		boutonNon.addActionListener(this);
 		JPanel center = new JPanel();
@@ -86,16 +102,18 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){
-			FenetreDefautDeclare f = new FenetreDefautDeclare(utilisateur);
-			f.setVisible(true);
+			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),this.getVelo());
+			try {
+				DAODemandeIntervention.createDemandeIntervention(demande);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
+			new FenetreDefautDeclare(utilisateur);
 		}
 		else if (arg0.getSource()==boutonNon){
-			FenetreConfirmationUtil f = new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
-			f.setVisible(true);
+			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
-	}
-	
-	public static void main (String[]args){
-		new FenetreEmpruntCourt(LancerAppliUtil.UTEST);
 	}
 }
