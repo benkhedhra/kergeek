@@ -45,6 +45,8 @@ public abstract class Lieu {
 
 	//Méthodes
 
+	//pour moi il y a redondance d'info
+	
 	public void enleverVelo(Velo velo){
 		velo.setLieu(SORTI);
 		/*TODO a faire faire par le controller

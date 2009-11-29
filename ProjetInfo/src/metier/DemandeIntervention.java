@@ -10,7 +10,7 @@ public class DemandeIntervention {
 	private Date date;
 	private Velo velo;
 	private Utilisateur utilisateur;
-	private Lieu lieu = this.getVelo().getLieu();
+	//private Lieu lieu = this.getVelo().getLieu();
 	private Intervention intervention;
 
 	//Constructeur
@@ -20,10 +20,10 @@ public class DemandeIntervention {
 		super();
 	}
 	
-	public DemandeIntervention(Velo velo, Utilisateur utilisateur) {
+	public DemandeIntervention(Utilisateur utilisateur , Velo velo) {
 		super();
-		this.setVelo(velo);
 		this.setUtilisateur(utilisateur);
+		this.setVelo(velo);
 	}
 	
 	

@@ -96,10 +96,11 @@ public class Technicien {
 	 * @see enleverVelo
 	 */
 
-	public Intervention intervenir(Velo velo, Lieu lieu){
+	public Intervention intervenir(Velo velo, Lieu lieu, TypeIntervention type){
 		lieu.enleverVelo(velo);
+		// on ne peut pas récupérer le lieu avec le vélo
 		velo.setLieu(Garage.getInstance());
-		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
+		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante(),type);
 		return intervention;
 	}
 	

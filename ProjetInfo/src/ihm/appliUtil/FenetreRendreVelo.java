@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import metier.Emprunt;
 import metier.Station;
 import metier.Utilisateur;
+import metier.Velo;
 
 
 public class FenetreRendreVelo extends JFrame implements ActionListener {
@@ -33,12 +34,14 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
 	private JLabel labelUtil = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private Station stationEntree;
+	private Velo velo;
 
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
@@ -46,6 +49,14 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+
+	public Velo getVelo() {
+		return velo;
+	}
+
+	public void setVelo(Velo velo) {
+		this.velo = velo;
 	}
 
 	public FenetreRendreVelo(Utilisateur u) {
@@ -71,6 +82,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 		this.setUtilisateur(u);
 
+		this.setVelo(this.getUtilisateur().getVelo());
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -138,47 +150,42 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		try {
-			if (arg0.getSource()==boutonDeconnexion){
-				new FenetreConfirmationUtil("Merci et à bientôt ! ");
-			}
-			else if (arg0.getSource()==boutonValider){
-				if (this.getUtilisateur().rendreVelo(stationEntree) != null){
+		if (arg0.getSource()==boutonDeconnexion){
+			new FenetreConfirmationUtil("Merci et à bientôt ! ");
+		}
+		else if (arg0.getSource()==boutonValider){
+			try{
+				Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
+				if (emprunt!=null){
 					// l'utilisateur a bien rendu le vélo
 					DAOEmprunt.updateEmprunt(this.getUtilisateur().getVelo().getEmpruntEnCours());
-					this.getUtilisateur().getVelo().setEmpruntEnCours(null);
 					DAOVelo.updateVelo(this.getUtilisateur().getVelo());
-					if (this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MIN){
+
+					if (emprunt.getDiff()>Emprunt.TPS_EMPRUNT_MIN){
 						//emprunt trop court
-						new FenetreEmpruntCourt(this.getUtilisateur());
+						new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
 					}
-					else if (this.getUtilisateur().getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MAX){
+
+					else if (emprunt.getDiff()>Emprunt.TPS_EMPRUNT_MAX){
 						//emprunt trop long
 						new FenetreEmpruntLong(this.getUtilisateur());
-						this.getUtilisateur().setBloque(true);
 						DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
 					}
+
 					else {
 						//emprunt ni trop court ni trop long
 						new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
 						System.out.println("Le vélo a bien été rendu");
 					}
 				}
-				else {
-					//le vélo n'a pas été rendu
-					MsgBox.affMsg("problème");
-				}
+
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (PasDeVeloEmprunteException e) {
+				MsgBox.affMsg(e.getMessage());
 			}
-		}//fin du try
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			MsgBox.affMsg(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			MsgBox.affMsg(e.getMessage());
-		}
-		catch (PasDeVeloEmprunteException e) {
-			MsgBox.affMsg(e.getMessage());
 		}
 	}
 }

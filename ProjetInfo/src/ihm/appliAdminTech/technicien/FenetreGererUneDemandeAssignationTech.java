@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import metier.DemandeAssignation;
 import metier.Technicien;
 
-public class FenetreGererUneDemandeTech extends JFrame implements ActionListener {
+public class FenetreGererUneDemandeAssignationTech extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class FenetreGererUneDemandeTech extends JFrame implements ActionListener
 		this.demande = d;
 	}
 
-	public FenetreGererUneDemandeTech(Technicien t,DemandeAssignation d){
+	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d){
 
 		System.out.println("Fenêtre pour gérer une demande d'assignation");
 		this.setContentPane(new PanneauAdmin());

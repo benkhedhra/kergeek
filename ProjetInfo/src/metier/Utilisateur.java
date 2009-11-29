@@ -112,15 +112,11 @@ public class Utilisateur {
 
 	//Méthodes
 
-	
+
 	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
 		station.enleverVelo(velo);
 		this.setVelo(velo);
 		velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
-		
-		/*TODO a faire dans le controller
-		 * DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo);
-		 */ 
 	}
 
 
@@ -128,26 +124,25 @@ public class Utilisateur {
 	public Emprunt rendreVelo(Station station) 
 	throws PasDeVeloEmprunteException{
 		Emprunt emprunt = null;
+		// cet emprunt sera une trace de l'ancien emprunt pour pallier au this.setVelo(null);
 		Velo velo = this.getVelo();
-		try{
-			if (velo == null){
-				throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunte de velo");
-			}
-			else{
-				station.ajouterVelo(velo);
-				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
-				velo.getEmpruntEnCours().setLieuRetour(station);
-				emprunt = new Emprunt(this, velo, velo.getEmpruntEnCours().getDateEmprunt(), velo.getEmpruntEnCours().getLieuEmprunt(), velo.getEmpruntEnCours().getDateRetour(), velo.getEmpruntEnCours().getLieuRetour());
-				velo.setEmpruntEnCours(null);
-				this.setVelo(null);
-			}
+		if (velo == null){
+			throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunte de velo");
 		}
-		catch(PasDeVeloEmprunteException e){
-			System.out.println(e.getMessage());
+		else{
+			station.ajouterVelo(velo);
+			velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
+			velo.getEmpruntEnCours().setLieuRetour(station);
+			emprunt = new Emprunt(this, velo, velo.getEmpruntEnCours().getDateEmprunt(), velo.getEmpruntEnCours().getLieuEmprunt(), velo.getEmpruntEnCours().getDateRetour(), velo.getEmpruntEnCours().getLieuRetour());
+			velo.setEmpruntEnCours(null);
+			this.setVelo(null);
+			if (this.getVelo().getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MAX){
+				//emprunt trop long
+				this.setBloque(true);
+			}
 		}
 		return emprunt;
 	}
-
 
 
 	@Override
@@ -188,7 +183,7 @@ public class Utilisateur {
 			a = this.getAdressePostale().equals(u.getAdressePostale());
 		}
 
-		return a && v && n && this.getCompte().equals(u.getCompte()) && (this.isBloque().equals(u.isBloque()));
+		return a && v && p && n && this.getCompte().equals(u.getCompte()) && (this.isBloque().equals(u.isBloque()));
 	}
 
 

@@ -22,7 +22,7 @@ public class TestDAODemandeIntervention extends TestCase{
 		Lieu l = DAOLieu.getLieuById("1");
 		Velo v = new Velo(l, false);
 		l.ajouterVelo(v);
-		DemandeIntervention d = new DemandeIntervention(v, u);
+		DemandeIntervention d = new DemandeIntervention(u,v);
 		System.out.println("coucou");
 		Boolean b = DAODemandeIntervention.createDemandeIntervention(d);
 		System.out.println("coucou2");
