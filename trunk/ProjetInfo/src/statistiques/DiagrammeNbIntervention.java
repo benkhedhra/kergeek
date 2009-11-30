@@ -1,19 +1,12 @@
 package statistiques;
 
 
-import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOIntervention;
-import gestionBaseDeDonnees.DAOLieu;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import metier.Station;
-import metier.TypeIntervention;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

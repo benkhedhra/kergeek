@@ -12,7 +12,6 @@ import metier.Emprunt;
 import metier.Lieu;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
-import metier.Velo;
 
 public class DAOEmprunt {
 

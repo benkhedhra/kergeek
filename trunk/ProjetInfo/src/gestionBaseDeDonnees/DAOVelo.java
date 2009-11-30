@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import metier.Emprunt;
 import metier.Lieu;
 import metier.Velo;
 

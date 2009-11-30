@@ -15,8 +15,8 @@ public abstract class Lieu {
 	public static final String ID_GARAGE="0";
 	public static final String ADRESSE_GARAGE="pool de velo";
 	public static final int CAPACITE_GARAGE=1000;
-	public static final Lieu SORTI = null;
-
+	public static final String ADRESSE_SORTIE="en sortie";
+	public static final String ID_SORTIE="";
 
 	//pas de constructeur puisqu'il s'agit d'une classe abstraite
 
@@ -48,7 +48,7 @@ public abstract class Lieu {
 	//pour moi il y a redondance d'info
 	
 	public void enleverVelo(Velo velo){
-		velo.setLieu(SORTI);
+		velo.setLieu(Sortie.getInstance());
 		/*TODO a faire faire par le controller
 		 * DAOVelo.updateVelo(velo);
 		 */
