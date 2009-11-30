@@ -55,9 +55,6 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 
 		this.setUtilisateur(u);
-
-		
-		
 		
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -73,8 +70,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
-		
-		empruntEnCours = (u.getEmpruntEnCours().getVelo()!=null);
+		empruntEnCours = (u.getEmpruntEnCours()!=null);
 		boutonChoix.setPreferredSize(new Dimension(200,100));
 		boutonChoix.setMaximumSize(new Dimension(200,100));
 		boutonChoix.setBackground(Color.CYAN);
