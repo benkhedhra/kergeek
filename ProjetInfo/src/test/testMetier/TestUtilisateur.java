@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import junit.framework.TestCase;
 import metier.Compte;
 import metier.Emprunt;
-import metier.Lieu;
+import metier.Sortie;
 import metier.Station;
 import metier.Utilisateur;
 import metier.Velo;
@@ -30,7 +30,7 @@ public class TestUtilisateur extends TestCase{
 		assertTrue(v == u.getEmpruntEnCours().getVelo());
 		assertFalse(v.getEmpruntEnCours() == null);
 		assertFalse(v.getLieu() == s);
-		assertTrue(v.getLieu() == Lieu.SORTI);
+		assertTrue(v.getLieu() == Sortie.getInstance());
 
 	}
 	
@@ -44,7 +44,7 @@ public class TestUtilisateur extends TestCase{
 		Emprunt e = u.rendreVelo(s);
 		assertFalse(e == u.getEmpruntEnCours());
 		assertTrue(null == u.getEmpruntEnCours());
-		assertFalse(v.getLieu() == Lieu.SORTI);
+		assertFalse(v.getLieu() == Sortie.getInstance());
 		assertTrue(v.getLieu() == s);
 		assertTrue(v.getEmpruntEnCours() == null);
 		assertTrue(e != null);

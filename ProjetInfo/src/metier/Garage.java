@@ -17,24 +17,9 @@ public class Garage extends Lieu{
 	//Constructeurs
 	
 	private Garage() {
-		super.id = Lieu.ID_GARAGE;
-		super.adresse = Lieu.ADRESSE_GARAGE;
-		super.capacite = Lieu.CAPACITE_GARAGE;
-	}
-	
-	//Accesseurs
-
-
-	@Override
-	public void setAdresse(String adresse) {
-	}
-
-	@Override
-	public void setCapacite(int capacite) {
-	}
-
-	@Override
-	public void setId(String id) {
+		this.setId(ID_GARAGE);
+		this.setAdresse(ADRESSE_GARAGE);
+		this.setCapacite(CAPACITE_GARAGE);
 	}
 
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 import metier.Garage;
 import metier.Lieu;
+import metier.Sortie;
 import metier.Station;
 
 public class DAOLieu {
@@ -17,8 +18,12 @@ public class DAOLieu {
 	public static Lieu getLieuById(String identifiant) throws SQLException, ClassNotFoundException {
 		Lieu lieu;
 
-		if (identifiant == Garage.ID_GARAGE){ // c'est LE garage (unique)
+		if (identifiant == Lieu.ID_GARAGE){ // c'est LE garage (unique)
 			lieu = (Garage) Garage.getInstance();
+		}
+		
+		else if (identifiant == ""){ // pas de lieu
+			lieu = (Sortie) Sortie.getInstance();
 		}
 
 		else{// alors il ne peut s'agir que d'une station
