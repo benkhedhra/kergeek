@@ -52,7 +52,7 @@ public class DAOVelo {
 			s.executeUpdate("UPDATE Velo SET "
 					+ "idVelo = '" + velo.getId() + "', "
 					+ "enPanne = '" + -b.compareTo(velo.isEnPanne()) + "', "
-					+ "idLieu = '" + velo.getLieu().getId() + "', "
+					+ "idLieu = '" + velo.getLieu().getId() + "' "
 					+ "WHERE idVelo = '"+ velo.getId() + "'"
 			);
 			s.executeUpdate("COMMIT");
@@ -93,7 +93,7 @@ public class DAOVelo {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet resVelo = s.executeQuery("Select idVelo, idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
+		ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
 		try {
 			if (resVelo.next()) {
 				//On crée ces variables locales car on ne peut pas avoir 2 ResultSet en meme temps...
@@ -102,9 +102,7 @@ public class DAOVelo {
 
 				velo.setId(identifiant);
 				velo.setLieu(DAOLieu.getLieuById(idLieu));
-				System.out.println("DAOVelo ligne 101 après le lieu");
 				velo.setEnPanne(enPanne);
-				System.out.println("après la panne");
 				velo.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByVelo(identifiant));
 			}
 			else {

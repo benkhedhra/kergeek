@@ -5,6 +5,7 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -107,17 +108,23 @@ public class DAODemandeAssignation {
 		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
+
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select* from DemandeAssignation");
+		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation");
+
 		try {
-			boolean vide=true;
+
+			DemandeAssignation ddeAssignation = new DemandeAssignation();
+			List<String> listeIdDde = new ArrayList<String>();
+
 			while(res.next()) {
-				vide = false;
-				DemandeAssignation ddeAssignation = getDemandeAssignationById(res.getString("idDemandeA"));
-				liste.add(ddeAssignation);
+				String idDdeAssignation = res.getString("idDemandeA");
+				listeIdDde.add(idDdeAssignation);
 			}
-			if(vide) {
-				throw new SQLException("pas de demandes");
+
+			for (String idDdeA : listeIdDde){
+				ddeAssignation = getDemandeAssignationById(idDdeA);
+				liste.add(ddeAssignation);
 			}
 		}
 		catch(SQLException e1){
@@ -136,17 +143,22 @@ public class DAODemandeAssignation {
 		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
+
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select* from DemandeAssignation WHERE prisEnCharge = '0'");
+		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE prisEnCharge = '0'");
+
 		try {
-			boolean vide=true;
+			DemandeAssignation ddeAssignation = new DemandeAssignation();
+			List<String> listeIdDde = new ArrayList<String>();
+
 			while(res.next()) {
-				vide = false;
-				DemandeAssignation ddeAssignation = getDemandeAssignationById(res.getString("idDemandeA"));
-				liste.add(ddeAssignation);
+				String idDdeAssignation = res.getString("idDemandeA");
+				listeIdDde.add(idDdeAssignation);
 			}
-			if(vide) {
-				throw new SQLException("pas de demandes en attente");
+
+			for (String idDdeA : listeIdDde){
+				ddeAssignation = getDemandeAssignationById(idDdeA);
+				liste.add(ddeAssignation);
 			}
 		}
 		catch(SQLException e1){
@@ -173,15 +185,26 @@ public class DAODemandeAssignation {
 		try {
 			if (res.next()) {
 				ddeAssignation.setId(identifiant);
-				ddeAssignation.setDate(res.getDate("date"));
-				ddeAssignation.setNombreVelosVoulusDansStation(res.getInt("nombre"));
-				ddeAssignation.setLieu(DAOLieu.getLieuById(res.getString("idLieu")));
-				if (res.getInt("priseEnCharge") == 1){
+				java.sql.Date date = res.getDate("date");
+				int nombre = res.getInt("nombre");
+				String idLieu = res.getString("idLieu");
+				Boolean priseEnCharge = res.getBoolean("priseEnCharge");
+
+				ddeAssignation.setId(identifiant);
+				ddeAssignation.setDate(date);
+				ddeAssignation.setNombreVelosVoulusDansStation(nombre);
+				ddeAssignation.setLieu(DAOLieu.getLieuById(idLieu));
+				ddeAssignation.setPriseEnCharge(priseEnCharge);
+
+				/*TODO
+				 if (res.getInt("priseEnCharge") == 1){
+
 					ddeAssignation.setPriseEnCharge(true);
 				}
 				else{
 					ddeAssignation.setPriseEnCharge(false);
-				}
+				}*/
+
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Assignation");
@@ -200,7 +223,7 @@ public class DAODemandeAssignation {
 		return ddeAssignation;
 	}
 
-	
+
 	//fonction écrite pour remplacer le toString qui n'allait effectivement pas dans métier, mais voir s'il faut encore la déplacer
 	public static String ligne(DemandeAssignation d){
 		String resul = "Demande "+d.getId()+" - Station "+d.getLieu().getId()+" - ";
@@ -219,5 +242,5 @@ public class DAODemandeAssignation {
 
 		return resul;
 	}
-	
+
 }

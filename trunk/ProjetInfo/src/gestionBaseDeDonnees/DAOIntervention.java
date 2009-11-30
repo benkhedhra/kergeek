@@ -40,8 +40,8 @@ public class DAOIntervention {
 		}
 		return effectue;
 	}
-	
-	
+
+
 	public static Intervention getInterventionById(String identifiant) throws SQLException, ClassNotFoundException {
 		Intervention intervention = new Intervention();
 
@@ -51,10 +51,16 @@ public class DAOIntervention {
 		ResultSet res = s.executeQuery("Select * FROM Intervention WHERE idIntervention ='" + identifiant + "'");
 		try {
 			if (res.next()) {
+
+				java.sql.Date dateIntervention = res.getDate("dateIntervention");
+				int idTypeIntervention = res.getInt("idTypeIntervention");
+				String idVelo = res.getString("idVelo");
+
 				intervention.setId(identifiant);
-				intervention.setDate(res.getDate("dateIntervention"));
-				intervention.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(res.getInt("idIntervention")));
-				intervention.setVelo(DAOVelo.getVeloById((res.getString("idVelo"))));
+				intervention.setDate(dateIntervention);
+				intervention.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(idTypeIntervention));
+				intervention.setVelo(DAOVelo.getVeloById(idVelo));
+
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de l'intervention");
@@ -72,8 +78,8 @@ public class DAOIntervention {
 		}
 		return intervention;
 	}
-	
-	
+
+
 
 	public static List<Integer> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException{
 
@@ -81,13 +87,13 @@ public class DAOIntervention {
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			
+
 			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(), depuisMois);
 			java.sql.Date dateSql = UtilitaireDate.initialisationDebutMois(dateSqlTemp);
 			/*TODO
 			 * System.out.println(dateSql.toString());
 			 */
-			
+
 			ResultSet res = null;
 			for (Integer type : DAOTypeIntervention.getAllTypesIntervention().keySet()){
 				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention WHERE idTypeIntervention = '" + type + "' and dateIntervention >= TO_DATE('" + dateSql + "','YYYY-MM-DD-HH24:MI')");
