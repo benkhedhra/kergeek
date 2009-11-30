@@ -1,5 +1,6 @@
 package statistiques;
 
+import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 
@@ -88,9 +89,15 @@ public class DiagrammeNbVeloStation extends ApplicationFrame {
 		final XYSeries series = new XYSeries("Nombre de vélos");
 		try {
 			series.add(heureencours, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
-			series.add(heure3, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
-			series.add(heure2, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
-			series.add(heure1, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size());
+			series.add(heure3, DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(DAOLieu.getLieuById("3"), 1))
+					+ (DAOEmprunt.NombreVelosRentresHeures(DAOLieu.getLieuById("3"), 1)));
+			series.add(heure2,  DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(DAOLieu.getLieuById("3"), 2))
+					+ (DAOEmprunt.NombreVelosRentresHeures(DAOLieu.getLieuById("3"), 2)));
+			series.add(heure1,  DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(DAOLieu.getLieuById("3"), 3))
+					+ (DAOEmprunt.NombreVelosRentresHeures(DAOLieu.getLieuById("3"), 3)));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
