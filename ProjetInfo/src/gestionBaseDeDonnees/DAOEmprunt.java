@@ -101,13 +101,22 @@ public class DAOEmprunt {
 		ResultSet res = s.executeQuery("Select dateEmprunt, dateRetour, idLieuEmprunt, idLieuRetour, idCompte, idVelo from Emprunt Where idEmprunt ='" + identifiant + "'");
 		try {
 			if (res.next()) {
+
+				java.sql.Date dateEmprunt = res.getDate("dateEmprunt");
+				java.sql.Date dateRetour = res.getDate("dateRetour");
+				String idLieuEmprunt = res.getString("idLieuEmprunt");
+				String idLieuRetour = res.getString("idLieuRetour");
+				String idCompte = res.getString("idCompte");
+				String idVelo = res.getString("idVelo");
+
 				emprunt.setId(identifiant);
-				emprunt.setDateEmprunt(res.getDate("dateEmprunt"));
-				emprunt.setDateEmprunt(res.getDate("dateRetour"));
-				emprunt.setLieuEmprunt(DAOLieu.getLieuById(res.getString("idLieuEmprunt")));
-				emprunt.setLieuRetour(DAOLieu.getLieuById(res.getString("idLieuRetour")));
-				emprunt.setUtilisateur(DAOUtilisateur.getUtilisateurById(res.getString("idCompte")));
-				emprunt.setVelo(DAOVelo.getVeloById(res.getString("idVelo")));
+				emprunt.setDateEmprunt(dateEmprunt);
+				emprunt.setDateEmprunt(dateRetour);
+				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
+				emprunt.setLieuRetour(DAOLieu.getLieuById(idLieuRetour));
+				emprunt.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
+				emprunt.setVelo(DAOVelo.getVeloById(idVelo));
+
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de l'Emprunt");
@@ -287,8 +296,6 @@ public class DAOEmprunt {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-
-
 			/*TODO
 			 * System.out.println(dateSql.toString());
 			 */
@@ -325,12 +332,11 @@ public class DAOEmprunt {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res= s.executeQuery("Select* from Emprunt WHERE dateRetour IS NULL AND idVelo = '" + identifiant + "'");
+			ResultSet res= s.executeQuery("Select idEmprunt from Emprunt WHERE dateRetour IS NULL AND idVelo = '" + identifiant + "'");
 			if(res.next()){
-				emprunt = new Emprunt();
-				emprunt = DAOEmprunt.getEmpruntById(res.getString("idEmprunt"));
+				String idEmprunt = res.getString("idEmprunt");
+				emprunt = DAOEmprunt.getEmpruntById(idEmprunt);
 			}
-
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -346,24 +352,20 @@ public class DAOEmprunt {
 
 
 
-	public static Emprunt getEmpruntEnCoursByIdUtilisateur (String identifiant) throws SQLException, ClassNotFoundException{
+	public static Emprunt getEmpruntEnCoursByIdUtilisateur(String identifiant) throws SQLException, ClassNotFoundException{
 		Emprunt emprunt = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select* from Emprunt WHERE dateRetour IS NULL AND idCompte = '" + identifiant + "'");
+		ResultSet res = s.executeQuery("Select idEmprunt from Emprunt WHERE dateRetour IS NULL AND idCompte = '" + identifiant + "'");
 		try {
 			if (res.next()) {
-				emprunt = new Emprunt();
-				emprunt = DAOEmprunt.getEmpruntById(res.getString("idEmprunt"));
+				String idEmprunt = res.getString("idEmprunt");
+				emprunt = DAOEmprunt.getEmpruntById(idEmprunt);
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException("Pas d'emprunt en cours pour cet utilisateur");
 			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());

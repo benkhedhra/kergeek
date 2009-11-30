@@ -5,9 +5,11 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import metier.DemandeAssignation;
 import metier.DemandeIntervention;
 import metier.UtilitaireDate;
 
@@ -21,14 +23,14 @@ public class DAODemandeIntervention {
 			if (res.next()){
 				String id = res.getString("id");
 				ddeIntervention.setId(id);
-				
+
 				s.executeUpdate("INSERT into DemandeIntervention values ('" 
 						+ id + "', '"
 						+ "TO_DATE('" + UtilitaireDate.dateCourante() +"','YYYY-MM-DD-HH24:MI'), '"
 						+ ddeIntervention.getVelo().getId() + "', '" 
 						+ ddeIntervention.getUtilisateur().getCompte().getId() +"', '" 
 						+ ddeIntervention.getVelo().getLieu().getId() + "')"
-						);
+				);
 				effectue=true;
 			}
 		}
@@ -40,23 +42,26 @@ public class DAODemandeIntervention {
 		}
 		return effectue;
 	}
-	
+
 
 	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException {
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select* from DemandeIntervention WHERE idIntervention IS NOT NULL");
+		ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL");
 		try {
-			boolean vide=true;
+			DemandeIntervention ddeIntervention = new DemandeIntervention();
+			List<String> listeIdInter = new ArrayList<String>();
+
 			while(res.next()) {
-				vide = false;
-				DemandeIntervention ddeIntervention = getDemandeInterventionById(res.getString("idDemandeI"));
-				liste.add(ddeIntervention);
+				String idDdeIntervention = res.getString("idDemandeI");
+				listeIdInter.add(idDdeIntervention);
 			}
-			if(vide) {
-				throw new SQLException("pas de demandes en attente");
+
+			for (String idDdeI : listeIdInter){
+				ddeIntervention = getDemandeInterventionById(idDdeI);
+				liste.add(ddeIntervention);
 			}
 		}
 		catch(SQLException e1){
@@ -69,10 +74,10 @@ public class DAODemandeIntervention {
 
 		return liste;
 	}
-	
-	
-	
-	
+
+
+
+
 	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException {
 		DemandeIntervention ddeIntervention = new DemandeIntervention();
 
@@ -82,11 +87,18 @@ public class DAODemandeIntervention {
 		ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
 		try {
 			if (res.next()) {
+
+				java.sql.Date dateDemandeI = res.getDate("dateDemandeI");
+				String idVelo = res.getString("idVelo");
+				String idCompte = res.getString("idCompte");
+				String idIntervention = res.getString("idIntervention");
+				
 				ddeIntervention.setId(identifiant);
-				ddeIntervention.setDate(res.getDate("dateDemandeI"));
-				ddeIntervention.setVelo(DAOVelo.getVeloById((res.getString("idVelo"))));
-				ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(res.getString("idCompte")));
-				ddeIntervention.setIntervention(DAOIntervention.getInterventionById(res.getString("idIntervention")));
+				ddeIntervention.setDate(dateDemandeI);
+				ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
+				ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
+				ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
+				
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
@@ -104,10 +116,10 @@ public class DAODemandeIntervention {
 		}
 		return ddeIntervention;
 	}
-	
-	
+
+
 	public static String ligne(DemandeIntervention d){
 		return "Demande "+d.getId()+" - Vélo "+d.getVelo().getId()+" - Station "+d.getVelo().getLieu().getId();
 	}
-	
+
 }

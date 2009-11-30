@@ -5,6 +5,7 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,11 +53,11 @@ public class DAOUtilisateur {
 			}
 			else {
 				s.executeUpdate("UPDATE Compte SET bloque = '0'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
-				
+
 			}
 			s.executeUpdate("COMMIT");
 			effectue = true;
-			
+
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -68,8 +69,8 @@ public class DAOUtilisateur {
 		return effectue;
 	}
 
-	
-	
+
+
 	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException {
 		Utilisateur u = new Utilisateur(new Compte());
 
@@ -79,11 +80,13 @@ public class DAOUtilisateur {
 		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
 		try {
 			if (res.next()) {
-				u.setCompte(DAOCompte.getCompteById(identifiant));
+
 				u.setNom(res.getString("nom"));
 				u.setPrenom(res.getString("prenom"));
 				u.setAdressePostale(res.getString("adressePostale"));
 				u.setBloque(res.getBoolean("bloque"));
+
+				u.setCompte(DAOCompte.getCompteById(identifiant));
 				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(identifiant));
 			}
 			else {
@@ -105,34 +108,8 @@ public class DAOUtilisateur {
 
 
 	public static Utilisateur getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
-		Utilisateur u = new Utilisateur(new Compte());
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque, idCompte from Compte Where idCompte ='" + DAOCompte.getCompteByAdresseEmail(email).getId()+"'");
-		try {
-			if (res.next()) {
-				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
-				u.setNom(res.getString("nom"));
-				u.setPrenom(res.getString("prenom"));
-				u.setAdressePostale(res.getString("adressePostale"));
-				u.setBloque(res.getBoolean("bloque"));
-				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(res.getString("idCompte")));
-			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Erreur d'adresse email");
-			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println("Erreur d'identifiant");
-		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();
-		}
+		String idCompte = DAOCompte.getCompteByAdresseEmail(email).getId();
+		Utilisateur u = getUtilisateurById(idCompte);
 		return u;
 	}
 
@@ -140,21 +117,18 @@ public class DAOUtilisateur {
 
 	public static List<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException {
 		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
+		List<String> listeIdCompte = new ArrayList<String>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select prenom, adressePostale, bloque, idCompte from Compte Where nom ='" + nom +"'");
+		ResultSet res = s.executeQuery("Select idCompte from Compte Where nom ='" + nom +"'");
 		try {
 			while (res.next()) {
-				Utilisateur u = new Utilisateur(new Compte());
-				u.setNom(nom);
-				u.setPrenom(res.getString("prenom"));
-				u.setAdressePostale(res.getString("adressePostale"));
-				u.setBloque(res.getBoolean("bloque"));
-				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(res.getString("idCompte")));
-				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
-				listeUtils.add(u);
+				listeIdCompte.add(res.getString("idCompte"));
+			}
+			for (String id : listeIdCompte){
+				listeUtils.add(getUtilisateurById(id));
 			}
 			if(listeUtils == null){
 				throw new PasDansLaBaseDeDonneeException("Nom absent de la base de données");
@@ -175,32 +149,33 @@ public class DAOUtilisateur {
 
 	public static List<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException {
 		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
+		List<String> listeIdCompte = new ArrayList<String>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select nom, adressePostale, bloque, idCompte from Compte Where prenom ='" + prenom +"'");
+		ResultSet res = s.executeQuery("Select idCompte from Compte Where prenom ='" + prenom +"'");
 		try {
 			while (res.next()) {
-				Utilisateur u = new Utilisateur(new Compte());
-				u.setPrenom(prenom);
-				u.setNom(res.getString("nom"));
-				u.setAdressePostale(res.getString("adressePostale"));
-				u.setBloque(res.getBoolean("bloque"));
-				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(res.getString("idCompte")));
-				u.setCompte(DAOCompte.getCompteById(res.getString("idCompte")));
-				listeUtils.add(u);
+				listeIdCompte.add(res.getString("idCompte"));
+			}
+			for (String id : listeIdCompte){
+				listeUtils.add(getUtilisateurById(id));
 			}
 			if(listeUtils == null){
-				throw new PasDansLaBaseDeDonneeException("Prénom absent de la base de données");
+				throw new PasDansLaBaseDeDonneeException("Prenom absent de la base de données");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
 			System.out.println(e1.getMessage());
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return listeUtils;
 	}
+
 }

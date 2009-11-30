@@ -132,7 +132,7 @@ public class DAOCompte {
 
 
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException {
-		Compte compte = new Compte();
+		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -140,19 +140,17 @@ public class DAOCompte {
 		ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
 		try {
 			if (res.next()) {
+				compte = new Compte();
 				compte.setId(identifiant);
 				compte.setMotDePasse(res.getString("motDePasse"));
 				compte.setType(res.getInt("type"));
 				compte.setAdresseEmail(res.getString("adresseMail"));
 
-				if (res.getInt("actif") == 0 ){
-					compte.setActif(false);
-				}
-				else if (res.getInt("actif") == 1 ){
+				if (res.getBoolean("actif")){
 					compte.setActif(true);
 				}
 				else{
-					throw new SQLException("actif non renseigné");
+					compte.setActif(false);
 				}
 			}
 			else {
@@ -174,31 +172,21 @@ public class DAOCompte {
 
 
 	public static Compte getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
-		Compte compte = new Compte();
+		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idCompte, motDePasse, actif, type from Compte Where AdresseMail ='" + email + "'");
+		ResultSet res = s.executeQuery("Select idCompte from Compte Where AdresseMail ='" + email + "'");
 		try {
 			if (res.next()) {
-				compte.setAdresseEmail(email);
-				compte.setId(res.getString("idCompte"));
-				compte.setMotDePasse(res.getString("motDePasse"));
-				compte.setType(res.getInt("type"));
-
-				if (res.getInt("actif") == 0 ) {
-					compte.setActif(false);
-				}
-				else if (res.getInt("actif") == 1 ) {
-					compte.setActif(true);
-				}
-				else{
-					throw new SQLException("actif non renseigné");
-				}
+				
+				compte = getCompteById(res.getString("idCompte"));
+				
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'adresse email");
+				
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
@@ -213,10 +201,17 @@ public class DAOCompte {
 		return compte;
 	}
 
+	
+	
+	
 	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
 		return (getCompteById(id)!=null);
 	}
 
+	
+	
+	
+	
 	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException{
 		//le type est toujours renseigné, les autres peuvent valoir null
 		//on va compter le nombre de paramètres non-nuls
@@ -274,11 +269,19 @@ public class DAOCompte {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
 			ResultSet res = s.executeQuery(requete);
+			
 			Compte compte;
+			String idCompte = "";
+			ArrayList<String> listeIdComptes = new ArrayList<String>();
+			
 			while(res.next()) {
-				compte =  getCompteById(res.getString("idCompte"));
-				listeComptes.add(compte);
+				idCompte = res.getString("idCompte");
+				listeIdComptes.add(idCompte);
 			}
+			for(String id : listeIdComptes) {
+			compte =  getCompteById(id);
+			listeComptes.add(compte);
+		}
 			
 		} catch(SQLException e1){
 			listeComptes = null;
