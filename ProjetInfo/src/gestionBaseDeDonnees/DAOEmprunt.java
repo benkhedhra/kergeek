@@ -27,17 +27,32 @@ public class DAOEmprunt {
 				String id = res.getString("id");
 				emprunt.setId(id);
 
-				s.executeUpdate("INSERT into Emprunt values ('" 
-						+ emprunt.getId() + "', '"
-						+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'), '"
-						+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'), '"
-						+ emprunt.getLieuEmprunt().getId() + "', '"
-						+ emprunt.getLieuRetour().getId() + "', '"
-						+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
-						+ emprunt.getVelo().getId() +
-				"')");
-				effectue=true;
+				if (emprunt.getLieuRetour() != null){
+					s.executeUpdate("INSERT into Emprunt values ('" 
+							+ emprunt.getId() + "', '"
+							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'), '"
+							+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'), '"
+							+ emprunt.getLieuEmprunt().getId() + "', '"
+							+ emprunt.getLieuRetour().getId() + "', '"
+							+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
+							+ emprunt.getVelo().getId() +
+					"')");
+					effectue=true;
+				}
+				else{
+					s.executeUpdate("INSERT into Emprunt values ('" 
+							+ emprunt.getId() + "', '"
+							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'), '"
+							+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'), '"
+							+ emprunt.getLieuEmprunt().getId() + "', '"
+							+ "', '"
+							+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
+							+ emprunt.getVelo().getId() +
+					"')");
+					effectue=true;
+				}
 			}
+
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -215,8 +230,8 @@ public class DAOEmprunt {
 		}
 		return nb;
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param lieu
@@ -225,7 +240,7 @@ public class DAOEmprunt {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	
+
 	public static int NombreVelosRentresHeures(Lieu lieu, int depuisHeures) throws SQLException, ClassNotFoundException{
 		int nb =0;
 
@@ -303,9 +318,9 @@ public class DAOEmprunt {
 		return liste;
 	}
 
-	
-	
-	
+
+
+
 	public static Emprunt getEmpruntEnCoursByVelo(String identifiant) throws ClassNotFoundException, SQLException{
 		Emprunt emprunt = null;
 		try{
@@ -332,14 +347,14 @@ public class DAOEmprunt {
 		}
 		return emprunt;
 	}
-	
-	
-	
-	
+
+
+
+
 
 	public static Emprunt getEmpruntEnCoursByIdUtilisateur (String identifiant) throws SQLException, ClassNotFoundException{
 		Emprunt emprunt = null;
-		
+
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
@@ -362,7 +377,7 @@ public class DAOEmprunt {
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
-		
+
 		return emprunt;
 	}
 }
