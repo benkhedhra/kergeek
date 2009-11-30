@@ -114,16 +114,10 @@ public class Utilisateur {
 
 
 	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
-		station.enleverVelo(velo);
-		velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante() ,velo.getLieu()));
+		velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(),velo.getLieu()));
 		this.setEmpruntEnCours(velo.getEmpruntEnCours());
-
-		/*TODO a faire dans le controller
-		 * DAOEmprunt.createEmprunt(velo.getEmpruntEnCours()) & DAOVelo.updateVelo(velo);
-		 */ 
-
+		station.enleverVelo(velo);
 	}
-
 
 
 	public Emprunt rendreVelo(Station station) 
