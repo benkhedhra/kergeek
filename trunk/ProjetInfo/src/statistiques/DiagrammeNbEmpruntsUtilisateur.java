@@ -1,8 +1,12 @@
 package statistiques;
 
+import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOUtilisateur;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Image;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -21,6 +25,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 
 	public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
@@ -28,7 +33,7 @@ import org.jfree.ui.ApplicationFrame;
 		private JFreeChart chart;
 
 		
-		public DiagrammeNbEmpruntsUtilisateur(Utilisateur u) {
+		public DiagrammeNbEmpruntsUtilisateur(Utilisateur u) throws SQLException, ClassNotFoundException {
 
 			super("Nombre d'emprunts de l'utilisateur demandé pour les six derniers mois");
 			CategoryDataset dataset = createDataset(u);
@@ -43,7 +48,7 @@ import org.jfree.ui.ApplicationFrame;
 			return this.chart.createBufferedImage(500, 500);
 		}
 
-		private static CategoryDataset createDataset(Utilisateur u) {
+		private static CategoryDataset createDataset(Utilisateur u) throws SQLException, ClassNotFoundException {
 
 			// étiquettes des lignes
 			String emprunts = "Nombre d'emprunts";
@@ -86,12 +91,12 @@ import org.jfree.ui.ApplicationFrame;
 			 */
 			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-			dataset.addValue(5.0, emprunts, nomMoisEnCours1);
-			dataset.addValue(11.0, emprunts, nomMoisEnCours2);
-			dataset.addValue(12.0, emprunts, nomMoisEnCours3);
-			dataset.addValue(3.0, emprunts, nomMoisEnCours4);
-			dataset.addValue(8.0, emprunts, nomMoisEnCours5);
-			dataset.addValue(10.0, emprunts, nomMoisEnCours6);
+			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 6).get(5), emprunts, nomMoisEnCours6);
+			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 5).get(4), emprunts, nomMoisEnCours5);
+			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 4).get(3), emprunts, nomMoisEnCours4);
+			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 3).get(2), emprunts, nomMoisEnCours3);
+			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 2).get(1), emprunts, nomMoisEnCours2);
+			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 1).get(0), emprunts, nomMoisEnCours1);
 
 			return dataset;
 
@@ -144,6 +149,14 @@ import org.jfree.ui.ApplicationFrame;
 			);
 
 			return chart;
+
+		}
+		
+		public static void main(final String[] args) throws SQLException, ClassNotFoundException {
+			final DiagrammeNbEmpruntsUtilisateur demo = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById("u1"));
+			demo.pack();
+			RefineryUtilities.centerFrameOnScreen(demo);
+			demo.setVisible(true);
 
 		}
 
