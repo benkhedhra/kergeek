@@ -101,9 +101,9 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		List<Station> listeStations;
 		try {
 			listeStations = DAOLieu.getAllStations();
-			Station [] tableauStations = new Station[listeStations.size()];
+			String [] tableauStations = new String[listeStations.size()];
 			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i]=listeStations.get(i);
+				tableauStations[i]=listeStations.get(i).toString();
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			JPanel center = new JPanel();
@@ -113,7 +113,8 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					String idStationEntre = (String)(o);
+					String chaineSelectionnee = (String)(o);
+					String idStationEntre = chaineSelectionnee.substring(0,1);
 					try {
 						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
 					} catch (SQLException e) {
@@ -121,7 +122,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
 					}
-					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
+					labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
 					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
 

@@ -72,7 +72,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 
 		empruntEnCours = (u.getEmpruntEnCours()!=null);
 		boutonChoix.setPreferredSize(new Dimension(200,100));
-		boutonChoix.setMaximumSize(new Dimension(200,100));
+		boutonChoix.setMaximumSize(new Dimension(350,100));
 		boutonChoix.setBackground(Color.CYAN);
 		boutonChoix.setFont(FenetreAuthentificationUtil.POLICE2);
 				
