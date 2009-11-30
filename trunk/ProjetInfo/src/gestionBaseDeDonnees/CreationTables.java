@@ -54,8 +54,7 @@ public class CreationTables {
 					"actif number,"+
 					"bloque number,"+
 					"type number(1) NOT NULL,"+
-					"idVelo char(4),"+
-					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte)");
+					"CONSTRAINT pk_Compte  PRIMARY KEY(idCompte))");
 
 	
 			s.executeUpdate (
@@ -136,7 +135,7 @@ public class CreationTables {
 
 			// Insertion velo
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'3')");
+			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + "')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'4')");
 			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1'," + "'5')");
@@ -146,21 +145,21 @@ public class CreationTables {
 
 
 			// Insertion administrateur
-			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1','')");
+			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1')");
 
 			// Insertion utilisateurs
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3','1')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3','2')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3','4')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3','5')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3','7')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3','8')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
+			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3')");
 
 						
 			// Insertion techniciens
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2','')");
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2','')");
+			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2')");
+			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2')");
 
 
 			//Insertion types interventions
@@ -180,11 +179,10 @@ public class CreationTables {
 			
 			//Insertion demande intervention
 			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"'1'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u3',"+ "'2',"+"'2'"+")");
+			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u3',"+ "'2',"+"'2'"+")");
 			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('27-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u4',"+"'1',"+"'3'"+")");
 			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('13-10-2009 16:14','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u1',"+ "'3',"+"'4'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('28-11-2009 12h45','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u2',"+ "'4',"+"'3'"+")");
-
+			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('28-11-2009 12:45','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u2',"+ "'4',"+"'3'"+")");
 
 			
 
@@ -214,7 +212,7 @@ public class CreationTables {
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 14:45','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('12-10-2009 15:00','DD-MM-YYYY HH24:MI'), '3','3','u2','3')");
 			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('28-11-2009 12:20','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('28-11-2009 12:35','DD-MM-YYYY HH24:MI'), '1','3','u5','2')");
+			"'', '1','','u5','2')");
 			
 			
 			
@@ -223,9 +221,9 @@ public class CreationTables {
 			System.out.println("Update effectuee.");
 
 		}
-		catch (SQLException e){
+		/*catch (SQLException e){
 			System.out.println(e.getMessage());
-		}
+		}*/
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

@@ -93,7 +93,7 @@ public class MainConnexionBdd {
 		Boolean c = true;
 		System.out.println(-b.compareTo(c));
 		*/
-		
+		DAOVelo.getVeloById("2");
 		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
