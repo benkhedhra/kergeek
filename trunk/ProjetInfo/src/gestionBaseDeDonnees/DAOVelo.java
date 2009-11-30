@@ -93,12 +93,18 @@ public class DAOVelo {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idVelo, idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
+		ResultSet resVelo = s.executeQuery("Select idVelo, idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
 		try {
-			if (res.next()) {
+			if (resVelo.next()) {
+				//On crée ces variables locales car on ne peut pas avoir 2 ResultSet en meme temps...
+				String idLieu = resVelo.getString("idLieu");
+				Boolean enPanne = resVelo.getBoolean("enPanne");
+
 				velo.setId(identifiant);
-				velo.setLieu(DAOLieu.getLieuById(res.getString("idLieu")));
-				velo.setEnPanne(res.getBoolean("enPanne"));
+				velo.setLieu(DAOLieu.getLieuById(idLieu));
+				System.out.println("DAOVelo ligne 101 après le lieu");
+				velo.setEnPanne(enPanne);
+				System.out.println("après la panne");
 				velo.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByVelo(identifiant));
 			}
 			else {
@@ -106,11 +112,11 @@ public class DAOVelo {
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
+			System.out.println("PasDansLaBaseDeDonneeException  = "+e1.getMessage());
 			velo = null;
 		}
 		catch (SQLException e2){
-			System.out.println(e2.getMessage());
+			System.out.println("SQLException  = "+e2.getMessage());
 			velo = null;
 		}
 		finally{
@@ -151,8 +157,8 @@ public class DAOVelo {
 		}
 		return listeVelos;
 	}
-	
-	
+
+
 
 	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
 		return (getVeloById(id)!=null);
