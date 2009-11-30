@@ -147,6 +147,38 @@ public class DAOEmprunt {
 
 
 
+	/**
+	 * 
+	 * @param lieu
+	 * @param depuisHeures : nombre d'heures sur lesquelles ont veut avoir les nombre de velos sortis de la station
+	 * @return le nombre de velos rentres dans la staion depuis depuisHeures heures (depuisHeures doit etre positif).
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static int NombreVelosSortisHeures(Lieu lieu, int depuisHeures) throws SQLException, ClassNotFoundException{
+		int nb =0;
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeure(UtilitaireDate.dateCourante(), depuisHeures);
+		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
+		/*TODO
+		 * System.out.println(dateSql.toString());
+		 */
+
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		try {
+			if (res.next()){
+				nb = res.getInt("nombreVeloSortis");
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+
+		return nb;
+	}
 
 
 
@@ -167,6 +199,40 @@ public class DAOEmprunt {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
+		/*TODO
+		 * System.out.println(dateSql.toString());
+		 */
+
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		try {
+			if (res.next()){
+				nb = res.getInt("nombreVeloRentres");
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return nb;
+	}
+	
+	
+	/**
+	 * 
+	 * @param lieu
+	 * @param depuisheures: nombre d'heures sur lesquels ont veut avoir les nombre de vélos rentres dans la station
+	 * @return le nombre de velos rentres dans la station depuis depuisHeures heures.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
+	public static int NombreVelosRentresHeures(Lieu lieu, int depuisHeures) throws SQLException, ClassNotFoundException{
+		int nb =0;
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeure(UtilitaireDate.dateCourante(), depuisHeures);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		/*TODO
 		 * System.out.println(dateSql.toString());

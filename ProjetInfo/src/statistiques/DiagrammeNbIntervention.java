@@ -1,9 +1,19 @@
 package statistiques;
 
 
+import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOLieu;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import metier.Station;
+import metier.TypeIntervention;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -17,6 +27,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeNbIntervention extends ApplicationFrame {
 
@@ -45,6 +56,7 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 	
 	private static CategoryDataset createDataset() {
 		
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		// étiquettes des lignes...
 		String series1 = "nombre d'intervention de ce type";
@@ -60,18 +72,24 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 
 
 		// créer la dataset...
+		/*TODO vérifier que le.get(i) corresponde au bon type d'intervention*/
 		
-		/**TODO changer les valeurs!!!
-		 * 
-		 */
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		dataset.addValue(6.0, series1, category1);
-		dataset.addValue(11.0, series1, category2);
-		dataset.addValue(12.0, series1, category3);
-		dataset.addValue(3.0, series1, category4);
-		dataset.addValue(8.0, series1, category5);
-		dataset.addValue(10.0, series1, category6);
+		try {
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(0), series1, category1);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(1), series1, category2);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category3);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category4);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category5);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(5), series1, category6);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 
 
@@ -129,6 +147,14 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 		);
 
 		return chart;
+
+	}
+	
+	public static void main(final String[] args) {
+		final DiagrammeNbIntervention demo = new DiagrammeNbIntervention("");
+		demo.pack();
+		RefineryUtilities.centerFrameOnScreen(demo);
+		demo.setVisible(true);
 
 	}
 	

@@ -59,6 +59,9 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			for (int i=0;i<stations.size();i++){
 				category.add(DAOLieu.getLieuById(stations.get(i).getId()).getAdresse());
 			}
+/*TODO récupérer la période (entier) de la fenetre précédente et la passer en paramètre
+ * de la méthode ci dessous
+ * */
 
 			for(int i=0;i<category.size();i++){
 				dataset.addValue(DAOEmprunt.NombreVelosSortis(DAOLieu.getLieuById(stations.get(i).getId()), 30), sortis, category.get(i));
