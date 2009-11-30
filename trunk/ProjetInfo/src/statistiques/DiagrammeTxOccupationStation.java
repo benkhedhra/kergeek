@@ -1,5 +1,6 @@
 package statistiques;
 
+import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 
@@ -91,9 +92,15 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		final XYSeries series = new XYSeries("Taux d'occupation");
 		try {
 			series.add(heureencours, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
-			series.add(heure1, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
-			series.add(heure2, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
-			series.add(heure3, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size()*100)/lieu.getCapacite());
+			series.add(heure1, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(DAOLieu.getLieuById("3"), 1))
+					+ (DAOEmprunt.NombreVelosRentresHeures(DAOLieu.getLieuById("3"), 1))*100)/lieu.getCapacite());
+			series.add(heure2, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(DAOLieu.getLieuById("3"), 2))
+					+ (DAOEmprunt.NombreVelosRentresHeures(DAOLieu.getLieuById("3"), 2))*100)/lieu.getCapacite());
+			series.add(heure3, (DAOVelo.getVelosByLieu(DAOLieu.getLieuById("3")).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(DAOLieu.getLieuById("3"), 3))
+					+ (DAOEmprunt.NombreVelosRentresHeures(DAOLieu.getLieuById("3"), 3))*100)/lieu.getCapacite());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
