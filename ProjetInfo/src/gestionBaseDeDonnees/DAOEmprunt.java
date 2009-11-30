@@ -330,12 +330,7 @@ public class DAOEmprunt {
 				emprunt = new Emprunt();
 				emprunt = DAOEmprunt.getEmpruntById(res.getString("idEmprunt"));
 			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Pas d'emprunt en cours pour ce velo");
-			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
+
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());

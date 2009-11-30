@@ -2,6 +2,7 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -127,7 +128,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		else if(c.getType()==Compte.TYPE_TECHNICIEN){qualiteCompte="technicien de Bélo Breizh";}
 		labelQualiteCompte.setText(qualiteCompte);
 		labelQualiteCompte.setPreferredSize(new Dimension(350,30));
-		labelQualiteCompte.setMaximumSize(new Dimension(350,30));
+		labelQualiteCompte.setMinimumSize(new Dimension(350,30));
 		panel2.add(labelQualiteCompte);
 		centerWest.add(panel2);	
 
@@ -142,7 +143,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelAdresseEMailCompte.setText(c.getAdresseEmail());
 		labelAdresseEMailCompte.setPreferredSize(new Dimension(350,30));
-		labelAdresseEMailCompte.setMaximumSize(new Dimension(350,30));
+		labelAdresseEMailCompte.setMinimumSize(new Dimension(350,30));
 		panel4.add(labelAdresseEMailCompte);
 		centerWest.add(panel4);	
 
@@ -166,7 +167,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelNomCompte.setText(u.getNom());
 			labelNomCompte.setPreferredSize(new Dimension(350,30));
-			labelNomCompte.setMaximumSize(new Dimension(350,30));
+			labelNomCompte.setMinimumSize(new Dimension(350,30));
 			panel6.add(labelNomCompte);
 			centerWest.add(panel6);			
 
@@ -182,7 +183,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			System.out.println("prénom = "+u.getPrenom());
 			labelPrenomCompte.setText(u.getPrenom());
 			labelPrenomCompte.setPreferredSize(new Dimension(350,30));
-			labelPrenomCompte.setMaximumSize(new Dimension(350,30));
+			labelPrenomCompte.setMinimumSize(new Dimension(350,30));
 			panel8.add(labelPrenomCompte);
 			centerWest.add(panel8);	
 
@@ -197,7 +198,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelAdressePostaleCompte.setText(u.getAdressePostale());
 			labelAdressePostaleCompte.setPreferredSize(new Dimension(350,30));
-			labelAdressePostaleCompte.setMaximumSize(new Dimension(350,30));
+			labelAdressePostaleCompte.setMinimumSize(new Dimension(350,30));
 			panel10.add(labelAdressePostaleCompte);
 			centerWest.add(panel10);
 
@@ -215,7 +216,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			else{statut="non bloqué";}
 			labelStatutCompte.setText(statut);
 			labelStatutCompte.setPreferredSize(new Dimension(350,30));
-			labelStatutCompte.setMaximumSize(new Dimension(350,30));
+			labelStatutCompte.setMinimumSize(new Dimension(350,30));
 			panel12.add(labelStatutCompte);
 			centerWest.add(panel12);
 		}
@@ -270,7 +271,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			new FenetreModifCompteAdmin(compte,this.getAdministrateur());
 		}
 		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Afficher statistiques sur ce compte")){
-			//new FenetreAffichageResultats(this,this.getAdministrateur().getCompte());
+			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
 		}
 		else if(arg0.getSource()==boutonAutreCompte){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);

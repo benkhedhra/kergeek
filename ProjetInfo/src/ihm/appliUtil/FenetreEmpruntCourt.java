@@ -1,6 +1,7 @@
 package ihm.appliUtil;
 
 import gestionBaseDeDonnees.DAODemandeIntervention;
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 
 import java.awt.BorderLayout;
@@ -102,15 +103,17 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){
-			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),this.getVelo());
+			this.getVelo().setEnPanne(true);
+			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),this.getUtilisateur().getEmpruntEnCours().getVelo());
 			try {
 				DAODemandeIntervention.createDemandeIntervention(demande);
+				DAOVelo.updateVelo(this.getVelo());
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
-			new FenetreDefautDeclare(utilisateur);
+			new FenetreDefautDeclare(this.getUtilisateur());
 		}
 		else if (arg0.getSource()==boutonNon){
 			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");

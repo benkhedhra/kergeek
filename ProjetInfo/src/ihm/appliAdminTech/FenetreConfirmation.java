@@ -104,14 +104,14 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			center.add(labelConfirm);
 			this.getContentPane().add(center,BorderLayout.CENTER);
 			this.setVisible(true);
-			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaît automatiquement au terme des 3 secondes
+			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaît automatiquement au terme des 5 secondes
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(5000);
+				this.dispose();
+				new FenetreAuthentification(false);
 			} catch (InterruptedException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
-			this.dispose();
-			new FenetreAuthentification(false);
 		}
 		else {
 			//situations possibles pour un administrateur

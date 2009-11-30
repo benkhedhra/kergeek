@@ -24,11 +24,11 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	private Technicien tech;
 	private JLabel labelTech = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
-	private JButton bouton1 = new JButton("Enregistrer un nouveau vélo");
-	private JButton bouton2 = new JButton("Retirer un vélo défectueux d'une station");
-	private JButton bouton3 = new JButton("Remettre un vélo réparé dans une station");
-	private JButton bouton4 = new JButton("Gérer les demandes d'assignation");
-	private JButton bouton5 = new JButton("Gérer les demandes d'intervention");
+	private JButton bouton1 = new JButton("Enregistrer \n"+"un nouveau vélo");
+	private JButton bouton2 = new JButton("Retirer un vélo \n"+"défectueux \n"+" d'une station");
+	private JButton bouton3 = new JButton("Remettre un vélo \n"+"réparé\n"+" dans une station");
+	private JButton bouton4 = new JButton("Gérer les demandes\n"+" d'assignation");
+	private JButton bouton5 = new JButton("Gérer les demandes\n"+" d'intervention");
 
 	public Technicien getTechnicien() {
 		return tech;
@@ -136,8 +136,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 			new FenetreGererInterventionsTech(this.getTechnicien());
 		}	
 		else if (arg0.getSource()==boutonDeconnexion){
-			FenetreConfirmation f = new FenetreConfirmation(this.getTechnicien().getCompte(), this);
-			f.setVisible(true);
+			new FenetreConfirmation(this.getTechnicien().getCompte(), this);
 		}
 	}
 }
