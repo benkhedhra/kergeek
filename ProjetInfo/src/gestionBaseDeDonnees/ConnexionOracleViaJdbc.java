@@ -49,7 +49,6 @@ public class ConnexionOracleViaJdbc {
 			ods.setPassword(motPasse);
 			ods.setURL(url);
 
-
 			// Connect to the database
 			c = ods.getConnection();
 			c.setAutoCommit(false);
@@ -72,6 +71,7 @@ public class ConnexionOracleViaJdbc {
 	 * @throws SQLException, ClassNotFoundException
 	 */	
 	public static void ouvrir() throws SQLException,ClassNotFoundException{
+
 		/*try  {
 			if (c.isClosed()){
 				// ce n'est pas la 1ere connexion au cours du programme : la connexion precedente a ete fermee
@@ -82,15 +82,28 @@ public class ConnexionOracleViaJdbc {
 			// c'est  la 1ere connexion a la BD au cours du programme
 			// on demande identifiant et mot de passe
 			//obtenir l'id et mot de passe du compte courant... du boulot!!!
-			 
+
 				System.out.println(" Donner votre identifiant puis votre mot de passe pour vous connecter a la base");
 				Scanner sc= new Scanner(System.in);
 				ConnexionOracleViaJdbc.setIdUtilisateur(sc.next());
 				ConnexionOracleViaJdbc.setMotDePasse(sc.next());
 			connecter();
-
 		}*/
-		connecter();
+
+		try{
+			if (getC() != null) {
+				if(c.isClosed()){
+					connecter();
+				}				
+			}
+			else{
+				connecter();
+			}
+		}
+		catch (NullPointerException e){
+				connecter();
+		}
+
 	}
 
 	/**

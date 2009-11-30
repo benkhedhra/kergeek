@@ -15,8 +15,12 @@ public class MainConnexionBdd {
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
 
-		//gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
-		//System.out.println("Ouvert");
+		gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
+		System.out.println("Ouvert");
+		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
+		System.out.println("Ferme");
+		
+		System.out.println(DAOVelo.getVeloById("3"));
 
 		/*System.out.println("id = "+Garage.getInstance().getId());
 		 System.out.println("adresse = "+Garage.getInstance().getAdresse());
@@ -93,10 +97,9 @@ public class MainConnexionBdd {
 		Boolean c = true;
 		System.out.println(-b.compareTo(c));
 		*/
-		System.out.println(DAOVelo.getVeloById("3").getLieu());
+		//System.out.println(DAOVelo.getVeloById("2").getLieu());
 		
-		//gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
-		//System.out.println("Ferme");
+
 
 	}  
 
