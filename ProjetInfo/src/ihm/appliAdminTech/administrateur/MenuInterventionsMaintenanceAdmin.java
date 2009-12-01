@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -103,12 +104,12 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 		if(arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-		/*else if (arg0.getSource()==boutonHistorique){
+		else if (arg0.getSource()==boutonHistorique){
 			new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonInterventions){
-			new FenetreAffichageResultats(this);
-		}*/
+			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+		}
 	}
 
 }

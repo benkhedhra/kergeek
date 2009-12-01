@@ -121,24 +121,32 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 		centerCenter.add(panel3);
 
 		try {
-			List<Station> listeStations;
-			listeStations = DAOLieu.getAllStations();
-			Station [] tableauStations = new Station[listeStations.size()];
+			List<Station> listeStations = DAOLieu.getAllStations();
+			String [] tableauStations = new String[listeStations.size()];
 			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i]=listeStations.get(i);
+				tableauStations[i]=listeStations.get(i).toString();
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
-
+			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					stationEntree = (Station)o;
+					String chaineSelectionnee = (String)(o);
+					String idStationEntre = chaineSelectionnee.substring(0,1);
+					try {
+						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+					} catch (SQLException e) {
+						MsgBox.affMsg(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						MsgBox.affMsg(e.getMessage());
+					}
+					labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
+					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
 
 			});
-
 			JPanel panel4 = new JPanel();
 			panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			panel4.add(combo);

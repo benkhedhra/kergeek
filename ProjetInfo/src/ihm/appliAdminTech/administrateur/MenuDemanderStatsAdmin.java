@@ -113,12 +113,11 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 			new FenetreFrequentationStationsAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonInterventions){
-			MenuInterventionsMaintenanceAdmin m = new MenuInterventionsMaintenanceAdmin(this.getAdministrateur());
-			m.setVisible(true);
+			new MenuInterventionsMaintenanceAdmin(this.getAdministrateur());
 		}
-		/*else if (arg0.getSource()==boutonUtilisateurs){
-			FenetreRechercherCompteAdmin(this.getAdministrateur());
-		}*/
+		else if (arg0.getSource()==boutonUtilisateurs){
+			new FenetreRechercherCompteAdmin(this.getAdministrateur(),true);
+		}
 	}
 
 }

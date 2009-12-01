@@ -97,7 +97,6 @@ public class Technicien {
 	 */
 
 	public Intervention intervenir(Velo velo, Lieu lieu, TypeIntervention type){
-		lieu.enleverVelo(velo);
 		velo.setLieu(Garage.getInstance());
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante(),type);
 		return intervention;
