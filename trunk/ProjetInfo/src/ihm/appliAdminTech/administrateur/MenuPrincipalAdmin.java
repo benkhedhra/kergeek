@@ -118,9 +118,4 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}
 	}
-	
-	public static void main (String [] args){
-		Administrateur ATEST = new Administrateur(new Compte(Compte.TYPE_ADMINISTRATEUR));
-		new MenuPrincipalAdmin(ATEST);
-	}
 }

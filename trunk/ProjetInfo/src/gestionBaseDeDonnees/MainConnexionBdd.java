@@ -20,7 +20,7 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 		
-		System.out.println(DAOVelo.getVeloById("3"));
+		System.out.println(DAOVelo.getVeloById("2"));
 
 		/*System.out.println("id = "+Garage.getInstance().getId());
 		 System.out.println("adresse = "+Garage.getInstance().getAdresse());
