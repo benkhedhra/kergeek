@@ -96,14 +96,14 @@ public class DAOVelo {
 		ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
 		try {
 			if (resVelo.next()) {
-				//On crée ces variables locales car on ne peut pas avoir 2 ResultSet en meme temps...
+				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idLieu = resVelo.getString("idLieu");
 				Boolean enPanne = resVelo.getBoolean("enPanne");
 
 				velo.setId(identifiant);
 				velo.setLieu(DAOLieu.getLieuById(idLieu));
 				velo.setEnPanne(enPanne);
-				velo.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByVelo(identifiant));
+				DAOEmprunt.setEmpruntEnCoursByVelo(velo);
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du velo");

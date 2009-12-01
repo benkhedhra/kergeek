@@ -8,10 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import metier.Compte;
 import metier.Emprunt;
 import metier.Lieu;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
+import metier.Velo;
 
 public class DAOEmprunt {
 
@@ -327,45 +329,112 @@ public class DAOEmprunt {
 
 
 
-	public static Emprunt getEmpruntEnCoursByVelo(String identifiant) throws ClassNotFoundException, SQLException{
-		Emprunt emprunt = null;
-		try{
+	public static void setEmpruntEnCoursByVelo(Velo velo) throws ClassNotFoundException, SQLException{
+
+		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res= s.executeQuery("Select idEmprunt from Emprunt WHERE dateRetour IS NULL AND idVelo = '" + identifiant + "'");
-			if(res.next()){
+
+			ResultSet res = s.executeQuery("Select idEmprunt, dateEmprunt, idLieuEmprunt, idCompte from Emprunt WHERE dateRetour IS NULL AND idVelo = '" + velo.getId() + "'");
+
+			if (res.next()) {
+				Emprunt emprunt = new Emprunt();
+				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idEmprunt = res.getString("idEmprunt");
-				emprunt = DAOEmprunt.getEmpruntById(idEmprunt);
+				java.sql.Date dateEmprunt = res.getDate("dateEmprunt");
+				String idLieuEmprunt = res.getString("idLieuEmprunt");
+				String idCompte = res.getString("idCompte");
+
+				emprunt.setId(idEmprunt);
+				emprunt.setDateEmprunt(dateEmprunt);
+				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
+				emprunt.setVelo(velo);
+
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s2 = ConnexionOracleViaJdbc.createStatement();
+				ResultSet res2 = s2.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + idCompte +"'");
+				if (res2.next()) {
+					Utilisateur u = new Utilisateur(new Compte());
+					u.setNom(res2.getString("nom"));
+					u.setPrenom(res2.getString("prenom"));
+					u.setAdressePostale(res2.getString("adressePostale"));
+					u.setBloque(res2.getBoolean("bloque"));
+					u.setCompte(DAOCompte.getCompteById(idCompte));
+					u.setEmpruntEnCours(emprunt);
+					
+					emprunt.setUtilisateur(u);
+					
+					velo.setEmpruntEnCours(emprunt);
+				}
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur sur l'Utilisateur lors de l'obtention de l'emprunt du velo");
+				}
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("PasDansLaBaseDeDonneeException  = "+e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
 		}
 
 		finally {
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+			ConnexionOracleViaJdbc.fermer();//pour etre bien sur de se deconnecter de la bdd
 		}
-		return emprunt;
 	}
 
 
 
 
 
-	public static Emprunt getEmpruntEnCoursByIdUtilisateur(String identifiant) throws SQLException, ClassNotFoundException{
+	public static void setEmpruntEnCoursByIdUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException{
 		Emprunt emprunt = null;
 
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select idEmprunt from Emprunt WHERE dateRetour IS NULL AND idCompte = '" + identifiant + "'");
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			ResultSet res = s.executeQuery("Select idEmprunt, dateEmprunt, idLieuEmprunt, idVelo from Emprunt WHERE dateRetour IS NULL AND idCompte = '" + utilisateur.getCompte().getId() + "'");
+
 			if (res.next()) {
+				emprunt = new Emprunt();
+
 				String idEmprunt = res.getString("idEmprunt");
-				emprunt = DAOEmprunt.getEmpruntById(idEmprunt);
+				java.sql.Date dateEmprunt = res.getDate("dateEmprunt");
+				String idLieuEmprunt = res.getString("idLieuEmprunt");
+				String idVelo = res.getString("idVelo");
+
+				emprunt.setId(idEmprunt);
+				emprunt.setDateEmprunt(dateEmprunt);
+				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
+
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s2 = ConnexionOracleViaJdbc.createStatement();
+
+				ResultSet res2 = s2.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + idVelo+"'");
+				if (res2.next()) {
+					//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
+					String idLieu = res2.getString("idLieu");
+					Boolean enPanne = res2.getBoolean("enPanne");
+
+					Velo velo = new Velo();
+
+					velo.setId(idVelo);
+					velo.setLieu(DAOLieu.getLieuById(idLieu));
+					velo.setEnPanne(enPanne);
+					velo.setEmpruntEnCours(emprunt);
+					
+					emprunt.setVelo(velo);
+					utilisateur.setEmpruntEnCours(emprunt);
+				}
+				
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur sur le velo lors de l'obtention de l'emprunt de l'Utilisateur");
+				}
 			}
-			else {
-			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println("PasDansLaBaseDeDonneeException  = "+e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -373,7 +442,5 @@ public class DAOEmprunt {
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
-
-		return emprunt;
 	}
 }

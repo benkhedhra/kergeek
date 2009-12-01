@@ -3,6 +3,8 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
+import metier.Lieu;
+
 public class MainConnexionBdd {
 
 	/**
@@ -20,7 +22,9 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 		
+		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
 		System.out.println(DAOVelo.getVeloById("2"));
+		
 
 		/*System.out.println("id = "+Garage.getInstance().getId());
 		 System.out.println("adresse = "+Garage.getInstance().getAdresse());

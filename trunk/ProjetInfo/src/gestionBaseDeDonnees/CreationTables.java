@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 import metier.Garage;
 import metier.Lieu;
+import metier.Sortie;
 
 public class CreationTables {
 
@@ -130,94 +131,98 @@ public class CreationTables {
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'ENSAI','10')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Residence','20')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Gymnase','10')");
-			DAOLieu.createLieu(Garage.getInstance());
-
+			System.out.println(DAOLieu.createLieu(Garage.getInstance()));
+			System.out.println(DAOLieu.createLieu(Sortie.getInstance()));
+			
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s2 = ConnexionOracleViaJdbc.createStatement();
+			
 
 			// Insertion velo
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + "')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'4')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1'," + "'5')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
-			s.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'4')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1'," + "'5')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 
 
 			// Insertion administrateur
-			s.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1')");
+			s2.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1')");
 
 			// Insertion utilisateurs
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
-			s.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3')");
 
 						
 			// Insertion techniciens
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2')");
-			s.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2')");
+			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2')");
+			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Debrouille','','','', 'jackydebrouille@gmail.com', '1','','2')");
 
 
 			//Insertion types interventions
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pneu creve')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'selle manquante')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pedale cassee')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'deraillement')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
-			s.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pneu creve')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'selle manquante')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pedale cassee')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'deraillement')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
 			
 			//Insertion interventions
-			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'1')");
-			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'2')");
-			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('28-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'4',"+"'1')");
-			s.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'3',"+"'3')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-11-2009 9:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('28-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'4',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'3',"+"'3')");
 					
 			
 			//Insertion demande intervention
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"'1'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u3',"+ "'2',"+"'2'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('27-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u4',"+"'1',"+"'3'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('13-10-2009 16:14','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u1',"+ "'3',"+"'4'"+")");
-			s.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('28-11-2009 12:45','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u2',"+ "'4',"+"'3'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"'1'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u3',"+ "'2',"+"'2'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('27-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u4',"+"'1',"+"'3'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('13-10-2009 16:14','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u1',"+ "'3',"+"'4'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('28-11-2009 12:45','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u2',"+ "'4',"+"'3'"+")");
 
 			
 
 
 			//Insertion demandes assignation
-			s.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('23-11-2009 15:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'5',"+"'1'"+")");
-			s.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'2'"+")");
-			s.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'10',"+"'3'"+")");
-			s.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'4'"+")");
+			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('23-11-2009 15:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'5',"+"'1'"+")");
+			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'2'"+")");
+			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'10',"+"'3'"+")");
+			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'4'"+")");
 
 			
 			//Insertion emprunts
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"
 					+"TO_DATE('01-09-2009 9:21','DD-MM-YYYY HH24:MI')," 
 					+"TO_DATE('01-09-2009 9:45','DD-MM-YYYY HH24:MI'),"
 					+"'2','1','u1','1')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('05-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('05-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('05-09-2009 9:45','DD-MM-YYYY HH24:MI'), '3','3','u2','2')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('27-11-2009 9:21','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('27-11-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('29-11-2009 9:45','DD-MM-YYYY HH24:MI'), '3','3','u3','2')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('27-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('27-09-2009 9:21','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('27-09-2009 9:22','DD-MM-YYYY HH24:MI'), '3','4','u4','2')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 12:00','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 12:00','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('12-10-2009 12:45','DD-MM-YYYY HH24:MI'), '1','1','u1','1')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 12:45','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 12:45','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('12-10-2009 13:45','DD-MM-YYYY HH24:MI'), '1','1','u2','2')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 14:45','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('12-10-2009 14:45','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('12-10-2009 15:00','DD-MM-YYYY HH24:MI'), '3','3','u2','3')");
-			s.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('28-11-2009 12:20','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('28-11-2009 12:20','DD-MM-YYYY HH24:MI')," +
 			"'', '1','','u5','2')");
 			
 			
 			
 			
-			s.executeUpdate("COMMIT");
+			s2.executeUpdate("COMMIT");
 			System.out.println("Update effectuee.");
 
 		}
