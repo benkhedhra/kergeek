@@ -87,7 +87,7 @@ public class DAOUtilisateur {
 				u.setBloque(res.getBoolean("bloque"));
 
 				u.setCompte(DAOCompte.getCompteById(identifiant));
-				u.setEmpruntEnCours(DAOEmprunt.getEmpruntEnCoursByIdUtilisateur(identifiant));
+				DAOEmprunt.setEmpruntEnCoursByIdUtilisateur(u);
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte de l'utilisateur");
@@ -163,7 +163,7 @@ public class DAOUtilisateur {
 				listeUtils.add(getUtilisateurById(id));
 			}
 			if(listeUtils == null){
-				throw new PasDansLaBaseDeDonneeException("Prenom absent de la base de donnŽes");
+				throw new PasDansLaBaseDeDonneeException("Prenom absent de la base de données");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){

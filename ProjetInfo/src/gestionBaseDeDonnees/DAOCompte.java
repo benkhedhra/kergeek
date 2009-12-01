@@ -61,8 +61,7 @@ public class DAOCompte {
 						+ "'" + compte.getAdresseEmail() + "',"
 						+ "'1',"
 						+ "'',"
-						+ "'" + compte.getType() + "'," 
-						+ "''"
+						+ "'" + compte.getType() + "'" 
 						+ ")");
 				s.executeUpdate("COMMIT");
 				effectue=true;
@@ -77,8 +76,7 @@ public class DAOCompte {
 						+ "'" + compte.getAdresseEmail() + "',"
 						+ "'0',"
 						+ "'',"
-						+ "'" + compte.getType() + "'," 
-						+ "''"
+						+ "'" + compte.getType() + "'" 
 						+ ")");
 				s.executeUpdate("COMMIT");
 				effectue=true;

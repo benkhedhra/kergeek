@@ -22,7 +22,7 @@ public class DAOLieu {
 			lieu = (Garage) Garage.getInstance();
 		}
 		
-		else if (identifiant == ""){ // pas de lieu
+		else if (identifiant == Lieu.ID_SORTIE){ // pas de lieu
 			lieu = (Sortie) Sortie.getInstance();
 		}
 
