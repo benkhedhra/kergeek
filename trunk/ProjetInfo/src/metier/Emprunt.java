@@ -110,11 +110,6 @@ public class Emprunt {
 		this.tpsEmprunt = tpsEmprunt;
 	}
 
-	public void setDiff(long diff) {
-		this.diff = diff;
-	}
-
-
 	//Methodes
 	
 	public long calculTempsEmprunt(){

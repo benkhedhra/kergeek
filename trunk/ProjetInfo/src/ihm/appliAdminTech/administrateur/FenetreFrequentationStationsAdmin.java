@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -8,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -151,7 +153,13 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}	
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

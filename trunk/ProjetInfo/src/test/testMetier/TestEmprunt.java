@@ -23,7 +23,7 @@ public class TestEmprunt extends TestCase {
 		Emprunt e = new Emprunt(u, v, d, s,d,s); 
 		
 		e.calculTempsEmprunt();
-		assertEquals(0,e.getDiff());
+		assertEquals(0,e.calculTempsEmprunt());
 	}
 	
 	@Test

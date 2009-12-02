@@ -1,11 +1,15 @@
 package ihm.appliAdminTech;
 
+import gestionBaseDeDonnees.DAOUtilisateur;
+import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
+import ihm.appliAdminTech.administrateur.FenetreInfoCompteAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +19,7 @@ import javax.swing.JPanel;
 
 import metier.Compte;
 import statistiques.DiagrammeFreqStations;
+import statistiques.DiagrammeNbEmpruntsUtilisateur;
 
 public class FenetreAffichageResultats extends JFrame {
 
@@ -26,7 +31,7 @@ public class FenetreAffichageResultats extends JFrame {
 	private JButton bouton2 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec){
+	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());
@@ -59,11 +64,37 @@ public class FenetreAffichageResultats extends JFrame {
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
+			FenetreFrequentationStationsAdmin f = (FenetreFrequentationStationsAdmin) fenetrePrec;
+			DiagrammeFreqStations diag = new DiagrammeFreqStations(f.getPeriodeEntree());
+			JLabel lblChart = new JLabel();
+			lblChart.setIcon(new ImageIcon(diag.getImage()));
+			center.add(lblChart);
+		}
+		
+		if(fenetrePrec.getTitle().equals("Statistiques sur un utilisateur")){
+			FenetreInfoCompteAdmin f = (FenetreInfoCompteAdmin) fenetrePrec;
+			DiagrammeNbEmpruntsUtilisateur diag = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById(f.getCompte().getId()));
+			JLabel lblChart = new JLabel();
+			lblChart.setIcon(new ImageIcon(diag.getImage()));
+			center.add(lblChart);
+		}
+
+		
+		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
 			DiagrammeFreqStations diag = new DiagrammeFreqStations("30 derniers jours");
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			this.getContentPane().add(lblChart);
 		}
+
+		
+		if(fenetrePrec.getTitle().equals("Voir l'état d'une station")){
+			DiagrammeFreqStations diag = new DiagrammeFreqStations("30 derniers jours");
+			JLabel lblChart = new JLabel();
+			lblChart.setIcon(new ImageIcon(diag.getImage()));
+			this.getContentPane().add(lblChart);
+		}
+
 
 		this.setVisible(true);
 	}

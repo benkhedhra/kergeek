@@ -60,6 +60,13 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		this.administrateur = administrateur;
 	}
 
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
 
 	public FenetreInfoCompteAdmin(Administrateur a,Compte c,boolean stat){
 
@@ -84,7 +91,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-		compte=c;
+		this.setCompte(c);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -271,7 +278,13 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			new FenetreModifCompteAdmin(compte,this.getAdministrateur());
 		}
 		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Afficher statistiques sur ce compte")){
-			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 		}
 		else if(arg0.getSource()==boutonAutreCompte){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
@@ -279,7 +292,6 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
 
 	}		
 

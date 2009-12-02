@@ -98,7 +98,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		try {
 			listeStationsSur = DAOLieu.getStationsSurSous().get(0);
 			listeStationsSous = DAOLieu.getStationsSurSous().get(1);
-			
+
 			String [][] tableauStations = new String[(listeStationsSur.size()+listeStationsSous.size())][3];
 			for (int i=0;i<listeStationsSur.size();i++){
 				Station stationi = listeStationsSur.get(i);
@@ -106,15 +106,15 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 				lignei[0] = "Station " + stationi.getId();
 				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
 				lignei[2] = "sur-occupée";
-				}
+			}
 			for (int i=0;i<listeStationsSous.size();i++){
 				Station stationi = listeStationsSous.get(i);
 				String[] lignei = tableauStations[i];
 				lignei[0] = "Station " + stationi.getId();
 				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
 				lignei[2] = "sous-occupée";
-				}
-			
+			}
+
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
 			JComboBox tableau = new JComboBox(model);
@@ -143,9 +143,9 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
-		
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
-		
+
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -163,7 +163,13 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
