@@ -104,7 +104,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){
 			this.getVelo().setEnPanne(true);
-			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),this.getUtilisateur().getEmpruntEnCours().getVelo());
+			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),velo);
 			try {
 				DAODemandeIntervention.createDemandeIntervention(demande);
 				DAOVelo.updateVelo(this.getVelo());

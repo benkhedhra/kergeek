@@ -7,7 +7,7 @@ import exception.PasDeDateRetourException;
 
 public class Emprunt {
 	private String id;
-	private Utilisateur Utilisateur;
+	private Utilisateur utilisateur;
 	private Velo velo;
 	private Date dateEmprunt;
 	private Date dateRetour;
@@ -40,6 +40,19 @@ public class Emprunt {
 		this.setLieuRetour(lieuRetour);
 	}
 
+	
+	
+	
+	public Emprunt(Emprunt e) {
+		this.id = e.getId();
+		this.utilisateur = e.getUtilisateur();
+		this.velo = e.getVelo();
+		this.dateEmprunt = e.getDateEmprunt();
+		this.dateRetour = e.getDateRetour();
+		this.lieuEmprunt = e.getLieuEmprunt();
+		this.lieuRetour = e.getLieuRetour();
+	}
+
 	public Emprunt(){
 	}
 
@@ -56,11 +69,11 @@ public class Emprunt {
 	}
 
 	public Utilisateur getUtilisateur() {
-		return Utilisateur;
+		return utilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		Utilisateur = utilisateur;
+	public void setUtilisateur(Utilisateur u) {
+		this.utilisateur = u;
 	}
 
 	public Velo getVelo() {
@@ -105,9 +118,11 @@ public class Emprunt {
 
 	public float getTempsEmprunt() throws PasDeDateRetourException{
 		float tpsEmprunt = 0;
-		if(dateRetour != null){
-			long diff = dateRetour.getTime() - dateEmprunt.getTime();
-			tpsEmprunt = diff / 3600000.0f;
+		if(this.getDateRetour() != null){
+			long diff = this.getDateRetour().getTime() - this.getDateEmprunt().getTime();
+			System.out.println(diff);
+			tpsEmprunt = diff / 1000.0f;
+			System.out.println(tpsEmprunt);
 		}
 		else{
 			throw new PasDeDateRetourException();

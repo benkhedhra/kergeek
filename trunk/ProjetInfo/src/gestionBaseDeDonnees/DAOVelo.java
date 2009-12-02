@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.Lieu;
+import metier.Station;
 import metier.Velo;
 
 public class DAOVelo {
@@ -158,8 +159,15 @@ public class DAOVelo {
 
 
 
-	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
-		return (getVeloById(id)!=null);
+	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException{
+		Velo velo = getVeloById(id);
+		Boolean a = velo!=null;
+		System.out.println("velo dans la bdd : "+a);
+		Boolean b = !velo.getLieu().getId().equals(Lieu.ID_GARAGE);
+		System.out.println("velo dans le garage : "+!b);
+		Boolean c = !velo.getLieu().getId().equals(Lieu.ID_SORTIE);
+		System.out.println("velo en sortie : "+!c);
+		return (a && b && c );
 	}
 
 }

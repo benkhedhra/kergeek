@@ -2,6 +2,7 @@ package metier;
 
 import java.sql.SQLException;
 
+import exception.CompteBloqueException;
 import exception.PasDeDateRetourException;
 import exception.PasDeVeloEmprunteException;
 
@@ -112,10 +113,15 @@ public class Utilisateur {
 	//Méthodes
 
 
-	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException{
-		velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(),velo.getLieu()));
-		this.setEmpruntEnCours(velo.getEmpruntEnCours());
-		station.enleverVelo(velo);
+	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException, CompteBloqueException{
+		if (!this.bloque){
+			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(),velo.getLieu()));
+			this.setEmpruntEnCours(velo.getEmpruntEnCours());
+			station.enleverVelo(velo);
+		}
+		else{
+			throw new CompteBloqueException();
+		}
 	}
 
 
@@ -129,13 +135,13 @@ public class Utilisateur {
 			}
 			else{
 				station.ajouterVelo(velo);
-				this.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
-				this.getEmpruntEnCours().setLieuRetour(station);
-				emprunt = new Emprunt(this, velo, this.getEmpruntEnCours().getDateEmprunt(), this.getEmpruntEnCours().getLieuEmprunt(), this.getEmpruntEnCours().getDateRetour(), this.getEmpruntEnCours().getLieuRetour());
-				
-				if (this.getEmpruntEnCours().getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
+				emprunt = new Emprunt(empruntEnCours);
+				emprunt.setDateRetour(UtilitaireDate.dateCourante());
+				emprunt.setLieuRetour(station);
+				if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 					//emprunt trop long
 					this.setBloque(true);
+					System.out.println("compte bloque");
 				}
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);

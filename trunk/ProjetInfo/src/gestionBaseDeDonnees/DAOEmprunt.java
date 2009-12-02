@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import metier.Compte;
@@ -78,15 +79,15 @@ public class DAOEmprunt {
 					+ "idvelo = '" + emprunt.getVelo().getId() + "', "
 					+ "idlieuEmprunt = '" + emprunt.getLieuEmprunt().getId() + "', "
 					+ "idlieuRetour = '" + emprunt.getLieuRetour().getId() + "', "
-					+ "dateEmprunt = '" + "TO_DATE('" + emprunt.getDateEmprunt() + "','YYYY-MM-DD-HH24:MI'), "
-					+ "dateRetour = '" +  "TO_DATE('" + emprunt.getDateRetour()  + "','YYYY-MM-DD-HH24:MI')"
+					+ "dateEmprunt = " + "TO_DATE('" + emprunt.getDateEmprunt() + "','YYYY-MM-DD-HH24:MI'), "
+					+ "dateRetour = " +  "TO_DATE('" + emprunt.getDateRetour()  + "','YYYY-MM-DD-HH24:MI')"
 					+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
 			);
 			effectue=true;
 		}
-		catch (SQLException e){
+		/*catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
+		}*/
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -103,9 +104,9 @@ public class DAOEmprunt {
 		ResultSet res = s.executeQuery("Select dateEmprunt, dateRetour, idLieuEmprunt, idLieuRetour, idCompte, idVelo from Emprunt Where idEmprunt ='" + identifiant + "'");
 		try {
 			if (res.next()) {
-
-				java.sql.Date dateEmprunt = res.getDate("dateEmprunt");
-				java.sql.Date dateRetour = res.getDate("dateRetour");
+				GregorianCalendar cal = new GregorianCalendar();
+				java.sql.Date dateEmprunt = res.getDate("dateEmprunt", cal );
+				java.sql.Date dateRetour = res.getDate("dateRetour", cal);
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idLieuRetour = res.getString("idLieuRetour");
 				String idCompte = res.getString("idCompte");
@@ -113,7 +114,7 @@ public class DAOEmprunt {
 
 				emprunt.setId(identifiant);
 				emprunt.setDateEmprunt(dateEmprunt);
-				emprunt.setDateEmprunt(dateRetour);
+				emprunt.setDateRetour(dateRetour);
 				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
 				emprunt.setLieuRetour(DAOLieu.getLieuById(idLieuRetour));
 				emprunt.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
@@ -338,10 +339,13 @@ public class DAOEmprunt {
 			ResultSet res = s.executeQuery("Select idEmprunt, dateEmprunt, idLieuEmprunt, idCompte from Emprunt WHERE dateRetour IS NULL AND idVelo = '" + velo.getId() + "'");
 
 			if (res.next()) {
+				
+				GregorianCalendar cal = new GregorianCalendar();
+				
 				Emprunt emprunt = new Emprunt();
 				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idEmprunt = res.getString("idEmprunt");
-				java.sql.Date dateEmprunt = res.getDate("dateEmprunt");
+				java.sql.Date dateEmprunt = res.getDate("dateEmprunt", cal);
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idCompte = res.getString("idCompte");
 
@@ -387,7 +391,7 @@ public class DAOEmprunt {
 
 
 
-	public static void setEmpruntEnCoursByIdUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException{
+	public static void setEmpruntEnCoursByUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException{
 		Emprunt emprunt = null;
 
 		try {
@@ -398,12 +402,15 @@ public class DAOEmprunt {
 
 			if (res.next()) {
 				emprunt = new Emprunt();
-
+				
+				GregorianCalendar cal = new GregorianCalendar();
+				
 				String idEmprunt = res.getString("idEmprunt");
-				java.sql.Date dateEmprunt = res.getDate("dateEmprunt");
+				java.sql.Date dateEmprunt = res.getDate("dateEmprunt", cal);
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idVelo = res.getString("idVelo");
-
+				
+				emprunt.setUtilisateur(utilisateur);
 				emprunt.setId(idEmprunt);
 				emprunt.setDateEmprunt(dateEmprunt);
 				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));

@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import exception.CompteBloqueException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
@@ -104,7 +105,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				if(DAOVelo.estDansLaBdd(veloARemplir.getText())){
+				if(DAOVelo.estDisponible(veloARemplir.getText())){
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
 					u.emprunteVelo(velo,(Station)(velo.getLieu()));
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
@@ -113,13 +114,15 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 					System.out.println("L'emprunt a bien été enregistré");
 				}
 				else {
-					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
+					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas ou n'est pas disponible");
 					new FenetreEmprunterVelo(this.getUtilisateur());
 				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+			} catch (CompteBloqueException e) {
+				MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
 			}
 		}
 		else{

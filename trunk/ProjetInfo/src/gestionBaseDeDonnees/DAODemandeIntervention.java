@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,7 +89,9 @@ public class DAODemandeIntervention {
 		try {
 			if (res.next()) {
 
-				java.sql.Date dateDemandeI = res.getDate("dateDemandeI");
+				GregorianCalendar cal = new GregorianCalendar();
+				
+				java.sql.Date dateDemandeI = res.getDate("dateDemandeI",cal);
 				String idVelo = res.getString("idVelo");
 				String idCompte = res.getString("idCompte");
 				String idIntervention = res.getString("idIntervention");

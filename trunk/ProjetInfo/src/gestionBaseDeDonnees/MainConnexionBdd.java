@@ -4,10 +4,7 @@ package gestionBaseDeDonnees;
 import java.sql.SQLException;
 
 import metier.Emprunt;
-import metier.Station;
-import metier.Utilisateur;
-import metier.UtilitaireDate;
-import metier.Velo;
+import exception.PasDeDateRetourException;
 
 public class MainConnexionBdd {
 
@@ -15,8 +12,9 @@ public class MainConnexionBdd {
 	 * @param args
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 
+	 * @throws PasDeDateRetourException 
 	 */
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException, PasDeDateRetourException {
 		// TODO Auto-generated method stub
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
@@ -25,13 +23,14 @@ public class MainConnexionBdd {
 		System.out.println("Ouvert");
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
-		
-		System.out.println(DAOLieu.getAllStations());
-		
+
+		Emprunt e = DAOEmprunt.getEmpruntById("1");
+		e.getTempsEmprunt();
+
 		/*
 		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
 		System.out.println(DAOVelo.getVeloById("2"));
-		*/
+		 */
 
 		/*System.out.println("id = "+Garage.getInstance().getId());
 		 System.out.println("adresse = "+Garage.getInstance().getAdresse());
@@ -71,8 +70,8 @@ public class MainConnexionBdd {
 		System.out.println("id du velo obtenu apres la mis a jour : " + velo.getId());
 		System.out.println("enPanne obtenue apres la mis a jour : " + velo.isEnPanne());
 		System.out.println("nouveau velo : " + DAOVelo.getVeloById(velo.getId()));*/
-		
-		
+
+
 		/*
 		//System.out.println(DAOTypesIntervention.getAllTypesIntervention());
 		System.out.println(DAOTypesIntervention.getAllTypesIntervention().keySet());
@@ -81,35 +80,37 @@ public class MainConnexionBdd {
 		}
 		//System.out.println(DAOTypesIntervention.getAllTypesIntervention().values());
 		System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(2));
-		*/
-		
-		
-		
+		 */
+
+
+
 		/*
 		Station station1 = (Station) DAOLieu.getAllStations().get(1);
 		Station station2 = (Station) DAOLieu.getAllStations().get(2);
 		Station station3 = (Station) DAOLieu.getAllStations().get(3);
-		
+
 		System.out.println(DAOEmprunt.NombreVelosSortis(station3,100));
 		System.out.println(DAOEmprunt.NombreVelosSortis(station1,100));
 		System.out.println(DAOEmprunt.NombreVelosSortis(station2,100));
 		System.out.println(DAOEmprunt.NombreVelosRentres(station1,100));
 		System.out.println(DAOEmprunt.NombreVelosRentres(station3,100));
-		*/
-		
-		
+		 */
+
+
 		/*System.out.println(DAOIntervention.getNombresVelosParTypeIntervention(4));
-		*/
-		
+		 */
+
 		//Utilisateur u2 = DAOUtilisateur.getUtilisateurById("u2"); 
 		//System.out.println(DAOEmprunt.getNombreEmpruntParUtilisateurParMois( u2, 4));
-		
+
 		/*Boolean b = false;
 		Boolean c = true;
 		System.out.println(-b.compareTo(c));
-		*/
+		 */
 		//System.out.println(DAOVelo.getVeloById("2").getLieu());
 		
+		
+
 
 
 	}  

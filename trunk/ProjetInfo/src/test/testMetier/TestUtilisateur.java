@@ -12,13 +12,14 @@ import metier.Velo;
 
 import org.junit.Test;
 
+import exception.CompteBloqueException;
 import exception.PasDeDateRetourException;
 import exception.PasDeVeloEmprunteException;
 
 public class TestUtilisateur extends TestCase{
 	
 	@Test
-	public void testEmprunteVelo() throws SQLException, ClassNotFoundException{
+	public void testEmprunteVelo() throws SQLException, ClassNotFoundException, CompteBloqueException{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
@@ -36,7 +37,7 @@ public class TestUtilisateur extends TestCase{
 	}
 	
 	@Test
-	public void testRendreVelo() throws SQLException, ClassNotFoundException, PasDeVeloEmprunteException, PasDeDateRetourException{
+	public void testRendreVelo() throws SQLException, ClassNotFoundException, PasDeVeloEmprunteException, PasDeDateRetourException, CompteBloqueException{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);

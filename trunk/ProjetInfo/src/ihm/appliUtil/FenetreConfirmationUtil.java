@@ -58,13 +58,13 @@ public class FenetreConfirmationUtil extends JFrame {
 		this.setVisible(true);
 	
 		//on veut attendre 5 secondes, puis fermer la fenêtre et ouvrir une nouvelle fenêtre d'authentification (solution à trouver)
-		try {
+		/*try {
 			//il y a un problème ici : pendant les 5 secondes la fenêtre ne s'affiche même pas
 			Thread.sleep(5000);
 			this.dispose();
 			new FenetreAuthentificationUtil(false);
 		} catch (InterruptedException e) {
 			MsgBox.affMsg(e.getMessage());
-		}
+		}*/
 	}
 }

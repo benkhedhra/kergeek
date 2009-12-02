@@ -160,35 +160,41 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
 				if (emprunt!=null){
 					// l'utilisateur a bien rendu le vélo
-					DAOEmprunt.updateEmprunt(this.getUtilisateur().getEmpruntEnCours());
-					DAOVelo.updateVelo(this.getUtilisateur().getEmpruntEnCours().getVelo());
+					Boolean b = DAOEmprunt.updateEmprunt(emprunt);
+					DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+					if(b){
+						if (emprunt.getTempsEmprunt()<Emprunt.TPS_EMPRUNT_MIN){
+							//emprunt trop court
+							new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
+						}
 
-					if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MIN){
-						//emprunt trop court
-						new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
+						else if (this.getUtilisateur().isBloque()){
+							//emprunt trop long
+							new FenetreEmpruntLong(this.getUtilisateur());
+							DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+						}
+
+						else {
+							//emprunt ni trop court ni trop long
+							new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
+							System.out.println("Le vélo a bien été rendu");
+						}
 					}
-
-					else if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
-						//emprunt trop long
-						new FenetreEmpruntLong(this.getUtilisateur());
-						DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
-					}
-
-					else {
-						//emprunt ni trop court ni trop long
-						new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
-						System.out.println("Le vélo a bien été rendu");
+					else{
+						System.out.println("Le vélo n'a pas été rendu");
+						this.labelMsg.setText("Le vélo n'a pas été rendu");
+						new FenetreRendreVelo(this.getUtilisateur());
 					}
 				}
 
 			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("SQL exception " + e.getMessage());
 			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("ClassNotFound " + e.getMessage());
 			} catch (PasDeVeloEmprunteException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("PasDeVeloEmprunte " + e.getMessage());
 			} catch (PasDeDateRetourException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
 			}
 		}
 	}
