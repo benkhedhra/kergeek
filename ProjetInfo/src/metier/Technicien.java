@@ -33,7 +33,7 @@ public class Technicien {
 
 	/**
 	 * Constructeur d'initialisation du technicien.
-	 * L'objet technicien est creer a partir d'un compte
+	 * L'objet technicien est créé a partir d'un compte
 	 * 
 	 * @param  compte, le compte du technicien
 	 * @see Compte

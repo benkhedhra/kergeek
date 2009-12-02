@@ -107,7 +107,6 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 				if(DAOVelo.estDansLaBdd(veloARemplir.getText())){
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
 					u.emprunteVelo(velo,(Station)(velo.getLieu()));
-					System.out.println(velo.getLieu());
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
 					DAOVelo.updateVelo(velo);
 					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");

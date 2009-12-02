@@ -84,7 +84,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 				tableauStations[i]=listeStations.get(i);
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
-			
+
 			JPanel center = new JPanel();
 			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			center.setPreferredSize(new Dimension(700,350));
@@ -95,7 +95,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 			centerNorth.add(labelMsg);
 			center.add(centerNorth,BorderLayout.NORTH);
-			
+
 			JPanel centerWest = new JPanel();
 			centerWest.setPreferredSize(new Dimension(550,350));
 			centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -133,13 +133,13 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			center.add(centerEast,BorderLayout.EAST);
 
 			this.getContentPane().add(center,BorderLayout.CENTER);
-			
+
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
-		
+
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
@@ -163,7 +163,13 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

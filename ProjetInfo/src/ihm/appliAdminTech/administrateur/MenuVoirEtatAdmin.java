@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -8,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -118,7 +120,13 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 			new FenetreEtatStationAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonVelosSortis){
-			new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 		}
 	}
 

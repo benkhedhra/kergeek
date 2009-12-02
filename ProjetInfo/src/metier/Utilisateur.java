@@ -134,7 +134,7 @@ public class Utilisateur {
 				emprunt = new Emprunt(this, velo, this.getEmpruntEnCours().getDateEmprunt(), this.getEmpruntEnCours().getLieuEmprunt(), this.getEmpruntEnCours().getDateRetour(), this.getEmpruntEnCours().getLieuRetour());
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);
-				if (this.getEmpruntEnCours().getDiff()>Emprunt.TPS_EMPRUNT_MAX){
+				if (this.getEmpruntEnCours().calculTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 					//emprunt trop long
 					this.setBloque(true);
 				}
