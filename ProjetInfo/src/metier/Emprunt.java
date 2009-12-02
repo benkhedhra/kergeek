@@ -109,10 +109,6 @@ public class Emprunt {
 	public void setTpsEmprunt(float tpsEmprunt) {
 		this.tpsEmprunt = tpsEmprunt;
 	}
-	
-	public long getDiff() {
-		return diff;
-	}
 
 	public void setDiff(long diff) {
 		this.diff = diff;
@@ -121,9 +117,10 @@ public class Emprunt {
 
 	//Methodes
 	
-	public void calculTempsEmprunt(){
+	public long calculTempsEmprunt(){
 		this.diff = dateRetour.getTime() - dateEmprunt.getTime();
 		this.tpsEmprunt = diff / 3600000.0f;
+		return diff;
 	}
 	
 	@Override
