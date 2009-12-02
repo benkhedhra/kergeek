@@ -162,12 +162,12 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 					DAOEmprunt.updateEmprunt(this.getUtilisateur().getEmpruntEnCours());
 					DAOVelo.updateVelo(this.getUtilisateur().getEmpruntEnCours().getVelo());
 
-					if (emprunt.calculTempsEmprunt()>Emprunt.TPS_EMPRUNT_MIN){
+					if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MIN){
 						//emprunt trop court
 						new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
 					}
 
-					else if (emprunt.calculTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
+					else if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 						//emprunt trop long
 						new FenetreEmpruntLong(this.getUtilisateur());
 						DAOUtilisateur.updateUtilisateur(this.getUtilisateur());

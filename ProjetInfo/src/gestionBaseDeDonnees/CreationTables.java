@@ -28,7 +28,7 @@ public class CreationTables {
 			s.executeUpdate(
 					"CREATE TABLE Lieu (idLieu char(4),	"+
 					"adresseLieu varchar2(250) NOT NULL,"+
-					"capacite number(4) NOT NULL,"+
+					"capacite number(4),"+
 			"CONSTRAINT pk_Lieu  PRIMARY KEY(idLieu))");
 
 

@@ -3,6 +3,8 @@ package metier;
 
 import java.sql.Date;
 
+import exception.PasDeDateRetourException;
+
 public class Emprunt {
 	private String id;
 	private Utilisateur Utilisateur;
@@ -11,18 +13,14 @@ public class Emprunt {
 	private Date dateRetour;
 	private Lieu lieuEmprunt;
 	private Lieu lieuRetour;
-	
-	
-	private long diff;
-	private float tpsEmprunt;
-	
-	
+
+
 	//Constantes
-	
+
 	public static float TPS_EMPRUNT_MAX = 86400000.0f; //24h
 	public static float TPS_EMPRUNT_MIN = 120000.0f; //2min
-	
-	
+
+
 	//Constructeur
 
 
@@ -32,7 +30,7 @@ public class Emprunt {
 		this.setDateEmprunt(dateEmprunt);
 		this.setLieuEmprunt(lieuEmprunt);
 	}
-	
+
 	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt, Date dateRetour, Lieu lieuRetour) {
 		this.setUtilisateur(utilisateur);
 		this.setVelo(velo);
@@ -41,12 +39,12 @@ public class Emprunt {
 		this.setDateRetour(dateRetour);
 		this.setLieuRetour(lieuRetour);
 	}
-	
+
 	public Emprunt(){
 	}
 
-	
-	
+
+
 	//Accesseurs
 
 	public String getId() {
@@ -72,7 +70,7 @@ public class Emprunt {
 	public void setVelo(Velo velo) {
 		this.velo = velo;
 	}
-	
+
 	public Date getDateEmprunt() {
 		return dateEmprunt;
 	}
@@ -101,23 +99,22 @@ public class Emprunt {
 	public void setLieuRetour(Lieu lieuRetour) {
 		this.lieuRetour = lieuRetour;
 	}
-	
-	public float getTpsEmprunt() {
+
+
+	//Methodes
+
+	public float getTempsEmprunt() throws PasDeDateRetourException{
+		float tpsEmprunt = 0;
+		if(dateRetour != null){
+			long diff = dateRetour.getTime() - dateEmprunt.getTime();
+			tpsEmprunt = diff / 3600000.0f;
+		}
+		else{
+			throw new PasDeDateRetourException();
+		}
 		return tpsEmprunt;
 	}
 
-	public void setTpsEmprunt(float tpsEmprunt) {
-		this.tpsEmprunt = tpsEmprunt;
-	}
-
-	//Methodes
-	
-	public long calculTempsEmprunt(){
-		this.diff = dateRetour.getTime() - dateEmprunt.getTime();
-		this.tpsEmprunt = diff / 3600000.0f;
-		return diff;
-	}
-	
 	@Override
 	public boolean equals(Object o) {
 		Emprunt e =(Emprunt) o;
@@ -137,6 +134,6 @@ public class Emprunt {
 		}
 		return a && b && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateEmprunt()))  && (this.getLieuEmprunt().equals(e.getLieuEmprunt()));
 	}
-	
-	
+
+
 }

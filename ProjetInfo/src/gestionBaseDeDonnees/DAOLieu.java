@@ -71,6 +71,14 @@ public class DAOLieu {
 				);
 				effectue=true;
 			}
+			else if (lieu.getId() == Lieu.ID_SORTIE){
+				s.executeUpdate("INSERT into Lieu values (" 
+						+ "'" + Lieu.ID_SORTIE + "'," 
+						+ "'" + Lieu.ADRESSE_SORTIE + "'," 
+						+ "''" + ")"
+				);
+				effectue=true;
+			}
 			else{
 				ResultSet res = s.executeQuery("Select seqLieu.NEXTVAL as id from dual");
 				if (res.next()){
@@ -108,7 +116,8 @@ public class DAOLieu {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '0'");
+		ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_GARAGE
+				+ "' AND idLieu <> '" + Lieu.ID_SORTIE + "'");
 		try {
 			boolean vide=true;
 			while(res.next()) {
