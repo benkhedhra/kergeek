@@ -57,8 +57,8 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 
 		// étiquettes des colonnes...
 		String category1 = "pneu crevé";
-		String category2 = "selle";
-		String category3 = "pédale";
+		String category2 = "selle manquante";
+		String category3 = "pédale cassée";
 		String category4 = "déraillement";
 		String category5 = "frein";
 		String category6 = "autres";
