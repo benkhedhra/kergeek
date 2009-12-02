@@ -3,7 +3,11 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
-import metier.Lieu;
+import metier.Emprunt;
+import metier.Station;
+import metier.Utilisateur;
+import metier.UtilitaireDate;
+import metier.Velo;
 
 public class MainConnexionBdd {
 
@@ -22,9 +26,20 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 		
+		Utilisateur u = DAOUtilisateur.getUtilisateurById("u1");
+		
+		Station l = (Station) DAOLieu.getLieuById("1");
+		
+		Velo v = DAOVelo.getVelosByLieu(l).get(0);
+		
+		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), l);
+		
+		DAOEmprunt.createEmprunt(e);
+		
+		/*
 		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
 		System.out.println(DAOVelo.getVeloById("2"));
-		
+		*/
 
 		/*System.out.println("id = "+Garage.getInstance().getId());
 		 System.out.println("adresse = "+Garage.getInstance().getAdresse());

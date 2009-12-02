@@ -29,35 +29,35 @@ public class DAOEmprunt {
 				emprunt.setId(id);
 
 				if (emprunt.getLieuRetour() != null){
-					s.executeUpdate("INSERT into Emprunt values ('" 
-							+ emprunt.getId() + "', '"
-							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'), '"
-							+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'), '"
-							+ emprunt.getLieuEmprunt().getId() + "', '"
-							+ emprunt.getLieuRetour().getId() + "', '"
-							+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
-							+ emprunt.getVelo().getId() +
+					s.executeUpdate("INSERT into Emprunt values (" 
+							+ "'" + emprunt.getId() + "',"
+							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'),"
+							+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'),"
+							+ "'" + emprunt.getLieuEmprunt().getId() + "',"
+							+ "'" + emprunt.getLieuRetour().getId() + "',"
+							+ "'" + emprunt.getUtilisateur().getCompte().getId() + "'," 
+							+ "'" + emprunt.getVelo().getId() + "'" +
 					"')");
 					effectue=true;
 				}
 				else{
-					s.executeUpdate("INSERT into Emprunt values ('" 
-							+ emprunt.getId() + "', '"
-							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'), '"
-							+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'), '"
-							+ emprunt.getLieuEmprunt().getId() + "', '"
-							+ "', '"
-							+ emprunt.getUtilisateur().getCompte().getId() + "', '" 
-							+ emprunt.getVelo().getId() +
-					"')");
+					s.executeUpdate("INSERT into Emprunt values (" 
+							+ "'" +  emprunt.getId() + "',"
+							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'),"
+							+ "'',"
+							+  "'" + emprunt.getLieuEmprunt().getId() + "',"
+							+ "'',"
+							+  "'" + emprunt.getUtilisateur().getCompte().getId() + "'," 
+							+  "'" + emprunt.getVelo().getId() + "'" +
+					")");
 					effectue=true;
 				}
 			}
 
 		}
-		catch (SQLException e){
+		/*TODO catch (SQLException e){
 			System.out.println(e.getMessage());//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
+		}*/
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
