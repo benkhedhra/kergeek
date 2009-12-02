@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import exception.PasDeDateRetourException;
 import exception.PasDeVeloEmprunteException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
@@ -185,6 +186,8 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (PasDeVeloEmprunteException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (PasDeDateRetourException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 		}
