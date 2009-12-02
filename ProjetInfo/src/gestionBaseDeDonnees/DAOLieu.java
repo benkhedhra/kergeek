@@ -101,7 +101,8 @@ public class DAOLieu {
 
 	public static List<Station> getAllStations() throws SQLException, ClassNotFoundException {
 		List<Station> liste = new ArrayList<Station>();
-
+		List<String> listeId = new ArrayList<String>();
+		
 		Station station = new Station();
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -112,7 +113,11 @@ public class DAOLieu {
 			boolean vide=true;
 			while(res.next()) {
 				vide = false;
-				station = (Station) DAOLieu.getLieuById(res.getString("idLieu"));
+				String idLieu = res.getString("idLieu"); 
+				listeId.add(idLieu);
+			}
+			for(String id : listeId){
+				station = (Station) DAOLieu.getLieuById(id);
 				liste.add(station);
 			}
 			if(vide) {
