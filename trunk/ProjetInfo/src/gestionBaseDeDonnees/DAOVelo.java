@@ -52,8 +52,8 @@ public class DAOVelo {
 			s.executeUpdate("UPDATE Velo SET "
 					+ "idVelo = '" + velo.getId() + "', "
 					+ "enPanne = '" + -b.compareTo(velo.isEnPanne()) + "', "
-					+ "idLieu = '" + velo.getLieu().getId() + "' "
-					+ "WHERE idVelo = '"+ velo.getId() + "'"
+					+ "idLieu = '" + velo.getLieu().getId() + "'"
+					+ " WHERE idVelo = '"+ velo.getId() + "'"
 			);
 			s.executeUpdate("COMMIT");
 			effectue=true;
