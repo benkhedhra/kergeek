@@ -2,6 +2,7 @@ package metier;
 
 import java.sql.SQLException;
 
+import exception.PasDeDateRetourException;
 import exception.PasDeVeloEmprunteException;
 
 public class Utilisateur {
@@ -118,8 +119,7 @@ public class Utilisateur {
 	}
 
 
-	public Emprunt rendreVelo(Station station) 
-	throws PasDeVeloEmprunteException{
+	public Emprunt rendreVelo(Station station) throws PasDeVeloEmprunteException, PasDeDateRetourException{
 		Emprunt emprunt = null;
 		// cet emprunt sera une trace de l'ancien emprunt pour pallier au this.setVelo(null);
 		Velo velo = this.getEmpruntEnCours().getVelo();
@@ -134,7 +134,7 @@ public class Utilisateur {
 				emprunt = new Emprunt(this, velo, this.getEmpruntEnCours().getDateEmprunt(), this.getEmpruntEnCours().getLieuEmprunt(), this.getEmpruntEnCours().getDateRetour(), this.getEmpruntEnCours().getLieuRetour());
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);
-				if (this.getEmpruntEnCours().calculTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
+				if (this.getEmpruntEnCours().getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 					//emprunt trop long
 					this.setBloque(true);
 				}

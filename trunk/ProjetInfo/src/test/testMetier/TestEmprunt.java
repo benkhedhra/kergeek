@@ -12,9 +12,11 @@ import metier.Velo;
 
 import org.junit.Test;
 
+import exception.PasDeDateRetourException;
+
 public class TestEmprunt extends TestCase {
 	@Test
-	public void testcalculTempsEmprunt() throws SQLException, ClassNotFoundException{
+	public void testcalculTempsEmprunt() throws SQLException, ClassNotFoundException, PasDeDateRetourException{
 		Velo v = new Velo();
 		Utilisateur u = new Utilisateur();
 		Station s = new Station();
@@ -22,8 +24,8 @@ public class TestEmprunt extends TestCase {
 		
 		Emprunt e = new Emprunt(u, v, d, s,d,s); 
 		
-		e.calculTempsEmprunt();
-		assertEquals(0,e.calculTempsEmprunt());
+		e.getTempsEmprunt();
+		assertEquals(0,e.getTempsEmprunt());
 	}
 	
 	@Test

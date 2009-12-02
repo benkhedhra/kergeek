@@ -12,6 +12,7 @@ import metier.Velo;
 
 import org.junit.Test;
 
+import exception.PasDeDateRetourException;
 import exception.PasDeVeloEmprunteException;
 
 public class TestUtilisateur extends TestCase{
@@ -35,7 +36,7 @@ public class TestUtilisateur extends TestCase{
 	}
 	
 	@Test
-	public void testRendreVelo() throws SQLException, ClassNotFoundException, PasDeVeloEmprunteException{
+	public void testRendreVelo() throws SQLException, ClassNotFoundException, PasDeVeloEmprunteException, PasDeDateRetourException{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
