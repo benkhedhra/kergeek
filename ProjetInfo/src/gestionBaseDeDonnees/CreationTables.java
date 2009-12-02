@@ -26,7 +26,7 @@ public class CreationTables {
 			s.executeUpdate (
 					"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE -1");
 			s.executeUpdate(
-					"CREATE TABLE Lieu (idLieu char(4),	"+
+					"CREATE TABLE Lieu (idLieu varchar2(4),	"+
 					"adresseLieu varchar2(250) NOT NULL,"+
 					"capacite number(4),"+
 			"CONSTRAINT pk_Lieu  PRIMARY KEY(idLieu))");
@@ -37,7 +37,7 @@ public class CreationTables {
 			s.executeUpdate(
 					"CREATE TABLE Velo (idVelo char(4),	"+
 					"enPanne number,"+
-					"idLieu char(4),"+
+					"idLieu varchar2(4),"+
 					"CONSTRAINT pk_Velo  PRIMARY KEY(idVelo),"+
 			"CONSTRAINT fk_Velo_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
 
@@ -85,7 +85,7 @@ public class CreationTables {
 					"dateDemandeI date NOT NULL," +
 					"idVelo char(4) NOT NULL,"+
 					"idCompte char(4) NOT NULL,"+
-					"idLieu char(4),"+
+					"idLieu varchar2(4),"+
 					"idIntervention char(4),"+
 					"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
 					"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
@@ -100,7 +100,7 @@ public class CreationTables {
 					"dateAssignation date NOT NULL,"+
 					"priseEnCharge number,"+
 					"nombre number(2),"+
-					"idLieu char(4),"+
+					"idLieu varchar2(4),"+
 					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemandeA),"+
 			"CONSTRAINT fk_DemandeAssignation_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
 
@@ -111,8 +111,8 @@ public class CreationTables {
 					"CREATE TABLE Emprunt (idEmprunt char(4)," +
 					"dateEmprunt date NOT NULL, " +
 					"dateRetour date, "+
-					"idLieuEmprunt char(4) NOT NULL," +
-					"idLieuRetour char(4),"+
+					"idLieuEmprunt varchar2(4) NOT NULL," +
+					"idLieuRetour varchar2(4),"+
 					"idCompte char(4),"+
 					"idVelo char(4),"+
 					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt),"+
@@ -226,9 +226,9 @@ public class CreationTables {
 			System.out.println("Update effectuee.");
 
 		}
-		/*catch (SQLException e){
+		catch (SQLException e){
 			System.out.println(e.getMessage());
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

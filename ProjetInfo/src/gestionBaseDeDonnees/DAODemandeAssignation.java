@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -184,8 +185,11 @@ public class DAODemandeAssignation {
 		ResultSet res = s.executeQuery("Select * FROM DemandeAssignation WHERE idDemandeA ='" + identifiant + "'");
 		try {
 			if (res.next()) {
+				
+				GregorianCalendar cal = new GregorianCalendar();
+				
 				ddeAssignation.setId(identifiant);
-				java.sql.Date date = res.getDate("date");
+				java.sql.Date date = res.getDate("date", cal);
 				int nombre = res.getInt("nombre");
 				String idLieu = res.getString("idLieu");
 				Boolean priseEnCharge = res.getBoolean("priseEnCharge");

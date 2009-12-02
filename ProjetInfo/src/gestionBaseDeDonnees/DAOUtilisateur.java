@@ -87,7 +87,7 @@ public class DAOUtilisateur {
 				u.setBloque(res.getBoolean("bloque"));
 
 				u.setCompte(DAOCompte.getCompteById(identifiant));
-				DAOEmprunt.setEmpruntEnCoursByIdUtilisateur(u);
+				DAOEmprunt.setEmpruntEnCoursByUtilisateur(u);
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte de l'utilisateur");

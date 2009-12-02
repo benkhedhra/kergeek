@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import metier.Intervention;
@@ -51,8 +52,10 @@ public class DAOIntervention {
 		ResultSet res = s.executeQuery("Select * FROM Intervention WHERE idIntervention ='" + identifiant + "'");
 		try {
 			if (res.next()) {
-
-				java.sql.Date dateIntervention = res.getDate("dateIntervention");
+				
+				GregorianCalendar cal = new GregorianCalendar();
+				
+				java.sql.Date dateIntervention = res.getDate("dateIntervention", cal);
 				int idTypeIntervention = res.getInt("idTypeIntervention");
 				String idVelo = res.getString("idVelo");
 
