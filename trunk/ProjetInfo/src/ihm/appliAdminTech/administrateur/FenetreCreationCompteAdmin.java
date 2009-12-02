@@ -255,8 +255,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				Compte compte = new Compte(typeEntre,adresseEMailARemplir.getText());
-				this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+				Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 				DAOCompte.createCompte(compte);
 				// si c'est un compte utilisateur
 				if(compte.getType()==Compte.TYPE_UTILISATEUR){
@@ -272,8 +271,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 
 				// si c'est un compte administrateur
 				else if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
-					Administrateur administrateur = new Administrateur (compte);
-					this.getAdministrateur().creerAdministrateur(compte);
+					Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
 					try {
 						DAOAdministrateur.createAdministrateur(administrateur);
 					} catch (SQLException e) {

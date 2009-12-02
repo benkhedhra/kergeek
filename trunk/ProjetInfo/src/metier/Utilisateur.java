@@ -129,15 +129,16 @@ public class Utilisateur {
 			}
 			else{
 				station.ajouterVelo(velo);
-				velo.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
-				velo.getEmpruntEnCours().setLieuRetour(station);
+				this.getEmpruntEnCours().setDateRetour(UtilitaireDate.dateCourante());
+				this.getEmpruntEnCours().setLieuRetour(station);
 				emprunt = new Emprunt(this, velo, this.getEmpruntEnCours().getDateEmprunt(), this.getEmpruntEnCours().getLieuEmprunt(), this.getEmpruntEnCours().getDateRetour(), this.getEmpruntEnCours().getLieuRetour());
-				velo.setEmpruntEnCours(null);
-				this.setEmpruntEnCours(null);
+				
 				if (this.getEmpruntEnCours().getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 					//emprunt trop long
 					this.setBloque(true);
 				}
+				velo.setEmpruntEnCours(null);
+				this.setEmpruntEnCours(null);
 			}
 		}
 		catch(PasDeVeloEmprunteException e){
