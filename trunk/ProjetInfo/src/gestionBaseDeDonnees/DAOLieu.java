@@ -108,7 +108,7 @@ public class DAOLieu {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select* from Lieu");
+		ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '0'");
 		try {
 			boolean vide=true;
 			while(res.next()) {
