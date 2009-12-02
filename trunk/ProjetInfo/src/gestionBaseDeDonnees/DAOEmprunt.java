@@ -55,9 +55,9 @@ public class DAOEmprunt {
 			}
 
 		}
-		/*TODO catch (SQLException e){
+		catch (SQLException e){
 			System.out.println(e.getMessage());//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}

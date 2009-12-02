@@ -26,15 +26,7 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 		
-		Utilisateur u = DAOUtilisateur.getUtilisateurById("u1");
-		
-		Station l = (Station) DAOLieu.getLieuById("1");
-		
-		Velo v = DAOVelo.getVelosByLieu(l).get(0);
-		
-		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), l);
-		
-		DAOEmprunt.createEmprunt(e);
+		System.out.println(DAOLieu.getAllStations());
 		
 		/*
 		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
