@@ -42,6 +42,7 @@ public class EnvoieMail {
     final private  Session _session;
     
     // Constructeur n°1: Connexion au serveur mail
+    
     public EnvoieMail(final String host, final int port, final String userName,
             final String password, final boolean ssl) {
         final String strPort = String.valueOf(port);
