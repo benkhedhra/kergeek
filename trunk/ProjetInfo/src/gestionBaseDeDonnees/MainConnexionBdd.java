@@ -27,8 +27,7 @@ public class MainConnexionBdd {
 		System.out.println("Ferme");
 
 		System.out.println(UtilitaireDate.dateCourante().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("1").getDateEmprunt().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("1").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("1").getDateEmprunt().getTime()-DAOEmprunt.getEmpruntById("1").getDateRetour().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("54").getDateRetour().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("55").getDateRetour().getTime());

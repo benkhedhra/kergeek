@@ -107,12 +107,8 @@ public class DAOEmprunt {
 			if (res.next()) {
 				java.sql.Timestamp timeEmprunt = res.getTimestamp("dateEmprunt");
 				java.sql.Date dateEmprunt = new Date(timeEmprunt.getTime());
-				System.out.println("tempsEmprunt : " + timeEmprunt);
-				System.out.println("dateEmprunt : " + dateEmprunt);
 				java.sql.Timestamp timeRetour = res.getTimestamp("dateRetour");
 				java.sql.Date dateRetour = new Date(timeRetour.getTime());
-				System.out.println("tempsRetour : " + timeRetour);
-				System.out.println("dateRetour : " + dateRetour);
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idLieuRetour = res.getString("idLieuRetour");
 				String idCompte = res.getString("idCompte");
