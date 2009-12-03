@@ -17,8 +17,8 @@ public class Emprunt {
 
 	//Constantes
 
-	public static long TPS_EMPRUNT_MAX = 7200000; //2h
-	public static long TPS_EMPRUNT_MIN = 120000; //2min
+	public static long TPS_EMPRUNT_MAX = 7200; //2h
+	public static long TPS_EMPRUNT_MIN = 120; //2min
 
 
 	//Constructeur
@@ -40,9 +40,9 @@ public class Emprunt {
 		this.setLieuRetour(lieuRetour);
 	}
 
-	
-	
-	
+
+
+
 	public Emprunt(Emprunt e) {
 		this.id = e.getId();
 		this.utilisateur = e.getUtilisateur();
@@ -119,10 +119,8 @@ public class Emprunt {
 	public long getTempsEmprunt() throws PasDeDateRetourException{
 		long diff;
 		if(this.getDateRetour() != null){
-			System.out.println("dateRetour"+ this.getDateRetour().getTime());
-			System.out.println("dateEmprunt"+ this.getDateEmprunt().getTime());
-			diff = (this.getDateRetour().getTime() - this.getDateEmprunt().getTime())/100;
-			System.out.println(diff);
+
+			diff = (this.getDateRetour().getTime() - this.getDateEmprunt().getTime())/1000;
 		}
 		else{
 			throw new PasDeDateRetourException();

@@ -37,7 +37,7 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 		this.setContentPane(new Panneau());
 		System.out.println("Temps d'emprunt trop long");
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Temps d'emprunt > 12 heures");
+		this.setTitle("Temps d'emprunt > 2 heures");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
@@ -70,7 +70,7 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 
 		// l'utilisateur est bloqué pendant une semaine
 		utilisateur.setBloque(true);
-		labelMsg.setText("Vous avez rendu le vélo plus de 12 heures après l'emprunt. Votre compte sera bloqué pendant une semaine. \n Remettez le vélo dans un emplacement. ");
+		labelMsg.setText("Vous avez rendu le vélo plus de 2 heures après l'emprunt. Votre compte sera bloqué pendant une semaine. \n Remettez le vélo dans un emplacement. ");
 		labelMsg.setPreferredSize(new Dimension(650,30));
 		
 		JPanel center = new JPanel();
