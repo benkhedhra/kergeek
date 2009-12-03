@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.DAOLieu;
+import ihm.MsgBox;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -8,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,6 +22,8 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
+import metier.Station;
+import exception.ChampIncorrectException;
 
 public class FenetreRechercherCompteAdmin extends JFrame implements ActionListener {
 
@@ -144,9 +149,26 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
+
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		labelQualite.setPreferredSize(new Dimension(150,30));
+		labelQualite.setMaximumSize(new Dimension(150,30));
+		panel1.add(labelQualite);
+
 		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+
+		JPanel centerWest = new JPanel();
+		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerWest.setLayout(new GridLayout(5,2));
+
 		if(!stat){
+
+			centerWest.add(panel1);
+
+
 			String[] types = new String[4];
 			types[0] = "Sélection à faire";
 			types[1] = "utilisateur";
@@ -161,99 +183,119 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String qualiteEntree = (String)o;
-
-					if(qualiteEntree.equals("utilisateur")){typeEntre=Compte.TYPE_UTILISATEUR;}
-					if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
-					if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
-
-					modifieSiUtilisateur(typeEntre);
+					if(qualiteEntree!=null){
+						if(qualiteEntree.equals("utilisateur")){typeEntre=Compte.TYPE_UTILISATEUR;}
+						if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
+						if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
+					}
 				}
-
 			});
+			
 			panel2.add(qualiteARemplir);
+			centerWest.add(panel2);
+
+			JPanel panel3 = new JPanel();
+			panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelId.setPreferredSize(new Dimension(150,30));
+			labelId.setMaximumSize(new Dimension(150,30));
+			panel3.add(labelId);
+			centerWest.add(panel3);	
+
+			JPanel panel4 = new JPanel();
+			panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			idARemplir.setPreferredSize(new Dimension(150,30));
+			idARemplir.setMaximumSize(new Dimension(150,30));
+			panel4.add(idARemplir);
+			centerWest.add(panel4);	
+
+			JPanel panel5 = new JPanel();
+			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelAdresseEMail.setPreferredSize(new Dimension(150,30));
+			labelAdresseEMail.setMaximumSize(new Dimension(150,30));
+			panel5.add(labelAdresseEMail);
+			centerWest.add(panel5);	
+
+			JPanel panel6 = new JPanel();
+			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			adresseEMailARemplir.setPreferredSize(new Dimension(150,30));
+			adresseEMailARemplir.setMaximumSize(new Dimension(150,30));
+			panel6.add(adresseEMailARemplir);
+			centerWest.add(panel6);	
+
+			if(typeEntre==Compte.TYPE_UTILISATEUR){
+				JPanel panel7 = new JPanel();
+				panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				labelNom.setPreferredSize(new Dimension(150,30));
+				labelNom.setMaximumSize(new Dimension(150,30));
+				panel7.add(labelNom);
+				centerWest.add(panel7);	
+
+				JPanel panel8 = new JPanel();
+				panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				nomARemplir.setPreferredSize(new Dimension(150,30));
+				nomARemplir.setMaximumSize(new Dimension(150,30));
+				panel8.add(nomARemplir);
+				centerWest.add(panel8);			
+
+				JPanel panel9 = new JPanel();
+				panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				labelPrenom.setPreferredSize(new Dimension(150,30));
+				labelPrenom.setMaximumSize(new Dimension(150,30));
+				panel9.add(labelPrenom);
+				centerWest.add(panel9);	
+
+				JPanel panel10 = new JPanel();
+				panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				prenomARemplir.setPreferredSize(new Dimension(150,30));
+				prenomARemplir.setMaximumSize(new Dimension(150,30));
+				panel10.add(prenomARemplir);
+				centerWest.add(panel10);	
+			}
 		}
+
 		else{
+			
+			typeEntre=Compte.TYPE_UTILISATEUR;
+
 			JLabel labelUtil = new JLabel ("utilisateur");
 			panel2.add(labelUtil);
-			}
 
-		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(5,2));
+			JPanel panel3 = new JPanel();
+			panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelId.setPreferredSize(new Dimension(150,30));
+			labelId.setMaximumSize(new Dimension(150,30));
+			panel3.add(labelId);
+			centerWest.add(panel3);	
 
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelQualite.setPreferredSize(new Dimension(150,30));
-		labelQualite.setMaximumSize(new Dimension(150,30));
-		panel1.add(labelQualite);
-		centerWest.add(panel1);
+			JPanel panel4 = new JPanel();
+			panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			idARemplir.setPreferredSize(new Dimension(150,30));
+			idARemplir.setMaximumSize(new Dimension(150,30));
+			panel4.add(idARemplir);
+			centerWest.add(panel4);	
 
-		centerWest.add(panel2);	
+			JPanel panel5 = new JPanel();
+			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelAdresseEMail.setPreferredSize(new Dimension(150,30));
+			labelAdresseEMail.setMaximumSize(new Dimension(150,30));
+			panel5.add(labelAdresseEMail);
+			centerWest.add(panel5);	
 
-		JPanel panel3 = new JPanel();
-		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelId.setPreferredSize(new Dimension(150,30));
-		labelId.setMaximumSize(new Dimension(150,30));
-		panel3.add(labelId);
-		centerWest.add(panel3);	
-
-		JPanel panel4 = new JPanel();
-		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		idARemplir.setPreferredSize(new Dimension(150,30));
-		idARemplir.setMaximumSize(new Dimension(150,30));
-		panel4.add(idARemplir);
-		centerWest.add(panel4);	
-
-		JPanel panel5 = new JPanel();
-		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelAdresseEMail.setPreferredSize(new Dimension(150,30));
-		labelAdresseEMail.setMaximumSize(new Dimension(150,30));
-		panel5.add(labelAdresseEMail);
-		centerWest.add(panel5);	
-
-		JPanel panel6 = new JPanel();
-		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		adresseEMailARemplir.setPreferredSize(new Dimension(150,30));
-		adresseEMailARemplir.setMaximumSize(new Dimension(150,30));
-		panel6.add(adresseEMailARemplir);
-		centerWest.add(panel6);	
-
-		JPanel panel7 = new JPanel();
-		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNom.setPreferredSize(new Dimension(150,30));
-		labelNom.setMaximumSize(new Dimension(150,30));
-		panel7.add(labelNom);
-		centerWest.add(panel7);	
-
-		JPanel panel8 = new JPanel();
-		panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		nomARemplir.setPreferredSize(new Dimension(150,30));
-		nomARemplir.setMaximumSize(new Dimension(150,30));
-		panel8.add(nomARemplir);
-		centerWest.add(panel8);			
-
-		JPanel panel9 = new JPanel();
-		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelPrenom.setPreferredSize(new Dimension(150,30));
-		labelPrenom.setMaximumSize(new Dimension(150,30));
-		panel9.add(labelPrenom);
-		centerWest.add(panel9);	
-
-		JPanel panel10 = new JPanel();
-		panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		prenomARemplir.setPreferredSize(new Dimension(150,30));
-		prenomARemplir.setMaximumSize(new Dimension(150,30));
-		panel10.add(prenomARemplir);
-		centerWest.add(panel10);	
+			JPanel panel6 = new JPanel();
+			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			adresseEMailARemplir.setPreferredSize(new Dimension(150,30));
+			adresseEMailARemplir.setMaximumSize(new Dimension(150,30));
+			panel6.add(adresseEMailARemplir);
+			centerWest.add(panel6);
+		}
 
 		center.add(centerWest,BorderLayout.WEST);
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(200,350));
-		boutonValider.setPreferredSize(new Dimension(80,40));
-		boutonValider.setMaximumSize(new Dimension(80,40));
+		boutonValider.setPreferredSize(new Dimension(160,40));
+		boutonValider.setMaximumSize(new Dimension(160,40));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
@@ -281,14 +323,6 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.setVisible(true);
 	}
 
-	public void modifieSiUtilisateur(int type){
-		if(type!=Compte.TYPE_UTILISATEUR){
-			labelNom.setForeground(Color.GRAY);
-			nomARemplir.setEnabled(true);
-			labelPrenom.setForeground(Color.GRAY);
-			prenomARemplir.setEnabled(true);
-		}
-	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
@@ -303,8 +337,6 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
-
 	}		
 
 }

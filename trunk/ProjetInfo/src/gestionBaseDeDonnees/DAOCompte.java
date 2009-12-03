@@ -225,6 +225,7 @@ public class DAOCompte {
 		for (String champ : listeChamps){
 			if (champ!=null){nbChampsRemplis++;}
 		}
+		//du coup le premier de la liste est forcément non nul car il vaut une chaîne vide
 		nbChampsRemplis--;
 
 		List<Compte> listeComptes = new ArrayList<Compte>();
@@ -238,6 +239,9 @@ public class DAOCompte {
 				requete=requete+" Compte.type = " + type;
 			}
 			if(ident!=null){
+				if (!requete.equals("select * from Compte where ")){
+					requete=requete+" and ";
+				}
 				requete=requete+"idCompte = '"+ident+"'";
 			}
 			if(adresseEMail!=null){

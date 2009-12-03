@@ -104,7 +104,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
-
+			System.out.println("listeComptes.size()"+listeComptes.size());
 			if(listeComptes.size()>0){
 				labelMsg.setText("Résultats de la recherche : veuillez sélectionner un compte");
 				String [] tableauComptes = new String[listeComptes.size()];
@@ -141,8 +141,14 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 						}
 					}
 				});
+				this.setCompteEntre(compteEntre);
 				center.add(labelMsg);
 				center.add(tableau);
+				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.setBackground(Color.CYAN);
+				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.addActionListener(this);
+				center.add(boutonValider);
 			}
 			else{
 				labelMsg.setText("Il n'y a aucun résultat pour cette recherche. ");
@@ -155,11 +161,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 			MsgBox.affMsg(e.getMessage());
 		}	
 
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.addActionListener(this);
-		center.add(boutonValider);
+
 		boutonNouvelleRecherche.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonNouvelleRecherche.setBackground(Color.CYAN);
 		boutonNouvelleRecherche.setFont(FenetreAuthentificationUtil.POLICE3);

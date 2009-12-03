@@ -109,10 +109,12 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				periodeEntree = (String)o;
-				System.out.println(periodeEntree);
+				System.out.println("période entrée : "+periodeEntree);
 			}
 
 		});
+		
+		this.setPeriodeEntree(periodeEntree);
 
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
@@ -170,10 +172,5 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 
-	}
-
-	public static void main (String [] args){
-		Administrateur ATEST = new Administrateur(new Compte(Compte.TYPE_ADMINISTRATEUR));
-		new FenetreFrequentationStationsAdmin(ATEST);
 	}
 }
