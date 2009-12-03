@@ -22,7 +22,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-public class DiagrammeNbIntervention extends ApplicationFrame {
+public class DiagrammeNbInterventions extends ApplicationFrame {
 
 	/**
 	 * Creates a new demo instance.
@@ -32,9 +32,9 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 	
 	private JFreeChart chart;
 	
-	public DiagrammeNbIntervention(String title) {
+	public DiagrammeNbInterventions() {
 		
-		super(title);
+		super("");
 		CategoryDataset dataset = createDataset();
 		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
@@ -94,7 +94,7 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 
 		// créer la chart...
 		JFreeChart chart = ChartFactory.createBarChart(
-				"Nombre d'interventions ces six derniers mois", 	// chart title
+				"Nombre d'interventions par type ces six derniers mois", 	// chart title
 				"Types d'intervention",               // domain axis label
 				"Nombre d'intervention",                  // range axis label
 				dataset,                  // data
@@ -144,7 +144,7 @@ public class DiagrammeNbIntervention extends ApplicationFrame {
 	}
 	
 	public static void main(final String[] args) {
-		final DiagrammeNbIntervention demo = new DiagrammeNbIntervention("");
+		final DiagrammeNbInterventions demo = new DiagrammeNbInterventions("");
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);

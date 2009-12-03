@@ -1,6 +1,7 @@
 package statistiques;
 
 
+import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 
@@ -10,7 +11,9 @@ import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import metier.Station;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -31,7 +34,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	public DiagrammeFreqStations(String periodeEntree) {
 
-		super("Fréquentation des stations sur la période demandée");
+		super("Fréquentation des stations sur les "+periodeEntree);
 		CategoryDataset dataset = createDataset();
 		chart = createChart(dataset,periodeEntree);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
@@ -44,7 +47,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		return this.chart.createBufferedImage(500, 500);
 	}
 
-	private static CategoryDataset createDataset() {
+	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -59,13 +62,32 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			for (int i=0;i<stations.size();i++){
 				category.add(DAOLieu.getLieuById(stations.get(i).getId()).getAdresse());
 			}
-/*TODO récupérer la période (entier) de la fenetre précédente et la passer en paramètre
- * de la méthode ci dessous
- * */
+			/*TODO récupérer la période (entier) de la fenetre précédente et la passer en paramètre
+			 * de la méthode ci dessous
+			 * */
+
+			int nbJoursEntre;
+			if (periodeEntree.equals("30 derniers jours")){
+				nbJoursEntre = 30;
+			}
+			else if (periodeEntree.equals("60 derniers jours")){
+				nbJoursEntre = 60;
+			}
+			else if (periodeEntree.equals("6 derniers mois")){
+				nbJoursEntre = 183;
+			}
+			else if (periodeEntree.equals("365 derniers jours")){
+				nbJoursEntre = 365;
+			}
+			else {
+				throw new ChampIncorrectException();
+			}
+
+
 
 			for(int i=0;i<category.size();i++){
-				dataset.addValue(DAOEmprunt.NombreVelosSortis(DAOLieu.getLieuById(stations.get(i).getId()), 30), sortis, category.get(i));
-				dataset.addValue(DAOEmprunt.NombreVelosRentres(DAOLieu.getLieuById(stations.get(i).getId()), 30), entres, category.get(i));
+				dataset.addValue(DAOEmprunt.NombreVelosSortis(DAOLieu.getLieuById(stations.get(i).getId()), nbJoursEntre), sortis, category.get(i));
+				dataset.addValue(DAOEmprunt.NombreVelosRentres(DAOLieu.getLieuById(stations.get(i).getId()), nbJoursEntre), entres, category.get(i));
 			}
 
 		}
@@ -136,7 +158,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		return chart;
 
 	}
-	
+
 	public static void main(final String[] args) {
 		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
 		demo.pack();

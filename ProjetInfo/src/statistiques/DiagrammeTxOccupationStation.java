@@ -33,10 +33,10 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 	private JFreeChart chart;
 
-	public DiagrammeTxOccupationStation(String title, Lieu lieu) {
+	public DiagrammeTxOccupationStation(Station station) {
 
 		super("");
-		chart = createChart(lieu);
+		chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
 		//chartPanel.setPreferredSize(new Dimension(500, 270));
 		this.setContentPane(chartPanel);
@@ -47,10 +47,10 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		return this.chart.createBufferedImage(500, 500);
 	}
 
-	JFreeChart createChart(Lieu lieu) {
+	JFreeChart createChart(Station station) {
 
 		// create subplot
-		final XYSeriesCollection data1 = createDataset(lieu);
+		final XYSeriesCollection data1 = createDataset(station);
 		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
 		final NumberAxis rangeAxis1 = new NumberAxis("");
 		final XYPlot subplot1 = new XYPlot(data1, null, rangeAxis1, renderer1);
@@ -69,13 +69,13 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		plot.setOrientation(PlotOrientation.VERTICAL);
 
 		// return a new chart containing the overlaid plot...
-		return new JFreeChart("Taux d' occupation de la station " + lieu.getAdresse() + " le " + UtilitaireDate.dateCourante(),
+		return new JFreeChart("Taux d' occupation de la station " + station.getAdresse() + " le " + UtilitaireDate.dateCourante(),
 				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 
 	}
 
 
-	private XYSeriesCollection createDataset(Lieu lieu) {
+	private XYSeriesCollection createDataset(Station station) {
 
 
 		
@@ -91,16 +91,16 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 		final XYSeries series = new XYSeries("Taux d'occupation");
 		try {
-			series.add(heureencours, (DAOVelo.getVelosByLieu(lieu).size()*100)/lieu.getCapacite());
-			series.add(heure1, (DAOVelo.getVelosByLieu(lieu).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(lieu, 1))
-					+ (DAOEmprunt.NombreVelosRentresHeures(lieu, 1))*100)/lieu.getCapacite());
-			series.add(heure2, (DAOVelo.getVelosByLieu(lieu).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(lieu, 2))
-					+ (DAOEmprunt.NombreVelosRentresHeures(lieu, 2))*100)/lieu.getCapacite());
-			series.add(heure3, (DAOVelo.getVelosByLieu(lieu).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(lieu, 3))
-					+ (DAOEmprunt.NombreVelosRentresHeures(lieu, 3))*100)/lieu.getCapacite());
+			series.add(heureencours, (DAOVelo.getVelosByLieu(station).size()*100)/station.getCapacite());
+			series.add(heure1, (DAOVelo.getVelosByLieu(station).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(station, 1))
+					+ (DAOEmprunt.NombreVelosRentresHeures(station, 1))*100)/station.getCapacite());
+			series.add(heure2, (DAOVelo.getVelosByLieu(station).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(station, 2))
+					+ (DAOEmprunt.NombreVelosRentresHeures(station, 2))*100)/station.getCapacite());
+			series.add(heure3, (DAOVelo.getVelosByLieu(station).size() 
+					- (DAOEmprunt.NombreVelosSortisHeures(station, 3))
+					+ (DAOEmprunt.NombreVelosRentresHeures(station, 3))*100)/station.getCapacite());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,7 +131,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	}
 
 	public static void main(final String[] args) throws SQLException, ClassNotFoundException {
-		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation("", DAOLieu.getLieuById("3"));
+		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation((Station)DAOLieu.getLieuById("3"));
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
