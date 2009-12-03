@@ -39,13 +39,12 @@ import org.jfree.ui.RefineryUtilities;
 			CategoryDataset dataset = createDataset(u);
 			chart = createChart(dataset,u);
 			ChartPanel chartPanel = new ChartPanel(chart, false);
-			//chartPanel.setPreferredSize(new Dimension(500, 270));
 			this.setContentPane(chartPanel);
 
 		}
 
 		public Image getImage() {
-			return this.chart.createBufferedImage(500, 500);
+			return this.chart.createBufferedImage(550,400);
 		}
 
 		private static CategoryDataset createDataset(Utilisateur u) throws SQLException, ClassNotFoundException {
@@ -86,9 +85,6 @@ import org.jfree.ui.RefineryUtilities;
 
 			// créer la dataset...
 			
-			/**TODO changer les valeurs!!!
-			 * 
-			 */
 			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
 			dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 6).get(5), emprunts, nomMoisEnCours6);
