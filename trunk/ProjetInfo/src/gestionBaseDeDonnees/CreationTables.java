@@ -153,7 +153,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','3')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
@@ -302,7 +302,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 11:24','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('02-12-2009 11:25','DD-MM-YYYY HH24:MI'), '1','2','u6','17')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 09:05','DD-MM-YYYY HH24:MI')," +
-			"'', '1','','u7','11')");
+			"TO_DATE('03-12-2009 09:05','DD-MM-YYYY HH24:MI'), '1', '2','u7','11')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 12:45','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('02-12-2009 12:53','DD-MM-YYYY HH24:MI'), '2','5','u1','1')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 12:46','DD-MM-YYYY HH24:MI')," +
