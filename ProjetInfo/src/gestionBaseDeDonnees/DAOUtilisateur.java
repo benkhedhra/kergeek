@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.Compte;
+import metier.Emprunt;
 import metier.Utilisateur;
 
 public class DAOUtilisateur {
@@ -177,5 +178,13 @@ public class DAOUtilisateur {
 		}
 		return listeUtils;
 	}
-
+	
+	public static Emprunt getDernierEmprunt(Utilisateur u){
+		/*TODO
+		 * 
+		 */
+		Emprunt emprunt=null;
+		return emprunt;
+	}
+	
 }

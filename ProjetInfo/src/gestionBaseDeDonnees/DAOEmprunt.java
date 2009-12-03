@@ -152,7 +152,7 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		/*TODO
 		 * System.out.println(dateSql.toString());
@@ -187,7 +187,7 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeure(UtilitaireDate.dateCourante(), depuisHeures);
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 
 		/* System.out.println("dateSqlTemp = "+dateSqlTemp.getHours());
@@ -225,7 +225,7 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJour(UtilitaireDate.dateCourante(), depuisJours);
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		/*TODO
 		 * System.out.println(dateSql.toString());
@@ -259,7 +259,7 @@ public class DAOEmprunt {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeure(UtilitaireDate.dateCourante(), depuisHeures);
+		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		/*TODO
 		 * System.out.println(dateSql.toString());
