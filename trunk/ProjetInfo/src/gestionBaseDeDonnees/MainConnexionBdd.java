@@ -27,13 +27,17 @@ public class MainConnexionBdd {
 		System.out.println("Ferme");
 
 		System.out.println(UtilitaireDate.dateCourante().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("1").getDateEmprunt().getTime()-DAOEmprunt.getEmpruntById("1").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("1").getDateEmprunt().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("1").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("54").getUtilisateur());
+		System.out.println(DAOEmprunt.getEmpruntById("54").getDateEmprunt().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("54").getDateRetour().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("55").getDateRetour().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("56").getDateEmprunt().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("56").getDateRetour().getTime());
-		System.out.println(UtilitaireDate.dateCourante().getTime());
+	
+		System.out.println(DAOEmprunt.getEmpruntById("52").getDateEmprunt().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("52").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("53").getDateEmprunt().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("53").getDateRetour().getTime());
+		//System.out.println(UtilitaireDate.dateCourante().getTime());
 		
 		/*
 		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
