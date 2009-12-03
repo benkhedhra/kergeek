@@ -107,6 +107,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				periodeEntree = (String)o;
+				System.out.println(periodeEntree);
 			}
 
 		});

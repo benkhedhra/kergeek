@@ -134,8 +134,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		else if(c.getType()==Compte.TYPE_ADMINISTRATEUR){qualiteCompte="administrateur Bélo Breizh";}
 		else if(c.getType()==Compte.TYPE_TECHNICIEN){qualiteCompte="technicien de Bélo Breizh";}
 		labelQualiteCompte.setText(qualiteCompte);
-		labelQualiteCompte.setPreferredSize(new Dimension(350,30));
-		labelQualiteCompte.setMinimumSize(new Dimension(350,30));
+		labelQualiteCompte.setPreferredSize(new Dimension(300,30));
+		labelQualiteCompte.setMinimumSize(new Dimension(300,30));
 		panel2.add(labelQualiteCompte);
 		centerWest.add(panel2);	
 
@@ -149,8 +149,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelAdresseEMailCompte.setText(c.getAdresseEmail());
-		labelAdresseEMailCompte.setPreferredSize(new Dimension(350,30));
-		labelAdresseEMailCompte.setMinimumSize(new Dimension(350,30));
+		labelAdresseEMailCompte.setPreferredSize(new Dimension(300,30));
+		labelAdresseEMailCompte.setMinimumSize(new Dimension(300,30));
 		panel4.add(labelAdresseEMailCompte);
 		centerWest.add(panel4);	
 
@@ -173,8 +173,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelNomCompte.setText(u.getNom());
-			labelNomCompte.setPreferredSize(new Dimension(350,30));
-			labelNomCompte.setMinimumSize(new Dimension(350,30));
+			labelNomCompte.setPreferredSize(new Dimension(300,30));
+			labelNomCompte.setMinimumSize(new Dimension(300,30));
 			panel6.add(labelNomCompte);
 			centerWest.add(panel6);			
 
@@ -189,8 +189,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			System.out.println("prénom = "+u.getPrenom());
 			labelPrenomCompte.setText(u.getPrenom());
-			labelPrenomCompte.setPreferredSize(new Dimension(350,30));
-			labelPrenomCompte.setMinimumSize(new Dimension(350,30));
+			labelPrenomCompte.setPreferredSize(new Dimension(300,30));
+			labelPrenomCompte.setMinimumSize(new Dimension(300,30));
 			panel8.add(labelPrenomCompte);
 			centerWest.add(panel8);	
 
@@ -204,8 +204,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			JPanel panel10 = new JPanel();
 			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelAdressePostaleCompte.setText(u.getAdressePostale());
-			labelAdressePostaleCompte.setPreferredSize(new Dimension(350,30));
-			labelAdressePostaleCompte.setMinimumSize(new Dimension(350,30));
+			labelAdressePostaleCompte.setPreferredSize(new Dimension(300,30));
+			labelAdressePostaleCompte.setMinimumSize(new Dimension(300,30));
 			panel10.add(labelAdressePostaleCompte);
 			centerWest.add(panel10);
 
@@ -222,8 +222,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			if(u.isBloque()){statut="bloqué";}
 			else{statut="non bloqué";}
 			labelStatutCompte.setText(statut);
-			labelStatutCompte.setPreferredSize(new Dimension(350,30));
-			labelStatutCompte.setMinimumSize(new Dimension(350,30));
+			labelStatutCompte.setPreferredSize(new Dimension(300,30));
+			labelStatutCompte.setMinimumSize(new Dimension(300,30));
 			panel12.add(labelStatutCompte);
 			centerWest.add(panel12);
 		}

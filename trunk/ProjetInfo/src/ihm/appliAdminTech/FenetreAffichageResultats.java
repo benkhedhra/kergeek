@@ -1,5 +1,6 @@
 package ihm.appliAdminTech;
 
+import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
@@ -36,7 +37,7 @@ public class FenetreAffichageResultats extends JFrame {
 	private JButton bouton2 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException{
+	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ChampIncorrectException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());
