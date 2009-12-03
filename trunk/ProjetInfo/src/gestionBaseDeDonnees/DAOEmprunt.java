@@ -189,10 +189,11 @@ public class DAOEmprunt {
 
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeure(UtilitaireDate.dateCourante(), depuisHeures);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
-		/*TODO
-		 * System.out.println(dateSql.toString());
-		 */
 
+		/* System.out.println("dateSqlTemp = "+dateSqlTemp.getHours());
+		 System.out.println("dateSql = "+dateSql.getHours());*/
+		 
+		
 		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
