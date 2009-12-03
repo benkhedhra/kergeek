@@ -238,8 +238,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		if(!stat){boutonChoix.setText("Modifier des informations sur ce compte");}
 		else{boutonChoix.setText("Afficher statistiques sur ce compte");
 		}
-		boutonChoix.setPreferredSize(new Dimension(170,60));
-		boutonChoix.setMaximumSize(new Dimension(170,60));
+		boutonChoix.setPreferredSize(new Dimension(250,60));
+		boutonChoix.setMaximumSize(new Dimension(250,60));
 		boutonChoix.setBackground(Color.CYAN);
 		boutonChoix.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonChoix.addActionListener(this);
