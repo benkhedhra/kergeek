@@ -32,10 +32,10 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	private JFreeChart chart;
 
-	public DiagrammeFreqStations(String periodeEntree) {
+	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException {
 
 		super("Fréquentation des stations sur les "+periodeEntree);
-		CategoryDataset dataset = createDataset();
+		CategoryDataset dataset = createDataset(periodeEntree);
 		chart = createChart(dataset,periodeEntree);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
 		//chartPanel.setPreferredSize(new Dimension(500, 270));
@@ -159,7 +159,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws ChampIncorrectException {
 		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

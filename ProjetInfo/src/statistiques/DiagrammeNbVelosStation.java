@@ -68,7 +68,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		plot.setOrientation(PlotOrientation.VERTICAL);
 
 		// return a new chart containing the overlaid plot...
-		return new JFreeChart("Nombre de vélos de la station " + lieu.getAdresse()+ " le " + UtilitaireDate.dateCourante(),
+		return new JFreeChart("Nombre de vélos de la station " + station.getAdresse()+ " le " + UtilitaireDate.dateCourante(),
 				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 
 	}

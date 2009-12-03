@@ -144,7 +144,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	}
 	
 	public static void main(final String[] args) {
-		final DiagrammeNbInterventions demo = new DiagrammeNbInterventions("");
+		final DiagrammeNbInterventions demo = new DiagrammeNbInterventions();
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
