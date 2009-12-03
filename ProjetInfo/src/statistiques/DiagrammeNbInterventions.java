@@ -4,6 +4,7 @@ package statistiques;
 import gestionBaseDeDonnees.DAOIntervention;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -38,6 +39,8 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		CategoryDataset dataset = createDataset();
 		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
+		chartPanel.setPreferredSize(new Dimension(550, 400));
+
 		setContentPane(chartPanel);
 
 	}
@@ -51,7 +54,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		// étiquettes des lignes...
-		String series1 = "nombre d'intervention de ce type";
+		String series1 = "nombre d'interventions de ce type";
 
 
 		// étiquettes des colonnes...

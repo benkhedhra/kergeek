@@ -6,6 +6,7 @@ import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		CategoryDataset dataset = createDataset(periodeEntree);
 		chart = createChart(dataset,periodeEntree);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
+		chartPanel.setPreferredSize(new Dimension(550, 400));
 		this.setContentPane(chartPanel);
 
 	}

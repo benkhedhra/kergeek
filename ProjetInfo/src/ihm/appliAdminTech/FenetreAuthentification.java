@@ -147,7 +147,6 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		int resul=-1;
 		if(DAOCompte.estDansLaBdd(id)){
 			Compte compte = DAOCompte.getCompteById(id);
-			System.out.println("id = "+compte.getId()+ " et mdp = "+compte.getMotDePasse());
 			if(motDePasse.equals(compte.getMotDePasse())){
 				resul=compte.getType();
 			}
@@ -160,14 +159,13 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		String id = idARemplir.getText();
 		String mdp = motDePasseARemplir.getText();
-		System.out.println("id renseigné = "+id + "\nmot de passe renseigné = "+mdp);
 
 		try {
 			Compte c = DAOCompte.getCompteById(id);
 			gestionBaseDeDonnees.DAOAdministrateur.getAdministrateurById(idARemplir.getText());
-			System.out.println("id renseigné = "+id + "\n mot de passe renseigné = "+mdp);
+			System.out.println("id renseigné = "+id + "\nmot de passe renseigné = "+mdp);
+			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
 			int resultatAuthent = testerAuthent(id,mdp);
-			System.out.println("resultatAuthent = "+resultatAuthent);
 
 			//si aucune exception levée et si l'utilisateur existe bien dans la base, on ferme la fenetre
 			//d'authentification et on ouvre la fenetre de l'utilisateur

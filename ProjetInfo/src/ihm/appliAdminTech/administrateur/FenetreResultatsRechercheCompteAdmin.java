@@ -62,7 +62,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.stat = stat;
 	}
 
-	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,int typeEntre,boolean stat){
+	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,boolean stat){
 		System.out.println("Fenêtre pour voir les résultats d'une recherche");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
@@ -97,27 +97,27 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,400));
+		center.setPreferredSize(new Dimension(700,500));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.add(labelMsg);
 
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
-			System.out.println("listeComptes.size()"+listeComptes.size());
+			System.out.println("Il y a "+listeComptes.size()+ " utilisateur(s) trouvé(s)");
 			if(listeComptes.size()>0){
-				labelMsg.setText("Résultats de la recherche : veuillez sélectionner un compte");
+				labelMsg.setText("Résultats de la recherche : "+listeComptes.size()+" individu(s) trouvé(s)");
 				String [] tableauComptes = new String[listeComptes.size()];
 
 				for (int i=0;i<tableauComptes.length;i++){
 					Compte comptei = listeComptes.get(i);
-					if(typeEntre==Compte.TYPE_UTILISATEUR){
+					if(comptei.getType()==Compte.TYPE_UTILISATEUR){
 						tableauComptes[i] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
 					}
-					else if(typeEntre==Compte.TYPE_ADMINISTRATEUR){
+					else if(comptei.getType()==Compte.TYPE_ADMINISTRATEUR){
 						tableauComptes[i] = DAOAdministrateur.getAdministrateurById(comptei.getId()).toString();
 					}
-					else if(typeEntre==Compte.TYPE_TECHNICIEN){
+					else if(comptei.getType()==Compte.TYPE_TECHNICIEN){
 						tableauComptes[i] = DAOTechnicien.getTechnicienById(comptei.getId()).toString();
 					}
 				}
@@ -129,10 +129,11 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 				tableau.setPreferredSize(new Dimension(400,50));
 				tableau.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent ae){
-						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 						try {
+							Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 							String chaineSelectionnee = (String)(o);
 							String idCompteEntre = chaineSelectionnee.substring(0,2);
+							System.out.println("idCompteEntre = "+idCompteEntre);
 							compteEntre = DAOCompte.getCompteById(idCompteEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
@@ -172,7 +173,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));

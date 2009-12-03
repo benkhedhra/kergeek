@@ -4,6 +4,7 @@ import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		super("");
 		chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
+		chartPanel.setPreferredSize(new Dimension(300, 300));
 		this.setContentPane(chartPanel);
 
 	}

@@ -1,16 +1,12 @@
 package ihm.appliAdminTech.administrateur;
 
-import gestionBaseDeDonnees.DAOLieu;
-import ihm.MsgBox;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,8 +18,6 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
-import metier.Station;
-import exception.ChampIncorrectException;
 
 public class FenetreRechercherCompteAdmin extends JFrame implements ActionListener {
 
@@ -160,14 +154,12 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setPreferredSize(new Dimension(450,350));
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(5,2));
 
 		if(!stat){
 
 			centerWest.add(panel1);
-
 
 			String[] types = new String[4];
 			types[0] = "Sélection à faire";
@@ -176,21 +168,24 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			types[3] = "technicien";
 			DefaultComboBoxModel model = new DefaultComboBoxModel(types);
 			JComboBox qualiteARemplir = new JComboBox(model);
-			qualiteARemplir.setPreferredSize(new Dimension(150,30));
-			qualiteARemplir.setMaximumSize(new Dimension(150,30));
+			qualiteARemplir.setPreferredSize(new Dimension(200,30));
+			qualiteARemplir.setMaximumSize(new Dimension(200,30));
 			qualiteARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
 			qualiteARemplir.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String qualiteEntree = (String)o;
-					if(qualiteEntree!=null){
+					if(qualiteEntree.equals(null) || qualiteEntree.equals("Sélection à faire")){
+						typeEntre=0;
+					}
+					else{
 						if(qualiteEntree.equals("utilisateur")){typeEntre=Compte.TYPE_UTILISATEUR;}
 						if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
 						if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
 					}
 				}
 			});
-			
+
 			panel2.add(qualiteARemplir);
 			centerWest.add(panel2);
 
@@ -203,8 +198,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel4 = new JPanel();
 			panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			idARemplir.setPreferredSize(new Dimension(150,30));
-			idARemplir.setMaximumSize(new Dimension(150,30));
+			idARemplir.setPreferredSize(new Dimension(200,30));
+			idARemplir.setMaximumSize(new Dimension(200,30));
 			panel4.add(idARemplir);
 			centerWest.add(panel4);	
 
@@ -217,8 +212,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			adresseEMailARemplir.setPreferredSize(new Dimension(150,30));
-			adresseEMailARemplir.setMaximumSize(new Dimension(150,30));
+			adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
+			adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
 			panel6.add(adresseEMailARemplir);
 			centerWest.add(panel6);	
 
@@ -232,8 +227,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 				JPanel panel8 = new JPanel();
 				panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-				nomARemplir.setPreferredSize(new Dimension(150,30));
-				nomARemplir.setMaximumSize(new Dimension(150,30));
+				nomARemplir.setPreferredSize(new Dimension(200,30));
+				nomARemplir.setMaximumSize(new Dimension(200,30));
 				panel8.add(nomARemplir);
 				centerWest.add(panel8);			
 
@@ -246,15 +241,15 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 				JPanel panel10 = new JPanel();
 				panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-				prenomARemplir.setPreferredSize(new Dimension(150,30));
-				prenomARemplir.setMaximumSize(new Dimension(150,30));
+				prenomARemplir.setPreferredSize(new Dimension(200,30));
+				prenomARemplir.setMaximumSize(new Dimension(200,30));
 				panel10.add(prenomARemplir);
 				centerWest.add(panel10);	
 			}
 		}
 
 		else{
-			
+
 			typeEntre=Compte.TYPE_UTILISATEUR;
 
 			JLabel labelUtil = new JLabel ("utilisateur");
@@ -269,8 +264,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel4 = new JPanel();
 			panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			idARemplir.setPreferredSize(new Dimension(150,30));
-			idARemplir.setMaximumSize(new Dimension(150,30));
+			idARemplir.setPreferredSize(new Dimension(200,30));
+			idARemplir.setMaximumSize(new Dimension(200,30));
 			panel4.add(idARemplir);
 			centerWest.add(panel4);	
 
@@ -283,8 +278,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			adresseEMailARemplir.setPreferredSize(new Dimension(150,30));
-			adresseEMailARemplir.setMaximumSize(new Dimension(150,30));
+			adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
+			adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
 			panel6.add(adresseEMailARemplir);
 			centerWest.add(panel6);
 		}
@@ -332,7 +327,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			if(!nomARemplir.getText().equals("")){this.setNomEntre(nomARemplir.getText());}
 			if(!prenomARemplir.getText().equals("")){this.setPrenomEntre(prenomARemplir.getText());}
 			if(!adresseEMailARemplir.getText().equals("")){this.setAdresseEMailEntree(adresseEMailARemplir.getText());}
-			new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,typeEntre,stat);
+			new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

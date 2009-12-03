@@ -113,9 +113,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setPreferredSize(new Dimension(500,350));
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(6,2));
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
@@ -131,6 +130,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		else if(c.getType()==Compte.TYPE_ADMINISTRATEUR){qualiteCompte="administrateur Bélo Breizh";}
 		else if(c.getType()==Compte.TYPE_TECHNICIEN){qualiteCompte="technicien de Bélo Breizh";}
 		labelQualiteCompte.setText(qualiteCompte);
+		adresseEMailCompte.setPreferredSize(new Dimension(300,30));
+		adresseEMailCompte.setMaximumSize(new Dimension(300,30));
 		panel2.add(labelQualiteCompte);
 		centerWest.add(panel2);	
 
@@ -144,8 +145,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		adresseEMailCompte.setText(c.getAdresseEmail());
-		adresseEMailCompte.setPreferredSize(new Dimension(150,30));
-		adresseEMailCompte.setMaximumSize(new Dimension(150,30));
+		adresseEMailCompte.setPreferredSize(new Dimension(300,30));
+		adresseEMailCompte.setMaximumSize(new Dimension(300,30));
 		panel4.add(adresseEMailCompte);
 		centerWest.add(panel4);	
 
@@ -169,8 +170,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			nomCompte.setText(u.getNom());
-			nomCompte.setPreferredSize(new Dimension(150,30));
-			nomCompte.setMaximumSize(new Dimension(150,30));
+			nomCompte.setPreferredSize(new Dimension(300,30));
+			nomCompte.setMaximumSize(new Dimension(300,30));
 			panel6.add(nomCompte);
 			centerWest.add(panel6);			
 
@@ -184,8 +185,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 			JPanel panel8 = new JPanel();
 			panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			prenomCompte.setPreferredSize(new Dimension(150,30));
-			prenomCompte.setMaximumSize(new Dimension(150,30));
+			prenomCompte.setPreferredSize(new Dimension(300,30));
+			prenomCompte.setMaximumSize(new Dimension(300,30));
 			panel8.add(prenomCompte);
 			centerWest.add(panel8);	
 
@@ -199,8 +200,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			JPanel panel10 = new JPanel();
 			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			adressePostaleCompte.setText(u.getAdressePostale());
-			adressePostaleCompte.setPreferredSize(new Dimension(150,30));
-			adressePostaleCompte.setMaximumSize(new Dimension(150,30));
+			adressePostaleCompte.setPreferredSize(new Dimension(300,30));
+			adressePostaleCompte.setMaximumSize(new Dimension(300,30));
 			panel10.add(adressePostaleCompte);
 			centerWest.add(panel10);
 
@@ -252,14 +253,18 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		boutonValider.setPreferredSize(new Dimension(80,40));
-		boutonValider.setMaximumSize(new Dimension(80,40));
+		centerEast.setPreferredSize(new Dimension(200,350));
+		centerEast.setMaximumSize(new Dimension(200,350));
+		
+		
+		boutonValider.setPreferredSize(new Dimension(190,40));
+		boutonValider.setMaximumSize(new Dimension(190,40));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
 		centerEast.add(boutonValider);
-		boutonResilier.setPreferredSize(new Dimension(80,40));
-		boutonResilier.setMaximumSize(new Dimension(80,40));
+		boutonResilier.setPreferredSize(new Dimension(190,40));
+		boutonResilier.setMaximumSize(new Dimension(190,40));
 		boutonResilier.setBackground(Color.CYAN);
 		boutonResilier.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonResilier.addActionListener(this);

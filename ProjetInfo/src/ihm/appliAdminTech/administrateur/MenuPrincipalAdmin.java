@@ -66,7 +66,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 			
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
@@ -81,18 +81,18 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		boutonComptes.setPreferredSize(new Dimension(200,120));
-		boutonComptes.setMaximumSize(new Dimension(200,120));
+		boutonComptes.setPreferredSize(new Dimension(210,130));
+		boutonComptes.setMaximumSize(new Dimension(210,130));
 		boutonComptes.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonComptes.addActionListener(this);
 		center.add(boutonComptes);
-		boutonStats.setPreferredSize(new Dimension(200,120));
-		boutonStats.setMaximumSize(new Dimension(200,120));
+		boutonStats.setPreferredSize(new Dimension(210,130));
+		boutonStats.setMaximumSize(new Dimension(210,130));
 		boutonStats.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonStats.addActionListener(this);
 		center.add(boutonStats);
-		boutonEtat.setPreferredSize(new Dimension(200,120));
-		boutonEtat.setMaximumSize(new Dimension(200,120));
+		boutonEtat.setPreferredSize(new Dimension(210,130));
+		boutonEtat.setMaximumSize(new Dimension(210,130));
 		boutonEtat.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonEtat.addActionListener(this);
 		center.add(boutonEtat);
