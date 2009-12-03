@@ -1,6 +1,5 @@
 package ihm.appliAdminTech;
 
-import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
@@ -12,6 +11,8 @@ import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
@@ -26,8 +27,9 @@ import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
 import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
+import exception.ChampIncorrectException;
 
-public class FenetreAffichageResultats extends JFrame {
+public class FenetreAffichageResultats extends JFrame implements ActionListener {
 
 	private Compte compte;
 	private JFrame fenetrePrecedente;
@@ -76,6 +78,8 @@ public class FenetreAffichageResultats extends JFrame {
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
+			bouton1.setText("Fréquentation d'une autre station");
+			bouton1.addActionListener(this);
 		}
 
 		if(fenetrePrec.getTitle().equals("Informations sur un compte")){
@@ -84,6 +88,9 @@ public class FenetreAffichageResultats extends JFrame {
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
+			center.add(lblChart);
+			bouton1.setText("Afficher statistiques sur un autre utilisateur");
+			bouton1.addActionListener(this);
 		}
 
 
@@ -129,6 +136,12 @@ public class FenetreAffichageResultats extends JFrame {
 
 
 		this.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,8 +1,6 @@
 package ihm.appliUtil;
 
 import gestionBaseDeDonnees.DAOCompte;
-
-
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 
@@ -12,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -20,7 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import metier.Emprunt;
 import metier.Utilisateur;
+import metier.UtilitaireDate;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
@@ -120,9 +121,21 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			if (testerIdent(id)){
 				Utilisateur u;
 				u = DAOUtilisateur.getUtilisateurById(id);
-				//si aucune exception levée et si l'utilisateur existe bien dans la base, on ferme la fenetre
-				//d'authentification et on ouvre la fenetre de l'utilisateur
-				new MenuUtilisateur(u);
+
+				Emprunt dernierEmprunt = DAOUtilisateur.getDernierEmprunt(u);
+				Date dateDernierRetour = dernierEmprunt.getDateRetour();
+				if(u.isBloque()){
+					if(dateDernierRetour.before(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),7))){
+						u.setBloque(false);
+					}
+				}
+				if(!u.isBloque()){
+					new MenuUtilisateur(u);
+				}
+				else{
+					new FenetreConfirmationUtil("Votre compte est bloqué jusqu'au "+UtilitaireDate.ajouteJours(dateDernierRetour,7).getDate()+" à "+dateDernierRetour.getTime());
+				}
+				
 			}
 			else{
 				new FenetreAuthentificationUtil(true);

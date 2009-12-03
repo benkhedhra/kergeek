@@ -20,7 +20,7 @@ public class UtilitaireDate {
 		return new Time(System.currentTimeMillis());
 	}
 	
-public static java.sql.Date retrancheHeure(java.sql.Date dateSql, int nbHeures){
+public static java.sql.Date retrancheHeures(java.sql.Date dateSql, int nbHeures){
 		
 		// déclaration d'un calendrier
 		  GregorianCalendar gCal = new GregorianCalendar();
@@ -34,13 +34,27 @@ public static java.sql.Date retrancheHeure(java.sql.Date dateSql, int nbHeures){
 		return nouvelleDateSql;
 	}
 	
-	public static java.sql.Date retrancheJour(java.sql.Date dateSql, int nbJours){
+	public static java.sql.Date retrancheJours(java.sql.Date dateSql, int nbJours){
 		
 		// déclaration d'un calendrier
 		  GregorianCalendar gCal = new GregorianCalendar();
 		// initialise le calendrier à la date courante;
 		  gCal.setTime(dateSql);
 		  gCal.add(Calendar.DATE, -nbJours);
+		  
+		  java.util.Date dateUtil = gCal.getTime();
+		  java.sql.Date nouvelleDateSql = new java.sql.Date(dateUtil.getTime());
+		  
+		return nouvelleDateSql;
+	}
+	
+	public static java.sql.Date ajouteJours(java.sql.Date dateSql, int nbJours){
+		
+		// déclaration d'un calendrier
+		  GregorianCalendar gCal = new GregorianCalendar();
+		// initialise le calendrier à la date courante;
+		  gCal.setTime(dateSql);
+		  gCal.add(Calendar.DATE, +nbJours);
 		  
 		  java.util.Date dateUtil = gCal.getTime();
 		  java.sql.Date nouvelleDateSql = new java.sql.Date(dateUtil.getTime());

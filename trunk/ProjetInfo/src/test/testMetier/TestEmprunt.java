@@ -40,7 +40,7 @@ public class TestEmprunt extends TestCase {
 		Compte c2 = new Compte(Compte.TYPE_UTILISATEUR, "email2");
 		Utilisateur u2 = new Utilisateur(c2,"bernard", "lermite","adresse2");
 		Station s2 = new Station("3 rue bleue", 10);
-		java.sql.Date d2 = UtilitaireDate.retrancheJour(d, 1);
+		java.sql.Date d2 = UtilitaireDate.retrancheJours(d, 1);
 		
 		Velo v2 = new Velo(s2);
 		
