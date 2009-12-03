@@ -53,9 +53,8 @@ public class DAOIntervention {
 		try {
 			if (res.next()) {
 				
-				GregorianCalendar cal = new GregorianCalendar();
-				
-				java.sql.Date dateIntervention = res.getDate("dateIntervention", cal);
+				java.sql.Timestamp tempsIntervention = res.getTimestamp("dateIntervention");
+				java.sql.Date dateIntervention = new java.sql.Date(tempsIntervention.getTime());
 				int idTypeIntervention = res.getInt("idTypeIntervention");
 				String idVelo = res.getString("idVelo");
 

@@ -17,8 +17,8 @@ public class Emprunt {
 
 	//Constantes
 
-	public static float TPS_EMPRUNT_MAX = 86400; //24h
-	public static float TPS_EMPRUNT_MIN = 120; //2min
+	public static long TPS_EMPRUNT_MAX = 7200000; //2h
+	public static long TPS_EMPRUNT_MIN = 120000; //2min
 
 
 	//Constructeur
@@ -119,15 +119,15 @@ public class Emprunt {
 	public long getTempsEmprunt() throws PasDeDateRetourException{
 		long diff;
 		if(this.getDateRetour() != null){
-			long diff = this.getDateRetour().getTime() - this.getDateEmprunt().getTime();
+			System.out.println("dateRetour"+ this.getDateRetour().getTime());
+			System.out.println("dateEmprunt"+ this.getDateEmprunt().getTime());
+			diff = this.getDateRetour().getTime() - this.getDateEmprunt().getTime();
 			System.out.println(diff);
-			long tpsEmprunt = diff / 1000;
-			System.out.println(tpsEmprunt);
 		}
 		else{
 			throw new PasDeDateRetourException();
 		}
-		return tpsEmprunt;
+		return diff;
 	}
 
 	@Override

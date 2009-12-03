@@ -2,6 +2,7 @@ package gestionBaseDeDonnees;
 
 import exception.PasDansLaBaseDeDonneeException;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -104,9 +105,14 @@ public class DAOEmprunt {
 		ResultSet res = s.executeQuery("Select dateEmprunt, dateRetour, idLieuEmprunt, idLieuRetour, idCompte, idVelo from Emprunt Where idEmprunt ='" + identifiant + "'");
 		try {
 			if (res.next()) {
-				GregorianCalendar cal = new GregorianCalendar();
-				java.sql.Date dateEmprunt = res.getDate("dateEmprunt", cal );
-				java.sql.Date dateRetour = res.getDate("dateRetour", cal);
+				java.sql.Timestamp timeEmprunt = res.getTimestamp("dateEmprunt");
+				java.sql.Date dateEmprunt = new Date(timeEmprunt.getTime());
+				System.out.println("tempsEmprunt : " + timeEmprunt);
+				System.out.println("dateEmprunt : " + dateEmprunt);
+				java.sql.Timestamp timeRetour = res.getTimestamp("dateRetour");
+				java.sql.Date dateRetour = new Date(timeRetour.getTime());
+				System.out.println("tempsRetour : " + timeRetour);
+				System.out.println("dateRetour : " + dateRetour);
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idLieuRetour = res.getString("idLieuRetour");
 				String idCompte = res.getString("idCompte");
@@ -341,12 +347,11 @@ public class DAOEmprunt {
 
 			if (res.next()) {
 				
-				GregorianCalendar cal = new GregorianCalendar();
-				
 				Emprunt emprunt = new Emprunt();
 				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idEmprunt = res.getString("idEmprunt");
-				java.sql.Date dateEmprunt = res.getDate("dateEmprunt", cal);
+				java.sql.Timestamp tempsEmprunt = res.getTimestamp("dateEmprunt");
+				java.sql.Date dateEmprunt = new java.sql.Date(tempsEmprunt.getTime());
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idCompte = res.getString("idCompte");
 
@@ -404,10 +409,9 @@ public class DAOEmprunt {
 			if (res.next()) {
 				emprunt = new Emprunt();
 				
-				GregorianCalendar cal = new GregorianCalendar();
-				
 				String idEmprunt = res.getString("idEmprunt");
-				java.sql.Date dateEmprunt = res.getDate("dateEmprunt", cal);
+				java.sql.Timestamp tempsEmprunt = res.getTimestamp("dateEmprunt");
+				java.sql.Date dateEmprunt = new java.sql.Date(tempsEmprunt.getTime());
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idVelo = res.getString("idVelo");
 				

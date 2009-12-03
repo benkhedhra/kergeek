@@ -2,6 +2,7 @@ package gestionBaseDeDonnees;
 
 import exception.PasDansLaBaseDeDonneeException;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -190,7 +191,8 @@ public class DAODemandeAssignation {
 				GregorianCalendar cal = new GregorianCalendar();
 				
 				ddeAssignation.setId(identifiant);
-				java.sql.Date date = res.getDate("dateAssignation", cal);
+				java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
+				java.sql.Date date = new Date(tempsAssignation.getTime());
 				int nombre = res.getInt("nombre");
 				String idLieu = res.getString("idLieu");
 				Boolean priseEnCharge = res.getBoolean("priseEnCharge");
