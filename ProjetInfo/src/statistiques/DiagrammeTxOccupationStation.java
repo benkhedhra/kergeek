@@ -92,15 +92,15 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		final XYSeries series = new XYSeries("Taux d'occupation");
 		try {
 			series.add(heureencours, (DAOVelo.getVelosByLieu(station).size()*100)/station.getCapacite());
-			series.add(heure1, (DAOVelo.getVelosByLieu(station).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(station, 1))
-					+ (DAOEmprunt.NombreVelosRentresHeures(station, 1))*100)/station.getCapacite());
-			series.add(heure2, (DAOVelo.getVelosByLieu(station).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(station, 2))
-					+ (DAOEmprunt.NombreVelosRentresHeures(station, 2))*100)/station.getCapacite());
-			series.add(heure3, (DAOVelo.getVelosByLieu(station).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(station, 3))
-					+ (DAOEmprunt.NombreVelosRentresHeures(station, 3))*100)/station.getCapacite());
+			series.add(heure1, ((DAOVelo.getVelosByLieu(station).size() 
+					+ DAOEmprunt.NombreVelosSortisHeures(station, 1)
+					- DAOEmprunt.NombreVelosRentresHeures(station, 1))*100)/station.getCapacite());
+			series.add(heure2, ((DAOVelo.getVelosByLieu(station).size() 
+					+ DAOEmprunt.NombreVelosSortisHeures(station, 2)
+					- DAOEmprunt.NombreVelosRentresHeures(station, 2))*100)/station.getCapacite());
+			series.add(heure3, ((DAOVelo.getVelosByLieu(station).size() 
+					+ DAOEmprunt.NombreVelosSortisHeures(station, 3)
+					- DAOEmprunt.NombreVelosRentresHeures(station, 3))*100)/station.getCapacite());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,7 +131,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	}
 
 	public static void main(final String[] args) throws SQLException, ClassNotFoundException {
-		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation((Station)DAOLieu.getLieuById("3"));
+		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation((Station)DAOLieu.getLieuById("2"));
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);

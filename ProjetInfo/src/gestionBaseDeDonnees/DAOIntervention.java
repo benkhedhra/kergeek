@@ -88,8 +88,7 @@ public class DAOIntervention {
 
 		List <Integer> list = new ArrayList<Integer>();
 		try {
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
+			
 
 			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(), depuisMois);
 			java.sql.Date dateSql = UtilitaireDate.initialisationDebutMois(dateSqlTemp);
@@ -99,6 +98,8 @@ public class DAOIntervention {
 
 			ResultSet res = null;
 			for (Integer type : DAOTypeIntervention.getAllTypesIntervention().keySet()){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
 				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention WHERE idTypeIntervention = '" + type + "' and dateIntervention >= TO_DATE('" + dateSql + "','YYYY-MM-DD-HH24:MI')");
 				if (res.next()){
 					list.add(res.getInt("nombreVelosTypeIntervention"));

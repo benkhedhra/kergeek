@@ -51,8 +51,9 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		// create subplot
 		final XYSeriesCollection data1 = createDataset(station);
 		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
-		final NumberAxis rangeAxis1 = new NumberAxis("");
-		final XYPlot subplot1 = new XYPlot(data1, null, rangeAxis1, renderer1);
+		final NumberAxis axeVelo = new NumberAxis("nombre de vélos");
+		axeVelo.setAutoRangeIncludesZero(false);
+		final XYPlot subplot1 = new XYPlot(data1, null, axeVelo, renderer1);
 		subplot1.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
 
 
@@ -81,24 +82,30 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		GregorianCalendar calendar = new GregorianCalendar(); 
 		int heureencours = calendar.get(Calendar.HOUR_OF_DAY);
 		calendar.add(Calendar.HOUR_OF_DAY, -1);
-		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
+		int heure1 = calendar.get(Calendar.HOUR_OF_DAY);
 		calendar.add(Calendar.HOUR_OF_DAY, -1);
 		int heure2 = calendar.get(Calendar.HOUR_OF_DAY);
 		calendar.add(Calendar.HOUR_OF_DAY, -1);
-		int heure1 = calendar.get(Calendar.HOUR_OF_DAY);
+		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
 
 		final XYSeries series = new XYSeries("Nombre de vélos");
 		try {
+			System.out.println("nb vélos sortis pdt l'heure "+DAOEmprunt.NombreVelosSortisHeures(station, 1));
+			System.out.println("nb vélos sortis pdt l'heure "+DAOEmprunt.NombreVelosRentresHeures(station, 1));
+			System.out.println("nb vélos sortis pdt les deux heures "+DAOEmprunt.NombreVelosSortisHeures(station, 2));
+			System.out.println("nb vélos rentres pdt les deux heures "+DAOEmprunt.NombreVelosRentresHeures(station, 2));
+			System.out.println("nb vélos sortis pdt les trois heures "+DAOEmprunt.NombreVelosSortisHeures(station, 3));
+			System.out.println("nb vélos rentres pdt les trois heures "+DAOEmprunt.NombreVelosRentresHeures(station, 3));
 			series.add(heureencours, DAOVelo.getVelosByLieu(station).size());
-			series.add(heure3, DAOVelo.getVelosByLieu(station).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(station, 1))
-					+ (DAOEmprunt.NombreVelosRentresHeures(station, 1)));
-			series.add(heure2,  DAOVelo.getVelosByLieu(station).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(station, 2))
-					+ (DAOEmprunt.NombreVelosRentresHeures(station, 2)));
-			series.add(heure1,  DAOVelo.getVelosByLieu(station).size() 
-					- (DAOEmprunt.NombreVelosSortisHeures(station, 3))
-					+ (DAOEmprunt.NombreVelosRentresHeures(station, 3)));
+			series.add(heure1, DAOVelo.getVelosByLieu(station).size()
+					+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
+					- (DAOEmprunt.NombreVelosRentresHeures(station, 1)));
+			series.add(heure2,  DAOVelo.getVelosByLieu(station).size()
+					+ (DAOEmprunt.NombreVelosSortisHeures(station, 2))
+					- (DAOEmprunt.NombreVelosRentresHeures(station, 2)));
+			series.add(heure3,  DAOVelo.getVelosByLieu(station).size()
+					+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
+					- (DAOEmprunt.NombreVelosRentresHeures(station, 3)));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,7 +131,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	}
 
 	public static void main(final String[] args) throws SQLException, ClassNotFoundException {
-		final DiagrammeNbVelosStation demo = new DiagrammeNbVelosStation((Station) DAOLieu.getLieuById("3"));
+		final DiagrammeNbVelosStation demo = new DiagrammeNbVelosStation((Station) DAOLieu.getLieuById("2"));
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
