@@ -221,7 +221,7 @@ public class DAOCompte {
 		listeChamps.add(adresseEMail);
 
 		int nbChampsRemplis=0;
-		if (!listeChamps.get(0).equals("")){nbChampsRemplis++;}
+		if (!listeChamps.get(0).equals("0")){nbChampsRemplis++;}
 		for (String champ : listeChamps){
 			if (champ!=null){nbChampsRemplis++;}
 		}

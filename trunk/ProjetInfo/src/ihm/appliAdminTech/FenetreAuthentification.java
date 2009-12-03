@@ -162,7 +162,6 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		try {
 			Compte c = DAOCompte.getCompteById(id);
-			gestionBaseDeDonnees.DAOAdministrateur.getAdministrateurById(idARemplir.getText());
 			System.out.println("id renseigné = "+id + "\nmot de passe renseigné = "+mdp);
 			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
 			int resultatAuthent = testerAuthent(id,mdp);
