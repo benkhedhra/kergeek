@@ -107,18 +107,18 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 			System.out.println("Il y a "+listeComptes.size()+ " utilisateur(s) trouvé(s)");
 			if(listeComptes.size()>0){
 				labelMsg.setText("Résultats de la recherche : "+listeComptes.size()+" individu(s) trouvé(s)");
-				String [] tableauComptes = new String[listeComptes.size()];
-
+				String [] tableauComptes = new String[listeComptes.size()+1];
+				tableauComptes[0]="Sélectionnez un compte";
 				for (int i=0;i<tableauComptes.length;i++){
 					Compte comptei = listeComptes.get(i);
 					if(comptei.getType()==Compte.TYPE_UTILISATEUR){
-						tableauComptes[i] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
+						tableauComptes[i+1] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
 					}
 					else if(comptei.getType()==Compte.TYPE_ADMINISTRATEUR){
-						tableauComptes[i] = DAOAdministrateur.getAdministrateurById(comptei.getId()).toString();
+						tableauComptes[i+1] = DAOAdministrateur.getAdministrateurById(comptei.getId()).toString();
 					}
 					else if(comptei.getType()==Compte.TYPE_TECHNICIEN){
-						tableauComptes[i] = DAOTechnicien.getTechnicienById(comptei.getId()).toString();
+						tableauComptes[i+1] = DAOTechnicien.getTechnicienById(comptei.getId()).toString();
 					}
 				}
 

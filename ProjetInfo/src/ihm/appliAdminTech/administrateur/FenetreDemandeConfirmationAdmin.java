@@ -74,9 +74,9 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		labelConfirm.setPreferredSize(new Dimension(550,30));
-		boutonOui.setPreferredSize(new Dimension(150,50));
+		boutonOui.setPreferredSize(new Dimension(200,50));
 		boutonOui.setBackground(Color.CYAN);
-		boutonNon.setPreferredSize(new Dimension(150,50));
+		boutonNon.setPreferredSize(new Dimension(200,50));
 		boutonNon.setBackground(Color.CYAN);
 
 		boutonOui.addActionListener(this);

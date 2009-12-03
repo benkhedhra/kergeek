@@ -48,6 +48,22 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	private JButton bouton2 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
+
+	public JFrame getFenetrePrecedente() {
+		return fenetrePrecedente;
+	}
+
+	public void setFenetrePrecedente(JFrame fenetrePrecedente) {
+		this.fenetrePrecedente = fenetrePrecedente;
+	}
+
 	public FenetreConfirmation(Compte c,JFrame fenetrePrec){
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
@@ -57,8 +73,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			this.setContentPane(new PanneauTech());
 		}
 
-		compte=c;
-		fenetrePrecedente=fenetrePrec;
+		this.setCompte(c);
+		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Ecran de confirmation");
 		this.setSize(700, 500);
@@ -69,50 +85,35 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 		this.getContentPane().setLayout(new BorderLayout());
 
-		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ c.getId());
-		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(700,50));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
-		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,40));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		south.setLayout(new GridLayout(1,3));
+		JPanel center = new JPanel();
+		center.setPreferredSize(new Dimension(700,600));
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
-		bouton1.setPreferredSize(new Dimension(250,40));
-		bouton1.setMaximumSize(new Dimension(250,40));
-		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
-		bouton1.setBackground(Color.GREEN);
-
-		bouton2.setPreferredSize(new Dimension(250,40));
-		bouton2.setMaximumSize(new Dimension(250,40));
-		bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
-		bouton2.setBackground(Color.GREEN);
-
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonRetour.setBackground(Color.YELLOW);
-
+		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
-			JPanel center = new JPanel();
-			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
-			labelConfirm.setText("Au revoir et à bientôt ! ");
-			center.add(labelConfirm);
-			
+			System.out.println("c'est ok");
+			labelAdminTech = new JLabel("Vous êtes à présent déconnecté");
+			labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+			labelAdminTech.setPreferredSize(new Dimension(400,30));
 			bouton1.setText("Nouvelle authentification");
-			bouton1.setPreferredSize(new Dimension(150,30));
+			bouton1.setPreferredSize(new Dimension(250,30));
 			bouton1.setBackground(Color.MAGENTA);
 			bouton1.setFont(FenetreAuthentificationUtil.POLICE4);
 			bouton1.addActionListener(this);
-			
+			north.add(labelAdminTech);
 			north.add(bouton1);
+
+			labelConfirm.setText("Au revoir et à bientôt ! ");
+			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
+			center.add(labelConfirm);
+
 			this.getContentPane().add(north,BorderLayout.NORTH);
-			
 			this.getContentPane().add(center,BorderLayout.CENTER);
+
 			this.setVisible(true);
 			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaît automatiquement au terme des 5 secondes
 			/*try {
@@ -124,6 +125,30 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}*/
 		}
 		else {
+			labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ c.getId());
+			labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+			labelAdminTech.setPreferredSize(new Dimension(500,30));
+
+			JPanel south = new JPanel();
+			south.setPreferredSize(new Dimension(700,40));
+			south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			//south.setLayout(new GridLayout(1,3));
+
+			bouton1.setPreferredSize(new Dimension(250,40));
+			bouton1.setMaximumSize(new Dimension(250,40));
+			bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton1.setBackground(Color.GREEN);
+
+			bouton2.setPreferredSize(new Dimension(250,40));
+			bouton2.setMaximumSize(new Dimension(250,40));
+			bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton2.setBackground(Color.GREEN);
+
+			boutonRetour.setPreferredSize(new Dimension(250,40));
+			boutonRetour.setMaximumSize(new Dimension(250,40));
+			boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonRetour.setBackground(Color.YELLOW);
+
 			//situations possibles pour un administrateur
 			if (fenetrePrec.getTitle().equals("Création d'un nouveau compte")){
 				north.add(labelAdminTech);
@@ -246,8 +271,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
-			
-			JPanel center = new JPanel();
+
 			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
 			center.add(labelConfirm);
@@ -258,7 +282,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		}// fin du else si on n'est pas dans le cas d'une fenêtre de déconnexion
 	}
 
-	
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){

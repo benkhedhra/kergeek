@@ -44,9 +44,9 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		this.setAdministrateur(a);
 		
 		this.setContentPane(new PanneauAdmin());
-		System.out.println("Affichage du menu de l'administrateur");
+		System.out.println("Affichage du menu principal de l'administrateur");
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Menu de l'administrateur");
+		this.setTitle("Menu principal de l'administrateur");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));

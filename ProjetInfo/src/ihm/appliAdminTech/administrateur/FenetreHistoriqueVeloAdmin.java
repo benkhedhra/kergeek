@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -7,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +19,7 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Velo;
+import exception.ChampIncorrectException;
 
 public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener {
 
@@ -117,7 +121,15 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonAfficher){
-			//new FenetreAffichageResultats(this,this.getAdministrateur().getCompte());
+			try {
+				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg("SQLException"+e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
+			} catch (ChampIncorrectException e) {
+				MsgBox.affMsg("ChampIncorrectException"+e.getMessage());
+			}
 		}
 		else if(arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
