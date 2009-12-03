@@ -121,7 +121,7 @@ public class Emprunt {
 		if(this.getDateRetour() != null){
 			System.out.println("dateRetour"+ this.getDateRetour().getTime());
 			System.out.println("dateEmprunt"+ this.getDateEmprunt().getTime());
-			diff = this.getDateRetour().getTime() - this.getDateEmprunt().getTime();
+			diff = (this.getDateRetour().getTime() - this.getDateEmprunt().getTime())/100;
 			System.out.println(diff);
 		}
 		else{
