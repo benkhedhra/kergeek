@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -120,8 +122,9 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			if (testerIdent(id)){
 				Utilisateur u;
 				u = DAOUtilisateur.getUtilisateurById(id);
+
 				Date dateDernierRetour = DAOUtilisateur.getDerniereDateRetour(u);
-				System.out.println(u.isBloque());
+
 				if(u.isBloque()){
 					if(dateDernierRetour.before(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),7))){
 						u.setBloque(false);
@@ -131,7 +134,12 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 					new MenuUtilisateur(u);
 				}
 				else{
-					new FenetreConfirmationUtil("Votre compte est bloqué jusqu'au "+UtilitaireDate.ajouteJours(dateDernierRetour,7).getDate()+" à "+dateDernierRetour.getTime());
+					Date dateLimite = UtilitaireDate.ajouteJours(dateDernierRetour,7);
+					GregorianCalendar cal = new GregorianCalendar();
+					cal.setTime(dateDernierRetour);
+					
+					
+					new FenetreConfirmationUtil("Votre compte est bloqué jusqu'au " + cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG , getLocale())+" "+ cal.get(Calendar.DAY_OF_MONTH)+" "+ cal.getDisplayName(Calendar.MONTH, Calendar.LONG, getLocale()) + " à " + (cal.get(Calendar.HOUR_OF_DAY)+1) + "h");
 				}
 				
 			}
