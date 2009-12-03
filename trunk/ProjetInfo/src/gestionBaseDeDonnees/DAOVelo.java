@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.Lieu;
-import metier.Station;
 import metier.Velo;
 
 public class DAOVelo {
@@ -142,11 +141,8 @@ public class DAOVelo {
 				listeVelos.add(velo);
 			}
 			else {
-				throw new PasDansLaBaseDeDonneeException("Pas de velo dans ce lieu");
+				System.out.println("Pas de velo dans ce lieu");
 			}
-		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
 		}
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
@@ -161,13 +157,7 @@ public class DAOVelo {
 
 	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException{
 		Velo velo = getVeloById(id);
-		Boolean a = velo!=null;
-		System.out.println("vélo dans la bdd : "+a);
-		Boolean b = !velo.getLieu().getId().equals(Lieu.ID_GARAGE);
-		System.out.println("vélo dans le garage : "+!b);
-		Boolean c = !velo.getLieu().getId().equals(Lieu.ID_SORTIE);
-		System.out.println("vélo en sortie : "+!c);
-		return (a && b && c );
+		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE)&& !velo.getLieu().getId().equals(Lieu.ID_SORTIE) );
 	}
 
 }

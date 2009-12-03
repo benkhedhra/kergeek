@@ -17,8 +17,8 @@ public class Emprunt {
 
 	//Constantes
 
-	public static float TPS_EMPRUNT_MAX = 86400000.0f; //24h
-	public static float TPS_EMPRUNT_MIN = 120000.0f; //2min
+	public static float TPS_EMPRUNT_MAX = 86400; //24h
+	public static float TPS_EMPRUNT_MIN = 120; //2min
 
 
 	//Constructeur
@@ -121,7 +121,7 @@ public class Emprunt {
 		if(this.getDateRetour() != null){
 			long diff = this.getDateRetour().getTime() - this.getDateEmprunt().getTime();
 			System.out.println(diff);
-			tpsEmprunt = diff / 1000.0f;
+			tpsEmprunt = diff / 1000000.0f;
 			System.out.println(tpsEmprunt);
 		}
 		else{

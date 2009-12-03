@@ -120,7 +120,12 @@ public class FenetreAffichageResultats extends JFrame {
 			centerEast.setPreferredSize(new Dimension(300,300));
 			centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 			centerEast.add(lblChart1);
+			
+			center.add(centerWest,BorderLayout.WEST);
+			center.add(centerEast,BorderLayout.EAST);
 		}
+		
+		this.getContentPane().add(center,BorderLayout.CENTER);
 
 
 		this.setVisible(true);

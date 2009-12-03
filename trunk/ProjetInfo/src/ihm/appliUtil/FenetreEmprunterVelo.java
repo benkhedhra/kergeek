@@ -28,7 +28,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Utilisateur u;
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
@@ -107,12 +107,25 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 			try {
 				if(DAOVelo.estDisponible(veloARemplir.getText())){
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
+					Station station = (Station) velo.getLieu();
 					u.emprunteVelo(velo,(Station)(velo.getLieu()));
+					
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
 					DAOVelo.updateVelo(velo);
+					
+					System.out.println(station.getAdresse());
+					System.out.println(DAOVelo.getVelosByLieu(station).size());
+					if (DAOVelo.getVelosByLieu(station).isEmpty()){
+						System.out.println("Attention petit technicien la station " + station.getAdresse() +" est vide");
+						/*TODO
+						 * 
+						 */
+					}
+					
 					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
 					System.out.println("L'emprunt a bien été enregistré");
 				}
+
 				else {
 					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas ou n'est pas disponible");
 					new FenetreEmprunterVelo(this.getUtilisateur());
