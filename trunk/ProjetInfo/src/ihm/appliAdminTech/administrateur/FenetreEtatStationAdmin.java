@@ -42,6 +42,14 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.administrateur = administrateur;
 	}
 
+	public Station getStationEntree() {
+		return stationEntree;
+	}
+
+	public void setStationEntree(Station stationEntree) {
+		this.stationEntree = stationEntree;
+	}
+
 	public FenetreEtatStationAdmin(Administrateur a){
 
 		System.out.println("Fenêtre pour avoir l'état d'une station");
