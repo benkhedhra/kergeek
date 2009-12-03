@@ -41,6 +41,7 @@ public class TestDAOEmprunt extends TestCase{
 		DAOEmprunt.createEmprunt(e);
 		e.setUtilisateur(u2);
 		Boolean b = DAOEmprunt.updateEmprunt(e);
+		assertEquals((Boolean)true, (Boolean)b);
 	}
 	
 	@Test
@@ -48,17 +49,16 @@ public class TestDAOEmprunt extends TestCase{
 		Emprunt e = DAOEmprunt.getEmpruntById("1");
 		assertEquals("2", e.getLieuEmprunt().getId());
 		assertEquals("1", e.getLieuRetour().getId());
-		Utilisateur u = DAOUtilisateur.getUtilisateurById(e.getUtilisateur().getCompte().getId());
-		assertTrue(u.equals(e.getUtilisateur()));
-		assertEquals("1", e.getVelo().getId().toString());
+		assertEquals("franckyvincent@gmail.com", e.getUtilisateur().getCompte().getAdresseEmail());
 	}
 	
 	@Test
 	public void testGetNombreEmpruntParUtilisateurParMois() throws SQLException, ClassNotFoundException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
 		List <Integer> liste = DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 3);
-		assertEquals((int)0, (int)liste.get(0));
+		
+		assertEquals((int)2, (int)liste.get(0));
 		assertEquals((int)2, (int)liste.get(1));
-		assertEquals((int)1, (int)liste.get(2));
+		assertEquals((int)0, (int)liste.get(2));
 	}
 }

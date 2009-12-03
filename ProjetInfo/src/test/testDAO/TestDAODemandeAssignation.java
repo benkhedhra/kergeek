@@ -1,15 +1,13 @@
 package test.testDAO;
 
 import java.sql.SQLException;
-import java.util.Date;
+
 import java.util.List;
 
 import gestionBaseDeDonnees.DAODemandeAssignation;
-import gestionBaseDeDonnees.DAOLieu;
+
 
 import metier.DemandeAssignation;
-import metier.Lieu;
-import metier.UtilitaireDate;
 
 import org.junit.Test;
 
