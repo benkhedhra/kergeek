@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import metier.Emprunt;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 
@@ -121,9 +120,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			if (testerIdent(id)){
 				Utilisateur u;
 				u = DAOUtilisateur.getUtilisateurById(id);
-
-				Emprunt dernierEmprunt = DAOUtilisateur.getDernierEmprunt(u);
-				Date dateDernierRetour = dernierEmprunt.getDateRetour();
+				Date dateDernierRetour = DAOUtilisateur.getDerniereDateRetour(u);
 				if(u.isBloque()){
 					if(dateDernierRetour.before(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),7))){
 						u.setBloque(false);

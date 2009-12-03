@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
 import metier.Compte;
-import metier.Emprunt;
 import metier.Utilisateur;
 
 public class DAOUtilisateur {
@@ -179,12 +179,30 @@ public class DAOUtilisateur {
 		return listeUtils;
 	}
 	
-	public static Emprunt getDernierEmprunt(Utilisateur u){
-		/*TODO
-		 * 
-		 */
-		Emprunt emprunt=null;
-		return emprunt;
+	public static java.sql.Date getDerniereDateRetour(Utilisateur u) throws ClassNotFoundException, SQLException{
+		java.sql.Date dateDernierRetour = null;
+
+		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			ResultSet res = s.executeQuery("Select dateRetour from Emprunt WHERE dateRetour IS NOT NULL AND idCompte = '" + u.getCompte().getId()+"' ORDER BY dateRetour ASC");
+
+			if (res.next()) {
+
+				GregorianCalendar cal = new GregorianCalendar();
+				dateDernierRetour = res.getDate("dateRetour", cal);
+			}
+
+
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+		}
+		return dateDernierRetour;
 	}
 	
 }
