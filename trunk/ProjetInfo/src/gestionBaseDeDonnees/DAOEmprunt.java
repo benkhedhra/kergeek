@@ -38,7 +38,7 @@ public class DAOEmprunt {
 							+ "'" + emprunt.getLieuRetour().getId() + "',"
 							+ "'" + emprunt.getUtilisateur().getCompte().getId() + "'," 
 							+ "'" + emprunt.getVelo().getId() + "'" +
-					"')");
+					")");
 					effectue=true;
 				}
 				else{

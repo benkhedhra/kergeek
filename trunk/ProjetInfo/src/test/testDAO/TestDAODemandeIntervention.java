@@ -28,5 +28,5 @@ public class TestDAODemandeIntervention extends TestCase{
 		System.out.println("coucou2");
 		assertEquals((Boolean)true, b);
 	}
-
+	
 }

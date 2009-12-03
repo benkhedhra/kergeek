@@ -48,8 +48,9 @@ public class TestDAOEmprunt extends TestCase{
 		Emprunt e = DAOEmprunt.getEmpruntById("1");
 		assertEquals("2", e.getLieuEmprunt().getId());
 		assertEquals("1", e.getLieuRetour().getId());
-		assertEquals("u1", e.getUtilisateur().getCompte().getId());
-		assertEquals("1", e.getVelo().getId());
+		Utilisateur u = DAOUtilisateur.getUtilisateurById(e.getUtilisateur().getCompte().getId());
+		assertTrue(u.equals(e.getUtilisateur()));
+		assertEquals("1", e.getVelo().getId().toString());
 	}
 	
 	@Test

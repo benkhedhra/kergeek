@@ -183,13 +183,14 @@ public class DAODemandeAssignation {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
 		ResultSet res = s.executeQuery("Select * FROM DemandeAssignation WHERE idDemandeA ='" + identifiant + "'");
+		//System.out.println(res.getString("idLieu"));
 		try {
 			if (res.next()) {
 				
 				GregorianCalendar cal = new GregorianCalendar();
 				
 				ddeAssignation.setId(identifiant);
-				java.sql.Date date = res.getDate("date", cal);
+				java.sql.Date date = res.getDate("dateAssignation", cal);
 				int nombre = res.getInt("nombre");
 				String idLieu = res.getString("idLieu");
 				Boolean priseEnCharge = res.getBoolean("priseEnCharge");
