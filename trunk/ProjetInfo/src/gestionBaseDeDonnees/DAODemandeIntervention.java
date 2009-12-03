@@ -88,10 +88,9 @@ public class DAODemandeIntervention {
 		ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
 		try {
 			if (res.next()) {
-
-				GregorianCalendar cal = new GregorianCalendar();
 				
-				java.sql.Date dateDemandeI = res.getDate("dateDemandeI",cal);
+				java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
+				java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
 				String idVelo = res.getString("idVelo");
 				String idCompte = res.getString("idCompte");
 				String idIntervention = res.getString("idIntervention");

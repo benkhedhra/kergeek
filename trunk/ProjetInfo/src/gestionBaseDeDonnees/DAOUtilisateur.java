@@ -190,8 +190,8 @@ public class DAOUtilisateur {
 
 			if (res.next()) {
 
-				GregorianCalendar cal = new GregorianCalendar();
-				dateDernierRetour = res.getDate("dateRetour", cal);
+				java.sql.Timestamp tempsDernierRetour = res.getTimestamp("dateRetour");
+				dateDernierRetour = new java.sql.Date(tempsDernierRetour.getTime());
 			}
 
 

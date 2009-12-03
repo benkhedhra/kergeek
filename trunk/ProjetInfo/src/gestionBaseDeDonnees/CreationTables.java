@@ -384,9 +384,9 @@ public class CreationTables {
 			System.out.println("Update effectuee.");
 
 		}
-		/*catch (SQLException e){
+		catch (SQLException e){
 			System.out.println(e.getMessage());
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

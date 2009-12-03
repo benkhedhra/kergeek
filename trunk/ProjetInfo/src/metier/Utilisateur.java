@@ -115,7 +115,7 @@ public class Utilisateur {
 
 	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException, CompteBloqueException{
 		if (!this.bloque){
-			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(),velo.getLieu()));
+			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(), velo.getLieu()));
 			this.setEmpruntEnCours(velo.getEmpruntEnCours());
 			station.enleverVelo(velo);
 		}

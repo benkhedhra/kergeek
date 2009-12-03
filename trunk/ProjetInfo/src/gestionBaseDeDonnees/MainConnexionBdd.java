@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import metier.Emprunt;
 import metier.Utilisateur;
+import metier.UtilitaireDate;
 import exception.PasDeDateRetourException;
 
 public class MainConnexionBdd {
@@ -25,10 +26,15 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 
-		Utilisateur u1 = DAOUtilisateur.getUtilisateurById("u1");
-		
-		System.out.println(DAOUtilisateur.getDerniereDateRetour(u1));
-		
+		System.out.println(UtilitaireDate.dateCourante().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("1").getDateEmprunt().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("1").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("54").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("55").getDateRetour().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("56").getDateEmprunt().getTime());
+		System.out.println(DAOEmprunt.getEmpruntById("56").getDateRetour().getTime());
+		System.out.println(UtilitaireDate.dateCourante().getTime());
 		
 		/*
 		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
