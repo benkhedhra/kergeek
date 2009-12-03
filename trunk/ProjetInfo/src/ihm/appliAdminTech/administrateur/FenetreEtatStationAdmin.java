@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOLieu;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
@@ -176,6 +177,8 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ChampIncorrectException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 		}
