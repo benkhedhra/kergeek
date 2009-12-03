@@ -4,6 +4,7 @@ import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOUtilisateur;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -39,6 +40,7 @@ import org.jfree.ui.RefineryUtilities;
 			CategoryDataset dataset = createDataset(u);
 			chart = createChart(dataset,u);
 			ChartPanel chartPanel = new ChartPanel(chart, false);
+			chartPanel.setPreferredSize(new Dimension(550, 400));
 			this.setContentPane(chartPanel);
 
 		}

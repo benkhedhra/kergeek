@@ -9,7 +9,6 @@ import ihm.appliUtil.FenetreAuthentificationUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -110,6 +109,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
+		System.out.println("compte sélectionné = "+c.getId());
 		labelMsg.setText("Informations sur le compte "+c.getId());
 		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
@@ -119,7 +119,6 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(500,350));
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(6,2));
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
@@ -238,8 +237,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		if(!stat){boutonChoix.setText("Modifier des informations sur ce compte");}
 		else{boutonChoix.setText("Afficher statistiques sur ce compte");
 		}
-		boutonChoix.setPreferredSize(new Dimension(250,60));
-		boutonChoix.setMaximumSize(new Dimension(250,60));
+		boutonChoix.setPreferredSize(new Dimension(190,60));
+		boutonChoix.setMaximumSize(new Dimension(190,60));
 		boutonChoix.setBackground(Color.CYAN);
 		boutonChoix.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonChoix.addActionListener(this);

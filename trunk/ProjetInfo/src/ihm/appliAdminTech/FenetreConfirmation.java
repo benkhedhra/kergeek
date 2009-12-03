@@ -102,16 +102,26 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
 			labelConfirm.setText("Au revoir et à bientôt ! ");
 			center.add(labelConfirm);
+			
+			bouton1.setText("Nouvelle authentification");
+			bouton1.setPreferredSize(new Dimension(150,30));
+			bouton1.setBackground(Color.MAGENTA);
+			bouton1.setFont(FenetreAuthentificationUtil.POLICE4);
+			bouton1.addActionListener(this);
+			
+			north.add(bouton1);
+			this.getContentPane().add(north,BorderLayout.NORTH);
+			
 			this.getContentPane().add(center,BorderLayout.CENTER);
 			this.setVisible(true);
 			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaît automatiquement au terme des 5 secondes
-			try {
+			/*try {
 				Thread.sleep(5000);
 				this.dispose();
 				new FenetreAuthentification(false);
 			} catch (InterruptedException e) {
 				MsgBox.affMsg(e.getMessage());
-			}
+			}*/
 		}
 		else {
 			//situations possibles pour un administrateur
@@ -419,6 +429,11 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				} catch (ClassNotFoundException e) {
 					MsgBox.affMsg(e.getMessage());
 				}
+			}
+		}
+		if(fenetrePrecedente.getTitle().equals("Menu principal de l'administrateur") || fenetrePrecedente.getTitle().equals("Menu principal du technicien")){
+			if(arg0.getSource()==bouton1){
+				new FenetreAuthentification(false);
 			}
 		}
 	}

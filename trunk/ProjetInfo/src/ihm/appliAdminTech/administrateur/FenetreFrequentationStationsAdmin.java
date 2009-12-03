@@ -18,10 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import exception.ChampIncorrectException;
-
 import metier.Administrateur;
-import metier.Compte;
+import exception.ChampIncorrectException;
 
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -94,27 +92,29 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
-		String[] periodes = new String[4];
-		periodes[0] = "30 derniers jours";
-		periodes[1] = "60 derniers jours";
-		periodes[2] = "6 derniers mois";
-		periodes[3] = "365 deniers jours";
+		String[] periodes = new String[5];
+		periodes[0] = "Sélectionnez une période";
+		periodes[1] = "30 derniers jours";
+		periodes[2] = "60 derniers jours";
+		periodes[3] = "6 derniers mois";
+		periodes[4] = "365 derniers jours";
 		DefaultComboBoxModel model = new DefaultComboBoxModel(periodes);
 		JComboBox periodeARemplir = new JComboBox(model);
-		periodeARemplir.setPreferredSize(new Dimension(150,30));
-		periodeARemplir.setMaximumSize(new Dimension(150,30));
+		periodeARemplir.setPreferredSize(new Dimension(250,30));
+		periodeARemplir.setMaximumSize(new Dimension(250,30));
 		periodeARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
 		periodeARemplir.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				periodeEntree = (String)o;
-				System.out.println("période entrée : "+periodeEntree);
 			}
 
 		});
-		
+
 		this.setPeriodeEntree(periodeEntree);
+		//il y a un truc pas net ici car à la ligne suivante on voit que periodeEntree vaut toujours null
+		//System.out.println("périodeEntrée = "+periodeEntree);
 
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));

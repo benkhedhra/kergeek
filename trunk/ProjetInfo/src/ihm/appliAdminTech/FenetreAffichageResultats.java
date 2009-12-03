@@ -83,17 +83,17 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelAdminTech.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(700,50));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,450));
+		center.setPreferredSize(new Dimension(700,600));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		//cas possibles pour l'administrateur
@@ -103,7 +103,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
-			bouton1.setText("Fréquentation d'une autre station");
+			bouton1.setText("Fréquentation pour une autre période");
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
@@ -168,6 +168,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
+		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
