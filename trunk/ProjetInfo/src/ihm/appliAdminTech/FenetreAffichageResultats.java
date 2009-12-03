@@ -1,15 +1,19 @@
 package ihm.appliAdminTech;
 
+import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
 import ihm.appliAdminTech.administrateur.FenetreInfoCompteAdmin;
+import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
+import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +43,22 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 	private JButton bouton2 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
+
+	public JFrame getFenetrePrecedente() {
+		return fenetrePrecedente;
+	}
+
+	public void setFenetrePrecedente(JFrame fenetrePrecedente) {
+		this.fenetrePrecedente = fenetrePrecedente;
+	}
+
 	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ChampIncorrectException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
@@ -48,8 +68,8 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			this.setContentPane(new PanneauTech());
 		}
 
-		compte=c;
-		fenetrePrecedente=fenetrePrec;
+		this.setCompte(c);
+		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Affichage des résultats");
 		this.setSize(700, 500);
@@ -68,8 +88,12 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,40));
+		center.setPreferredSize(new Dimension(700,450));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+
+		JPanel south = new JPanel();
+		south.setPreferredSize(new Dimension(700,100));
+		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		//cas possibles pour l'administrateur
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
@@ -80,6 +104,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			center.add(lblChart);
 			bouton1.setText("Fréquentation d'une autre station");
 			bouton1.addActionListener(this);
+			south.add(bouton1);
 		}
 
 		if(fenetrePrec.getTitle().equals("Informations sur un compte")){
@@ -91,6 +116,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			center.add(lblChart);
 			bouton1.setText("Afficher statistiques sur un autre utilisateur");
 			bouton1.addActionListener(this);
+			south.add(bouton1);
 		}
 
 
@@ -127,21 +153,61 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			centerEast.setPreferredSize(new Dimension(300,300));
 			centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 			centerEast.add(lblChart1);
-			
+
 			center.add(centerWest,BorderLayout.WEST);
 			center.add(centerEast,BorderLayout.EAST);
 		}
-		
+
+		boutonRetour.setPreferredSize(new Dimension(250,40));
+		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setBackground(Color.YELLOW);
+		south.add(boutonRetour);
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
+		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 
 		this.setVisible(true);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
+		// différents cas possibles pour l'administrateur
+		if(arg0.getSource()==bouton1){
+			if(this.getFenetrePrecedente().getTitle().equals("Fréquentation des stations")){
+				try {
+					new FenetreFrequentationStationsAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(this.getFenetrePrecedente().getTitle().equals("Informations sur un compte")){
+				try {
+					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),true);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		else if(arg0.getSource()==boutonRetour){
+			try {
+				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
-
 }

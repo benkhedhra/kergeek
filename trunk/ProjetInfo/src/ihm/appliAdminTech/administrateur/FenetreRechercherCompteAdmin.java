@@ -144,30 +144,38 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
-		String[] types = new String[4];
-		//idée : getAllStations : ici lignes suivantes pour tester provisoirement
-		types[0] = "Sélection à faire";
-		types[1] = "utilisateur";
-		types[2] = "administrateur";
-		types[3] = "technicien";
-		DefaultComboBoxModel model = new DefaultComboBoxModel(types);
-		JComboBox qualiteARemplir = new JComboBox(model);
-		qualiteARemplir.setPreferredSize(new Dimension(150,30));
-		qualiteARemplir.setMaximumSize(new Dimension(150,30));
-		qualiteARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
-		qualiteARemplir.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-				String qualiteEntree = (String)o;
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		if(!stat){
+			String[] types = new String[4];
+			types[0] = "Sélection à faire";
+			types[1] = "utilisateur";
+			types[2] = "administrateur";
+			types[3] = "technicien";
+			DefaultComboBoxModel model = new DefaultComboBoxModel(types);
+			JComboBox qualiteARemplir = new JComboBox(model);
+			qualiteARemplir.setPreferredSize(new Dimension(150,30));
+			qualiteARemplir.setMaximumSize(new Dimension(150,30));
+			qualiteARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
+			qualiteARemplir.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent ae){
+					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+					String qualiteEntree = (String)o;
 
-				if(qualiteEntree.equals("utilisateur")){typeEntre=Compte.TYPE_UTILISATEUR;}
-				if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
-				if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
+					if(qualiteEntree.equals("utilisateur")){typeEntre=Compte.TYPE_UTILISATEUR;}
+					if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
+					if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
 
-				modifieSiUtilisateur(typeEntre);
+					modifieSiUtilisateur(typeEntre);
+				}
+
+			});
+			panel2.add(qualiteARemplir);
+		}
+		else{
+			JLabel labelUtil = new JLabel ("utilisateur");
+			panel2.add(labelUtil);
 			}
-
-		});
 
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
@@ -181,11 +189,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		panel1.add(labelQualite);
 		centerWest.add(panel1);
 
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		panel2.add(qualiteARemplir);
 		centerWest.add(panel2);	
-
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	

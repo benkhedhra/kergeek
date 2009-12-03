@@ -116,12 +116,12 @@ public class Emprunt {
 
 	//Methodes
 
-	public float getTempsEmprunt() throws PasDeDateRetourException{
-		float tpsEmprunt = 0;
+	public long getTempsEmprunt() throws PasDeDateRetourException{
+		long diff;
 		if(this.getDateRetour() != null){
 			long diff = this.getDateRetour().getTime() - this.getDateEmprunt().getTime();
 			System.out.println(diff);
-			tpsEmprunt = diff / 1000000.0f;
+			long tpsEmprunt = diff / 1000;
 			System.out.println(tpsEmprunt);
 		}
 		else{

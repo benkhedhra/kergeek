@@ -54,7 +54,7 @@ public static java.sql.Date retrancheHeures(java.sql.Date dateSql, int nbHeures)
 		  GregorianCalendar gCal = new GregorianCalendar();
 		// initialise le calendrier à la date courante;
 		  gCal.setTime(dateSql);
-		  gCal.add(Calendar.DATE, +nbJours);
+		  gCal.add(Calendar.DATE, nbJours);
 		  
 		  java.util.Date dateUtil = gCal.getTime();
 		  java.sql.Date nouvelleDateSql = new java.sql.Date(dateUtil.getTime());

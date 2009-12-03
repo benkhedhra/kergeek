@@ -106,7 +106,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			String [] tableauStations = new String[listeStations.size()+1];
 			tableauStations[0]="Sélectionnez une station";
 			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i]=listeStations.get(i).toString();
+				tableauStations[i+1]=listeStations.get(i).toString();
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			JPanel center = new JPanel();
@@ -162,48 +162,55 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			new FenetreConfirmationUtil("Merci et à bientôt ! ");
 		}
 		else if (arg0.getSource()==boutonValider){
-			try{
-				System.out.println(stationEntree);
-				Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
-				if (emprunt!=null){
-					// l'utilisateur a bien rendu le vélo
-					DAOVelo.updateVelo(velo);
-					Boolean b = DAOEmprunt.updateEmprunt(emprunt);
-					DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
-					if(b){
-						if (emprunt.getTempsEmprunt()<Emprunt.TPS_EMPRUNT_MIN){
-							//emprunt trop court
-							new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
-						}
+			if(stationEntree!=null){
+				try{
+					System.out.println(stationEntree);
+					Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
+					if (emprunt!=null){
+						// l'utilisateur a bien rendu le vélo
+						DAOVelo.updateVelo(velo);
+						Boolean b = DAOEmprunt.updateEmprunt(emprunt);
+						DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+						if(b){
+							if (emprunt.getTempsEmprunt()<Emprunt.TPS_EMPRUNT_MIN){
+								//emprunt trop court
+								new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
+							}
 
-						else if (this.getUtilisateur().isBloque()){
-							//emprunt trop long
-							new FenetreEmpruntLong(this.getUtilisateur());
-							DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
-						}
+							else if (this.getUtilisateur().isBloque()){
+								//emprunt trop long
+								new FenetreEmpruntLong(this.getUtilisateur());
+								DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+							}
 
-						else {
-							//emprunt ni trop court ni trop long
-							new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
-							System.out.println("Le vélo a bien été rendu");
+							else {
+								//emprunt ni trop court ni trop long
+								new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
+								System.out.println("Le vélo a bien été rendu");
+							}
+						}
+						else{
+							System.out.println("Le vélo n'a pas été rendu");
+							this.labelMsg.setText("Le vélo n'a pas été rendu");
+							new FenetreRendreVelo(this.getUtilisateur());
 						}
 					}
-					else{
-						System.out.println("Le vélo n'a pas été rendu");
-						this.labelMsg.setText("Le vélo n'a pas été rendu");
-						new FenetreRendreVelo(this.getUtilisateur());
-					}
+
+				} catch (SQLException e) {
+					MsgBox.affMsg("SQL exception " + e.getMessage());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg("ClassNotFound " + e.getMessage());
+				} catch (PasDeVeloEmprunteException e) {
+					MsgBox.affMsg("PasDeVeloEmprunte " + e.getMessage());
+				} catch (PasDeDateRetourException e) {
+					MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
 				}
-
-			} catch (SQLException e) {
-				MsgBox.affMsg("SQL exception " + e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg("ClassNotFound " + e.getMessage());
-			} catch (PasDeVeloEmprunteException e) {
-				MsgBox.affMsg("PasDeVeloEmprunte " + e.getMessage());
-			} catch (PasDeDateRetourException e) {
-				MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
+			}
+			else{
+				MsgBox.affMsg("Aucune station sélectionnée");
+				new FenetreRendreVelo(this.getUtilisateur());
 			}
 		}
+
 	}
 }
