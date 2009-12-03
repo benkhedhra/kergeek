@@ -25,11 +25,11 @@ public class DAOIntervention {
 				String id = res.getString("id");
 				intervention.setId(id);
 
-				s.executeUpdate("INSERT into Intervention values ('" 
-						+ intervention.getId() +  "', '" 
-						+ intervention.getVelo().getId() + "', '" 
-						+ "TO_DATE('" + intervention.getDate() +"','YYYY-MM-DD-HH24:MI'), '"
-						+ intervention.getTypeIntervention() + "')");
+				s.executeUpdate("INSERT into Intervention values ("
+						+ "'"+ intervention.getId() +  "'," 
+						+ "'"+ intervention.getVelo().getId() + "'," 
+						+ "TO_DATE('" + intervention.getDate() +"','YYYY-MM-DD-HH24:MI'),"
+						+ "'"+ intervention.getTypeIntervention() + "'"+ ")");
 				effectue=true;
 			}
 		}

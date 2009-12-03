@@ -37,10 +37,7 @@ public class TestDAOUtilisateur extends TestCase {
 		System.out.println("bloqué :" + u1.isBloque().equals(u2.isBloque()));
 		System.out.println("adresse postale :" + u1.getAdressePostale().equals(u2.getAdressePostale()));
 		System.out.println("adresse postale u1:" + u1.getAdressePostale() +"; adresse postale u2:" + u2.getAdressePostale());*/
-		
 		assertTrue(u1.equals(u2));
-		
-		
 	}
 	
 	@Test
