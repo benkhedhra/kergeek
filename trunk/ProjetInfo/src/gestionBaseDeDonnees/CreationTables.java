@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import metier.Garage;
+import metier.Lieu;
 import metier.Sortie;
 
 public class CreationTables {
@@ -141,25 +142,25 @@ public class CreationTables {
 
 
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','"+ "'2')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0',"+ "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1'," + "'5')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + "'Lieu.ID_GARAGE + ')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'+ Lieu.ID_SORTIE +')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 			
 
 
@@ -168,14 +169,14 @@ public class CreationTables {
 
 			// Insertion UTILISATEUR
 
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3','17')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3','')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3','12')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3','13')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3','14')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3','15')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3','8')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'singe','benabar','bruno','10 rue de la poesie 35 170 bruz', 'brunobenabar@gmail.com', '1', '0','3','16')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'franckyvincent@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'singe','benabar','bruno','10 rue de la poesie 35 170 bruz', 'brunobenabar@gmail.com', '1', '0','3')");
 
 			
 						
@@ -381,9 +382,9 @@ public class CreationTables {
 			System.out.println("Update effectuee.");
 
 		}
-		catch (SQLException e){
+		/*catch (SQLException e){
 			System.out.println(e.getMessage());
-		}
+		}*/
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
