@@ -16,7 +16,6 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -25,10 +24,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 
-import org.jfree.ui.RefineryUtilities;
-
-import statistiques.DiagrammeNbIntervention;
-import sun.tools.jar.Main;
 
 
 public class EnvoieMail {
@@ -213,11 +208,10 @@ public class EnvoieMail {
     public static void envoyerMail(String sujet, String message, String adresse) throws UnsupportedEncodingException, MessagingException{
         
         final MailMessage msg = new MailMessage();
-        final EnvoieMail mail2 = new EnvoieMail("smtp.gmail.com", 465,
-                "berangerlueza", "beatles1986", true);
+        final EnvoieMail mail2 = new EnvoieMail("smtp.gmail.com", 465, "systemekergeek", "kergeek12", true);
         
         // Message avec texte html + images incluses + pièces jointes
-        msg.setFrom(new InternetAddress("berangerlueza@gmail.com", "Administrateur"));
+        msg.setFrom(new InternetAddress("systemekergeek@gmail.com", "Système Kergeek"));
         msg.setTo(adresse);
         msg.setSubject(sujet);
         msg.setContent(message, true);
@@ -225,7 +219,7 @@ public class EnvoieMail {
     }
     
     public static void main(final String[] args) throws UnsupportedEncodingException, MessagingException {
-		envoyerMail("Alerte","La Sation A n'a plus de vélo, mais a coté de ca si tu le recois c'est que ma méthode fonctionne!!! yahouh","boris.hejblum@ensai.fr");
+		envoyerMail("Alerte","La Sation A n'a plus de vélo","beranger.lueza@ensai.fr");
 
 	}
 }
