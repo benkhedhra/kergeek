@@ -106,7 +106,7 @@ import org.jfree.ui.RefineryUtilities;
 
 			// create the chart
 			JFreeChart chart = ChartFactory.createBarChart(
-					("Nombre d'emprunts de l'utilisateur "+u.getNom()+ u.getPrenom() + " pour les six derniers mois"),
+					("Nombre d'emprunts de l'utilisateur "+u.getNom() +" "+ u.getPrenom() + " pour les six derniers mois"),
 					"6 derniers mois",               // domain axis label
 					"Nombre d' emprunts",        // range axis label
 					dataset,                  // data
