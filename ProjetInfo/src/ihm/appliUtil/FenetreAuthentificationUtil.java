@@ -121,6 +121,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 				Utilisateur u;
 				u = DAOUtilisateur.getUtilisateurById(id);
 				Date dateDernierRetour = DAOUtilisateur.getDerniereDateRetour(u);
+				System.out.println(u.isBloque());
 				if(u.isBloque()){
 					if(dateDernierRetour.before(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),7))){
 						u.setBloque(false);
