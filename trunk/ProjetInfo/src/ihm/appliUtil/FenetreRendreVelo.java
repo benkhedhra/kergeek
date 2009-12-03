@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import exception.ChampIncorrectException;
 import exception.PasDeDateRetourException;
 import exception.PasDeVeloEmprunteException;
 import gestionBaseDeDonnees.DAOEmprunt;
@@ -102,7 +103,8 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		List<Station> listeStations;
 		try {
 			listeStations = DAOLieu.getAllStations();
-			String [] tableauStations = new String[listeStations.size()];
+			String [] tableauStations = new String[listeStations.size()+1];
+			tableauStations[0]="Sélectionnez une station";
 			for (int i=0;i<listeStations.size();i++){
 				tableauStations[i]=listeStations.get(i).toString();
 			}
@@ -113,20 +115,24 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
-					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					String chaineSelectionnee = (String)(o);
-					String idStationEntre = chaineSelectionnee.substring(0,1);
-					try {
-						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-					} catch (SQLException e) {
-						MsgBox.affMsg(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						MsgBox.affMsg(e.getMessage());
+					try{
+						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+						String chaineSelectionnee = (String)(o);
+						String idStationEntre = chaineSelectionnee.substring(0,1);
+						try {
+							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
+						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
+						labelMsg.setFont(FenetreAuthentificationUtil.POLICE3);
 					}
-					labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
-					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+					catch (Exception  e){
+						System.out.println("Erreur dans la sélection de la station");
+					}
 				}
-
 			});
 			center.add(combo);
 
@@ -157,6 +163,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		}
 		else if (arg0.getSource()==boutonValider){
 			try{
+				System.out.println(stationEntree);
 				Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
 				if (emprunt!=null){
 					// l'utilisateur a bien rendu le vélo
