@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import exception.ChampIncorrectException;
+
 import metier.Administrateur;
 
 public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
@@ -125,6 +127,8 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ChampIncorrectException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 		}

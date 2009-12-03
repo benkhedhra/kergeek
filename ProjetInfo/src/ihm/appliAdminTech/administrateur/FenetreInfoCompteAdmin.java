@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
@@ -281,9 +282,11 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			try {
 				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
 			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("SQLException " + e.getMessage());
 			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("ClassNotFoundException " + e.getMessage());
+			} catch (ChampIncorrectException e) {
+				MsgBox.affMsg("Champ incorrect exception " + e.getMessage());
 			}
 		}
 		else if(arg0.getSource()==boutonAutreCompte){
