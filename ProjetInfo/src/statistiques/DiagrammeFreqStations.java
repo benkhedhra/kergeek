@@ -38,13 +38,12 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		CategoryDataset dataset = createDataset(periodeEntree);
 		chart = createChart(dataset,periodeEntree);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		//chartPanel.setPreferredSize(new Dimension(500, 270));
 		this.setContentPane(chartPanel);
 
 	}
 
 	public Image getImage() {
-		return this.chart.createBufferedImage(500, 500);
+		return this.chart.createBufferedImage(550,400);
 	}
 
 	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException {
@@ -62,9 +61,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			for (int i=0;i<stations.size();i++){
 				category.add(DAOLieu.getLieuById(stations.get(i).getId()).getAdresse());
 			}
-			/*TODO récupérer la période (entier) de la fenetre précédente et la passer en paramètre
-			 * de la méthode ci dessous
-			 * */
 
 			int nbJoursEntre;
 			if (periodeEntree.equals("30 derniers jours")){
@@ -82,7 +78,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			else {
 				throw new ChampIncorrectException();
 			}
-
 
 
 			for(int i=0;i<category.size();i++){

@@ -38,13 +38,12 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		CategoryDataset dataset = createDataset();
 		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		//chartPanel.setPreferredSize(new Dimension(500, 270));
 		setContentPane(chartPanel);
 
 	}
 
 	public Image getImage() {
-		return this.chart.createBufferedImage(500, 500);
+		return this.chart.createBufferedImage(550, 400);
 	}
 	
 	private static CategoryDataset createDataset() {

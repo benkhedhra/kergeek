@@ -37,13 +37,12 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		super("");
 		chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		//chartPanel.setPreferredSize(new Dimension(500, 270));
 		this.setContentPane(chartPanel);
 
 	}
 
 	public Image getImage() {
-		return this.chart.createBufferedImage(500, 500);
+		return this.chart.createBufferedImage(300, 300);
 	}
 
 	JFreeChart createChart(Station station) {
