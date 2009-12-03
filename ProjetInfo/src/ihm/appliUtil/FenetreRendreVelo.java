@@ -160,6 +160,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
 				if (emprunt!=null){
 					// l'utilisateur a bien rendu le vélo
+					DAOVelo.updateVelo(velo);
 					Boolean b = DAOEmprunt.updateEmprunt(emprunt);
 					DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
 					if(b){

@@ -24,8 +24,6 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 
-		Emprunt e = DAOEmprunt.getEmpruntById("1");
-		e.getTempsEmprunt();
 
 		/*
 		System.out.println(DAOUtilisateur.getUtilisateurById("u5"));
