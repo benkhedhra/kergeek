@@ -158,9 +158,9 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'4')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
 			
 
 
@@ -177,8 +177,8 @@ public class CreationTables {
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','francois','1 avenue des boreliens 35 040 saintjacquesdelande', 'francoiscoquet@gmail.com', '1', '1','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'singe','benabar','bruno','10 rue de la poesie 35 170 bruz', 'brunobenabar@gmail.com', '1', '0','3')");
-
-			
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'requin','delprat','david','0 rue des etudiants 35 170 bruz', 'deviddelprat@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'baleine','christie','agatha','9 rue du crime 35 170 bruz', 'agathachristie@gmail.com', '1', '0','3')");
 						
 			// Insertion TECHNICIEN
 			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'Repartout','','','', 'didierrepartout@gmail.com', '1','','2')");
@@ -296,7 +296,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 09:33','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('02-12-2009 09:56','DD-MM-YYYY HH24:MI'), '4','2','u4','4')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 10:03','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('02-12-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u5','16')");
+			"TO_DATE('02-12-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u10','16')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 11:24','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('02-12-2009 11:25','DD-MM-YYYY HH24:MI'), '1','2','u6','17')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 09:05','DD-MM-YYYY HH24:MI')," +
@@ -304,7 +304,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 12:45','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('02-12-2009 12:53','DD-MM-YYYY HH24:MI'), '2','5','u1','1')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 12:46','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('02-12-2009 12:54','DD-MM-YYYY HH24:MI'), '1','2','u2','2')");
+			"TO_DATE('02-12-2009 12:54','DD-MM-YYYY HH24:MI'), '1','2','u9','2')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 12:45','DD-MM-YYYY HH24:MI')," +
 			"'', '4','','u3','12')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('02-12-2009 13:05','DD-MM-YYYY HH24:MI')," +
