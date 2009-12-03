@@ -1,15 +1,17 @@
 package ihm.appliUtil;
 
-import ihm.MsgBox;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class FenetreConfirmationUtil extends JFrame {
+public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -18,6 +20,7 @@ public class FenetreConfirmationUtil extends JFrame {
 	
 	private JLabel labelUtil = new JLabel ("Vous êtes à présent déconnecté");
 	private JLabel labelConfirm = new JLabel("");
+	private JButton boutonAuthentification = new JButton("Nouvelle authentification");
 
 	public FenetreConfirmationUtil(String msg){
 
@@ -41,11 +44,16 @@ public class FenetreConfirmationUtil extends JFrame {
 		this.setAlwaysOnTop(true);
 
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelUtil.setPreferredSize(new Dimension(500,30));
+		labelUtil.setPreferredSize(new Dimension(300,30));
+		boutonAuthentification.setPreferredSize(new Dimension(250,30));
+		boutonAuthentification.setBackground(Color.MAGENTA);
+		boutonAuthentification.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonAuthentification.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		north.add(labelUtil);
+		north.add(boutonAuthentification);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 		
 		JPanel center = new JPanel();
@@ -66,5 +74,13 @@ public class FenetreConfirmationUtil extends JFrame {
 		} catch (InterruptedException e) {
 			MsgBox.affMsg(e.getMessage());
 		}*/
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
+		if(arg0.getSource()==boutonAuthentification){
+			new FenetreAuthentificationUtil(false);			
+		}
+		
 	}
 }

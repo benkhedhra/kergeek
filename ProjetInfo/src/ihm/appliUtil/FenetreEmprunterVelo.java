@@ -66,7 +66,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 
 		this.setUtilisateur(u);
 
-		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+u.getNom());
+		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
@@ -105,30 +105,33 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				if(DAOVelo.estDisponible(veloARemplir.getText())){
+				if(!DAOVelo.estDansLaBdd(veloARemplir.getText())){
+					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
+					new FenetreEmprunterVelo(this.getUtilisateur());
+				}
+				else if(!DAOVelo.estDisponible(veloARemplir.getText())){
+					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'est pas disponible");
+					new FenetreEmprunterVelo(this.getUtilisateur());
+				}
+				else{
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
 					Station station = (Station) velo.getLieu();
 					u.emprunteVelo(velo,(Station)(velo.getLieu()));
-					
+
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
 					DAOVelo.updateVelo(velo);
-					
+
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
 					if (DAOVelo.getVelosByLieu(station).isEmpty()){
-						System.out.println("Attention petit technicien la station " + station.getAdresse() +" est vide");
+						MsgBox.affMsg("Attention petit technicien la station " + station.getAdresse() +" est vide");
 						/*TODO
 						 * 
 						 */
 					}
-					
+
 					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
 					System.out.println("L'emprunt a bien été enregistré");
-				}
-
-				else {
-					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas ou n'est pas disponible");
-					new FenetreEmprunterVelo(this.getUtilisateur());
 				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());

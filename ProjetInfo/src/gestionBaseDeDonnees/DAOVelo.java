@@ -153,7 +153,10 @@ public class DAOVelo {
 		return listeVelos;
 	}
 
-
+	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
+		Velo velo = getVeloById(id);
+		return (velo!=null);
+	}
 
 	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException{
 		Velo velo = getVeloById(id);
