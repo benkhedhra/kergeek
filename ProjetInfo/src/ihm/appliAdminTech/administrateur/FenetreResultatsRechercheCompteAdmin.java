@@ -138,8 +138,8 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 								k++;
 							}
 							String idCompteEntre = chaineSelectionnee.substring(0,k+1);
-							System.out.println("idCompteEntre = "+idCompteEntre);
 							compteEntre = DAOCompte.getCompteById(idCompteEntre);
+							System.out.println("idCompteEntre = "+idCompteEntre + " - "+compteEntre.isActif());
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {

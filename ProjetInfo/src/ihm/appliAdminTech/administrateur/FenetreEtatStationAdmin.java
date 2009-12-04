@@ -22,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import metier.Compte;
 import metier.Station;
 
 public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
@@ -85,46 +84,44 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
-
+		JPanel center = new JPanel();
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(700,350));
+		
+		JPanel centerWest = new JPanel();
+		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerWest.setPreferredSize(new Dimension(500,350));
+		List<Station> listeStations;
 		try {
-			List<Station> listeStations = DAOLieu.getAllStations();
-			Station [] tableauStations = new Station[listeStations.size()];
+			listeStations = DAOLieu.getAllStations();
+			String [] tableauStations = new String[listeStations.size()+1];
+			tableauStations[0]="Sélectionnez une station";
 			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i]=listeStations.get(i);
+				tableauStations[i+1]=listeStations.get(i).toString();
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
-
-			JPanel center = new JPanel();
-			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			center.setPreferredSize(new Dimension(700,350));
-			center.setLayout(new BorderLayout());
-
-			JPanel centerNorth = new JPanel();
-			centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
-			centerNorth.add(labelMsg);
-			center.add(centerNorth,BorderLayout.NORTH);
-
-			JPanel centerWest = new JPanel();
-			centerWest.setPreferredSize(new Dimension(550,350));
-			centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
-					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					String idStationEntre = (String)(o);
-					try {
-						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-					} catch (SQLException e) {
-						MsgBox.affMsg(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						MsgBox.affMsg(e.getMessage());
+					try{
+						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+						String chaineSelectionnee = (String)(o);
+						String idStationEntre = chaineSelectionnee.substring(0,1);
+						try {
+							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
+						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
+						labelMsg.setFont(FenetreAuthentificationUtil.POLICE3);
 					}
-					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
-					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+					catch (Exception  e){
+						System.out.println("Erreur dans la sélection de la station");
+					}
 				}
-
 			});
 			centerWest.add(combo);
 
@@ -186,10 +183,5 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 
-	}
-
-	public static void main (String [] args){
-		Administrateur ATEST = new Administrateur(new Compte(Compte.TYPE_ADMINISTRATEUR));
-		new FenetreEtatStationAdmin(ATEST);
 	}
 }

@@ -131,7 +131,7 @@ public class Utilisateur {
 		Velo velo = this.getEmpruntEnCours().getVelo();
 		try{
 			if (velo == null){
-				throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunte de velo");
+				throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunté de velo");
 			}
 			else{
 				station.ajouterVelo(velo);
@@ -141,7 +141,7 @@ public class Utilisateur {
 				if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 					//emprunt trop long
 					this.setBloque(true);
-					System.out.println("compte bloque");
+					System.out.println("compte bloqué");
 				}
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);

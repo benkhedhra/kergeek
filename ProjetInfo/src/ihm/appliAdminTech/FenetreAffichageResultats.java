@@ -3,6 +3,7 @@ package ihm.appliAdminTech;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
+import ihm.appliAdminTech.administrateur.FenetreEnvoyerDemandeAssignationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
 import ihm.appliAdminTech.administrateur.FenetreInfoCompteAdmin;
@@ -36,10 +37,17 @@ import exception.ChampIncorrectException;
 
 public class FenetreAffichageResultats extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Compte compte;
 	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
 	private JButton bouton1 = new JButton("");
+	private JButton bouton2 = new JButton("");
+	private JButton bouton3 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 	public Compte getCompte() {
@@ -96,6 +104,11 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
+		bouton1.setPreferredSize(new Dimension(250,40));
+		bouton1.setMaximumSize(new Dimension(250,40));
+		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton1.setBackground(Color.GREEN);
+		
 		//cas possibles pour l'administrateur
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
 			FenetreFrequentationStationsAdmin f = (FenetreFrequentationStationsAdmin) fenetrePrec;
@@ -108,7 +121,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			south.add(bouton1);
 		}
 
-		if(fenetrePrec.getTitle().equals("Informations sur un compte")){
+		else if(fenetrePrec.getTitle().equals("Informations sur un compte")){
 			FenetreInfoCompteAdmin f = (FenetreInfoCompteAdmin) fenetrePrec;
 			DiagrammeNbEmpruntsUtilisateur diag = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById(f.getCompte().getId()));
 			JLabel lblChart = new JLabel();
@@ -121,7 +134,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		}
 
 
-		if(fenetrePrec.getTitle().equals("Menu <interventions de maintenance> de l'administrateur")){
+		else if(fenetrePrec.getTitle().equals("Menu <interventions de maintenance> de l'administrateur")){
 			DiagrammeNbInterventions diag = new DiagrammeNbInterventions();
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
@@ -129,41 +142,77 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		}
 
 
-		if((fenetrePrec.getTitle().equals("Voir l'état d'une station")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
+		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
+			JLabel labelMsg = new JLabel ("Ici on affichera l'historique du vélo sous forme de tableau");
+			center.add(labelMsg);
+		}
+
+		else if((fenetrePrec.getTitle().equals("Voir l'état d'une station")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
+
+			JLabel lblChart1 = new JLabel();
+			JLabel lblChart2 = new JLabel();
+			
+			JPanel panel1 = new JPanel();
+			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			panel1.setPreferredSize(new Dimension(300,300));
+			
+			JPanel panel2 = new JPanel();
+			panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			panel2.setPreferredSize(new Dimension(300,300));
+			
+			DiagrammeNbVelosStation diag1;
+			DiagrammeTxOccupationStation diag2;
+
 			FenetreEtatStationAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
 			if (fenetrePrec.getTitle().equals("Voir l'état d'une station")) {
 				f1 = (FenetreEtatStationAdmin) fenetrePrec;
+				diag1 = new DiagrammeNbVelosStation(f1.getStationEntree());
+				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
+				diag2 = new DiagrammeTxOccupationStation(f1.getStationEntree());
+				lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 			}
 			if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
+				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
+				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
+				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
+				lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 			}
-			center.setLayout(new BorderLayout());
-			DiagrammeNbVelosStation diag1 = new DiagrammeNbVelosStation(f1.getStationEntree());
-			JLabel lblChart1 = new JLabel();
-			lblChart1.setIcon(new ImageIcon(diag1.getImage()));
-			JPanel centerWest = new JPanel();
-			centerWest.setPreferredSize(new Dimension(300,300));
-			centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			centerWest.add(lblChart1);
-			DiagrammeTxOccupationStation diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
-			JLabel lblChart2 = new JLabel();
-			lblChart2.setIcon(new ImageIcon(diag2.getImage()));
-			center.add(lblChart2);
-			JPanel centerEast = new JPanel();
-			centerEast.setPreferredSize(new Dimension(300,300));
-			centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			centerEast.add(lblChart1);
 
-			center.add(centerWest,BorderLayout.WEST);
-			center.add(centerEast,BorderLayout.EAST);
+			panel1.add(lblChart1);
+			panel2.add(lblChart2);
+			
+			center.add(panel1);
+			center.add(panel2);
+			
+			bouton1.setText("Voir l'état d'une autre station");
+			bouton2.setText("Voir les stations sur et sous-occupées");
+			bouton3.setText("Envoyer une demande d'assignation");
+
+			bouton1.setPreferredSize(new Dimension(200,40));
+			bouton1.setMaximumSize(new Dimension(200,40));
+			bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton1.setBackground(Color.GREEN);
+			
+			bouton2.setPreferredSize(new Dimension(200,40));
+			bouton2.setMaximumSize(new Dimension(200,40));
+			bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton2.setBackground(Color.GREEN);
+			
+			bouton3.setPreferredSize(new Dimension(250,40));
+			bouton3.setMaximumSize(new Dimension(250,40));
+			bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton3.setBackground(Color.CYAN);
+			
+			south.add(bouton1);
+			south.add(bouton2);
+			center.add(bouton3);
+			
 		}
 
-		bouton1.setPreferredSize(new Dimension(250,40));
-		bouton1.setMaximumSize(new Dimension(250,40));
-		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
-		bouton1.setBackground(Color.GREEN);
-		
+
+
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -181,14 +230,24 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{
-		// différents cas possibles pour l'administrateur
-		if(arg0.getSource()==bouton1){
+			// différents cas possibles pour l'administrateur
+			if(arg0.getSource()==bouton1){
 				if(this.getFenetrePrecedente().getTitle().equals("Fréquentation des stations")){
 					new FenetreFrequentationStationsAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Informations sur un compte")){
 					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),true);
 				}
+				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
+					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+				}
+
+			}
+			else if(arg0.getSource()==bouton2){
+				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+			}
+			else if(arg0.getSource()==bouton3){
+				new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
 			}
 			else if(arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));

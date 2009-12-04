@@ -21,7 +21,7 @@ public class DAOLieu {
 		if (identifiant == Lieu.ID_GARAGE){ // c'est LE garage (unique)
 			lieu = (Garage) Garage.getInstance();
 		}
-		
+
 		else if (identifiant == Lieu.ID_SORTIE){ // pas de lieu
 			lieu = (Sortie) Sortie.getInstance();
 		}
@@ -98,7 +98,7 @@ public class DAOLieu {
 			}
 		}
 		catch (SQLException e){
-		System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -110,7 +110,7 @@ public class DAOLieu {
 	public static List<Station> getAllStations() throws SQLException, ClassNotFoundException {
 		List<Station> liste = new ArrayList<Station>();
 		List<String> listeId = new ArrayList<String>();
-		
+
 		Station station = new Station();
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -158,14 +158,14 @@ public class DAOLieu {
 
 	public static List<List<Station>> getStationsSurSous() throws SQLException, ClassNotFoundException {
 
-		List<Station> listeToutesStation = getAllStations();
+		List<Station> listeToutesStations = getAllStations();
 
 		List<Station> listeStationsSurOccupees = new ArrayList<Station>();
 		List<Station> listeStationsSousOccupees = new ArrayList<Station>();
-		
+
 		List<List<Station>> liste = new ArrayList<List<Station>>();
 
-		for (Station station : listeToutesStation){
+		for (Station station : listeToutesStations){
 			if (calculerTx(station)>Station.TAUX_OCCUPATION_MAX){
 				listeStationsSurOccupees.add(station);
 			}
@@ -175,8 +175,25 @@ public class DAOLieu {
 		}
 		liste.add(listeStationsSurOccupees);
 		liste.add(listeStationsSousOccupees);
-		
+
 		return liste; 
+	}
+
+	public static String ligneStationSurSous(Station s) throws SQLException, ClassNotFoundException{
+		String resul = s.toString()+ " - ";
+		try{
+			int taux = calculerTx(s);
+			if (taux>Station.TAUX_OCCUPATION_MAX){
+				resul=resul+"sur-occupée";
+			} else	if (taux<Station.TAUX_OCCUPATION_MIN){
+				resul=resul+"sous-occupée";
+			}
+		} catch (SQLException e1) {
+			System.out.println("SQLException : "+e1.getMessage());
+		} catch (ClassNotFoundException e2) {
+			System.out.println("ClassNotFoundException : "+e2.getMessage());
+		}
+		return resul;
 	}
 
 }
