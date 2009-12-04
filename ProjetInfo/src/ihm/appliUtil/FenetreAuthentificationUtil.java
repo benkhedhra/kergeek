@@ -136,7 +136,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 				else{
 					Date dateLimite = UtilitaireDate.ajouteJours(dateDernierRetour,7);
 					GregorianCalendar cal = new GregorianCalendar();
-					cal.setTime(dateDernierRetour);
+					cal.setTime(dateLimite);
 					
 					
 					new FenetreConfirmationUtil("Votre compte est bloqué jusqu'au " + cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG , getLocale())+" "+ cal.get(Calendar.DAY_OF_MONTH)+" "+ cal.getDisplayName(Calendar.MONTH, Calendar.LONG, getLocale()) + " à " + (cal.get(Calendar.HOUR_OF_DAY)+1) + "h");
