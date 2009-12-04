@@ -172,7 +172,7 @@ public class DAOVelo {
 
 	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException{
 		Velo velo = getVeloById(id);
-		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE)&& !velo.getLieu().getId().equals(Lieu.ID_SORTIE) );
+		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE)&& !velo.getLieu().getId().equals(Lieu.ID_SORTIE) && !velo.isEnPanne());
 	}
 
 }
