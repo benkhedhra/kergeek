@@ -24,15 +24,27 @@ public class DAODemandeIntervention {
 			if (res.next()){
 				String id = res.getString("id");
 				ddeIntervention.setId(id);
-
-				s.executeUpdate("INSERT into DemandeIntervention values ('" 
-						+ id + "', '"
-						+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()) +"','DD-MM-YYYY HH24:MI'), '"
-						+ ddeIntervention.getVelo().getId() + "', '" 
-						+ ddeIntervention.getUtilisateur().getCompte().getId() +"', '" 
-						+ ddeIntervention.getVelo().getLieu().getId() + "')"
-				);
-				effectue=true;
+				if (ddeIntervention.getIntervention() != null){
+					s.executeUpdate("INSERT into DemandeIntervention values (" 
+							+ "'" + id + "',"
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()) +"','DD-MM-YYYY HH24:MI'),"
+							+ "'" + ddeIntervention.getVelo().getId() + "'," 
+							+ "'" + ddeIntervention.getUtilisateur().getCompte().getId() +"'," 
+							+ "'" + ddeIntervention.getVelo().getLieu().getId() +"'," 
+							+ "'" + ddeIntervention.getIntervention().getId()+ "')"
+					);
+					effectue=true;
+				}
+				else{
+					s.executeUpdate("INSERT into DemandeIntervention values (" 
+							+ "'" + id + "',"
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()) +"','DD-MM-YYYY HH24:MI'),"
+							+ "'" + ddeIntervention.getVelo().getId() + "'," 
+							+ "'" + ddeIntervention.getUtilisateur().getCompte().getId() +"'," 
+							+ "'" + ddeIntervention.getVelo().getLieu().getId() +"'," 
+							+ "'')"
+					);
+				}
 			}
 		}
 		catch (SQLException e){
@@ -88,19 +100,19 @@ public class DAODemandeIntervention {
 		ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
 		try {
 			if (res.next()) {
-				
+
 				java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
 				java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
 				String idVelo = res.getString("idVelo");
 				String idCompte = res.getString("idCompte");
 				String idIntervention = res.getString("idIntervention");
-				
+
 				ddeIntervention.setId(identifiant);
 				ddeIntervention.setDate(dateDemandeI);
 				ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
 				ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
 				ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
-				
+
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
