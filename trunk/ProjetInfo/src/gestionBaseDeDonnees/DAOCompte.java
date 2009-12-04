@@ -24,8 +24,11 @@ public class DAOCompte {
 			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
 				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as id from dual");
 				if (res.next()){
+					String nb = res.getString("id");
+					System.out.println(nb);
 					String id = "a" + res.getString("id");
 					compte.setId(id);
+					
 				}
 				else{
 					throw new SQLException("probleme de sequence");
@@ -34,6 +37,8 @@ public class DAOCompte {
 			else if (compte.getType() == Compte.TYPE_UTILISATEUR){
 				res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
 				if (res.next()){
+					String nb = res.getString("id");
+					System.out.println(nb);
 					String id = "u" + res.getString("id");
 					compte.setId(id);
 				}
@@ -44,6 +49,8 @@ public class DAOCompte {
 			else if (compte.getType() == Compte.TYPE_TECHNICIEN){
 				res = s.executeQuery("Select seqTechnicien.NEXTVAL as id from dual");
 				if (res.next()){
+					String nb = res.getString("id");
+					System.out.println(nb);
 					String id = "t" + res.getString("id");
 					compte.setId(id);
 				}

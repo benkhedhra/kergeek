@@ -18,21 +18,6 @@ public class DAOUtilisateur {
 
 	public static boolean createUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException {
 		boolean effectue = false;
-		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
-			if (res.next()){
-				String id = "u" + res.getString("id");
-				utilisateur.getCompte().setId(id);
-			}
-		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
-		}
 		DAOCompte.createCompte(utilisateur.getCompte());
 		effectue = updateUtilisateur(utilisateur);
 		return effectue;
