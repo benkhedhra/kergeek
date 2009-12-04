@@ -111,7 +111,6 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 			JPanel centerCenter = new JPanel();
 			centerCenter.setPreferredSize(new Dimension(550,350));
 			centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			centerCenter.setLayout(new GridLayout(2,2));
 
 			centerCenter.add(labelStation);
 			JComboBox combo = new JComboBox(model);

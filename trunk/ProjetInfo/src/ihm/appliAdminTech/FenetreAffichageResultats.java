@@ -199,11 +199,13 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			bouton2.setMaximumSize(new Dimension(200,40));
 			bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
 			bouton2.setBackground(Color.GREEN);
+			bouton2.addActionListener(this);
 			
-			bouton3.setPreferredSize(new Dimension(250,40));
-			bouton3.setMaximumSize(new Dimension(250,40));
+			bouton3.setPreferredSize(new Dimension(350,40));
+			bouton3.setMaximumSize(new Dimension(350,40));
 			bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
 			bouton3.setBackground(Color.CYAN);
+			bouton3.addActionListener(this);
 			
 			south.add(bouton1);
 			south.add(bouton2);
@@ -241,7 +243,6 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
 					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
 				}
-
 			}
 			else if(arg0.getSource()==bouton2){
 				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));

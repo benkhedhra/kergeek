@@ -76,7 +76,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -87,7 +87,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));
-		
+
 		JPanel centerWest = new JPanel();
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerWest.setPreferredSize(new Dimension(500,350));
@@ -115,28 +115,23 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 						} catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
 						}
-						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
-						labelMsg.setFont(FenetreAuthentificationUtil.POLICE3);
 					}
 					catch (Exception  e){
 						System.out.println("Erreur dans la sélection de la station");
 					}
 				}
 			});
+			centerWest.add(labelMsg);
 			centerWest.add(combo);
-
-			center.add(centerWest,BorderLayout.WEST);
-
-			JPanel centerEast = new JPanel();
-			centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			centerEast.setPreferredSize(new Dimension(200,350));
-			boutonValider.setPreferredSize(new Dimension(80,40));
-			boutonValider.setMaximumSize(new Dimension(80,40));
+			
+			boutonValider.setPreferredSize(new Dimension(200,40));
+			boutonValider.setMaximumSize(new Dimension(200,40));
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 			boutonValider.addActionListener(this);
-			centerEast.add(boutonValider);
-			center.add(centerEast,BorderLayout.EAST);
+			centerWest.add(boutonValider);
+
+			center.add(centerWest,BorderLayout.WEST);
 
 			this.getContentPane().add(center,BorderLayout.CENTER);
 
