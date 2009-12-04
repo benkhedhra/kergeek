@@ -261,13 +261,11 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 					Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
 					DAOUtilisateur.createUtilisateur(utilisateur);
 				}
-
 				// si c'est un compte administrateur
 				else if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
 					Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
 					DAOAdministrateur.createAdministrateur(administrateur);
 				}
-
 				// si c'est un compte technicien
 				else if(compte.getType()==Compte.TYPE_TECHNICIEN){
 					Technicien technicien = new Technicien (compte);

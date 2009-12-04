@@ -178,13 +178,13 @@ public class DAOCompte {
 		ResultSet res = s.executeQuery("Select idCompte from Compte Where AdresseMail ='" + email + "'");
 		try {
 			if (res.next()) {
-				
+
 				compte = getCompteById(res.getString("idCompte"));
-				
+
 			}
 			else {
 				throw new PasDansLaBaseDeDonneeException("Erreur d'adresse email");
-				
+
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){
@@ -199,17 +199,17 @@ public class DAOCompte {
 		return compte;
 	}
 
-	
-	
-	
+
+
+
 	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
 		return (getCompteById(id)!=null);
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException{
 		//le type est toujours renseigné, les autres peuvent valoir null
 		//on va compter le nombre de paramètres non-nuls
@@ -229,7 +229,7 @@ public class DAOCompte {
 		nbChampsRemplis--;
 
 		List<Compte> listeComptes = new ArrayList<Compte>();
-		String requete = "select * from Compte";
+		String requete = "select * from Compte where Compte.actif = 1";
 		if(nbChampsRemplis>0){
 			requete=requete+" where ";
 			if(type!=0){
@@ -264,31 +264,28 @@ public class DAOCompte {
 					requete=requete+" prenom = '" + prenom + "'";
 				}
 			}
-			if (!requete.equals("select * from Compte where ")){
-				requete=requete+" and ";
-			}
-			requete=requete+"Compte.actif = 1";
 		}
+
 		System.out.println("requete = "+requete);
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
 			ResultSet res = s.executeQuery(requete);
-			
+
 			Compte compte;
 			String idCompte = "";
 			ArrayList<String> listeIdComptes = new ArrayList<String>();
-			
+
 			while(res.next()) {
 				idCompte = res.getString("idCompte");
 				listeIdComptes.add(idCompte);
 			}
 			for(String id : listeIdComptes) {
-			compte =  getCompteById(id);
-			listeComptes.add(compte);
-		}
-			
+				compte =  getCompteById(id);
+				listeComptes.add(compte);
+			}
+
 		} catch(SQLException e1){
 			listeComptes = null;
 			System.out.println(e1.getMessage());
