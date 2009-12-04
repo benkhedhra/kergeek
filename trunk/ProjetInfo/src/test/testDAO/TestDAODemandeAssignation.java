@@ -1,27 +1,28 @@
 package test.testDAO;
 
-import java.sql.SQLException;
+import gestionBaseDeDonnees.DAODemandeAssignation;
+import gestionBaseDeDonnees.DAOLieu;
 
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
-import gestionBaseDeDonnees.DAODemandeAssignation;
-
-
+import junit.framework.TestCase;
 import metier.DemandeAssignation;
+import metier.Lieu;
+import metier.UtilitaireDate;
 
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
 public class TestDAODemandeAssignation extends TestCase{
-	/*@Test
+	@Test
 	public void testDemandeAssignation() throws SQLException, ClassNotFoundException{
 		Lieu l =DAOLieu.getLieuById("1");
-		Date d = UtilitaireDate.dateCourante();
-		DemandeAssignation dmde = new DemandeAssignation((java.sql.Date)d, 2, l);
+		java.sql.Date d = UtilitaireDate.dateCourante();
+		DemandeAssignation dmde = new DemandeAssignation(d, 2, l);
 		Boolean b = DAODemandeAssignation.createDemandeAssignation(dmde);
 		assertEquals((Boolean)true,(Boolean) b);
-	}*/
+	}
 	
 
 	@Test

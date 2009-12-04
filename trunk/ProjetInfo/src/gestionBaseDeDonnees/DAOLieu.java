@@ -147,9 +147,9 @@ public class DAOLieu {
 
 
 
-	public static int calculerTx(Station station) throws SQLException, ClassNotFoundException{
+	public static float calculerTx(Station station) throws SQLException, ClassNotFoundException{
 		int nbVelo = DAOVelo.getVelosByLieu(station).size();
-		int a = nbVelo/station.getCapacite();
+		float a = nbVelo/station.getCapacite();
 		return a;
 	}
 
@@ -164,12 +164,15 @@ public class DAOLieu {
 		List<Station> listeStationsSousOccupees = new ArrayList<Station>();
 
 		List<List<Station>> liste = new ArrayList<List<Station>>();
-
+		
+		float taux = 0;
+		
 		for (Station station : listeToutesStations){
-			if (calculerTx(station)>Station.TAUX_OCCUPATION_MAX){
+			taux = calculerTx(station);
+			if (taux>Station.TAUX_OCCUPATION_MAX){
 				listeStationsSurOccupees.add(station);
 			}
-			else if (calculerTx(station)<Station.TAUX_OCCUPATION_MIN){
+			else if (taux<Station.TAUX_OCCUPATION_MIN){
 				listeStationsSousOccupees.add(station);
 			}
 		}
@@ -179,20 +182,13 @@ public class DAOLieu {
 		return liste; 
 	}
 
-	public static String ligneStationSurSous(Station s) throws SQLException, ClassNotFoundException{
-		String resul = s.toString()+ " - ";
-		try{
-			int taux = calculerTx(s);
-			if (taux>Station.TAUX_OCCUPATION_MAX){
-				resul=resul+"sur-occupée";
-			} else	if (taux<Station.TAUX_OCCUPATION_MIN){
-				resul=resul+"sous-occupée";
-			}
-		} catch (SQLException e1) {
-			System.out.println("SQLException : "+e1.getMessage());
-		} catch (ClassNotFoundException e2) {
-			System.out.println("ClassNotFoundException : "+e2.getMessage());
-		}
+	public static String ligneStationSur(Station s) throws SQLException, ClassNotFoundException{
+		String resul = s.toString()+ " - sur-occupée";
+		return resul;
+	}
+	
+	public static String ligneStationSous(Station s) throws SQLException, ClassNotFoundException{
+		String resul = s.toString()+ " - sous-occupée";
 		return resul;
 	}
 

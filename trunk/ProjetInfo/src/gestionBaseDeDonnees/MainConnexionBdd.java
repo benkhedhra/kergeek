@@ -26,6 +26,8 @@ public class MainConnexionBdd {
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 		
+		System.out.println(DAOLieu.getStationsSurSous());
+		
 		/*
 		GregorianCalendar cal =  new GregorianCalendar(2009,5,5);
 		java.util.Date dateUtil = cal.getTime();
@@ -40,6 +42,7 @@ public class MainConnexionBdd {
 		System.out.println(DAOEmprunt.getEmpruntById("1").getTempsEmprunt());
 		*/
 		
+		/*
 		System.out.println(DAOEmprunt.getEmpruntById("55").getUtilisateur());
 		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt());
 		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt().getTime());
