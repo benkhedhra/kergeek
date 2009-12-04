@@ -2,9 +2,9 @@ package gestionBaseDeDonnees;
 
 
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 
 import metier.Emprunt;
-import metier.Utilisateur;
 import metier.UtilitaireDate;
 import exception.PasDeDateRetourException;
 
@@ -25,14 +25,28 @@ public class MainConnexionBdd {
 		System.out.println("Ouvert");
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
-
+		
+		/*
+		GregorianCalendar cal =  new GregorianCalendar(2009,5,5);
+		java.util.Date dateUtil = cal.getTime();
+		java.sql.Date dateSql =  new java.sql.Date(dateUtil.getTime());
+		System.out.println(UtilitaireDate.conversionPourSQL(dateSql));
+		Emprunt emprunt = DAOEmprunt.getEmpruntById("1");
+		DAOEmprunt.createEmprunt(emprunt);
+		
 		System.out.println(UtilitaireDate.dateCourante().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("1").getDateEmprunt().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("1").getDateRetour().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("54").getUtilisateur());
-		System.out.println(DAOEmprunt.getEmpruntById("54").getDateEmprunt().getTime());
-		System.out.println(DAOEmprunt.getEmpruntById("54").getDateRetour().getTime());
-	
+		System.out.println(DAOEmprunt.getEmpruntById("1").getTempsEmprunt());
+		*/
+		
+		System.out.println(DAOEmprunt.getEmpruntById("55").getUtilisateur());
+		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt());
+		System.out.println(DAOEmprunt.getEmpruntById("55").getDateEmprunt().getTime());
+		//System.out.println(DAOEmprunt.getEmpruntById("54").getDateRetour());
+		//System.out.println(DAOEmprunt.getEmpruntById("54").getTempsEmprunt());
+		
+		/*
 		System.out.println(DAOEmprunt.getEmpruntById("52").getDateEmprunt().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("52").getDateRetour().getTime());
 		System.out.println(DAOEmprunt.getEmpruntById("53").getDateEmprunt().getTime());

@@ -53,7 +53,6 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		final XYSeriesCollection data1 = createDataset(station);
 		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
 		final NumberAxis axeVelo = new NumberAxis("nombre de vélos");
-		axeVelo.setAutoRangeIncludesZero(false);
 		final XYPlot subplot1 = new XYPlot(data1, null, axeVelo, renderer1);
 		subplot1.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
 
