@@ -132,6 +132,7 @@ public class CreationTables {
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Residence','20')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Gymnase','10')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'ENS','10')");
+			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'EME','5')");
 			System.out.println(DAOLieu.createLieu(Garage.getInstance()));
 			System.out.println(DAOLieu.createLieu(Sortie.getInstance()));
 			
@@ -162,7 +163,13 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'4')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'1')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'6')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			
 			
 
 
