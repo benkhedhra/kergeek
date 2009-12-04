@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.appliAdminTech.FenetreChangerMotDePasse;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -15,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import metier.Compte;
 
 public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
@@ -29,6 +29,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	private JButton boutonComptes = new JButton("Gérer les comptes");
 	private JButton boutonStats = new JButton("Demander des statistiques");
 	private JButton boutonEtat = new JButton("Voir l'état actuel des stations et des vélos");
+	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
 
 	public Administrateur getAdministrateur() {
 		return admin;
@@ -73,13 +74,14 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(700,100));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
+		north.setPreferredSize(new Dimension(700,350));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonComptes.setPreferredSize(new Dimension(210,130));
 		boutonComptes.setMaximumSize(new Dimension(210,130));
@@ -97,6 +99,16 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		boutonEtat.addActionListener(this);
 		center.add(boutonEtat);
 		this.add(center, BorderLayout.CENTER);
+		
+		JPanel south = new JPanel();
+		south.setPreferredSize(new Dimension(700,50));
+		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		boutonChangeMdp.setPreferredSize(new Dimension(150,30));
+		boutonChangeMdp.setMaximumSize(new Dimension(150,30));
+		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.addActionListener(this);
+		south.add(boutonChangeMdp);
+		this.add(center, BorderLayout.CENTER);
 
 		this.setVisible(true);
 	}
@@ -113,7 +125,10 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		}
 		else if (arg0.getSource()==boutonEtat){
 			new MenuVoirEtatAdmin(this.getAdministrateur());
-		}		
+		}	
+		else if (arg0.getSource()==boutonChangeMdp){
+			new FenetreChangerMotDePasse(this.getAdministrateur().getCompte());
+		}
 		else if (arg0.getSource()==boutonDeconnexion){
 			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}

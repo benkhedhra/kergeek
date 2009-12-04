@@ -277,6 +277,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 							Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
 							DAOAdministrateur.createAdministrateur(administrateur);
 							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							//TODO : envoyer un mail à l'administrateur fraîchement créé où on lui dit son mot de passe
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
@@ -290,6 +291,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 							Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
 							DAOTechnicien.createTechnicien(technicien);
 							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							//TODO : envoyer un mail au technicien fraîchement créé où on lui dit son mot de passe
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");

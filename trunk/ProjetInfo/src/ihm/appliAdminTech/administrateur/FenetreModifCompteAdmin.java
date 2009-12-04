@@ -1,15 +1,17 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
+import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -24,6 +26,7 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
+import metier.Technicien;
 import metier.Utilisateur;
 
 public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
@@ -62,6 +65,14 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 	public void setAdministrateur(Administrateur administrateur) {
 		this.administrateur = administrateur;
+	}
+
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
 
 	public FenetreModifCompteAdmin(Compte c,Administrateur a){
@@ -254,8 +265,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(300,350));
 		centerEast.setMinimumSize(new Dimension(300,350));
-		
-		
+
+
 		boutonValider.setPreferredSize(new Dimension(250,40));
 		boutonValider.setMinimumSize(new Dimension(250,40));
 		boutonValider.setBackground(Color.CYAN);
@@ -295,29 +306,60 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				compte.setAdresseEmail(adresseEMailCompte.getText());
-				DAOCompte.updateCompte(compte);
+				if (compte.getType()==Compte.TYPE_UTILISATEUR){
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationUtil(Compte.TYPE_UTILISATEUR, adresseEMailCompte.getText(), nomCompte.getText(), prenomCompte.getText(), adressePostaleCompte.getText());
+					if(champsOk){
+						compte.setAdresseEmail(adresseEMailCompte.getText());
+						DAOCompte.updateCompte(compte);
+						Utilisateur u = DAOUtilisateur.getUtilisateurById(compte.getId());
+						u.setCompte(compte);
+						u.setNom(nomCompte.getText());
+						u.setPrenom(prenomCompte.getText());
+						u.setAdressePostale(adressePostaleCompte.getText());
+						u.setBloque(bloqueEntre);
+						DAOUtilisateur.updateUtilisateur(u);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+					}
+					else{
+						MsgBox.affMsg("L'un des champs au moins est incorrect");
+						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
+					}
+				}
+				if (compte.getType()==Compte.TYPE_ADMINISTRATEUR){
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationAdmin(Compte.TYPE_ADMINISTRATEUR, adresseEMailCompte.getText());
+					if(champsOk){
+						compte.setAdresseEmail(adresseEMailCompte.getText());
+						DAOCompte.updateCompte(compte);
+						Administrateur a = DAOAdministrateur.getAdministrateurById(compte.getId());
+						a.setCompte(compte);
+						DAOAdministrateur.updateAdministrateur(a);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+					}
+					else{
+						MsgBox.affMsg("L'un des champs au moins est incorrect");
+						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
+					}
+				}
+				if (compte.getType()==Compte.TYPE_TECHNICIEN){
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationAdmin(Compte.TYPE_TECHNICIEN, adresseEMailCompte.getText());
+					if(champsOk){
+						compte.setAdresseEmail(adresseEMailCompte.getText());
+						DAOCompte.updateCompte(compte);
+						Technicien t = DAOTechnicien.getTechnicienById(compte.getId());
+						t.setCompte(compte);
+						DAOTechnicien.updateTechnicien(t);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+					}
+					else{
+						MsgBox.affMsg("L'un des champs entrés au moins est incorrect");
+						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
+					}
+				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
-			if (compte.getType()==Compte.TYPE_UTILISATEUR){
-				try {
-					Utilisateur u = DAOUtilisateur.getUtilisateurById(compte.getId());
-					u.setCompte(compte);
-					u.setNom(nomCompte.getText());
-					u.setPrenom(prenomCompte.getText());
-					u.setAdressePostale(adressePostaleCompte.getText());
-					u.setBloque(bloqueEntre);
-					DAOUtilisateur.updateUtilisateur(u);
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-				}
-			}
-			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}
 		else if(arg0.getSource()==boutonResilier){
 			new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),compte,this);
