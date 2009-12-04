@@ -29,7 +29,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	private JButton boutonComptes = new JButton("Gérer les comptes");
 	private JButton boutonStats = new JButton("Demander des statistiques");
 	private JButton boutonEtat = new JButton("Voir l'état actuel des stations et des vélos");
-	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
+	private JButton boutonChangeMdp = new JButton("Changer votre mot de passe");
 
 	public Administrateur getAdministrateur() {
 		return admin;
@@ -98,7 +98,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		boutonEtat.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonEtat.addActionListener(this);
 		center.add(boutonEtat);
-		this.add(center, BorderLayout.CENTER);
+		this.getContentPane().add(center, BorderLayout.CENTER);
 		
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
@@ -106,9 +106,10 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		boutonChangeMdp.setPreferredSize(new Dimension(150,30));
 		boutonChangeMdp.setMaximumSize(new Dimension(150,30));
 		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.setBackground(Color.BLUE);
 		boutonChangeMdp.addActionListener(this);
 		south.add(boutonChangeMdp);
-		this.add(center, BorderLayout.CENTER);
+		this.getContentPane().add(south, BorderLayout.SOUTH);
 
 		this.setVisible(true);
 	}
