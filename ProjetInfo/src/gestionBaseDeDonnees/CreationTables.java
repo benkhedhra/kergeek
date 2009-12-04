@@ -314,7 +314,7 @@ public class CreationTables {
 			"TO_DATE('03-12-2009 12:53','DD-MM-YYYY HH24:MI'), '2','5','u1','1')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 12:46','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 12:54','DD-MM-YYYY HH24:MI'), '1','2','u9','2')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 18:45','DD-MM-YYYY HH24:MI')," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 14:30','DD-MM-YYYY HH24:MI')," +
 			"'', '4','','u3','12')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 18:05','DD-MM-YYYY HH24:MI')," +
 			"'', '2','','u4','13')");
