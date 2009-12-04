@@ -208,7 +208,7 @@ public class EnvoieMail {
     public static void envoyerMail(String sujet, String message, String adresse) throws UnsupportedEncodingException, MessagingException{
         
         final MailMessage msg = new MailMessage();
-        final EnvoieMail mail2 = new EnvoieMail("smm-01.domensai.ecole", 465, "id2927", "beatlesss", true);
+        final EnvoieMail mail2 = new EnvoieMail("smm-01.domensai.ecole", 25, "id2927", "beatlesss", true);
         
         // Message avec texte html + images incluses + pièces jointes
         msg.setFrom(new InternetAddress("id2927@ensai.fr", "Système Kergeek"));
@@ -219,7 +219,7 @@ public class EnvoieMail {
     }
     
     public static void main(final String[] args) throws UnsupportedEncodingException, MessagingException {
-		envoyerMail("Alerte","La Sation A n'a plus de vélo","beranger.lueza@ensai.fr");
+		envoyerMail("Alerte","La Station A n'a plus de vélo","beranger.lueza@ensai.fr");
 
 	}
 }

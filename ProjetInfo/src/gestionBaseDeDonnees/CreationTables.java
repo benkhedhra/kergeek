@@ -302,14 +302,14 @@ public class CreationTables {
 			"TO_DATE('03-12-2009 10:21','DD-MM-YYYY HH24:MI'), '1','2','u7','2')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 09:20','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 09:33','DD-MM-YYYY HH24:MI'), '2','5','u3','3')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 09:33','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('03-12-2009 09:56','DD-MM-YYYY HH24:MI'), '4','2','u4','4')");
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 12:33','DD-MM-YYYY HH24:MI')," +
+			"TO_DATE('04-12-2009 12:56','DD-MM-YYYY HH24:MI'), '4','2','u4','4')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 10:03','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u10','16')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 11:24','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('03-12-2009 11:25','DD-MM-YYYY HH24:MI'), '1','2','u6','17')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 09:05','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('03-12-2009 09:05','DD-MM-YYYY HH24:MI'), '1', '2','u7','11')");
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 13:24','DD-MM-YYYY HH24:MI')," +
+			"TO_DATE('04-12-2009 13:27','DD-MM-YYYY HH24:MI'), '1','2','u6','17')");
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 11:05','DD-MM-YYYY HH24:MI')," +
+			"TO_DATE('04-12-2009 11:30','DD-MM-YYYY HH24:MI'), '1', '2','u7','11')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 12:45','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 12:53','DD-MM-YYYY HH24:MI'), '2','5','u1','1')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 12:46','DD-MM-YYYY HH24:MI')," +
