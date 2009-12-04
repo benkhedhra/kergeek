@@ -95,7 +95,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
-			System.out.println("c'est ok");
 			labelAdminTech = new JLabel("Vous êtes à présent déconnecté");
 			labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
 			labelAdminTech.setPreferredSize(new Dimension(400,30));
