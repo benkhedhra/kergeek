@@ -2,6 +2,7 @@ package ihm.appliAdminTech.technicien;
 
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
+import ihm.appliAdminTech.FenetreChangerMotDePasse;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -29,6 +30,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	private JButton bouton3 = new JButton("Remettre un vélo \n"+"réparé\n"+" dans une station");
 	private JButton bouton4 = new JButton("Gérer les demandes\n"+" d'assignation");
 	private JButton bouton5 = new JButton("Gérer les demandes\n"+" d'intervention");
+	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
 
 	public Technicien getTechnicien() {
 		return tech;
@@ -102,6 +104,18 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		center.add(bouton5);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
+		
+		JPanel south = new JPanel();
+		south.setPreferredSize(new Dimension(700,50));
+		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		boutonChangeMdp.setPreferredSize(new Dimension(150,30));
+		boutonChangeMdp.setMaximumSize(new Dimension(150,30));
+		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.setBackground(Color.BLUE);
+		boutonChangeMdp.addActionListener(this);
+		south.add(boutonChangeMdp);
+		this.getContentPane().add(south, BorderLayout.SOUTH);
+
 
 		this.setVisible(true);
 	}
@@ -134,7 +148,10 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		}
 		else if (arg0.getSource()==bouton5){
 			new FenetreGererInterventionsTech(this.getTechnicien());
-		}	
+		}
+		else if (arg0.getSource()==boutonChangeMdp){
+			new FenetreChangerMotDePasse(this.getTechnicien().getCompte());
+		}
 		else if (arg0.getSource()==boutonDeconnexion){
 			new FenetreConfirmation(this.getTechnicien().getCompte(), this);
 		}
