@@ -34,6 +34,7 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 	private JLabel labelMsg = new JLabel("Voulez-vous ajouter un nouveau vélo ? Il sera affecté au lieu : Garage");
 	private JButton boutonValider = new JButton ("Oui");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
+	private Velo veloEntre;
 
 
 	public Technicien getTechnicien() {
@@ -42,6 +43,14 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 	public void setTechnicien(Technicien tech) {
 		this.technicien = tech;
+	}
+	
+	public Velo getVeloEntre() {
+		return veloEntre;
+	}
+
+	public void setVeloEntre(Velo veloEntre) {
+		this.veloEntre = veloEntre;
 	}
 
 	public FenetreEnregistrerVeloTech(Technicien t) throws SQLException, ClassNotFoundException{
@@ -111,8 +120,8 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonValider){
-				Velo velo = this.getTechnicien().enregistrerVelo();
-				DAOVelo.createVelo(velo);
+				veloEntre = this.getTechnicien().enregistrerVelo();
+				DAOVelo.createVelo(veloEntre);
 				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 			}
 			else if(arg0.getSource()==boutonRetour){
