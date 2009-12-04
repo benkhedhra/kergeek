@@ -31,10 +31,16 @@ public class DAOEmprunt {
 				emprunt.setId(id);
 
 				if (emprunt.getLieuRetour() != null){
+					//TODO
+
+					System.out.println("création de dateEmprunt : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI')");
+					System.out.println("création de dateRetour : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI')");
+				
+										
 					s.executeUpdate("INSERT into Emprunt values (" 
 							+ "'" + emprunt.getId() + "',"
-							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'),"
-							+ "TO_DATE('" + emprunt.getDateRetour() +"','YYYY-MM-DD-HH24:MI'),"
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'),"
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI'),"
 							+ "'" + emprunt.getLieuEmprunt().getId() + "',"
 							+ "'" + emprunt.getLieuRetour().getId() + "',"
 							+ "'" + emprunt.getUtilisateur().getCompte().getId() + "'," 
@@ -43,9 +49,12 @@ public class DAOEmprunt {
 					effectue=true;
 				}
 				else{
+					//TODO
+					System.out.println("création de dateEmprunt : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI')");
+					
 					s.executeUpdate("INSERT into Emprunt values (" 
 							+ "'" +  emprunt.getId() + "',"
-							+ "TO_DATE('" + emprunt.getDateEmprunt() +"','YYYY-MM-DD-HH24:MI'),"
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'),"
 							+ "'',"
 							+  "'" + emprunt.getLieuEmprunt().getId() + "',"
 							+ "'',"
@@ -75,17 +84,23 @@ public class DAOEmprunt {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
+			
+			System.out.println("mise a jour de dateEmprunt : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI')");
+			System.out.println("mise a jour de dateRetour : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI')");
+
+			
 			s.executeUpdate("UPDATE Emprunt SET "
 					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "', "
 					+ "idvelo = '" + emprunt.getVelo().getId() + "', "
 					+ "idlieuEmprunt = '" + emprunt.getLieuEmprunt().getId() + "', "
 					+ "idlieuRetour = '" + emprunt.getLieuRetour().getId() + "', "
-					+ "dateEmprunt = " + "TO_DATE('" + emprunt.getDateEmprunt() + "','YYYY-MM-DD-HH24:MI'), "
-					+ "dateRetour = " +  "TO_DATE('" + emprunt.getDateRetour()  + "','YYYY-MM-DD-HH24:MI')"
+					+ "dateEmprunt = " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'), "
+					+ "dateRetour = " +  "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI') "
 					+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
 			);
 			effectue=true;
 		}
+		//TODO
 		/*catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}*/
@@ -107,8 +122,11 @@ public class DAOEmprunt {
 			if (res.next()) {
 				java.sql.Timestamp timeEmprunt = res.getTimestamp("dateEmprunt");
 				java.sql.Date dateEmprunt = new Date(timeEmprunt.getTime());
-				java.sql.Timestamp timeRetour = res.getTimestamp("dateRetour");
-				java.sql.Date dateRetour = new Date(timeRetour.getTime());
+				java.sql.Date dateRetour = null;
+				if (res.getDate("dateRetour") != null){
+					java.sql.Timestamp timeRetour = res.getTimestamp("dateRetour");
+					dateRetour = new Date(timeRetour.getTime());
+				}
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idLieuRetour = res.getString("idLieuRetour");
 				String idCompte = res.getString("idCompte");
