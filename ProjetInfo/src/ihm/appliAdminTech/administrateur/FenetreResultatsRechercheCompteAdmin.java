@@ -132,7 +132,12 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 						try {
 							Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 							String chaineSelectionnee = (String)(o);
-							String idCompteEntre = chaineSelectionnee.substring(0,2);
+							//il faut récupérer l'identifiant du compte entré mais on ne connaît pas la taille de la String en question
+							int k=0;
+							while(chaineSelectionnee.charAt(k)!=' '){
+								k++;
+							}
+							String idCompteEntre = chaineSelectionnee.substring(0,k+1);
 							System.out.println("idCompteEntre = "+idCompteEntre);
 							compteEntre = DAOCompte.getCompteById(idCompteEntre);
 						} catch (SQLException e) {

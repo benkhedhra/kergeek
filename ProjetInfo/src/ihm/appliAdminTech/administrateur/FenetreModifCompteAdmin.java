@@ -92,7 +92,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -103,6 +103,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));
+		center.setMinimumSize(new Dimension(700,350));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
@@ -113,13 +114,14 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(500,350));
+		centerWest.setPreferredSize(new Dimension(400,350));
+		centerWest.setMinimumSize(new Dimension(400,350));
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelQualite.setPreferredSize(new Dimension(150,30));
-		labelQualite.setMaximumSize(new Dimension(150,30));
+		labelQualite.setPreferredSize(new Dimension(100,30));
+		labelQualite.setMinimumSize(new Dimension(100,30));
 		panel1.add(labelQualite);
 		centerWest.add(panel1);
 
@@ -130,23 +132,23 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		else if(c.getType()==Compte.TYPE_ADMINISTRATEUR){qualiteCompte="administrateur Bélo Breizh";}
 		else if(c.getType()==Compte.TYPE_TECHNICIEN){qualiteCompte="technicien de Bélo Breizh";}
 		labelQualiteCompte.setText(qualiteCompte);
-		adresseEMailCompte.setPreferredSize(new Dimension(300,30));
-		adresseEMailCompte.setMaximumSize(new Dimension(300,30));
+		labelQualiteCompte.setPreferredSize(new Dimension(250,30));
+		labelQualiteCompte.setMinimumSize(new Dimension(250,30));
 		panel2.add(labelQualiteCompte);
 		centerWest.add(panel2);	
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelAdresseEMail.setPreferredSize(new Dimension(150,30));
-		labelAdresseEMail.setMaximumSize(new Dimension(150,30));
+		labelAdresseEMail.setPreferredSize(new Dimension(100,30));
+		labelAdresseEMail.setMinimumSize(new Dimension(100,30));
 		panel3.add(labelAdresseEMail);
 		centerWest.add(panel3);	
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		adresseEMailCompte.setText(c.getAdresseEmail());
-		adresseEMailCompte.setPreferredSize(new Dimension(300,30));
-		adresseEMailCompte.setMaximumSize(new Dimension(300,30));
+		adresseEMailCompte.setPreferredSize(new Dimension(250,30));
+		adresseEMailCompte.setMinimumSize(new Dimension(250,30));
 		panel4.add(adresseEMailCompte);
 		centerWest.add(panel4);	
 
@@ -162,53 +164,53 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 			JPanel panel5 = new JPanel();
 			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			labelNom.setPreferredSize(new Dimension(150,30));
-			labelNom.setMaximumSize(new Dimension(150,30));
+			labelNom.setPreferredSize(new Dimension(100,30));
+			labelNom.setMinimumSize(new Dimension(100,30));
 			panel5.add(labelNom);
 			centerWest.add(panel5);	
 
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			nomCompte.setText(u.getNom());
-			nomCompte.setPreferredSize(new Dimension(300,30));
-			nomCompte.setMaximumSize(new Dimension(300,30));
+			nomCompte.setPreferredSize(new Dimension(250,30));
+			nomCompte.setMinimumSize(new Dimension(250,30));
 			panel6.add(nomCompte);
 			centerWest.add(panel6);			
 
 			JPanel panel7 = new JPanel();
 			panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			prenomCompte.setText(u.getPrenom());
-			labelPrenom.setPreferredSize(new Dimension(150,30));
-			labelPrenom.setMaximumSize(new Dimension(150,30));
+			labelPrenom.setPreferredSize(new Dimension(100,30));
+			labelPrenom.setMinimumSize(new Dimension(100,30));
 			panel7.add(labelPrenom);
 			centerWest.add(panel7);	
 
 			JPanel panel8 = new JPanel();
 			panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			prenomCompte.setPreferredSize(new Dimension(300,30));
-			prenomCompte.setMaximumSize(new Dimension(300,30));
+			prenomCompte.setPreferredSize(new Dimension(250,30));
+			prenomCompte.setMinimumSize(new Dimension(250,30));
 			panel8.add(prenomCompte);
 			centerWest.add(panel8);	
 
 			JPanel panel9 = new JPanel();
 			panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			labelAdressePostale.setPreferredSize(new Dimension(150,30));
-			labelAdressePostale.setMaximumSize(new Dimension(150,30));
+			labelAdressePostale.setPreferredSize(new Dimension(100,30));
+			labelAdressePostale.setMinimumSize(new Dimension(100,30));
 			panel9.add(labelAdressePostale);
 			centerWest.add(panel9);	
 
 			JPanel panel10 = new JPanel();
 			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			adressePostaleCompte.setText(u.getAdressePostale());
-			adressePostaleCompte.setPreferredSize(new Dimension(300,30));
-			adressePostaleCompte.setMaximumSize(new Dimension(300,30));
+			adressePostaleCompte.setPreferredSize(new Dimension(250,30));
+			adressePostaleCompte.setMinimumSize(new Dimension(250,30));
 			panel10.add(adressePostaleCompte);
 			centerWest.add(panel10);
 
 			JPanel panel11 = new JPanel();
 			panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			labelStatut.setPreferredSize(new Dimension(150,30));
-			labelStatut.setMaximumSize(new Dimension(150,30));
+			labelStatut.setPreferredSize(new Dimension(100,30));
+			labelStatut.setMinimumSize(new Dimension(100,30));
 			panel11.add(labelStatut);
 			centerWest.add(panel11);	
 
@@ -230,8 +232,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			statuts[1] = statut2;
 			DefaultComboBoxModel model = new DefaultComboBoxModel(statuts);
 			statutCompte = new JComboBox(model);
-			statutCompte.setPreferredSize(new Dimension(150,30));
-			statutCompte.setMaximumSize(new Dimension(150,30));
+			statutCompte.setPreferredSize(new Dimension(250,30));
+			statutCompte.setMinimumSize(new Dimension(250,30));
 			statutCompte.setFont(FenetreAuthentificationUtil.POLICE3);
 			statutCompte.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -242,9 +244,6 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 				}
 
 			});
-
-			statutCompte.setPreferredSize(new Dimension(150,30));
-			statutCompte.setMaximumSize(new Dimension(150,30));
 			panel12.add(statutCompte);
 			centerWest.add(panel12);
 		}
@@ -254,17 +253,17 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(200,350));
-		centerEast.setMaximumSize(new Dimension(200,350));
+		centerEast.setMinimumSize(new Dimension(200,350));
 		
 		
 		boutonValider.setPreferredSize(new Dimension(190,40));
-		boutonValider.setMaximumSize(new Dimension(190,40));
+		boutonValider.setMinimumSize(new Dimension(190,40));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
 		centerEast.add(boutonValider);
 		boutonResilier.setPreferredSize(new Dimension(190,40));
-		boutonResilier.setMaximumSize(new Dimension(190,40));
+		boutonResilier.setMinimumSize(new Dimension(190,40));
 		boutonResilier.setBackground(Color.CYAN);
 		boutonResilier.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonResilier.addActionListener(this);
@@ -281,7 +280,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setMinimumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
