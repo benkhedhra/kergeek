@@ -256,13 +256,14 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				if (UtilitaireIhm.verifieChampsCreationCompte(typeEntre,adresseEMailARemplir.getText())){
-					Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+				if (UtilitaireIhm.verifieTypeCreationCompte(typeEntre)){
 					// si c'est un compte utilisateur
-					if(compte.getType()==Compte.TYPE_UTILISATEUR){
-						if(UtilitaireIhm.verifieChampsCreationUtil(compte,nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText())){
+					if(typeEntre==Compte.TYPE_UTILISATEUR){
+						if(UtilitaireIhm.verifieChampsCreationUtil(typeEntre,adresseEMailARemplir.getText(),nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText())){
+							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 							Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
 							DAOUtilisateur.createUtilisateur(utilisateur);
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
@@ -270,10 +271,12 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 						}
 					}
 					// si c'est un compte administrateur
-					if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
-						if(UtilitaireIhm.verifieChampsCreationAdmin(compte)){
+					if(typeEntre==Compte.TYPE_ADMINISTRATEUR){
+						if(UtilitaireIhm.verifieChampsCreationAdmin(typeEntre,adresseEMailARemplir.getText())){
+							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 							Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
 							DAOAdministrateur.createAdministrateur(administrateur);
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
@@ -281,27 +284,26 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 						}
 					}
 					// si c'est un compte technicien
-					if(compte.getType()==Compte.TYPE_TECHNICIEN){
-						if(UtilitaireIhm.verifieChampsCreationTech(compte)){
+					if(typeEntre==Compte.TYPE_TECHNICIEN){
+						if(UtilitaireIhm.verifieChampsCreationTech(typeEntre,adresseEMailARemplir.getText())){
+							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 							Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
 							DAOTechnicien.createTechnicien(technicien);
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
 							new FenetreCreationCompteAdmin(this.getAdministrateur());
 						}
 					}
-					else{
-						MsgBox.affMsg("Sélectionnez un type de compte");
-						new FenetreCreationCompteAdmin(this.getAdministrateur());
-					}
 				}
-				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+				else{
+					MsgBox.affMsg("Sélectionnez un type de compte");
+					new FenetreCreationCompteAdmin(this.getAdministrateur());
+				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ChampIncorrectException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 		}
