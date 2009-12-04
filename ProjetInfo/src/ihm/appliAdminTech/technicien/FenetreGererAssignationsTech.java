@@ -82,10 +82,11 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 		List<DemandeAssignation> listeDemandes;
 		try {
 			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
-			String [] tableauDemandes = new String[listeDemandes.size()];
+			String [] tableauDemandes = new String[listeDemandes.size()+1];
+			tableauDemandes[0]="Sélectionnez une demande";
 			for (int i=0;i<tableauDemandes.length;i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
-				tableauDemandes[i] = DAODemandeAssignation.ligne(demandei);
+				tableauDemandes[i+1] = DAODemandeAssignation.ligne(demandei);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
@@ -97,7 +98,7 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idDemandeEntre=chaineSelectionnee.substring(8,2);
+						String idDemandeEntre=chaineSelectionnee.substring(8,1);
 						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());

@@ -238,7 +238,6 @@ public class DAOCompte {
 		List<Compte> listeComptes = new ArrayList<Compte>();
 		String requete = "select * from Compte where Compte.actif = 1";
 		if(nbChampsRemplis>0){
-			requete=requete+" where ";
 			if(type!=0){
 				if (!requete.equals("select * from Compte where ")){
 					requete=requete+" and ";

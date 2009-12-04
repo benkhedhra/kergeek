@@ -82,10 +82,11 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		List<DemandeIntervention> listeDemandes;
 		try {
 			listeDemandes= DAODemandeIntervention.getDemandesInterventionEnAttente();
-			String [] tableauDemandes = new String[listeDemandes.size()];
+			String [] tableauDemandes = new String[listeDemandes.size()+1];
+			tableauDemandes[0]="Sélectionnez une demande";
 			for (int i=0;i<tableauDemandes.length;i++){
 				DemandeIntervention demandei = listeDemandes.get(i);
-				tableauDemandes[i] = DAODemandeIntervention.ligne(demandei);
+				tableauDemandes[i+1] = DAODemandeIntervention.ligne(demandei);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
@@ -97,7 +98,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idDemandeEntre=chaineSelectionnee.substring(8,2);
+						String idDemandeEntre=chaineSelectionnee.substring(8,1);
 						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());

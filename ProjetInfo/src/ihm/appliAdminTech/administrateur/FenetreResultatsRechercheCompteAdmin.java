@@ -104,7 +104,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
-			System.out.println("Il y a "+listeComptes.size()+ " utilisateur(s) trouvé(s)");
+			System.out.println("Il y a "+listeComptes.size()+ " individu(s) trouvé(s)");
 			if(listeComptes.size()>0){
 				labelMsg.setText("Résultats de la recherche : "+listeComptes.size()+" individu(s) trouvé(s)");
 				String [] tableauComptes = new String[listeComptes.size()+1];

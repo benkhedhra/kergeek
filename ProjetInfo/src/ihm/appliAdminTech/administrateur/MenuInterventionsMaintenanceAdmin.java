@@ -64,7 +64,6 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 
 		this.setAdministrateur(a);
 
-
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
