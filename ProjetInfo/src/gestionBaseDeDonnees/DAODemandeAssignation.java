@@ -30,7 +30,7 @@ public class DAODemandeAssignation {
 				if (ddeAssignation.isPriseEnCharge()){
 					s.executeUpdate("INSERT into DemandeAssignation values ("
 							+ "'" + id + "', " 
-							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','YYYY-MM-DD-HH24:MI'), "
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 							+ "'1',"
 							+ "'" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 							+ "'" + ddeAssignation.getLieu().getId() + "'" 
@@ -40,7 +40,7 @@ public class DAODemandeAssignation {
 				else{
 					s.executeUpdate("INSERT into DemandeAssignation values (" 
 							+ "'" + id + "'," 
-							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','YYYY-MM-DD-HH24:MI'), "
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 							+ "'0',"
 							+ "'" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 							+ "'" + ddeAssignation.getLieu().getId() + "'" 
@@ -72,7 +72,7 @@ public class DAODemandeAssignation {
 
 			if (ddeAssignation.isPriseEnCharge()){
 				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = TO_DATE('" + ddeAssignation.getDate() +"','YYYY-MM-DD-HH24:MI'), "
+						+ "dateAssignation = TO_DATE('" + ddeAssignation.getDate() +"','DD-MM-YYYY HH24:MI'), "
 						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 						+ "priseEnCharge = '1',"
 						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
@@ -81,7 +81,7 @@ public class DAODemandeAssignation {
 			}
 			else{
 				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','YYYY-MM-DD-HH24:MI'), "
+						+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"''DD-MM-YYYY HH24:MI'), "
 						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 						+ "priseEnCharge = '0',"
 						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
