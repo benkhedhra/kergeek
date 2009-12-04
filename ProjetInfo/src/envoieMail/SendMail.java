@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -32,9 +33,12 @@ public class SendMail {
 		props.setProperty("mail.smtp.auth", "true");
  
 		//		 Créer l’objet Session.
-		Authenticator auth = new MyAuthentificator();//USERSMTP et PASSWDSMTP
-		session = Session.getDefaultInstance(props, auth);
-		//session.setDebug(true); //activer le mode verbeux !
+		session = Session.getDefaultInstance(props, new Authenticator(){
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("id2927", "beatlesss");
+            }
+        });
+		session.setDebug(true); //activer le mode verbeux !
 
 		//try {
 			//		 Créer un message.
@@ -60,8 +64,9 @@ public class SendMail {
 		/*catch (MessagingException ex) {
 			while ((ex = (MessagingException)ex.getNextException()) != null) {
 				ex.printStackTrace();
-			}*/
-		}
+			}
+		}*/
+	}
 	
 	
 	public static void main(String[] args) throws MessagingException{
