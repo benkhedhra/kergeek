@@ -1,10 +1,11 @@
 package ihm.appliAdminTech.administrateur;
 
+import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOAdministrateur;
-import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -255,26 +256,52 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-				// si c'est un compte utilisateur
-				if(compte.getType()==Compte.TYPE_UTILISATEUR){
-					Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
-					DAOUtilisateur.createUtilisateur(utilisateur);
-				}
-				// si c'est un compte administrateur
-				else if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
-					Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
-					DAOAdministrateur.createAdministrateur(administrateur);
-				}
-				// si c'est un compte technicien
-				else if(compte.getType()==Compte.TYPE_TECHNICIEN){
-					Technicien technicien = new Technicien (compte);
-					DAOTechnicien.createTechnicien(technicien);
+				if (UtilitaireIhm.verifieChampsCreationCompte(typeEntre,adresseEMailARemplir.getText())){
+					Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+					// si c'est un compte utilisateur
+					if(compte.getType()==Compte.TYPE_UTILISATEUR){
+						if(UtilitaireIhm.verifieChampsCreationUtil(compte,nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText())){
+							Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
+							DAOUtilisateur.createUtilisateur(utilisateur);
+						}
+						else {
+							MsgBox.affMsg("Les champs entrés sont incorrects");
+							new FenetreCreationCompteAdmin(this.getAdministrateur());
+						}
+					}
+					// si c'est un compte administrateur
+					if(compte.getType()==Compte.TYPE_ADMINISTRATEUR){
+						if(UtilitaireIhm.verifieChampsCreationAdmin(compte)){
+							Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
+							DAOAdministrateur.createAdministrateur(administrateur);
+						}
+						else {
+							MsgBox.affMsg("Les champs entrés sont incorrects");
+							new FenetreCreationCompteAdmin(this.getAdministrateur());
+						}
+					}
+					// si c'est un compte technicien
+					if(compte.getType()==Compte.TYPE_TECHNICIEN){
+						if(UtilitaireIhm.verifieChampsCreationTech(compte)){
+							Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
+							DAOTechnicien.createTechnicien(technicien);
+						}
+						else {
+							MsgBox.affMsg("Les champs entrés sont incorrects");
+							new FenetreCreationCompteAdmin(this.getAdministrateur());
+						}
+					}
+					else{
+						MsgBox.affMsg("Sélectionnez un type de compte");
+						new FenetreCreationCompteAdmin(this.getAdministrateur());
+					}
 				}
 				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (ChampIncorrectException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 		}
