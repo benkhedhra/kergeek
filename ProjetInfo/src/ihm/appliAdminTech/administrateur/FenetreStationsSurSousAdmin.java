@@ -102,7 +102,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 			}
 			for (int i=0;i<listeStationsSous.size();i++){
 				Station stationi = listeStationsSous.get(i);
-				tableauStations[i+listeStationsSur.size()]=DAOLieu.ligneStationSurSous(stationi);
+				tableauStations[i+1+listeStationsSur.size()]=DAOLieu.ligneStationSurSous(stationi);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
