@@ -28,7 +28,7 @@ public class DAOIntervention {
 				s.executeUpdate("INSERT into Intervention values ("
 						+ "'"+ intervention.getId() +  "'," 
 						+ "'"+ intervention.getVelo().getId() + "'," 
-						+ "TO_DATE('" + intervention.getDate() +"','YYYY-MM-DD-HH24:MI'),"
+						+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','YYYY-MM-DD-HH24:MI'),"
 						+ "'"+ intervention.getTypeIntervention() + "'"+ ")");
 				effectue=true;
 			}
@@ -99,7 +99,7 @@ public class DAOIntervention {
 			for (Integer type : DAOTypeIntervention.getAllTypesIntervention().keySet()){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
-				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention WHERE idTypeIntervention = '" + type + "' and dateIntervention >= TO_DATE('" + dateSql + "','YYYY-MM-DD-HH24:MI')");
+				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention WHERE idTypeIntervention = '" + type + "' and dateIntervention >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) + "','YYYY-MM-DD-HH24:MI')");
 				if (res.next()){
 					list.add(res.getInt("nombreVelosTypeIntervention"));
 				}

@@ -31,12 +31,7 @@ public class DAOEmprunt {
 				emprunt.setId(id);
 
 				if (emprunt.getLieuRetour() != null){
-					//TODO
-
-					System.out.println("création de dateEmprunt : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI')");
-					System.out.println("création de dateRetour : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI')");
-				
-										
+					
 					s.executeUpdate("INSERT into Emprunt values (" 
 							+ "'" + emprunt.getId() + "',"
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'),"
@@ -49,8 +44,6 @@ public class DAOEmprunt {
 					effectue=true;
 				}
 				else{
-					//TODO
-					System.out.println("création de dateEmprunt : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI')");
 					
 					s.executeUpdate("INSERT into Emprunt values (" 
 							+ "'" +  emprunt.getId() + "',"
@@ -85,10 +78,6 @@ public class DAOEmprunt {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			
-			System.out.println("mise a jour de dateEmprunt : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI')");
-			System.out.println("mise a jour de dateRetour : " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI')");
-
-			
 			s.executeUpdate("UPDATE Emprunt SET "
 					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "', "
 					+ "idvelo = '" + emprunt.getVelo().getId() + "', "
@@ -100,10 +89,9 @@ public class DAOEmprunt {
 			);
 			effectue=true;
 		}
-		//TODO
-		/*catch (SQLException e){
+		catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}*/
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -174,11 +162,8 @@ public class DAOEmprunt {
 
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
-		/*TODO
-		 * System.out.println(dateSql.toString());
-		 */
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloSortis");
@@ -214,7 +199,7 @@ public class DAOEmprunt {
 		 System.out.println("dateSql = "+dateSql.getHours());*/
 		 
 		
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloSortis");
@@ -247,11 +232,8 @@ public class DAOEmprunt {
 
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
-		/*TODO
-		 * System.out.println(dateSql.toString());
-		 */
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloRentres");
@@ -281,11 +263,8 @@ public class DAOEmprunt {
 
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
-		/*TODO
-		 * System.out.println(dateSql.toString());
-		 */
 
-		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + dateSql +"','YYYY-MM-DD-HH24:MI')");
+		ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','YYYY-MM-DD-HH24:MI')");
 		try {
 			if (res.next()){
 				nb = res.getInt("nombreVeloRentres");
@@ -320,9 +299,6 @@ public class DAOEmprunt {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-			/*TODO
-			 * System.out.println(dateSql.toString());
-			 */
 
 			ResultSet res = null;
 			for (int i=1; i <= nbMois; i++){
@@ -332,7 +308,7 @@ public class DAOEmprunt {
 				java.sql.Date dateSqlMinTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i+1);
 				java.sql.Date dateSqlMin = UtilitaireDate.initialisationDebutMois(dateSqlMinTemp);
 
-				res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + u.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + dateSqlSup + "','YYYY-MM-DD-HH24:MI') and dateEmprunt >= TO_DATE('" + dateSqlMin + "','YYYY-MM-DD-HH24:MI')");
+				res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + u.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSqlSup) + "','YYYY-MM-DD-HH24:MI') and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSqlMin) + "','YYYY-MM-DD-HH24:MI')");
 				if (res.next()){
 					liste.add(res.getInt("nombreEmpruntParMois"));
 				}

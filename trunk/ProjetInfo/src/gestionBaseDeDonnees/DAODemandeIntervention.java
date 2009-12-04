@@ -27,7 +27,7 @@ public class DAODemandeIntervention {
 
 				s.executeUpdate("INSERT into DemandeIntervention values ('" 
 						+ id + "', '"
-						+ "TO_DATE('" + UtilitaireDate.dateCourante() +"','YYYY-MM-DD-HH24:MI'), '"
+						+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()) +"','YYYY-MM-DD-HH24:MI'), '"
 						+ ddeIntervention.getVelo().getId() + "', '" 
 						+ ddeIntervention.getUtilisateur().getCompte().getId() +"', '" 
 						+ ddeIntervention.getVelo().getLieu().getId() + "')"
