@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="Librairies supplementaires/ojdbc14_g.jar"/>
 	<classpathentry kind="lib" path="Librairies supplementaires/jcommon-1.0.16.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="Librairies supplementaires/mail.jar"/>
+	<classpathentry kind="lib" path="Librairies supplementaires/mail.jar" sourcepath="Librairies supplementaires/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
