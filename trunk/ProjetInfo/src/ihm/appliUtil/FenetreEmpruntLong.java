@@ -70,7 +70,7 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 
 		// l'utilisateur est bloqué pendant une semaine
 		utilisateur.setBloque(true);
-		labelMsg.setText("Vous avez rendu le vélo plus de 2 heures après l'emprunt. Votre compte sera bloqué pendant une semaine. \n Remettez le vélo dans un emplacement. ");
+		labelMsg.setText("<html>Vous avez rendu le vélo plus de 2 heures après l'emprunt.<br>Votre compte sera bloqué pendant une semaine.<br>Remettez le vélo dans un emplacement.</html> ");
 		labelMsg.setPreferredSize(new Dimension(650,30));
 		
 		JPanel center = new JPanel();

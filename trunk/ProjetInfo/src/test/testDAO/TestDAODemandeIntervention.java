@@ -3,6 +3,7 @@ package test.testDAO;
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;
 
@@ -22,6 +23,7 @@ public class TestDAODemandeIntervention extends TestCase{
 		Lieu l = DAOLieu.getLieuById("1");
 		Velo v = new Velo(l, false);
 		l.ajouterVelo(v);
+		DAOVelo.createVelo(v);
 		DemandeIntervention d = new DemandeIntervention(u,v);
 		System.out.println("coucou");
 		Boolean b = DAODemandeIntervention.createDemandeIntervention(d);

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import metier.Garage;
+import metier.Lieu;
 import metier.Technicien;
 import metier.Velo;
 
@@ -119,8 +120,14 @@ public class FenetreRetirerVeloTech extends JFrame implements ActionListener{
 				Velo velo;
 
 				velo = DAOVelo.getVeloById(idARemplir.getText());
-				velo.setLieu(Garage.getInstance());
-				velo.setEnPanne(true);
+				if (velo.getLieu().getId()!= Lieu.ID_GARAGE && velo.getLieu().getId()!= Lieu.ID_SORTIE){
+					velo.setLieu(Garage.getInstance());
+					velo.setEnPanne(true);
+				}
+				else{
+					MsgBox.affMsg("Mauvais identifiant du vélo");
+					new FenetreRetirerVeloTech(this.getTechnicien());
+				}
 				try {
 					DAOVelo.updateVelo(velo);
 				} catch (SQLException e) {
