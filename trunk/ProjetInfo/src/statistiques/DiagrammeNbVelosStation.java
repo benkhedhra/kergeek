@@ -31,6 +31,11 @@ import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeNbVelosStation extends ApplicationFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JFreeChart chart;
 
 	public DiagrammeNbVelosStation(Station station) {
@@ -90,13 +95,8 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 
 		final XYSeries series = new XYSeries("Nombre de vélos");
 		try {
-			System.out.println("nb vélos sortis pdt l'heure "+DAOEmprunt.NombreVelosSortisHeures(station, 1));
-			System.out.println("nb vélos sortis pdt l'heure "+DAOEmprunt.NombreVelosRentresHeures(station, 1));
-			System.out.println("nb vélos sortis pdt les deux heures "+DAOEmprunt.NombreVelosSortisHeures(station, 2));
-			System.out.println("nb vélos rentres pdt les deux heures "+DAOEmprunt.NombreVelosRentresHeures(station, 2));
-			System.out.println("nb vélos sortis pdt les trois heures "+DAOEmprunt.NombreVelosSortisHeures(station, 3));
-			System.out.println("nb vélos rentres pdt les trois heures "+DAOEmprunt.NombreVelosRentresHeures(station, 3));
 			series.add(heureencours, DAOVelo.getVelosByLieu(station).size());
+			//System.out.println("nb vélos ds la station = "+DAOVelo.getVelosByLieu(station).size());
 			series.add(heure1, DAOVelo.getVelosByLieu(station).size()
 					+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
 					- (DAOEmprunt.NombreVelosRentresHeures(station, 1)));

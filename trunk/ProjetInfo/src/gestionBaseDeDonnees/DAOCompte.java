@@ -264,6 +264,10 @@ public class DAOCompte {
 					requete=requete+" prenom = '" + prenom + "'";
 				}
 			}
+			if (!requete.equals("select * from Compte where ")){
+				requete=requete+" and ";
+			}
+			requete=requete+"Compte.actif = 1";
 		}
 		System.out.println("requete = "+requete);
 		try {

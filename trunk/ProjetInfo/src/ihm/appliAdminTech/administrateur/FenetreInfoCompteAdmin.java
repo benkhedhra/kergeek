@@ -95,7 +95,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -188,7 +188,6 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 			JPanel panel8 = new JPanel();
 			panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			System.out.println("prénom = "+u.getPrenom());
 			labelPrenomCompte.setText(u.getPrenom());
 			labelPrenomCompte.setPreferredSize(new Dimension(250,30));
 			labelPrenomCompte.setMinimumSize(new Dimension(250,30));

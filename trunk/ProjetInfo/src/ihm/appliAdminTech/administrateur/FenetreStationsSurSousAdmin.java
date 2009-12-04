@@ -2,7 +2,6 @@ package ihm.appliAdminTech.administrateur;
 
 import exception.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOLieu;
-import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -77,7 +76,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -89,42 +88,35 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		center.setPreferredSize(new Dimension(700,400));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		center.add(labelMsg);
-		JLabel labelLegende = new JLabel();
-		labelLegende.setText("Station         Nombre de vélos         Etat de la station");	
-		labelLegende.setFont(FenetreAuthentificationUtil.POLICE2);
-		center.add(labelLegende);
 
 		List<Station> listeStationsSur;
 		List<Station> listeStationsSous;
 		try {
 			listeStationsSur = DAOLieu.getStationsSurSous().get(0);
 			listeStationsSous = DAOLieu.getStationsSurSous().get(1);
-
-			String [][] tableauStations = new String[(listeStationsSur.size()+listeStationsSous.size())][3];
+			String [] tableauStations = new String[(listeStationsSur.size()+listeStationsSous.size())+1];
+			tableauStations[0] = (listeStationsSur.size()+listeStationsSous.size())+" stations sur ou sous-occupées";
 			for (int i=0;i<listeStationsSur.size();i++){
 				Station stationi = listeStationsSur.get(i);
-				String[] lignei = tableauStations[i];
-				lignei[0] = "Station " + stationi.getId();
-				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
-				lignei[2] = "sur-occupée";
+				tableauStations[i+1]=DAOLieu.ligneStationSurSous(stationi);
 			}
 			for (int i=0;i<listeStationsSous.size();i++){
 				Station stationi = listeStationsSous.get(i);
-				String[] lignei = tableauStations[i];
-				lignei[0] = "Station " + stationi.getId();
-				lignei[1] = ""+DAOVelo.getVelosByLieu(stationi).size();
-				lignei[2] = "sous-occupée";
+				tableauStations[i+listeStationsSur.size()]=DAOLieu.ligneStationSurSous(stationi);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
 			JComboBox tableau = new JComboBox(model);
+			tableau.setPreferredSize(new Dimension(300,30));
 			tableau.setFont(FenetreAuthentificationUtil.POLICE3);
 			tableau.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
-					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
-						stationEntree = (Station) DAOLieu.getLieuById((String)o);
+						Object o = ((JComboBox)ae.getSource()).getSelectedItem();						String chaineSelectionnee = (String)(o);
+						String idStationEntre = chaineSelectionnee.substring(0,1);
+						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+						System.out.println("station entrée : "+stationEntree.toString());
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {

@@ -5,9 +5,11 @@ import exception.PasDansLaBaseDeDonneeException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import metier.Compte;
 import metier.Lieu;
 import metier.Velo;
 
@@ -128,24 +130,34 @@ public class DAOVelo {
 
 	//permet d'obtenir la liste des velos parques dans un lieu
 	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
+		
+		List<String> listeIdVelos = new ArrayList<String>();
 		List<Velo> listeVelos = new LinkedList<Velo>();
-		Velo velo = null;
+
+		Velo velo;
+		String idVelo;
 
 		ConnexionOracleViaJdbc.ouvrir();
+
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ResultSet res = s.executeQuery("Select idVelo from Velo Where idLieu ='" + lieu.getId()+"'");
 		try {
-			if (res.next()) {
-				velo = getVeloById(res.getString("idVelo"));
+
+			ResultSet res = s.executeQuery("Select idVelo from Velo Where idLieu ='" + lieu.getId()+"'");
+
+			while(res.next()) {
+				idVelo = res.getString("idVelo");
+				listeIdVelos.add(idVelo);
+			}
+
+			for(String id : listeIdVelos) {
+				velo = getVeloById(id);
 				listeVelos.add(velo);
 			}
-			else {
-				System.out.println("Pas de velo dans ce lieu");
-			}
-		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
+
+		} catch(SQLException e1){
+			listeVelos = null;
+			System.out.println("Pas de vélo dans ce lieu");
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception

@@ -252,18 +252,18 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,350));
-		centerEast.setMinimumSize(new Dimension(200,350));
+		centerEast.setPreferredSize(new Dimension(300,350));
+		centerEast.setMinimumSize(new Dimension(300,350));
 		
 		
-		boutonValider.setPreferredSize(new Dimension(190,40));
-		boutonValider.setMinimumSize(new Dimension(190,40));
+		boutonValider.setPreferredSize(new Dimension(250,40));
+		boutonValider.setMinimumSize(new Dimension(250,40));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
 		centerEast.add(boutonValider);
-		boutonResilier.setPreferredSize(new Dimension(190,40));
-		boutonResilier.setMinimumSize(new Dimension(190,40));
+		boutonResilier.setPreferredSize(new Dimension(250,40));
+		boutonResilier.setMinimumSize(new Dimension(250,40));
 		boutonResilier.setBackground(Color.CYAN);
 		boutonResilier.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonResilier.addActionListener(this);
