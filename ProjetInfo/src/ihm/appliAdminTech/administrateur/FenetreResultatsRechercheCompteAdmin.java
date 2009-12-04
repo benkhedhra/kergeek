@@ -109,7 +109,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 				labelMsg.setText("Résultats de la recherche : "+listeComptes.size()+" individu(s) trouvé(s)");
 				String [] tableauComptes = new String[listeComptes.size()+1];
 				tableauComptes[0]="Sélectionnez un compte";
-				for (int i=0;i<tableauComptes.length;i++){
+				for (int i=0;i<listeComptes.size();i++){
 					Compte comptei = listeComptes.get(i);
 					if(comptei.getType()==Compte.TYPE_UTILISATEUR){
 						tableauComptes[i+1] = DAOUtilisateur.getUtilisateurById(comptei.getId()).toString();
