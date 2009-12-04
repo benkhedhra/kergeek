@@ -148,7 +148,7 @@ public class DAODemandeAssignation {
 		ConnexionOracleViaJdbc.ouvrir();
 
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE prisEnCharge = '0'");
+		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0'");
 
 		try {
 			DemandeAssignation ddeAssignation = new DemandeAssignation();

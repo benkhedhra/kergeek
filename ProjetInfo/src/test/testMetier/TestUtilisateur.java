@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import junit.framework.TestCase;
 import metier.Compte;
 import metier.Emprunt;
+import metier.Lieu;
 import metier.Sortie;
 import metier.Station;
 import metier.Utilisateur;
@@ -27,7 +28,7 @@ public class TestUtilisateur extends TestCase{
 		
 		u.emprunteVelo(v, s);
 		
-		assertEquals(null, v.getLieu());
+		assertEquals(Lieu.ID_SORTIE, v.getLieu().getId());
 		assertFalse(null == u.getEmpruntEnCours());
 		assertTrue(v == u.getEmpruntEnCours().getVelo());
 		assertFalse(v.getEmpruntEnCours() == null);
