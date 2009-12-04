@@ -5,8 +5,8 @@ public class Station extends Lieu {
 	
 	//Attributs
 	
-	public static final double TAUX_OCCUPATION_MIN = 0.1;
-	public static final double TAUX_OCCUPATION_MAX = 0.8;
+	public static final float TAUX_OCCUPATION_MIN = 0.1f;
+	public static final float TAUX_OCCUPATION_MAX = 0.8f;
 	
 	
 	//Constructeur

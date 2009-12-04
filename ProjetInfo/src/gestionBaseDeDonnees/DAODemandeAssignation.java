@@ -72,7 +72,7 @@ public class DAODemandeAssignation {
 
 			if (ddeAssignation.isPriseEnCharge()){
 				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = TO_DATE('" + ddeAssignation.getDate() +"','DD-MM-YYYY HH24:MI'), "
+						+ "dateAssignation = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 						+ "priseEnCharge = '1',"
 						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
@@ -81,7 +81,7 @@ public class DAODemandeAssignation {
 			}
 			else{
 				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"''DD-MM-YYYY HH24:MI'), "
+						+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
 						+ "priseEnCharge = '0',"
 						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
