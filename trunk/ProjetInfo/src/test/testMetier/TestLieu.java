@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import junit.framework.TestCase;
 import metier.Garage;
+import metier.Lieu;
 import metier.Station;
 import metier.Velo;
 
@@ -27,7 +28,7 @@ public class TestLieu extends TestCase {
 		s.ajouterVelo(v);
 
 		s.enleverVelo(v);
-		assertEquals(null,v.getLieu());
+		assertEquals(Lieu.ID_SORTIE,v.getLieu().getId());
 	}
 	
 	@Test
