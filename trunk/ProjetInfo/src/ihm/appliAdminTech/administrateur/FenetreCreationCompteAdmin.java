@@ -1,6 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
 import exceptionsIhm.ChampIncorrectException;
+import exceptionsMetier.TypeCompteException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
@@ -261,9 +262,15 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 					if(typeEntre==Compte.TYPE_UTILISATEUR){
 						if(UtilitaireIhm.verifieChampsCreationUtil(typeEntre,adresseEMailARemplir.getText(),nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText())){
 							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-							Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
-							DAOUtilisateur.createUtilisateur(utilisateur);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							try {
+								Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
+								DAOUtilisateur.createUtilisateur(utilisateur);
+								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							}
+							catch (TypeCompteException e) {
+								MsgBox.affMsg(e.getMessage());
+								new FenetreCreationCompteAdmin(this.getAdministrateur());
+							}
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
@@ -274,10 +281,18 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 					if(typeEntre==Compte.TYPE_ADMINISTRATEUR){
 						if(UtilitaireIhm.verifieChampsCreationAdmin(typeEntre,adresseEMailARemplir.getText())){
 							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-							Administrateur administrateur = this.getAdministrateur().creerAdministrateur(compte);
-							DAOAdministrateur.createAdministrateur(administrateur);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-							//TODO : envoyer un mail à l'administrateur fraîchement créé où on lui dit son mot de passe
+							Administrateur administrateur;
+							try {
+								administrateur = this.getAdministrateur().creerAdministrateur(compte);
+
+								DAOAdministrateur.createAdministrateur(administrateur);
+								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+								//TODO : envoyer un mail à l'administrateur fraîchement créé où on lui dit son mot de passe
+							}
+							catch (TypeCompteException e) {
+								MsgBox.affMsg(e.getMessage());
+								new FenetreCreationCompteAdmin(this.getAdministrateur());
+							}
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
@@ -288,10 +303,17 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 					if(typeEntre==Compte.TYPE_TECHNICIEN){
 						if(UtilitaireIhm.verifieChampsCreationTech(typeEntre,adresseEMailARemplir.getText())){
 							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-							Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
-							DAOTechnicien.createTechnicien(technicien);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-							//TODO : envoyer un mail au technicien fraîchement créé où on lui dit son mot de passe
+							try {
+								Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
+								DAOTechnicien.createTechnicien(technicien);
+								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+								//TODO : envoyer un mail au technicien fraîchement créé où on lui dit son mot de passe
+							}
+
+							catch (TypeCompteException e) {
+								MsgBox.affMsg(e.getMessage());
+								new FenetreCreationCompteAdmin(this.getAdministrateur());
+							}
 						}
 						else {
 							MsgBox.affMsg("Les champs entrés sont incorrects");
