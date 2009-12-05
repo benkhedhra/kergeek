@@ -137,19 +137,23 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 					Date dateLimite = UtilitaireDate.ajouteJours(dateDernierRetour,7);
 					GregorianCalendar cal = new GregorianCalendar();
 					cal.setTime(dateLimite);
-					
-					
+
+
 					new FenetreConfirmationUtil("Votre compte est bloquÈ jusqu'au " + cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG , getLocale())+" "+ cal.get(Calendar.DAY_OF_MONTH)+" "+ cal.getDisplayName(Calendar.MONTH, Calendar.LONG, getLocale()) + " ‡ " + (cal.get(Calendar.HOUR_OF_DAY)+1) + "h");
 				}
-				
+
 			}
 			else{
 				new FenetreAuthentificationUtil(true);
 			}
-		}catch (SQLException e) {
-			MsgBox.affMsg(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			MsgBox.affMsg(e.getMessage());
+		}catch (SQLException e1) {
+			MsgBox.affMsg(e1.getMessage());
+		} catch (ClassNotFoundException e2) {
+			MsgBox.affMsg(e2.getMessage());
+		}
+		catch (NullPointerException e3){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur rÈseau et rÈessayer ultÈrieurement. Merci</center></html>");
+			new FenetreAuthentificationUtil(true);
 		}
 	}
 }

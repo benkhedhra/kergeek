@@ -12,14 +12,14 @@ import org.junit.Test;
 public class TestDAOCompte extends TestCase{
 	@Test
 	public void testcreateCompte() throws SQLException, ClassNotFoundException{
-		Compte c1 = new Compte(1);
+		Compte c1 = new Compte(1,"test@gmail.com");
 		Boolean b = DAOCompte.createCompte(c1);
 		assertEquals(true,(boolean) b);
 	}
 	
 	@Test
 	public void testUpdateCompte() throws SQLException, ClassNotFoundException{
-		Compte c1 = new Compte(1);
+		Compte c1 = new Compte(1,"test@gmail.com");
 		DAOCompte.createCompte(c1);
 		Boolean b = DAOCompte.updateCompte(c1);
 		assertEquals(true,(boolean) b);

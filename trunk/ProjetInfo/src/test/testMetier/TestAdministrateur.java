@@ -12,7 +12,7 @@ public class TestAdministrateur extends TestCase{
 	
 	@Test
 	public void testResilierCompte() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR);
+		Compte c = new Compte(Compte.TYPE_ADMINISTRATEUR,"atest@gmail.com");
 		Administrateur a = new Administrateur(c);
 		Compte compte = new Compte();
 		a.resilierCompte(compte);
@@ -23,7 +23,7 @@ public class TestAdministrateur extends TestCase{
 	
 	@Test
 	public void testCreerCompte() throws SQLException, ClassNotFoundException{
-		Compte c1 = new Compte(Compte.TYPE_ADMINISTRATEUR);
+		Compte c1 = new Compte(Compte.TYPE_ADMINISTRATEUR,"atest@gmail.com");
 		Administrateur a = new Administrateur(c1);
 		Compte c2 = a.creerCompte(Compte.TYPE_UTILISATEUR, "mail");
 		assertEquals("mail", c2.getAdresseEmail());

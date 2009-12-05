@@ -1,1 +1,14 @@
+envoieMail
+exceptionsIhm
+exceptionsMetier
+exceptionsTechniques
+gestionBaseDeDonnees
+ihm
+ihm.appliAdminTech
+ihm.appliAdminTech.administrateur
+ihm.appliAdminTech.technicien
+ihm.appliUtil
 metier
+statistiques
+test.testDAO
+test.testMetier

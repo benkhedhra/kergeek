@@ -3,11 +3,11 @@ package metier;
 import exceptionsMetier.TypeCompteException;
 
 /** 
- * Administrateur est la classe representant un administrateur du parc a velos.
- * Un administrateur est caracterise par un compte.
- * 
+ * Administrateur est la classe représentant un administrateur du parc à velos.
+ * Un administrateur est caracterisé par un compte.
  * @see Compte
  * @see Utilisateur
+ * @author KerGeek
  */
 
 public class Administrateur {
@@ -16,30 +16,26 @@ public class Administrateur {
 
 	/**
 	 * Compte de l'administrateur. Ce compte est modifiable.
-	 * 
 	 * @see Compte
-	 * @see Administrateur#Administrateur(compte)
 	 * @see Administrateur#getCompte()
-	 * @see Administrateur#setCompte(compte)
-	 * 
+	 * @see Administrateur#setCompte(Compte)
 	 */
-
 	private Compte compte;
 
 
 	// Constructeurs
 
-	
+
 	/**
 	 * Constructeur d'initialisation d'Administrateur.
-	 * L'objet administrateur est crer à partir d'un compte
+	 * L'objet administrateur est créer à partir d'un compte
 	 * 
 	 * @param  compte
 	 * le compte de l'administrateur
 	 * @see Compte
 	 * @see Administrateur#compte       
 	 */
-	
+
 	public Administrateur(Compte compte) {
 		this.setCompte(compte);
 	}
@@ -47,23 +43,18 @@ public class Administrateur {
 	// Accesseurs et modificateurs
 
 	/**
-	 * Renvoie le compte de l'administrateur
-	 * 
-	 * @return le compte de l'administrateur 
+	 * @return le {@link Administrateur#compte} de l'administrateur 
 	 */
-
 	public Compte getCompte() {
 		return this.compte;
 	}
 
 	/**
-	 * Met à jour le compte de l'administrateur
-	 * 
+	 * Initialise le {@link Administrateur#compte} de l'administrateur
 	 * @param compte
 	 * le nouveau compte de l'administrateur
 	 * @see Compte
 	 */
-
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
@@ -71,13 +62,13 @@ public class Administrateur {
 	// Methodes
 
 	/**
-	 * Cre un compte, pour un futur utilisateur du parc à velos par exemple, 
+	 * Crée un compte, pour un futur utilisateur du parc à velos par exemple, 
 	 * ou pour un nouveau technicien, ou mme pour un nouvel administarteur
 	 * 
 	 * @param type
-	 * le type du compte à crer
+	 * le type du compte à créer
 	 * @param adresseEmail
-	 *  l'adresse email du compte à crer
+	 *  l'adresse email du compte à créer
 	 * @return le nouveau compte 
 	 * @see Compte
 	 */
@@ -88,7 +79,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Cre un nouvel utilisateur ˆ partir d'un compte et de coordonnes
+	 * Crée un nouvel utilisateur à partir d'un compte et de coordonnes
 	 * @param compte
 	 * @param nom
 	 * @param prenom
@@ -110,7 +101,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Cre un nouvel administrateur ˆ partir d'un compte
+	 * Crée un nouvel administrateur à partir d'un compte
 	 * @param compte
 	 * @return le nouvel administrateur
 	 * @throws TypeCompteException
@@ -128,7 +119,7 @@ public class Administrateur {
 		return administrateur;
 	}
 	/**
-	 * Cre un nouveau technicien ˆ partir d'un compte
+	 * Crée un nouveau technicien à partir d'un compte
 	 * @param compte
 	 * @return le nouveau technicien
 	 * @throws TypeCompteException
@@ -147,8 +138,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Rsilie un compte d'un abonne du parc à velos en mettant le booleen actif du compte en question à false
-	 * 
+	 * Résilie un compte d'un abonne du parc à velos en mettant le booleen actif du compte en question à false
 	 * @param compte
 	 * @see Compte
 	 * @see Compte#setActif(Boolean)
@@ -161,7 +151,7 @@ public class Administrateur {
 	// editerCompte() correspond a l'ensemble des setters!
 
 	/**
-	 * Cre une demande d'assignation, c'est-à-dire une demande de deplacement de velos 
+	 * Crée une demande d'assignation, c'est-à-dire une demande de déplacement de vélos 
 	 * d'une station à une autre
 	 * 
 	 * @param nombreVelosVouluDansStation
@@ -175,8 +165,8 @@ public class Administrateur {
 	}
 
 	/**
-	 * Vrifie l'egalit entre deux instances de la classe Administrateur
-	 * @return un boolen
+	 * Vérifie l'égalité entre deux instances de la classe Administrateur
+	 * @return un booléen
 	 * qui vaut vrai si les deux instances de la classe Administrateur ont le mme compte,
 	 * faux sinon
 	 * @see Compte#equals(Object)

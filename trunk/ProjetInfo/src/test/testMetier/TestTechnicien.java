@@ -16,7 +16,7 @@ import org.junit.Test;
 public class TestTechnicien extends TestCase{
 	@Test
 	public void testEnregistrerVelo()throws SQLException, ClassNotFoundException{
-		Compte c = new Compte(2);
+		Compte c = new Compte(2,"ttest@gmail.com");
 		Technicien t = new Technicien(c);
 		Velo v = t.enregistrerVelo();
 		assertTrue(v instanceof Velo);
@@ -25,7 +25,7 @@ public class TestTechnicien extends TestCase{
 	
 	@Test
 	public void testIntervenir() throws SQLException, ClassNotFoundException {
-		Compte c = new Compte(2);
+		Compte c = new Compte(2,"ttest@gmail.com");
 		Technicien t = new Technicien(c);
 		Velo v = new Velo();
 		Station s = new Station();
