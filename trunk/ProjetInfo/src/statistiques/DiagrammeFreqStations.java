@@ -1,7 +1,7 @@
 package statistiques;
 
 
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 

@@ -5,7 +5,7 @@ package gestionBaseDeDonnees;
  * @version 1.0
  */
 
-import exception.ExceptionAuthentification;
+import exceptionsTechniques.ExceptionAuthentification;
 
 import java.sql.SQLException;
 

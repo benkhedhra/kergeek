@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 
 import metier.Administrateur;
 

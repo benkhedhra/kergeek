@@ -1,8 +1,8 @@
 package ihm.appliUtil;
 
-import exception.ChampIncorrectException;
-import exception.PasDeDateRetourException;
-import exception.PasDeVeloEmprunteException;
+import exceptionsIhm.ChampIncorrectException;
+import exceptionsMetier.PasDeDateRetourException;
+import exceptionsMetier.PasDeVeloEmprunteException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;

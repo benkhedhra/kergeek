@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Velo;
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 
 public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener {
 

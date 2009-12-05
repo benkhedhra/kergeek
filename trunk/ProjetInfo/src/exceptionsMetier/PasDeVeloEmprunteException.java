@@ -1,4 +1,4 @@
-package exception;
+package exceptionsMetier;
 
 public class PasDeVeloEmprunteException extends Exception{
 
