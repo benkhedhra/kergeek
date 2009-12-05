@@ -208,8 +208,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			else if(fenetrePrec.getTitle().equals("Enregistrer un nouveau vélo")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
-				labelConfirm.setText( "<html>Le vélo a bien été ajouté et affecté au garage. <br> Son identifiant est : "
-						+ ((FenetreEnregistrerVeloTech) fenetrePrec).getVeloEntre().getId()+"</html>");
+				labelConfirm.setText( "<html><center>Le vélo a bien été ajouté et affecté au garage. <br> Son identifiant est : "
+						+ ((FenetreEnregistrerVeloTech) fenetrePrec).getVeloEntre().getId()+"</center></html>");
 				bouton1.setText("Enregistrer un autre nouveau vélo");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);

@@ -15,7 +15,7 @@ public class TestDAOUtilisateur extends TestCase {
 	
 	@Test
 	public void testcreateUtilisateur() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail1", true);
+		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail1");
 		Utilisateur u1 = new Utilisateur(c,"john", "michel", "3 rue jaune");
 		Boolean b = DAOUtilisateur.createUtilisateur(u1);
 		assertEquals(b,(Boolean)true);
@@ -42,7 +42,7 @@ public class TestDAOUtilisateur extends TestCase {
 	
 	@Test
 	public void testGetUtilisateurById() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail3", true);
+		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail3");
 		Utilisateur u1 = new Utilisateur(c,"john", "michel", "3 rue jaune");
 		DAOUtilisateur.createUtilisateur(u1);
 		Utilisateur u2 = DAOUtilisateur.getUtilisateurById(u1.getCompte().getId());

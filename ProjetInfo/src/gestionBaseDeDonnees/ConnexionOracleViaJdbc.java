@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
-	//pour ecrire l'id et le mp pour acceder ˆ la base de donnees "en dur"
+	//pour ecrire l'id et le mp pour acceder â€¡ la base de donnees "en dur"
 	public static final String UTILISATEUR ="id3033";
 	public static final String MOTDEPASSE ="id3033";
 
@@ -36,7 +36,7 @@ public class ConnexionOracleViaJdbc {
 	 * @throws ClassNotFoundException
 	 */
 	private static void connecter() throws ClassNotFoundException{
-		// création d'une connexion à une base de données		
+		// création d'une connexion â€¡ une base de données		
 
 		String url = "jdbc:oracle:thin:@oraens10g:1521:ORAENS";
 
@@ -54,7 +54,7 @@ public class ConnexionOracleViaJdbc {
 			c.setAutoCommit(false);
 		}
 		catch (SQLException e){
-			MsgBox.affMsg("Echec de la tentative de connexion : " + e.getMessage());
+			System.out.println("Echec de la tentative de connexion : " + e.getMessage());
 		}
 
 	}
@@ -109,13 +109,13 @@ public class ConnexionOracleViaJdbc {
 	/**
 	 * création d'instructions (statements) - redéfinition de la méthode
 	 */	
-	public static Statement createStatement(){
+	public static Statement createStatement() throws java.lang.NullPointerException{
 		Statement st = null;
 		try{
 			st = c.createStatement();
 		}
 		catch(SQLException e){
-			MsgBox.affMsg("Echec de la tentative de création d'instruction : " + e.getMessage());
+			System.out.println("Echec de la tentative de création d'instruction : " + e.getMessage());
 		}
 		return st;
 	}

@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestDAOTechnicien extends TestCase{
 	@Test
 	public void testCreateTechnicien() throws SQLException, ClassNotFoundException{
-		Compte c = new Compte(Compte.TYPE_TECHNICIEN, "mail", true);
+		Compte c = new Compte(Compte.TYPE_TECHNICIEN, "mail");
 		Technicien t = new Technicien(c);
 		Boolean b= DAOTechnicien.createTechnicien(t);
 		assertEquals((Boolean)true,(Boolean) b);
