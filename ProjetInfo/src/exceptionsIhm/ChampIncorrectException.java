@@ -1,4 +1,4 @@
-package exception;
+package exceptionsIhm;
 
 public class ChampIncorrectException extends Exception {
 	public ChampIncorrectException() {

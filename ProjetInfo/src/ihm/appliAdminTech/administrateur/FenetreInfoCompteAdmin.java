@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;

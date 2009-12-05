@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;

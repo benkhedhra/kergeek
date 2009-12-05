@@ -1,6 +1,6 @@
 package gestionBaseDeDonnees;
 
-import exception.PasDansLaBaseDeDonneeException;
+import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.Date;
 import java.sql.ResultSet;

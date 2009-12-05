@@ -13,9 +13,9 @@ import metier.Velo;
 
 import org.junit.Test;
 
-import exception.CompteBloqueException;
-import exception.PasDeDateRetourException;
-import exception.PasDeVeloEmprunteException;
+import exceptionsMetier.CompteBloqueException;
+import exceptionsMetier.PasDeDateRetourException;
+import exceptionsMetier.PasDeVeloEmprunteException;
 
 public class TestUtilisateur extends TestCase{
 	

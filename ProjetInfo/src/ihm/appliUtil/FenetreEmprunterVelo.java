@@ -1,6 +1,6 @@
 package ihm.appliUtil;
 
-import exception.CompteBloqueException;
+import exceptionsMetier.CompteBloqueException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;

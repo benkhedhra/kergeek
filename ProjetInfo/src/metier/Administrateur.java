@@ -1,5 +1,7 @@
 package metier;
 
+import exceptionsMetier.TypeCompteException;
+
 /** 
  * Administrateur est la classe representant un administrateur du parc a velos.
  * Un administrateur est caracterise par un compte.
@@ -10,7 +12,7 @@ package metier;
 
 public class Administrateur {
 
-	// Attribut 
+	// Attributs 
 
 	/**
 	 * Compte de l'administrateur. Ce compte est modifiable.
@@ -29,7 +31,7 @@ public class Administrateur {
 
 	/**
 	 * Constructeur d'initialisation d'Administrateur.
-	 * L'objet administrateur est creer a partir d'un compte
+	 * L'objet administrateur est creer ‡ partir d'un compte
 	 * 
 	 * @param  compte, le compte de l'administrateur
 	 * @see Compte
@@ -43,7 +45,7 @@ public class Administrateur {
 	// Accesseurs et modificateurs
 
 	/**
-	 * retourne le compte de l'administrateur
+	 * Renvoie le compte de l'administrateur
 	 * 
 	 * @return compte, le compte de l'administrateur 
 	 */
@@ -66,31 +68,51 @@ public class Administrateur {
 	// Methodes
 
 	/**
-	 * Cree un compte pour un futur utilisateur du parc a velos
+	 * Crée un compte, pour un futur utilisateur du parc ‡ velos par exemple, 
+	 * ou pour un nouveau technicien, ou même pour un nouvel administarteur
 	 * 
 	 * @param compte
-	 * @return c, nouveau compte 
+	 * @return compte, le nouveau compte 
 	 * @see Compte
 	 */
 
 	public Compte creerCompte(int type, String adresseEmail){
-		Compte c = new Compte(type, adresseEmail);
-		return c;
+		Compte compte = new Compte(type, adresseEmail);
+		return compte;
 	}
 
+	/**
+	 * Crée un nouvel utilisateur à partir de son compte et de ses coordonnée
+	 * @param compte
+	 * @param nom
+	 * @param prenom
+	 * @param adressePostale
+	 * @return utilisateur, le nouvel utilisateur
+	 */
 	public Utilisateur creerUtilisateur(Compte compte, String nom, String prenom, String adressePostale){
-		Utilisateur u = new Utilisateur(compte, nom, prenom, adressePostale);
-		return u;
+		Utilisateur utilisateur = new Utilisateur(compte, nom, prenom, adressePostale);
+		return utilisateur;
 	}
-	
-	public Administrateur creerAdministrateur(Compte compte){
-		Administrateur a = new Administrateur(compte);
-		return a;
+
+	/**
+	 * Crée un nouveau technicien à partir d'un compte son compte
+	 * @param compte
+	 * @return technicien, le nouveau technicien
+	 */
+	public Administrateur creerAdministrateur(Compte compte) throws TypeCompteException{
+		Administrateur administrateur = null;
+		if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
+			administrateur = new Administrateur(compte);
+		}
+		else{
+			throw new TypeCompteException("Le type de compte ne correspond pas à un administrateur");
+		}
+		return administrateur;
 	}
-	
+
 	public Technicien creerTechnicien(Compte compte){
-		Technicien t = new Technicien(compte);
-		return t;
+		Technicien technicien = new Technicien(compte);
+		return technicien;
 	}
 
 	/**
@@ -119,18 +141,18 @@ public class Administrateur {
 		DemandeAssignation  ddeAssignation = new DemandeAssignation(UtilitaireDate.dateCourante(), nombreVelosVouluDansStation, lieu);
 		return ddeAssignation;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object o) {
 		Administrateur a =(Administrateur) o;
 		return this.getCompte().equals(a.getCompte());
 	}
-	
-	
+
+
 	@Override
 	public String toString(){
 		return this.getCompte().toString();
 	}
-	
+
 }

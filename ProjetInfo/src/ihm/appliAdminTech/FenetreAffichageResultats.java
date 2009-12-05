@@ -33,7 +33,7 @@ import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
 import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 
 public class FenetreAffichageResultats extends JFrame implements ActionListener {
 

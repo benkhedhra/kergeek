@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;

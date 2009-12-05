@@ -1,4 +1,4 @@
-package exception;
+package exceptionsTechniques;
 
 public class PasDansLaBaseDeDonneeException extends Exception{
 

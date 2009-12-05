@@ -1,7 +1,7 @@
 package ihm;
 
 import metier.Compte;
-import exception.ChampIncorrectException;
+import exceptionsIhm.ChampIncorrectException;
 
 public class UtilitaireIhm {
 

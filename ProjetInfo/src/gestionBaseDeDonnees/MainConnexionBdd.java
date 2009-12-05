@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 import metier.Emprunt;
 import metier.UtilitaireDate;
-import exception.PasDeDateRetourException;
+import exceptionsMetier.PasDeDateRetourException;
 
 public class MainConnexionBdd {
 
