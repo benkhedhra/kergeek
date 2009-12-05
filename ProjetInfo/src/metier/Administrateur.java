@@ -29,15 +29,17 @@ public class Administrateur {
 
 	// Constructeurs
 
+	
 	/**
 	 * Constructeur d'initialisation d'Administrateur.
-	 * L'objet administrateur est creer ‡ partir d'un compte
+	 * L'objet administrateur est créer ‡ partir d'un compte
 	 * 
-	 * @param  compte, le compte de l'administrateur
+	 * @param  compte
+	 * le compte de l'administrateur
 	 * @see Compte
 	 * @see Administrateur#compte       
 	 */
-
+	
 	public Administrateur(Compte compte) {
 		this.setCompte(compte);
 	}
@@ -47,7 +49,7 @@ public class Administrateur {
 	/**
 	 * Renvoie le compte de l'administrateur
 	 * 
-	 * @return compte, le compte de l'administrateur 
+	 * @return le compte de l'administrateur 
 	 */
 
 	public Compte getCompte() {
@@ -57,7 +59,8 @@ public class Administrateur {
 	/**
 	 * Met ‡ jour le compte de l'administrateur
 	 * 
-	 * @param compte, le nouveau compte de l'administrateur
+	 * @param compte
+	 * le nouveau compte de l'administrateur
 	 * @see Compte
 	 */
 
@@ -71,8 +74,11 @@ public class Administrateur {
 	 * Crée un compte, pour un futur utilisateur du parc ‡ velos par exemple, 
 	 * ou pour un nouveau technicien, ou même pour un nouvel administarteur
 	 * 
-	 * @param compte
-	 * @return compte, le nouveau compte 
+	 * @param type
+	 * le type du compte ‡ créer
+	 * @param adresseEmail
+	 *  l'adresse email du compte ‡ créer
+	 * @return le nouveau compte 
 	 * @see Compte
 	 */
 
@@ -82,22 +88,34 @@ public class Administrateur {
 	}
 
 	/**
-	 * Crée un nouvel utilisateur à partir de son compte et de ses coordonnée
+	 * Crée un nouvel utilisateur à partir d'un compte et de coordonnées
 	 * @param compte
 	 * @param nom
 	 * @param prenom
 	 * @param adressePostale
-	 * @return utilisateur, le nouvel utilisateur
+	 * @return le nouvel utilisateur
+	 * @throws TypeCompteException
+	 * @see Compte
+	 * @see Utilisateur#Utilisateur(Compte, String, String, String)
 	 */
-	public Utilisateur creerUtilisateur(Compte compte, String nom, String prenom, String adressePostale){
-		Utilisateur utilisateur = new Utilisateur(compte, nom, prenom, adressePostale);
+	public Utilisateur creerUtilisateur(Compte compte, String nom, String prenom, String adressePostale) throws TypeCompteException{
+		Utilisateur utilisateur = null;
+		if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
+			utilisateur = new Utilisateur(compte, nom, prenom, adressePostale);
+		}
+		else{
+			throw new TypeCompteException("Le type de compte ne correspond pas ‡ un utilisateur");
+		}
 		return utilisateur;
 	}
 
 	/**
-	 * Crée un nouveau technicien à partir d'un compte son compte
+	 * Crée un nouvel administrateur à partir d'un compte
 	 * @param compte
-	 * @return technicien, le nouveau technicien
+	 * @return le nouvel administrateur
+	 * @throws TypeCompteException
+	 * @see Compte
+	 * @see Administrateur#Administrateur(Compte)
 	 */
 	public Administrateur creerAdministrateur(Compte compte) throws TypeCompteException{
 		Administrateur administrateur = null;
@@ -105,21 +123,35 @@ public class Administrateur {
 			administrateur = new Administrateur(compte);
 		}
 		else{
-			throw new TypeCompteException("Le type de compte ne correspond pas à un administrateur");
+			throw new TypeCompteException("Le type de compte ne correspond pas ‡ un administrateur");
 		}
 		return administrateur;
 	}
-
-	public Technicien creerTechnicien(Compte compte){
-		Technicien technicien = new Technicien(compte);
+	/**
+	 * Crée un nouveau technicien à partir d'un compte
+	 * @param compte
+	 * @return le nouveau technicien
+	 * @throws TypeCompteException
+	 * @see Compte
+	 * @see Technicien#Technicien(Compte)
+	 */
+	public Technicien creerTechnicien(Compte compte)throws TypeCompteException{
+		Technicien technicien = null;
+		if (compte.getType() == Compte.TYPE_TECHNICIEN){
+			technicien = new Technicien(compte);
+		}
+		else{
+			throw new TypeCompteException("Le type de compte ne correspond pas ‡ un technicien");
+		}
 		return technicien;
 	}
 
 	/**
-	 * Resilie un compte d'un abonne du parc a velos
+	 * Résilie un compte d'un abonne du parc ‡ velos en mettant le booleen actif du compte en question ‡ false
 	 * 
 	 * @param compte
 	 * @see Compte
+	 * @see Compte#setActif(Boolean)
 	 */
 
 	public void resilierCompte(Compte compte){
@@ -129,8 +161,8 @@ public class Administrateur {
 	// editerCompte() correspond a l'ensemble des setters!
 
 	/**
-	 * Cree une demande d'assignation, c'est a dire une demande de deplacement de velos 
-	 * d'une station a une autre
+	 * Crée une demande d'assignation, c'est-‡-dire une demande de deplacement de velos 
+	 * d'une station ‡ une autre
 	 * 
 	 * @param nombreVelosVouluDansStation
 	 * @param lieu
@@ -142,14 +174,22 @@ public class Administrateur {
 		return ddeAssignation;
 	}
 
-
+	/**
+	 * Vérifie l'egalité entre deux instances de la classe Administrateur
+	 * @return un booléen
+	 * qui vaut vrai si les deux instances de la classe Administrateur ont le même compte,
+	 * faux sinon
+	 * @see Compte#equals(Object)
+	 */
 	@Override
 	public boolean equals(Object o) {
 		Administrateur a =(Administrateur) o;
 		return this.getCompte().equals(a.getCompte());
 	}
 
-
+	/**
+	 * @see Compte#toString()
+	 */
 	@Override
 	public String toString(){
 		return this.getCompte().toString();
