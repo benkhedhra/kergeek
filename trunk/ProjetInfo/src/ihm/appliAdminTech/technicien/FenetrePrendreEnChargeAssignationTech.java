@@ -101,7 +101,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		int nbVelosADeplacer;
 
 		try {
-			nbVelosADeplacer = Math.abs(demande.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(demande.getLieu()).size());
+			nbVelosADeplacer = Math.abs(demande.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demande.getLieu()).size());
 
 			labelMsg.setPreferredSize(new Dimension(600,50));
 			labelMsg.setMaximumSize(new Dimension(600,50));

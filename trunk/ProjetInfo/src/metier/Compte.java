@@ -89,7 +89,7 @@ public class Compte {
 	}
 
 	/**
-	 * Constructeur vide d'un compte
+	 * Constructeur vide d'un compte.
 	 */
 	public Compte() {
 	}
@@ -107,7 +107,7 @@ public class Compte {
 	}
 	
 	/**
-	 * Initialise l'{@link Compte#id} du compte
+	 * Initialise l'{@link Compte#id} du compte.
 	 * @param id
 	 * l'identifiant du compte
 	 */
@@ -117,14 +117,14 @@ public class Compte {
 	
 	
 	/**
-	 * @return le {@link Compte#motDePasse} du compte
+	 * @return le {@link Compte#motDePasse} du compte.
 	 */
 	public String getMotDePasse() {
 		return motDePasse;
 	}
 	
 	/** 
-	 * Initialise le {@link Compte#motDePasse} du compte
+	 * Initialise le {@link Compte#motDePasse} du compte.
 	 * @param motDePasse
 	 * le nouveau mot de passe du compte
 	 */
@@ -143,7 +143,7 @@ public class Compte {
 	}
 	
 	/**
-	 * Active ou dÈsactive le compte
+	 * Active ou dÈsactive le compte.
 	 * @param actif
 	 * @see Compte#actif
 	 * @see Administrateur#resilierCompte(Compte)
@@ -176,7 +176,7 @@ public class Compte {
 		return adresseEmail;
 	}
 	/**
-	 * Initialise l'{@link Compte#adresseEmail} du compte
+	 * Initialise l'{@link Compte#adresseEmail} du compte.
 	 * @param adresseEmail
 	 */
 	public void setAdresseEmail(String adresseEmail) {
@@ -210,11 +210,10 @@ public class Compte {
 	
 	
 	/**
-	 * VÈrifie l'ÈgalitÈ entre deux instances de la classe Compte en comparant les valeurs de leurs attributs respectifs
+	 * VÈrifie l'ÈgalitÈ entre deux instances de la classe Compte en comparant les valeurs de leurs attributs respectifs.
 	 * @return un booléen
 	 * qui vaut vrai si les deux instances de la classe compte ont les même valeurs pour chacun de leurs attributs,
 	 * faux sinon
-	 * @see Compte#equals(Object)
 	 */
 	@Override
 	public boolean equals(Object o) {
