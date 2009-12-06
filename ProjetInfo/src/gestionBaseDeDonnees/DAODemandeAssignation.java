@@ -32,7 +32,7 @@ public class DAODemandeAssignation {
 							+ "'" + id + "', " 
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 							+ "'1',"
-							+ "'" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
+							+ "'" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
 							+ "'" + ddeAssignation.getLieu().getId() + "'" 
 							+")");
 				}
@@ -42,7 +42,7 @@ public class DAODemandeAssignation {
 							+ "'" + id + "'," 
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 							+ "'0',"
-							+ "'" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
+							+ "'" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
 							+ "'" + ddeAssignation.getLieu().getId() + "'" 
 							+")");
 				}
@@ -73,7 +73,7 @@ public class DAODemandeAssignation {
 			if (ddeAssignation.isPriseEnCharge()){
 				s.executeUpdate("UPDATE DemandeAssignation SET "
 						+ "dateAssignation = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
+						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
 						+ "priseEnCharge = '1',"
 						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
 						+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
@@ -82,7 +82,7 @@ public class DAODemandeAssignation {
 			else{
 				s.executeUpdate("UPDATE DemandeAssignation SET "
 						+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansStation() + "',"
+						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
 						+ "priseEnCharge = '0',"
 						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
 						+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
@@ -200,7 +200,7 @@ public class DAODemandeAssignation {
 
 				ddeAssignation.setId(identifiant);
 				ddeAssignation.setDate(date);
-				ddeAssignation.setNombreVelosVoulusDansStation(nombre);
+				ddeAssignation.setNombreVelosVoulusDansLieu(nombre);
 				ddeAssignation.setLieu(DAOLieu.getLieuById(idLieu));
 				ddeAssignation.setPriseEnCharge(priseEnCharge);
 
@@ -237,7 +237,7 @@ public class DAODemandeAssignation {
 		String resul = "Demande "+d.getId()+" - Station "+d.getLieu().getId()+" - ";
 		try {
 			int diff;
-			diff = d.getNombreVelosVoulusDansStation()-DAOVelo.getVelosByLieu(d.getLieu()).size();
+			diff = d.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(d.getLieu()).size();
 			String type;
 			if(diff<0){type = "retrait";}
 			else{type = "ajout";}

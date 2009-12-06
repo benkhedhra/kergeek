@@ -2,44 +2,108 @@ package metier;
 
 import java.sql.Date;
 
+/**
+ * La classe DemandeAssignation reprÈsente les demandes d'assignation faîtes par un {@link Administrateur} lorsqu'il y a trop
+ *  ou trop peu de vÈlo dans un {@link Lieu}. Le sytème dÈterminera ensuite s'il s'agit d'un ajout ou d'un retrait.
+ *  <br> Une demande d'assignation de vÈlo au {@link Garage} signifie qu'il faut ajouter des vÈlos au parc.
+ * @see Administrateur#demanderAssignation(int, Lieu)
+ * @author KerGeek
+ */
 public class DemandeAssignation {
 
-	private String id;
-	private Date date;
-	private boolean priseEnCharge;
-	private int nombreVelosVoulusDansStation;
-	private Lieu lieu;
-	
-	//Constructeur
+	//Attributs
 
+	/**
+	 * L'identifiant d'une demandeAssignation est unique. Une fois attribuÈ, il ne doit pas être modifiÈ
+	 * @see DemandeAssignation#getId()
+	 * @see DemandeAssignation#setId(String)
+	 */
+	private String id;
+
+	/**
+	 * La date à laquelle la DemandeAssignation ‡ ÈtÈ faîte
+	 * @see DemandeAssignation#getDate()
+	 * @see DemandeAssignation#setDate(Date)
+	 */
+	private Date date;
+
+	/**
+	 * Initialiser ‡ faux, le boolÈen priseEnCharge passe ‡ vrai lorsque la DemandeAssignation
+	 * @see DemandeAssignation#isPriseEnCharge()
+	 * @see DemandeAssignation#setPriseEnCharge(boolean)
+	 * @see UtilitaireDate
+	 */
+	private boolean priseEnCharge;
+
+	/**
+	 * Le nombre de vÈlos souhÈaîtÈ dans le lieu, qui sera comparÉ avec le nombre de vÈlos dans le lieu en question
+	 * @see DemandeAssignation#getNombreVelosVoulusDansLieu()
+	 * @see DemandeAssignation#setNombreVelosVoulusDansLieu(int)
+	 */
+	private int nombreVelosVoulusDansLieu;
+
+	/**
+	 * Le lieu où la demande d'assignation est faîte
+	 * @see DemandeAssignation#getLieu()
+	 * @see DemandeAssignation#setLieu(Lieu)
+	 * @see Lieu
+	 */
+	private Lieu lieu;
+
+
+	//Constructeurs
+
+	/**
+	 * CrÈation d'une DemandeAssignation à partir d'un {@link DemandeAssignation#nombreVelosVoulusDansLieu}
+	 *  et d'un {@link DemandeAssignation#lieu}, la {@link DemandeAssignation#date} est initialisÈe ‡ la date système
+	 *  et la nouvelle DemandeAssignation n'est pas encore {@link DemandeAssignation#priseEnCharge} .
+	 */
+	public DemandeAssignation(int nombre, Lieu lieu) {
+		this.setDate(UtilitaireDate.dateCourante());
+		this.setPriseEnCharge(false);
+		this.setNombreVelosVoulusDansLieu(nombre);
+		this.setLieu(lieu);
+	}
+
+	/**
+	 * Constructeur vide d'une DemandeAssignation.
+	 */
 	public DemandeAssignation(){
 		super();
 	}
 
-	public DemandeAssignation(Date date, int nombre, Lieu lieu) {
-		this.setDate(date);
-		this.setPriseEnCharge(false);
-		this.setNombreVelosVoulusDansStation(nombre);
-		this.setLieu(lieu);
-	}
 
+	// Accesseurs
 
-
-	// Accesseur
-
+	/**
+	 * @return l'{@link DemandeAssignation#id} du compte
+	 */
 	public String getId() {
 		return id;
 	}
 
-
+	/**
+	 * Initialise l'{@link DemandeAssignation#id} de la DemandeAssignation
+	 * @param id
+	 * l'identifiant de la DemandeAssignation
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+
+	/**
+	 * @return l'{@link DemandeAssignation#date} de la DemandeAssignation
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * Initialise l'{@link DemandeAssignation#date} de la DemandeAssignation
+	 * @param date
+	 * la date de la DemandeAssignation
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -54,26 +118,49 @@ public class DemandeAssignation {
 		this.priseEnCharge = priseEnCharge;
 	}
 
-
-	public int getNombreVelosVoulusDansStation() {
-		return nombreVelosVoulusDansStation;
+	/**
+	 * @return le {@link DemandeAssignation#nombreVelosVoulusDansLieu} de la DemandeAssignation
+	 */
+	public int getNombreVelosVoulusDansLieu() {
+		return nombreVelosVoulusDansLieu;
 	}
 
-
-	public void setNombreVelosVoulusDansStation(int nombreVelos) {
-		this.nombreVelosVoulusDansStation = nombreVelos;
+	/**
+	 * Initialise le {@link DemandeAssignation#nombreVelosVoulusDansLieu} de la DemandeAssignation
+	 * @param nombreVelos
+	 * le nombre de vÈlos souhaîtÈ dans le lieu 
+	 */
+	public void setNombreVelosVoulusDansLieu(int nombreVelos) {
+		this.nombreVelosVoulusDansLieu = nombreVelos;
 	}
 
-
+	/**
+	 * @return le {@link DemandeAssignation#lieu} de la DemandeAssignation
+	 * @see Lieu
+	 */
 	public Lieu getLieu() {
 		return lieu;
 	}
 
-
+	/**
+	 * Initialise le {@link DemandeAssignation#lieu} de la DemandeAssignation
+	 * @param lieu
+	 * le lieu concernÈ par la DemandeAssignation
+	 * @see Lieu
+	 */
 	public void setLieu(Lieu lieu) {
 		this.lieu = lieu;
 	}
 
+
+	//MÈthode 
+
+	/**
+	 * VÈrifie l'ÈgalitÈ entre deux instances de la classe DemandeAssignation en comparant les valeurs de leurs attributs respectifs.
+	 * @return un booléen
+	 * qui vaut vrai si les deux instances de la classe compte ont les même valeurs pour chacun de leurs attributs,
+	 * faux sinon
+	 */
 	@Override
 	public boolean equals(Object o) {
 		DemandeAssignation d = (DemandeAssignation) o;
@@ -84,6 +171,6 @@ public class DemandeAssignation {
 		else{
 			this.getId().equals(d.getId());
 		}
-		return a && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansStation() == d.getNombreVelosVoulusDansStation()) && (this.getLieu().equals(d.getLieu()));
+		return a && (this.getDate().equals(d.getDate())) && (this.isPriseEnCharge().equals(d.isPriseEnCharge()))&& (this.getNombreVelosVoulusDansLieu() == d.getNombreVelosVoulusDansLieu()) && (this.getLieu().equals(d.getLieu()));
 	}
 }

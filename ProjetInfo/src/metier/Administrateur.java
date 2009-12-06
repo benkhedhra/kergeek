@@ -15,7 +15,7 @@ public class Administrateur {
 	// Attributs 
 
 	/**
-	 * Compte de l'administrateur. Ce compte est modifiable.
+	 * Compte de l'Administrateur. Ce compte est modifiable.
 	 * @see Compte
 	 * @see Administrateur#getCompte()
 	 * @see Administrateur#setCompte(Compte)
@@ -43,14 +43,14 @@ public class Administrateur {
 	// Accesseurs et modificateurs
 
 	/**
-	 * @return le {@link Administrateur#compte} de l'administrateur 
+	 * @return le {@link Administrateur#compte} de l'Administrateur. 
 	 */
 	public Compte getCompte() {
 		return this.compte;
 	}
 
 	/**
-	 * Initialise le {@link Administrateur#compte} de l'administrateur
+	 * Initialise le {@link Administrateur#compte} de l'Administrateur.
 	 * @param compte
 	 * le nouveau compte de l'administrateur
 	 * @see Compte
@@ -62,8 +62,8 @@ public class Administrateur {
 	// Methodes
 
 	/**
-	 * Crée un compte, pour un futur utilisateur du parc à velos par exemple, 
-	 * ou pour un nouveau technicien, ou mme pour un nouvel administarteur
+	 * Crée un compte, pour un futur Utilisateur du parc à velos par exemple, 
+	 * ou pour un nouveau Technicien, ou mme pour un nouvel Administarteur.
 	 * 
 	 * @param type
 	 * le type du compte à créer
@@ -79,7 +79,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Crée un nouvel utilisateur à partir d'un compte et de coordonnes
+	 * Crée un nouvel utilisateur à partir d'un compte et de coordonnes.
 	 * @param compte
 	 * @param nom
 	 * @param prenom
@@ -101,7 +101,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Crée un nouvel administrateur à partir d'un compte
+	 * Crée un nouvel administrateur à partir d'un compte.
 	 * @param compte
 	 * @return le nouvel administrateur
 	 * @throws TypeCompteException
@@ -119,7 +119,7 @@ public class Administrateur {
 		return administrateur;
 	}
 	/**
-	 * Crée un nouveau technicien à partir d'un compte
+	 * Crée un nouveau technicien à partir d'un compte.
 	 * @param compte
 	 * @return le nouveau technicien
 	 * @throws TypeCompteException
@@ -152,20 +152,20 @@ public class Administrateur {
 
 	/**
 	 * Crée une demande d'assignation, c'est-à-dire une demande de déplacement de vélos 
-	 * d'une station à une autre
-	 * 
+	 *  à partir d'une station ou du Garage vers une station, en indiquant le nombre de vélos souha”té dans la station
+	 *  en question.
 	 * @param nombreVelosVouluDansStation
 	 * @param lieu
 	 * @see DemandeAssignation
 	 */
 
 	public DemandeAssignation demanderAssignation(int nombreVelosVouluDansStation, Lieu lieu){
-		DemandeAssignation  ddeAssignation = new DemandeAssignation(UtilitaireDate.dateCourante(), nombreVelosVouluDansStation, lieu);
+		DemandeAssignation  ddeAssignation = new DemandeAssignation(nombreVelosVouluDansStation, lieu);
 		return ddeAssignation;
 	}
 
 	/**
-	 * Vérifie l'égalité entre deux instances de la classe Administrateur
+	 * Vérifie l'égalité entre deux instances de la classe Administrateur.
 	 * @return un booléen
 	 * qui vaut vrai si les deux instances de la classe Administrateur ont le mme compte,
 	 * faux sinon

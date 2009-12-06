@@ -193,7 +193,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 				int nbVelos = 0;
 				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
 				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-				new DemandeAssignation(UtilitaireDate.dateCourante(),nbVelos,stationEntree);
+				new DemandeAssignation(nbVelos,stationEntree);
 			}catch(Exception e){
 				MsgBox.affMsg("Champ entré incorret");
 			}
