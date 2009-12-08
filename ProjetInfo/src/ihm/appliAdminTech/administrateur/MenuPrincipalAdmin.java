@@ -74,14 +74,14 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,100));
+		north.setPreferredSize(new Dimension(700,150));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		north.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(700,300));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonComptes.setPreferredSize(new Dimension(210,130));
 		boutonComptes.setMaximumSize(new Dimension(210,130));
@@ -103,9 +103,10 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		boutonChangeMdp.setPreferredSize(new Dimension(150,30));
-		boutonChangeMdp.setMaximumSize(new Dimension(150,30));
+		boutonChangeMdp.setPreferredSize(new Dimension(250,30));
+		boutonChangeMdp.setMaximumSize(new Dimension(250,30));
 		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);
 		boutonChangeMdp.addActionListener(this);
 		south.add(boutonChangeMdp);

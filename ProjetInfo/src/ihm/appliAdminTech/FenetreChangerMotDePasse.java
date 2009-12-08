@@ -5,17 +5,8 @@ import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
-import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
-import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
-import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
-import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
-import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
-import ihm.appliAdminTech.technicien.FenetreGererAssignationsTech;
-import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
-import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
-import ihm.appliAdminTech.technicien.FenetreRetirerVeloTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -43,7 +34,6 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private Compte compte;
-	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez compléter les champs suivants");
 	private JLabel labelAncienMdp = new JLabel("ancien mot de passe");
@@ -97,13 +87,14 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
+		labelMsg.setPreferredSize(new Dimension(600,30));
 		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 		center.add(labelMsg);
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelAncienMdp.setPreferredSize(new Dimension(200,30));
-		labelAncienMdp.setMinimumSize(new Dimension(200,30));
+		labelAncienMdp.setPreferredSize(new Dimension(250,30));
+		labelAncienMdp.setMinimumSize(new Dimension(250,30));
 		panel1.add(labelAncienMdp);
 		center.add(panel1);
 
@@ -116,8 +107,8 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNouveauMdp1.setPreferredSize(new Dimension(200,30));
-		labelNouveauMdp1.setMinimumSize(new Dimension(200,30));
+		labelNouveauMdp1.setPreferredSize(new Dimension(250,30));
+		labelNouveauMdp1.setMinimumSize(new Dimension(250,30));
 		panel3.add(labelNouveauMdp1);
 		center.add(panel3);
 
@@ -130,8 +121,8 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNouveauMdp2.setPreferredSize(new Dimension(200,30));
-		labelNouveauMdp2.setMinimumSize(new Dimension(200,30));
+		labelNouveauMdp2.setPreferredSize(new Dimension(250,30));
+		labelNouveauMdp2.setMinimumSize(new Dimension(250,30));
 		panel5.add(labelNouveauMdp2);
 		center.add(panel5);
 
@@ -139,9 +130,11 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		nouveauMdpARemplir2.setPreferredSize(new Dimension(250,30));
 		nouveauMdpARemplir2.setMinimumSize(new Dimension(250,30));
-		panel4.add(nouveauMdpARemplir2);
-		center.add(panel4);
+		panel6.add(nouveauMdpARemplir2);
+		center.add(panel6);
 
+		boutonValider.setPreferredSize(new Dimension(170,30));
+		boutonValider.setMinimumSize(new Dimension(170,30));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
@@ -172,6 +165,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 				if (UtilitaireIhm.verifieChampsModifMdp(this.getCompte(), ancienMdpARemplir.getText(), nouveauMdpARemplir1.getText(), nouveauMdpARemplir2.getText())){
 					this.getCompte().setMotDePasse(nouveauMdpARemplir1.getText());
 					DAOCompte.updateCompte(this.getCompte());
+					new FenetreConfirmation(this.getCompte(),this);
 					//à voir s'il ne faut pas passer par updateAdmin et updateTech (mais normalement non)
 				}
 				else{
