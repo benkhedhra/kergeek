@@ -21,7 +21,6 @@ import ihm.appliUtil.FenetreAuthentificationUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -148,8 +147,21 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 			boutonRetour.setBackground(Color.YELLOW);
 
+
 			//situations possibles pour un administrateur
-			if (fenetrePrec.getTitle().equals("Création d'un nouveau compte")){
+
+			if(fenetrePrec.getTitle().equals("Changer son mot de passe")){
+				north.add(labelAdminTech);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText("Le mot de passe a bien été changé. ");
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				south.add(panel);
+				south.add(boutonRetour);
+			}
+
+			else if (fenetrePrec.getTitle().equals("Création d'un nouveau compte")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le nouveau compte a bien été créé. ");
@@ -285,180 +297,87 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){
-			if(arg0.getSource()==bouton1){
-				try {
+		try{
+			if(fenetrePrecedente.getTitle().equals("Changer son mot de passe") && (arg0.getSource()==boutonRetour)){
+				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+			}
+			else if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){
+				if(arg0.getSource()==bouton1){
 					new FenetreCreationCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		else if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
+				if(arg0.getSource()==bouton1){
 					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()),false);
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
 
-		else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
+				if(arg0.getSource()==bouton1){
 					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==bouton2){
-				try {
+				else if (arg0.getSource()==bouton2){
 					new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		else if(fenetrePrecedente.getTitle().equals("Enregistrer un nouveau vélo")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Enregistrer un nouveau vélo")){
+				if(arg0.getSource()==bouton1){
 					new FenetreEnregistrerVeloTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		else if(fenetrePrecedente.getTitle().equals("Retirer un vélo défectueux d'une station")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Retirer un vélo défectueux d'une station")){
+				if(arg0.getSource()==bouton1){
 					new FenetreRetirerVeloTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		else if(fenetrePrecedente.getTitle().equals("Remettre un vélo réparé en station")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Remettre un vélo réparé en station")){
+				if(arg0.getSource()==bouton1){
 					new FenetreRemettreVeloEnStationTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		else if(fenetrePrecedente.getTitle().equals("Prendre en charge une assignation")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Prendre en charge une assignation")){
+				if(arg0.getSource()==bouton1){
 					new FenetreGererAssignationsTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		else if(fenetrePrecedente.getTitle().equals("Prendre en charge une intervention")){
-			if(arg0.getSource()==bouton1){
-				try {
+			else if(fenetrePrecedente.getTitle().equals("Prendre en charge une intervention")){
+				if(arg0.getSource()==bouton1){
 					new FenetreGererInterventionsTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
-			}
-			else if (arg0.getSource()==boutonRetour){
-				try {
+				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
 				}
 			}
-		}
-		if(fenetrePrecedente.getTitle().equals("Menu principal de l'administrateur") || fenetrePrecedente.getTitle().equals("Menu principal du technicien")){
-			if(arg0.getSource()==bouton1){
-				new FenetreAuthentification(false);
+			else if(fenetrePrecedente.getTitle().equals("Menu principal de l'administrateur") || fenetrePrecedente.getTitle().equals("Menu principal du technicien")){
+				if(arg0.getSource()==bouton1){
+					new FenetreAuthentification(false);
+				}
 			}
+		} catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
 	}
 }

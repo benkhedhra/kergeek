@@ -88,65 +88,66 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
+		JPanel center = new JPanel();
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(700,350));
+
+		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		labelMsg.setPreferredSize(new Dimension (600,30));
+		center.add(labelMsg);
+
+		center.setPreferredSize(new Dimension(550,350));
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+
+		labelStation.setPreferredSize(new Dimension (250,30));
+		center.add(labelStation);
+		
 		List<Station> listeStations;
 		try {
 			listeStations = DAOLieu.getAllStations();
-			Station [] tableauStations = new Station[listeStations.size()];
+			String [] tableauStations = new String[listeStations.size()+1];
+			tableauStations[0]="Sélectionnez une station";
 			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i]=listeStations.get(i);
+				tableauStations[i+1]=listeStations.get(i).toString();
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
-
-			JPanel center = new JPanel();
-			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			center.setPreferredSize(new Dimension(700,350));
-			center.setLayout(new BorderLayout());
-
-			JPanel centerNorth = new JPanel();
-			centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
-			centerNorth.add(labelMsg);
-			center.add(centerNorth,BorderLayout.NORTH);
-
-			JPanel centerCenter = new JPanel();
-			centerCenter.setPreferredSize(new Dimension(550,350));
-			centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-
-			centerCenter.add(labelStation);
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
-					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					String idStationEntre = (String)(o);
-					try {
-						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-					} catch (SQLException e) {
-						MsgBox.affMsg(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						MsgBox.affMsg(e.getMessage());
+					try{
+						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+						String chaineSelectionnee = (String)(o);
+						String idStationEntre = chaineSelectionnee.substring(0,1);
+						try {
+							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
 					}
-					labelMsg.setText("Station sélectionnée : " + stationEntree.getId());
-					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+					catch (Exception  e){
+						System.out.println("Erreur dans la sélection de la station");
+					}
 				}
-
 			});
-			centerCenter.add(combo);
-			centerCenter.add(labelNbVelos);
-			nbVelosARemplir.setPreferredSize(new Dimension (100,30));
-			centerCenter.add(nbVelosARemplir);
-			center.add(centerCenter,BorderLayout.WEST);
 
-			JPanel centerEast = new JPanel();
-			centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			centerEast.setPreferredSize(new Dimension(200,350));
-			boutonValider.setPreferredSize(new Dimension(80,40));
-			boutonValider.setMaximumSize(new Dimension(80,40));
+			combo.setPreferredSize(new Dimension (250,30));
+			center.add(combo);
+			labelNbVelos.setPreferredSize(new Dimension (250,30));
+			center.add(labelNbVelos);
+			nbVelosARemplir.setPreferredSize(new Dimension (250,30));
+			center.add(nbVelosARemplir);
+
+			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			center.setPreferredSize(new Dimension(200,350));
+			boutonValider.setPreferredSize(new Dimension(200,40));
+			boutonValider.setMaximumSize(new Dimension(200,40));
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 			boutonValider.addActionListener(this);
-			centerEast.add(boutonValider);
-			center.add(centerEast,BorderLayout.EAST);
+			center.add(boutonValider);
 
 			this.getContentPane().add(center,BorderLayout.CENTER);
 

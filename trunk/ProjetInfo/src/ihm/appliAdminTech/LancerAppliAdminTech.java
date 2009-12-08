@@ -7,4 +7,5 @@ public class LancerAppliAdminTech {
 	public static void main (String [] args) throws SQLException, ClassNotFoundException{
 		new FenetreAuthentification(false);
 	}
+	
 }

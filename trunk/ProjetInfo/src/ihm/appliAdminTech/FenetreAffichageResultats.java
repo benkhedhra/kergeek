@@ -194,6 +194,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			bouton1.setMaximumSize(new Dimension(200,40));
 			bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 			bouton1.setBackground(Color.GREEN);
+			bouton1.addActionListener(this);
 			
 			bouton2.setPreferredSize(new Dimension(200,40));
 			bouton2.setMaximumSize(new Dimension(200,40));
