@@ -1,5 +1,9 @@
 package envoieMail;
 
+import gestionBaseDeDonnees.DAOCompte;
+
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -10,11 +14,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
  
 public class SendMail {
  
 	
-	public static void sendMail(String message_dest,String message_objet,String message_corps) throws MessagingException{
+	public static void sendMail(String message_dest,String message_objet,String message_corps) throws MessagingException, UnsupportedEncodingException{
 		
  
 		/** Objet session de JavaMail. */
@@ -43,7 +48,7 @@ public class SendMail {
 			mesg = new MimeMessage(session);
 	
 			//		 Adresse From - Indiquer la provenance du message
-			mesg.setFrom(new InternetAddress("id2927@ensai.fr"));
+			mesg.setFrom(new InternetAddress("id2927@ensai.fr","Système Kergeek"));
 	
 			//		 Adresse TO.
 			InternetAddress toAddress = new InternetAddress(message_dest);
@@ -61,8 +66,8 @@ public class SendMail {
 	}
 	
 	
-	public static void main(String[] args) throws MessagingException{
-		sendMail("nicolas.martin@ensai.fr","test","bonjour, alors ca marche cette putain de méthode ou quoi?!! Et ouais!!!! Bon courage pour travailler! le code avance petit à petit, et l'oiseau y fait son nid...");
+	public static void main(String[] args) throws MessagingException, UnsupportedEncodingException, SQLException, ClassNotFoundException{
+		sendMail(DAOCompte.getCompteById("u2").getAdresseEmail(),"test","bonjour");
 	}
 }
  
