@@ -8,7 +8,6 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
  
@@ -27,10 +26,10 @@ public class SendMail {
 		//		 forme de propriétés car JavaMail en comporte beaucoup...
 		Properties props = new Properties();
  
-		//		 Votre réseau doit donner au serveur SMTP local le nom "nom_du_serveur_smtp"
+		//		 Notre réseau doit donner au serveur SMTP local le nom "smm-01.domensai.ecole"
  
 		props.put("mail.smtp.host", "smm-01.domensai.ecole");
-		props.setProperty("mail.smtp.auth", "true");
+		props.setProperty("mail.smtp.auth", "false");
  
 		//		 Créer l’objet Session.
 		session = Session.getDefaultInstance(props, new Authenticator(){
@@ -40,7 +39,6 @@ public class SendMail {
         });
 		session.setDebug(true); //activer le mode verbeux !
 
-		//try {
 			//		 Créer un message.
 			mesg = new MimeMessage(session);
 	
@@ -60,17 +58,11 @@ public class SendMail {
 			//		 Enfin, envoyer le message !
 			Transport.send(mesg);
  
-		//}
-		/*catch (MessagingException ex) {
-			while ((ex = (MessagingException)ex.getNextException()) != null) {
-				ex.printStackTrace();
-			}
-		}*/
 	}
 	
 	
 	public static void main(String[] args) throws MessagingException{
-		sendMail("id2927@ensai.fr", "bonjour","bonjour");
+		sendMail("nicolas.martin@ensai.fr","test","bonjour, alors ca marche cette putain de méthode ou quoi?!! Et ouais!!!! Bon courage pour travailler! le code avance petit à petit, et l'oiseau y fait son nid...");
 	}
 }
  
