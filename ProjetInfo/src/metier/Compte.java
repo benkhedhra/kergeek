@@ -2,7 +2,7 @@ package metier;
 
 import java.util.Random;
 
-import envoieMail.EnvoieMail;
+import envoieMail.SendMail;
 
 /**
  * La classe compte représente le compte d'un Administrateur, d'un Technicien ou d'un Utilisateur,
@@ -19,7 +19,7 @@ public class Compte {
 	
 	//Attributs
 	/**
-	 * L'identifiant d'un compte est unique. Une fois attribué, il ne doit pas tre modifié.
+	 * L'identifiant d'un compte est unique. Une fois attribué, il ne doit pas etre modifié.
 	 */
 	private String id;
 	
@@ -39,7 +39,7 @@ public class Compte {
 	private Boolean actif;
 	
 	/**
-	 * Le type d'un compte nous renseigne sur la qualit de celui qui le possde, à si c'est un {@link Administrateur},
+	 * Le type d'un compte nous renseigne sur la qualité de celui qui le possède, à si c'est un {@link Administrateur},
 	 *  un {@link Technicien} ou un {@link Utilisateur}
 	 * @see Compte#TYPE_ADMINISTRATEUR
 	 * @see Compte#TYPE_TECHNICIEN
@@ -185,13 +185,13 @@ public class Compte {
 
 	//methodes
 	/**
-	 * Génre automatiquement un mot de passe pour le compte en question et initialise l'attribut motDePasse de celui-ci.
+	 * Génère automatiquement un mot de passe pour le compte en question et initialise l'attribut motDePasse de celui-ci.
 	 * 
-	 * Le mot de passe généré comporte 6 caractres minuscules choisis aléatoirement entre dans l'alphabet 
+	 * Le mot de passe généré comporte 6 caractères minuscules choisis aléatoirement entre dans l'alphabet 
 	 * auquel s'ajoute les 10 chiffres arabes.
-	 * <br><br>On génre un nombre alatoire entre 0 et 1, qu'on multiplie par la taille de la bibliothque de caractres
-	 *  dans laquelle on pioche pour généré le mot de passe, on prends sa partie entire, et on rcupre le caractre
-	 *  correspondant ˆ cet indice dans notre bibliothque. On répte cette action 6 fois en concateénant les caractres
+	 * <br><br>On génere un nombre aléatoire entre 0 et 1, qu'on multiplie par la taille de la bibliothèque de caractères
+	 *  dans laquelle on pioche pour généré le mot de passe, on prends sa partie entière, et on récupère le caractère
+	 *  correspondant ˆ cet indice dans notre bibliothèque. On répète cette action 6 fois en concateénant les caractères
 	 *  au fur et à mesure de leur obtention pour former le motDePasse.
 	 * @see Compte#motDePasse
 	 * 
@@ -211,8 +211,8 @@ public class Compte {
 	
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Compte en comparant les valeurs de leurs attributs respectifs.
-	 * @return un boolen
-	 * qui vaut vrai si les deux instances de la classe compte ont les mme valeurs pour chacun de leurs attributs,
+	 * @return un booléen
+	 * qui vaut vrai si les deux instances de la classe compte ont les même valeurs pour chacun de leurs attributs,
 	 * faux sinon
 	 */
 	@Override
