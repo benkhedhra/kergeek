@@ -89,7 +89,12 @@ public class DAOIntervention {
 
 				intervention.setId(identifiant);
 				intervention.setDate(dateIntervention);
-				intervention.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(idTypeIntervention));
+				if(idTypeIntervention != 0){
+					intervention.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(idTypeIntervention));	
+				}
+				else{
+					intervention.setTypeIntervention(null);
+				}
 				intervention.setVelo(DAOVelo.getVeloById(idVelo));
 
 			}

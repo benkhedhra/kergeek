@@ -168,6 +168,10 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
 		
 			
 
@@ -242,8 +246,11 @@ public class CreationTables {
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('25-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'5',"+"'2')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('07-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'15')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('11-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'6',"+"'16')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 13:16','DD-MM-YYYY HH24:MI'),"+"'2',"+"'17')");
-					
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 13:46','DD-MM-YYYY HH24:MI'),"+"'2',"+"'17')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-12-2009 15:25','DD-MM-YYYY HH24:MI'),"+"'',"+"'26')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-12-2009 09:16','DD-MM-YYYY HH24:MI'),"+"'',"+"'25')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-12-2009 12:59','DD-MM-YYYY HH24:MI'),"+"'',"+"'27')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-12-2009 13:01','DD-MM-YYYY HH24:MI'),"+"'',"+"'28')");
 			
 			//Insertion demandes intervention
 

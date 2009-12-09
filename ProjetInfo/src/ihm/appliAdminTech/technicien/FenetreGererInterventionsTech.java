@@ -2,6 +2,7 @@ package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAOIntervention;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -82,58 +83,64 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		List<Intervention> listeInterventions;
 		try {
 			listeInterventions= DAOIntervention.getInterventionsNonTraitees();
-			String [] tableauInterventions = new String[listeInterventions.size()+1];
-			tableauInterventions[0]=listeInterventions.size()+" intervention(s) trouvée(s)";
-			for (int i=0;i<tableauInterventions.length;i++){
-				Intervention interventioni = listeInterventions.get(i);
-				tableauInterventions[i+1] = DAOIntervention.ligne(interventioni);
-			}
-
-			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauInterventions);
-
-			JComboBox combo = new JComboBox(model);
-			combo.setFont(FenetreAuthentificationUtil.POLICE3);
-			combo.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent ae){
-					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-					try {
-						String chaineSelectionnee = (String)(o);
-						String idInterventionEntre="";
-						int i=13;
-						while(chaineSelectionnee.charAt(i)!=' '){
-							idInterventionEntre=idInterventionEntre+chaineSelectionnee.charAt(i);
-						}
-						System.out.println("id de l'intervention entrée : "+idInterventionEntre);
-						interventionEntree = DAOIntervention.getInterventionById(idInterventionEntre);
-						} catch (SQLException e) {
-						MsgBox.affMsg(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						MsgBox.affMsg(e.getMessage());
-					}
+			if(listeInterventions.size() != 0){
+				String [] tableauInterventions = new String[listeInterventions.size()+1];
+				tableauInterventions[0]=listeInterventions.size()+" intervention(s) trouvée(s)";
+				for (int i=0;i<tableauInterventions.length;i++){
+					Intervention interventioni = listeInterventions.get(i);
+					tableauInterventions[i+1] = DAOIntervention.ligne(interventioni);
 				}
-			});
-			center.add(combo);
-		
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.addActionListener(this);
-		center.add(boutonValider);
 
-		this.getContentPane().add(center,BorderLayout.CENTER);
+				DefaultComboBoxModel model = new DefaultComboBoxModel(tableauInterventions);
 
-		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonRetour.setBackground(Color.YELLOW);
-		boutonRetour.addActionListener(this);
-		south.add(boutonRetour);
-		this.getContentPane().add(south,BorderLayout.SOUTH);
+				JComboBox combo = new JComboBox(model);
+				combo.setFont(FenetreAuthentificationUtil.POLICE3);
+				combo.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent ae){
+						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+						try {
+							String chaineSelectionnee = (String)(o);
+							String idInterventionEntre="";
+							int i=13;
+							while(chaineSelectionnee.charAt(i)!=' '){
+								idInterventionEntre=idInterventionEntre+chaineSelectionnee.charAt(i);
+							}
+							System.out.println("id de l'intervention entrée : "+idInterventionEntre);
+							interventionEntree = DAOIntervention.getInterventionById(idInterventionEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
+					}
+				});
+				center.add(combo);
 
-		this.setVisible(true);
+				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.setBackground(Color.CYAN);
+				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.addActionListener(this);
+				center.add(boutonValider);
+
+				this.getContentPane().add(center,BorderLayout.CENTER);
+
+				JPanel south = new JPanel();
+				south.setPreferredSize(new Dimension(700,100));
+				south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				boutonRetour.setPreferredSize(new Dimension(250,40));
+				boutonRetour.setMaximumSize(new Dimension(250,40));
+				boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonRetour.setBackground(Color.YELLOW);
+				boutonRetour.addActionListener(this);
+				south.add(boutonRetour);
+				this.getContentPane().add(south,BorderLayout.SOUTH);
+
+				this.setVisible(true);
+				}
+			else{
+				MsgBox.affMsg("Il n'y a actuellement aucune intervention en cours à gérer.");
+				new MenuPrincipalTech(this.getTechnicien());
+			}
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
