@@ -84,7 +84,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
 			String [] tableauDemandes = new String[listeDemandes.size()+1];
 			tableauDemandes[0]="Sélectionnez une demande";
-			for (int i=0;i<tableauDemandes.length;i++){
+			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
 				tableauDemandes[i+1] = DAODemandeAssignation.ligne(demandei);
 			}
@@ -98,7 +98,12 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idDemandeEntre=chaineSelectionnee.substring(8,1);
+						String idDemandeEntre="";
+						int i=8;
+						while(chaineSelectionnee.charAt(i)!=' '){
+							idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
+						}
+						System.out.println("id de la demande entrée : "+idDemandeEntre);
 						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
@@ -138,7 +143,15 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
+			try {
+				new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());
