@@ -1,6 +1,8 @@
 package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAODemandeIntervention;
+import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -22,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import metier.DemandeIntervention;
+import metier.Intervention;
 import metier.Technicien;
 
 public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionListener {
@@ -34,7 +37,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg1 = new JLabel("Sélectionnez une des demandes d'intervention formulées par les utilisateurs");
-	private DemandeIntervention demandeEntree;
+	private DemandeIntervention demandeEntree=null;
 	private JButton boutonValider = new JButton("Retirer le vélo indiqué");
 	private JLabel labelMsg2 = new JLabel("<html><center>Si vous voulez constater un défaut sur un vélo qui ne figure pas dans les demandes ci-dessus, <br>veuillez entrer son identifiant : </center></html> ");
 	private JTextField idVeloARemplir = new JTextField("");
@@ -176,8 +179,28 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			//TODO : intervenir
-			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+			if(demandeEntree!=null){
+				Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
+				try {
+					DAOIntervention.updateIntervention(i);
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+				}
+				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+			}
+			try {
+				if(DAOVelo.estDansLaBdd(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
+					//TODO
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());
