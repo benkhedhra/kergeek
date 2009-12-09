@@ -153,6 +153,7 @@ public class DAODemandeAssignation {
 		try {
 			DemandeAssignation ddeAssignation = new DemandeAssignation();
 			List<String> listeIdDde = new ArrayList<String>();
+			int diff;
 
 			while(res.next()) {
 				String idDdeAssignation = res.getString("idDemandeA");
@@ -161,7 +162,14 @@ public class DAODemandeAssignation {
 
 			for (String idDdeA : listeIdDde){
 				ddeAssignation = getDemandeAssignationById(idDdeA);
-				liste.add(ddeAssignation);
+				diff = ddeAssignation.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddeAssignation.getLieu()).size();
+				if (diff==0){
+					ddeAssignation.setPriseEnCharge(true);
+					updateDemandeAssignation(ddeAssignation);
+				}
+				else{
+					liste.add(ddeAssignation);
+				}
 			}
 		}
 		catch(SQLException e1){
@@ -188,9 +196,9 @@ public class DAODemandeAssignation {
 		//System.out.println(res.getString("idLieu"));
 		try {
 			if (res.next()) {
-				
+
 				GregorianCalendar cal = new GregorianCalendar();
-				
+
 				ddeAssignation.setId(identifiant);
 				java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
 				java.sql.Date date = new Date(tempsAssignation.getTime());
