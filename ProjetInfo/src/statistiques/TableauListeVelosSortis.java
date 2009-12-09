@@ -8,27 +8,30 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import metier.Sortie;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class TableauListeVelosSortis extends JPanel {
     	    private boolean DEBUG = false;
 
-    	    public TableauListeVelosSortis() {
+    	    public TableauListeVelosSortis() throws SQLException, ClassNotFoundException {
     	            super(new GridLayout(1,0));
 
     	        String[] columnNames = {"Identifiant du vélo",
     	                "Dernière Station fréquentée",
     	                "Date de l'emprunt",
     	                "Heure de l'emprunt"};
-
-    	        for(int i=0;i<10;i++){
+    	        
     	        Object[][] data = {
-    	            {"Mary", "Campione",
-    	             "Snowboarding", new Integer(5)}};
-    	        }
+    	        		//for(int i=0;i<DAOVelo.getVelosByLieu(Sortie.getInstance()).size();i++){
+    	            {DAOVelo.getVelosByLieu(Sortie.getInstance()).get(2).getId(), "Campione",
+    	             "Snowboarding",""}};
 
     	        final JTable table = new JTable(data, columnNames);
     	        table.setPreferredScrollableViewportSize(new Dimension(500, 100));
@@ -70,8 +73,10 @@ public class TableauListeVelosSortis extends JPanel {
     	     * Create the GUI and show it.  For thread safety,
     	     * this method should be invoked from the
     	     * event-dispatching thread.
+    	     * @throws ClassNotFoundException 
+    	     * @throws SQLException 
     	     */
-    	    private static void createAndShowGUI() {
+    	    private static void createAndShowGUI() throws SQLException, ClassNotFoundException {
     	        //Create and set up the window.
     	        JFrame frame = new JFrame("Liste des vélos sortis");
     	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +96,15 @@ public class TableauListeVelosSortis extends JPanel {
     	        //creating and showing this application's GUI.
     	        javax.swing.SwingUtilities.invokeLater(new Runnable() {
     	            public void run() {
-    	                createAndShowGUI();
+    	                try {
+							createAndShowGUI();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
     	            }
     	        });
     	    }
