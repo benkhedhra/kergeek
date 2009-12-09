@@ -98,7 +98,12 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idInterventionEntre=chaineSelectionnee.substring(8,1);
+						String idInterventionEntre="";
+						int i=13;
+						while(chaineSelectionnee.charAt(i)!=' '){
+							idInterventionEntre=idInterventionEntre+chaineSelectionnee.charAt(i);
+						}
+						System.out.println("id de l'intervention entrée : "+idInterventionEntre);
 						interventionEntree = DAOIntervention.getInterventionById(idInterventionEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());

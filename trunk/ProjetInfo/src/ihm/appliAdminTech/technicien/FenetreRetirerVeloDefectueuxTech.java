@@ -114,7 +114,12 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idDemandeEntre=chaineSelectionnee.substring(8,1);
+						String idDemandeEntre="";
+						int i=8;
+						while(chaineSelectionnee.charAt(i)!=' '){
+							idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
+						}
+						System.out.println("id de la demande entré : "+idDemandeEntre);
 						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
@@ -123,7 +128,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					}
 				}
 			});
-			combo.setPreferredSize(new Dimension(250,50));		
+			combo.setPreferredSize(new Dimension(250,50));
 			combo.setMinimumSize(new Dimension(250,50));
 			centerNorth.add(combo);
 		} catch (SQLException e) {
@@ -171,6 +176,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
+			//TODO : intervenir
 			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonRetour){

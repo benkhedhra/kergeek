@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -9,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +20,7 @@ import javax.swing.JPanel;
 
 import metier.DemandeAssignation;
 import metier.Technicien;
+import metier.Velo;
 
 public class FenetreGererUneDemandeAssignationTech extends JFrame implements ActionListener {
 
@@ -60,7 +64,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		this.demande = d;
 	}
 
-	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d){
+	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d) throws SQLException, ClassNotFoundException{
 
 		System.out.println("Fenêtre pour gérer une demande d'assignation");
 		this.setContentPane(new PanneauAdmin());
@@ -120,6 +124,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelStationDemande.setText(d.getLieu().getAdresse());
 		labelStationDemande.setPreferredSize(new Dimension(150,30));
 		labelStationDemande.setMaximumSize(new Dimension(150,30));
 		panel2.add(labelStationDemande);
@@ -134,6 +139,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelNbVelosSouhaiteDemande.setText(""+d.getNombreVelosVoulusDansLieu());
 		labelNbVelosSouhaiteDemande.setPreferredSize(new Dimension(150,30));
 		labelNbVelosSouhaiteDemande.setMaximumSize(new Dimension(150,30));
 		panel4.add(labelNbVelosSouhaiteDemande);
@@ -144,35 +150,38 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		labelNbVelosActuel.setPreferredSize(new Dimension(150,30));
 		labelNbVelosActuel.setMaximumSize(new Dimension(150,30));
 		panel5.add(labelNbVelosActuel);
-		centerWest.add(panel5);	
+		centerWest.add(panel5);
 
 		JPanel panel6 = new JPanel();
-		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		List<Velo> velos = DAOVelo.getVelosByLieu(d.getLieu());
+		labelNbVelosActuelDemande.setText(""+velos.size());
 		labelNbVelosActuelDemande.setPreferredSize(new Dimension(150,30));
 		labelNbVelosActuelDemande.setMaximumSize(new Dimension(150,30));
 		panel6.add(labelNbVelosActuelDemande);
 		centerWest.add(panel6);			
 
 		JPanel panel7 = new JPanel();
-		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		labelTypeDeplacement.setPreferredSize(new Dimension(150,30));
 		labelTypeDeplacement.setMaximumSize(new Dimension(150,30));
 		panel7.add(labelTypeDeplacement);
-		centerWest.add(panel7);	
+		centerWest.add(panel7);
 
 		JPanel panel8 = new JPanel();
-		panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelTypeDeplacementDemande.setText(""+velos.size());
 		labelTypeDeplacementDemande.setPreferredSize(new Dimension(150,30));
 		labelTypeDeplacementDemande.setMaximumSize(new Dimension(150,30));
 		panel8.add(labelTypeDeplacementDemande);
-		centerWest.add(panel8);	
+		centerWest.add(panel8);
 
 		JPanel panel9 = new JPanel();
 		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelNbVelosADeplacer.setPreferredSize(new Dimension(150,30));
 		labelNbVelosADeplacer.setMaximumSize(new Dimension(150,30));
 		panel9.add(labelNbVelosADeplacer);
-		centerWest.add(panel9);	
+		centerWest.add(panel9);
 
 		JPanel panel10 = new JPanel();
 		panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
