@@ -8,6 +8,7 @@ import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -165,37 +166,42 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			if(stationEntree!=null){
 				try{
 					System.out.println(stationEntree);
-					Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
-					if (emprunt!=null){
-						// l'utilisateur a bien rendu le vélo
-						DAOVelo.updateVelo(velo);
-						Boolean b = DAOEmprunt.updateEmprunt(emprunt);
-						DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
-						if(b){
-							if (emprunt.getTempsEmprunt()<Emprunt.TPS_EMPRUNT_MIN){
-								//emprunt trop court
-								new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
-							}
+					if (UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
+						Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
+						if (emprunt!=null){
+							// l'utilisateur a bien rendu le vélo
+							DAOVelo.updateVelo(velo);
+							Boolean b = DAOEmprunt.updateEmprunt(emprunt);
+							DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+							if(b){
+								if (emprunt.getTempsEmprunt()<Emprunt.TPS_EMPRUNT_MIN){
+									//emprunt trop court
+									new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
+								}
 
-							else if (this.getUtilisateur().isBloque()){
-								//emprunt trop long
-								new FenetreEmpruntLong(this.getUtilisateur());
-								DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
-							}
+								else if (this.getUtilisateur().isBloque()){
+									//emprunt trop long
+									new FenetreEmpruntLong(this.getUtilisateur());
+									DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
+								}
 
-							else {
-								//emprunt ni trop court ni trop long
-								new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
-								System.out.println("Le vélo a bien été rendu");
+								else {
+									//emprunt ni trop court ni trop long
+									new FenetreConfirmationUtil("Remettez le vélo dans un emplacement. Merci et à bientôt ! ");
+									System.out.println("Le vélo a bien été rendu");
+								}
 							}
-						}
-						else{
-							System.out.println("Le vélo n'a pas été rendu");
-							this.labelMsg.setText("Le vélo n'a pas été rendu");
-							new FenetreRendreVelo(this.getUtilisateur());
+							else{
+								System.out.println("Le vélo n'a pas été rendu");
+								this.labelMsg.setText("Le vélo n'a pas été rendu");
+								new FenetreRendreVelo(this.getUtilisateur());
+							}
 						}
 					}
-
+					else{
+						MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
+						new FenetreConfirmationUtil("Au revoir et à bientôt !");
+					}
 				} catch (SQLException e) {
 					MsgBox.affMsg("SQL exception " + e.getMessage());
 				} catch (ClassNotFoundException e) {
