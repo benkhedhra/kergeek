@@ -111,7 +111,7 @@ public class Technicien {
 	 * @see UtlitaireDate
 	 * @see enleverVelo
 	 */
-	public Intervention intervenir(Velo velo, Lieu lieu){
+	public Intervention intervenir(Velo velo){
 		retirerVelo(velo);
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return intervention;
