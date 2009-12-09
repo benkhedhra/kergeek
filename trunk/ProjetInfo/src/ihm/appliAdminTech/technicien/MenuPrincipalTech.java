@@ -34,7 +34,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	private JButton bouton2 = new JButton("Retirer un vélo \n"+"défectueux \n"+" d'une station");
 	private JButton bouton3 = new JButton("Remettre un vélo \n"+"réparé\n"+" dans une station");
 	private JButton bouton4 = new JButton("Gérer les demandes\n"+" d'assignation");
-	private JButton bouton5 = new JButton("Gérer les demandes\n"+" d'intervention");
+	private JButton bouton5 = new JButton("Gérer les interventions");
 	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
 
 	public Technicien getTechnicien() {

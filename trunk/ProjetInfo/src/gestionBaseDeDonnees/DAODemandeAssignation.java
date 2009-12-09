@@ -234,7 +234,7 @@ public class DAODemandeAssignation {
 
 	//fonction écrite pour remplacer le toString qui n'allait effectivement pas dans métier, mais voir s'il faut encore la déplacer
 	public static String ligne(DemandeAssignation d){
-		String resul = "Demande "+d.getId()+" - Station "+d.getLieu().getId()+" - ";
+		String resul = "Demande "+d.getId()+" - "+d.getLieu().getAdresse()+" - ";
 		try {
 			int diff;
 			diff = d.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(d.getLieu()).size();

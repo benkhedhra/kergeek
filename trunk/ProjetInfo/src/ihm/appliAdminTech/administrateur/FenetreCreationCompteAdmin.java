@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import envoieMail.SendMail;
 import exceptionsIhm.ChampIncorrectException;
 import exceptionsMetier.TypeCompteException;
 import gestionBaseDeDonnees.DAOAdministrateur;
@@ -16,8 +17,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
+import javax.mail.MessagingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -266,6 +269,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 								Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
 								DAOUtilisateur.createUtilisateur(utilisateur);
 								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+								SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+utilisateur.getPrenom()+" "+utilisateur.getPrenom()+"\n Vous pouvez dès à présent utiliser BéloBreizh ! \nA bientôt sur les routes de KerLann ! \n\nKerGeek");
 							}
 							catch (TypeCompteException e) {
 								MsgBox.affMsg(e.getMessage());
@@ -282,43 +286,30 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 						if(UtilitaireIhm.verifieChampsCreationAdmin(typeEntre,adresseEMailARemplir.getText())){
 							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 							Administrateur administrateur;
-							try {
-								administrateur = this.getAdministrateur().creerAdministrateur(compte);
+							administrateur = this.getAdministrateur().creerAdministrateur(compte);
 
-								DAOAdministrateur.createAdministrateur(administrateur);
-								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-								//TODO : envoyer un mail à l'administrateur fraîchement créé où on lui dit son mot de passe
-							}
-							catch (TypeCompteException e) {
-								MsgBox.affMsg(e.getMessage());
-								new FenetreCreationCompteAdmin(this.getAdministrateur());
-							}
-						}
-						else {
-							MsgBox.affMsg("Les champs entrés sont incorrects");
-							new FenetreCreationCompteAdmin(this.getAdministrateur());
+							DAOAdministrateur.createAdministrateur(administrateur);
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant qu'administrateur de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
 						}
 					}
-					// si c'est un compte technicien
-					if(typeEntre==Compte.TYPE_TECHNICIEN){
-						if(UtilitaireIhm.verifieChampsCreationTech(typeEntre,adresseEMailARemplir.getText())){
-							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-							try {
-								Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
-								DAOTechnicien.createTechnicien(technicien);
-								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-								//TODO : envoyer un mail au technicien fraîchement créé où on lui dit son mot de passe
-							}
-
-							catch (TypeCompteException e) {
-								MsgBox.affMsg(e.getMessage());
-								new FenetreCreationCompteAdmin(this.getAdministrateur());
-							}
-						}
-						else {
-							MsgBox.affMsg("Les champs entrés sont incorrects");
-							new FenetreCreationCompteAdmin(this.getAdministrateur());
-						}
+					else {
+						MsgBox.affMsg("Les champs entrés sont incorrects");
+						new FenetreCreationCompteAdmin(this.getAdministrateur());
+					}
+				}
+				// si c'est un compte technicien
+				if(typeEntre==Compte.TYPE_TECHNICIEN){
+					if(UtilitaireIhm.verifieChampsCreationTech(typeEntre,adresseEMailARemplir.getText())){
+						Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+						Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
+						DAOTechnicien.createTechnicien(technicien);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+						SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant que technicien de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
+					}
+					else {
+						MsgBox.affMsg("Les champs entrés sont incorrects");
+						new FenetreCreationCompteAdmin(this.getAdministrateur());
 					}
 				}
 				else{
@@ -328,6 +319,12 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (UnsupportedEncodingException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (MessagingException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (TypeCompteException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 		}

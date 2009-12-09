@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Compte;
+import metier.Station;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
@@ -41,7 +42,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Compte compte;
 	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
@@ -108,7 +109,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		bouton1.setMaximumSize(new Dimension(250,40));
 		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton1.setBackground(Color.GREEN);
-		
+
 		//cas possibles pour l'administrateur
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
 			FenetreFrequentationStationsAdmin f = (FenetreFrequentationStationsAdmin) fenetrePrec;
@@ -151,15 +152,15 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 
 			JLabel lblChart1 = new JLabel();
 			JLabel lblChart2 = new JLabel();
-			
+
 			JPanel panel1 = new JPanel();
 			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			panel1.setPreferredSize(new Dimension(300,300));
-			
+
 			JPanel panel2 = new JPanel();
 			panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			panel2.setPreferredSize(new Dimension(300,300));
-			
+
 			DiagrammeNbVelosStation diag1;
 			DiagrammeTxOccupationStation diag2;
 
@@ -182,10 +183,10 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 
 			panel1.add(lblChart1);
 			panel2.add(lblChart2);
-			
+
 			center.add(panel1);
 			center.add(panel2);
-			
+
 			bouton1.setText("Voir l'état d'une autre station");
 			bouton2.setText("Voir les stations sur et sous-occupées");
 			bouton3.setText("Envoyer une demande d'assignation");
@@ -195,23 +196,23 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 			bouton1.setBackground(Color.GREEN);
 			bouton1.addActionListener(this);
-			
+
 			bouton2.setPreferredSize(new Dimension(200,40));
 			bouton2.setMaximumSize(new Dimension(200,40));
 			bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
 			bouton2.setBackground(Color.GREEN);
 			bouton2.addActionListener(this);
-			
+
 			bouton3.setPreferredSize(new Dimension(350,40));
 			bouton3.setMaximumSize(new Dimension(350,40));
 			bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
 			bouton3.setBackground(Color.CYAN);
 			bouton3.addActionListener(this);
-			
+
 			south.add(bouton1);
 			south.add(bouton2);
 			center.add(bouton3);
-			
+
 		}
 
 
@@ -249,7 +250,14 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
 			}
 			else if(arg0.getSource()==bouton3){
-				new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")){
+					FenetreEtatStationAdmin f = (FenetreEtatStationAdmin) fenetrePrecedente;
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),f.getStationEntree());
+				}
+				else{
+					FenetreStationsSurSousAdmin f = (FenetreStationsSurSousAdmin) fenetrePrecedente;
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),f.getStationEntree());
+				}
 			}
 			else if(arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
