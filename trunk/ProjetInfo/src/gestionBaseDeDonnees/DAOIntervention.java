@@ -114,4 +114,15 @@ public class DAOIntervention {
 
 		return list;
 	}
+	
+	public static List<Intervention> getInterventionsNonTraitees() {
+		//TODO
+		return null;
+	}
+	
+	public static String ligne(Intervention i){
+		return "Intervention "+i.getClass()+" - vélo "+i.getVelo().getId();
+		
+	}
+
 }

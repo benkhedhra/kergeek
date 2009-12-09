@@ -246,22 +246,22 @@ public class CreationTables {
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 13:16','DD-MM-YYYY HH24:MI'),"+"'2',"+"'17')");
 					
 			
-			//Insertion demande intervention
+			//Insertion demandes intervention
 
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"'1'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('21-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u3',"+ "'2',"+"'2'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('27-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u4',"+"'1',"+"'3'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('13-10-2009 16:14','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u1',"+ "'3',"+"'4'"+")");
-			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('28-11-2009 12:45','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u2',"+ "'4',"+"'3'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('28-11-2009 12:45','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u2',"+ "'4',"+"''"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('20-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'5',"+"'u5',"+"'5',"+"'7'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('26-08-2009 08:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u2',"+ "'1',"+"'9'"+")");
-			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('25-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u1',"+"'3',"+"'11'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('25-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u1',"+"'3',"+"''"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('02-09-2009 09:00','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u3',"+ "'1',"+"'13'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('03-09-2009 08:00','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u2',"+ "'1',"+"'14'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('05-09-2009 11:30','DD-MM-YYYY HH24:MI'),"+"'5',"+"'u1',"+"'5',"+"'15'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('11-09-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u5',"+ "'1',"+"'17'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('26-09-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'3',"+"'u7',"+"'3',"+"'18'"+")");
-			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('29-08-2009 14:00','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u2',"+ "'2',"+"'19'"+")");
+			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('29-08-2009 14:00','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u2',"+ "'2',"+"''"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('27-11-2009 10:00','DD-MM-YYYY HH24:MI'),"+"'4',"+"'u6',"+ "'4',"+"'35'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('25-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u2',"+"'1',"+"'36'"+")");
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('27-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'2',"+"'u1',"+ "'2',"+"'34'"+")");
