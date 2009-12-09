@@ -31,7 +31,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 	private Technicien technicien;
 	private DemandeAssignation demande;
-	private JLabel labelTech = new JLabel("");;
+	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Demande d'assignation à traiter");
 	private JLabel labelStation = new JLabel("Station concernée");
 	private JLabel labelStationDemande;

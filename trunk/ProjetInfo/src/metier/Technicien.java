@@ -118,10 +118,11 @@ public class Technicien {
 	}
 	
 	
-	public void terminerIntervention(Velo velo, Station station, Intervention intervention, TypeIntervention typeIntervention){
-		remettreVelo(velo, station);
-		intervention.setTypeIntervention(typeIntervention);
-		
+	public Intervention terminerIntervention(Intervention intervention, TypeIntervention typeIntervention){
+		Intervention i = intervention;
+		i.setTypeIntervention(typeIntervention);
+		i.getVelo().setEnPanne(false);
+		return i;
 	}
 	
 	@Override
