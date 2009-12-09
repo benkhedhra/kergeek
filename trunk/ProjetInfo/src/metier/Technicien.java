@@ -42,10 +42,20 @@ public class Technicien {
 	public Technicien(Compte compte) {
 		this.setCompte(compte);
 	}
-
+	
+	/**
+	 * Constructeur vide d'un Technicien.
+	 */
+	public Technicien() {
+		super();
+	}
 
 
 	// Accesseurs et modificateurs
+
+	
+
+
 
 	/**
 	 * retourne le compte du technicien
