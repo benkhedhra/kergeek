@@ -35,10 +35,19 @@ public class Administrateur {
 	 * @see Compte
 	 * @see Administrateur#compte       
 	 */
-
 	public Administrateur(Compte compte) {
 		this.setCompte(compte);
 	}
+	
+	
+	/**
+	 * Constructeur vide d'un Administrateur.
+	 */
+	public Administrateur() {
+		super();
+	}
+
+
 
 	// Accesseurs et modificateurs
 
@@ -63,7 +72,7 @@ public class Administrateur {
 
 	/**
 	 * Crée un compte, pour un futur Utilisateur du parc à velos par exemple, 
-	 * ou pour un nouveau Technicien, ou mme pour un nouvel Administarteur.
+	 * ou pour un nouveau Technicien, ou même pour un nouvel Administarteur.
 	 * 
 	 * @param type
 	 * le type du compte à créer
@@ -79,7 +88,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Crée un nouvel utilisateur à partir d'un compte et de coordonnes.
+	 * Crée un nouvel utilisateur à partir d'un compte et de coordonnées.
 	 * @param compte
 	 * @param nom
 	 * @param prenom
@@ -138,7 +147,7 @@ public class Administrateur {
 	}
 
 	/**
-	 * Résilie un compte d'un abonne du parc à velos en mettant le booleen actif du compte en question à false
+	 * Résilie un compte d'un abonné du parc à velos en mettant le booleen actif du compte en question à false
 	 * @param compte
 	 * @see Compte
 	 * @see Compte#setActif(Boolean)
@@ -152,7 +161,7 @@ public class Administrateur {
 
 	/**
 	 * Crée une demande d'assignation, c'est-à-dire une demande de déplacement de vélos 
-	 *  à partir d'une station ou du Garage vers une station, en indiquant le nombre de vélos souha”té dans la station
+	 *  à partir d'une station ou du Garage vers une station, en indiquant le nombre de vélos souhaîté dans la station
 	 *  en question.
 	 * @param nombreVelosVouluDansStation
 	 * @param lieu
@@ -167,7 +176,7 @@ public class Administrateur {
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Administrateur.
 	 * @return un booléen
-	 * qui vaut vrai si les deux instances de la classe Administrateur ont le mme compte,
+	 * qui vaut vrai si les deux instances de la classe Administrateur ont le même compte,
 	 * faux sinon
 	 * @see Compte#equals(Object)
 	 */
