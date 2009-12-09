@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
-import gestionBaseDeDonnees.DAODemandeAssignation;
+import gestionBaseDeDonnees.DAODemandeIntervention;
 import ihm.MsgBox;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -18,19 +18,25 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import metier.DemandeAssignation;
+import metier.DemandeIntervention;
 import metier.Technicien;
 
-public class FenetreGererAssignationsTech extends JFrame implements ActionListener {
+public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
-	private JLabel labelMsg = new JLabel("Demandes d'assignation");
-	private DemandeAssignation demandeEntree;
+	private JLabel labelMsg1 = new JLabel("Sélectionnez une des demandes d'intervention formulées par les utilisateurs");
+	private DemandeIntervention demandeEntree;
 	private JButton boutonValider = new JButton("Valider");
+	private JLabel labelMsg2 = new JLabel("<html><center>Si vous voulez constater un défaut sur un vélo qui ne figure pas dans les demandes ci-dessus, <br>veuillez entrer son identifiant : </center></html> ");
+	private JTextField idVeloARemplir = new JTextField("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 	public Technicien getTechnicien() {
@@ -41,13 +47,13 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 		this.technicien = technicien;
 	}
 
-	public FenetreGererAssignationsTech (Technicien t){
-		System.out.println("Fenêtre pour voir toutes les demandes d'assignation");
+	public FenetreRetirerVeloDefectueuxTech (Technicien t){
+		System.out.println("Fenêtre pour voir toutes les demandes d'intervention");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Gérer les demandes d'assignation");
+		this.setTitle("Gérer les demandes d'intervention");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +72,7 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelTech.setPreferredSize(new Dimension(300,30));
+		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -77,16 +83,25 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,400));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		center.add(labelMsg);
+		
+		center.setLayout(new BorderLayout());
+		
+		JPanel centerNorth = new JPanel();
+		centerNorth.setPreferredSize(new Dimension(700,250));
+		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				
+		labelMsg1.setPreferredSize(new Dimension(600,50));		
+		labelMsg1.setMinimumSize(new Dimension(600,50));
+		centerNorth.add(labelMsg1);
 
-		List<DemandeAssignation> listeDemandes;
+		List<DemandeIntervention> listeDemandes;
 		try {
-			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
+			listeDemandes= DAODemandeIntervention.getDemandesInterventionEnAttente();
 			String [] tableauDemandes = new String[listeDemandes.size()+1];
-			tableauDemandes[0]="Sélectionnez une demande";
-			for (int i=0;i<tableauDemandes.length;i++){
-				DemandeAssignation demandei = listeDemandes.get(i);
-				tableauDemandes[i+1] = DAODemandeAssignation.ligne(demandei);
+			tableauDemandes[0]=listeDemandes.size()+" demandes formulées";
+			for (int i=0;i<listeDemandes.size();i++){
+				DemandeIntervention demandei = listeDemandes.get(i);
+				tableauDemandes[i+1] = DAODemandeIntervention.ligne(demandei);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
@@ -99,7 +114,7 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 					try {
 						String chaineSelectionnee = (String)(o);
 						String idDemandeEntre=chaineSelectionnee.substring(8,1);
-						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
+						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
@@ -107,7 +122,9 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 					}
 				}
 			});
-			center.add(combo);
+			combo.setPreferredSize(new Dimension(250,50));		
+			combo.setMinimumSize(new Dimension(250,50));
+			centerNorth.add(combo);
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
@@ -117,8 +134,23 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
-		center.add(boutonValider);
+		centerNorth.add(boutonValider);
 
+		center.add(centerNorth,BorderLayout.NORTH);
+		
+		JPanel centerSouth = new JPanel();
+		centerSouth.setPreferredSize(new Dimension(700,150));
+		centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		
+		labelMsg2.setPreferredSize(new Dimension(650,50));		
+		labelMsg2.setMinimumSize(new Dimension(650,50));
+		centerSouth.add(labelMsg2);
+		idVeloARemplir.setPreferredSize(new Dimension(200,50));		
+		idVeloARemplir.setMinimumSize(new Dimension(200,50));
+		centerSouth.add(idVeloARemplir);
+		
+		center.add(centerSouth,BorderLayout.SOUTH);
+				
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
@@ -138,7 +170,7 @@ public class FenetreGererAssignationsTech extends JFrame implements ActionListen
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
+			new FenetreGererUneDemandeInterventionTech(this.getTechnicien(),demandeEntree);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

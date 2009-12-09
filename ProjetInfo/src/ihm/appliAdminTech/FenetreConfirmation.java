@@ -10,10 +10,10 @@ import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
-import ihm.appliAdminTech.technicien.FenetreGererAssignationsTech;
+import ihm.appliAdminTech.technicien.FenetreGererDemandesAssignationTech;
 import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
 import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
-import ihm.appliAdminTech.technicien.FenetreRetirerVeloTech;
+import ihm.appliAdminTech.technicien.FenetreRetirerVeloDefectueuxTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -299,13 +299,20 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.dispose();
 		try{
 			if(fenetrePrecedente.getTitle().equals("Changer son mot de passe") && (arg0.getSource()==boutonRetour)){
-				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				FenetreChangerMotDePasse f = (FenetreChangerMotDePasse) fenetrePrecedente;
+				if(f.getCompte().getType()==Compte.TYPE_ADMINISTRATEUR){
+					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+				}
+				else {
+					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				}
 			}
 			else if(fenetrePrecedente.getTitle().equals("Création d'un nouveau compte")){
 				if(arg0.getSource()==bouton1){
 					new FenetreCreationCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
+
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 			}
@@ -339,7 +346,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 			else if(fenetrePrecedente.getTitle().equals("Retirer un vélo défectueux d'une station")){
 				if(arg0.getSource()==bouton1){
-					new FenetreRetirerVeloTech(DAOTechnicien.getTechnicienById(compte.getId()));
+					new FenetreRetirerVeloDefectueuxTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
@@ -355,7 +362,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 			else if(fenetrePrecedente.getTitle().equals("Prendre en charge une assignation")){
 				if(arg0.getSource()==bouton1){
-					new FenetreGererAssignationsTech(DAOTechnicien.getTechnicienById(compte.getId()));
+					new FenetreGererDemandesAssignationTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));

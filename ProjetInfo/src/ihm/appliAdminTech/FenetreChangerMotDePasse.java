@@ -150,6 +150,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
+		south.add(boutonRetour);
 		boutonRetour.addActionListener(this);
 
 		this.getContentPane().add(south,BorderLayout.SOUTH);

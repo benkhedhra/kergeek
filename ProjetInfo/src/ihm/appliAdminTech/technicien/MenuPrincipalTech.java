@@ -22,6 +22,11 @@ import metier.Technicien;
 
 public class MenuPrincipalTech extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Technicien tech;
 	private JLabel labelTech = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
@@ -104,7 +109,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		center.add(bouton5);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
-		
+
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -132,19 +137,13 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 			}
 		}
 		else if (arg0.getSource()==bouton2){
-			try {
-				new FenetreRetirerVeloTech(this.getTechnicien());
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-			}
+			new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 		}
 		else if (arg0.getSource()==bouton3){
 			new FenetreRemettreVeloEnStationTech(this.getTechnicien());
 		}
 		else if (arg0.getSource()==bouton4){
-			new FenetreGererAssignationsTech(this.getTechnicien());
+			new FenetreGererDemandesAssignationTech(this.getTechnicien());
 		}
 		else if (arg0.getSource()==bouton5){
 			new FenetreGererInterventionsTech(this.getTechnicien());
