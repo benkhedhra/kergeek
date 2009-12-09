@@ -188,8 +188,14 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
-			this.getTechnicien().terminerIntervention(this.getIntervention().getVelo(), stationEntre, this.getIntervention(), typeInterventionEntre);
-			//TODO : update
+			Intervention i = this.getTechnicien().terminerIntervention(this.getIntervention(),typeInterventionEntre);
+			try {
+				DAOIntervention.updateIntervention(i);
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+			}
 			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}
 		else if(arg0.getSource()==boutonRetour){
