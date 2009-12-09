@@ -43,4 +43,14 @@ public class TestDAOLieu extends TestCase{
 		assertEquals("Gare du Campus", liste.get(1).getAdresse());
 		assertEquals(10, liste.get(2).getCapacite());
 	}
+	
+	@Test
+	public void testGetStationsSurSous() throws SQLException, ClassNotFoundException{
+		//TODO
+	}
+	
+	@Test
+	public void testCalculerTaux()throws SQLException, ClassNotFoundException{
+		//TODO
+	}
 }

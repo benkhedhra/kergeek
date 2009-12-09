@@ -119,18 +119,13 @@ public class DAOLieu {
 		ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_GARAGE
 				+ "' AND idLieu <> '" + Lieu.ID_SORTIE + "'");
 		try {
-			boolean vide=true;
 			while(res.next()) {
-				vide = false;
 				String idLieu = res.getString("idLieu"); 
 				listeId.add(idLieu);
 			}
 			for(String id : listeId){
 				station = (Station) DAOLieu.getLieuById(id);
 				liste.add(station);
-			}
-			if(vide) {
-				throw new SQLException("pas de station");
 			}
 		}
 		catch(SQLException e1){
@@ -148,9 +143,8 @@ public class DAOLieu {
 
 
 	public static float calculerTx(Station station) throws SQLException, ClassNotFoundException{
-		int nbVelo = DAOVelo.getVelosByLieu(station).size();
-		float a = nbVelo/station.getCapacite();
-		return a;
+		float nbVelo = DAOVelo.getVelosByLieu(station).size();
+		return  nbVelo/station.getCapacite();
 	}
 
 
