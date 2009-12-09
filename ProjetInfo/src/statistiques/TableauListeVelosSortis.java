@@ -1,6 +1,9 @@
 package statistiques;
 
 
+import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOVelo;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,9 +24,11 @@ public class TableauListeVelosSortis extends JPanel {
     	                "Date de l'emprunt",
     	                "Heure de l'emprunt"};
 
+    	        for(int i=0;i<10;i++){
     	        Object[][] data = {
     	            {"Mary", "Campione",
     	             "Snowboarding", new Integer(5)}};
+    	        }
 
     	        final JTable table = new JTable(data, columnNames);
     	        table.setPreferredScrollableViewportSize(new Dimension(500, 100));
