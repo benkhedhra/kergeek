@@ -54,6 +54,35 @@ public class DAODemandeIntervention {
 		return effectue;
 	}
 
+	
+	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException{
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			s.executeUpdate("UPDATE DemandeIntervention SET "
+					+ "dateDemandeI = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeIntervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
+					+ "idVelo = '" + ddeIntervention.getVelo().getId() + "' "
+					+ "idCompte = '" + ddeIntervention.getUtilisateur().getCompte().getId() + "' "
+					+ "idLieu = '" + ddeIntervention.getVelo().getLieu().getId() + "' "
+					+ "idIntervention = '" + ddeIntervention.getVelo().getLieu().getId() + "' "
+					+ "WHERE idDemandeI = '"+ ddeIntervention.getIntervention().getId() + "'"
+			);
+
+			s.executeUpdate("COMMIT");
+			effectue=true;
+			System.out.println("Demande d'intervention mise a jour dans la base de données");
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception	
+		}
+		return effectue;
+	}
+	
 
 	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException {
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
