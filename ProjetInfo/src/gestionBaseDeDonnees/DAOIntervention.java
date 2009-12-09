@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
-import metier.DemandeAssignation;
+import metier.DemandeIntervention;
 import metier.Intervention;
 import metier.UtilitaireDate;
 
@@ -45,6 +43,35 @@ public class DAOIntervention {
 	}
 
 
+	public static boolean updateIntervention(Intervention intervention) throws ClassNotFoundException, SQLException{
+		boolean effectue = false;
+		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			s.executeUpdate("UPDATE Intervention SET "
+					+ "dateIntervention = TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
+					+ "idTypeIntervention = '"+intervention.getTypeIntervention()+"',"
+					+ "idVelo = '" + intervention.getVelo().getId() + "' "
+					+ "WHERE idIntervention = '"+ intervention.getId() + "'"
+			);
+
+			s.executeUpdate("COMMIT");
+			effectue=true;
+			System.out.println("Intervention mise a jour dans la base de données");
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception	
+		}
+		return effectue;
+	}
+
+
+
+
 	public static Intervention getInterventionById(String identifiant) throws SQLException, ClassNotFoundException {
 		Intervention intervention = new Intervention();
 
@@ -54,7 +81,7 @@ public class DAOIntervention {
 		ResultSet res = s.executeQuery("Select * FROM Intervention WHERE idIntervention ='" + identifiant + "'");
 		try {
 			if (res.next()) {
-				
+
 				java.sql.Timestamp tempsIntervention = res.getTimestamp("dateIntervention");
 				java.sql.Date dateIntervention = new java.sql.Date(tempsIntervention.getTime());
 				int idTypeIntervention = res.getInt("idTypeIntervention");
@@ -89,7 +116,7 @@ public class DAOIntervention {
 
 		List <Integer> list = new ArrayList<Integer>();
 		try {
-			
+
 
 			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(), depuisMois);
 			java.sql.Date dateSql = UtilitaireDate.initialisationDebutMois(dateSqlTemp);
@@ -113,15 +140,15 @@ public class DAOIntervention {
 
 		return list;
 	}
-	
+
 	public static List<Intervention> getInterventionsNonTraitees() throws SQLException, ClassNotFoundException {
 		List<Intervention> liste = new ArrayList<Intervention>();
-		
+
 		ConnexionOracleViaJdbc.ouvrir();
-		
+
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		ResultSet res = s.executeQuery("Select idIntervention from Intervention WHERE idTypeIntervention IS NULL ORDER BY dateIntervention DESC");
-		
+
 		try {
 			Intervention intervention = new Intervention();
 			List<String> listeId = new ArrayList<String>();
@@ -145,12 +172,12 @@ public class DAOIntervention {
 		}
 
 		return liste;
-		
+
 	}
-	
+
 	public static String ligne(Intervention i){
 		return "Intervention "+i.getClass()+" - vélo "+i.getVelo().getId();
-		
+
 	}
 
 }
