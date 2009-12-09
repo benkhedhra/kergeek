@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import metier.DemandeIntervention;
+import metier.Intervention;
 import metier.Technicien;
 
-public class FenetreGererUneDemandeInterventionTech extends JFrame implements ActionListener {
+public class FenetreGererUneInterventionTech extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -26,18 +26,17 @@ public class FenetreGererUneDemandeInterventionTech extends JFrame implements Ac
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
-	private DemandeIntervention demande;
+	private Intervention intervention;
 	private JLabel labelTech = new JLabel("");;
-	private JLabel labelMsg = new JLabel("Demande d'intervention à traiter");
+	private JLabel labelMsg = new JLabel("Intervention à traiter");
 	private JLabel labelStation = new JLabel("Station concernée");
 	private JLabel labelStationDemande;
 	private JLabel labelVelo = new JLabel("Vélo concerné");
 	private JLabel labelVeloDemande;
 	private JLabel labelDate = new JLabel("Date de la déclaration du défaut");
 	private JLabel labelDateDemande;
-	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette demande d'assignation");
+	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette intervention");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
-
 
 	public Technicien getTechnicien() {
 		return technicien;
@@ -47,23 +46,22 @@ public class FenetreGererUneDemandeInterventionTech extends JFrame implements Ac
 		this.technicien = technicien;
 	}
 
-
-	public DemandeIntervention getDemande() {
-		return demande;
+	public Intervention getIntervention() {
+		return intervention;
 	}
 
-	public void setDemande(DemandeIntervention d) {
-		this.demande = d;
+	public void setIntervention(Intervention intervention) {
+		this.intervention = intervention;
 	}
 
-	public FenetreGererUneDemandeInterventionTech(Technicien t,DemandeIntervention d){
+	public FenetreGererUneInterventionTech(Technicien t,Intervention i){
 
-		System.out.println("Fenêtre pour gérer une demande d'intervention");
+		System.out.println("Fenêtre pour gérer une intervention");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Gérer une demande d'intervention");
+		this.setTitle("Gérer une intervention");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,11 +77,11 @@ public class FenetreGererUneDemandeInterventionTech extends JFrame implements Ac
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setTechnicien(t);
-		this.setDemande(d);
+		this.setIntervention(i);
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelTech.setPreferredSize(new Dimension(300,30));
+		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -186,7 +184,7 @@ public class FenetreGererUneDemandeInterventionTech extends JFrame implements Ac
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonPrendreEnCharge){
-			new FenetrePrendreEnChargeInterventionTech(this.getTechnicien(),this.getDemande());
+			new FenetrePrendreEnChargeInterventionTech(this.getTechnicien(),this.getIntervention());
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

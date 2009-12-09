@@ -8,7 +8,6 @@ import java.util.List;
 
 import metier.Administrateur;
 import metier.Compte;
-import metier.Technicien;
 
 public class DAOAdministrateur {
 
@@ -64,7 +63,6 @@ public class DAOAdministrateur {
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
-
 		return liste;
 	}
 	

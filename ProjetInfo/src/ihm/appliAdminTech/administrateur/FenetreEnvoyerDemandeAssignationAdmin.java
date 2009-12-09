@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
-import gestionBaseDeDonnees.DAOLieu;
+import gestionBaseDeDonnees.DAODemandeAssignation;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -8,15 +8,10 @@ import ihm.appliUtil.FenetreAuthentificationUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,7 +20,6 @@ import javax.swing.JTextField;
 import metier.Administrateur;
 import metier.DemandeAssignation;
 import metier.Station;
-import metier.UtilitaireDate;
 
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
 
@@ -35,10 +29,11 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	private static final long serialVersionUID = 1L;
 
 	private Administrateur administrateur;
+	private Station stationConcernee;
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
 	private JLabel labelStation = new JLabel("Station");
-	private Station stationEntree;
+	private JLabel labelStationConcernee = new JLabel ("");
 	private JLabel labelNbVelos = new JLabel("Nombre de vélos souhaité");
 	private JTextField nbVelosARemplir = new JTextField ("");
 	private JButton boutonValider = new JButton("Valider");
@@ -54,7 +49,15 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.administrateur = administrateur;
 	}
 
-	public FenetreEnvoyerDemandeAssignationAdmin (Administrateur a){
+	public Station getStationConcernee() {
+		return stationConcernee;
+	}
+
+	public void setStationConcernee(Station stationConcernee) {
+		this.stationConcernee = stationConcernee;
+	}
+
+	public FenetreEnvoyerDemandeAssignationAdmin (Administrateur a,Station s){
 
 		System.out.println("Fenêtre pour envoyer une demande d'assignation");
 		this.setContentPane(new PanneauAdmin());
@@ -77,6 +80,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
+		this.setStationConcernee(s);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -102,66 +106,29 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		labelStation.setPreferredSize(new Dimension (250,30));
 		center.add(labelStation);
 		
-		List<Station> listeStations;
-		try {
-			listeStations = DAOLieu.getAllStations();
-			String [] tableauStations = new String[listeStations.size()+1];
-			tableauStations[0]="Sélectionnez une station";
-			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i+1]=listeStations.get(i).toString();
-			}
-			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
-			JComboBox combo = new JComboBox(model);
-			combo.setFont(FenetreAuthentificationUtil.POLICE3);
-			combo.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent ae){
-					try{
-						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-						String chaineSelectionnee = (String)(o);
-						String idStationEntre = chaineSelectionnee.substring(0,1);
-						try {
-							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-						} catch (SQLException e) {
-							MsgBox.affMsg(e.getMessage());
-						} catch (ClassNotFoundException e) {
-							MsgBox.affMsg(e.getMessage());
-						}
-					}
-					catch (Exception  e){
-						System.out.println("Erreur dans la sélection de la station");
-					}
-				}
-			});
+		labelStationConcernee.setText(s.getAdresse());
+		labelStationConcernee.setPreferredSize(new Dimension (250,30));
+		center.add(labelStationConcernee);
+		labelNbVelos.setPreferredSize(new Dimension (250,30));
+		center.add(labelNbVelos);
+		nbVelosARemplir.setPreferredSize(new Dimension (250,30));
+		center.add(nbVelosARemplir);
 
-			combo.setPreferredSize(new Dimension (250,30));
-			center.add(combo);
-			labelNbVelos.setPreferredSize(new Dimension (250,30));
-			center.add(labelNbVelos);
-			nbVelosARemplir.setPreferredSize(new Dimension (250,30));
-			center.add(nbVelosARemplir);
-
-			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			center.setPreferredSize(new Dimension(200,350));
-			boutonValider.setPreferredSize(new Dimension(200,40));
-			boutonValider.setMaximumSize(new Dimension(200,40));
-			boutonValider.setBackground(Color.CYAN);
-			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-			boutonValider.addActionListener(this);
-			center.add(boutonValider);
-
-			this.getContentPane().add(center,BorderLayout.CENTER);
-
-		} catch (SQLException e) {
-			MsgBox.affMsg(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			MsgBox.affMsg(e.getMessage());
-		}
-
-
+		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(200,350));
+		boutonValider.setPreferredSize(new Dimension(200,40));
+		boutonValider.setMaximumSize(new Dimension(200,40));
+		boutonValider.setBackground(Color.CYAN);
+		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.addActionListener(this);
+		center.add(boutonValider);
+		
+		this.getContentPane().add(center,BorderLayout.CENTER);
+		
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-
+		
 		boutonEtatAutreStation.setPreferredSize(new Dimension(250,40));
 		boutonEtatAutreStation.setMaximumSize(new Dimension(250,40));
 		boutonEtatAutreStation.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -194,7 +161,9 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 				int nbVelos = 0;
 				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
 				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-				new DemandeAssignation(nbVelos,stationEntree);
+				System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
+				DemandeAssignation d = new DemandeAssignation(nbVelos,stationConcernee);
+				DAODemandeAssignation.createDemandeAssignation(d);
 			}catch(Exception e){
 				MsgBox.affMsg("Champ entré incorret");
 			}
@@ -210,4 +179,3 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		}
 	}
 }
-

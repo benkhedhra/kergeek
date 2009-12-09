@@ -1,7 +1,10 @@
 package ihm.appliUtil;
 
+import envoieMail.SendMail;
 import exceptionsMetier.CompteBloqueException;
+import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 
@@ -10,17 +13,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import metier.Administrateur;
 import metier.Station;
+import metier.Technicien;
 import metier.Utilisateur;
 import metier.Velo;
+
 
 public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 
@@ -124,11 +133,19 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
 					if (DAOVelo.getVelosByLieu(station).isEmpty()){
-						MsgBox.affMsg("Attention petit technicien la station " + station.getAdresse() +" est vide");
-						/*TODO
-						 * 
-						 */
-					}
+						List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
+						List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
+						
+						String adresseEMail;
+						for (Technicien t : listeTech){
+							adresseEMail = t.getCompte().getAdresseEmail();
+							SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+						}
+						for (Administrateur a : listeAdmin){
+							adresseEMail = a.getCompte().getAdresseEmail();
+							SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+						}
+				}
 
 					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
 					System.out.println("L'emprunt a bien été enregistré");
@@ -139,6 +156,10 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 				MsgBox.affMsg(e.getMessage());
 			} catch (CompteBloqueException e) {
 				MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
+			} catch (UnsupportedEncodingException e) {
+				MsgBox.affMsg(e.getMessage());
+			} catch (MessagingException e) {
+				MsgBox.affMsg(e.getMessage());
 			}
 		}
 		else{

@@ -168,8 +168,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'7')");
-			
+		
 			
 
 

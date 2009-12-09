@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
-import gestionBaseDeDonnees.DAODemandeIntervention;
+import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOTypeIntervention;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreConfirmation;
@@ -22,7 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import metier.DemandeIntervention;
+import metier.Intervention;
 import metier.Technicien;
 import metier.TypeIntervention;
 
@@ -33,7 +33,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
-	private DemandeIntervention demande;
+	private Intervention intervention;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JLabel labelTypeIntervention = new JLabel ("Veuillez entrer le type d'intervention");
@@ -49,17 +49,16 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.technicien = technicien;
 	}
 
-
-	public DemandeIntervention getDemande() {
-		return demande;
+	public Intervention getIntervention() {
+		return intervention;
 	}
 
-	public void setDemande(DemandeIntervention d) {
-		this.demande = d;
+	public void setIntervention(Intervention intervention) {
+		this.intervention = intervention;
 	}
 
-	public FenetrePrendreEnChargeInterventionTech(Technicien t, DemandeIntervention d){
-		System.out.println("Fenêtre pour prendre en charge une demande d'intervention");
+	public FenetrePrendreEnChargeInterventionTech(Technicien t, Intervention i){
+		System.out.println("Fenêtre pour prendre en charge une intervention");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Prendre en charge une intervention");
@@ -80,7 +79,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setTechnicien(t);
-		this.setDemande(d);
+		this.setIntervention(i);
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -104,7 +103,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		labelMsg.setMaximumSize(new Dimension(600,50));
 		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 
-		labelMsg.setText(DAODemandeIntervention.ligne(d));
+		labelMsg.setText(DAOIntervention.ligne(i));
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
@@ -121,11 +120,12 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		try {
 			List<TypeIntervention> listeTypes;
 			listeTypes = (List) DAOTypeIntervention.getAllTypesIntervention();
-			String [] tableauDemandes = new String[listeTypes.size()];
-			for (int i=0;i<listeTypes.size();i++){
-				tableauDemandes[i]=listeTypes.get(i).toString();
+			String [] tableauTypes = new String[listeTypes.size()+1];
+			tableauTypes[0]="Sélectionnez un type d'intervention";
+			for (int k=0;k<listeTypes.size();k++){
+				tableauTypes[k+1]=listeTypes.get(k).toString();
 			}
-			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
+			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauTypes);
 
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -188,7 +188,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
-			this.getTechnicien().intervenir(this.getDemande().getVelo(),this.getDemande().getVelo().getLieu(),typeInterventionEntre);
+			this.getTechnicien().intervenir(this.getIntervention().getVelo(),this.getIntervention().getVelo().getLieu(),typeInterventionEntre);
 			//TODO : update
 			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}

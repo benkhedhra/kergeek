@@ -2,6 +2,7 @@ package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -34,7 +35,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg1 = new JLabel("Sélectionnez une des demandes d'intervention formulées par les utilisateurs");
 	private DemandeIntervention demandeEntree;
-	private JButton boutonValider = new JButton("Valider");
+	private JButton boutonValider = new JButton("Retirer le vélo indiqué");
 	private JLabel labelMsg2 = new JLabel("<html><center>Si vous voulez constater un défaut sur un vélo qui ne figure pas dans les demandes ci-dessus, <br>veuillez entrer son identifiant : </center></html> ");
 	private JTextField idVeloARemplir = new JTextField("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
@@ -170,7 +171,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreGererUneDemandeInterventionTech(this.getTechnicien(),demandeEntree);
+			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

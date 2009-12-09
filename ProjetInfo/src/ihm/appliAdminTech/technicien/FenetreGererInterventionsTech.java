@@ -1,6 +1,5 @@
 package ihm.appliAdminTech.technicien;
 
-import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOIntervention;
 import ihm.MsgBox;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -20,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import metier.DemandeIntervention;
 import metier.Intervention;
 import metier.Technicien;
 
@@ -31,7 +29,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Demandes d'intervention");
-	private DemandeIntervention demandeEntree;
+	private Intervention interventionEntree;
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -100,8 +98,8 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idDemandeEntre=chaineSelectionnee.substring(8,1);
-						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
+						String idInterventionEntre=chaineSelectionnee.substring(8,1);
+						interventionEntree = DAOIntervention.getInterventionById(idInterventionEntre);
 						} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
@@ -139,7 +137,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreGererUneDemandeInterventionTech(this.getTechnicien(),demandeEntree);
+			new FenetreGererUneInterventionTech(this.getTechnicien(),interventionEntree);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());
