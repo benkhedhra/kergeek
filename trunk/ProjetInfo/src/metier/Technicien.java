@@ -4,8 +4,8 @@ package metier;
 
 
 /** 
- * Technicien est la classe representant un technicien du parc a velos
- * Un technicien est caracterise par un compte
+ * Technicien est la classe representant un technicien du parc a vélos
+ * Un technicien est caracterisé par un compte.
  * 
  * @see Compte
  * @see Velo
@@ -68,7 +68,7 @@ public class Technicien {
 	}
 
 	/**
-	 * Met a jour le compte du technicien
+	 * Met à jour le compte du technicien
 	 * 
 	 * @param compte, le nouveau compte du technicien
 	 * @see Compte
@@ -81,21 +81,27 @@ public class Technicien {
 	// Methodes
 
 	/**
-	 * Ajoute un velo 
+	 * Ajoute un vélo 
 	 * 
 	 * @param velo
-	 * @return velo, le nouveau velo  qui a ete ajoute a la base de donnees
+	 * @return velo, le nouveau vélo  qui a été ajouté à la base de données
 	 * @see Velo
 	 */
-
 	public Velo enregistrerVelo(){
 		Velo velo = new Velo(Garage.getInstance(), false);
 		return velo;
 	}
-
+	
+	public void retirerVelo(Velo velo){
+		velo.setLieu(Garage.getInstance());
+	}
+	
+	public void remettreVelo(Velo velo, Station station){
+		station.ajouterVelo(velo);
+	}
+	
 	/**
-	 * Retire un velo d'une station vers le garage pour reparation.
-	 * 
+	 * Retire un vélo d'une station vers le garage pour le réparer.
 	 * @param velo
 	 * @param lieu
 	 * @return booleen 
@@ -105,16 +111,18 @@ public class Technicien {
 	 * @see UtlitaireDate
 	 * @see enleverVelo
 	 */
-
-	
-	
-	public Intervention intervenir(Velo velo, Lieu lieu, TypeIntervention type){
-		velo.setLieu(Garage.getInstance());
-		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante(),type);
+	public Intervention intervenir(Velo velo, Lieu lieu){
+		retirerVelo(velo);
+		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return intervention;
 	}
 	
 	
+	public void terminerIntervention(Velo velo, Station station, Intervention intervention, TypeIntervention typeIntervention){
+		remettreVelo(velo, station);
+		intervention.setTypeIntervention(typeIntervention);
+		
+	}
 	
 	@Override
 	public boolean equals(Object o) {
@@ -128,6 +136,7 @@ public class Technicien {
 	public String toString(){
 		return this.getCompte().toString();
 	}
+	
 }
 
 

@@ -1,6 +1,10 @@
 package ihm;
 
+import java.sql.SQLException;
+
+import gestionBaseDeDonnees.DAOVelo;
 import metier.Compte;
+import metier.Station;
 import metier.Velo;
 
 public class UtilitaireIhm {
@@ -78,6 +82,11 @@ public class UtilitaireIhm {
 	
 	public static boolean verifieSiPasDemandeInterventionSurVelo (Velo v){
 		return (v.isEnPanne());
+	}
+	
+	public static boolean verifieSiPlaceDisponibleDansStation(Station station) throws SQLException, ClassNotFoundException{
+		return(DAOVelo.getVelosByLieu(station).size() < station.getCapacite());
+		
 	}
 	
 }

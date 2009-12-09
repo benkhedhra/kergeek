@@ -3,6 +3,7 @@ package ihm.appliAdminTech.technicien;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -185,17 +186,23 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 		this.setVisible(true);
 	}
-	
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
 			if (arg0.getSource()==boutonValider){
 				Velo velo;
 				velo = DAOVelo.getVeloById(idARemplir.getText());
-				velo.setLieu(stationEntree);
-				velo.setEnPanne(false);
-				DAOVelo.updateVelo(velo);
-				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+				if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
+					velo.setLieu(stationEntree);
+					velo.setEnPanne(false);
+					DAOVelo.updateVelo(velo);
+					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+				}
+				else{
+					MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
+					new MenuPrincipalTech(this.getTechnicien());
+				}
 			}
 			else if (arg0.getSource()==boutonRetour){
 				new MenuPrincipalTech(this.getTechnicien());
