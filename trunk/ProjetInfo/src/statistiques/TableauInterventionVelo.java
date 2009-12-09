@@ -24,7 +24,7 @@ public class TableauInterventionVelo extends JPanel {
             super(new GridLayout(1,0));
 
         String[] columnNames = {"Date d'entrée au garage",
-                "Date de sortie du gargae",
+                "Date de sortie du garage",
                 "Type d'intervention"};
 
         Object[][] data = {
