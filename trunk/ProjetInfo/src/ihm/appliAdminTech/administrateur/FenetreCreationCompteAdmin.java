@@ -142,10 +142,15 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				String qualiteEntree = (String)o;
 
-				if(qualiteEntree.equals("utilisateur")){typeEntre=Compte.TYPE_UTILISATEUR;}
-				if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
-				if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
-
+				if(qualiteEntree.equals("utilisateur")){
+					typeEntre=Compte.TYPE_UTILISATEUR;
+					}
+				if(qualiteEntree.equals("administrateur")){
+					typeEntre=Compte.TYPE_ADMINISTRATEUR;
+					}
+				if(qualiteEntree.equals("technicien")){
+					typeEntre=Compte.TYPE_TECHNICIEN;
+					}
 				modifieSiUtilisateur(typeEntre);
 			}
 

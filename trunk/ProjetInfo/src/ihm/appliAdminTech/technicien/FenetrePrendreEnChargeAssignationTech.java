@@ -3,17 +3,20 @@ package ihm.appliAdminTech.technicien;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import metier.DemandeAssignation;
+import metier.Garage;
 import metier.Technicien;
 
 public class FenetrePrendreEnChargeAssignationTech extends JFrame implements ActionListener {
@@ -34,10 +38,11 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	private DemandeAssignation demande;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
-	private JLabel labelVelo = new JLabel("");
-	private JTextField veloARemplir = new JTextField();
+	private JPanel panelVelos = new JPanel();
 	private JButton boutonValider = new JButton("Confirmer les déplacements");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
+	private ArrayList<String> listeIdVelos = new ArrayList<String>();
+	private int diff;
 
 	public Technicien getTechnicien() {
 		return technicien;
@@ -55,8 +60,22 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	public void setDemande(DemandeAssignation d) {
 		this.demande = d;
 	}
+	
+	public int getDiff() {
+		return diff;
+	}
+	
+	public void setDiff(int diff) {
+		this.diff = diff;
+	}
 
-	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d){
+	
+	
+	
+	
+	
+	
+	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l){
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
@@ -101,7 +120,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		int nbVelosADeplacer;
 
 		try {
-			int diff=DAOVelo.getVelosByLieu(demande.getLieu()).size()-demande.getNombreVelosVoulusDansLieu();
+			this.setDiff(DAOVelo.getVelosByLieu(demande.getLieu()).size()-demande.getNombreVelosVoulusDansLieu());
 			/* si diff<0 cela signifie qu'il faut ajouter des vélos depuis le garage vers la station
 			 * si diff>0 c'est qu'il faudra en retirer de la station pour les mettre au garage
 			 */
@@ -123,45 +142,42 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				centerCenter.setPreferredSize(new Dimension(550,350));
 				centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
-				labelVelo.setPreferredSize(new Dimension(200,30));
-				veloARemplir.setPreferredSize(new Dimension(300,30));
+				panelVelos.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				panelVelos.setLayout(new GridLayout(nbVelosADeplacer,2));
 
-				if(diff<0){
+				if(this.getDiff()<0){
 					labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
-
 					for (int i =0;i<nbVelosADeplacer;i++){
-						JPanel panel1 = new JPanel();
-						panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-						panel1.setPreferredSize(new Dimension(250,30));
-						labelVelo.setText("Vélo "+(i+1));
-						panel1.add(labelVelo);
-						centerCenter.add(panel1);
+						JLabel labelVelo = new JLabel("");
 
-						JPanel panel2 = new JPanel();
-						panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-						panel2.setPreferredSize(new Dimension(250,30));
-						panel2.add(veloARemplir);
-						centerCenter.add(panel2);
+						labelVelo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						labelVelo.setPreferredSize(new Dimension(250,30));
+						labelVelo.setText("Vélo "+(i+1));
+						panelVelos.add(labelVelo);
+
+						JTextField veloARemplir = new JTextField(l.get(i));
+						veloARemplir.setPreferredSize(new Dimension(250,30));
+						panelVelos.add(veloARemplir);
 					}
+
 				}
 				else{
 					labelMsg.setText("Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage");
 
 					for (int i =0;i<nbVelosADeplacer;i++){
-						JPanel panel1 = new JPanel();
-						panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-						panel1.setPreferredSize(new Dimension(250,30));
-						labelVelo.setText("Vélo "+(i+1));
-						panel1.add(labelVelo);
-						centerCenter.add(panel1);
+						JLabel labelVelo = new JLabel("");
 
-						JPanel panel2 = new JPanel();
-						panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-						panel2.setPreferredSize(new Dimension(250,30));
-						panel2.add(veloARemplir);
-						centerCenter.add(panel2);
+						labelVelo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						labelVelo.setPreferredSize(new Dimension(250,30));
+						labelVelo.setText("Vélo "+(i+1));
+						panelVelos.add(labelVelo);
+
+						JTextField veloARemplir = new JTextField();
+						veloARemplir.setPreferredSize(new Dimension(250,30));
+						panelVelos.add(veloARemplir);
 					}
 				}
+				centerCenter.add(panelVelos);
 				centerNorth.add(labelMsg);
 				center.add(centerNorth,BorderLayout.NORTH);
 				center.add(centerCenter,BorderLayout.CENTER);
@@ -197,20 +213,51 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.setVisible(true);
 	}
 
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
-			demande.setPriseEnCharge(true);
+			for(int i=0; i<panelVelos.getComponentCount(); i++){
+				if(panelVelos.getComponent(i) instanceof JTextField){
+					listeIdVelos.add(((JTextField)panelVelos.getComponent(i)).getText());
+				}
+			}
+			ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();
 			try {
-				DAODemandeAssignation.updateDemandeAssignation(demande);
+				if(this.getDiff()<0){
+					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignation(listeIdVelos, demande.getLieu());
+				}
+				else{
+					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignation(listeIdVelos, Garage.getInstance());
+				}
+				if(nouvelleListeIdVelos.contains("")){
+					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos);
+				}
+				else{
+					System.out.println("demande prise en charge");
+					demande.setPriseEnCharge(true);
+					DAODemandeAssignation.updateDemandeAssignation(demande);
+					System.out.println("demande maj dans la bdd");
+					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+				}
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				MsgBox.affMsg("SQL Exception : " + e.getMessage());
 				e.printStackTrace();
 			}
-			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}
 		else if(arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

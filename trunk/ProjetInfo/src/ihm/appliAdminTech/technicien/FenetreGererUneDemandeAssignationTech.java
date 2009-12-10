@@ -2,16 +2,17 @@ package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
+import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -223,8 +224,21 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonPrendreEnCharge){
+			ArrayList<String> listeVide = new ArrayList<String>();
+			int diff;
+			try {
+				diff = DAOVelo.getVelosByLieu(demande.getLieu()).size()-demande.getNombreVelosVoulusDansLieu();
+				int nbVelosADeplacer = Math.abs(diff);
+				for(int i=0;i<nbVelosADeplacer;i++){
+					listeVide.add("");
+				}
+				new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande(),listeVide);
 
-			new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande());
+			} catch (SQLException e) {
+				MsgBox.affMsg("SQL Exception : " + e.getMessage());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());
