@@ -29,12 +29,12 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 	private Intervention intervention;
 	private JLabel labelTech = new JLabel("");;
 	private JLabel labelMsg = new JLabel("Intervention à traiter");
-	private JLabel labelStation = new JLabel("Station concernée");
-	private JLabel labelStationDemande;
+	private JLabel labelId = new JLabel("intervention n°");
+	private JLabel labelIdInter = new JLabel("");
 	private JLabel labelVelo = new JLabel("Vélo concerné");
-	private JLabel labelVeloDemande;
-	private JLabel labelDate = new JLabel("Date de la déclaration du défaut");
-	private JLabel labelDateDemande;
+	private JLabel labelVeloInter = new JLabel("");
+	private JLabel labelDate = new JLabel("Date de la mise en garage");
+	private JLabel labelDateInter = new JLabel("");
 	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette intervention");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -100,65 +100,64 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
-		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(3,2));
+		JPanel centerCenter = new JPanel();
+		centerCenter.setPreferredSize(new Dimension(550,350));
+		centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelStation.setPreferredSize(new Dimension(150,30));
-		labelStation.setMaximumSize(new Dimension(150,30));
-		panel1.add(labelStation);
-		centerWest.add(panel1);
+		labelId.setPreferredSize(new Dimension(250,30));
+		labelId.setMaximumSize(new Dimension(250,30));
+		panel1.add(labelId);
+		centerCenter.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelStationDemande.setPreferredSize(new Dimension(150,30));
-		labelStationDemande.setMaximumSize(new Dimension(150,30));
-		panel2.add(labelStationDemande);
-		centerWest.add(panel2);	
+		labelIdInter.setText(i.getId());
+		labelIdInter.setPreferredSize(new Dimension(250,30));
+		labelIdInter.setMaximumSize(new Dimension(250,30));
+		panel2.add(labelIdInter);
+		centerCenter.add(panel2);
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelVelo.setPreferredSize(new Dimension(150,30));
-		labelVelo.setMaximumSize(new Dimension(150,30));
+		labelVelo.setPreferredSize(new Dimension(250,30));
+		labelVelo.setMaximumSize(new Dimension(250,30));
 		panel3.add(labelVelo);
-		centerWest.add(panel3);	
+		centerCenter.add(panel3);	
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelVeloDemande.setPreferredSize(new Dimension(150,30));
-		labelVeloDemande.setMaximumSize(new Dimension(150,30));
-		panel4.add(labelVeloDemande);
-		centerWest.add(panel4);	
+		labelVeloInter.setText(i.getVelo().getId());
+		labelVeloInter.setPreferredSize(new Dimension(250,30));
+		labelVeloInter.setMaximumSize(new Dimension(250,30));
+		panel4.add(labelVeloInter);
+		centerCenter.add(panel4);	
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelDate.setPreferredSize(new Dimension(150,30));
-		labelDate.setMaximumSize(new Dimension(150,30));
+		labelDate.setPreferredSize(new Dimension(250,30));
+		labelDate.setMaximumSize(new Dimension(250,30));
 		panel5.add(labelDate);
-		centerWest.add(panel5);	
+		centerCenter.add(panel5);	
 
 		JPanel panel6 = new JPanel();
-		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelDateDemande.setPreferredSize(new Dimension(150,30));
-		labelDateDemande.setMaximumSize(new Dimension(150,30));
-		panel6.add(labelDateDemande);
-		centerWest.add(panel6);			
+		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelDateInter.setText(i.getDate().toString());
+		labelDateInter.setPreferredSize(new Dimension(250,30));
+		labelDateInter.setMaximumSize(new Dimension(250,30));
+		panel6.add(labelDateInter);
+		centerCenter.add(panel6);	
 		
-		center.add(centerWest,BorderLayout.WEST);
+		center.add(centerCenter,BorderLayout.CENTER);
 
-		JPanel centerEast = new JPanel();
-		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,350));
-		boutonPrendreEnCharge.setPreferredSize(new Dimension(150,40));
-		boutonPrendreEnCharge.setMaximumSize(new Dimension(150,40));
+		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
+		boutonPrendreEnCharge.setMaximumSize(new Dimension(350,40));
 		boutonPrendreEnCharge.setBackground(Color.CYAN);
 		boutonPrendreEnCharge.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonPrendreEnCharge.addActionListener(this);
-		centerEast.add(boutonPrendreEnCharge);
-		center.add(centerEast,BorderLayout.EAST);
+		centerCenter.add(boutonPrendreEnCharge);
+		center.add(centerCenter,BorderLayout.EAST);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
@@ -167,15 +166,15 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
-		JPanel panel11 = new JPanel();
-		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		JPanel panel7 = new JPanel();
+		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		panel11.add(boutonRetour);
-		south.add(panel11,BorderLayout.EAST);
+		panel7.add(boutonRetour);
+		south.add(panel7,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);

@@ -160,8 +160,7 @@ public class DAOIntervention {
 
 		List <Integer> list = new ArrayList<Integer>();
 		try {
-
-
+			
 			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(), depuisMois);
 			java.sql.Date dateSql = UtilitaireDate.initialisationDebutMois(dateSqlTemp);
 
@@ -226,7 +225,7 @@ public class DAOIntervention {
 	}
 
 	public static String ligne(Intervention i){
-		return "Intervention "+i.getClass()+" - vélo "+i.getVelo().getId();
+		return "Intervention "+i.getId()+" - vélo "+i.getVelo().getId();
 
 	}
 

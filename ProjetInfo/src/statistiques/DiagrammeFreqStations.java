@@ -31,6 +31,11 @@ import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeFreqStations extends ApplicationFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JFreeChart chart;
 
 	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException {

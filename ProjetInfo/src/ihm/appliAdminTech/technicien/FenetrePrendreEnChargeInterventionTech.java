@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -59,7 +61,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 	public FenetrePrendreEnChargeInterventionTech(Technicien t, Intervention i){
 		System.out.println("Fenêtre pour prendre en charge une intervention");
-		this.setContentPane(new PanneauAdmin());
+		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Prendre en charge une intervention");
 		//Définit une taille pour celle-ci
@@ -83,7 +85,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelTech.setPreferredSize(new Dimension(300,30));
+		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -118,8 +120,9 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		centerWest.add(panel1);
 
 		try {
-			List<TypeIntervention> listeTypes;
-			listeTypes = (List) DAOTypeIntervention.getAllTypesIntervention();
+			Collection<String> collection = DAOTypeIntervention.getAllTypesIntervention().values();
+			List<String> listeTypes = new ArrayList<String>(collection.size());
+			listeTypes.addAll(collection);
 			String [] tableauTypes = new String[listeTypes.size()+1];
 			tableauTypes[0]="Sélectionnez un type d'intervention";
 			for (int k=0;k<listeTypes.size();k++){
@@ -165,6 +168,8 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (NullPointerException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
 
