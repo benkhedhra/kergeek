@@ -81,7 +81,6 @@ public class Administrateur {
 	 * @return le nouveau compte 
 	 * @see Compte
 	 */
-
 	public Compte creerCompte(int type, String adresseEmail){
 		Compte compte = new Compte(type, adresseEmail);
 		return compte;
@@ -127,6 +126,7 @@ public class Administrateur {
 		}
 		return administrateur;
 	}
+	
 	/**
 	 * Crée un nouveau technicien à partir d'un compte.
 	 * @param compte

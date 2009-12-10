@@ -1,9 +1,13 @@
 package ihm;
 
-import java.sql.SQLException;
-
 import gestionBaseDeDonnees.DAOVelo;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import metier.Compte;
+import metier.Lieu;
 import metier.Station;
 import metier.Velo;
 
@@ -87,6 +91,29 @@ public class UtilitaireIhm {
 	public static boolean verifieSiPlaceDisponibleDansStation(Station station) throws SQLException, ClassNotFoundException{
 		return(DAOVelo.getVelosByLieu(station).size() < station.getCapacite());
 		
+	}
+	
+	public static ArrayList<String> verifieSiVelosPeuventEtreAssignation(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException{
+		ArrayList<String> nouvelleListe = new ArrayList<String>();
+		List<Velo> listeVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
+		List<String> listeIdVelosDansLieu = new ArrayList<String>();
+		for (Velo velo : listeVelosDansLieu){
+			listeIdVelosDansLieu.add(velo.getId());
+		}
+		for (String idVelo : ancienneliste){
+			if (DAOVelo.estDansLaBdd(idVelo)){
+				if(listeIdVelosDansLieu.contains(idVelo)){
+					nouvelleListe.add(idVelo);
+				}
+				else{
+					nouvelleListe.add("");
+				}
+			}
+			else{
+				nouvelleListe.add("");
+			}
+		}
+		return nouvelleListe;
 	}
 	
 }
