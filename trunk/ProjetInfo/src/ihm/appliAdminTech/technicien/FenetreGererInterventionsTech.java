@@ -104,6 +104,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 							int i=13;
 							while(chaineSelectionnee.charAt(i)!=' '){
 								idInterventionEntre=idInterventionEntre+chaineSelectionnee.charAt(i);
+								i++;
 							}
 							System.out.println("id de l'intervention entrée : "+idInterventionEntre);
 							interventionEntree = DAOIntervention.getInterventionById(idInterventionEntre);
