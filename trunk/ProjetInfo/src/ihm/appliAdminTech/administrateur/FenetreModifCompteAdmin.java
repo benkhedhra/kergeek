@@ -35,7 +35,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private Administrateur administrateur;
 	private Compte compte;
 	private JLabel labelAdmin = new JLabel("");;
@@ -82,7 +82,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Modifier informations sur un compte");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -278,6 +278,11 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		boutonResilier.setBackground(Color.CYAN);
 		boutonResilier.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonResilier.addActionListener(this);
+		//l'administrateur ne peut pas s'autorésilier, pour la bonne poursuite de l'application
+		//en revanche un administrateur peut résilier n'importe quel compte excepté le sien, y compris celui d'un autre administrateur
+		if(c.equals(this.getAdministrateur().getCompte())){
+			boutonResilier.setEnabled(true);
+		}
 		centerEast.add(boutonResilier);
 		center.add(centerEast,BorderLayout.EAST);
 

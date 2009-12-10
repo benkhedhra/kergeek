@@ -33,7 +33,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg1 = new JLabel("Sélectionnez une des demandes d'intervention formulées par les utilisateurs");
@@ -87,13 +87,13 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,400));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		center.setLayout(new BorderLayout());
-		
+
 		JPanel centerNorth = new JPanel();
 		centerNorth.setPreferredSize(new Dimension(700,250));
 		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-				
+
 		labelMsg1.setPreferredSize(new Dimension(600,50));		
 		labelMsg1.setMinimumSize(new Dimension(600,50));
 		centerNorth.add(labelMsg1);
@@ -121,10 +121,11 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 						int i=8;
 						while(chaineSelectionnee.charAt(i)!=' '){
 							idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
+							i++;
 						}
 						System.out.println("id de la demande entré : "+idDemandeEntre);
 						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
-						} catch (SQLException e) {
+					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
@@ -146,20 +147,20 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		centerNorth.add(boutonValider);
 
 		center.add(centerNorth,BorderLayout.NORTH);
-		
+
 		JPanel centerSouth = new JPanel();
 		centerSouth.setPreferredSize(new Dimension(700,150));
 		centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		labelMsg2.setPreferredSize(new Dimension(650,50));		
 		labelMsg2.setMinimumSize(new Dimension(650,50));
 		centerSouth.add(labelMsg2);
 		idVeloARemplir.setPreferredSize(new Dimension(200,50));		
 		idVeloARemplir.setMinimumSize(new Dimension(200,50));
 		centerSouth.add(idVeloARemplir);
-		
+
 		center.add(centerSouth,BorderLayout.SOUTH);
-				
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
