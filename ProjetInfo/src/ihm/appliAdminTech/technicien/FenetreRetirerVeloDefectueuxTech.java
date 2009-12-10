@@ -52,6 +52,14 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		this.technicien = technicien;
 	}
 
+	public DemandeIntervention getDemandeEntree() {
+		return demandeEntree;
+	}
+
+	public void setDemandeEntree(DemandeIntervention demandeEntree) {
+		this.demandeEntree = demandeEntree;
+	}
+
 	public FenetreRetirerVeloDefectueuxTech (Technicien t){
 		System.out.println("Fenêtre pour retirer un vélo défectueux d'une station");
 		this.setContentPane(new PanneauTech());
@@ -182,24 +190,43 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				if(demandeEntree!=null && !idVeloARemplir.getText().equals("")){
+				if(this.getDemandeEntree()!=null && !idVeloARemplir.getText().equals("")){
+					System.out.println("Problème : 2 vélos entrés");
 					MsgBox.affMsg("Vous avez sélectionné une demande ET entré un vélo : veuillez faire l'un ou l'autre");
 					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 				}
-				else if(demandeEntree!=null){
+				else if(this.getDemandeEntree()!=null){
+					System.out.println("Une demande d'intervention a été sélectionnée");
 					Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
-					if(DAOIntervention.updateIntervention(i)){
+					this.getDemandeEntree().setIntervention(i);
+					if(DAOIntervention.createIntervention(i) && DAODemandeIntervention.updateDemandeIntervention(this.getDemandeEntree())){
 						new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 					}
 				}
-				else {
+				else if(!idVeloARemplir.getText().equals("")){
+					System.out.println("Un vélo a été entré");
 					if(DAOVelo.estDansLaBdd(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
 						Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
 						Intervention i = this.getTechnicien().intervenir(veloEntre);
-						if(DAOIntervention.updateIntervention(i)){
+						if(DAOIntervention.createIntervention(i)){
 							new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 						}
 					}
+					else if (!DAOVelo.estDansLaBdd(idVeloARemplir.getText())){
+						System.out.println("Le vélo entré n'existe pas");
+						MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
+						new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+					}
+					else {
+						System.out.println("Le vélo entré n'est pas en station actuellement");
+						MsgBox.affMsg("Le vélo que vous avez entré n'est pas en station actuellement. ");
+						new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+					}
+				}
+				else {
+					System.out.println("Rien n'a été entré");
+					MsgBox.affMsg("Vous n'avez ni sélectionné de demande d'intervention, ni entré de vélo. ");
+					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
