@@ -64,7 +64,7 @@ public class Intervention {
 	}
 
 
-	public Date getDate() {
+	public java.sql.Date getDate() {
 		return date;
 	}
 	

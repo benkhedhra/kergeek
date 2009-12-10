@@ -63,11 +63,11 @@ public class DAODemandeIntervention {
 
 			s.executeUpdate("UPDATE DemandeIntervention SET "
 					+ "dateDemandeI = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeIntervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-					+ "idVelo = '" + ddeIntervention.getVelo().getId() + "' "
-					+ "idCompte = '" + ddeIntervention.getUtilisateur().getCompte().getId() + "' "
-					+ "idLieu = '" + ddeIntervention.getVelo().getLieu().getId() + "' "
-					+ "idIntervention = '" + ddeIntervention.getVelo().getLieu().getId() + "' "
-					+ "WHERE idDemandeI = '"+ ddeIntervention.getIntervention().getId() + "'"
+					+ "idVelo = '" + ddeIntervention.getVelo().getId() + "', "
+					+ "idCompte = '" + ddeIntervention.getUtilisateur().getCompte().getId() + "', "
+					+ "idLieu = '" + ddeIntervention.getVelo().getLieu().getId() + "', "
+					+ "idIntervention = '" + ddeIntervention.getIntervention().getId() + "'"
+					+ " WHERE idDemandeI = '"+ ddeIntervention.getId() + "'"
 			);
 
 			s.executeUpdate("COMMIT");
