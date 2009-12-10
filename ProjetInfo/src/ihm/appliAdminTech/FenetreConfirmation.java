@@ -312,7 +312,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					new FenetreCreationCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
-
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 			}
