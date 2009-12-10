@@ -13,6 +13,7 @@ import java.util.List;
 
 import metier.DemandeAssignation;
 import metier.UtilitaireDate;
+import metier.Velo;
 
 public class DAODemandeAssignation {
 
@@ -238,9 +239,13 @@ public class DAODemandeAssignation {
 		}
 		return ddeAssignation;
 	}
+	
+	public static int getDiff(DemandeAssignation d) throws SQLException, ClassNotFoundException{
+		List<Velo> velos = DAOVelo.getVelosByLieu(d.getLieu());
+		return velos.size()-d.getNombreVelosVoulusDansLieu();
+	}
 
 
-	//fonction écrite pour remplacer le toString qui n'allait effectivement pas dans métier, mais voir s'il faut encore la déplacer
 	public static String ligne(DemandeAssignation d){
 		String resul = "Demande "+d.getId()+" - "+d.getLieu().getAdresse()+" - ";
 		try {

@@ -112,7 +112,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		JPanel centerCenter = new JPanel();
 		centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 		labelStation.setPreferredSize(new Dimension(250,30));
@@ -168,11 +168,11 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		labelOperation.setForeground(Color.RED);
 		panel7.add(labelOperation);
 		centerCenter.add(panel7);
-		
+
 		JPanel panel8 = new JPanel();
 		panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		String operation="";
-		int diff = velos.size()-d.getNombreVelosVoulusDansLieu();
+		int diff = DAODemandeAssignation.getDiff(d);
 		if(diff<0){
 			operation=operation+"ajout";
 		}
@@ -186,7 +186,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		labelOperationDemande.setForeground(Color.RED);
 		panel8.add(labelOperationDemande);
 		centerCenter.add(panel8);
-		
+
 		JPanel panel9 = new JPanel();
 		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
@@ -196,9 +196,9 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		boutonPrendreEnCharge.addActionListener(this);
 		panel9.add(boutonPrendreEnCharge);
 		centerCenter.add(panel9);
-		
+
 		center.add(centerCenter,BorderLayout.CENTER);
-		
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
@@ -223,6 +223,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonPrendreEnCharge){
+
 			new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande());
 		}
 		else if (arg0.getSource()==boutonRetour){
