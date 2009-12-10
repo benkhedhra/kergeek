@@ -2,10 +2,10 @@ package gestionBaseDeDonnees;
 
 
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
 
-import metier.Emprunt;
+import metier.Intervention;
 import metier.UtilitaireDate;
+import metier.Velo;
 import exceptionsMetier.PasDeDateRetourException;
 
 public class MainConnexionBdd {
@@ -28,6 +28,11 @@ public class MainConnexionBdd {
 		
 		System.out.println(DAOLieu.getStationsSurSous());
 		
+		Velo v = DAOVelo.getVeloById("1");
+		Intervention i = new Intervention(v,UtilitaireDate.dateCourante());
+		System.out.println(UtilitaireDate.conversionPourSQL(i.getDate()));
+		DAOIntervention.createIntervention(i);
+		System.out.println(UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()));
 		/*
 		GregorianCalendar cal =  new GregorianCalendar(2009,5,5);
 		java.util.Date dateUtil = cal.getTime();
