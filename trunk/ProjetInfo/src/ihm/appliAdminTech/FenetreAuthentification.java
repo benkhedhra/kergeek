@@ -186,8 +186,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		}
 		catch (NullPointerException e3){
-			MsgBox.affMsg("<html> <center>Le systeme rencontre actuellement un probleme technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ulterieurement. Merci</center></html>");
-			new FenetreAuthentificationUtil(true);
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ulterieurement. Merci</center></html>");
+			new FenetreAuthentification(true);
 		}
 	}
 }
