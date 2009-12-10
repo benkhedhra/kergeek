@@ -100,7 +100,7 @@ public class Administrateur {
 	 */
 	public Utilisateur creerUtilisateur(Compte compte, String nom, String prenom, String adressePostale) throws TypeCompteException{
 		Utilisateur utilisateur = null;
-		if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
+		if (compte.getType() == Compte.TYPE_UTILISATEUR){
 			utilisateur = new Utilisateur(compte, nom, prenom, adressePostale);
 		}
 		else{

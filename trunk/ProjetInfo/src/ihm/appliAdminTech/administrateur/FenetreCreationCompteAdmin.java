@@ -1,7 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
 import envoieMail.SendMail;
-import exceptionsIhm.ChampIncorrectException;
 import exceptionsMetier.TypeCompteException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
@@ -268,8 +267,8 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 							try {
 								Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
 								DAOUtilisateur.createUtilisateur(utilisateur);
-								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 								SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+utilisateur.getPrenom()+" "+utilisateur.getPrenom()+"\n Vous pouvez dès à présent utiliser BéloBreizh ! \nA bientôt sur les routes de KerLann ! \n\nKerGeek");
+								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 							}
 							catch (TypeCompteException e) {
 								MsgBox.affMsg(e.getMessage());
@@ -289,8 +288,8 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 							administrateur = this.getAdministrateur().creerAdministrateur(compte);
 
 							DAOAdministrateur.createAdministrateur(administrateur);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 							SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant qu'administrateur de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 						}
 					}
 					else {
@@ -304,9 +303,8 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 						Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
 						Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
 						DAOTechnicien.createTechnicien(technicien);
-						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 						SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant que technicien de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
-					}
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);					}
 					else {
 						MsgBox.affMsg("Les champs entrés sont incorrects");
 						new FenetreCreationCompteAdmin(this.getAdministrateur());
