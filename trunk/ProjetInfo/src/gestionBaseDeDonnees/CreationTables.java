@@ -35,7 +35,7 @@ public class CreationTables {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqVelo INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE Velo (idVelo char(4),	"+
+					"CREATE TABLE Velo (idVelo varchar2(4),	"+
 					"enPanne number,"+
 					"idLieu varchar2(4),"+
 					"CONSTRAINT pk_Velo  PRIMARY KEY(idVelo),"+
@@ -72,7 +72,7 @@ public class CreationTables {
 					"CREATE TABLE Intervention (idIntervention char(4)," +
 					"dateIntervention date NOT NULL," +
 					"idTypeIntervention char(4)," +
-					"idVelo char(4),"+
+					"idVelo varchar2(4),"+
 					"CONSTRAINT pk_Intervention  PRIMARY KEY(idIntervention),"+
 					"CONSTRAINT fk_Inter_TypeInter FOREIGN KEY(idTypeIntervention) REFERENCES TypeIntervention," +
 			"CONSTRAINT fk_Intervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo)");
@@ -83,7 +83,7 @@ public class CreationTables {
 			s.executeUpdate(
 					"CREATE TABLE DemandeIntervention (idDemandeI char(4)," +
 					"dateDemandeI date NOT NULL," +
-					"idVelo char(4) NOT NULL,"+
+					"idVelo varchar2(4) NOT NULL,"+
 					"idCompte char(4) NOT NULL,"+
 					"idLieu varchar2(4),"+
 					"idIntervention char(4),"+
@@ -114,7 +114,7 @@ public class CreationTables {
 					"idLieuEmprunt varchar2(4) NOT NULL," +
 					"idLieuRetour varchar2(4),"+
 					"idCompte char(4),"+
-					"idVelo char(4),"+
+					"idVelo varchar2(4),"+
 					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt),"+
 					"CONSTRAINT fk_Emprunt_Compte FOREIGN KEY(idCompte) REFERENCES Compte," +
 					"CONSTRAINT fk_Emprunt_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
@@ -397,9 +397,9 @@ public class CreationTables {
 			System.out.println("Update effectuee.");
 
 		}
-		catch (SQLException e){
+		/*catch (SQLException e){
 			System.out.println(e.getMessage());
-		}
+		}*/
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}

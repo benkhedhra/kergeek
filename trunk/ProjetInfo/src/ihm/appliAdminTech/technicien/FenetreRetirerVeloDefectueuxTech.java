@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import metier.DemandeIntervention;
 import metier.Intervention;
 import metier.Technicien;
+import metier.Velo;
 
 public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionListener {
 
@@ -52,10 +53,10 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	}
 
 	public FenetreRetirerVeloDefectueuxTech (Technicien t){
-		System.out.println("Fenêtre pour voir toutes les demandes d'intervention");
+		System.out.println("Fenêtre pour retirer un vélo défectueux d'une station");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Gérer les demandes d'intervention");
+		this.setTitle("Gérer les demandes d'intervention ou constater un vélo défectueux");
 		//Définit une taille pour celle-ci
 		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
@@ -180,20 +181,25 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			if(demandeEntree!=null){
-				Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
-				try {
-					DAOIntervention.updateIntervention(i);
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-				}
-				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
-			}
 			try {
-				if(DAOVelo.estDansLaBdd(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
-					//TODO
+				if(demandeEntree!=null && !idVeloARemplir.getText().equals("")){
+					MsgBox.affMsg("Vous avez sélectionné une demande ET entré un vélo : veuillez faire l'un ou l'autre");
+					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+				}
+				else if(demandeEntree!=null){
+					Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
+					if(DAOIntervention.updateIntervention(i)){
+						new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+					}
+				}
+				else {
+					if(DAOVelo.estDansLaBdd(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
+						Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
+						Intervention i = this.getTechnicien().intervenir(veloEntre);
+						if(DAOIntervention.updateIntervention(i)){
+							new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+						}
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

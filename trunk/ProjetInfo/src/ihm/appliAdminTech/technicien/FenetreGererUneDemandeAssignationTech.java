@@ -3,7 +3,6 @@ package ihm.appliAdminTech.technicien;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
-import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -68,7 +67,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d) throws SQLException, ClassNotFoundException{
 
 		System.out.println("Fenêtre pour gérer une demande d'assignation");
-		this.setContentPane(new PanneauAdmin());
+		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer une demande d'assignation");
 		//Définit une taille pour celle-ci

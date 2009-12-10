@@ -78,15 +78,21 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,400));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		center.add(labelMsg);
 
 		List<Intervention> listeInterventions;
-		try {
+		try{
 			listeInterventions= DAOIntervention.getInterventionsNonTraitees();
-			if(listeInterventions.size() != 0){
+
+			if(listeInterventions.size()==0){
+				labelMsg.setText("Il n'y a actuellement aucune intervention en cours à gérer.");
+				center.add(labelMsg);
+			}
+			else{
+				labelMsg.setText("Veuillez sélectionner une des interventions suivantes");
+				center.add(labelMsg);
 				String [] tableauInterventions = new String[listeInterventions.size()+1];
 				tableauInterventions[0]=listeInterventions.size()+" intervention(s) trouvée(s)";
-				for (int i=0;i<tableauInterventions.length;i++){
+				for (int i=0;i<listeInterventions.size();i++){
 					Intervention interventioni = listeInterventions.get(i);
 					tableauInterventions[i+1] = DAOIntervention.ligne(interventioni);
 				}
@@ -123,27 +129,27 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 				boutonValider.addActionListener(this);
 				center.add(boutonValider);
 
-				this.getContentPane().add(center,BorderLayout.CENTER);
-
-				JPanel south = new JPanel();
-				south.setPreferredSize(new Dimension(700,100));
-				south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-				boutonRetour.setPreferredSize(new Dimension(250,40));
-				boutonRetour.setMaximumSize(new Dimension(250,40));
-				boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
-				boutonRetour.setBackground(Color.YELLOW);
-				boutonRetour.addActionListener(this);
-				south.add(boutonRetour);
-				this.getContentPane().add(south,BorderLayout.SOUTH);
-
-				this.setVisible(true);
-				}
-			else{
-				MsgBox.affMsg("Il n'y a actuellement aucune intervention en cours à gérer.");
-				new MenuPrincipalTech(this.getTechnicien());
 			}
-		}catch(Exception e){
-			System.out.println(e.getMessage());
+			this.getContentPane().add(center,BorderLayout.CENTER);
+
+			JPanel south = new JPanel();
+			south.setPreferredSize(new Dimension(700,100));
+			south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			boutonRetour.setPreferredSize(new Dimension(250,40));
+			boutonRetour.setMaximumSize(new Dimension(250,40));
+			boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonRetour.setBackground(Color.YELLOW);
+			boutonRetour.addActionListener(this);
+			south.add(boutonRetour);
+			this.getContentPane().add(south,BorderLayout.SOUTH);
+
+			this.setVisible(true);
+		} catch(NullPointerException e){
+			MsgBox.affMsg("NullPointerException : "+e.getMessage());
+		} catch (SQLException e) {
+			MsgBox.affMsg("SQLException : "+e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg("ClassNotFoundException : "+e.getMessage());
 		}
 	}
 

@@ -54,7 +54,7 @@ public class DAODemandeIntervention {
 		return effectue;
 	}
 
-	
+
 	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException{
 		boolean effectue = false;
 		try{
@@ -82,7 +82,7 @@ public class DAODemandeIntervention {
 		}
 		return effectue;
 	}
-	
+
 
 	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException {
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
@@ -138,7 +138,12 @@ public class DAODemandeIntervention {
 				ddeIntervention.setDate(dateDemandeI);
 				ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
 				ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
-				ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
+				if(idIntervention!=null){
+					ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
+				}
+				else{
+					ddeIntervention.setIntervention(null);
+				}
 
 			}
 			else {

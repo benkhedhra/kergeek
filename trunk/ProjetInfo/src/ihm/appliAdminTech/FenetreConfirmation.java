@@ -231,7 +231,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
-			else if(fenetrePrec.getTitle().equals("Retirer un vélo défectueux d'une station")){
+			else if(fenetrePrec.getTitle().equals("Gérer les demandes d'intervention ou constater un vélo défectueux")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le vélo défectueux a bien été retiré de la station et affecté au garage. ");
@@ -244,6 +244,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
+			
 			else if(fenetrePrec.getTitle().equals("Remettre un vélo réparé en station")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
@@ -343,7 +344,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 			}
-			else if(fenetrePrecedente.getTitle().equals("Retirer un vélo défectueux d'une station")){
+			else if(fenetrePrecedente.getTitle().equals("Gérer les demandes d'intervention ou constater un vélo défectueux")){
 				if(arg0.getSource()==bouton1){
 					new FenetreRetirerVeloDefectueuxTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}

@@ -94,6 +94,7 @@ public class DAOTypeIntervention {
 
 
 
+	
 	public static Map<Integer,String> getAllTypesIntervention() throws SQLException, ClassNotFoundException{
 		Map<Integer,String> typesIntervention = new HashMap<Integer,String>();
 
@@ -120,5 +121,35 @@ public class DAOTypeIntervention {
 		}
 		return typesIntervention;
 	}
+	
+	/*public static List<TypeIntervention> getAllTypesIntervention() throws SQLException, ClassNotFoundException{
+
+		List<TypeIntervention> liste = new LinkedList<TypeIntervention>();
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+		ResultSet res = s.executeQuery("Select* from TypeIntervention");
+		try {
+			TypeIntervention typeIntervention = new TypeIntervention();
+			List<Integer> listeTypesInter = new ArrayList<Integer>();
+
+			while(res.next()) {
+				int idTypeIntervention = res.getInt("idTypeIntervention");
+				listeTypesInter.add(idTypeIntervention);
+			}
+			for (int idTdeI : listeTypesInter){
+				typeIntervention = getTypeInterventionById(idTdeI);
+				liste.add(typeIntervention);
+			}
+		}
+		catch(SQLException e1){
+			liste = null;
+			System.out.println(e1.getMessage());
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return liste;
+	}*/
 
 }
