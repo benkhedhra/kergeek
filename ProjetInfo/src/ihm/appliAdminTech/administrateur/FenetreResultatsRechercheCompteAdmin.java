@@ -68,7 +68,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Résultats de la recherche");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +88,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -104,6 +104,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
+			
 			System.out.println("Il y a "+listeComptes.size()+ " individu(s) trouvé(s)");
 			if(listeComptes.size()>0){
 				labelMsg.setText("Résultats de la recherche : "+listeComptes.size()+" individu(s) trouvé(s)");

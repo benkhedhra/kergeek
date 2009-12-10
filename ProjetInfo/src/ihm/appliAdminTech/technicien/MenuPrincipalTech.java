@@ -113,9 +113,10 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		boutonChangeMdp.setPreferredSize(new Dimension(150,30));
-		boutonChangeMdp.setMaximumSize(new Dimension(150,30));
+		boutonChangeMdp.setPreferredSize(new Dimension(250,30));
+		boutonChangeMdp.setMaximumSize(new Dimension(250,30));
 		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);
 		boutonChangeMdp.addActionListener(this);
 		south.add(boutonChangeMdp);

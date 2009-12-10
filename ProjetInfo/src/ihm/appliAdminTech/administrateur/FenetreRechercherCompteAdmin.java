@@ -104,7 +104,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Rechercher un compte");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +124,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -204,33 +204,33 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			centerWest.add(panel4);	
 
 			JPanel panel5 = new JPanel();
-			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			labelAdresseEMail.setPreferredSize(new Dimension(150,30));
 			labelAdresseEMail.setMaximumSize(new Dimension(150,30));
 			panel5.add(labelAdresseEMail);
-			centerWest.add(panel5);	
+			centerWest.add(panel5);
 
 			JPanel panel6 = new JPanel();
-			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
 			adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
 			panel6.add(adresseEMailARemplir);
-			centerWest.add(panel6);	
+			centerWest.add(panel6);
 
 			if(typeEntre==Compte.TYPE_UTILISATEUR){
 				JPanel panel7 = new JPanel();
-				panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 				labelNom.setPreferredSize(new Dimension(150,30));
 				labelNom.setMaximumSize(new Dimension(150,30));
 				panel7.add(labelNom);
-				centerWest.add(panel7);	
+				centerWest.add(panel7);
 
 				JPanel panel8 = new JPanel();
-				panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 				nomARemplir.setPreferredSize(new Dimension(200,30));
 				nomARemplir.setMaximumSize(new Dimension(200,30));
 				panel8.add(nomARemplir);
-				centerWest.add(panel8);			
+				centerWest.add(panel8);
 
 				JPanel panel9 = new JPanel();
 				panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	

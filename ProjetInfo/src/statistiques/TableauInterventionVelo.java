@@ -1,11 +1,9 @@
 package statistiques;
 
-import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;

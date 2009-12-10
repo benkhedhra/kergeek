@@ -102,6 +102,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 						int i=8;
 						while(chaineSelectionnee.charAt(i)!=' '){
 							idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
+							i++;
 						}
 						System.out.println("id de la demande entrée : "+idDemandeEntre);
 						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
@@ -146,12 +147,15 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 			try {
 				new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MsgBox.affMsg(e.getMessage());
+				new FenetreGererDemandesAssignationTech(this.getTechnicien());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				MsgBox.affMsg(e.getMessage());
+				new FenetreGererDemandesAssignationTech(this.getTechnicien());
+			} /*catch (NullPointerException e){
+				MsgBox.affMsg("NullPointerException : "+e.getMessage());
+				new FenetreGererDemandesAssignationTech(this.getTechnicien());
+			}*/
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

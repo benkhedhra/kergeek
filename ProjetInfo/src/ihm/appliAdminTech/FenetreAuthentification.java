@@ -35,7 +35,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// dÈfinition des polices
+	// definition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
@@ -143,11 +143,11 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	}
 
 	public int testerAuthent (String id,String motDePasse) throws SQLException, ClassNotFoundException{
-		//cette mÈthode rend -1 si la combinaison id/mdp est erronÈe, ou le type du compte si la combinaison est correcte
+		//cette methode rend -1 si la combinaison id/mdp est erronee, ou le type du compte si la combinaison est correcte
 		int resul=-1;
 		if(DAOCompte.estDansLaBdd(id)){
 			Compte compte = DAOCompte.getCompteById(id);
-			if(motDePasse.equals(compte.getMotDePasse())){
+			if(motDePasse.equals(compte.getMotDePasse()) && compte.isActif()){
 				resul=compte.getType();
 			}
 		}
@@ -162,11 +162,11 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		try {
 			Compte c = DAOCompte.getCompteById(id);
-			System.out.println("id renseignÈ = "+id + "\nmot de passe renseignÈ = "+mdp);
+			System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
 			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
 			int resultatAuthent = testerAuthent(id,mdp);
 
-			//si aucune exception levÈe et si l'utilisateur existe bien dans la base, on ferme la fenetre
+			//si aucune exception levee et si l'utilisateur existe bien dans la base, on ferme la fenetre
 			//d'authentification et on ouvre la fenetre de l'utilisateur
 
 			if (resultatAuthent==Compte.TYPE_ADMINISTRATEUR){
@@ -186,12 +186,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		}
 		catch (NullPointerException e3){
-			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur rÈseau et rÈessayer ultÈrieurement. Merci</center></html>");
+			MsgBox.affMsg("<html> <center>Le systeme rencontre actuellement un probleme technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur rÈseau et rÈessayer ulterieurement. Merci</center></html>");
 			new FenetreAuthentificationUtil(true);
 		}
-	}
-
-	public static void main (String [] args){
-		new FenetreAuthentification(false);
 	}
 }

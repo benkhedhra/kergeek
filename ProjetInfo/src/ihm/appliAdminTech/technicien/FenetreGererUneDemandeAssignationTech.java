@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -34,15 +35,14 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Demande d'assignation à traiter");
 	private JLabel labelStation = new JLabel("Station concernée");
-	private JLabel labelStationDemande;
+	private JLabel labelStationDemande = new JLabel("");
 	private JLabel labelNbVelosSouhaite = new JLabel("Nombre de vélos souhaité");
-	private JLabel labelNbVelosSouhaiteDemande;
+	private JLabel labelNbVelosSouhaiteDemande = new JLabel("");
 	private JLabel labelNbVelosActuel = new JLabel("Nombre de vélos actuel");
-	private JLabel labelNbVelosActuelDemande;
-	private JLabel labelTypeDeplacement = new JLabel("Station concernée");
-	private JLabel labelTypeDeplacementDemande;
-	private JLabel labelNbVelosADeplacer = new JLabel("Station concernée");
-	private JLabel labelNbVelosADeplacerDemande;
+	private JLabel labelNbVelosActuelDemande = new JLabel("");
+	private JLabel labelOperation = new JLabel("Opération à effectuer");
+	private JLabel labelOperationDemande = new JLabel("");
+
 	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette demande d'assignation");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -71,7 +71,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer une demande d'assignation");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +91,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelTech.setPreferredSize(new Dimension(300,30));
+		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -110,99 +110,95 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
-		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerWest.setLayout(new GridLayout(5,2));
-
+		JPanel centerCenter = new JPanel();
+		centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelStation.setPreferredSize(new Dimension(150,30));
-		labelStation.setMaximumSize(new Dimension(150,30));
+		labelStation.setPreferredSize(new Dimension(250,30));
+		labelStation.setMaximumSize(new Dimension(250,30));
 		panel1.add(labelStation);
-		centerWest.add(panel1);
+		centerCenter.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		System.out.println(DAODemandeAssignation.ligne(d));
+		System.out.println(d.getLieu().getAdresse());
 		labelStationDemande.setText(d.getLieu().getAdresse());
-		labelStationDemande.setPreferredSize(new Dimension(150,30));
-		labelStationDemande.setMaximumSize(new Dimension(150,30));
+		labelStationDemande.setPreferredSize(new Dimension(250,30));
+		labelStationDemande.setMaximumSize(new Dimension(250,30));
 		panel2.add(labelStationDemande);
-		centerWest.add(panel2);	
+		centerCenter.add(panel2);	
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNbVelosSouhaite.setPreferredSize(new Dimension(150,30));
-		labelNbVelosSouhaite.setMaximumSize(new Dimension(150,30));
+		labelNbVelosSouhaite.setPreferredSize(new Dimension(250,30));
+		labelNbVelosSouhaite.setMaximumSize(new Dimension(250,30));
 		panel3.add(labelNbVelosSouhaite);
-		centerWest.add(panel3);	
+		centerCenter.add(panel3);	
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		labelNbVelosSouhaiteDemande.setText(""+d.getNombreVelosVoulusDansLieu());
-		labelNbVelosSouhaiteDemande.setPreferredSize(new Dimension(150,30));
-		labelNbVelosSouhaiteDemande.setMaximumSize(new Dimension(150,30));
+		labelNbVelosSouhaiteDemande.setPreferredSize(new Dimension(250,30));
+		labelNbVelosSouhaiteDemande.setMaximumSize(new Dimension(250,30));
 		panel4.add(labelNbVelosSouhaiteDemande);
-		centerWest.add(panel4);	
+		centerCenter.add(panel4);	
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNbVelosActuel.setPreferredSize(new Dimension(150,30));
-		labelNbVelosActuel.setMaximumSize(new Dimension(150,30));
+		labelNbVelosActuel.setPreferredSize(new Dimension(250,30));
+		labelNbVelosActuel.setMaximumSize(new Dimension(250,30));
 		panel5.add(labelNbVelosActuel);
-		centerWest.add(panel5);
+		centerCenter.add(panel5);
 
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		List<Velo> velos = DAOVelo.getVelosByLieu(d.getLieu());
 		labelNbVelosActuelDemande.setText(""+velos.size());
-		labelNbVelosActuelDemande.setPreferredSize(new Dimension(150,30));
-		labelNbVelosActuelDemande.setMaximumSize(new Dimension(150,30));
+		labelNbVelosActuelDemande.setPreferredSize(new Dimension(250,30));
+		labelNbVelosActuelDemande.setMaximumSize(new Dimension(250,30));
 		panel6.add(labelNbVelosActuelDemande);
-		centerWest.add(panel6);			
+		centerCenter.add(panel6);			
 
 		JPanel panel7 = new JPanel();
 		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelTypeDeplacement.setPreferredSize(new Dimension(150,30));
-		labelTypeDeplacement.setMaximumSize(new Dimension(150,30));
-		panel7.add(labelTypeDeplacement);
-		centerWest.add(panel7);
-
+		labelOperation.setPreferredSize(new Dimension(250,30));
+		labelOperation.setMaximumSize(new Dimension(250,30));
+		labelOperation.setForeground(Color.RED);
+		panel7.add(labelOperation);
+		centerCenter.add(panel7);
+		
 		JPanel panel8 = new JPanel();
 		panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelTypeDeplacementDemande.setText(""+velos.size());
-		labelTypeDeplacementDemande.setPreferredSize(new Dimension(150,30));
-		labelTypeDeplacementDemande.setMaximumSize(new Dimension(150,30));
-		panel8.add(labelTypeDeplacementDemande);
-		centerWest.add(panel8);
-
+		String operation="";
+		int diff = velos.size()-d.getNombreVelosVoulusDansLieu();
+		if(diff<0){
+			operation=operation+"ajout";
+		}
+		else if (diff>0){
+			operation=operation+"retrait";
+		}
+		operation=operation+" de "+Math.abs(diff)+" vélos";
+		labelOperationDemande.setText(operation);
+		labelOperationDemande.setPreferredSize(new Dimension(250,30));
+		labelOperationDemande.setMaximumSize(new Dimension(250,30));
+		labelOperationDemande.setForeground(Color.RED);
+		panel8.add(labelOperationDemande);
+		centerCenter.add(panel8);
+		
 		JPanel panel9 = new JPanel();
-		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNbVelosADeplacer.setPreferredSize(new Dimension(150,30));
-		labelNbVelosADeplacer.setMaximumSize(new Dimension(150,30));
-		panel9.add(labelNbVelosADeplacer);
-		centerWest.add(panel9);
-
-		JPanel panel10 = new JPanel();
-		panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelNbVelosADeplacerDemande.setPreferredSize(new Dimension(150,30));
-		labelNbVelosADeplacerDemande.setMaximumSize(new Dimension(150,30));
-		panel10.add(labelNbVelosADeplacerDemande);
-		centerWest.add(panel10);	
-
-		center.add(centerWest,BorderLayout.WEST);
-
-		JPanel centerEast = new JPanel();
-		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,350));
-		boutonPrendreEnCharge.setPreferredSize(new Dimension(150,40));
-		boutonPrendreEnCharge.setMaximumSize(new Dimension(150,40));
+		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
+		boutonPrendreEnCharge.setMaximumSize(new Dimension(350,40));
 		boutonPrendreEnCharge.setBackground(Color.CYAN);
 		boutonPrendreEnCharge.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonPrendreEnCharge.addActionListener(this);
-		centerEast.add(boutonPrendreEnCharge);
-		center.add(centerEast,BorderLayout.EAST);
-
+		panel9.add(boutonPrendreEnCharge);
+		centerCenter.add(panel9);
+		
+		center.add(centerCenter,BorderLayout.CENTER);
+		
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();

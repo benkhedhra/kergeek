@@ -62,7 +62,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Prendre en charge une assignation");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
+		this.setPreferredSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +82,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelTech.setPreferredSize(new Dimension(300,30));
+		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
@@ -101,53 +101,77 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		int nbVelosADeplacer;
 
 		try {
-			nbVelosADeplacer = Math.abs(demande.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demande.getLieu()).size());
+			int diff=DAOVelo.getVelosByLieu(demande.getLieu()).size()-demande.getNombreVelosVoulusDansLieu();
+			/* si diff<0 cela signifie qu'il faut ajouter des vélos depuis le garage vers la station
+			 * si diff>0 c'est qu'il faudra en retirer de la station pour les mettre au garage
+			 */
+
+			nbVelosADeplacer = Math.abs(diff);
 
 			labelMsg.setPreferredSize(new Dimension(600,50));
 			labelMsg.setMaximumSize(new Dimension(600,50));
 			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 
+			//a priori ne sert pas
 			if(nbVelosADeplacer==0){
 				labelMsg.setText("Il n'y a aucun vélo à déplacer. Le nombre de vélos dans la station est le nombre voulu. ");
 				centerNorth.add(labelMsg);
 				center.add(centerNorth,BorderLayout.NORTH);
 			}
 			else{
-				labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
-				centerNorth.add(labelMsg);
-				center.add(centerNorth,BorderLayout.NORTH);
-
-				JPanel centerWest = new JPanel();
-				centerWest.setPreferredSize(new Dimension(550,350));
-				centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-
-				centerWest.setLayout(new GridLayout(nbVelosADeplacer,2));
+				JPanel centerCenter = new JPanel();
+				centerCenter.setPreferredSize(new Dimension(550,350));
+				centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 				labelVelo.setPreferredSize(new Dimension(200,30));
 				veloARemplir.setPreferredSize(new Dimension(300,30));
 
-				JPanel panel1 = new JPanel();
-				panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-				JPanel panel2 = new JPanel();
-				panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				if(diff<0){
+					labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
 
-				for (int i =0;i<nbVelosADeplacer;i++){
-					labelVelo.setText("Vélo "+(i+1));
-					panel1.add(labelVelo);
-					centerWest.add(panel1);
-					panel2.add(veloARemplir);
-					centerWest.add(panel2);
+					for (int i =0;i<nbVelosADeplacer;i++){
+						JPanel panel1 = new JPanel();
+						panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						panel1.setPreferredSize(new Dimension(250,30));
+						labelVelo.setText("Vélo "+(i+1));
+						panel1.add(labelVelo);
+						centerCenter.add(panel1);
+
+						JPanel panel2 = new JPanel();
+						panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						panel2.setPreferredSize(new Dimension(250,30));
+						panel2.add(veloARemplir);
+						centerCenter.add(panel2);
+					}
 				}
-				center.add(centerWest,BorderLayout.WEST);
-				
-				JPanel centerSouth = new JPanel();
-				centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				else{
+					labelMsg.setText("Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage");
+
+					for (int i =0;i<nbVelosADeplacer;i++){
+						JPanel panel1 = new JPanel();
+						panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						panel1.setPreferredSize(new Dimension(250,30));
+						labelVelo.setText("Vélo "+(i+1));
+						panel1.add(labelVelo);
+						centerCenter.add(panel1);
+
+						JPanel panel2 = new JPanel();
+						panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						panel2.setPreferredSize(new Dimension(250,30));
+						panel2.add(veloARemplir);
+						centerCenter.add(panel2);
+					}
+				}
+				centerNorth.add(labelMsg);
+				center.add(centerNorth,BorderLayout.NORTH);
+				center.add(centerCenter,BorderLayout.CENTER);
+
 				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 				boutonValider.setBackground(Color.CYAN);
 				boutonValider.addActionListener(this);
-				centerSouth.add(boutonValider);
-				center.add(centerSouth, BorderLayout.SOUTH);
-				
+				centerCenter.add(boutonValider);
+
+				center.add(centerCenter, BorderLayout.CENTER);
 			}
 
 		} catch (SQLException e) {
