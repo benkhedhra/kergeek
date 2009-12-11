@@ -138,7 +138,7 @@ public class DAOIntervention {
 	}
 
 
-	public List<Intervention> getInterventionsByVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static List<Intervention> getInterventionsByVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Intervention> liste = new ArrayList<Intervention>();
 
 		ConnexionOracleViaJdbc.ouvrir();
