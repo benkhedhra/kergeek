@@ -106,18 +106,17 @@ public class CreationTables {
 					"CONSTRAINT pk_DemandeAssignation  PRIMARY KEY(idDemandeA),"+
 			"CONSTRAINT fk_DemandeAssignation_Lieu FOREIGN KEY(idLieu) REFERENCES Lieu)");
 
-
 			s.executeUpdate (
 			"CREATE SEQUENCE seqEmprunt INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE Emprunt (idEmprunt char(4)," +
 					"dateEmprunt date NOT NULL, " +
-					"dateRetour date, "+
+					"dateRetour date, " +
 					"idLieuEmprunt varchar2(4) NOT NULL," +
-					"idLieuRetour varchar2(4),"+
-					"idCompte char(4),"+
-					"idVelo varchar2(4),"+
-					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt),"+
+					"idLieuRetour varchar2(4)," +
+					"idCompte char(4)," +
+					"idVelo varchar2(4)," +
+					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt)," +
 					"CONSTRAINT fk_Emprunt_Compte FOREIGN KEY(idCompte) REFERENCES Compte," +
 					"CONSTRAINT fk_Emprunt_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
 					"CONSTRAINT fk_Emprunt_LieuEmprunt FOREIGN KEY(idLieuEmprunt) REFERENCES Lieu (idLieu)," + 
@@ -146,7 +145,7 @@ public class CreationTables {
 
 
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0',"+ "'2')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1'," + "'5')");
@@ -323,7 +322,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 12:46','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 12:54','DD-MM-YYYY HH24:MI'), '1','2','u9','2')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 14:30','DD-MM-YYYY HH24:MI')," +
-			"'', '4','','u3','12')");
+			"'', '4','','u3','11')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 18:05','DD-MM-YYYY HH24:MI')," +
 			"'', '2','','u4','13')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 18:12','DD-MM-YYYY HH24:MI')," +

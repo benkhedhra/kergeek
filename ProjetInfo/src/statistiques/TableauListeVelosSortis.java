@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -42,13 +41,13 @@ public class TableauListeVelosSortis extends JPanel {
 			// déclaration d'un calendrier
 			GregorianCalendar gCal = new GregorianCalendar();
 			// initialise le calendrier à la date courante;
-			System.out.println(liste.get(k));
+			System.out.println("Vélo " + liste.get(k).getId());
 			gCal.setTime(liste.get(k).getEmpruntEnCours().getDateEmprunt());
 			
 			donnees[k][0] = liste.get(k).getId();
 			donnees[k][1] = liste.get(k).getEmpruntEnCours().getLieuEmprunt().getAdresse();
-			donnees[k][2] = gCal.DATE;
-			donnees[k][3] = gCal.HOUR_OF_DAY;
+			donnees[k][2] = gCal.DATE + "/" + gCal.MONTH + "/" + gCal.YEAR;
+			donnees[k][3] = gCal.HOUR_OF_DAY + " h "+gCal.MINUTE + " min";
 		}
 		final MonJTable table = new MonJTable(donnees, columnNames);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 100));
