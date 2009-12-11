@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +23,7 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.DemandeAssignation;
+import metier.Lieu;
 import metier.Station;
 
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
@@ -160,12 +163,23 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try{
-				int nbVelos = 0;
-				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
-				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-				System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
-				DemandeAssignation d = new DemandeAssignation(nbVelos,stationConcernee);
-				DAODemandeAssignation.createDemandeAssignation(d);
+				List<DemandeAssignation> listeDemandes = DAODemandeAssignation.getDemandesAssignationEnAttente();
+				List<Lieu> listeStations = new ArrayList<Lieu>();
+				for(int i=0;i<listeDemandes.size();i++){
+					listeStations.add(listeDemandes.get(i).getLieu());
+				}
+				if(listeStations.contains(stationConcernee)){
+					MsgBox.affMsg("Une demande d'assignation a déjà été effectuée pour cette station. ");
+					//TODO new Fenetre etc ... 
+				}
+				else{
+					int nbVelos = 0;
+					nbVelos = Integer.parseInt(nbVelosARemplir.getText());
+					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+					System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
+					DemandeAssignation d = new DemandeAssignation(nbVelos,stationConcernee);
+					DAODemandeAssignation.createDemandeAssignation(d);
+				}
 			}catch(Exception e){
 				MsgBox.affMsg("Champ entré incorret");
 			}

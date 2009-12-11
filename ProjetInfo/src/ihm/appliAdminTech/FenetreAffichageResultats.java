@@ -11,6 +11,7 @@ import ihm.appliAdminTech.administrateur.FenetreInfoCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
+import ihm.appliAdminTech.administrateur.MenuVoirEtatAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -29,13 +30,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Compte;
-import metier.Station;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
 import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
+import statistiques.TableauListeVelosSortis;
 import exceptionsIhm.ChampIncorrectException;
 import exceptionsTechniques.ConnexionFermeeException;
 
@@ -149,12 +150,22 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
 			FenetreHistoriqueVeloAdmin f = (FenetreHistoriqueVeloAdmin) fenetrePrec;
 			JLabel labelMsg = new JLabel ("Historique du vélo "+f.getVeloEntre().getId());
+			labelMsg.setPreferredSize(new Dimension(600,100));
 			center.add(labelMsg);
 			TableauInterventionVelo tableau = new TableauInterventionVelo(f.getVeloEntre().getId());
 			center.add(tableau);
 			bouton1.setText("Afficher historique d'un autre vélo");
 			bouton1.addActionListener(this);
 			south.add(bouton1);			
+		}
+		
+		else if(fenetrePrec.getTitle().equals("Menu demander statistiques de l'administrateur")){
+			MenuVoirEtatAdmin m = (MenuVoirEtatAdmin) fenetrePrec;
+			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
+			labelMsg.setPreferredSize(new Dimension(600,100));
+			center.add(labelMsg);
+			TableauListeVelosSortis tableau = new TableauListeVelosSortis();
+			center.add(tableau);
 		}
 
 		else if((fenetrePrec.getTitle().equals("Voir l'état d'une station")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){

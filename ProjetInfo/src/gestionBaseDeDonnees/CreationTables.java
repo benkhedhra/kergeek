@@ -145,7 +145,7 @@ public class CreationTables {
 
 
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
-			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'2')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1'," + "'5')");
