@@ -6,6 +6,7 @@ import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.FenetreEnvoyerDemandeAssignationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
+import ihm.appliAdminTech.administrateur.FenetreHistoriqueVeloAdmin;
 import ihm.appliAdminTech.administrateur.FenetreInfoCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
@@ -34,6 +35,7 @@ import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
 import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
+import statistiques.TableauInterventionVelo;
 import exceptionsIhm.ChampIncorrectException;
 import exceptionsTechniques.ConnexionFermeeException;
 
@@ -145,8 +147,14 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 
 
 		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
-			JLabel labelMsg = new JLabel ("Ici on affichera l'historique du vélo sous forme de tableau");
+			FenetreHistoriqueVeloAdmin f = (FenetreHistoriqueVeloAdmin) fenetrePrec;
+			JLabel labelMsg = new JLabel ("Historique du vélo "+f.getVeloEntre().getId());
 			center.add(labelMsg);
+			TableauInterventionVelo tableau = new TableauInterventionVelo(f.getVeloEntre().getId());
+			center.add(tableau);
+			bouton1.setText("Afficher historique d'un autre vélo");
+			bouton1.addActionListener(this);
+			south.add(bouton1);			
 		}
 
 		else if((fenetrePrec.getTitle().equals("Voir l'état d'une station")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
@@ -245,6 +253,9 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 				}
 				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
 					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+				}
+				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
+					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
 				}
 			}
 			else if(arg0.getSource()==bouton2){

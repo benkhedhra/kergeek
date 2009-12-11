@@ -332,7 +332,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
 					}
 				}
-				if (compte.getType()==Compte.TYPE_ADMINISTRATEUR){
+				else if (compte.getType()==Compte.TYPE_ADMINISTRATEUR){
 					boolean champsOk = UtilitaireIhm.verifieChampsCreationAdmin(Compte.TYPE_ADMINISTRATEUR, adresseEMailCompte.getText());
 					if(champsOk){
 						compte.setAdresseEmail(adresseEMailCompte.getText());
@@ -347,8 +347,8 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
 					}
 				}
-				if (compte.getType()==Compte.TYPE_TECHNICIEN){
-					boolean champsOk = UtilitaireIhm.verifieChampsCreationAdmin(Compte.TYPE_TECHNICIEN, adresseEMailCompte.getText());
+				else if (compte.getType()==Compte.TYPE_TECHNICIEN){
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationTech(Compte.TYPE_TECHNICIEN, adresseEMailCompte.getText());
 					if(champsOk){
 						compte.setAdresseEmail(adresseEMailCompte.getText());
 						DAOCompte.updateCompte(compte);

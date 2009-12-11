@@ -81,7 +81,6 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
-
 		// on définit un BorderLayout
 		this.getContentPane().setLayout(new BorderLayout());
 
