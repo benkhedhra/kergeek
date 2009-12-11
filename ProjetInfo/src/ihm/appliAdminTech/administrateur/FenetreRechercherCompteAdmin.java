@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -15,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import exceptionsTechniques.ConnexionFermeeException;
 
 import metier.Administrateur;
 import metier.Compte;
@@ -327,7 +331,13 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			if(!nomARemplir.getText().equals("")){this.setNomEntre(nomARemplir.getText());}
 			if(!prenomARemplir.getText().equals("")){this.setPrenomEntre(prenomARemplir.getText());}
 			if(!adresseEMailARemplir.getText().equals("")){this.setAdresseEMailEntree(adresseEMailARemplir.getText());}
-			new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
+			try {
+				new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
+			} 
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

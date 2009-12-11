@@ -1,7 +1,9 @@
 package ihm.appliAdminTech.administrateur;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOCompte;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -99,15 +101,27 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 			compte.setActif(false);
 			try {
 				DAOCompte.updateCompte(compte);
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
+			} 
+			catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 		}
 		else if (arg0.getSource()==boutonNon){
-			new FenetreModifCompteAdmin(compte,administrateur);
+			try {
+				new FenetreModifCompteAdmin(compte,administrateur);
+			} 
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 	}
 }

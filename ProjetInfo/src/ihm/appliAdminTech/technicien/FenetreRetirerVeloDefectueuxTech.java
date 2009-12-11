@@ -1,9 +1,11 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -60,7 +62,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		this.demandeEntree = demandeEntree;
 	}
 
-	public FenetreRetirerVeloDefectueuxTech (Technicien t){
+	public FenetreRetirerVeloDefectueuxTech (Technicien t) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour retirer un vélo défectueux d'une station");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
@@ -138,6 +140,10 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
+					}
+					catch (ConnexionFermeeException e){
+						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+						new FenetreAuthentification(false);
 					}
 				}
 			});
@@ -234,6 +240,10 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
 		else if (arg0.getSource()==boutonRetour){

@@ -1,5 +1,6 @@
 package test.testDAO;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 
@@ -16,7 +17,7 @@ public class TestDAOVelo extends TestCase {
 	
 
 	@Test
-	public void testCreateVelo() throws SQLException, ClassNotFoundException{
+	public void testCreateVelo() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Lieu l = DAOLieu.getLieuById("1");
 		Velo v = new Velo(l, true);
 		
@@ -25,7 +26,7 @@ public class TestDAOVelo extends TestCase {
 	}
 	
 	@Test
-	public void testUpdateVelo() throws SQLException, ClassNotFoundException{
+	public void testUpdateVelo() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo v = DAOVelo.getVeloById("1");
 		
 		Boolean b =DAOVelo.updateVelo(v);
@@ -33,7 +34,7 @@ public class TestDAOVelo extends TestCase {
 	}
 	/*
 	@Test
-	public void testDeleteVelo() throws SQLException, ClassNotFoundException{
+	public void testDeleteVelo() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Lieu l = DAOLieu.getLieuById("1");
 		Velo v = new Velo(l,false);
 		l.ajouterVelo(v);
@@ -43,7 +44,7 @@ public class TestDAOVelo extends TestCase {
 	}*/
 	
 	@Test
-	public void testGetVeloById() throws SQLException, ClassNotFoundException{
+	public void testGetVeloById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo v = DAOVelo.getVeloById("1");
 		Lieu l = DAOLieu.getLieuById("1");
 		assertEquals(l.getAdresse(), v.getLieu().getAdresse());
@@ -51,7 +52,7 @@ public class TestDAOVelo extends TestCase {
 	}
 	
 	@Test
-	public void testGetVeloByLieu() throws SQLException, ClassNotFoundException{
+	public void testGetVeloByLieu() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Lieu l = DAOLieu.getLieuById("2");
 		List<Velo> liste = DAOVelo.getVelosByLieu(l);
 		

@@ -1,10 +1,12 @@
 package ihm.appliAdminTech.administrateur;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -62,7 +64,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.stat = stat;
 	}
 
-	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,boolean stat){
+	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,boolean stat) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir les résultats d'une recherche");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
@@ -141,10 +143,16 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 							String idCompteEntre = chaineSelectionnee.substring(0,k+1);
 							compteEntre = DAOCompte.getCompteById(idCompteEntre);
 							System.out.println("idCompteEntre = "+idCompteEntre + " - "+compteEntre.isActif());
-						} catch (SQLException e) {
+						} 
+						catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
-						} catch (ClassNotFoundException e) {
+						} 
+						catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
+						}
+						catch (ConnexionFermeeException e){
+							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+							new FenetreAuthentification(false);
 						}
 					}
 				});
@@ -195,7 +203,12 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
-			new FenetreInfoCompteAdmin(this.getAdministrateur(),compteEntre,stat);
+			try {
+				new FenetreInfoCompteAdmin(this.getAdministrateur(),compteEntre,stat);
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 		else if (arg0.getSource()==boutonNouvelleRecherche){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),stat);

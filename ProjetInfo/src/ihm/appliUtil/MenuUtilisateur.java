@@ -1,5 +1,7 @@
 package ihm.appliUtil;
 
+import ihm.MsgBox;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import exceptionsTechniques.ConnexionFermeeException;
 
 import metier.Utilisateur;
 
@@ -102,8 +106,15 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 			f.setVisible(true);
 		}
 		else if (empruntEnCours){
-			FenetreRendreVelo f = new FenetreRendreVelo(this.getUtilisateur());
-			f.setVisible(true);
+			FenetreRendreVelo f;
+			try {
+				f = new FenetreRendreVelo(this.getUtilisateur());
+				f.setVisible(true);
+			} catch (ConnexionFermeeException e3){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentificationUtil(false);
+			}
+			
 		}
 
 	}

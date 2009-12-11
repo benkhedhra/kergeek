@@ -1,11 +1,13 @@
 package ihm.appliAdminTech.administrateur;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -75,7 +77,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.compte = compte;
 	}
 
-	public FenetreModifCompteAdmin(Compte c,Administrateur a){
+	public FenetreModifCompteAdmin(Compte c,Administrateur a) throws ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour modifier des informations sur un compte");
 		this.setContentPane(new PanneauAdmin());
@@ -360,10 +362,16 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
 					}
 				}
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
+			} 
+			catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
 		else if(arg0.getSource()==boutonResilier){

@@ -7,6 +7,7 @@ import metier.Intervention;
 import metier.UtilitaireDate;
 import metier.Velo;
 import exceptionsMetier.PasDeDateRetourException;
+import exceptionsTechniques.ConnexionFermeeException;
 
 public class MainConnexionBdd {
 
@@ -15,8 +16,9 @@ public class MainConnexionBdd {
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 
 	 * @throws PasDeDateRetourException 
+	 * @throws ConnexionFermeeException 
 	 */
-	public static void main(String[] args) throws SQLException, ClassNotFoundException, PasDeDateRetourException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException, PasDeDateRetourException, ConnexionFermeeException {
 		// TODO Auto-generated method stub
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());

@@ -1,5 +1,6 @@
 package statistiques;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
@@ -34,7 +35,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 	private JFreeChart chart;
 
-	public DiagrammeTxOccupationStation(Station station) {
+	public DiagrammeTxOccupationStation(Station station) throws ConnexionFermeeException {
 
 		super("");
 		chart = createChart(station);
@@ -48,7 +49,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		return this.chart.createBufferedImage(300, 300);
 	}
 
-	JFreeChart createChart(Station station) {
+	JFreeChart createChart(Station station) throws ConnexionFermeeException {
 
 		// create subplot
 		final XYSeriesCollection data1 = createDataset(station);
@@ -76,7 +77,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	}
 
 
-	private XYSeriesCollection createDataset(Station station) {
+	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException {
 
 
 		
@@ -131,7 +132,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws SQLException, ClassNotFoundException {
+	public static void main(final String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation((Station)DAOLieu.getLieuById("2"));
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

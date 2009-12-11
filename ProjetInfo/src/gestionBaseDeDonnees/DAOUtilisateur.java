@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.ResultSet;
@@ -16,14 +17,14 @@ import metier.Utilisateur;
 public class DAOUtilisateur {
 
 
-	public static boolean createUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException {
+	public static boolean createUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		DAOCompte.createCompte(utilisateur.getCompte());
 		effectue = updateUtilisateur(utilisateur);
 		return effectue;
 	}
 
-	public static boolean updateUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException {
+	public static boolean updateUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -45,8 +46,11 @@ public class DAOUtilisateur {
 			effectue = true;
 
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
@@ -57,14 +61,13 @@ public class DAOUtilisateur {
 
 
 
-	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException {
+	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Utilisateur u = new Utilisateur(new Compte());
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
+		try{
 		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
-		try {
 			if (res.next()) {
 
 				u.setNom(res.getString("nom"));
@@ -85,6 +88,9 @@ public class DAOUtilisateur {
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
 		}
+		catch(NullPointerException e3){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -93,7 +99,7 @@ public class DAOUtilisateur {
 
 
 
-	public static Utilisateur getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
+	public static Utilisateur getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		String idCompte = DAOCompte.getCompteByAdresseEmail(email).getId();
 		Utilisateur u = getUtilisateurById(idCompte);
 		return u;
@@ -101,15 +107,15 @@ public class DAOUtilisateur {
 
 
 
-	public static List<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException {
+	public static List<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
 		List<String> listeIdCompte = new ArrayList<String>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select idCompte from Compte Where nom ='" + nom +"'");
+		
 		try {
+		ResultSet res = s.executeQuery("Select idCompte from Compte Where nom ='" + nom +"'");
 			while (res.next()) {
 				listeIdCompte.add(res.getString("idCompte"));
 			}
@@ -126,6 +132,9 @@ public class DAOUtilisateur {
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
 		}
+		catch(NullPointerException e3){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -133,15 +142,15 @@ public class DAOUtilisateur {
 	}
 
 
-	public static List<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException {
+	public static List<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
 		List<String> listeIdCompte = new ArrayList<String>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select idCompte from Compte Where prenom ='" + prenom +"'");
 		try {
+		ResultSet res = s.executeQuery("Select idCompte from Compte Where prenom ='" + prenom +"'");
+		
 			while (res.next()) {
 				listeIdCompte.add(res.getString("idCompte"));
 			}
@@ -158,13 +167,16 @@ public class DAOUtilisateur {
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
 		}
+		catch(NullPointerException e3){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return listeUtils;
 	}
-	
-	public static java.sql.Date getDerniereDateRetour(Utilisateur u) throws ClassNotFoundException, SQLException{
+
+	public static java.sql.Date getDerniereDateRetour(Utilisateur u) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		java.sql.Date dateDernierRetour = null;
 
 		try {
@@ -181,13 +193,16 @@ public class DAOUtilisateur {
 
 
 		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return dateDernierRetour;
 	}
-	
+
 }

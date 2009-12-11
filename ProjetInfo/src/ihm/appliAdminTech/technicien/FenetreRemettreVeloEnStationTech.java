@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
@@ -54,7 +55,7 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 		this.technicien = technicien;
 	}
 
-	public FenetreRemettreVeloEnStationTech(Technicien t) {
+	public FenetreRemettreVeloEnStationTech(Technicien t) throws ConnexionFermeeException {
 
 		System.out.println("Fenêtre pour remettre un vélo réparé en station");
 		this.setContentPane(new PanneauTech());
@@ -143,6 +144,10 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
 					}
+					catch (ConnexionFermeeException e){
+						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+						new FenetreAuthentification(false);
+					}
 					labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
 					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
@@ -211,6 +216,10 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+		}
+		catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}
 }

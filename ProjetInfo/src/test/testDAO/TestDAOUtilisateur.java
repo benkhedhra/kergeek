@@ -1,5 +1,6 @@
 package test.testDAO;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOUtilisateur;
 
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import org.junit.Test;
 public class TestDAOUtilisateur extends TestCase {
 	
 	@Test
-	public void testcreateUtilisateur() throws SQLException, ClassNotFoundException{
+	public void testcreateUtilisateur() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail1");
 		Utilisateur u1 = new Utilisateur(c,"john", "michel", "3 rue jaune");
 		Boolean b = DAOUtilisateur.createUtilisateur(u1);
@@ -22,7 +23,7 @@ public class TestDAOUtilisateur extends TestCase {
 	}
 	
 	@Test
-	public void testUpdateUtilisateur() throws SQLException, ClassNotFoundException{
+	public void testUpdateUtilisateur() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u1 = DAOUtilisateur.getUtilisateurById("u1");
 		u1.setNom("thierry");
 		u1.setPrenom("henry");
@@ -41,7 +42,7 @@ public class TestDAOUtilisateur extends TestCase {
 	}
 	
 	@Test
-	public void testGetUtilisateurById() throws SQLException, ClassNotFoundException{
+	public void testGetUtilisateurById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Compte c = new Compte(Compte.TYPE_UTILISATEUR, "e-mail3");
 		Utilisateur u1 = new Utilisateur(c,"john", "michel", "3 rue jaune");
 		DAOUtilisateur.createUtilisateur(u1);
@@ -50,19 +51,19 @@ public class TestDAOUtilisateur extends TestCase {
 	}
 
 	@Test
-	public void testGetUtilisateurByAdresseEmail() throws SQLException, ClassNotFoundException{
+	public void testGetUtilisateurByAdresseEmail() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
 		assertEquals("Mathieu", u.getPrenom());
 	}
 	
 	@Test
-	public void testGetUtilisateurByNom() throws SQLException, ClassNotFoundException{
+	public void testGetUtilisateurByNom() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Utilisateur> l =  DAOUtilisateur.getUtilisateurByNom("Chedid");
 		assertEquals("mathieuchedid@gmail.com", l.get(0).getCompte().getAdresseEmail());
 	}
 	
 	@Test
-	public void testGetUtilisateurByPrenom() throws SQLException, ClassNotFoundException{
+	public void testGetUtilisateurByPrenom() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Utilisateur> l =  DAOUtilisateur.getUtilisateurByPrenom("Mathieu");
 		assertEquals("mathieuchedid@gmail.com", l.get(0).getCompte().getAdresseEmail());
 	}

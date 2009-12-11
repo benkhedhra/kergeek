@@ -1,6 +1,7 @@
 package statistiques;
 
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOVelo;
 
@@ -20,7 +21,7 @@ import java.sql.SQLException;
 public class TableauListeVelosSortis extends JPanel {
     	    private boolean DEBUG = false;
 
-    	    public TableauListeVelosSortis() throws SQLException, ClassNotFoundException {
+    	    public TableauListeVelosSortis() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
     	            super(new GridLayout(1,0));
 
     	        String[] columnNames = {"Identifiant du vélo",
@@ -75,8 +76,9 @@ public class TableauListeVelosSortis extends JPanel {
     	     * event-dispatching thread.
     	     * @throws ClassNotFoundException 
     	     * @throws SQLException 
+    	     * @throws ConnexionFermeeException 
     	     */
-    	    private static void createAndShowGUI() throws SQLException, ClassNotFoundException {
+    	    private static void createAndShowGUI() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
     	        //Create and set up the window.
     	        JFrame frame = new JFrame("Liste des vélos sortis");
     	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,6 +104,9 @@ public class TableauListeVelosSortis extends JPanel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ConnexionFermeeException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}

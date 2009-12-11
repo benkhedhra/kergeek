@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
@@ -102,11 +103,11 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	}
 
-	public Utilisateur getUtilisateur() throws SQLException, ClassNotFoundException {
+	public Utilisateur getUtilisateur() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return gestionBaseDeDonnees.DAOUtilisateur.getUtilisateurById(idARemplir.getText());
 	}
 
-	public boolean testerIdent (String idUtilisateur) throws SQLException, ClassNotFoundException{
+	public boolean testerIdent (String idUtilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean resul;
 		if(DAOCompte.estDansLaBdd(idUtilisateur)){resul=true;}
 		else {resul=false;}
@@ -146,12 +147,14 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 			else{
 				new FenetreAuthentificationUtil(true);
 			}
-		}catch (SQLException e1) {
+		}
+		catch (SQLException e1) {
 			MsgBox.affMsg(e1.getMessage());
-		} catch (ClassNotFoundException e2) {
+		}
+		catch (ClassNotFoundException e2) {
 			MsgBox.affMsg(e2.getMessage());
 		}
-		catch (NullPointerException e3){
+		catch (ConnexionFermeeException e3){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentificationUtil(false);
 		}

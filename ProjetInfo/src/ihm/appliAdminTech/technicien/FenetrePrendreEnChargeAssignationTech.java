@@ -1,9 +1,11 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -60,15 +62,15 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	public void setDemande(DemandeAssignation d) {
 		this.demande = d;
 	}
-	
+
 	public int getDiff() {
 		return diff;
 	}
-	
+
 	public void setDiff(int diff) {
 		this.diff = diff;
 	}
-	
+
 	public ArrayList<String> getListeIdVelos() {
 		return listeIdVelos;
 	}
@@ -76,16 +78,16 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	public void setListeIdVelos(ArrayList<String> listeIdVelos) {
 		this.listeIdVelos = listeIdVelos;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 
-	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l){
+
+
+
+
+
+
+
+	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l, boolean b) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
@@ -156,7 +158,13 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				panelVelos.setLayout(new GridLayout(nbVelosADeplacer,2));
 
 				if(this.getDiff()<0){
-					labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
+					if(b){
+						labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
+					}
+					else{
+						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valide.<br> Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId()+"</center></html>");
+						labelMsg.setForeground(Color.RED);
+					}
 					for (int i =0;i<nbVelosADeplacer;i++){
 						JLabel labelVelo = new JLabel("");
 
@@ -169,10 +177,16 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						veloARemplir.setPreferredSize(new Dimension(250,30));
 						panelVelos.add(veloARemplir);
 					}
-
 				}
 				else{
-					labelMsg.setText("Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage");
+					if(b){
+						labelMsg.setText("Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage");
+					}
+					else{
+						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valide.<br> Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage</center></html>");
+						labelMsg.setForeground(Color.RED);
+					}
+
 
 					for (int i =0;i<nbVelosADeplacer;i++){
 						JLabel labelVelo = new JLabel("");
@@ -182,7 +196,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
-						JTextField veloARemplir = new JTextField();
+						JTextField veloARemplir = new JTextField(l.get(i));
 						veloARemplir.setPreferredSize(new Dimension(250,30));
 						panelVelos.add(veloARemplir);
 					}
@@ -223,19 +237,19 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.setVisible(true);
 	}
 
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
@@ -252,10 +266,10 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				else{
 					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssigne(listeIdVelos, demande.getLieu());
 				}
+				System.out.println(nouvelleListeIdVelos);
 				if(nouvelleListeIdVelos.contains("")){
-					System.out.println(nouvelleListeIdVelos.indexOf(""));
-					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos);
-					
+					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos, false);
+
 				}
 				else{
 					for(String idVelo : nouvelleListeIdVelos){
@@ -278,6 +292,10 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			} catch (SQLException e) {
 				MsgBox.affMsg("SQL Exception : " + e.getMessage());
 				e.printStackTrace();
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
 		else if(arg0.getSource()==boutonRetour){

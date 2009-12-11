@@ -35,6 +35,7 @@ import statistiques.DiagrammeNbInterventions;
 import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
 import exceptionsIhm.ChampIncorrectException;
+import exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreAffichageResultats extends JFrame implements ActionListener {
 
@@ -67,7 +68,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		this.fenetrePrecedente = fenetrePrecedente;
 	}
 
-	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ChampIncorrectException{
+	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ChampIncorrectException, ConnexionFermeeException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());
@@ -262,10 +263,16 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 			else if(arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
 			}
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			MsgBox.affMsg("SQLException "+e.getMessage());
-		} catch (ClassNotFoundException e) {
+		} 
+		catch (ClassNotFoundException e) {
 			MsgBox.affMsg("ClassNotFoundException "+e.getMessage());
+		}
+		catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}
 }

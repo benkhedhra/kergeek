@@ -1,7 +1,9 @@
 package ihm.appliAdminTech.administrateur;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -105,7 +107,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 		labelStation.setPreferredSize(new Dimension (250,30));
 		center.add(labelStation);
-		
+
 		labelStationConcernee.setText(s.getAdresse());
 		labelStationConcernee.setPreferredSize(new Dimension (250,30));
 		center.add(labelStationConcernee);
@@ -122,13 +124,13 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
-		
+
 		this.getContentPane().add(center,BorderLayout.CENTER);
-		
+
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		
+
 		boutonEtatAutreStation.setPreferredSize(new Dimension(250,40));
 		boutonEtatAutreStation.setMaximumSize(new Dimension(250,40));
 		boutonEtatAutreStation.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -169,10 +171,21 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 			}
 		}
 		else if (arg0.getSource()==boutonEtatAutreStation){
-			new FenetreEtatStationAdmin(this.getAdministrateur());
+			try {
+				new FenetreEtatStationAdmin(this.getAdministrateur());
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 		else if (arg0.getSource()==boutonStationsSurSous){
-			new FenetreStationsSurSousAdmin(this.getAdministrateur());
+			try {
+				new FenetreStationsSurSousAdmin(this.getAdministrateur());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

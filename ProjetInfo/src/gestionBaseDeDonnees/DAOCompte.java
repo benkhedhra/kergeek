@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import metier.Compte;
 public class DAOCompte {
 
 
-	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException {
+	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -28,7 +29,7 @@ public class DAOCompte {
 					System.out.println(nb);
 					String id = "a" + res.getString("id");
 					compte.setId(id);
-					
+
 				}
 				else{
 					throw new SQLException("probleme de sequence");
@@ -93,6 +94,9 @@ public class DAOCompte {
 		catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
@@ -101,7 +105,7 @@ public class DAOCompte {
 
 
 
-	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException {
+	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -126,6 +130,9 @@ public class DAOCompte {
 		catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
 		}
@@ -136,38 +143,42 @@ public class DAOCompte {
 
 
 
-	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException {
+	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
 		try {
-			if (res.next()) {
-				compte = new Compte();
-				compte.setId(identifiant);
-				compte.setMotDePasse(res.getString("motDePasse"));
-				compte.setType(res.getInt("type"));
-				compte.setAdresseEmail(res.getString("adresseMail"));
+			ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
+			try{
+				if (res.next()) {
+					compte = new Compte();
+					compte.setId(identifiant);
+					compte.setMotDePasse(res.getString("motDePasse"));
+					compte.setType(res.getInt("type"));
+					compte.setAdresseEmail(res.getString("adresseMail"));
 
-				if (res.getBoolean("actif")){
-					compte.setActif(true);
+					if (res.getBoolean("actif")){
+						compte.setActif(true);
+					}
+					else{
+						compte.setActif(false);
+					}
 				}
-				else{
-					compte.setActif(false);
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte");
 				}
 			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte");
+			catch(PasDansLaBaseDeDonneeException e1){
+				System.out.println(e1.getMessage());
+				compte = null;
+			}
+			catch (SQLException e2){
+				System.out.println(e2.getMessage());
 			}
 		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
-			compte = null;
-		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
+		catch(NullPointerException e3){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -176,14 +187,14 @@ public class DAOCompte {
 	}
 
 
-	public static Compte getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException {
+	public static Compte getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select idCompte from Compte Where AdresseMail ='" + email + "'");
 		try {
+			ResultSet res = s.executeQuery("Select idCompte from Compte Where AdresseMail ='" + email + "'");
+
 			if (res.next()) {
 
 				compte = getCompteById(res.getString("idCompte"));
@@ -200,6 +211,9 @@ public class DAOCompte {
 		catch (SQLException e2){
 			System.out.println(e2.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -209,7 +223,7 @@ public class DAOCompte {
 
 
 
-	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
+	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (getCompteById(id)!=null);
 	}
 
@@ -217,7 +231,7 @@ public class DAOCompte {
 
 
 
-	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException{
+	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		//le type est toujours renseigné, les autres peuvent valoir null
 		//on va compter le nombre de paramètres non-nuls
 		ArrayList<String> listeChamps = new ArrayList<String>();
@@ -276,7 +290,6 @@ public class DAOCompte {
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
 			ResultSet res = s.executeQuery(requete);
 
 			Compte compte;
@@ -295,6 +308,9 @@ public class DAOCompte {
 		} catch(SQLException e1){
 			listeComptes = null;
 			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

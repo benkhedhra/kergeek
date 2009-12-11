@@ -3,6 +3,7 @@ package ihm.appliUtil;
 import exceptionsIhm.ChampIncorrectException;
 import exceptionsMetier.PasDeDateRetourException;
 import exceptionsMetier.PasDeVeloEmprunteException;
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
@@ -62,7 +63,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		this.velo = velo;
 	}
 
-	public FenetreRendreVelo(Utilisateur u) {
+	public FenetreRendreVelo(Utilisateur u) throws ConnexionFermeeException {
 
 		System.out.println("Fenêtre pour rendre un vélo");
 		this.setContentPane(new Panneau());
@@ -211,10 +212,20 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				} catch (PasDeDateRetourException e) {
 					MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
 				}
+				catch (ConnexionFermeeException e3){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentificationUtil(false);
+				}
 			}
 			else{
 				MsgBox.affMsg("Aucune station sélectionnée");
-				new FenetreRendreVelo(this.getUtilisateur());
+				try {
+					new FenetreRendreVelo(this.getUtilisateur());
+				}
+				catch (ConnexionFermeeException e3){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentificationUtil(false);
+				}
 			}
 		}
 

@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ import metier.Velo;
 
 public class DAOVelo {
 
-	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException {
+	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -36,8 +37,11 @@ public class DAOVelo {
 				}
 			}
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -45,7 +49,11 @@ public class DAOVelo {
 		return effectue;
 	}
 
-	public static boolean updateVelo(Velo velo) throws SQLException, ClassNotFoundException {
+	
+	
+	
+	
+	public static boolean updateVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			Boolean b = false;
@@ -61,8 +69,11 @@ public class DAOVelo {
 			effectue=true;
 
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -70,7 +81,9 @@ public class DAOVelo {
 		return effectue;
 	}
 
-	public static boolean deleteVelo(Velo velo) throws SQLException, ClassNotFoundException {
+	
+	
+	public static boolean deleteVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -79,8 +92,11 @@ public class DAOVelo {
 			s.executeUpdate("COMMIT");
 			effectue = true;
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -89,14 +105,14 @@ public class DAOVelo {
 	}
 
 
-	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException {
+	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Velo velo = new Velo();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
 		try {
+		ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
+		
 			if (resVelo.next()) {
 				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idLieu = resVelo.getString("idLieu");
@@ -119,6 +135,9 @@ public class DAOVelo {
 			System.out.println("SQLException  = "+e2.getMessage());
 			velo = null;
 		}
+		catch(NullPointerException e3){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
@@ -129,7 +148,7 @@ public class DAOVelo {
 
 
 	//permet d'obtenir la liste des velos parques dans un lieu
-	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
+	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		
 		List<String> listeIdVelos = new ArrayList<String>();
 		List<Velo> listeVelos = new LinkedList<Velo>();
@@ -159,18 +178,21 @@ public class DAOVelo {
 			listeVelos = null;
 			System.out.println("Pas de vélo dans ce lieu");
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
 		return listeVelos;
 	}
 
-	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException{
+	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo velo = getVeloById(id);
 		return (velo!=null);
 	}
 
-	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException{
+	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo velo = getVeloById(id);
 		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE)&& !velo.getLieu().getId().equals(Lieu.ID_SORTIE) && !velo.isEnPanne());
 	}

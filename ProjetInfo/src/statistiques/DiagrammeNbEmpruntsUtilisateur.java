@@ -1,5 +1,6 @@
 package statistiques;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOUtilisateur;
 
@@ -34,7 +35,7 @@ import org.jfree.ui.RefineryUtilities;
 		private JFreeChart chart;
 
 		
-		public DiagrammeNbEmpruntsUtilisateur(Utilisateur u) throws SQLException, ClassNotFoundException {
+		public DiagrammeNbEmpruntsUtilisateur(Utilisateur u) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 			super("Nombre d'emprunts de l'utilisateur demandé pour les six derniers mois");
 			CategoryDataset dataset = createDataset(u);
@@ -49,7 +50,7 @@ import org.jfree.ui.RefineryUtilities;
 			return this.chart.createBufferedImage(550,400);
 		}
 
-		private static CategoryDataset createDataset(Utilisateur u) throws SQLException, ClassNotFoundException {
+		private static CategoryDataset createDataset(Utilisateur u) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 			// étiquettes des lignes
 			String emprunts = "Nombre d'emprunts";
@@ -150,7 +151,7 @@ import org.jfree.ui.RefineryUtilities;
 
 		}
 		
-		public static void main(final String[] args) throws SQLException, ClassNotFoundException {
+		public static void main(final String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 			final DiagrammeNbEmpruntsUtilisateur demo = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById("u1"));
 			demo.pack();
 			RefineryUtilities.centerFrameOnScreen(demo);

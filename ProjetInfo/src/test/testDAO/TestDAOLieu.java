@@ -3,6 +3,7 @@ package test.testDAO;
 import java.sql.SQLException;
 import java.util.List;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 
 import metier.Lieu;
@@ -14,7 +15,7 @@ import junit.framework.TestCase;
 
 public class TestDAOLieu extends TestCase{
 	@Test
-	public void testGetLieuById() throws SQLException, ClassNotFoundException{
+	public void testGetLieuById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Lieu l1 = DAOLieu.getLieuById("1");
 		assertEquals("Gare du Campus", l1.getAdresse());
 		assertEquals(15, l1.getCapacite());
@@ -25,14 +26,14 @@ public class TestDAOLieu extends TestCase{
 	}
 	
 	@Test
-	public void testCreateLieu() throws SQLException, ClassNotFoundException{
+	public void testCreateLieu() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Station s = new Station("R.U", 50);
 		Boolean b = DAOLieu.createLieu(s);
 		assertEquals((Boolean)true,(Boolean) b) ;
 	}
 	
 	@Test
-	public void testGetAllStations() throws SQLException, ClassNotFoundException{
+	public void testGetAllStations() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Station> liste = DAOLieu.getAllStations();
 		System.out.println(liste.get(0));
 		System.out.println(liste.get(1));
@@ -45,12 +46,12 @@ public class TestDAOLieu extends TestCase{
 	}
 	
 	@Test
-	public void testGetStationsSurSous() throws SQLException, ClassNotFoundException{
+	public void testGetStationsSurSous() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		//TODO
 	}
 	
 	@Test
-	public void testCalculerTaux()throws SQLException, ClassNotFoundException{
+	public void testCalculerTaux()throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		//TODO
 	}
 }

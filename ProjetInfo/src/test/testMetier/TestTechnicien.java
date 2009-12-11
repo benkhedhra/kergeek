@@ -30,9 +30,9 @@ public class TestTechnicien extends TestCase{
 		Velo v = new Velo();
 		Station s = new Station();
 		TypeIntervention typeInt = new TypeIntervention("pneu Crevé");
-		Intervention i = t.intervenir(v, s, typeInt);
-		
-		assertTrue(t.intervenir(v, s, typeInt) instanceof Intervention);
+		Intervention i = t.intervenir(v);
+		//TODO
+		assertTrue(i instanceof Intervention);
 		assertEquals(v , i.getVelo());
 		}
 	
