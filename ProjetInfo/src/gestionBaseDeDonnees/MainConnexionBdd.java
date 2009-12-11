@@ -27,12 +27,13 @@ public class MainConnexionBdd {
 		System.out.println("Ferme");
 		
 		System.out.println(DAOLieu.getStationsSurSous());
-		
+
 		Velo v = DAOVelo.getVeloById("1");
 		Intervention i = new Intervention(v,UtilitaireDate.dateCourante());
 		System.out.println(UtilitaireDate.conversionPourSQL(i.getDate()));
 		DAOIntervention.createIntervention(i);
 		System.out.println(UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()));
+
 		/*
 		GregorianCalendar cal =  new GregorianCalendar(2009,5,5);
 		java.util.Date dateUtil = cal.getTime();

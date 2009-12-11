@@ -279,7 +279,7 @@ public class CreationTables {
 
 			//Insertion demandes assignation
 			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('23-11-2009 15:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'5',"+"'1'"+")");
-			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'2'"+")");
+			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'0',"+"'4',"+"'2'"+")");
 			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'0',"+"'10',"+"'3'"+")");
 			s2.executeUpdate("insert into DemandeAssignation values(seqDemandeAssignation.nextval,"+"TO_DATE('04-11-2009 10:13','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4',"+"'4'"+")");
 

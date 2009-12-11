@@ -93,20 +93,25 @@ public class UtilitaireIhm {
 		
 	}
 	
-	public static ArrayList<String> verifieSiVelosPeuventEtreAssignation(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException{
+	public static ArrayList<String> verifieSiVelosPeuventEtreAssigne(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException{
 		ArrayList<String> nouvelleListe = new ArrayList<String>();
 		List<Velo> listeVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
 		List<String> listeIdVelosDansLieu = new ArrayList<String>();
 		for (Velo velo : listeVelosDansLieu){
 			listeIdVelosDansLieu.add(velo.getId());
 		}
+		System.out.println("vélos pouvant être assignés : " + listeIdVelosDansLieu.toString());
 		for (String idVelo : ancienneliste){
 			if (DAOVelo.estDansLaBdd(idVelo)){
 				if(listeIdVelosDansLieu.contains(idVelo)){
 					nouvelleListe.add(idVelo);
+					//TODO
+					System.out.println("OK : " +  idVelo);
 				}
 				else{
 					nouvelleListe.add("");
+					//TODO
+					System.out.println("vide : " + idVelo);
 				}
 			}
 			else{
