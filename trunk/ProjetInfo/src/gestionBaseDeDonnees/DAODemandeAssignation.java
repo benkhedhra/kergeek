@@ -109,12 +109,12 @@ public class DAODemandeAssignation {
 
 
 	public static List<DemandeAssignation> getAllDemandesAssignation() throws SQLException, ClassNotFoundException {
-		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
+		List<DemandeAssignation> liste = new ArrayList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation");
+		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0' ");
 
 		try {
 

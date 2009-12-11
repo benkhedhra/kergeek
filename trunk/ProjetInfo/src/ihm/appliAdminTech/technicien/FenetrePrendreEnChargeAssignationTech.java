@@ -10,7 +10,6 @@ import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,7 @@ import javax.swing.JTextField;
 import metier.DemandeAssignation;
 import metier.Garage;
 import metier.Technicien;
+import metier.Velo;
 
 public class FenetrePrendreEnChargeAssignationTech extends JFrame implements ActionListener {
 	/**
@@ -68,13 +68,23 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	public void setDiff(int diff) {
 		this.diff = diff;
 	}
+	
+	public ArrayList<String> getListeIdVelos() {
+		return listeIdVelos;
+	}
 
+	public void setListeIdVelos(ArrayList<String> listeIdVelos) {
+		this.listeIdVelos = listeIdVelos;
+	}
 	
 	
 	
 	
 	
 	
+	
+
+
 	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l){
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");
 		this.setContentPane(new PanneauTech());
@@ -237,19 +247,30 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();
 			try {
 				if(this.getDiff()<0){
-					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignation(listeIdVelos, demande.getLieu());
+					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssigne(listeIdVelos, Garage.getInstance());
 				}
 				else{
-					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignation(listeIdVelos, Garage.getInstance());
+					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssigne(listeIdVelos, demande.getLieu());
 				}
 				if(nouvelleListeIdVelos.contains("")){
+					System.out.println(nouvelleListeIdVelos.indexOf(""));
 					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos);
+					
 				}
 				else{
+					for(String idVelo : nouvelleListeIdVelos){
+						Velo velo = DAOVelo.getVeloById(idVelo);
+						if(this.getDiff()<0){
+							velo.setLieu(this.getDemande().getLieu());	
+						}
+						else{
+							velo.setLieu(Garage.getInstance());	
+						}
+						DAOVelo.updateVelo(velo);
+					}
 					System.out.println("demande prise en charge");
 					demande.setPriseEnCharge(true);
 					DAODemandeAssignation.updateDemandeAssignation(demande);
-					System.out.println("demande maj dans la bdd");
 					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 				}
 			} catch (ClassNotFoundException e) {
