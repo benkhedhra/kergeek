@@ -1,8 +1,10 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -64,7 +66,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		this.demande = d;
 	}
 
-	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d) throws SQLException, ClassNotFoundException{
+	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour gérer une demande d'assignation");
 		this.setContentPane(new PanneauTech());
@@ -231,12 +233,16 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 				for(int i=0;i<nbVelosADeplacer;i++){
 					listeVide.add("");
 				}
-				new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande(),listeVide);
+				new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande(),listeVide,true);
 
 			} catch (SQLException e) {
 				MsgBox.affMsg("SQL Exception : " + e.getMessage());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
 		else if (arg0.getSource()==boutonRetour){

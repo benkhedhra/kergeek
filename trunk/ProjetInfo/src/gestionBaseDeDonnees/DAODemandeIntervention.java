@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import metier.DemandeIntervention;
 import metier.UtilitaireDate;
 
 public class DAODemandeIntervention {
-	public static boolean createDemandeIntervention(DemandeIntervention ddeIntervention) throws SQLException, ClassNotFoundException{
+	public static boolean createDemandeIntervention(DemandeIntervention ddeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -48,6 +49,9 @@ public class DAODemandeIntervention {
 		catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
 		}
@@ -55,7 +59,7 @@ public class DAODemandeIntervention {
 	}
 
 
-	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException{
+	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -77,6 +81,9 @@ public class DAODemandeIntervention {
 		catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception	
 		}
@@ -84,29 +91,34 @@ public class DAODemandeIntervention {
 	}
 
 
-	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException {
+	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL");
-		try {
-			DemandeIntervention ddeIntervention = new DemandeIntervention();
-			List<String> listeIdInter = new ArrayList<String>();
+		try{
+			ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL");
+			try {
+				DemandeIntervention ddeIntervention = new DemandeIntervention();
+				List<String> listeIdInter = new ArrayList<String>();
 
-			while(res.next()) {
-				String idDdeIntervention = res.getString("idDemandeI");
-				listeIdInter.add(idDdeIntervention);
+				while(res.next()) {
+					String idDdeIntervention = res.getString("idDemandeI");
+					listeIdInter.add(idDdeIntervention);
+				}
+
+				for (String idDdeI : listeIdInter){
+					ddeIntervention = getDemandeInterventionById(idDdeI);
+					liste.add(ddeIntervention);
+				}
 			}
-
-			for (String idDdeI : listeIdInter){
-				ddeIntervention = getDemandeInterventionById(idDdeI);
-				liste.add(ddeIntervention);
+			catch(SQLException e1){
+				liste = null;
+				System.out.println(e1.getMessage());
 			}
 		}
-		catch(SQLException e1){
-			liste = null;
-			System.out.println(e1.getMessage());
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -118,44 +130,48 @@ public class DAODemandeIntervention {
 
 
 
-	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException {
+	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		DemandeIntervention ddeIntervention = new DemandeIntervention();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
+		try{
+			ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
+			try {
+				if (res.next()) {
 
-		ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
-		try {
-			if (res.next()) {
+					java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
+					java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
+					String idVelo = res.getString("idVelo");
+					String idCompte = res.getString("idCompte");
+					String idIntervention = res.getString("idIntervention");
 
-				java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
-				java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
-				String idVelo = res.getString("idVelo");
-				String idCompte = res.getString("idCompte");
-				String idIntervention = res.getString("idIntervention");
+					ddeIntervention.setId(identifiant);
+					ddeIntervention.setDate(dateDemandeI);
+					ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
+					ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
+					if(idIntervention!=null){
+						ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
+					}
+					else{
+						ddeIntervention.setIntervention(null);
+					}
 
-				ddeIntervention.setId(identifiant);
-				ddeIntervention.setDate(dateDemandeI);
-				ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
-				ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
-				if(idIntervention!=null){
-					ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
 				}
-				else{
-					ddeIntervention.setIntervention(null);
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
 				}
-
 			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
+			catch(PasDansLaBaseDeDonneeException e1){
+				System.out.println(e1.getMessage());
+				ddeIntervention = null;
+			}
+			catch (SQLException e2){
+				System.out.println(e2.getMessage());
 			}
 		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
-			ddeIntervention = null;
-		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

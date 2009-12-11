@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.Date;
@@ -17,7 +18,7 @@ import metier.Velo;
 
 public class DAODemandeAssignation {
 
-	public static boolean createDemandeAssignation(DemandeAssignation ddeAssignation) throws SQLException,ClassNotFoundException{
+	public static boolean createDemandeAssignation(DemandeAssignation ddeAssignation) throws SQLException,ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
 
@@ -52,8 +53,11 @@ public class DAODemandeAssignation {
 				System.out.println("Demande d'assignation ajoutee a la base de donnees");
 			}
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -65,7 +69,7 @@ public class DAODemandeAssignation {
 
 
 
-	public static boolean updateDemandeAssignation(DemandeAssignation ddeAssignation) throws ClassNotFoundException, SQLException{
+	public static boolean updateDemandeAssignation(DemandeAssignation ddeAssignation) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -97,6 +101,9 @@ public class DAODemandeAssignation {
 		catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception	
 		}
@@ -108,15 +115,17 @@ public class DAODemandeAssignation {
 
 
 
-	public static List<DemandeAssignation> getAllDemandesAssignation() throws SQLException, ClassNotFoundException {
+	public static List<DemandeAssignation> getAllDemandesAssignation() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<DemandeAssignation> liste = new ArrayList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0' ");
 
 		try {
+			ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0' ");
+
+
 
 			DemandeAssignation ddeAssignation = new DemandeAssignation();
 			List<String> listeIdDde = new ArrayList<String>();
@@ -135,6 +144,9 @@ public class DAODemandeAssignation {
 			liste = null;
 			System.out.println(e1.getMessage());
 		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
+		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
@@ -143,39 +155,44 @@ public class DAODemandeAssignation {
 
 
 
-	public static List<DemandeAssignation> getDemandesAssignationEnAttente() throws SQLException, ClassNotFoundException {
+	public static List<DemandeAssignation> getDemandesAssignationEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0'");
+		try{
+			ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0'");
 
-		try {
-			DemandeAssignation ddeAssignation = new DemandeAssignation();
-			List<String> listeIdDde = new ArrayList<String>();
-			int diff;
+			try {
+				DemandeAssignation ddeAssignation = new DemandeAssignation();
+				List<String> listeIdDde = new ArrayList<String>();
+				int diff;
 
-			while(res.next()) {
-				String idDdeAssignation = res.getString("idDemandeA");
-				listeIdDde.add(idDdeAssignation);
+				while(res.next()) {
+					String idDdeAssignation = res.getString("idDemandeA");
+					listeIdDde.add(idDdeAssignation);
+				}
+
+				for (String idDdeA : listeIdDde){
+					ddeAssignation = getDemandeAssignationById(idDdeA);
+					diff = ddeAssignation.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddeAssignation.getLieu()).size();
+					if (diff==0){
+						ddeAssignation.setPriseEnCharge(true);
+						updateDemandeAssignation(ddeAssignation);
+					}
+					else{
+						liste.add(ddeAssignation);
+					}
+				}
 			}
-
-			for (String idDdeA : listeIdDde){
-				ddeAssignation = getDemandeAssignationById(idDdeA);
-				diff = ddeAssignation.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddeAssignation.getLieu()).size();
-				if (diff==0){
-					ddeAssignation.setPriseEnCharge(true);
-					updateDemandeAssignation(ddeAssignation);
-				}
-				else{
-					liste.add(ddeAssignation);
-				}
+			catch(SQLException e1){
+				liste = null;
+				System.out.println(e1.getMessage());
 			}
 		}
-		catch(SQLException e1){
-			liste = null;
-			System.out.println(e1.getMessage());
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -187,66 +204,61 @@ public class DAODemandeAssignation {
 
 
 
-	public static DemandeAssignation getDemandeAssignationById(String identifiant) throws SQLException, ClassNotFoundException {
+	public static DemandeAssignation getDemandeAssignationById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		DemandeAssignation ddeAssignation = new DemandeAssignation();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
+		try{
+			ResultSet res = s.executeQuery("Select * FROM DemandeAssignation WHERE idDemandeA ='" + identifiant + "'");
+			//System.out.println(res.getString("idLieu"));
+			try {
+				if (res.next()) {
 
-		ResultSet res = s.executeQuery("Select * FROM DemandeAssignation WHERE idDemandeA ='" + identifiant + "'");
-		//System.out.println(res.getString("idLieu"));
-		try {
-			if (res.next()) {
+					GregorianCalendar cal = new GregorianCalendar();
 
-				GregorianCalendar cal = new GregorianCalendar();
+					ddeAssignation.setId(identifiant);
+					java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
+					java.sql.Date date = new Date(tempsAssignation.getTime());
+					int nombre = res.getInt("nombre");
+					String idLieu = res.getString("idLieu");
+					Boolean priseEnCharge = res.getBoolean("priseEnCharge");
 
-				ddeAssignation.setId(identifiant);
-				java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
-				java.sql.Date date = new Date(tempsAssignation.getTime());
-				int nombre = res.getInt("nombre");
-				String idLieu = res.getString("idLieu");
-				Boolean priseEnCharge = res.getBoolean("priseEnCharge");
+					ddeAssignation.setId(identifiant);
+					ddeAssignation.setDate(date);
+					ddeAssignation.setNombreVelosVoulusDansLieu(nombre);
+					ddeAssignation.setLieu(DAOLieu.getLieuById(idLieu));
+					ddeAssignation.setPriseEnCharge(priseEnCharge);
 
-				ddeAssignation.setId(identifiant);
-				ddeAssignation.setDate(date);
-				ddeAssignation.setNombreVelosVoulusDansLieu(nombre);
-				ddeAssignation.setLieu(DAOLieu.getLieuById(idLieu));
-				ddeAssignation.setPriseEnCharge(priseEnCharge);
-
-				/*TODO
-				 if (res.getInt("priseEnCharge") == 1){
-
-					ddeAssignation.setPriseEnCharge(true);
 				}
-				else{
-					ddeAssignation.setPriseEnCharge(false);
-				}*/
-
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Assignation");
+				}
 			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Assignation");
+			catch(PasDansLaBaseDeDonneeException e1){
+				System.out.println(e1.getMessage());
+				ddeAssignation = null;
+			}
+			catch (SQLException e2){
+				System.out.println(e2.getMessage());
 			}
 		}
-		catch(PasDansLaBaseDeDonneeException e1){
-			System.out.println(e1.getMessage());
-			ddeAssignation = null;
-		}
-		catch (SQLException e2){
-			System.out.println(e2.getMessage());
+		catch(NullPointerException e3){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return ddeAssignation;
 	}
-	
-	public static int getDiff(DemandeAssignation d) throws SQLException, ClassNotFoundException{
+
+	public static int getDiff(DemandeAssignation d) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Velo> velos = DAOVelo.getVelosByLieu(d.getLieu());
 		return velos.size()-d.getNombreVelosVoulusDansLieu();
 	}
 
 
-	public static String ligne(DemandeAssignation d){
+	public static String ligne(DemandeAssignation d) throws ConnexionFermeeException{
 		String resul = "Demande "+d.getId()+" - "+d.getLieu().getAdresse()+" - ";
 		try {
 			int diff;

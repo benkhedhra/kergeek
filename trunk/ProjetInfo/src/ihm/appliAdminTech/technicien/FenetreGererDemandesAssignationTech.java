@@ -1,7 +1,9 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -41,7 +43,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		this.technicien = technicien;
 	}
 
-	public FenetreGererDemandesAssignationTech (Technicien t){
+	public FenetreGererDemandesAssignationTech (Technicien t) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir toutes les demandes d'assignation");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
@@ -111,6 +113,10 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
 					}
+					catch (ConnexionFermeeException e){
+						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+						new FenetreAuthentification(false);
+					}
 				}
 			});
 			center.add(combo);
@@ -148,11 +154,26 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 				new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
-				new FenetreGererDemandesAssignationTech(this.getTechnicien());
+				try {
+					new FenetreGererDemandesAssignationTech(this.getTechnicien());
+				} catch (ConnexionFermeeException e2){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
-				new FenetreGererDemandesAssignationTech(this.getTechnicien());
-			} /*catch (NullPointerException e){
+				try {
+					new FenetreGererDemandesAssignationTech(this.getTechnicien());
+				} catch (ConnexionFermeeException e3){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
+			/*catch (NullPointerException e){
 				MsgBox.affMsg("NullPointerException : "+e.getMessage());
 				new FenetreGererDemandesAssignationTech(this.getTechnicien());
 			}*/

@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.technicien;
 
+import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -14,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import exceptionsTechniques.ConnexionFermeeException;
 
 import metier.Intervention;
 import metier.Technicien;
@@ -183,7 +187,12 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonPrendreEnCharge){
-			new FenetrePrendreEnChargeInterventionTech(this.getTechnicien(),this.getIntervention());
+			try {
+				new FenetrePrendreEnChargeInterventionTech(this.getTechnicien(),this.getIntervention());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

@@ -1,5 +1,6 @@
 package ihm.appliAdminTech;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOCompte;
 import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
@@ -134,15 +135,15 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	public Administrateur getAdministrateur() throws SQLException, ClassNotFoundException {
+	public Administrateur getAdministrateur() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return gestionBaseDeDonnees.DAOAdministrateur.getAdministrateurById(idARemplir.getText());
 	}
 
-	public Technicien getTechnicien() throws SQLException, ClassNotFoundException {
+	public Technicien getTechnicien() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return gestionBaseDeDonnees.DAOTechnicien.getTechnicienById(idARemplir.getText());
 	}
 
-	public int testerAuthent (String id,String motDePasse) throws SQLException, ClassNotFoundException{
+	public int testerAuthent (String id,String motDePasse) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		//cette methode rend -1 si la combinaison id/mdp est erronee, ou le type du compte si la combinaison est correcte
 		int resul=-1;
 		if(DAOCompte.estDansLaBdd(id)){
@@ -185,9 +186,9 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}
-		catch (NullPointerException e3){
-			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ulterieurement. Merci</center></html>");
-			new FenetreAuthentification(true);
+		catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}
 }

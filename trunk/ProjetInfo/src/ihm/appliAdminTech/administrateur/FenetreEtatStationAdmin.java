@@ -1,9 +1,11 @@
 package ihm.appliAdminTech.administrateur;
 
 import exceptionsIhm.ChampIncorrectException;
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -50,7 +52,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.stationEntree = stationEntree;
 	}
 
-	public FenetreEtatStationAdmin(Administrateur a){
+	public FenetreEtatStationAdmin(Administrateur a) throws ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour avoir l'état d'une station");
 		this.setContentPane(new PanneauAdmin());
@@ -166,12 +168,19 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		if (arg0.getSource()==boutonValider){
 			try {
 				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
+			} 
+			catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
-			} catch (ChampIncorrectException e) {
+			} 
+			catch (ChampIncorrectException e) {
 				MsgBox.affMsg(e.getMessage());
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
 		else if (arg0.getSource()==boutonRetour){

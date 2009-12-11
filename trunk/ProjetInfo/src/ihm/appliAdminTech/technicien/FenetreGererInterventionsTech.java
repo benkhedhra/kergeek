@@ -1,7 +1,9 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -42,7 +44,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		this.technicien = technicien;
 	}
 
-	public FenetreGererInterventionsTech (Technicien t){
+	public FenetreGererInterventionsTech (Technicien t) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir toutes les interventions non traitées");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
@@ -118,6 +120,10 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
+						}
+						catch (ConnexionFermeeException e){
+							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+							new FenetreAuthentification(false);
 						}
 					}
 				});

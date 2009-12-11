@@ -1,5 +1,6 @@
 package gestionBaseDeDonnees;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ import metier.Station;
 
 public class DAOLieu {
 
-	public static Lieu getLieuById(String identifiant) throws SQLException, ClassNotFoundException {
+	public static Lieu getLieuById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Lieu lieu;
 
 		if (identifiant == Lieu.ID_GARAGE){ // c'est LE garage (unique)
@@ -32,21 +33,28 @@ public class DAOLieu {
 
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
-			ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant +"'");
-			try {
-				if (res.next()) {
-					lieu.setId(identifiant);
-					lieu.setCapacite(res.getInt("capacite"));
-					lieu.setAdresse(res.getString("adresseLieu"));
+			try{
+				ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant +"'");
+				try {
+					if (res.next()) {
+						lieu.setId(identifiant);
+						lieu.setCapacite(res.getInt("capacite"));
+						lieu.setAdresse(res.getString("adresseLieu"));
+					}
+					else {
+						throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du Lieu");
+					}
 				}
-				else {
-					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du Lieu");
+				catch(PasDansLaBaseDeDonneeException e1){
+					System.out.println(e1.getMessage());
+					lieu = null;
+				}
+				catch (SQLException e2){
+					System.out.println(e2.getMessage());
 				}
 			}
-			catch(PasDansLaBaseDeDonneeException e1){
-				System.out.println(e1.getMessage());
-				lieu = null;
+			catch(NullPointerException e3){
+				throw new ConnexionFermeeException();
 			}
 			finally{
 				ConnexionOracleViaJdbc.fermer();
@@ -58,7 +66,7 @@ public class DAOLieu {
 
 
 
-	public static boolean createLieu(Lieu lieu) throws SQLException, ClassNotFoundException {
+	public static boolean createLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -97,8 +105,11 @@ public class DAOLieu {
 				effectue=true;
 			}
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -107,7 +118,7 @@ public class DAOLieu {
 	}
 
 
-	public static List<Station> getAllStations() throws SQLException, ClassNotFoundException {
+	public static List<Station> getAllStations() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Station> liste = new ArrayList<Station>();
 		List<String> listeId = new ArrayList<String>();
 
@@ -115,22 +126,26 @@ public class DAOLieu {
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_GARAGE
-				+ "' AND idLieu <> '" + Lieu.ID_SORTIE + "'");
-		try {
-			while(res.next()) {
-				String idLieu = res.getString("idLieu"); 
-				listeId.add(idLieu);
+		try{
+			ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_GARAGE
+					+ "' AND idLieu <> '" + Lieu.ID_SORTIE + "'");
+			try {
+				while(res.next()) {
+					String idLieu = res.getString("idLieu"); 
+					listeId.add(idLieu);
+				}
+				for(String id : listeId){
+					station = (Station) DAOLieu.getLieuById(id);
+					liste.add(station);
+				}
 			}
-			for(String id : listeId){
-				station = (Station) DAOLieu.getLieuById(id);
-				liste.add(station);
+			catch(SQLException e1){
+				liste = null;
+				System.out.println(e1.getMessage());
 			}
 		}
-		catch(SQLException e1){
-			liste = null;
-			System.out.println(e1.getMessage());
+		catch(NullPointerException e2){
+			throw new ConnexionFermeeException();
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -142,7 +157,7 @@ public class DAOLieu {
 
 
 
-	public static float calculerTx(Station station) throws SQLException, ClassNotFoundException{
+	public static float calculerTx(Station station) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		float nbVelo = DAOVelo.getVelosByLieu(station).size();
 		return  nbVelo/station.getCapacite();
 	}
@@ -150,7 +165,7 @@ public class DAOLieu {
 
 
 
-	public static List<List<Station>> getStationsSurSous() throws SQLException, ClassNotFoundException {
+	public static List<List<Station>> getStationsSurSous() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		List<Station> listeToutesStations = getAllStations();
 
@@ -158,9 +173,9 @@ public class DAOLieu {
 		List<Station> listeStationsSousOccupees = new ArrayList<Station>();
 
 		List<List<Station>> liste = new ArrayList<List<Station>>();
-		
+
 		float taux = 0;
-		
+
 		for (Station station : listeToutesStations){
 			taux = calculerTx(station);
 			if (taux>Station.TAUX_OCCUPATION_MAX){
@@ -180,7 +195,7 @@ public class DAOLieu {
 		String resul = s.toString()+ " - sur-occupée";
 		return resul;
 	}
-	
+
 	public static String ligneStationSous(Station s) throws SQLException, ClassNotFoundException{
 		String resul = s.toString()+ " - sous-occupée";
 		return resul;

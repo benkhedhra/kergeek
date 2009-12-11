@@ -1,5 +1,6 @@
 package test.testDAO;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
@@ -21,7 +22,7 @@ public class TestDAOEmprunt extends TestCase{
 	
 
 	@Test
-	public void testCreateEmprunt() throws SQLException, ClassNotFoundException{
+	public void testCreateEmprunt() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
 		Velo v = DAOVelo.getVeloById("1");
 		Lieu l = DAOLieu.getLieuById("1");
@@ -32,7 +33,7 @@ public class TestDAOEmprunt extends TestCase{
 	}
 
 	@Test
-	public void testUpdateEmprunt() throws SQLException, ClassNotFoundException{
+	public void testUpdateEmprunt() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
 		Velo v = DAOVelo.getVeloById("1");
 		Lieu l = DAOLieu.getLieuById("1");
@@ -45,7 +46,7 @@ public class TestDAOEmprunt extends TestCase{
 	}
 	
 	@Test
-	public void testGetEmpruntById() throws SQLException, ClassNotFoundException{
+	public void testGetEmpruntById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Emprunt e = DAOEmprunt.getEmpruntById("1");
 		assertEquals("2", e.getLieuEmprunt().getId());
 		assertEquals("1", e.getLieuRetour().getId());
@@ -53,7 +54,7 @@ public class TestDAOEmprunt extends TestCase{
 	}
 	
 	@Test
-	public void testGetNombreEmpruntParUtilisateurParMois() throws SQLException, ClassNotFoundException{
+	public void testGetNombreEmpruntParUtilisateurParMois() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
 		List <Integer> liste = DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 3);
 		

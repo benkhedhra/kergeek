@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import metier.Intervention;
@@ -17,7 +18,7 @@ import junit.framework.TestCase;
 
 public class TestDAOIntervention extends TestCase{
 	@Test
-	public void testCreateIntervention() throws SQLException, ClassNotFoundException{
+	public void testCreateIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo v = DAOVelo.getVeloById("1");
 		TypeIntervention typ= new TypeIntervention("deraillement");
 		Intervention i = new Intervention(v,UtilitaireDate.dateCourante(), typ);
@@ -27,14 +28,14 @@ public class TestDAOIntervention extends TestCase{
 	}
 	
 	@Test
-	public void testGetInterventionById() throws SQLException, ClassNotFoundException{
+	public void testGetInterventionById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Intervention i = DAOIntervention.getInterventionById("1");
 		assertEquals(1, i.getTypeIntervention().getType());
 		assertEquals("1", i.getVelo().getId());
 	}
 	
 	@Test
-	public void testGetNombresVelosParTypeIntervention() throws SQLException, ClassNotFoundException{
+	public void testGetNombresVelosParTypeIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Integer> liste = DAOIntervention.getNombresVelosParTypeIntervention(2);
 		assertEquals((int)2,(int) liste.get(0));
 		assertEquals((int)12,(int) liste.get(1));

@@ -2,6 +2,7 @@ package ihm.appliUtil;
 
 import envoieMail.SendMail;
 import exceptionsMetier.CompteBloqueException;
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOTechnicien;
@@ -160,6 +161,10 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 				MsgBox.affMsg(e.getMessage());
 			} catch (MessagingException e) {
 				MsgBox.affMsg(e.getMessage());
+			}
+			catch (ConnexionFermeeException e3){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentificationUtil(false);
 			}
 		}
 		else{

@@ -2,6 +2,7 @@ package statistiques;
 
 
 import exceptionsIhm.ChampIncorrectException;
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 
@@ -38,7 +39,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	
 	private JFreeChart chart;
 
-	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException {
+	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException {
 
 		super("Fréquentation des stations sur les "+periodeEntree);
 		CategoryDataset dataset = createDataset(periodeEntree);
@@ -53,7 +54,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		return this.chart.createBufferedImage(550,400);
 	}
 
-	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException {
+	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -161,7 +162,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws ChampIncorrectException {
+	public static void main(final String[] args) throws ChampIncorrectException, ConnexionFermeeException {
 		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

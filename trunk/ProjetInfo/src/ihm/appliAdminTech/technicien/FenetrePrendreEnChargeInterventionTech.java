@@ -1,8 +1,10 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOTypeIntervention;
 import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -59,7 +61,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.intervention = intervention;
 	}
 
-	public FenetrePrendreEnChargeInterventionTech(Technicien t, Intervention i){
+	public FenetrePrendreEnChargeInterventionTech(Technicien t, Intervention i) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour prendre en charge une intervention");
 		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
@@ -145,6 +147,10 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
 					}
+					catch (ConnexionFermeeException e){
+						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+						new FenetreAuthentification(false);
+					}
 				}
 
 			});
@@ -200,6 +206,10 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 				MsgBox.affMsg(e.getMessage());
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 		}

@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import exceptionsTechniques.ConnexionFermeeException;
+
 import metier.Technicien;
 
 public class MenuPrincipalTech extends JFrame implements ActionListener {
@@ -26,7 +28,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Technicien tech;
 	private JLabel labelTech = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
@@ -128,32 +130,38 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==bouton1){
-			try {
+		try{
+			if(arg0.getSource()==bouton1){
 				new FenetreEnregistrerVeloTech(this.getTechnicien());
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
+			}
+			else if (arg0.getSource()==bouton2){
+				new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+			}
+			else if (arg0.getSource()==bouton3){
+				new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+			}
+			else if (arg0.getSource()==bouton4){
+				new FenetreGererDemandesAssignationTech(this.getTechnicien());
+			}
+			else if (arg0.getSource()==bouton5){
+				new FenetreGererInterventionsTech(this.getTechnicien());
+			}
+			else if (arg0.getSource()==boutonChangeMdp){
+				new FenetreChangerMotDePasse(this.getTechnicien().getCompte());
+			}
+			else if (arg0.getSource()==boutonDeconnexion){
+				new FenetreConfirmation(this.getTechnicien().getCompte(), this);
 			}
 		}
-		else if (arg0.getSource()==bouton2){
-			new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+		catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} 
+		catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
-		else if (arg0.getSource()==bouton3){
-			new FenetreRemettreVeloEnStationTech(this.getTechnicien());
-		}
-		else if (arg0.getSource()==bouton4){
-			new FenetreGererDemandesAssignationTech(this.getTechnicien());
-		}
-		else if (arg0.getSource()==bouton5){
-			new FenetreGererInterventionsTech(this.getTechnicien());
-		}
-		else if (arg0.getSource()==boutonChangeMdp){
-			new FenetreChangerMotDePasse(this.getTechnicien().getCompte());
-		}
-		else if (arg0.getSource()==boutonDeconnexion){
-			new FenetreConfirmation(this.getTechnicien().getCompte(), this);
+		catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}
 }

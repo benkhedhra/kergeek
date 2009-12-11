@@ -1,5 +1,6 @@
 package test.testDAO;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOCompte;
 
 import java.sql.SQLException;
@@ -11,21 +12,21 @@ import org.junit.Test;
 
 public class TestDAOCompte extends TestCase{
 	@Test
-	public void testcreateCompte() throws SQLException, ClassNotFoundException{
+	public void testcreateCompte() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Compte c1 = new Compte(1,"test@gmail.com");
 		Boolean b = DAOCompte.createCompte(c1);
 		assertEquals(true,(boolean) b);
 	}
 	
 	@Test
-	public void testUpdateCompte() throws SQLException, ClassNotFoundException{
+	public void testUpdateCompte() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Compte c1 = new Compte(1,"test@gmail.com");
 		DAOCompte.createCompte(c1);
 		Boolean b = DAOCompte.updateCompte(c1);
 		assertEquals(true,(boolean) b);
 	}
 	@Test
-	public void testgetCompteById() throws SQLException, ClassNotFoundException{
+	public void testgetCompteById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		
 		Compte c2 = new Compte(3,"mail");
 		DAOCompte.createCompte(c2);
@@ -37,7 +38,7 @@ public class TestDAOCompte extends TestCase{
 		assertEquals(c2.getAdresseEmail(), c3.getAdresseEmail());
 	}
 	@Test
-	public void testgetCompteByAdresseEmail() throws SQLException, ClassNotFoundException{
+	public void testgetCompteByAdresseEmail() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Compte c1 = DAOCompte.getCompteByAdresseEmail("mathieuchedid@gmail.com");
 		System.out.println(c1.getAdresseEmail());
 		System.out.println(c1.getId());

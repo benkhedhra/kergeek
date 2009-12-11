@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
@@ -112,6 +113,10 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+			}
+			catch (ConnexionFermeeException e3){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentificationUtil(false);
 			}
 			new FenetreDefautDeclare(this.getUtilisateur());
 		}

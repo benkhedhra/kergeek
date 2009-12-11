@@ -1,5 +1,6 @@
 package ihm;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;
@@ -88,12 +89,12 @@ public class UtilitaireIhm {
 		return (v.isEnPanne());
 	}
 	
-	public static boolean verifieSiPlaceDisponibleDansStation(Station station) throws SQLException, ClassNotFoundException{
+	public static boolean verifieSiPlaceDisponibleDansStation(Station station) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return(DAOVelo.getVelosByLieu(station).size() < station.getCapacite());
 		
 	}
 	
-	public static ArrayList<String> verifieSiVelosPeuventEtreAssigne(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException{
+	public static ArrayList<String> verifieSiVelosPeuventEtreAssigne(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		ArrayList<String> nouvelleListe = new ArrayList<String>();
 		List<Velo> listeVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
 		List<String> listeIdVelosDansLieu = new ArrayList<String>();
@@ -105,13 +106,11 @@ public class UtilitaireIhm {
 			if (DAOVelo.estDansLaBdd(idVelo)){
 				if(listeIdVelosDansLieu.contains(idVelo)){
 					nouvelleListe.add(idVelo);
-					//TODO
-					System.out.println("OK : " +  idVelo);
+					System.out.println(idVelo + " : OK");
 				}
 				else{
 					nouvelleListe.add("");
-					//TODO
-					System.out.println("vide : " + idVelo);
+					System.out.println( idVelo + " : incompatible");
 				}
 			}
 			else{

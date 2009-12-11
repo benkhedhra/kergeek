@@ -1,6 +1,7 @@
 package statistiques;
 
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 
 import java.awt.Color;
@@ -33,7 +34,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	
 	private JFreeChart chart;
 	
-	public DiagrammeNbInterventions() {
+	public DiagrammeNbInterventions() throws ConnexionFermeeException {
 		
 		super("");
 		CategoryDataset dataset = createDataset();
@@ -49,7 +50,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		return this.chart.createBufferedImage(550, 400);
 	}
 	
-	private static CategoryDataset createDataset() {
+	private static CategoryDataset createDataset() throws ConnexionFermeeException {
 		
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
@@ -145,7 +146,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 
 	}
 	
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws ConnexionFermeeException {
 		final DiagrammeNbInterventions demo = new DiagrammeNbInterventions();
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

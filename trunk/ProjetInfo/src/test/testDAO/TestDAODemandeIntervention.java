@@ -1,5 +1,6 @@
 package test.testDAO;
 
+import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
@@ -19,7 +20,7 @@ import org.junit.Test;
 public class TestDAODemandeIntervention extends TestCase{
 	
 	@Test
-	public void testCreateDemandeIntervention() throws SQLException, ClassNotFoundException{
+	public void testCreateDemandeIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurById("u1");
 		Lieu l = DAOLieu.getLieuById("1");
 		Velo v = new Velo(l, false);
@@ -33,7 +34,7 @@ public class TestDAODemandeIntervention extends TestCase{
 	}
 	
 	@Test
-	public void testGetDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException{
+	public void testGetDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<DemandeIntervention> liste = DAODemandeIntervention.getDemandesInterventionEnAttente();
 		for (int i=0;i < liste.size();i++) {
 			assertEquals(null, liste.get(i).getIntervention().getId());
@@ -41,7 +42,7 @@ public class TestDAODemandeIntervention extends TestCase{
 	}
 	
 	@Test
-	public void testGetDemandeInterventionById() throws SQLException, ClassNotFoundException{
+	public void testGetDemandeInterventionById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		DemandeIntervention dmde = DAODemandeIntervention.getDemandeInterventionById("1");
 		System.out.println(dmde.getUtilisateur());
 		assertTrue(dmde.getUtilisateur().equals(DAOUtilisateur.getUtilisateurById("u1")));
