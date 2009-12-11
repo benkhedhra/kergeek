@@ -25,19 +25,29 @@ public class DAOIntervention {
 			if (res.next()){
 				String id = res.getString("id");
 				intervention.setId(id);
-
-				s.executeUpdate("INSERT into Intervention values ("
-						+ "'"+ intervention.getId() +  "', " 
-						+ "'"+ intervention.getVelo().getId() + "', "
-						+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'),"
-						+ "'"+ intervention.getTypeIntervention() + "'"
-						+")");
-				effectue=true;
+				if (intervention.getTypeIntervention() != null){
+					s.executeUpdate("INSERT into Intervention values ("
+							+ "'"+ intervention.getId() +  "', " 
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'),"
+							+ "'"+ intervention.getTypeIntervention() + "', "
+							+ "'"+ intervention.getVelo().getId() + "'"
+							+")");
+					effectue=true;
+				}
+				else{
+					s.executeUpdate("INSERT into Intervention values ("
+							+ "'"+ intervention.getId() +  "', " 
+							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'),"
+							+ "'', "
+							+ "'"+ intervention.getVelo().getId() + "'"
+							+")");
+					effectue=true;
+				}
 			}
 		}
-		catch (SQLException e){
+		/*TODO catch (SQLException e){
 			System.out.println(e.getMessage());
-		}
+		}*/
 		catch(NullPointerException e2){
 			throw new ConnexionFermeeException();
 		}
