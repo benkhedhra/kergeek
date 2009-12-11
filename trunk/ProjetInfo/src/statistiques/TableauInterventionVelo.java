@@ -5,11 +5,14 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import metier.Intervention;
 import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
@@ -26,7 +29,9 @@ public class TableauInterventionVelo extends JPanel {
 								"Type d'intervention"};
 
 		List<Intervention> liste = DAOIntervention.getInterventionsByVelo(DAOVelo.getVeloById(id));
-		
+		if(liste == null){
+			liste = new ArrayList<Intervention>();
+		}
 		Object[][] donnees = new Object[liste.size()][4];
 		for(int k=0;k<liste.size();k++){
 			
@@ -86,7 +91,7 @@ public class TableauInterventionVelo extends JPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Create and set up the content pane.
-		TableauInterventionVelo newContentPane = new TableauInterventionVelo("10");
+		TableauInterventionVelo newContentPane = new TableauInterventionVelo(id);
 		newContentPane.setOpaque(true); //content panes must be opaque
 		frame.setContentPane(newContentPane);
 
@@ -101,7 +106,7 @@ public class TableauInterventionVelo extends JPanel {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					createAndShowGUI("10");
+					createAndShowGUI("2");
 				} 
 				catch (SQLException e) {
 					// TODO Auto-generated catch block

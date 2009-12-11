@@ -245,7 +245,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
-			
+
 			else if(fenetrePrec.getTitle().equals("Remettre un vélo réparé en station")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);

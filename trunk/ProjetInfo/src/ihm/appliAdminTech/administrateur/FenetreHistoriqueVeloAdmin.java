@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliAdminTech.FenetreAuthentification;
@@ -124,7 +125,14 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		this.dispose();
 		if(arg0.getSource()==boutonAfficher){
 			try {
-				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+				if(DAOVelo.estDansLaBdd(idVeloARemplir.getText())){
+					this.setVeloEntre(DAOVelo.getVeloById(idVeloARemplir.getText()));
+					new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+				}
+				else{
+					MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
+					new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
+				}
 			} 
 			catch (SQLException e) {
 				MsgBox.affMsg("SQLException"+e.getMessage());
