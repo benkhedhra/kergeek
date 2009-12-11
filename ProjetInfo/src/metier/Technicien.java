@@ -113,6 +113,7 @@ public class Technicien {
 	 */
 	public Intervention intervenir(Velo velo){
 		retirerVelo(velo);
+		velo.setEnPanne(true);
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return intervention;
 	}

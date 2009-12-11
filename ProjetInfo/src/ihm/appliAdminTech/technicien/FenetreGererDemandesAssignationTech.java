@@ -2,6 +2,7 @@ package ihm.appliAdminTech.technicien;
 
 import exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeAssignation;
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -84,13 +85,20 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		List<DemandeAssignation> listeDemandes;
 		try {
 			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
+			for (int i=0;i<listeDemandes.size();i++){
+				DemandeAssignation demandei = listeDemandes.get(i);
+				if(demandei.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demandei.getLieu()).size() == 0){
+					demandei.setPriseEnCharge(true);
+					DAODemandeAssignation.updateDemandeAssignation(demandei);
+					listeDemandes.remove(i);
+				}
+			}
 			String [] tableauDemandes = new String[listeDemandes.size()+1];
 			tableauDemandes[0]="Sélectionnez une demande";
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
 				tableauDemandes[i+1] = DAODemandeAssignation.ligne(demandei);
 			}
-
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
 
 			JComboBox combo = new JComboBox(model);
@@ -108,7 +116,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 						}
 						System.out.println("id de la demande entrée : "+idDemandeEntre);
 						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
-						} catch (SQLException e) {
+					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
