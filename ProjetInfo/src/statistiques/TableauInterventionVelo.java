@@ -1,41 +1,43 @@
 package statistiques;
 
-import exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOVelo;
-
-import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreAuthentification;
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import metier.Intervention;
+import exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOVelo;
 
-import metier.Velo;
 
 public class TableauInterventionVelo extends JPanel {
 	private boolean DEBUG = false;
 
-	public TableauInterventionVelo(Velo v) {
+	public TableauInterventionVelo(String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		super(new GridLayout(1,0));
 
 		String[] columnNames = {"Date d'entrée au garage",
-				"Date de sortie du garage",
-		"Type d'intervention"};
+								"Type d'intervention"};
 
-		Object[][] data = {
-				{"tre", "Campione",
-				"Snowboarding"}};
+		List<Intervention> liste = DAOIntervention.getInterventionsByVelo(DAOVelo.getVeloById(id));
+		
+		Object[][] donnees = new Object[liste.size()][4];
+		for(int k=0;k<liste.size();k++){
+			
+			donnees[k][0] = liste.get(k).getDate();
+			donnees[k][1] = liste.get(k).getTypeIntervention();
+		}
 
-		final JTable table = new JTable(data, columnNames);
+		final MonJTable table = new MonJTable(donnees, columnNames);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 100));
 		table.setFillsViewportHeight(true);
+
 
 		if (DEBUG) {
 			table.addMouseListener(new MouseAdapter() {
@@ -44,6 +46,7 @@ public class TableauInterventionVelo extends JPanel {
 				}
 			});
 		}
+
 
 		//Create the scroll pane and add the table to it.
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -77,13 +80,13 @@ public class TableauInterventionVelo extends JPanel {
 	 * @throws SQLException 
 	 * @throws ConnexionFermeeException 
 	 */
-	private static void createAndShowGUI(Velo v) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+	private static void createAndShowGUI(String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		//Create and set up the window.
-		JFrame frame = new JFrame("Interventions sur le vélo " + v.getId());
+		JFrame frame = new JFrame("Interventions sur le vélo " + id);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Create and set up the content pane.
-		TableauInterventionVelo newContentPane = new TableauInterventionVelo(DAOVelo.getVeloById("10"));
+		TableauInterventionVelo newContentPane = new TableauInterventionVelo("10");
 		newContentPane.setOpaque(true); //content panes must be opaque
 		frame.setContentPane(newContentPane);
 
@@ -98,7 +101,7 @@ public class TableauInterventionVelo extends JPanel {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					createAndShowGUI(DAOVelo.getVeloById("10"));
+					createAndShowGUI("10");
 				} 
 				catch (SQLException e) {
 					// TODO Auto-generated catch block
