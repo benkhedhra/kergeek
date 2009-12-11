@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import metier.Garage;
 import metier.Station;
 import metier.Technicien;
 import metier.Velo;
@@ -194,24 +195,40 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		try {
-			if (arg0.getSource()==boutonValider){
-				Velo velo;
-				velo = DAOVelo.getVeloById(idARemplir.getText());
-				if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
-					velo.setLieu(stationEntree);
-					velo.setEnPanne(false);
-					DAOVelo.updateVelo(velo);
-					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+		try {if (arg0.getSource()==boutonValider){
+			Velo velo = DAOVelo.getVeloById(idARemplir.getText());
+			if(stationEntree == null){
+				MsgBox.affMsg("Vous n'avez selectionné aucune station");
+				new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+			}
+			if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
+				if(DAOVelo.estDansLaBdd(velo.getId())){
+					if(velo.isEnPanne() && velo.getLieu().getId() == Garage.ID_GARAGE){
+						velo.setLieu(stationEntree);
+						velo.setEnPanne(false);
+						DAOVelo.updateVelo(velo);
+						new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+					}
+					else{
+						MsgBox.affMsg("L'identifiant que vous avez renseigné ne correspond pas à un vélo en réparation");
+						new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+					}
 				}
 				else{
-					MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
-					new MenuPrincipalTech(this.getTechnicien());
+					MsgBox.affMsg("<L'identifiant que vous avez renseigné est invalide");
+					new FenetreRemettreVeloEnStationTech(this.getTechnicien());
 				}
 			}
-			else if (arg0.getSource()==boutonRetour){
-				new MenuPrincipalTech(this.getTechnicien());
+			else{
+				MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
+				new FenetreRemettreVeloEnStationTech(this.getTechnicien());
 			}
+		}
+		else if (arg0.getSource()==boutonRetour){
+			new MenuPrincipalTech(this.getTechnicien());
+		}
+
+
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {

@@ -162,7 +162,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
 					}
 					else{
-						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valide.<br> Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId()+"</center></html>");
+						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valides.<br> Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId()+"</center></html>");
 						labelMsg.setForeground(Color.RED);
 					}
 					for (int i =0;i<nbVelosADeplacer;i++){
