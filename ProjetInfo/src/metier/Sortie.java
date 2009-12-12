@@ -1,5 +1,10 @@
 package metier;
 
+/**La classe Sortie utilise le pattern singleton garantissant l'existence d'une seule instance.
+ * Elle représente le lieu (imaginaire) o se trouve les vélos lorsqu'ils sont empruntés par les utilisateurs.
+ * @author KerGeek
+ */
+
 public class Sortie extends Lieu {
 
 	//Attributs

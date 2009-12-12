@@ -126,6 +126,11 @@ public class Technicien {
 		return i;
 	}
 	
+	public void retirerDuParc(Velo velo){
+		velo.setLieu(Detruit.getInstance());
+	}
+	
+	
 	@Override
 	public boolean equals(Object o) {
 		Technicien t =(Technicien) o;

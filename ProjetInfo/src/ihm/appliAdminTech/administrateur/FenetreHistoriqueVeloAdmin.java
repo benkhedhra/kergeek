@@ -125,7 +125,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		this.dispose();
 		if(arg0.getSource()==boutonAfficher){
 			try {
-				if(DAOVelo.estDansLaBdd(idVeloARemplir.getText())){
+				if(DAOVelo.existe(idVeloARemplir.getText())){
 					this.setVeloEntre(DAOVelo.getVeloById(idVeloARemplir.getText()));
 					new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
 				}

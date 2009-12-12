@@ -224,14 +224,14 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 					}
 					else{
-						if(DAOVelo.estDansLaBdd(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
+						if(DAOVelo.existe(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
 							Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
 							Intervention i = this.getTechnicien().intervenir(veloEntre);
 							if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i)){
 								new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 							}
 						}
-						else if (!DAOVelo.estDansLaBdd(idVeloARemplir.getText())){
+						else if (!DAOVelo.existe(idVeloARemplir.getText())){
 							System.out.println("Le vélo entré n'existe pas");
 							MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
 							new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());

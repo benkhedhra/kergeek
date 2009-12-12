@@ -209,7 +209,7 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 					new FenetreRemettreVeloEnStationTech(this.getTechnicien());
 				}
 				if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
-					if(DAOVelo.estDansLaBdd(velo.getId())){
+					if(DAOVelo.existe(velo.getId())){
 						if(velo.isEnPanne() && velo.getLieu().getId() == Garage.ID_GARAGE){
 							velo.setLieu(stationEntree);
 							velo.setEnPanne(false);

@@ -1,8 +1,5 @@
 package gestionBaseDeDonnees;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import exceptions.exceptionsTechniques.PasDansLaBaseDeDonneeException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,6 +9,8 @@ import java.util.List;
 
 import metier.Lieu;
 import metier.Velo;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 public class DAOVelo {
 
@@ -72,34 +71,6 @@ public class DAOVelo {
 			s.executeUpdate("COMMIT");
 			effectue=true;
 
-		}
-		catch (SQLException e1){
-			System.out.println(e1.getMessage());
-		}
-		catch(NullPointerException e2){
-			if (ConnexionOracleViaJdbc.getC() == null){
-				throw new ConnexionFermeeException();
-			}
-			else{
-				throw new NullPointerException(e2.getMessage());
-			}
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
-		}
-		return effectue;
-	}
-
-	
-	
-	public static boolean deleteVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		boolean effectue = false;
-		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("DELETE from Velo WHERE idVelo = '" + velo.getId() + "'");
-			s.executeUpdate("COMMIT");
-			effectue = true;
 		}
 		catch (SQLException e1){
 			System.out.println(e1.getMessage());
@@ -211,14 +182,14 @@ public class DAOVelo {
 		return listeVelos;
 	}
 
-	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static boolean existe(String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo velo = getVeloById(id);
-		return (velo!=null);
+		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_DETRUIT));
 	}
 
 	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo velo = getVeloById(id);
-		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE)&& !velo.getLieu().getId().equals(Lieu.ID_SORTIE) && !velo.isEnPanne());
+		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE) && !velo.getLieu().getId().equals(Lieu.ID_SORTIE) && !velo.isEnPanne());
 	}
 
 }
