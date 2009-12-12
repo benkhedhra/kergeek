@@ -5,6 +5,7 @@ package gestionBaseDeDonnees;
  * @version 1.0
  */
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import exceptions.exceptionsTechniques.ExceptionAuthentification;
 
 import java.sql.SQLException;
@@ -16,8 +17,9 @@ public class UtilitaireSQL {
 	 * @param idU : identifiant de l'utilisateur
 	 * @param mdp : mot de passe de l'utilisateur
 	 * @throws ExceptionAuthentification
+	 * @throws ConnexionFermeeException 
 	 */
-	public static void tester(String idU, String mdp) throws ExceptionAuthentification{ // test de la connexion
+	public static void tester(String idU, String mdp) throws ExceptionAuthentification, ConnexionFermeeException{ // test de la connexion
 		try{
 			ConnexionOracleViaJdbc.setIdUtilisateur(idU);
 			ConnexionOracleViaJdbc.setMotDePasse(mdp);

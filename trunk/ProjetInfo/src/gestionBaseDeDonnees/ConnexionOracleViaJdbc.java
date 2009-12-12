@@ -9,9 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
-	//pour ecrire l'id et le mp pour acceder ‡ la base de donnees "en dur"
+	//pour �crire l'id et le mp pour acceder ‡ la base de donnees "en dur"
 	public static final String UTILISATEUR ="id3033";
 	public static final String MOTDEPASSE ="id3033";
 
@@ -61,8 +63,13 @@ public class ConnexionOracleViaJdbc {
 	/**
 	 * fermeture de la connexion
 	 */	
-	public static void fermer() throws SQLException{
-		c.close();
+	public static void fermer() throws SQLException, ConnexionFermeeException{
+		if(c != null){
+			c.close();
+		}
+		else{
+			throw new ConnexionFermeeException();
+		}
 	}
 
 	/**
@@ -70,8 +77,11 @@ public class ConnexionOracleViaJdbc {
 	 * @throws SQLException, ClassNotFoundException
 	 */	
 	public static void ouvrir() throws SQLException,ClassNotFoundException{
-
-		/*try  {
+		
+		
+		/*
+		 * Si jamais on souhaite demander l'identifiant et le mot de passe oracle de l'utilisateur de l'application
+		 * try  {
 			if (c.isClosed()){
 				// ce n'est pas la 1ere connexion au cours du programme : la connexion precedente a ete fermee
 				connecter();
@@ -86,7 +96,9 @@ public class ConnexionOracleViaJdbc {
 				Scanner sc= new Scanner(System.in);
 				ConnexionOracleViaJdbc.setIdUtilisateur(sc.next());
 				ConnexionOracleViaJdbc.setMotDePasse(sc.next());
-			connecter();
+				UtilitaireSQL.tester(idUtilisateur, motDePasse);
+				
+				connecter();
 		}*/
 
 		try{
@@ -100,7 +112,7 @@ public class ConnexionOracleViaJdbc {
 			}
 		}
 		catch (NullPointerException e){
-				connecter();
+			connecter();
 		}
 
 	}

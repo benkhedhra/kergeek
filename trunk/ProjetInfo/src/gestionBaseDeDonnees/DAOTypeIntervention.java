@@ -35,7 +35,12 @@ public class DAOTypeIntervention {
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -60,7 +65,12 @@ public class DAOTypeIntervention {
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -95,7 +105,12 @@ public class DAOTypeIntervention {
 			}
 		}
 		catch(NullPointerException e3){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e3.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -128,7 +143,12 @@ public class DAOTypeIntervention {
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -163,7 +183,12 @@ public class DAOTypeIntervention {
 		}
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
