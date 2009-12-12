@@ -77,7 +77,7 @@ public class TableauListeVelosSortis extends JPanel {
 		int numCols = table.getColumnCount();
 		javax.swing.table.TableModel model = table.getModel();
 
-		System.out.println("Value of data: ");
+		System.out.println("Value : ");
 		for (int i=0; i < numRows; i++) {
 			System.out.print("    row " + i + ":");
 			for (int j=0; j < numCols; j++) {

@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
-import exceptions.exceptionsIhm.ChampIncorrectException;
+
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
@@ -140,9 +140,6 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 			catch (ClassNotFoundException e) {
 				MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
 			} 
-			catch (ChampIncorrectException e) {
-				MsgBox.affMsg("ChampIncorrectException"+e.getMessage());
-			}
 			catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);

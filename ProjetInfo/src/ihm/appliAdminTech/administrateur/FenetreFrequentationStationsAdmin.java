@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import exceptions.exceptionsIhm.ChampIncorrectException;
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
@@ -166,10 +165,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
-			} catch (ChampIncorrectException e) {
-				MsgBox.affMsg(e.getMessage());
-			}
-			catch (ConnexionFermeeException e){
+			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
 			}

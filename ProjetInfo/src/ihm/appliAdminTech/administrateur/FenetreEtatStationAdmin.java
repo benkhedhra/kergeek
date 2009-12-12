@@ -1,6 +1,5 @@
 package ihm.appliAdminTech.administrateur;
 
-import exceptions.exceptionsIhm.ChampIncorrectException;
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import ihm.MsgBox;
@@ -175,9 +174,6 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
 			} 
-			catch (ChampIncorrectException e) {
-				MsgBox.affMsg(e.getMessage());
-			}
 			catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
