@@ -169,8 +169,8 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 					listeStations.add(listeDemandes.get(i).getLieu());
 				}
 				if(listeStations.contains(stationConcernee)){
-					MsgBox.affMsg("Une demande d'assignation a déjà été effectuée pour cette station. ");
-					//TODO new Fenetre etc ... 
+					MsgBox.affMsg("<html> <center>Une demande d'assignation a déjà été effectuée pour cette station. <br>Celle que vous venez de signaler n'a donc pas été prise en compte. ");
+					new MenuVoirEtatAdmin(this.getAdministrateur());
 				}
 				else{
 					int nbVelos = 0;

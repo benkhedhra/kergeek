@@ -260,10 +260,10 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();
 			try {
 				if(this.getDiff()<0){
-					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssigne(listeIdVelos, Garage.getInstance());
+					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, Garage.getInstance());
 				}
 				else{
-					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssigne(listeIdVelos, demande.getLieu());
+					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, demande.getLieu());
 				}
 				System.out.println(nouvelleListeIdVelos);
 				if(nouvelleListeIdVelos.contains("")){
