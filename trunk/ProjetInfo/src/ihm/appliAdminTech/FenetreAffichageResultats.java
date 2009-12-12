@@ -1,6 +1,5 @@
 package ihm.appliAdminTech;
 
-import exceptions.exceptionsIhm.ChampIncorrectException;
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
@@ -71,7 +70,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		this.fenetrePrecedente = fenetrePrecedente;
 	}
 
-	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ChampIncorrectException, ConnexionFermeeException{
+	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());

@@ -1,6 +1,5 @@
 package ihm.appliAdminTech.administrateur;
 
-import exceptions.exceptionsIhm.ChampIncorrectException;
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import ihm.MsgBox;
@@ -167,8 +166,6 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ChampIncorrectException e) {
 				MsgBox.affMsg(e.getMessage());
 			}
 			catch (ConnexionFermeeException e){

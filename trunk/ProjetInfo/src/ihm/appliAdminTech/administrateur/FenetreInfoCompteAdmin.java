@@ -1,7 +1,5 @@
 package ihm.appliAdminTech.administrateur;
 
-import exceptions.exceptionsIhm.ChampIncorrectException;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
@@ -23,6 +21,7 @@ import javax.swing.JPanel;
 import metier.Administrateur;
 import metier.Compte;
 import metier.Utilisateur;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
@@ -296,9 +295,6 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 			catch (ClassNotFoundException e) {
 				MsgBox.affMsg("ClassNotFoundException " + e.getMessage());
 			} 
-			catch (ChampIncorrectException e) {
-				MsgBox.affMsg("Champ incorrect exception " + e.getMessage());
-			}
 			catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);

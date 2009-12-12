@@ -1,11 +1,6 @@
 package statistiques;
 
 
-import exceptions.exceptionsIhm.ChampIncorrectException;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOEmprunt;
-import gestionBaseDeDonnees.DAOLieu;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -30,6 +25,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOLieu;
+
 public class DiagrammeFreqStations extends ApplicationFrame {
 
 	/**
@@ -39,7 +38,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	
 	private JFreeChart chart;
 
-	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException, SQLException, ClassNotFoundException {
+	public DiagrammeFreqStations(String periodeEntree) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("Fréquentation des stations sur les "+periodeEntree);
 		CategoryDataset dataset = createDataset(periodeEntree);
@@ -54,7 +53,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		return this.chart.createBufferedImage(550,400);
 	}
 
-	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException, SQLException, ClassNotFoundException {
+	private static CategoryDataset createDataset(String periodeEntree) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -69,7 +68,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 				category.add(DAOLieu.getLieuById(stations.get(i).getId()).getAdresse());
 			}
 
-			int nbJoursEntre;
+			int nbJoursEntre=365;
 			if (periodeEntree.equals("30 derniers jours")){
 				nbJoursEntre = 30;
 			}
@@ -81,9 +80,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			}
 			else if (periodeEntree.equals("365 derniers jours")){
 				nbJoursEntre = 365;
-			}
-			else {
-				throw new ChampIncorrectException();
 			}
 
 
@@ -150,7 +146,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws ChampIncorrectException, ConnexionFermeeException, SQLException, ClassNotFoundException {
+	public static void main(final String[] args) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
