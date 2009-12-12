@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
+import exceptions.exceptionsIhm.ChampIncorrectException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;
@@ -21,8 +23,6 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Velo;
-import exceptionsIhm.ChampIncorrectException;
-import exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener {
 

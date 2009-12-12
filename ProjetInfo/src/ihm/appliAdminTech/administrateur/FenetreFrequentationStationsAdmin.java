@@ -20,8 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import exceptionsIhm.ChampIncorrectException;
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsIhm.ChampIncorrectException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;

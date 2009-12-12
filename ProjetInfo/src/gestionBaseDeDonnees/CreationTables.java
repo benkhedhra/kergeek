@@ -7,10 +7,10 @@ package gestionBaseDeDonnees;
 
 //création des tables dans la base, à faire avant de lancer l'application
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import exceptionsTechniques.ConnexionFermeeException;
 
 import metier.Garage;
 import metier.Lieu;

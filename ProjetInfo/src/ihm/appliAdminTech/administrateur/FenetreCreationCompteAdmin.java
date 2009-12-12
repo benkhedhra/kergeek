@@ -1,8 +1,8 @@
 package ihm.appliAdminTech.administrateur;
 
 import envoieMail.SendMail;
-import exceptionsMetier.TypeCompteException;
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsMetier.TypeCompteException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;

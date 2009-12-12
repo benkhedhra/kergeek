@@ -1,8 +1,8 @@
 package statistiques;
 
 
-import exceptionsIhm.ChampIncorrectException;
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsIhm.ChampIncorrectException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 

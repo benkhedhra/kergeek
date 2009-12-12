@@ -17,10 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import exceptionsIhm.ChampIncorrectException;
-import exceptionsTechniques.ConnexionFermeeException;
-
 import metier.Administrateur;
+import exceptions.exceptionsIhm.ChampIncorrectException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 

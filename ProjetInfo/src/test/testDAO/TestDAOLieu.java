@@ -1,17 +1,16 @@
 package test.testDAO;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOLieu;
+
 import java.sql.SQLException;
 import java.util.List;
 
-import exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOLieu;
-
+import junit.framework.TestCase;
 import metier.Lieu;
 import metier.Station;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOLieu extends TestCase{
 	@Test

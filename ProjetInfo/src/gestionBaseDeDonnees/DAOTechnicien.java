@@ -1,16 +1,14 @@
 package gestionBaseDeDonnees;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptionsTechniques.ConnexionFermeeException;
-
 import metier.Compte;
-import metier.Lieu;
-import metier.Station;
 import metier.Technicien;
 
 public class DAOTechnicien {

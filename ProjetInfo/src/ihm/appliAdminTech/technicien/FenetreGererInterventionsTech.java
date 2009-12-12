@@ -1,10 +1,9 @@
 package ihm.appliAdminTech.technicien;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;

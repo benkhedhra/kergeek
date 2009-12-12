@@ -1,5 +1,8 @@
 package statistiques;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOVelo;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -15,8 +18,6 @@ import javax.swing.JTable;
 
 import metier.Sortie;
 import metier.Velo;
-import exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOVelo;
 
 
 public class TableauListeVelosSortis extends JPanel {

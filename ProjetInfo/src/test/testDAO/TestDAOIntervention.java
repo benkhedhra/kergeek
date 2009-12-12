@@ -1,20 +1,19 @@
 package test.testDAO;
 
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import junit.framework.TestCase;
 import metier.Intervention;
 import metier.TypeIntervention;
 import metier.UtilitaireDate;
 import metier.Velo;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOIntervention extends TestCase{
 	@Test

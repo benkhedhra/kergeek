@@ -1,6 +1,6 @@
 package ihm.appliAdminTech;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
 import ihm.MsgBox;

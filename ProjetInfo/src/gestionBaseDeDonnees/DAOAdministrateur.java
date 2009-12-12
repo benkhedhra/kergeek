@@ -1,6 +1,6 @@
 package gestionBaseDeDonnees;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

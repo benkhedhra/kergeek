@@ -1,4 +1,4 @@
-package exceptionsTechniques;
+package exceptions.exceptionsTechniques;
 
 public class ConnexionFermeeException extends Exception {
 	

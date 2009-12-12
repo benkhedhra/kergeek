@@ -12,7 +12,7 @@ import metier.Velo;
 
 import org.junit.Test;
 
-import exceptionsMetier.PasDeDateRetourException;
+import exceptions.exceptionsMetier.PasDeDateRetourException;
 
 public class TestEmprunt extends TestCase {
 	@Test

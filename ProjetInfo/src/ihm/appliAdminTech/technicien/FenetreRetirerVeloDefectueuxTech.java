@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
@@ -26,12 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import metier.DemandeIntervention;
-import metier.Garage;
 import metier.Intervention;
-import metier.Lieu;
 import metier.Technicien;
 import metier.Velo;
-import exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionListener {
 

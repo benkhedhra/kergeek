@@ -1,16 +1,16 @@
 package test.testDAO;
 
-import java.sql.SQLException;
-
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
+
+import java.sql.SQLException;
+
+import junit.framework.TestCase;
 import metier.Administrateur;
 import metier.Compte;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class TestDAOAdministrateur extends TestCase{
 	@Test

@@ -1,5 +1,9 @@
 package statistiques;
 
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOVelo;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -14,9 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import metier.Intervention;
-import exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOIntervention;
-import gestionBaseDeDonnees.DAOVelo;
 
 
 public class TableauInterventionVelo extends JPanel {

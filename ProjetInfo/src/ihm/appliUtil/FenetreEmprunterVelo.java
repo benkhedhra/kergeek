@@ -1,8 +1,8 @@
 package ihm.appliUtil;
 
 import envoieMail.SendMail;
-import exceptionsMetier.CompteBloqueException;
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsMetier.CompteBloqueException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOTechnicien;

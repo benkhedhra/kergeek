@@ -18,10 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import exceptionsTechniques.ConnexionFermeeException;
-
 import metier.Administrateur;
 import metier.Compte;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreRechercherCompteAdmin extends JFrame implements ActionListener {
 

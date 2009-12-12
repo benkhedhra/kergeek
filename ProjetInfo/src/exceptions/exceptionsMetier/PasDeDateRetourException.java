@@ -1,4 +1,4 @@
-package exceptionsMetier;
+package exceptions.exceptionsMetier;
 
 public class PasDeDateRetourException extends Exception{
 

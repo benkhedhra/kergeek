@@ -13,9 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import exceptionsTechniques.ConnexionFermeeException;
-
 import metier.Utilisateur;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MenuUtilisateur extends JFrame implements ActionListener {
 
