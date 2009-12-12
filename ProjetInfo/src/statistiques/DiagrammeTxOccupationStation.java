@@ -34,7 +34,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 	private JFreeChart chart;
 
-	public DiagrammeTxOccupationStation(Station station) throws ConnexionFermeeException {
+	public DiagrammeTxOccupationStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("");
 		chart = createChart(station);
@@ -48,7 +48,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		return this.chart.createBufferedImage(300, 300);
 	}
 
-	JFreeChart createChart(Station station) throws ConnexionFermeeException {
+	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		// create subplot
 		final XYSeriesCollection data1 = createDataset(station);
@@ -76,7 +76,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	}
 
 
-	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException {
+	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 
 		
@@ -91,7 +91,6 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		
 
 		final XYSeries series = new XYSeries("Taux d'occupation");
-		try {
 			series.add(heureencours, (DAOVelo.getVelosByLieu(station).size()*100)/station.getCapacite());
 			series.add(heure1, ((DAOVelo.getVelosByLieu(station).size() 
 					+ DAOEmprunt.NombreVelosSortisHeures(station, 1)
@@ -102,13 +101,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 			series.add(heure3, ((DAOVelo.getVelosByLieu(station).size() 
 					+ DAOEmprunt.NombreVelosSortisHeures(station, 3)
 					- DAOEmprunt.NombreVelosRentresHeures(station, 3))*100)/station.getCapacite());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 
 		final XYSeries series2 = new XYSeries("Taux d'occupation minimum");

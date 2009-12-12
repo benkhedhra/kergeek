@@ -6,9 +6,8 @@ public class CompteBloqueException extends Exception {
 		super();
 	}
 
-	public CompteBloqueException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public CompteBloqueException(String msg) {
+		super(msg);
 	}
 
 }

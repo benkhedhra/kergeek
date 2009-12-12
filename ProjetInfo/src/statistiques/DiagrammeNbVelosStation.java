@@ -38,7 +38,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	
 	private JFreeChart chart;
 
-	public DiagrammeNbVelosStation(Station station) throws ConnexionFermeeException {
+	public DiagrammeNbVelosStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("");
 		chart = createChart(station);
@@ -52,7 +52,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		return this.chart.createBufferedImage(300, 300);
 	}
 
-	JFreeChart createChart(Station station) throws ConnexionFermeeException {
+	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		// create subplot
 		final XYSeriesCollection data1 = createDataset(station);
@@ -80,7 +80,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	}
 
 
-	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException {
+	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 
 		
@@ -94,9 +94,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
 
 		final XYSeries series = new XYSeries("Nombre de vélos");
-		try {
 			series.add(heureencours, DAOVelo.getVelosByLieu(station).size());
-			//System.out.println("nb vélos ds la station = "+DAOVelo.getVelosByLieu(station).size());
 			series.add(heure1, DAOVelo.getVelosByLieu(station).size()
 					+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
 					- (DAOEmprunt.NombreVelosRentresHeures(station, 1)));
@@ -106,14 +104,6 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 			series.add(heure3,  DAOVelo.getVelosByLieu(station).size()
 					+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
 					- (DAOEmprunt.NombreVelosRentresHeures(station, 3)));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 
 
 		final XYSeries series2 = new XYSeries("Capacité de la station");

@@ -45,9 +45,9 @@ public class DAOIntervention {
 				}
 			}
 		}
-		/*TODO catch (SQLException e){
+		catch (SQLException e){
 			System.out.println(e.getMessage());
-		}*/
+		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();

@@ -249,10 +249,10 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				MsgBox.affMsg(e.getMessage());
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				MsgBox.affMsg(e.getMessage());
 				e.printStackTrace();
 			}
 			catch (ConnexionFermeeException e){

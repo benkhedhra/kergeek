@@ -34,7 +34,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	
 	private JFreeChart chart;
 	
-	public DiagrammeNbInterventions() throws ConnexionFermeeException {
+	public DiagrammeNbInterventions() throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		
 		super("");
 		CategoryDataset dataset = createDataset();
@@ -50,7 +50,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		return this.chart.createBufferedImage(550, 400);
 	}
 	
-	private static CategoryDataset createDataset() throws ConnexionFermeeException {
+	private static CategoryDataset createDataset() throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
@@ -70,25 +70,14 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		// créer la dataset...
 		/*TODO vérifier que le.get(i) corresponde au bon type d'intervention*/
 		
-
-		try {
+		
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(0), series1, category1);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(1), series1, category2);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category3);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category4);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category5);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(5), series1, category6);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-
-
+	
 		return dataset;
 
 	}
@@ -146,7 +135,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 
 	}
 	
-	public static void main(final String[] args) throws ConnexionFermeeException {
+	public static void main(final String[] args) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		final DiagrammeNbInterventions demo = new DiagrammeNbInterventions();
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
