@@ -135,7 +135,7 @@ public class UtilitaireIhm {
 		}
 		System.out.println("vélos pouvant être assignés : " + listeIdVelosDansLieu.toString());
 		for (String idVelo : ancienneliste){
-			if (DAOVelo.estDansLaBdd(idVelo)){
+			if (DAOVelo.existe(idVelo)){
 				if(listeIdVelosDansLieu.contains(idVelo)){
 					nouvelleListe.add(idVelo);
 					System.out.println(idVelo + " : OK");

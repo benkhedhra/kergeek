@@ -115,7 +115,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			try {
-				if(!DAOVelo.estDansLaBdd(veloARemplir.getText())){
+				if(!DAOVelo.existe(veloARemplir.getText())){
 					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
 					new FenetreEmprunterVelo(this.getUtilisateur());
 				}

@@ -7,14 +7,14 @@ package gestionBaseDeDonnees;
 
 //création des tables dans la base, à faire avant de lancer l'application
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import metier.Detruit;
 import metier.Garage;
 import metier.Lieu;
 import metier.Sortie;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class CreationTables {
 
@@ -136,6 +136,7 @@ public class CreationTables {
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'EME','5')");
 			System.out.println(DAOLieu.createLieu(Garage.getInstance()));
 			System.out.println(DAOLieu.createLieu(Sortie.getInstance()));
+			System.out.println(DAOLieu.createLieu(Detruit.getInstance()));
 			
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s2 = ConnexionOracleViaJdbc.createStatement();

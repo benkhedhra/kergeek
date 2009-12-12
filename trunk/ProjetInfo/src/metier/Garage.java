@@ -1,11 +1,8 @@
 package metier;
 
 
-/**La classe Garage est un peu particuliere (singleton) car il n'existe qu'une seule instance du garage, qui ne 
- * peut etre modifiee (c'est pourquoi on override les setter et on utilise un constructeur prive)
- * 
- * @author boris
- *
+/**La classe Garage utilise le pattern singleton garantissant l'existence d'une seule instance du Garage.
+ * @author KerGeek
  */
 
 public class Garage extends Lieu{
