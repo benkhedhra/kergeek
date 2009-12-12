@@ -39,7 +39,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	
 	private JFreeChart chart;
 
-	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException {
+	public DiagrammeFreqStations(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("Fréquentation des stations sur les "+periodeEntree);
 		CategoryDataset dataset = createDataset(periodeEntree);
@@ -54,7 +54,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		return this.chart.createBufferedImage(550,400);
 	}
 
-	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException {
+	private static CategoryDataset createDataset(String periodeEntree) throws ChampIncorrectException, ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -63,7 +63,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		String entres = "Vélos entrés";
 
 		// étiquettes des colonnes...
-		try {
 			List<Station> stations = DAOLieu.getAllStations();
 			ArrayList<String> category = new ArrayList<String>(stations.size());
 			for (int i=0;i<stations.size();i++){
@@ -92,17 +91,6 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 				dataset.addValue(DAOEmprunt.NombreVelosSortis(DAOLieu.getLieuById(stations.get(i).getId()), nbJoursEntre), sortis, category.get(i));
 				dataset.addValue(DAOEmprunt.NombreVelosRentres(DAOLieu.getLieuById(stations.get(i).getId()), nbJoursEntre), entres, category.get(i));
 			}
-
-		}
-
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		return dataset;
 
 	}
@@ -162,7 +150,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws ChampIncorrectException, ConnexionFermeeException {
+	public static void main(final String[] args) throws ChampIncorrectException, ConnexionFermeeException, SQLException, ClassNotFoundException {
 		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

@@ -16,7 +16,6 @@ public class MainConnexionBdd {
 	 * @throws ConnexionFermeeException 
 	 */
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, PasDeDateRetourException, ConnexionFermeeException {
-		// TODO Auto-generated method stub
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
 

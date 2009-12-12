@@ -44,22 +44,13 @@ public abstract class Lieu {
 	}
 
 	//Méthodes
-
-	//pour moi il y a redondance d'info
 	
 	public void enleverVelo(Velo velo){
 		velo.setLieu(Sortie.getInstance());
-		/*TODO a faire faire par le controller
-		 * DAOVelo.updateVelo(velo);
-		 */
 	}
 
 	public void ajouterVelo(Velo velo){
 		velo.setLieu(this);
-		/*TODO a faire faire par le controller
-		 * DAOVelo.updateVelo(velo);
-		 */
-
 	}
 
 

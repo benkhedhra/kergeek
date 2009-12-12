@@ -23,8 +23,8 @@ public class PanneauTech extends JPanel {
 			Image img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/ressources/panneauTech.jpg"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			MsgBox.affMsg(e.getMessage());
+			e.printStackTrace();
+			System.out.println("IOException : image de fond innaccessible");
 		}
 	}
 
