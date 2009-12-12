@@ -1,8 +1,5 @@
 package ihm;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOVelo;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +8,13 @@ import metier.Compte;
 import metier.Lieu;
 import metier.Station;
 import metier.Velo;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOVelo;
+
+/** 
+ * UtilitaireIhm est la classe regroupant un certain nombre de méthodes servant à vérifier la cohérence des champs entrés par rapport à un contexte donné par la fenêtre ihm en cours
+ * @author KerGeek
+ */
 
 public class UtilitaireIhm {
 
@@ -83,18 +87,46 @@ public class UtilitaireIhm {
 		return(c.getMotDePasse().equals(ancienMdp) && nouveauMdp1.length()>0 && nouveauMdp1.length()<21 && nouveauMdp1.equals(nouveauMdp2));
 	}
 	
-	
-	
+	/**
+	 * Vérifie s'il n'existe pas de demande d'intervention sur un vélo
+	 * @param v : Velo
+	 * @return un booléen
+	 * qui vaut vrai si une demande d'intevention existe sur le vélo, ie si celui-ci est déclaré en panne (attribut enPanne)
+	 * @see Velo
+	 */
 	public static boolean verifieSiPasDemandeInterventionSurVelo (Velo v){
 		return (v.isEnPanne());
 	}
 	
+	/**
+	 * Vérifie s'il y a encore au moins une place disponible dans une station
+	 * @param station : Station
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @return un booléen
+	 * qui vaut vrai si le nombre de vélos dans station est inférieure strictement à sa capacité
+	 * @see DAOVelo
+	 */
 	public static boolean verifieSiPlaceDisponibleDansStation(Station station) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return(DAOVelo.getVelosByLieu(station).size() < station.getCapacite());
 		
 	}
 	
-	public static ArrayList<String> verifieSiVelosPeuventEtreAssigne(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	
+	/**
+	 * Vérifie si des vélos peuvent être assignés à une station
+	 * @param ancienneliste : la liste des identifiants des vélos que l'on veut assigner
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @return une ArrayList<String>
+	 * de la même taille que ancienneliste
+	 * si le vélo correspondant au i-ème identifiant de ancienneliste est assignable, la nouvelle liste a pour i-ème élément ce même identifiant
+	 * sinon le i-ème élément de la nouvelle liste est une chaîne vide
+	 * @see DAOVelo
+	 */
+	public static ArrayList<String> verifieSiVelosPeuventEtreAssignes(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		ArrayList<String> nouvelleListe = new ArrayList<String>();
 		List<Velo> listeVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
 		List<String> listeIdVelosDansLieu = new ArrayList<String>();
@@ -118,6 +150,5 @@ public class UtilitaireIhm {
 			}
 		}
 		return nouvelleListe;
-	}
-	
+	}	
 }

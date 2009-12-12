@@ -13,6 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MsgBox extends JDialog implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private boolean id=false;  //permet de connaître le bouton utilisé
 	private Button ok,can;
 

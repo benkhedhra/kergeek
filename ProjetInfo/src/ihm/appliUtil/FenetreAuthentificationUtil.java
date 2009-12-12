@@ -1,6 +1,6 @@
 package ihm.appliUtil;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
+
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 
 import metier.Utilisateur;
 import metier.UtilitaireDate;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
@@ -43,6 +44,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	private JLabel labelInvitation = new JLabel("");
 	private JTextField idARemplir = new JTextField("");
 	private JButton boutonValider = new JButton ("Valider");
+	private JButton boutonInfo = new JButton ("Plus d'informations ... ");
 
 	public FenetreAuthentificationUtil(Boolean erreurAuthent){
 
@@ -77,26 +79,43 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		}
 
 		JPanel center = new JPanel();
-
 		center.setBackground(TRANSPARENCE);
-		center.setPreferredSize(new Dimension());
-		labelInvitation.setFont(POLICE2);
-		center.add(labelInvitation);
-		idARemplir.setFont(POLICE3);
-		idARemplir.setPreferredSize(new Dimension(150, 30));
-		idARemplir.setForeground(Color.BLUE);
-		center.add(idARemplir);
-		this.getContentPane().add(center,BorderLayout.CENTER);
+		center.setPreferredSize(new Dimension(700,350));center.setLayout(new BorderLayout());
 
-		JPanel south = new JPanel();
-		south.setBackground(TRANSPARENCE);
-		south.setPreferredSize(new Dimension(700,150));
+		JPanel centerCenter = new JPanel();
+		centerCenter.setBackground(TRANSPARENCE);
+		centerCenter.setPreferredSize(new Dimension(700,300));
+
+		labelInvitation.setFont(POLICE2);
+		centerCenter.add(labelInvitation);
+		idARemplir.setFont(POLICE3);
+		idARemplir.setPreferredSize(new Dimension(150,30));
+		idARemplir.setForeground(Color.BLUE);
+		centerCenter.add(idARemplir);
+		center.add(centerCenter,BorderLayout.CENTER);
+
+		JPanel centerSouth = new JPanel();
+		centerSouth.setBackground(TRANSPARENCE);
+		centerSouth.setPreferredSize(new Dimension(700,50));
 		boutonValider.setPreferredSize(new Dimension(100,30));
 		boutonValider.setMaximumSize(new Dimension(100,30));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(POLICE3);
 		boutonValider.addActionListener(this);
-		south.add(boutonValider);
+		centerSouth.add(boutonValider);
+		center.add(centerSouth,BorderLayout.SOUTH);
+
+		this.getContentPane().add(center,BorderLayout.CENTER);
+
+		JPanel south = new JPanel();
+		south.setBackground(TRANSPARENCE);
+		south.setPreferredSize(new Dimension(700,100));
+		boutonInfo.setPreferredSize(new Dimension(350,30));
+		boutonInfo.setMaximumSize(new Dimension(250,30));
+		boutonInfo.setBackground(Color.MAGENTA);
+		boutonInfo.setFont(POLICE3);
+		boutonInfo.addActionListener(this);
+		south.add(boutonInfo);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);
@@ -116,36 +135,37 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-
-		String id = idARemplir.getText();
-		System.out.println("id renseigné = "+id);
 		try {
-			if (testerIdent(id)){
-				Utilisateur u;
-				u = DAOUtilisateur.getUtilisateurById(id);
+			if(arg0.getSource()==boutonInfo){
+				new FenetreConfirmationUtil("<html><center>Bélo Breizh est une système de location de vélos sur le campus de Ker Lann. <br>Notre réseau comporte 7 stations : <br>Etangs<br>ENSAI<br>Coeur de Campus<br>Résidence<br>ENS<br>EME");
+			}
+			else{		
+				String id = idARemplir.getText();
+				if (testerIdent(id)){
+					Utilisateur u;
+					u = DAOUtilisateur.getUtilisateurById(id);
 
-				Date dateDernierRetour = DAOUtilisateur.getDerniereDateRetour(u);
+					Date dateDernierRetour = DAOUtilisateur.getDerniereDateRetour(u);
 
-				if(u.isBloque()){
-					if(dateDernierRetour.before(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),7))){
-						u.setBloque(false);
+					if(u.isBloque()){
+						if(dateDernierRetour.before(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),7))){
+							u.setBloque(false);
+						}
+					}
+					if(!u.isBloque()){
+						new MenuUtilisateur(u);
+					}
+					else{
+						Date dateLimite = UtilitaireDate.ajouteJours(dateDernierRetour,7);
+						GregorianCalendar cal = new GregorianCalendar();
+						cal.setTime(dateLimite);
+
+						new FenetreConfirmationUtil("Votre compte est bloqué jusqu'au " + cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG , getLocale())+" "+ cal.get(Calendar.DAY_OF_MONTH)+" "+ cal.getDisplayName(Calendar.MONTH, Calendar.LONG, getLocale()) + " à " + (cal.get(Calendar.HOUR_OF_DAY)+1) + "h");
 					}
 				}
-				if(!u.isBloque()){
-					new MenuUtilisateur(u);
-				}
 				else{
-					Date dateLimite = UtilitaireDate.ajouteJours(dateDernierRetour,7);
-					GregorianCalendar cal = new GregorianCalendar();
-					cal.setTime(dateLimite);
-
-
-					new FenetreConfirmationUtil("Votre compte est bloqué jusqu'au " + cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG , getLocale())+" "+ cal.get(Calendar.DAY_OF_MONTH)+" "+ cal.getDisplayName(Calendar.MONTH, Calendar.LONG, getLocale()) + " à " + (cal.get(Calendar.HOUR_OF_DAY)+1) + "h");
+					new FenetreAuthentificationUtil(true);
 				}
-
-			}
-			else{
-				new FenetreAuthentificationUtil(true);
 			}
 		}
 		catch (SQLException e1) {

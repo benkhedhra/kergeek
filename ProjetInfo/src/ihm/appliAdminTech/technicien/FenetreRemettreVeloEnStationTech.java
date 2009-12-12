@@ -1,11 +1,11 @@
 package ihm.appliAdminTech.technicien;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
+import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -29,6 +29,7 @@ import metier.Garage;
 import metier.Station;
 import metier.Technicien;
 import metier.Velo;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionListener {
 
@@ -124,9 +125,10 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 		try {
 			List<Station> listeStations = DAOLieu.getAllStations();
-			String [] tableauStations = new String[listeStations.size()];
+			String [] tableauStations = new String[listeStations.size()+1];
+			tableauStations[0]="Sélectionnez une station";
 			for (int i=0;i<listeStations.size();i++){
-				tableauStations[i]=listeStations.get(i).toString();
+				tableauStations[i+1]=listeStations.get(i).toString();
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -136,20 +138,25 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String chaineSelectionnee = (String)(o);
-					String idStationEntre = chaineSelectionnee.substring(0,1);
-					try {
-						stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-					} catch (SQLException e) {
-						MsgBox.affMsg(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						MsgBox.affMsg(e.getMessage());
+					if(chaineSelectionnee.equals("Sélectionnez une station")){
+						stationEntree=null;
 					}
-					catch (ConnexionFermeeException e){
-						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-						new FenetreAuthentification(false);
+					else{
+						String idStationEntre = chaineSelectionnee.substring(0,1);
+						try {
+							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
+						catch (ConnexionFermeeException e){
+							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+							new FenetreAuthentification(false);
+						}
+						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
+						labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 					}
-					labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
-					labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 				}
 
 			});
@@ -194,40 +201,35 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		try {if (arg0.getSource()==boutonValider){
-			Velo velo = DAOVelo.getVeloById(idARemplir.getText());
-			if(stationEntree == null){
-				MsgBox.affMsg("Vous n'avez selectionné aucune station");
-				new FenetreRemettreVeloEnStationTech(this.getTechnicien());
-			}
-			if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
-				if(DAOVelo.estDansLaBdd(velo.getId())){
-					if(velo.isEnPanne() && velo.getLieu().getId() == Garage.ID_GARAGE){
-						velo.setLieu(stationEntree);
-						velo.setEnPanne(false);
-						DAOVelo.updateVelo(velo);
-						new FenetreRemettreVeloEnStationTech(this.getTechnicien());
-					}
-					else{
-						MsgBox.affMsg("L'identifiant que vous avez renseigné ne correspond pas à un vélo en réparation");
-						new FenetreRemettreVeloEnStationTech(this.getTechnicien());
-					}
-				}
-				else{
-					MsgBox.affMsg("<L'identifiant que vous avez renseigné est invalide");
+		try {
+			if (arg0.getSource()==boutonValider){
+				Velo velo = DAOVelo.getVeloById(idARemplir.getText());
+				if(stationEntree == null){
+					MsgBox.affMsg("Vous n'avez selectionné aucune station");
 					new FenetreRemettreVeloEnStationTech(this.getTechnicien());
 				}
+				if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
+					if(DAOVelo.estDansLaBdd(velo.getId())){
+						if(velo.isEnPanne() && velo.getLieu().getId() == Garage.ID_GARAGE){
+							velo.setLieu(stationEntree);
+							velo.setEnPanne(false);
+							DAOVelo.updateVelo(velo);
+							new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+						}
+						else{
+							MsgBox.affMsg("L'identifiant que vous avez renseigné ne correspond pas à un vélo en réparation");
+							new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+						}
+					}
+					else{
+						MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
+						new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+					}
+				}
 			}
-			else{
-				MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
-				new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
 			}
-		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
-		}
-
-
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
