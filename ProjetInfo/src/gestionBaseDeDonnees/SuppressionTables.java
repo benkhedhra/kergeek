@@ -1,9 +1,11 @@
 package gestionBaseDeDonnees;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 public class SuppressionTables {
 
-	static public void main (String argv[]) throws SQLException,ClassNotFoundException {
+	static public void main (String argv[]) throws SQLException,ClassNotFoundException, ConnexionFermeeException {
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();

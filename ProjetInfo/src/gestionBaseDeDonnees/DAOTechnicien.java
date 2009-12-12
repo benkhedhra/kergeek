@@ -65,7 +65,12 @@ public class DAOTechnicien {
 			}
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

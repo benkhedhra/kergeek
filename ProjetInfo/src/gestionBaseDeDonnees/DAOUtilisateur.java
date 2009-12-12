@@ -64,9 +64,9 @@ public class DAOUtilisateur {
 		Utilisateur u = new Utilisateur(new Compte());
 
 		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-		ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
 			if (res.next()) {
 
 				u.setNom(res.getString("nom"));
@@ -88,7 +88,12 @@ public class DAOUtilisateur {
 			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e3){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e3.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -112,9 +117,9 @@ public class DAOUtilisateur {
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		
+
 		try {
-		ResultSet res = s.executeQuery("Select idCompte from Compte Where nom ='" + nom +"'");
+			ResultSet res = s.executeQuery("Select idCompte from Compte Where nom ='" + nom +"'");
 			while (res.next()) {
 				listeIdCompte.add(res.getString("idCompte"));
 			}
@@ -148,8 +153,8 @@ public class DAOUtilisateur {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
-		ResultSet res = s.executeQuery("Select idCompte from Compte Where prenom ='" + prenom +"'");
-		
+			ResultSet res = s.executeQuery("Select idCompte from Compte Where prenom ='" + prenom +"'");
+
 			while (res.next()) {
 				listeIdCompte.add(res.getString("idCompte"));
 			}

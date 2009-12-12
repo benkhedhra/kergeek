@@ -95,7 +95,12 @@ public class DAOCompte {
 			System.out.println(e.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -131,7 +136,12 @@ public class DAOCompte {
 			System.out.println(e.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
@@ -147,8 +157,9 @@ public class DAOCompte {
 		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
 			try{
 				if (res.next()) {
@@ -178,7 +189,12 @@ public class DAOCompte {
 			}
 		}
 		catch(NullPointerException e3){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e3.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -212,7 +228,12 @@ public class DAOCompte {
 			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -310,7 +331,12 @@ public class DAOCompte {
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

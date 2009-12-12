@@ -50,7 +50,12 @@ public class DAODemandeIntervention {
 			System.out.println(e.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
@@ -82,7 +87,12 @@ public class DAODemandeIntervention {
 			System.out.println(e.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception	
@@ -118,7 +128,12 @@ public class DAODemandeIntervention {
 			}
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -171,7 +186,12 @@ public class DAODemandeIntervention {
 			}
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
