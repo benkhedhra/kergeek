@@ -1,6 +1,6 @@
 package statistiques;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import metier.Lieu;
 import metier.Station;
 import metier.UtilitaireDate;
 

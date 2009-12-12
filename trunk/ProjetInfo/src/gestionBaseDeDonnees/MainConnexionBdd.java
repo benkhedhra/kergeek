@@ -3,11 +3,8 @@ package gestionBaseDeDonnees;
 
 import java.sql.SQLException;
 
-import metier.Intervention;
-import metier.UtilitaireDate;
-import metier.Velo;
-import exceptionsMetier.PasDeDateRetourException;
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsMetier.PasDeDateRetourException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MainConnexionBdd {
 

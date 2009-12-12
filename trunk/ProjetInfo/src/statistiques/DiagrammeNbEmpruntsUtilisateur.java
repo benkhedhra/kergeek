@@ -1,6 +1,6 @@
 package statistiques;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOUtilisateur;
 

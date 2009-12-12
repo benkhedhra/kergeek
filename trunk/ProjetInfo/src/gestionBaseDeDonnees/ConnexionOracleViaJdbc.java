@@ -5,7 +5,6 @@ package gestionBaseDeDonnees;
  * @version 1.0
  */
 
-import ihm.MsgBox;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

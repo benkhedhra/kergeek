@@ -1,14 +1,13 @@
 package gestionBaseDeDonnees;
 
-import exceptionsTechniques.ConnexionFermeeException;
-import exceptionsTechniques.PasDansLaBaseDeDonneeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import metier.Compte;

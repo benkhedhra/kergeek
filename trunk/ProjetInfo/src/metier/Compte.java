@@ -2,8 +2,6 @@ package metier;
 
 import java.util.Random;
 
-import envoieMail.SendMail;
-
 /**
  * La classe compte représente le compte d'un Administrateur, d'un Technicien ou d'un Utilisateur,
  *  qui contient les données relatives à ces différents acteurs.

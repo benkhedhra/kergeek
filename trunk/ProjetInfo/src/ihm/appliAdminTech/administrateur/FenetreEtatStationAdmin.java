@@ -1,7 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
-import exceptionsIhm.ChampIncorrectException;
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsIhm.ChampIncorrectException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAffichageResultats;

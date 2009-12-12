@@ -1,6 +1,6 @@
 package ihm.appliUtil;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;

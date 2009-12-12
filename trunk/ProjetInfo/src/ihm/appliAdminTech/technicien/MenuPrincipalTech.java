@@ -18,9 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import exceptionsTechniques.ConnexionFermeeException;
-
 import metier.Technicien;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MenuPrincipalTech extends JFrame implements ActionListener {
 

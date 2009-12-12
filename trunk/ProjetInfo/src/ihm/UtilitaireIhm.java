@@ -1,6 +1,6 @@
 package ihm;
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOVelo;
 
 import java.sql.SQLException;

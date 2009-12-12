@@ -1,7 +1,7 @@
 package statistiques;
 
 
-import exceptionsTechniques.ConnexionFermeeException;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 
 import java.awt.Color;
