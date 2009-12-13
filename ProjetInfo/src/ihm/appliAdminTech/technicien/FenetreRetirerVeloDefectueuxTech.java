@@ -226,6 +226,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					else{
 						if(DAOVelo.existe(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
 							Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
+							veloEntre.setEnPanne(true);
 							Intervention i = this.getTechnicien().intervenir(veloEntre);
 							if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i)){
 								new FenetreConfirmation(this.getTechnicien().getCompte(),this);

@@ -1,7 +1,13 @@
 package metier;
 
 public class TypeIntervention {
+
+	//Constantes
 	
+	/**
+	 * @see TypeIntervention#type
+	 */
+	public static final int TYPE_DESTRUCTION = 7;
 	
 	//Attributs
 	

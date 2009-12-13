@@ -10,8 +10,7 @@ public class Velo {
 	private boolean enPanne;
 	private Emprunt empruntEnCours;
 
-
-
+	
 	// Constructeurs
 
 	public Velo() {

@@ -1,12 +1,12 @@
 package ihm.appliAdminTech.technicien;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOTypeIntervention;
+import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
+import ihm.appliUtil.FenetreAuthentificationUtil;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import metier.Intervention;
 import metier.Technicien;
 import metier.TypeIntervention;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetrePrendreEnChargeInterventionTech extends JFrame implements ActionListener {
 	/**
@@ -41,7 +42,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	private JLabel labelMsg = new JLabel("");
 	private JLabel labelTypeIntervention = new JLabel ("Veuillez entrer le type d'intervention");
 	private TypeIntervention typeInterventionEntre;
-	private JButton boutonValider = new JButton("Commencer l'intervention");
+	private JButton boutonValider = new JButton("Terminer l'intervention");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 	public Technicien getTechnicien() {
@@ -58,6 +59,14 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 	public void setIntervention(Intervention intervention) {
 		this.intervention = intervention;
+	}
+
+	public TypeIntervention getTypeInterventionEntre() {
+		return typeInterventionEntre;
+	}
+
+	public void setTypeInterventionEntre(TypeIntervention typeInterventionEntre) {
+		this.typeInterventionEntre = typeInterventionEntre;
 	}
 
 	public FenetrePrendreEnChargeInterventionTech(Technicien t, Intervention i) throws ConnexionFermeeException{
@@ -197,23 +206,30 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonValider){
-			Intervention i = this.getTechnicien().terminerIntervention(this.getIntervention(),typeInterventionEntre);
-			try {
-				DAOIntervention.updateIntervention(i);
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
+		try {
+			if(arg0.getSource()==boutonValider){
+				if(this.getTypeInterventionEntre().getType()==TypeIntervention.TYPE_DESTRUCTION){
+					Intervention i = this.getTechnicien().retirerDuParc(this.getIntervention());
+					DAOVelo.updateVelo(i.getVelo());
+					DAOIntervention.updateIntervention(i);
+				}
+				else {
+					Intervention i = this.getTechnicien().terminerIntervention(this.getIntervention(),this.getTypeInterventionEntre());
+					DAOVelo.updateVelo(i.getVelo());
+					DAOIntervention.updateIntervention(i);
+				}
+				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 			}
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+			else if(arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
 			}
-			new FenetreConfirmation(this.getTechnicien().getCompte(),this);
-		}
-		else if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		}catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}
 }

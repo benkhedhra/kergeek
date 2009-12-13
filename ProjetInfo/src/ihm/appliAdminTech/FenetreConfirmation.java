@@ -3,6 +3,7 @@ package ihm.appliAdminTech;
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
+import gestionBaseDeDonnees.DAOTypeIntervention;
 import ihm.MsgBox;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
@@ -13,6 +14,7 @@ import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
 import ihm.appliAdminTech.technicien.FenetreGererDemandesAssignationTech;
 import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
+import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeInterventionTech;
 import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloDefectueuxTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
@@ -32,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Compte;
+import metier.TypeIntervention;
 
 public class FenetreConfirmation extends JFrame implements ActionListener {
 
@@ -64,7 +67,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.fenetrePrecedente = fenetrePrecedente;
 	}
 
-	public FenetreConfirmation(Compte c,JFrame fenetrePrec){
+	public FenetreConfirmation(Compte c,JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
 			this.setContentPane(new PanneauAdmin());
@@ -275,6 +278,10 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			else if(fenetrePrec.getTitle().equals("Prendre en charge une intervention")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
+				FenetrePrendreEnChargeInterventionTech f = (FenetrePrendreEnChargeInterventionTech) fenetrePrec;
+				if(f.getTypeInterventionEntre()==DAOTypeIntervention.getTypeInterventionById(TypeIntervention.TYPE_DESTRUCTION)){
+					labelConfirm.setText("La destruction du vélo a bien été enregistrée. ");
+				}
 				labelConfirm.setText("L'intervention a bien été enregistrée. ");
 				bouton1.setText("Gérer une autre demande d'intervention");
 				bouton1.addActionListener(this);
