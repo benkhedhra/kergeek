@@ -2,9 +2,9 @@ package metier;
 
 import java.sql.SQLException;
 
-import exceptions.exceptionsMetier.CompteBloqueException;
-import exceptions.exceptionsMetier.PasDeDateRetourException;
-import exceptions.exceptionsMetier.PasDeVeloEmprunteException;
+import metier.exceptionsMetier.CompteBloqueException;
+import metier.exceptionsMetier.PasDeDateRetourException;
+import metier.exceptionsMetier.PasDeVeloEmprunteException;
 
 public class Utilisateur {
 

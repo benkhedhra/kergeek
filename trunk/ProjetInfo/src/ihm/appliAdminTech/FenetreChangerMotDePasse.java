@@ -1,9 +1,9 @@
 package ihm.appliAdminTech;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;

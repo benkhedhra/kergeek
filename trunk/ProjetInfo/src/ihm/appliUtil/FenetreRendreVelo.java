@@ -1,12 +1,10 @@
 package ihm.appliUtil;
 
-import exceptions.exceptionsMetier.PasDeDateRetourException;
-import exceptions.exceptionsMetier.PasDeVeloEmprunteException;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 
@@ -29,6 +27,8 @@ import metier.Emprunt;
 import metier.Station;
 import metier.Utilisateur;
 import metier.Velo;
+import metier.exceptionsMetier.PasDeDateRetourException;
+import metier.exceptionsMetier.PasDeVeloEmprunteException;
 
 
 public class FenetreRendreVelo extends JFrame implements ActionListener {

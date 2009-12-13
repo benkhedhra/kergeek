@@ -1,10 +1,11 @@
 package gestionBaseDeDonnees;
 
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
 import java.sql.SQLException;
 
-import exceptions.exceptionsMetier.PasDeDateRetourException;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import metier.exceptionsMetier.PasDeDateRetourException;
 
 public class MainConnexionBdd {
 

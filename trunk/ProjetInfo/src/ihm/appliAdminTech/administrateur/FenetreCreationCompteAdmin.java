@@ -1,11 +1,10 @@
 package ihm.appliAdminTech.administrateur;
 
 import envoieMail.SendMail;
-import exceptions.exceptionsMetier.TypeCompteException;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
@@ -34,6 +33,7 @@ import metier.Administrateur;
 import metier.Compte;
 import metier.Technicien;
 import metier.Utilisateur;
+import metier.exceptionsMetier.TypeCompteException;
 
 public class FenetreCreationCompteAdmin extends JFrame implements ActionListener {
 

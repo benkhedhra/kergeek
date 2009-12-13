@@ -1,5 +1,8 @@
 package envoieMail;
 
+import gestionBaseDeDonnees.DAOCompte;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -12,9 +15,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOCompte;
 
  
 public class SendMail {

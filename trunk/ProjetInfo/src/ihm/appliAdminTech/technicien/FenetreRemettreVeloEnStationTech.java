@@ -2,6 +2,7 @@ package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
@@ -29,7 +30,6 @@ import metier.Garage;
 import metier.Station;
 import metier.Technicien;
 import metier.Velo;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionListener {
 

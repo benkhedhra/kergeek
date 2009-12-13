@@ -2,9 +2,9 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
@@ -21,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import metier.Compte;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
@@ -29,7 +28,6 @@ import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
 import statistiques.TableauListeVelosSortis;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 
 /** 

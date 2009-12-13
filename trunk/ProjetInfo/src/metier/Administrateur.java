@@ -1,6 +1,6 @@
 package metier;
 
-import exceptions.exceptionsMetier.TypeCompteException;
+import metier.exceptionsMetier.TypeCompteException;
 
 /** 
  * Administrateur est la classe représentant un administrateur du parc à velos.

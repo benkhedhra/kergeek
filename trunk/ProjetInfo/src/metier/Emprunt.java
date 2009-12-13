@@ -3,7 +3,7 @@ package metier;
 
 import java.sql.Date;
 
-import exceptions.exceptionsMetier.PasDeDateRetourException;
+import metier.exceptionsMetier.PasDeDateRetourException;
 
 public class Emprunt {
 	private String id;

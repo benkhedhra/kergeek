@@ -1,4 +1,4 @@
-package exceptions.exceptionsTechniques;
+package gestionBaseDeDonnees.exceptionsTechniques;
 
 public class ExceptionAuthentification extends Exception {
 

@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreChangerMotDePasse;
@@ -17,8 +18,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 import metier.Administrateur;
 

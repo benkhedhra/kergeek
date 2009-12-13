@@ -3,6 +3,7 @@ package ihm.appliUtil;
 
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 
 import java.awt.BorderLayout;
@@ -24,7 +25,6 @@ import javax.swing.JTextField;
 
 import metier.Utilisateur;
 import metier.UtilitaireDate;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 

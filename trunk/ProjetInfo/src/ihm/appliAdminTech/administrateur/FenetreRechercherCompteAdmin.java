@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -20,7 +21,6 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreRechercherCompteAdmin extends JFrame implements ActionListener {
 

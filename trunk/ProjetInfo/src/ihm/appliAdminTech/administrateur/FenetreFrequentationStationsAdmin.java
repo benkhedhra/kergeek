@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -19,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -159,7 +159,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {

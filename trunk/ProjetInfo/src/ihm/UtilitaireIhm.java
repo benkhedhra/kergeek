@@ -1,5 +1,8 @@
 package ihm;
 
+import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +11,6 @@ import metier.Compte;
 import metier.Lieu;
 import metier.Station;
 import metier.Velo;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOVelo;
 
 /** 
  * UtilitaireIhm est la classe regroupant un certain nombre de méthodes servant à vérifier la cohérence des champs entrés par rapport à un contexte donné par la fenêtre ihm en cours

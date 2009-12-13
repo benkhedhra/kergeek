@@ -5,8 +5,8 @@ package gestionBaseDeDonnees;
  * @version 1.0
  */
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import exceptions.exceptionsTechniques.ExceptionAuthentification;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.exceptionsTechniques.ExceptionAuthentification;
 
 import java.sql.SQLException;
 

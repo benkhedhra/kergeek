@@ -1,8 +1,8 @@
 package gestionBaseDeDonnees;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 public class SuppressionTables {
 
 	static public void main (String argv[]) throws SQLException,ClassNotFoundException, ConnexionFermeeException {
