@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -17,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionListener {
 
@@ -111,7 +111,7 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 		}
 		else if (arg0.getSource()==boutonInterventions){
 			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {

@@ -1,5 +1,6 @@
 package ihm.appliUtil;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 
 import java.awt.BorderLayout;
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Utilisateur;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MenuUtilisateur extends JFrame implements ActionListener {
 

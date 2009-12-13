@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
@@ -18,7 +19,6 @@ import javax.swing.JPanel;
 
 import metier.Intervention;
 import metier.Technicien;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreGererUneInterventionTech extends JFrame implements ActionListener {
 

@@ -5,11 +5,11 @@ package gestionBaseDeDonnees;
  * @version 1.0
  */
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {

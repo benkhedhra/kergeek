@@ -3,10 +3,11 @@ package ihm.appliAdminTech.technicien;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
+import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,7 +29,6 @@ import javax.swing.JPanel;
 import metier.Intervention;
 import metier.Technicien;
 import metier.TypeIntervention;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetrePrendreEnChargeInterventionTech extends JFrame implements ActionListener {
 	/**

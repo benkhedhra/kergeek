@@ -1,5 +1,8 @@
 package gestionBaseDeDonnees;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.exceptionsTechniques.PasDansLaBaseDeDonneeException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,8 +12,6 @@ import java.util.List;
 
 import metier.Lieu;
 import metier.Velo;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import exceptions.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 public class DAOVelo {
 

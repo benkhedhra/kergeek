@@ -1,8 +1,8 @@
 package test.testDAO;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.sql.SQLException;
 import java.util.List;

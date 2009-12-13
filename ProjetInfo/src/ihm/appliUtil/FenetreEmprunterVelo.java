@@ -1,12 +1,11 @@
 package ihm.appliUtil;
 
 import envoieMail.SendMail;
-import exceptions.exceptionsMetier.CompteBloqueException;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 
 import java.awt.BorderLayout;
@@ -30,6 +29,7 @@ import metier.Station;
 import metier.Technicien;
 import metier.Utilisateur;
 import metier.Velo;
+import metier.exceptionsMetier.CompteBloqueException;
 
 
 public class FenetreEmprunterVelo extends JFrame implements ActionListener {

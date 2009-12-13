@@ -1,6 +1,10 @@
 package statistiques;
 
 
+import gestionBaseDeDonnees.DAOEmprunt;
+import gestionBaseDeDonnees.DAOLieu;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -24,10 +28,6 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
-
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import gestionBaseDeDonnees.DAOEmprunt;
-import gestionBaseDeDonnees.DAOLieu;
 
 public class DiagrammeFreqStations extends ApplicationFrame {
 

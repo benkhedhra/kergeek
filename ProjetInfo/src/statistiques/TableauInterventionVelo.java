@@ -1,8 +1,8 @@
 package statistiques;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;

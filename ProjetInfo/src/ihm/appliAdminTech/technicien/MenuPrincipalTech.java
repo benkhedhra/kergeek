@@ -1,5 +1,6 @@
 package ihm.appliAdminTech.technicien;
 
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreChangerMotDePasse;
@@ -19,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Technicien;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class MenuPrincipalTech extends JFrame implements ActionListener {
 

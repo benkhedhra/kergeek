@@ -9,10 +9,9 @@ import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 import metier.Velo;
+import metier.exceptionsMetier.PasDeDateRetourException;
 
 import org.junit.Test;
-
-import exceptions.exceptionsMetier.PasDeDateRetourException;
 
 public class TestEmprunt extends TestCase {
 	@Test

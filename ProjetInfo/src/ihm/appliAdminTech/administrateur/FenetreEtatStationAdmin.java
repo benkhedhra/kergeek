@@ -1,7 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOLieu;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -165,7 +165,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			} 
 			catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());

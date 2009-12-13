@@ -10,12 +10,11 @@ import metier.Sortie;
 import metier.Station;
 import metier.Utilisateur;
 import metier.Velo;
+import metier.exceptionsMetier.CompteBloqueException;
+import metier.exceptionsMetier.PasDeDateRetourException;
+import metier.exceptionsMetier.PasDeVeloEmprunteException;
 
 import org.junit.Test;
-
-import exceptions.exceptionsMetier.CompteBloqueException;
-import exceptions.exceptionsMetier.PasDeDateRetourException;
-import exceptions.exceptionsMetier.PasDeVeloEmprunteException;
 
 public class TestUtilisateur extends TestCase{
 	

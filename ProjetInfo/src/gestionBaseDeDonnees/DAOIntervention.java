@@ -1,7 +1,7 @@
 package gestionBaseDeDonnees;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
-import exceptions.exceptionsTechniques.PasDansLaBaseDeDonneeException;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

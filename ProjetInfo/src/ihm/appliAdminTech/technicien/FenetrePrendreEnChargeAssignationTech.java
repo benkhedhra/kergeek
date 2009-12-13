@@ -1,8 +1,8 @@
 package ihm.appliAdminTech.technicien;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
