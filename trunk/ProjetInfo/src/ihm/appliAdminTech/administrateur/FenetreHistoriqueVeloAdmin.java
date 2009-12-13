@@ -4,7 +4,6 @@ package ihm.appliAdminTech.administrateur;
 import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOVelo;
 import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -127,7 +126,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 			try {
 				if(DAOVelo.existe(idVeloARemplir.getText())){
 					this.setVeloEntre(DAOVelo.getVeloById(idVeloARemplir.getText()));
-					new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+					new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
 				}
 				else{
 					MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");

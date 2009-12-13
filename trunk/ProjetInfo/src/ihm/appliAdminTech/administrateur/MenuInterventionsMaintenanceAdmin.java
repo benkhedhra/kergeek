@@ -1,7 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
 import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -112,7 +111,7 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 		}
 		else if (arg0.getSource()==boutonInterventions){
 			try {
-				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {
