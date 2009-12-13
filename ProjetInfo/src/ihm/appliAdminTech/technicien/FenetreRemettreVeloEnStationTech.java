@@ -100,7 +100,6 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 
 		JPanel centerCenter = new JPanel();
 		centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		centerCenter.setLayout(new GridLayout(2,2));
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -134,6 +133,8 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
+			combo.setPreferredSize(new Dimension(250,40));
+			combo.setMaximumSize(new Dimension(250,40));
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();

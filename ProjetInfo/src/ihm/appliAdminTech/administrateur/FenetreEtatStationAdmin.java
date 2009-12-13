@@ -107,13 +107,18 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 					try{
 						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 						String chaineSelectionnee = (String)(o);
-						String idStationEntre = chaineSelectionnee.substring(0,1);
-						try {
-							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-						} catch (SQLException e) {
-							MsgBox.affMsg(e.getMessage());
-						} catch (ClassNotFoundException e) {
-							MsgBox.affMsg(e.getMessage());
+						if(chaineSelectionnee.equals("Sélectionnez une station")){
+							stationEntree=null;
+						}
+						else{
+							String idStationEntre = chaineSelectionnee.substring(0,1);
+							try {
+								stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+							} catch (SQLException e) {
+								MsgBox.affMsg(e.getMessage());
+							} catch (ClassNotFoundException e) {
+								MsgBox.affMsg(e.getMessage());
+							}
 						}
 					}
 					catch (Exception  e){
@@ -123,7 +128,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			});
 			centerWest.add(labelMsg);
 			centerWest.add(combo);
-			
+
 			boutonValider.setPreferredSize(new Dimension(200,40));
 			boutonValider.setMaximumSize(new Dimension(200,40));
 			boutonValider.setBackground(Color.CYAN);
