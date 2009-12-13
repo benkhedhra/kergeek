@@ -1,7 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
 import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -160,7 +159,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {

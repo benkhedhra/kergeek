@@ -2,7 +2,6 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
-import ihm.appliAdminTech.FenetreAffichageResultats;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -287,7 +286,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		}
 		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Afficher statistiques sur ce compte")){
 			try {
-				new FenetreAffichageResultats(this.getAdministrateur().getCompte(),this);
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur().getCompte(),this);
 			} 
 			catch (SQLException e) {
 				MsgBox.affMsg("SQLException " + e.getMessage());

@@ -1,19 +1,9 @@
-package ihm.appliAdminTech;
+package ihm.appliAdminTech.administrateur;
 
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import ihm.MsgBox;
-import ihm.appliAdminTech.administrateur.FenetreEnvoyerDemandeAssignationAdmin;
-import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
-import ihm.appliAdminTech.administrateur.FenetreFrequentationStationsAdmin;
-import ihm.appliAdminTech.administrateur.FenetreHistoriqueVeloAdmin;
-import ihm.appliAdminTech.administrateur.FenetreInfoCompteAdmin;
-import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
-import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
-import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
-import ihm.appliAdminTech.administrateur.MenuVoirEtatAdmin;
-import ihm.appliAdminTech.administrateur.PanneauAdmin;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -30,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.Compte;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
@@ -38,15 +29,33 @@ import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
 import statistiques.TableauListeVelosSortis;
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
-public class FenetreAffichageResultats extends JFrame implements ActionListener {
+
+/** 
+ * FenetreAffichageResultats est une classe de l'application réservée à un @link Administrateur
+ * elle affiche les statistiques adéquates en fonction du contexte dans lequel on se trouve et propose à l'administrateur les choix adaptés de retour à une ou plusieurs fenêtres
+ * @author KerGeek
+ */
+public class FenetreAffichageResultatsAdmin extends JFrame implements ActionListener {
+
 
 	/**
-	 * 
+	 * serial version ID par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private Compte compte;
+	
+	//Attributs
+	/**
+	 * Cette fenêtre a un attribut Administrateur, un attribut JFrame, un attribut JLabel, et 4 attributs JButton
+	 * administrateur est l'administrateur actuellement connecté
+	 * FenetreAffichageResultatsAdmin dépend presque entièrement de la fenêtre précédente, d'où l'attribut fenetrePrecedente
+	 * fenetrePrecedente sera castée en fenêtre adéquate selon le cas pour récupérer les attributs dont on aura besoin pour construire les graphiques
+	 * labelMsg est le label indiquant quoi faire à l'administrateur connecté
+	 * bouton1, bouton2 et bouton3 sont les différents choix qui seront proposés à l'admin, selon le cas
+	 * boutonRetour est le bouton de retour au menu principal
+	 */
+	private Administrateur administrateur;
 	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
 	private JButton bouton1 = new JButton("");
@@ -54,12 +63,13 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 	private JButton bouton3 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	public Compte getCompte() {
-		return compte;
+	//Accesseurs
+	public Administrateur getAdministrateur() {
+		return administrateur;
 	}
 
-	public void setCompte(Compte compte) {
-		this.compte = compte;
+	public void setAdministrateur(Administrateur administrateur) {
+		this.administrateur = administrateur;
 	}
 
 	public JFrame getFenetrePrecedente() {
@@ -70,16 +80,11 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		this.fenetrePrecedente = fenetrePrecedente;
 	}
 
-	public FenetreAffichageResultats(Compte c, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	//Constructeur
+	public FenetreAffichageResultatsAdmin(Administrateur a, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
-		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
-			this.setContentPane(new PanneauAdmin());
-		}
-		else if(c.getType()==Compte.TYPE_TECHNICIEN){
-			this.setContentPane(new PanneauTech());
-		}
-
-		this.setCompte(c);
+		this.setContentPane(new PanneauAdmin());
+		this.setAdministrateur(a);
 		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Affichage des résultats");
@@ -91,7 +96,7 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 
 		this.getContentPane().setLayout(new BorderLayout());
 
-		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ c.getId());
+		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
 		labelAdminTech.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
@@ -113,7 +118,6 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton1.setBackground(Color.GREEN);
 
-		//cas possibles pour l'administrateur
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
 			FenetreFrequentationStationsAdmin f = (FenetreFrequentationStationsAdmin) fenetrePrec;
 			DiagrammeFreqStations diag = new DiagrammeFreqStations(f.getPeriodeEntree());
@@ -159,7 +163,6 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 		}
 		
 		else if(fenetrePrec.getTitle().equals("Menu demander statistiques de l'administrateur")){
-			MenuVoirEtatAdmin m = (MenuVoirEtatAdmin) fenetrePrec;
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 			labelMsg.setPreferredSize(new Dimension(600,100));
 			center.add(labelMsg);
@@ -253,36 +256,36 @@ public class FenetreAffichageResultats extends JFrame implements ActionListener 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{
-			// différents cas possibles pour l'administrateur
+			// différents cas possibles pour le bouton 1
 			if(arg0.getSource()==bouton1){
 				if(this.getFenetrePrecedente().getTitle().equals("Fréquentation des stations")){
-					new FenetreFrequentationStationsAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+					new FenetreFrequentationStationsAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Informations sur un compte")){
-					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),true);
+					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),true);
 				}
 				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
-					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
-					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 			}
 			else if(arg0.getSource()==bouton2){
-				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 			}
 			else if(arg0.getSource()==bouton3){
 				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")){
 					FenetreEtatStationAdmin f = (FenetreEtatStationAdmin) fenetrePrecedente;
-					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),f.getStationEntree());
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getStationEntree());
 				}
 				else{
 					FenetreStationsSurSousAdmin f = (FenetreStationsSurSousAdmin) fenetrePrecedente;
-					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()),f.getStationEntree());
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getStationEntree());
 				}
 			}
 			else if(arg0.getSource()==boutonRetour){
-				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getCompte().getId()));
+				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 			}
 		} 
 		catch (SQLException e) {
