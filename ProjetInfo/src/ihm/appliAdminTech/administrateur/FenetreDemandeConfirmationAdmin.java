@@ -112,7 +112,18 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
 			}
-			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				e.printStackTrace();
+			} catch (ConnexionFermeeException e) {
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 		else if (arg0.getSource()==boutonNon){
 			try {
