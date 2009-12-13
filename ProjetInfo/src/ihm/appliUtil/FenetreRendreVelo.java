@@ -199,8 +199,17 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 						}
 					}
 					else{
-						MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Merci de trouver une autre station <center></html>");
-						new FenetreConfirmationUtil("Au revoir et à bientôt !");
+						List<Station> listeStations = DAOLieu.getAllStations();
+						int i = listeStations.indexOf(stationEntree);
+						if(i==0){
+							MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i+1).getAdresse()+"<center></html>");
+						}
+						else if(i==listeStations.size()-1){
+							MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i-1).getAdresse()+"<center></html>");
+							}
+						else{
+							MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Les stations les plus proches sont : <br>"+listeStations.get(i-1).getAdresse()+"<br>"+listeStations.get(i+1).getAdresse()+"<center></html>");
+						}new FenetreConfirmationUtil("Au revoir et à bientôt !");
 					}
 				} catch (SQLException e) {
 					MsgBox.affMsg("SQL exception " + e.getMessage());
