@@ -1,5 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
+import ihm.MsgBox;
+import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreChangerMotDePasse;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -9,11 +11,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 import metier.Administrateur;
 
@@ -117,7 +122,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		//la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
+		//TODO la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
 
 		if(arg0.getSource()==boutonComptes){
 			new MenuGererComptesAdmin(this.getAdministrateur());
@@ -132,7 +137,18 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 			new FenetreChangerMotDePasse(this.getAdministrateur().getCompte());
 		}
 		else if (arg0.getSource()==boutonDeconnexion){
-			new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+			try {
+				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				e.printStackTrace();
+			} catch (ConnexionFermeeException e) {
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 	}
 }
