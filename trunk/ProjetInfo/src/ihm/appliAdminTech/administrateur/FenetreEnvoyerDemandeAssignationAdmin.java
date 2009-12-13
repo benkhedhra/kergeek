@@ -35,6 +35,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 	private Administrateur administrateur;
 	private Station stationConcernee;
+	private DemandeAssignation demande;
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
 	private JLabel labelStation = new JLabel("Station");
@@ -60,6 +61,14 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 	public void setStationConcernee(Station stationConcernee) {
 		this.stationConcernee = stationConcernee;
+	}
+
+	public DemandeAssignation getDemande() {
+		return demande;
+	}
+
+	public void setDemande(DemandeAssignation demande) {
+		this.demande = demande;
 	}
 
 	public FenetreEnvoyerDemandeAssignationAdmin (Administrateur a,Station s){
@@ -168,17 +177,21 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 				for(int i=0;i<listeDemandes.size();i++){
 					listeStations.add(listeDemandes.get(i).getLieu());
 				}
+				int nbVelos = 0;
+				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
+				this.setDemande(new DemandeAssignation(nbVelos,stationConcernee));
 				if(listeStations.contains(stationConcernee)){
-					MsgBox.affMsg("<html> <center>Une demande d'assignation a déjà été effectuée pour cette station. <br>Celle que vous venez de signaler n'a donc pas été prise en compte. ");
-					new MenuVoirEtatAdmin(this.getAdministrateur());
+					int i=0;
+					while(listeDemandes.get(i).getLieu().equals(stationConcernee)){	
+						i++;
+					}
+					DemandeAssignation ancienneDemande = listeDemandes.get(i);
+					new FenetreExisteDejaDemandeAssignationAdmin(this.getAdministrateur(),ancienneDemande,this.getDemande());
 				}
 				else{
-					int nbVelos = 0;
-					nbVelos = Integer.parseInt(nbVelosARemplir.getText());
 					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 					System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
-					DemandeAssignation d = new DemandeAssignation(nbVelos,stationConcernee);
-					DAODemandeAssignation.createDemandeAssignation(d);
+					DAODemandeAssignation.createDemandeAssignation(this.getDemande());
 				}
 			}catch(Exception e){
 				MsgBox.affMsg("Champ entré incorret");
