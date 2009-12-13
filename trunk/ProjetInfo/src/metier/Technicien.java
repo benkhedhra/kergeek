@@ -1,5 +1,10 @@
 package metier;
 
+import java.sql.SQLException;
+
+import exceptions.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.DAOTypeIntervention;
+
 
 
 
@@ -42,7 +47,7 @@ public class Technicien {
 	public Technicien(Compte compte) {
 		this.setCompte(compte);
 	}
-	
+
 	/**
 	 * Constructeur vide d'un Technicien.
 	 */
@@ -53,7 +58,7 @@ public class Technicien {
 
 	// Accesseurs et modificateurs
 
-	
+
 
 
 
@@ -91,15 +96,15 @@ public class Technicien {
 		Velo velo = new Velo(Garage.getInstance(), false);
 		return velo;
 	}
-	
+
 	public void retirerVelo(Velo velo){
 		velo.setLieu(Garage.getInstance());
 	}
-	
+
 	public void remettreVelo(Velo velo, Station station){
 		station.ajouterVelo(velo);
 	}
-	
+
 	/**
 	 * Retire un vélo d'une station vers le garage pour le réparer.
 	 * @param velo
@@ -113,37 +118,39 @@ public class Technicien {
 	 */
 	public Intervention intervenir(Velo velo){
 		retirerVelo(velo);
-		velo.setEnPanne(true);
 		Intervention intervention = new Intervention(velo, UtilitaireDate.dateCourante());
 		return intervention;
 	}
-	
-	
+
+
 	public Intervention terminerIntervention(Intervention intervention, TypeIntervention typeIntervention){
 		Intervention i = intervention;
 		i.setTypeIntervention(typeIntervention);
 		i.getVelo().setEnPanne(false);
 		return i;
 	}
-	
-	public void retirerDuParc(Velo velo){
-		velo.setLieu(Detruit.getInstance());
+
+	public Intervention retirerDuParc(Intervention intervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		Intervention i = intervention;
+		i.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(TypeIntervention.TYPE_DESTRUCTION));
+		i.getVelo().setLieu(Detruit.getInstance());
+		return i;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object o) {
 		Technicien t =(Technicien) o;
 		return this.getCompte().equals(t.getCompte());
 	}
-	
-	
-	
+
+
+
 	@Override
 	public String toString(){
 		return this.getCompte().toString();
 	}
-	
+
 }
 
 

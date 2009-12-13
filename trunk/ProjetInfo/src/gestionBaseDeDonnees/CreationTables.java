@@ -126,7 +126,7 @@ public class CreationTables {
 			System.out.println("Base creee");
 
 
-			// Insertion lieus
+			// Insertion lieux
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Gare du Campus','15')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'Forum du Campus','10')");
 			s.executeUpdate("insert into Lieu values(seqLieu.nextval,'ENSAI','10')");
@@ -142,7 +142,7 @@ public class CreationTables {
 			Statement s2 = ConnexionOracleViaJdbc.createStatement();
 			
 
-			// Insertion velo
+			// Insertion vélos
 
 
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0'," + "'5')");
@@ -174,6 +174,10 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_GARAGE + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
 		
 			
 
@@ -206,6 +210,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'deraillement')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
+			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'destruction')");			
 			
 			//Insertion interventions
 
@@ -253,7 +258,11 @@ public class CreationTables {
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-12-2009 09:16','DD-MM-YYYY HH24:MI'),"+"'',"+"'25')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-12-2009 12:59','DD-MM-YYYY HH24:MI'),"+"'',"+"'27')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-12-2009 13:01','DD-MM-YYYY HH24:MI'),"+"'',"+"'28')");
-			
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-12-2009 12:01','DD-MM-YYYY HH24:MI'),"+"'7',"+"'30')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-06-2009 18:54','DD-MM-YYYY HH24:MI'),"+"'7',"+"'31')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('19-04-2009 12:59','DD-MM-YYYY HH24:MI'),"+"'7',"+"'32')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-09-2009 13:01','DD-MM-YYYY HH24:MI'),"+"'7',"+"'33')");
+
 			//Insertion demandes intervention
 
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"'1'"+")");
@@ -396,7 +405,7 @@ public class CreationTables {
 			"TO_DATE('07-09-2009 16:24','DD-MM-YYYY HH24:MI'), '2','','u1','17')");
 			
 			s2.executeUpdate("COMMIT");
-			System.out.println("Update effectuee.");
+			System.out.println("Update effectué.");
 
 		}
 		/*catch (SQLException e){

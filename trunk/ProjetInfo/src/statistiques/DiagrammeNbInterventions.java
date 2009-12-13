@@ -65,6 +65,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		String category4 = "déraillement";
 		String category5 = "frein";
 		String category6 = "autres";
+		String category7 = "destruction du vélo";
 
 
 		// créer la dataset...
@@ -77,6 +78,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category4);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category5);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(5), series1, category6);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(6), series1, category7);
 	
 		return dataset;
 
