@@ -1,6 +1,7 @@
 package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAODemandeAssignation;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
@@ -20,7 +21,6 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.DemandeAssignation;
-import exceptions.exceptionsTechniques.ConnexionFermeeException;
 
 public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements ActionListener {
 
