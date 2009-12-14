@@ -93,7 +93,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 					listeDemandes.remove(i);
 				}
 			}
-			String [] tableauDemandes = new String[listeDemandes.size()+1];
+			final String [] tableauDemandes = new String[listeDemandes.size()+1];
 			tableauDemandes[0]="Sélectionnez une demande";
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
@@ -108,14 +108,19 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
-						String idDemandeEntre="";
-						int i=8;
-						while(chaineSelectionnee.charAt(i)!=' '){
-							idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
-							i++;
+						if(chaineSelectionnee.equals(tableauDemandes[0])){
+							demandeEntree=null;
 						}
-						System.out.println("id de la demande entrée : "+idDemandeEntre);
-						demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
+						else{
+							String idDemandeEntre="";
+							int i=8;
+							while(chaineSelectionnee.charAt(i)!=' '){
+								idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
+								i++;
+							}
+							System.out.println("id de la demande entrée : "+idDemandeEntre);
+							demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
+						}
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
@@ -157,37 +162,32 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if (arg0.getSource()==boutonValider){
-			try {
+		try {
+			if (arg0.getSource()==boutonValider){
 				new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-				try {
-					new FenetreGererDemandesAssignationTech(this.getTechnicien());
-				} catch (ConnexionFermeeException e2){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-				try {
-					new FenetreGererDemandesAssignationTech(this.getTechnicien());
-				} catch (ConnexionFermeeException e3){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
 			}
-			catch (ConnexionFermeeException e){
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
+			}
+		} catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+			try {
+				new FenetreGererDemandesAssignationTech(this.getTechnicien());
+			} catch (ConnexionFermeeException e1) {
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
 			}
-			/*catch (NullPointerException e){
-				MsgBox.affMsg("NullPointerException : "+e.getMessage());
+		} catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
+			try {
 				new FenetreGererDemandesAssignationTech(this.getTechnicien());
-			}*/
-		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
+			} catch (ConnexionFermeeException e1) {
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 	}
 }

@@ -36,6 +36,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
 	// definition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
@@ -57,6 +58,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		this.setTitle("Authentification");
 		this.setSize(700,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 
 		this.getContentPane().setLayout(new BorderLayout());

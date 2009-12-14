@@ -64,7 +64,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
@@ -94,7 +94,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		List<Station> listeStations;
 		try {
 			listeStations = DAOLieu.getAllStations();
-			String [] tableauStations = new String[listeStations.size()+1];
+			final String [] tableauStations = new String[listeStations.size()+1];
 			tableauStations[0]="Sélectionnez une station";
 			for (int i=0;i<listeStations.size();i++){
 				tableauStations[i+1]=listeStations.get(i).toString();
@@ -104,25 +104,24 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
-					try{
-						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
-						String chaineSelectionnee = (String)(o);
-						if(chaineSelectionnee.equals("Sélectionnez une station")){
-							stationEntree=null;
-						}
-						else{
-							String idStationEntre = chaineSelectionnee.substring(0,1);
-							try {
-								stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
-							} catch (SQLException e) {
-								MsgBox.affMsg(e.getMessage());
-							} catch (ClassNotFoundException e) {
-								MsgBox.affMsg(e.getMessage());
-							}
-						}
+					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+					String chaineSelectionnee = (String)(o);
+					if(chaineSelectionnee.equals(tableauStations[0])){
+						stationEntree=null;
 					}
-					catch (Exception  e){
-						System.out.println("Erreur dans la sélection de la station");
+					else{
+						String idStationEntre = chaineSelectionnee.substring(0,1);
+						try {
+							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+						} catch (SQLException e) {
+							MsgBox.affMsg(e.getMessage());
+						} catch (ClassNotFoundException e) {
+							MsgBox.affMsg(e.getMessage());
+						}
+						catch (ConnexionFermeeException e){
+							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+							new FenetreAuthentification(false);
+						}
 					}
 				}
 			});
@@ -170,7 +169,13 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+				if(this.getStationEntree()==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucune station. ");
+					new FenetreEtatStationAdmin(this.getAdministrateur());
+				}
+				else{
+					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+				}
 			} 
 			catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());

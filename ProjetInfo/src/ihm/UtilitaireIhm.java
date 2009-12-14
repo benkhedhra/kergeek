@@ -134,7 +134,7 @@ public class UtilitaireIhm {
 		for (Velo velo : listeVelosDansLieu){
 			listeIdVelosDansLieu.add(velo.getId());
 		}
-		System.out.println("vélos pouvant être assignés : " + listeIdVelosDansLieu.toString());
+		//System.out.println("vélos pouvant être assignés : " + listeIdVelosDansLieu.toString());
 		for (String idVelo : ancienneliste){
 			if (DAOVelo.existe(idVelo)){
 				if(listeIdVelosDansLieu.contains(idVelo)){
@@ -151,5 +151,12 @@ public class UtilitaireIhm {
 			}
 		}
 		return nouvelleListe;
-	}	
+	}
+	
+	public static boolean verifieParametresAssignation(int nbVelos,Station s){
+		return (nbVelos>0 && nbVelos<=s.getCapacite());
+	}
+	
+	
+	
 }

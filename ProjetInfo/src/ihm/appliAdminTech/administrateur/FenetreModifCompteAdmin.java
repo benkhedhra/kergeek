@@ -91,7 +91,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
