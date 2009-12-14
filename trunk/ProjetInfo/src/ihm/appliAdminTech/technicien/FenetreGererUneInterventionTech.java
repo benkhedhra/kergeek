@@ -59,7 +59,7 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 	public FenetreGererUneInterventionTech(Technicien t,Intervention i){
 
 		System.out.println("Fenêtre pour gérer une intervention");
-		this.setContentPane(new PanneauAdmin());
+		this.setContentPane(new PanneauTech());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer une intervention");
 		//Définit une taille pour celle-ci

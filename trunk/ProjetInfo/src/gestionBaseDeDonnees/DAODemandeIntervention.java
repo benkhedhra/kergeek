@@ -213,7 +213,7 @@ public class DAODemandeIntervention {
 
 
 	public static String ligne(DemandeIntervention d){
-		return "Demande "+d.getId()+" - Vélo "+d.getVelo().getId()+" - Station "+d.getVelo().getLieu().getId();
+		return "Demande "+d.getId()+" - Vélo "+d.getVelo().getId()+" - Station "+d.getVelo().getLieu().getAdresse()+" - "+d.getDate().toString();
 	}
 
 }
