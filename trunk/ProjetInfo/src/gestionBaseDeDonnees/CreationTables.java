@@ -27,7 +27,7 @@ public class CreationTables {
 		try{
 
 			s.executeUpdate (
-					"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE -1");
+					"CREATE SEQUENCE seqLieu INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE -2");
 			s.executeUpdate(
 					"CREATE TABLE Lieu (idLieu varchar2(4),	"+
 					"adresseLieu varchar2(250) NOT NULL,"+

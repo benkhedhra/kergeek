@@ -66,6 +66,9 @@ public class DAOEmprunt {
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
@@ -102,6 +105,9 @@ public class DAOEmprunt {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -160,6 +166,9 @@ public class DAOEmprunt {
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
 			else{
 				throw new NullPointerException(e3.getMessage());
 			}
@@ -201,6 +210,9 @@ public class DAOEmprunt {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -252,6 +264,9 @@ public class DAOEmprunt {
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
@@ -299,6 +314,9 @@ public class DAOEmprunt {
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
@@ -341,6 +359,9 @@ public class DAOEmprunt {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -400,6 +421,9 @@ public class DAOEmprunt {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -468,6 +492,9 @@ public class DAOEmprunt {
 		}
 		catch(NullPointerException e3){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -539,6 +566,9 @@ public class DAOEmprunt {
 		}
 		catch(NullPointerException e3){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
