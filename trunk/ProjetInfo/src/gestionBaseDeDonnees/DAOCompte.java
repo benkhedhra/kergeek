@@ -245,7 +245,6 @@ public class DAOCompte {
 			}
 			else{
 				throw new NullPointerException(e2.getMessage());
-			}throw new NullPointerException(e2.getMessage());
 			}
 		}
 		finally{
