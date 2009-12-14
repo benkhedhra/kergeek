@@ -3,6 +3,7 @@ package ihm.appliAdminTech.administrateur;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -12,6 +13,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,6 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.DemandeAssignation;
-import metier.Lieu;
 import metier.Station;
 
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
@@ -85,7 +86,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
@@ -170,52 +171,50 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if (arg0.getSource()==boutonValider){
-			try{
+		try{
+			if (arg0.getSource()==boutonValider){
 				List<DemandeAssignation> listeDemandes = DAODemandeAssignation.getDemandesAssignationEnAttente();
-				List<Lieu> listeStations = new ArrayList<Lieu>();
+				List<Station> listeStations = new ArrayList<Station>();
 				for(int i=0;i<listeDemandes.size();i++){
-					listeStations.add(listeDemandes.get(i).getLieu());
+					listeStations.add((Station)listeDemandes.get(i).getLieu());
 				}
 				int nbVelos = 0;
 				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
-				this.setDemande(new DemandeAssignation(nbVelos,stationConcernee));
-				if(listeStations.contains(stationConcernee)){
-					int i=0;
-					while(listeDemandes.get(i).getLieu().equals(stationConcernee)){	
-						i++;
+
+				if (UtilitaireIhm.verifieParametresAssignation(nbVelos,this.getStationConcernee())){
+					this.setDemande(new DemandeAssignation(nbVelos,this.getStationConcernee()));
+					System.out.println("station concernée : "+this.getStationConcernee().getAdresse());
+					if(listeStations.contains(this.getStationConcernee())){
+						DemandeAssignation ancienneDemande = listeDemandes.get(listeStations.indexOf(this.getStationConcernee()));
+						new FenetreExisteDejaDemandeAssignationAdmin(this.getAdministrateur(),ancienneDemande,this.getDemande());
 					}
-					DemandeAssignation ancienneDemande = listeDemandes.get(i);
-					new FenetreExisteDejaDemandeAssignationAdmin(this.getAdministrateur(),ancienneDemande,this.getDemande());
+					else if(DAODemandeAssignation.createDemandeAssignation(this.getDemande())){
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+						System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
+					}
 				}
 				else{
-					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-					System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
-					DAODemandeAssignation.createDemandeAssignation(this.getDemande());
+					MsgBox.affMsg("Le nombre de vélos entré est incorrect. La capacité de cette station est de "+stationConcernee.getCapacite()+" vélos. ");
+					new FenetreEnvoyerDemandeAssignationAdmin(this.getAdministrateur(),this.getStationConcernee());
 				}
-			}catch(Exception e){
-				MsgBox.affMsg("Champ entré incorret");
 			}
-		}
-		else if (arg0.getSource()==boutonEtatAutreStation){
-			try {
+			else if (arg0.getSource()==boutonEtatAutreStation){
 				new FenetreEtatStationAdmin(this.getAdministrateur());
 			}
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
-			}
-		}
-		else if (arg0.getSource()==boutonStationsSurSous){
-			try {
+			else if (arg0.getSource()==boutonStationsSurSous){
 				new FenetreStationsSurSousAdmin(this.getAdministrateur());
-			} catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+			}
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
 		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
+		} catch (SQLException e) {
+			MsgBox.affMsg(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg(e.getMessage());
 		}
 	}
 }

@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,6 +40,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	private DemandeAssignation demande;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
+	private JLabel labelListeVelosAssignables = new JLabel("");
 	private JPanel panelVelos = new JPanel();
 	private JButton boutonValider = new JButton("Confirmer les déplacements");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
@@ -78,14 +80,6 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.listeIdVelos = listeIdVelos;
 	}
 
-
-
-
-
-
-
-
-
 	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l, boolean b) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");
 		this.setContentPane(new PanneauTech());
@@ -99,7 +93,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
@@ -122,10 +116,11 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(700,400));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
+		centerNorth.setPreferredSize(new Dimension(700,60));
 		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		int nbVelosADeplacer;
@@ -142,6 +137,10 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			labelMsg.setMaximumSize(new Dimension(600,50));
 			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
 
+			labelListeVelosAssignables.setPreferredSize(new Dimension(700,50));
+			labelListeVelosAssignables.setMaximumSize(new Dimension(700,50));
+			labelListeVelosAssignables.setFont(FenetreAuthentificationUtil.POLICE2);
+
 			//a priori ne sert pas
 			if(nbVelosADeplacer==0){
 				labelMsg.setText("Il n'y a aucun vélo à déplacer. Le nombre de vélos dans la station est le nombre voulu. ");
@@ -157,12 +156,20 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				panelVelos.setLayout(new GridLayout(nbVelosADeplacer,2));
 
 				if(this.getDiff()<0){
+
+					List<Velo> listeVelosDansGarage = DAOVelo.getVelosByLieu(Garage.getInstance());
+					List<String> listeIdVelosDansGarage = new ArrayList<String>();
+					for (Velo velo : listeVelosDansGarage){
+						listeIdVelosDansGarage.add(velo.getId());
+					}
+					labelListeVelosAssignables.setText("<html><center>vélos disponibles au garage : "+listeIdVelosDansGarage+"</center></html>");
+
 					if(b){
-						labelMsg.setText("Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId());
+						labelMsg.setText("<html><center>Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getAdresse()+"</center></html>");
 					}
 					else{
-						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valides.<br> Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId()+"</center></html>");
-						labelMsg.setForeground(Color.RED);
+						labelMsg.setText("<html><center>Certains vélos entrés ne sont pas valides.<br> Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId()+"</center></html>");
+						labelMsg.setForeground(Color.RED);					
 					}
 					for (int i =0;i<nbVelosADeplacer;i++){
 						JLabel labelVelo = new JLabel("");
@@ -178,16 +185,23 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					}
 				}
 				else{
+					List<Velo> listeVelosDansStation = DAOVelo.getVelosByLieu(this.getDemande().getLieu());
+					List<String> listeIdVelosDansStation = new ArrayList<String>();
+					for (Velo velo : listeVelosDansStation){
+						listeIdVelosDansStation.add(velo.getId());
+					}
+				labelListeVelosAssignables.setText("vélos disponibles en station : "+listeIdVelosDansStation);
+
 					if(b){
-						labelMsg.setText("Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage");
+						labelMsg.setText("<html><center>Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage. </center></html>");
 					}
 					else{
-						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valide.<br> Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage</center></html>");
+						labelMsg.setText("<html><center>Certains identifiants n'étaient pas valides.<br> Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage</center></html>");
 						labelMsg.setForeground(Color.RED);
 					}
 
 
-					for (int i =0;i<nbVelosADeplacer;i++){
+					for (int i=0;i<nbVelosADeplacer;i++){
 						JLabel labelVelo = new JLabel("");
 
 						labelVelo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
@@ -201,7 +215,9 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					}
 				}
 				centerCenter.add(panelVelos);
+				//centerNorth.setLayout(new GridLayout(2,1));
 				centerNorth.add(labelMsg);
+				centerNorth.add(labelListeVelosAssignables);
 				center.add(centerNorth,BorderLayout.NORTH);
 				center.add(centerCenter,BorderLayout.CENTER);
 
@@ -222,7 +238,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));
@@ -235,19 +251,6 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		this.setVisible(true);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();

@@ -63,7 +63,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		// on définit un BorderLayout
 		this.getContentPane().setLayout(new BorderLayout());
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 

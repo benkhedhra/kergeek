@@ -89,7 +89,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		this.setSize(700, 500);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setAlwaysOnTop(true);
 
 		this.getContentPane().setLayout(new BorderLayout());

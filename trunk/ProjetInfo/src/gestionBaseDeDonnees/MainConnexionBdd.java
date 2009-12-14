@@ -16,7 +16,7 @@ public class MainConnexionBdd {
 	 * @throws PasDeDateRetourException 
 	 * @throws ConnexionFermeeException 
 	 */
-	public static void main(String[] args) throws SQLException, ClassNotFoundException, PasDeDateRetourException, ConnexionFermeeException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
 

@@ -7,9 +7,11 @@ import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -31,22 +33,28 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 	private Administrateur administrateur;
 	private boolean stat;
-	private JLabel labelAdmin = new JLabel("");;
+	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Rechercher par : ");
 	private JLabel labelQualite = new JLabel("Qualité");
-	private int typeEntre;
+
+	private JPanel panelEntrerChamps = new JPanel();
 	private JLabel labelId = new JLabel("Identifiant");
 	private JTextField idARemplir = new JTextField("");
-	private String idEntre;
 	private JLabel labelNom = new JLabel("Nom");
 	private JTextField nomARemplir = new JTextField("");
-	private String nomEntre;
+
 	private JLabel labelPrenom = new JLabel("Prénom");
 	private JTextField prenomARemplir = new JTextField("");
-	private String prenomEntre;
+
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
 	private JTextField adresseEMailARemplir = new JTextField("");
+
+	private int typeEntre;
+	private String idEntre;
+	private String nomEntre;
+	private String prenomEntre;
 	private String adresseEMailEntree;
+
 	private JButton boutonValider = new JButton("Lancer la recherche");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -99,6 +107,77 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.adresseEMailEntree = adresseEMailEntree;
 	}
 
+	public JLabel getLabelQualite() {
+		return labelQualite;
+	}
+
+	public void setLabelQualite(JLabel labelQualite) {
+		this.labelQualite = labelQualite;
+	}
+
+	public JLabel getLabelId() {
+		return labelId;
+	}
+
+	public void setLabelId(JLabel labelId) {
+		this.labelId = labelId;
+	}
+
+	public JTextField getIdARemplir() {
+		return idARemplir;
+	}
+
+	public void setIdARemplir(JTextField idARemplir) {
+		this.idARemplir = idARemplir;
+	}
+
+	public JLabel getLabelNom() {
+		return labelNom;
+	}
+
+	public void setLabelNom(JLabel labelNom) {
+		this.labelNom = labelNom;
+	}
+
+	public JTextField getNomARemplir() {
+		return nomARemplir;
+	}
+
+	public void setNomARemplir(JTextField nomARemplir) {
+		this.nomARemplir = nomARemplir;
+	}
+
+	public JLabel getLabelPrenom() {
+		return labelPrenom;
+	}
+
+	public void setLabelPrenom(JLabel labelPrenom) {
+		this.labelPrenom = labelPrenom;
+	}
+
+	public JTextField getPrenomARemplir() {
+		return prenomARemplir;
+	}
+
+	public void setPrenomARemplir(JTextField prenomARemplir) {
+		this.prenomARemplir = prenomARemplir;
+	}
+
+	public JLabel getLabelAdresseEMail() {
+		return labelAdresseEMail;
+	}
+
+	public void setLabelAdresseEMail(JLabel labelAdresseEMail) {
+		this.labelAdresseEMail = labelAdresseEMail;
+	}
+
+	public JTextField getAdresseEMailARemplir() {
+		return adresseEMailARemplir;
+	}
+
+	public void setAdresseEMailARemplir(JTextField adresseEMailARemplir) {
+		this.adresseEMailARemplir = adresseEMailARemplir;
+	}
 
 	public FenetreRechercherCompteAdmin(Administrateur a,boolean stat){
 
@@ -114,7 +193,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
@@ -186,69 +265,19 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 						if(qualiteEntree.equals("administrateur")){typeEntre=Compte.TYPE_ADMINISTRATEUR;}
 						if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
 					}
+					panelEntrerChamps=dessineLeReste(typeEntre);
+					List<JLabel> listeLabels;
+					List<JTextField> listeJFieldText;
 				}
 			});
 
 			panel2.add(qualiteARemplir);
 			centerWest.add(panel2);
+			centerWest.add(panelEntrerChamps);
+			
+			Component[] tableauComposants = panelEntrerChamps.getComponents();
+			//TOFO : tous les set des composants de panelEntrerChamps ... this.setLabelId(tableauComposants);
 
-			JPanel panel3 = new JPanel();
-			panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			labelId.setPreferredSize(new Dimension(150,30));
-			labelId.setMaximumSize(new Dimension(150,30));
-			panel3.add(labelId);
-			centerWest.add(panel3);	
-
-			JPanel panel4 = new JPanel();
-			panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-			idARemplir.setPreferredSize(new Dimension(200,30));
-			idARemplir.setMaximumSize(new Dimension(200,30));
-			panel4.add(idARemplir);
-			centerWest.add(panel4);	
-
-			JPanel panel5 = new JPanel();
-			panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			labelAdresseEMail.setPreferredSize(new Dimension(150,30));
-			labelAdresseEMail.setMaximumSize(new Dimension(150,30));
-			panel5.add(labelAdresseEMail);
-			centerWest.add(panel5);
-
-			JPanel panel6 = new JPanel();
-			panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
-			adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
-			panel6.add(adresseEMailARemplir);
-			centerWest.add(panel6);
-
-			if(typeEntre==Compte.TYPE_UTILISATEUR){
-				JPanel panel7 = new JPanel();
-				panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-				labelNom.setPreferredSize(new Dimension(150,30));
-				labelNom.setMaximumSize(new Dimension(150,30));
-				panel7.add(labelNom);
-				centerWest.add(panel7);
-
-				JPanel panel8 = new JPanel();
-				panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-				nomARemplir.setPreferredSize(new Dimension(200,30));
-				nomARemplir.setMaximumSize(new Dimension(200,30));
-				panel8.add(nomARemplir);
-				centerWest.add(panel8);
-
-				JPanel panel9 = new JPanel();
-				panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-				labelPrenom.setPreferredSize(new Dimension(150,30));
-				labelPrenom.setMaximumSize(new Dimension(150,30));
-				panel9.add(labelPrenom);
-				centerWest.add(panel9);	
-
-				JPanel panel10 = new JPanel();
-				panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-				prenomARemplir.setPreferredSize(new Dimension(200,30));
-				prenomARemplir.setMaximumSize(new Dimension(200,30));
-				panel10.add(prenomARemplir);
-				centerWest.add(panel10);	
-			}
 		}
 
 		else{
@@ -321,15 +350,99 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.setVisible(true);
 	}
 
+	public static JPanel dessineLeReste(int typeCompte){
+		JPanel resul = new JPanel();
+		resul.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+
+		JLabel labelId = new JLabel("Identifiant");
+		JTextField idARemplir = new JTextField("");
+		JLabel labelNom = new JLabel("Nom");
+		JTextField nomARemplir = new JTextField("");
+
+		JLabel labelPrenom = new JLabel("Prénom");
+		JTextField prenomARemplir = new JTextField("");
+
+		JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
+		JTextField adresseEMailARemplir = new JTextField("");
+
+		JPanel panel3 = new JPanel();
+		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		labelId.setPreferredSize(new Dimension(150,30));
+		labelId.setMaximumSize(new Dimension(150,30));
+		panel3.add(labelId);
+		resul.add(panel3);
+
+		JPanel panel4 = new JPanel();
+		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		idARemplir.setPreferredSize(new Dimension(200,30));
+		idARemplir.setMaximumSize(new Dimension(200,30));
+		panel4.add(idARemplir);
+		resul.add(panel4);	
+
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		labelAdresseEMail.setPreferredSize(new Dimension(150,30));
+		labelAdresseEMail.setMaximumSize(new Dimension(150,30));
+		panel5.add(labelAdresseEMail);
+		resul.add(panel5);
+
+		JPanel panel6 = new JPanel();
+		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
+		adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
+		panel6.add(adresseEMailARemplir);
+		resul.add(panel6);
+
+		if(typeCompte==Compte.TYPE_UTILISATEUR){
+			JPanel panel7 = new JPanel();
+			panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			labelNom.setPreferredSize(new Dimension(150,30));
+			labelNom.setMaximumSize(new Dimension(150,30));
+			panel7.add(labelNom);
+			resul.add(panel7);
+
+			JPanel panel8 = new JPanel();
+			panel8.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			nomARemplir.setPreferredSize(new Dimension(200,30));
+			nomARemplir.setMaximumSize(new Dimension(200,30));
+			panel8.add(nomARemplir);
+			resul.add(panel8);
+
+			JPanel panel9 = new JPanel();
+			panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			labelPrenom.setPreferredSize(new Dimension(150,30));
+			labelPrenom.setMaximumSize(new Dimension(150,30));
+			panel9.add(labelPrenom);
+			resul.add(panel9);	
+
+			JPanel panel10 = new JPanel();
+			panel10.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+			prenomARemplir.setPreferredSize(new Dimension(200,30));
+			prenomARemplir.setMaximumSize(new Dimension(200,30));
+			panel10.add(prenomARemplir);
+			resul.add(panel10);	
+		}
+
+
+		return resul;
+	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			this.setTypeEntre(typeEntre);
-			if(!idARemplir.getText().equals("")){this.setIdEntre(idARemplir.getText());}
-			if(!nomARemplir.getText().equals("")){this.setNomEntre(nomARemplir.getText());}
-			if(!prenomARemplir.getText().equals("")){this.setPrenomEntre(prenomARemplir.getText());}
-			if(!adresseEMailARemplir.getText().equals("")){this.setAdresseEMailEntree(adresseEMailARemplir.getText());}
+			if(!idARemplir.getText().equals("")){
+				this.setIdEntre(idARemplir.getText());
+			}
+			if(!nomARemplir.getText().equals("")){
+				this.setNomEntre(nomARemplir.getText());
+			}
+			if(!prenomARemplir.getText().equals("")){
+				this.setPrenomEntre(prenomARemplir.getText());
+			}
+			if(!adresseEMailARemplir.getText().equals("")){
+				this.setAdresseEMailEntree(adresseEMailARemplir.getText());
+			}
 			try {
 				new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
 			} 

@@ -83,7 +83,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.setSize(700, 500);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setAlwaysOnTop(true);
 
 		this.getContentPane().setLayout(new BorderLayout());
@@ -206,7 +206,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(boutonRetour);
 			}
 
-			else if(fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")){
+			else if((fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")) || (fenetrePrec.getTitle().equals("Demande d'assignation déjà existante pour cette station"))){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("La demande d'assignation a bien été envoyée. ");

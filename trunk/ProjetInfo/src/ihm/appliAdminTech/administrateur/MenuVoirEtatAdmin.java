@@ -54,8 +54,8 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
-		//pour que la fenêtre ne se redimensionne pas à chaque fois
-		this.setResizable(false);
+		//pour que la fenêtre se redimensionne à chaque fois
+		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
