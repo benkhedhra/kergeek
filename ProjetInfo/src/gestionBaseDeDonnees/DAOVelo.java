@@ -43,6 +43,9 @@ public class DAOVelo {
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
@@ -80,6 +83,9 @@ public class DAOVelo {
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
@@ -94,9 +100,9 @@ public class DAOVelo {
 	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Velo velo = new Velo();
 
+		try {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		try {
 		ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
 		
 			if (resVelo.next()) {
@@ -123,6 +129,9 @@ public class DAOVelo {
 		}
 		catch(NullPointerException e3){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -171,6 +180,9 @@ public class DAOVelo {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{

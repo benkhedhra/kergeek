@@ -149,8 +149,6 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 			this.getContentPane().add(south,BorderLayout.SOUTH);
 
 			this.setVisible(true);
-		} catch(NullPointerException e){
-			MsgBox.affMsg("NullPointerException : "+e.getMessage());
 		} catch (SQLException e) {
 			MsgBox.affMsg("SQLException : "+e.getMessage());
 		} catch (ClassNotFoundException e) {

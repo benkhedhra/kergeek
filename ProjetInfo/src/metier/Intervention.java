@@ -9,13 +9,6 @@ public class Intervention {
 	private String id;
 	private Velo velo;
 	private Date date;
-	
-	/*TODO
-	 * TODO
-	 * TODO !!!
-	 * private Technicien technicien;
-	 */
-	
 	private TypeIntervention typeIntervention;
 	
 	

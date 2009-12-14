@@ -57,6 +57,9 @@ public class DAOLieu {
 				if (ConnexionOracleViaJdbc.getC() == null){
 					throw new ConnexionFermeeException();
 				}
+				else if (ConnexionOracleViaJdbc.getC().isClosed()){
+					throw new ConnexionFermeeException();
+				}
 				else{
 					throw new NullPointerException(e3.getMessage());
 				}
@@ -92,6 +95,14 @@ public class DAOLieu {
 				);
 				effectue=true;
 			}
+			else if (lieu.getId() == Lieu.ID_DETRUIT){
+				s.executeUpdate("INSERT into Lieu values (" 
+						+ "'" + Lieu.ID_DETRUIT + "'," 
+						+ "'" + Lieu.ADRESSE_DETRUIT + "'," 
+						+ "''" + ")"
+				);
+				effectue=true;
+			}
 			else{
 				ResultSet res = s.executeQuery("Select seqLieu.NEXTVAL as id from dual");
 				if (res.next()){
@@ -115,6 +126,9 @@ public class DAOLieu {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -156,6 +170,9 @@ public class DAOLieu {
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{

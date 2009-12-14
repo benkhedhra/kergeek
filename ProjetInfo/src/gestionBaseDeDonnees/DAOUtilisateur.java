@@ -49,7 +49,15 @@ public class DAOUtilisateur {
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
@@ -88,7 +96,10 @@ public class DAOUtilisateur {
 			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e3){
-			if (ConnexionOracleViaJdbc.getC().isClosed()){
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
 				throw new ConnexionFermeeException();
 			}
 			else{
@@ -137,7 +148,15 @@ public class DAOUtilisateur {
 			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e3){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e3.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -172,7 +191,15 @@ public class DAOUtilisateur {
 			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e3){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e3.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();
@@ -201,7 +228,15 @@ public class DAOUtilisateur {
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
-			throw new ConnexionFermeeException();
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
