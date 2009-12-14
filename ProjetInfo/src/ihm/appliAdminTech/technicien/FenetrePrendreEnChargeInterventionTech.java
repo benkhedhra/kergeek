@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -131,7 +132,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 		try {
 			Collection<String> collection = DAOTypeIntervention.getAllTypesIntervention().values();
-			List<String> listeTypes = new ArrayList<String>(collection.size());
+			final List<String> listeTypes = new ArrayList<String>(collection.size());
 			listeTypes.addAll(collection);
 			String [] tableauTypes = new String[listeTypes.size()+1];
 			tableauTypes[0]="Sélectionnez un type d'intervention";
@@ -147,7 +148,8 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String chaineSelectionnee = (String) o;
 					try {
-						typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(Integer.parseInt(chaineSelectionnee.substring(0,1)));
+						int i = listeTypes.indexOf(chaineSelectionnee);
+						typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(i);
 					} catch (NumberFormatException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (SQLException e) {

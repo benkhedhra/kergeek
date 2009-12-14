@@ -106,8 +106,8 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		centerNorth.setPreferredSize(new Dimension(700,250));
 		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
-		labelMsg1.setPreferredSize(new Dimension(600,50));		
-		labelMsg1.setMinimumSize(new Dimension(600,50));
+		labelMsg1.setPreferredSize(new Dimension(650,50));		
+		labelMsg1.setMinimumSize(new Dimension(650,50));
 		centerNorth.add(labelMsg1);
 
 		List<DemandeIntervention> listeDemandes;
@@ -123,6 +123,8 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
 
 			JComboBox combo = new JComboBox(model);
+			combo.setPreferredSize(new Dimension(400,50));		
+			combo.setMinimumSize(new Dimension(400,50));
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -148,19 +150,13 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					}
 				}
 			});
-			combo.setPreferredSize(new Dimension(250,50));
-			combo.setMinimumSize(new Dimension(250,50));
 			centerNorth.add(combo);
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 		}		
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonValider.addActionListener(this);
-		centerNorth.add(boutonValider);
+
 
 		center.add(centerNorth,BorderLayout.NORTH);
 
@@ -174,6 +170,13 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		idVeloARemplir.setPreferredSize(new Dimension(200,50));		
 		idVeloARemplir.setMinimumSize(new Dimension(200,50));
 		centerSouth.add(idVeloARemplir);
+		
+		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setBackground(Color.CYAN);
+		boutonValider.setPreferredSize(new Dimension(250,50));		
+		boutonValider.setMinimumSize(new Dimension(250,50));
+		boutonValider.addActionListener(this);
+		centerSouth.add(boutonValider);
 
 		center.add(centerSouth,BorderLayout.SOUTH);
 

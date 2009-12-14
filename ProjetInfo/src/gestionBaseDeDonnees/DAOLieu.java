@@ -152,7 +152,7 @@ public class DAOLieu {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 			ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_GARAGE
-					+ "' AND idLieu <> '" + Lieu.ID_SORTIE + "'");
+					+ "' AND idLieu <> '" + Lieu.ID_SORTIE + "' AND idLieu <> '" + Lieu.ID_DETRUIT + "'");
 			try {
 				while(res.next()) {
 					String idLieu = res.getString("idLieu"); 
