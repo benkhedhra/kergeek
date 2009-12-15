@@ -1,7 +1,10 @@
 package ihm.appliUtil;
 
+import envoieMail.SendMail;
+import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOLieu;
+import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
@@ -13,9 +16,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,8 +28,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.Emprunt;
 import metier.Station;
+import metier.Technicien;
 import metier.Utilisateur;
 import metier.Velo;
 import metier.exceptionsMetier.PasDeDateRetourException;
@@ -197,19 +204,34 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 								new FenetreRendreVelo(this.getUtilisateur());
 							}
 						}
+						//on vérifie si la station est maintenant pleine
+						if(!UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
+							List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
+							List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
+							
+							String adresseEMail;
+							for (Technicien t : listeTech){
+								adresseEMail = t.getCompte().getAdresseEmail();
+								SendMail.sendMail(adresseEMail,"Station "+stationEntree.getAdresse()+" pleine","Bonjour "+t.getCompte().getId()+"\n La station "+stationEntree.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							}
+							for (Administrateur a : listeAdmin){
+								adresseEMail = a.getCompte().getAdresseEmail();
+								SendMail.sendMail(adresseEMail,"Station "+stationEntree.getAdresse()+" pleine","Bonjour "+a.getCompte().getId()+"\n La station "+stationEntree.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							}
+						}
 					}
 					else{
 						List<Station> listeStations = DAOLieu.getAllStations();
 						int i = listeStations.indexOf(stationEntree);
 						if(i==0){
-							MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i+1).getAdresse()+"<center></html>");
+							new FenetreConfirmationUtil("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i+1).getAdresse()+"<br>Au revoir et à bientôt !<center></html>");
 						}
 						else if(i==listeStations.size()-1){
-							MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i-1).getAdresse()+"<center></html>");
+							new FenetreConfirmationUtil("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i-1).getAdresse()+"<br>Au revoir et à bientôt !<center></html>");
 							}
 						else{
-							MsgBox.affMsg("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Les stations les plus proches sont : <br>"+listeStations.get(i-1).getAdresse()+"<br>"+listeStations.get(i+1).getAdresse()+"<center></html>");
-						}new FenetreConfirmationUtil("Au revoir et à bientôt !");
+							new FenetreConfirmationUtil("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Les stations les plus proches sont : <br>"+listeStations.get(i-1).getAdresse()+"<br>"+listeStations.get(i+1).getAdresse()+"<br>Au revoir et à bientôt !<center></html>");
+						}
 					}
 				} catch (SQLException e) {
 					MsgBox.affMsg("SQL exception " + e.getMessage());
@@ -222,6 +244,12 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 				}
 				catch (ConnexionFermeeException e3){
 					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentificationUtil(false);
+				} catch (UnsupportedEncodingException e) {
+					MsgBox.affMsg("UnsupportedEncodingException : "+e.getMessage());
+					new FenetreAuthentificationUtil(false);
+				} catch (MessagingException e) {
+					MsgBox.affMsg("MessagingException : "+e.getMessage());
 					new FenetreAuthentificationUtil(false);
 				}
 			}
