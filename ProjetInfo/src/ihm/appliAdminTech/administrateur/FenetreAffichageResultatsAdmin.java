@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Lieu;
+import metier.Station;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
@@ -42,7 +44,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 	 * serial version ID par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	//Attributs
 	/**
 	 * Cette fenêtre a un attribut Administrateur, un attribut JFrame, un attribut JLabel, et 4 attributs JButton
@@ -159,7 +161,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			bouton1.addActionListener(this);
 			south.add(bouton1);			
 		}
-		
+
 		else if(fenetrePrec.getTitle().equals("Menu demander statistiques de l'administrateur")){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 			labelMsg.setPreferredSize(new Dimension(600,100));
@@ -168,7 +170,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			center.add(tableau);
 		}
 
-		else if((fenetrePrec.getTitle().equals("Voir l'état d'une station")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
+		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
 
 			JLabel lblChart1 = new JLabel();
 			JLabel lblChart2 = new JLabel();
@@ -186,23 +188,27 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 			FenetreEtatStationAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
-			if (fenetrePrec.getTitle().equals("Voir l'état d'une station")) {
+			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
 				f1 = (FenetreEtatStationAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosStation(f1.getStationEntree());
+				diag1 = new DiagrammeNbVelosStation(f1.getLieuEntre());
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
-				diag2 = new DiagrammeTxOccupationStation(f1.getStationEntree());
-				lblChart2.setIcon(new ImageIcon(diag2.getImage()));
+				panel1.add(lblChart1);
+				System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
+				if(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE)){
+					diag2 = new DiagrammeTxOccupationStation((Station)f1.getLieuEntre());
+					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
+					panel2.add(lblChart2);
+				}
 			}
 			if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
 				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
+				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
 				lblChart2.setIcon(new ImageIcon(diag2.getImage()));
+				panel2.add(lblChart2);
 			}
-
-			panel1.add(lblChart1);
-			panel2.add(lblChart2);
 
 			center.add(panel1);
 			center.add(panel2);
@@ -273,9 +279,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 			}
 			else if(arg0.getSource()==bouton3){
-				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")){
+				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'un lieu")){
 					FenetreEtatStationAdmin f = (FenetreEtatStationAdmin) fenetrePrecedente;
-					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getStationEntree());
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getLieuEntre());
 				}
 				else{
 					FenetreStationsSurSousAdmin f = (FenetreStationsSurSousAdmin) fenetrePrecedente;

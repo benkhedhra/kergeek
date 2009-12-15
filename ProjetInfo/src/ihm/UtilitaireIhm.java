@@ -153,8 +153,8 @@ public class UtilitaireIhm {
 		return nouvelleListe;
 	}
 	
-	public static boolean verifieParametresAssignation(int nbVelos,Station s){
-		return (nbVelos>0 && nbVelos<=s.getCapacite());
+	public static boolean verifieParametresAssignation(int nbVelos,Lieu l){
+		return (nbVelos>0 && nbVelos<=l.getCapacite());
 	}
 	
 	

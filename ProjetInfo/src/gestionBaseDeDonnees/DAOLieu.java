@@ -187,6 +187,48 @@ public class DAOLieu {
 	}
 
 
+	public static List<Station> getStationsEtGarage() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		List<Station> liste = new ArrayList<Station>();
+		List<String> listeId = new ArrayList<String>();
+
+		Station station = new Station();
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+		try{
+			ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_SORTIE + "' AND idLieu <> '" + Lieu.ID_DETRUIT + "'");
+			try {
+				while(res.next()) {
+					String idLieu = res.getString("idLieu"); 
+					listeId.add(idLieu);
+				}
+				for(String id : listeId){
+					station = (Station) DAOLieu.getLieuById(id);
+					liste.add(station);
+				}
+			}
+			catch(SQLException e1){
+				liste = null;
+				System.out.println(e1.getMessage());
+			}
+		}
+		catch(NullPointerException e2){
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+
+		return liste;
+	}
 
 
 	public static float calculerTx(Station station) throws SQLException, ClassNotFoundException, ConnexionFermeeException{

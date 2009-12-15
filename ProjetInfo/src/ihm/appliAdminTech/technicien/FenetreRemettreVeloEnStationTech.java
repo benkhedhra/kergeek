@@ -204,11 +204,15 @@ public class FenetreRemettreVeloEnStationTech extends JFrame implements ActionLi
 		try {
 			if (arg0.getSource()==boutonValider){
 				Velo velo = DAOVelo.getVeloById(idARemplir.getText());
-				if(stationEntree == null){
+				if(velo==null){
+					MsgBox.affMsg("Vous n'avez entré aucun vélo");
+					new FenetreRemettreVeloEnStationTech(this.getTechnicien());
+				}
+				else if(stationEntree == null){
 					MsgBox.affMsg("Vous n'avez selectionné aucune station");
 					new FenetreRemettreVeloEnStationTech(this.getTechnicien());
 				}
-				if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
+				else if(UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
 					if(DAOVelo.existe(velo.getId())){
 						if(velo.isEnPanne() && velo.getLieu().getId() == Garage.ID_GARAGE){
 							velo.setLieu(stationEntree);

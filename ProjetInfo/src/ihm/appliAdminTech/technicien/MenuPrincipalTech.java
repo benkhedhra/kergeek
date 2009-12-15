@@ -93,11 +93,11 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton2.addActionListener(this);
 		center.add(bouton2);
-		bouton3.setPreferredSize(new Dimension(200,100));
+		/*bouton3.setPreferredSize(new Dimension(200,100));
 		bouton3.setMaximumSize(new Dimension(200,100));
 		bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton3.addActionListener(this);
-		center.add(bouton3);
+		center.add(bouton3);*/
 		bouton4.setPreferredSize(new Dimension(200,100));
 		bouton4.setMaximumSize(new Dimension(200,100));
 		bouton4.setFont(FenetreAuthentificationUtil.POLICE3);

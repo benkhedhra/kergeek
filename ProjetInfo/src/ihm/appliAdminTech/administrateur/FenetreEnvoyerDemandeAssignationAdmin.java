@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.DemandeAssignation;
+import metier.Lieu;
 import metier.Station;
 
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
@@ -35,7 +36,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	private static final long serialVersionUID = 1L;
 
 	private Administrateur administrateur;
-	private Station stationConcernee;
+	private Lieu lieuConcerne;
 	private DemandeAssignation demande;
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
@@ -56,12 +57,12 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.administrateur = administrateur;
 	}
 
-	public Station getStationConcernee() {
-		return stationConcernee;
+	public Lieu getLieuConcerne() {
+		return lieuConcerne;
 	}
 
-	public void setStationConcernee(Station stationConcernee) {
-		this.stationConcernee = stationConcernee;
+	public void setLieuConcerne(Lieu lieuConcerne) {
+		this.lieuConcerne = lieuConcerne;
 	}
 
 	public DemandeAssignation getDemande() {
@@ -72,7 +73,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.demande = demande;
 	}
 
-	public FenetreEnvoyerDemandeAssignationAdmin (Administrateur a,Station s){
+	public FenetreEnvoyerDemandeAssignationAdmin (Administrateur a,Lieu l){
 
 		System.out.println("Fenêtre pour envoyer une demande d'assignation");
 		this.setContentPane(new PanneauAdmin());
@@ -95,7 +96,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-		this.setStationConcernee(s);
+		this.setLieuConcerne(l);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
@@ -121,7 +122,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		labelStation.setPreferredSize(new Dimension (250,30));
 		center.add(labelStation);
 
-		labelStationConcernee.setText(s.getAdresse());
+		labelStationConcernee.setText(l.getAdresse());
 		labelStationConcernee.setPreferredSize(new Dimension (250,30));
 		center.add(labelStationConcernee);
 		labelNbVelos.setPreferredSize(new Dimension (250,30));
@@ -181,21 +182,21 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 				int nbVelos = 0;
 				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
 
-				if (UtilitaireIhm.verifieParametresAssignation(nbVelos,this.getStationConcernee())){
-					this.setDemande(new DemandeAssignation(nbVelos,this.getStationConcernee()));
-					System.out.println("station concernée : "+this.getStationConcernee().getAdresse());
-					if(listeStations.contains(this.getStationConcernee())){
-						DemandeAssignation ancienneDemande = listeDemandes.get(listeStations.indexOf(this.getStationConcernee()));
+				if (UtilitaireIhm.verifieParametresAssignation(nbVelos,this.getLieuConcerne())){
+					this.setDemande(new DemandeAssignation(nbVelos,this.getLieuConcerne()));
+					System.out.println("station concernée : "+this.getLieuConcerne().getAdresse());
+					if(listeStations.contains(this.getLieuConcerne())){
+						DemandeAssignation ancienneDemande = listeDemandes.get(listeStations.indexOf(this.getLieuConcerne()));
 						new FenetreExisteDejaDemandeAssignationAdmin(this.getAdministrateur(),ancienneDemande,this.getDemande());
 					}
 					else if(DAODemandeAssignation.createDemandeAssignation(this.getDemande())){
 						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-						System.out.println("Une demande d'assignation a bien été envoyée pour la station "+stationConcernee.getAdresse()+" : "+nbVelos+" vélos demandés");
+						System.out.println("Une demande d'assignation a bien été envoyée pour "+this.getLieuConcerne().getAdresse()+" : "+nbVelos+" vélos demandés");
 					}
 				}
 				else{
-					MsgBox.affMsg("Le nombre de vélos entré est incorrect. La capacité de cette station est de "+stationConcernee.getCapacite()+" vélos. ");
-					new FenetreEnvoyerDemandeAssignationAdmin(this.getAdministrateur(),this.getStationConcernee());
+					MsgBox.affMsg("Le nombre de vélos entré est incorrect. La capacité de "+this.getLieuConcerne().getAdresse()+" est de "+this.getLieuConcerne().getCapacite()+" vélos. ");
+					new FenetreEnvoyerDemandeAssignationAdmin(this.getAdministrateur(),this.getLieuConcerne());
 				}
 			}
 			else if (arg0.getSource()==boutonEtatAutreStation){
