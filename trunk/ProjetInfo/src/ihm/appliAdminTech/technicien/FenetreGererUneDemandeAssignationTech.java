@@ -22,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.DemandeAssignation;
+import metier.Garage;
+import metier.Lieu;
 import metier.Technicien;
 import metier.Velo;
 
@@ -36,8 +38,8 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	private DemandeAssignation demande;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Demande d'assignation à traiter");
-	private JLabel labelStation = new JLabel("Station concernée");
-	private JLabel labelStationDemande = new JLabel("");
+	private JLabel labelLieu = new JLabel("Lieu concerné par la demande d'assignation");
+	private JLabel labelLieuDemande = new JLabel("");
 	private JLabel labelNbVelosSouhaite = new JLabel("Nombre de vélos souhaité");
 	private JLabel labelNbVelosSouhaiteDemande = new JLabel("");
 	private JLabel labelNbVelosActuel = new JLabel("Nombre de vélos actuel");
@@ -45,7 +47,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	private JLabel labelOperation = new JLabel("Opération à effectuer");
 	private JLabel labelOperationDemande = new JLabel("");
 
-	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette demande d'assignation");
+	private JButton boutonPrendreEnCharge = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 
@@ -117,19 +119,19 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
-		labelStation.setPreferredSize(new Dimension(250,30));
-		labelStation.setMaximumSize(new Dimension(250,30));
-		panel1.add(labelStation);
+		labelLieu.setPreferredSize(new Dimension(250,30));
+		labelLieu.setMaximumSize(new Dimension(250,30));
+		panel1.add(labelLieu);
 		centerCenter.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		System.out.println(DAODemandeAssignation.ligne(d));
 		System.out.println(d.getLieu().getAdresse());
-		labelStationDemande.setText(d.getLieu().getAdresse());
-		labelStationDemande.setPreferredSize(new Dimension(250,30));
-		labelStationDemande.setMaximumSize(new Dimension(250,30));
-		panel2.add(labelStationDemande);
+		labelLieuDemande.setText(d.getLieu().getAdresse());
+		labelLieuDemande.setPreferredSize(new Dimension(250,30));
+		labelLieuDemande.setMaximumSize(new Dimension(250,30));
+		panel2.add(labelLieuDemande);
 		centerCenter.add(panel2);	
 
 		JPanel panel3 = new JPanel();
@@ -189,6 +191,13 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		panel8.add(labelOperationDemande);
 		centerCenter.add(panel8);
 
+		if(this.getDemande().getLieu().equals(Garage.getInstance())){
+			boutonPrendreEnCharge.setText("Créer de nouveaux vélos");
+		}
+		else{
+			boutonPrendreEnCharge.setText("Prendre en charge cette demande d'assignation");
+		}
+
 		JPanel panel9 = new JPanel();
 		panel9.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
@@ -224,29 +233,34 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonPrendreEnCharge){
-			ArrayList<String> listeVide = new ArrayList<String>();
-			int diff;
-			try {
-				diff = DAOVelo.getVelosByLieu(demande.getLieu()).size()-demande.getNombreVelosVoulusDansLieu();
-				int nbVelosADeplacer = Math.abs(diff);
-				for(int i=0;i<nbVelosADeplacer;i++){
-					listeVide.add("");
+		try {
+			if(arg0.getSource()==boutonPrendreEnCharge){
+				if(this.getDemande().getLieu().getId().equals(""+Lieu.ID_GARAGE)){
+					new FenetreEnregistrerVeloTech(this.getTechnicien());
 				}
-				new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande(),listeVide,true);
+				else{
+					ArrayList<String> listeVide = new ArrayList<String>();
+					int diff;
 
-			} catch (SQLException e) {
-				MsgBox.affMsg("SQL Exception : " + e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
+					diff = DAOVelo.getVelosByLieu(demande.getLieu()).size()-demande.getNombreVelosVoulusDansLieu();
+					int nbVelosADeplacer = Math.abs(diff);
+					for(int i=0;i<nbVelosADeplacer;i++){
+						listeVide.add("");
+					}
+					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(),this.getDemande(),listeVide,true);
+				}
 			}
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
 			}
+		} catch (SQLException e) {
+			MsgBox.affMsg("SQL Exception : " + e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
 		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
+		catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}		
 }

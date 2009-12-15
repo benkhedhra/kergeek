@@ -158,11 +158,13 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				if(this.getDiff()<0){
 
 					List<Velo> listeVelosDansGarage = DAOVelo.getVelosByLieu(Garage.getInstance());
-					List<String> listeIdVelosDansGarage = new ArrayList<String>();
+					List<String> listeIdVelosEnMarcheDansGarage = new ArrayList<String>();
 					for (Velo velo : listeVelosDansGarage){
-						listeIdVelosDansGarage.add(velo.getId());
+						if(!velo.isEnPanne()){
+							listeIdVelosEnMarcheDansGarage.add(velo.getId());
+						}
 					}
-					labelListeVelosAssignables.setText("<html><center>vélos disponibles au garage : "+listeIdVelosDansGarage+"</center></html>");
+					labelListeVelosAssignables.setText("<html><center>vélos disponibles au garage : "+listeIdVelosEnMarcheDansGarage+"</center></html>");
 
 					if(b){
 						labelMsg.setText("<html><center>Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getAdresse()+"</center></html>");
@@ -190,7 +192,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					for (Velo velo : listeVelosDansStation){
 						listeIdVelosDansStation.add(velo.getId());
 					}
-				labelListeVelosAssignables.setText("vélos disponibles en station : "+listeIdVelosDansStation);
+					labelListeVelosAssignables.setText("vélos disponibles en station : "+listeIdVelosDansStation);
 
 					if(b){
 						labelMsg.setText("<html><center>Veuillez entrer les identifiants des vélos affectés de la station "+d.getLieu().getId()+" au garage. </center></html>");
@@ -215,7 +217,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					}
 				}
 				centerCenter.add(panelVelos);
-				//centerNorth.setLayout(new GridLayout(2,1));
+				centerNorth.setLayout(new GridLayout(2,1));
 				centerNorth.add(labelMsg);
 				centerNorth.add(labelListeVelosAssignables);
 				center.add(centerNorth,BorderLayout.NORTH);

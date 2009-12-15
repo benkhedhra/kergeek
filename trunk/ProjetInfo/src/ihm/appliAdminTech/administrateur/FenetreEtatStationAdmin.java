@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Lieu;
 import metier.Station;
 
 public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
@@ -29,8 +30,8 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 
 	private Administrateur administrateur;
 	private JLabel labelAdmin = new JLabel("");;
-	private JLabel labelMsg = new JLabel("Veuillez entrer la station dont vous voulez voir l'état");
-	private Station stationEntree;
+	private JLabel labelMsg = new JLabel("Veuillez entrer le lieu (station ou garage) dont vous voulez voir l'état");
+	private Lieu lieuEntre;
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -42,12 +43,12 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.administrateur = administrateur;
 	}
 
-	public Station getStationEntree() {
-		return stationEntree;
+	public Lieu getLieuEntre() {
+		return lieuEntre;
 	}
 
-	public void setStationEntree(Station stationEntree) {
-		this.stationEntree = stationEntree;
+	public void setLieuEntre(Lieu lieuentre) {
+		this.lieuEntre = lieuEntre;
 	}
 
 	public FenetreEtatStationAdmin(Administrateur a) throws ConnexionFermeeException{
@@ -55,7 +56,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		System.out.println("Fenêtre pour avoir l'état d'une station");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Voir l'état d'une station");
+		this.setTitle("Voir l'état d'un lieu");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
@@ -93,9 +94,10 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		centerWest.setPreferredSize(new Dimension(500,350));
 		List<Station> listeStations;
 		try {
-			listeStations = DAOLieu.getAllStations();
+			listeStations = DAOLieu.getStationsEtGarage();
+			System.out.println(listeStations);
 			final String [] tableauStations = new String[listeStations.size()+1];
-			tableauStations[0]="Sélectionnez une station";
+			tableauStations[0]="Sélectionnez un lieu";
 			for (int i=0;i<listeStations.size();i++){
 				tableauStations[i+1]=listeStations.get(i).toString();
 			}
@@ -107,12 +109,12 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String chaineSelectionnee = (String)(o);
 					if(chaineSelectionnee.equals(tableauStations[0])){
-						stationEntree=null;
+						lieuEntre=null;
 					}
 					else{
 						String idStationEntre = chaineSelectionnee.substring(0,1);
 						try {
-							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+							lieuEntre = (Station) DAOLieu.getLieuById(idStationEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {
@@ -169,8 +171,8 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				if(this.getStationEntree()==null){
-					MsgBox.affMsg("Vous n'avez sélectionné aucune station. ");
+				if(this.getLieuEntre()==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucun lieu. ");
 					new FenetreEtatStationAdmin(this.getAdministrateur());
 				}
 				else{
