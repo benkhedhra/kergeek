@@ -212,6 +212,10 @@ public class CreationTables {
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'destruction')");			
+			//TODO : rajouter un type : demande d'intervention non justifiée + les vélos qui vont avec
+			/* TODO : soit on permet au tech de créer un nouveau type (sous réserve d'être accepté par l'admin ? )
+			 * soit on partitionne parfaitement le vélo par les types
+			 */
 			
 			//Insertion interventions
 
