@@ -5,7 +5,9 @@ import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.appliAdminTech.administrateur.FenetreAffichageResultatsAdmin;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
+import ihm.appliAdminTech.administrateur.FenetreDemandeConfirmationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
@@ -15,7 +17,6 @@ import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
 import ihm.appliAdminTech.technicien.FenetreGererDemandesAssignationTech;
 import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
 import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeInterventionTech;
-import ihm.appliAdminTech.technicien.FenetreRemettreVeloEnStationTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloDefectueuxTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
@@ -193,10 +194,17 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 
 			else if(fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation")){
+				FenetreDemandeConfirmationAdmin f = (FenetreDemandeConfirmationAdmin)fenetrePrec;
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
-				labelConfirm.setText("La résiliation a bien été enregistrée. ");
-				bouton1.setText("Afficher informations sur un autre compte");
+				if(f.getFenetrePrecedente().getTitle().equals("Modifier informations sur un compte")){
+					labelConfirm.setText("La résiliation a bien été enregistrée. ");
+					bouton1.setText("Afficher informations sur un autre compte");
+				}
+				else{
+					labelConfirm.setText("La suppression a bien été enregistrée. ");
+					bouton1.setText("Revoir la liste des vélos actuellement sortis");
+				}
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
@@ -324,7 +332,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 			}
-			else if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte") || fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
+			else if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte")){
 				if(arg0.getSource()==bouton1){
 					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()),false);
 				}
@@ -332,6 +340,26 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 			}
+
+			else if (fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation")){
+				FenetreDemandeConfirmationAdmin f = (FenetreDemandeConfirmationAdmin)fenetrePrecedente;
+				if(f.getFenetrePrecedente().getTitle().equals("Modifier informations sur un compte")){
+					if(arg0.getSource()==bouton1){
+						new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()),false);
+					}
+					else if (arg0.getSource()==boutonRetour){
+						new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+					}				}
+				else{
+					if(arg0.getSource()==bouton1){
+						new FenetreAffichageResultatsAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()),this);
+					}
+					else if (arg0.getSource()==boutonRetour){
+						new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+					}
+				}
+			}
+
 
 			else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
 				if(arg0.getSource()==bouton1){
@@ -355,14 +383,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			else if(fenetrePrecedente.getTitle().equals("Gérer les demandes d'intervention ou constater un vélo défectueux")){
 				if(arg0.getSource()==bouton1){
 					new FenetreRetirerVeloDefectueuxTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				}
-				else if (arg0.getSource()==boutonRetour){
-					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
-				}
-			}
-			else if(fenetrePrecedente.getTitle().equals("Remettre un vélo réparé en station")){
-				if(arg0.getSource()==bouton1){
-					new FenetreRemettreVeloEnStationTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));

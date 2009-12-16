@@ -33,9 +33,8 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JButton bouton1 = new JButton("Enregistrer \n"+"un nouveau vélo");
 	private JButton bouton2 = new JButton("Retirer un vélo \n"+"défectueux \n"+" d'une station");
-	private JButton bouton3 = new JButton("Remettre un vélo \n"+"réparé\n"+" dans une station");
-	private JButton bouton4 = new JButton("Gérer les demandes\n"+" d'assignation");
-	private JButton bouton5 = new JButton("Gérer les interventions");
+	private JButton bouton3 = new JButton("Gérer les demandes\n"+" d'assignation");
+	private JButton bouton4 = new JButton("Gérer les interventions");
 	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
 
 	public Technicien getTechnicien() {
@@ -93,21 +92,16 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton2.addActionListener(this);
 		center.add(bouton2);
-		/*bouton3.setPreferredSize(new Dimension(200,100));
+		bouton3.setPreferredSize(new Dimension(200,100));
 		bouton3.setMaximumSize(new Dimension(200,100));
 		bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton3.addActionListener(this);
-		center.add(bouton3);*/
+		center.add(bouton3);
 		bouton4.setPreferredSize(new Dimension(200,100));
 		bouton4.setMaximumSize(new Dimension(200,100));
 		bouton4.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton4.addActionListener(this);
 		center.add(bouton4);
-		bouton5.setPreferredSize(new Dimension(200,100));
-		bouton5.setMaximumSize(new Dimension(200,100));
-		bouton5.setFont(FenetreAuthentificationUtil.POLICE3);
-		bouton5.addActionListener(this);
-		center.add(bouton5);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
@@ -137,12 +131,9 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 				new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 			}
 			else if (arg0.getSource()==bouton3){
-				new FenetreRemettreVeloEnStationTech(this.getTechnicien());
-			}
-			else if (arg0.getSource()==bouton4){
 				new FenetreGererDemandesAssignationTech(this.getTechnicien());
 			}
-			else if (arg0.getSource()==bouton5){
+			else if (arg0.getSource()==bouton4){
 				new FenetreGererInterventionsTech(this.getTechnicien());
 			}
 			else if (arg0.getSource()==boutonChangeMdp){

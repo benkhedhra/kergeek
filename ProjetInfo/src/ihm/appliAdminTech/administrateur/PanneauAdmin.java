@@ -10,10 +10,15 @@ import javax.swing.JPanel;
 
 public class PanneauAdmin extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void paintComponent(Graphics g){
 
 		try {
-			Image img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/ressources/panneauAdmin.jpg"));
+			Image img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/ressources/panneauAdministrateur.jpg"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			e.printStackTrace();
