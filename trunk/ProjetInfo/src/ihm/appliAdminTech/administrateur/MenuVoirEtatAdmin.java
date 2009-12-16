@@ -44,9 +44,9 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	public MenuVoirEtatAdmin(Administrateur a){
 
 		this.setContentPane(new PanneauAdmin());
-		System.out.println("Menu demander statistiques de l'administrateur");
+		System.out.println("Menu <voir état du parc> de l'administrateur");
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Menu demander statistiques de l'administrateur");
+		this.setTitle("Menu <voir état du parc> de l'administrateur");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));

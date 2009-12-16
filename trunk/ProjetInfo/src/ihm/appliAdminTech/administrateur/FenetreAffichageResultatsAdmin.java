@@ -162,12 +162,15 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			south.add(bouton1);			
 		}
 
-		else if(fenetrePrec.getTitle().equals("Menu demander statistiques de l'administrateur")){
+		else if((fenetrePrec.getTitle().equals("Menu demander statistiques de l'administrateur")) || (fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation"))){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 			labelMsg.setPreferredSize(new Dimension(600,100));
 			center.add(labelMsg);
 			TableauListeVelosSortis tableau = new TableauListeVelosSortis();
 			center.add(tableau);
+			bouton1.setText("Déclarer comme supprimé un vélo perdu");
+			bouton1.addActionListener(this);
+			south.add(bouton1);
 		}
 
 		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
@@ -273,6 +276,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
 					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
+				}
+				else if((fenetrePrecedente.getTitle().equals("Menu demander statistiques de l'administrateur")) || (fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation"))){
+					new FenetreSupprimerUnVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 			}
 			else if(arg0.getSource()==bouton2){

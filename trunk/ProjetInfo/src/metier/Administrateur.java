@@ -1,5 +1,10 @@
 package metier;
 
+import gestionBaseDeDonnees.DAOTypeIntervention;
+import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+
+import java.sql.SQLException;
+
 import metier.exceptionsMetier.TypeCompteException;
 
 /** 
@@ -172,6 +177,13 @@ public class Administrateur {
 		DemandeAssignation  ddeAssignation = new DemandeAssignation(nombreVelosVouluDansStation, lieu);
 		return ddeAssignation;
 	}
+	
+	public Velo supprimerUnVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		Velo v = velo;
+		v.setLieu(Detruit.getInstance());
+		return v;
+	}
+
 
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Administrateur.

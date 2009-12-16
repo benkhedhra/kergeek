@@ -375,7 +375,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 			}
 		}
 		else if(arg0.getSource()==boutonResilier){
-			new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),compte,this);
+			new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),this);
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());

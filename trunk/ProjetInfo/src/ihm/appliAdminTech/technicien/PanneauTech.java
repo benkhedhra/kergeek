@@ -1,7 +1,5 @@
 package ihm.appliAdminTech.technicien;
 
-import ihm.MsgBox;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -20,7 +18,7 @@ public class PanneauTech extends JPanel {
 	public void paintComponent(Graphics g){
 
 		try {
-			Image img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/ressources/panneauTech.jpg"));
+			Image img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/ressources/panneauTechnicien.jpg"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			e.printStackTrace();
