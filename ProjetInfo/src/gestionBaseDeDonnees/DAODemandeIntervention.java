@@ -113,7 +113,7 @@ public class DAODemandeIntervention {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-			ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL");
+			ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL ORDER BY dateDemandeI ASC");
 			try {
 				DemandeIntervention ddeIntervention = new DemandeIntervention();
 				List<String> listeIdInter = new ArrayList<String>();

@@ -9,13 +9,7 @@ import metier.exceptionsMetier.PasDeDateRetourException;
 
 public class MainConnexionBdd {
 
-	/**
-	 * @param args
-	 * @throws ClassNotFoundException 
-	 * @throws SQLException 
-	 * @throws PasDeDateRetourException 
-	 * @throws ConnexionFermeeException 
-	 */
+	
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
@@ -24,6 +18,9 @@ public class MainConnexionBdd {
 		System.out.println("Ouvert");
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
+		
+		System.out.println(DAOLieu.getStationsEtGarage());
+		System.out.println(DAOLieu.getAllStations());
 		
 
 		/*

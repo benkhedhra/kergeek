@@ -13,7 +13,7 @@ public abstract class Lieu {
 	//Constantes
 
 	public static final String ID_GARAGE="0";
-	public static final String ADRESSE_GARAGE="pool de velo";
+	public static final String ADRESSE_GARAGE="pool de vélos";
 	public static final int CAPACITE_GARAGE=1000;
 	
 	public static final String ADRESSE_SORTIE="en sortie";
