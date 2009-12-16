@@ -121,7 +121,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		//TODO la suite est mise en commentaire car les classes correspondantes ne sont pas écrites
+		
 
 		if(arg0.getSource()==boutonComptes){
 			new MenuGererComptesAdmin(this.getAdministrateur());
