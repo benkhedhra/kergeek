@@ -153,7 +153,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 				if(qualiteEntree.equals("technicien")){
 					typeEntre=Compte.TYPE_TECHNICIEN;
 					}
-				modifieSiUtilisateur(typeEntre);
+				modifieSiPasUtilisateur(typeEntre);
 			}
 
 		});
@@ -251,14 +251,14 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
-	public void modifieSiUtilisateur(int type){
+	public void modifieSiPasUtilisateur(int type){
 		if(type!=Compte.TYPE_UTILISATEUR){
-			labelNom.setForeground(Color.GRAY);
-			nomARemplir.setEnabled(true);
-			labelPrenom.setForeground(Color.GRAY);
-			prenomARemplir.setEnabled(true);
-			labelAdressePostale.setForeground(Color.GRAY);
-			adressePostaleARemplir.setEnabled(true);
+			labelNom.setVisible(false);
+			nomARemplir.setVisible(false);
+			labelPrenom.setVisible(false);
+			prenomARemplir.setVisible(false);
+			labelAdressePostale.setVisible(false);
+			adressePostaleARemplir.setVisible(false);
 		}
 	}
 

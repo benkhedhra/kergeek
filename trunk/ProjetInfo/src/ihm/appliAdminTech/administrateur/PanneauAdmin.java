@@ -20,5 +20,4 @@ public class PanneauAdmin extends JPanel {
 			System.out.println("IOException : image de fond innaccessible");
 		}
 	}
-
 }
