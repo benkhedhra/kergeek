@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.DemandeAssignation;
+import metier.Lieu;
 import metier.Technicien;
 
 public class FenetreGererDemandesAssignationTech extends JFrame implements ActionListener {
@@ -88,6 +89,11 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
 				if(demandei.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demandei.getLieu()).size() == 0){
+					demandei.setPriseEnCharge(true);
+					DAODemandeAssignation.updateDemandeAssignation(demandei);
+					listeDemandes.remove(i);
+				}
+				else if(demandei.getLieu().getId().equals(""+Lieu.ID_GARAGE) && demandei.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demandei.getLieu()).size() < 0){
 					demandei.setPriseEnCharge(true);
 					DAODemandeAssignation.updateDemandeAssignation(demandei);
 					listeDemandes.remove(i);
