@@ -142,6 +142,10 @@ public class Utilisateur {
 					//emprunt trop long
 					this.setBloque(true);
 					System.out.println("compte bloqué");
+					//TODO
+					System.out.println(emprunt.getTempsEmprunt());
+					System.out.println(emprunt.getDateEmprunt());
+					System.out.println(emprunt.getDateRetour());
 				}
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);

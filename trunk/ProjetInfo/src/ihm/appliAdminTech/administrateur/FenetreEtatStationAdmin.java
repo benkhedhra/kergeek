@@ -92,7 +92,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		JPanel centerWest = new JPanel();
 		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		centerWest.setPreferredSize(new Dimension(500,350));
-		List<Station> listeStations;
+		List<Lieu> listeStations;
 		try {
 			listeStations = DAOLieu.getStationsEtGarage();
 			System.out.println(listeStations);
