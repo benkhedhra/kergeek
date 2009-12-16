@@ -16,6 +16,7 @@ import metier.Detruit;
 import metier.Garage;
 import metier.Lieu;
 import metier.Sortie;
+import metier.TypeIntervention;
 
 public class CreationTables {
 
@@ -62,7 +63,7 @@ public class CreationTables {
 
 	
 			s.executeUpdate (
-			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
+			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE -2");
 			s.executeUpdate(
 					"CREATE TABLE TypeIntervention (idTypeIntervention char(4)," +
 					"description char(250)," +
@@ -205,14 +206,16 @@ public class CreationTables {
 
 
 			//Insertion types interventions
+			s2.executeUpdate("insert into TypeIntervention values('" + TypeIntervention.TYPE_NON_JUSTIFIEE + "','demande d'intervention non justifiée')");
+			s2.executeUpdate("insert into TypeIntervention values('" + TypeIntervention.TYPE_DESTRUCTION + "','destruction')");			
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pneu creve')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'selle manquante')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pedale cassee')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'deraillement')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
-			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'destruction')");
-			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'demande d’intervention non justifiée')");
+			//TODO :  les interventions qui vont avec le type destruction
+			//TODO type demande non justifiŽe
 			/* TODO : soit on permet au tech de créer un nouveau type (sous réserve d'être accepté par l'admin ? )
 			 * soit on partitionne parfaitement le vélo par les types
 			 */

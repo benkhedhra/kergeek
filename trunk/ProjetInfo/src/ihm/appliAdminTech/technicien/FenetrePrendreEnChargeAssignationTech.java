@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 
 import metier.DemandeAssignation;
 import metier.Garage;
+import metier.Station;
 import metier.Technicien;
 import metier.Velo;
 
@@ -279,10 +280,10 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					for(String idVelo : nouvelleListeIdVelos){
 						Velo velo = DAOVelo.getVeloById(idVelo);
 						if(this.getDiff()<0){
-							velo.setLieu(this.getDemande().getLieu());	
+							this.getTechnicien().remettreVelo(velo,(Station) this.getDemande().getLieu());	
 						}
 						else{
-							velo.setLieu(Garage.getInstance());	
+							this.getTechnicien().retirerVelo(velo);	
 						}
 						DAOVelo.updateVelo(velo);
 					}

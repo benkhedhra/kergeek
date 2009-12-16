@@ -124,13 +124,15 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 					new FenetreEmprunterVelo(this.getUtilisateur());
 				}
 				else{
+					
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
-					Station station = (Station) velo.getLieu();
-					u.emprunteVelo(velo,(Station)(velo.getLieu()));
+					
+					u.emprunteVelo(velo);
 
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
 					DAOVelo.updateVelo(velo);
-
+					
+					Station station = (Station) velo.getLieu();
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
 					if (DAOVelo.getVelosByLieu(station).isEmpty()){
