@@ -77,7 +77,7 @@ public class Administrateur {
 
 	/**
 	 * Crée un compte, pour un futur Utilisateur du parc à velos par exemple, 
-	 * ou pour un nouveau Technicien, ou même pour un nouvel Administarteur.
+	 * ou pour un nouveau Technicien, ou même pour un nouvel Administrateur.
 	 * 
 	 * @param type
 	 * le type du compte à créer

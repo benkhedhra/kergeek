@@ -73,7 +73,7 @@ public class DemandeIntervention {
 	
 	//Methodes
 	
-	public Intervention priseEnCharge(TypeIntervention typeIntervention){
+	public Intervention prendreEnCharge(TypeIntervention typeIntervention){
 		Intervention intervention = new Intervention(this.getVelo(), this.getDate(), typeIntervention);
 		this.setIntervention(intervention);
 		return intervention;

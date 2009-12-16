@@ -24,8 +24,7 @@ public class TestUtilisateur extends TestCase{
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
 		Velo v = new Velo(s,false);
-		
-		u.emprunteVelo(v, s);
+		u.emprunteVelo(v);
 		
 		assertEquals(Lieu.ID_SORTIE, v.getLieu().getId());
 		assertFalse(null == u.getEmpruntEnCours());
@@ -42,7 +41,7 @@ public class TestUtilisateur extends TestCase{
 		Utilisateur u = new Utilisateur(c);
 		Station s = new Station("id","adresse", 50);
 		Velo v = new Velo(s,false);
-		u.emprunteVelo(v, s);
+		u.emprunteVelo(v);
 		Emprunt e = u.rendreVelo(s);
 		assertFalse(e == u.getEmpruntEnCours());
 		assertTrue(null == u.getEmpruntEnCours());

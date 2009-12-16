@@ -7,7 +7,9 @@ public class TypeIntervention {
 	/**
 	 * @see TypeIntervention#type
 	 */
-	public static final int TYPE_DESTRUCTION = 7;
+	public static final int TYPE_NON_JUSTIFIEE = -2;
+	public static final int TYPE_DESTRUCTION = -1;
+
 	
 	//Attributs
 	

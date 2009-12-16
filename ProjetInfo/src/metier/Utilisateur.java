@@ -113,11 +113,11 @@ public class Utilisateur {
 	//Méthodes
 
 
-	public void emprunteVelo(Velo velo, Station station) throws SQLException, ClassNotFoundException, CompteBloqueException{
+	public void emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException, CompteBloqueException{
 		if (!this.bloque){
 			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(), velo.getLieu()));
 			this.setEmpruntEnCours(velo.getEmpruntEnCours());
-			station.enleverVelo(velo);
+			velo.getLieu().enleverVelo(velo);
 		}
 		else{
 			throw new CompteBloqueException();
@@ -128,12 +128,11 @@ public class Utilisateur {
 	public Emprunt rendreVelo(Station station) throws PasDeVeloEmprunteException, PasDeDateRetourException{
 		Emprunt emprunt = null;
 		// cet emprunt sera une trace de l'ancien emprunt pour pallier au this.setVelo(null);
-		Velo velo = this.getEmpruntEnCours().getVelo();
-		try{
-			if (velo == null){
+			if (this.getEmpruntEnCours() == null){
 				throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunté de velo");
 			}
 			else{
+				Velo velo = this.getEmpruntEnCours().getVelo();
 				station.ajouterVelo(velo);
 				emprunt = new Emprunt(empruntEnCours);
 				emprunt.setDateRetour(UtilitaireDate.dateCourante());
@@ -150,10 +149,6 @@ public class Utilisateur {
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);
 			}
-		}
-		catch(PasDeVeloEmprunteException e){
-			System.out.println(e.getMessage());
-		}
 		return emprunt;
 	}
 

@@ -14,7 +14,7 @@ public abstract class Lieu {
 
 	public static final String ID_GARAGE="0";
 	public static final String ADRESSE_GARAGE="pool de vélos";
-	public static final int CAPACITE_GARAGE=1000;
+	public static final int CAPACITE_GARAGE=100;
 	
 	public static final String ADRESSE_SORTIE="en sortie";
 	public static final String ID_SORTIE="-1";
