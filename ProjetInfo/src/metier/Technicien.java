@@ -101,7 +101,7 @@ public class Technicien {
 		velo.setLieu(Garage.getInstance());
 	}
 
-	public void remettreVelo(Velo velo, Station station){
+	public void rajouterVelo(Velo velo, Station station){
 		station.ajouterVelo(velo);
 	}
 
