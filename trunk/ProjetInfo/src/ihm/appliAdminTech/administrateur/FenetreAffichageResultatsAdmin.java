@@ -149,7 +149,6 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			center.add(lblChart);
 		}
 
-
 		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
 			FenetreHistoriqueVeloAdmin f = (FenetreHistoriqueVeloAdmin) fenetrePrec;
 			JLabel labelMsg = new JLabel ("Historique du vélo "+f.getVeloEntre().getId());
@@ -162,7 +161,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			south.add(bouton1);			
 		}
 
-		else if((fenetrePrec.getTitle().equals("Menu demander statistiques de l'administrateur")) || (fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation"))){
+		else if((fenetrePrec.getTitle().equals("Menu <voir état du parc> de l'administrateur")) || (fenetrePrec.getTitle().equals("Fenêtre de demande de confirmation"))){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 			labelMsg.setPreferredSize(new Dimension(600,100));
 			center.add(labelMsg);
@@ -244,8 +243,6 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 		}
 
-
-
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
@@ -277,7 +274,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
 					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
-				else if((fenetrePrecedente.getTitle().equals("Menu demander statistiques de l'administrateur")) || (fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation"))){
+				else if((fenetrePrecedente.getTitle().equals("Menu <voir état du parc> de l'administrateur")) || (fenetrePrecedente.getTitle().equals("Fenêtre de demande de confirmation"))){
 					new FenetreSupprimerUnVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 			}

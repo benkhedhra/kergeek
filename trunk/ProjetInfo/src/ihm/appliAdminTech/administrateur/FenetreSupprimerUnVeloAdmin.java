@@ -126,8 +126,9 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 		if(arg0.getSource()==boutonValider){
 			try {
 				if(!DAOVelo.existe(idVeloARemplir.getText())){
+					System.out.println("id du vélo entré : "+idVeloARemplir.getText());
 					MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
-					new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
+					new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
 				}
 				else{
 					Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());

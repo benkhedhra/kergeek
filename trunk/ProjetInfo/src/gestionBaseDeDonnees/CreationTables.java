@@ -180,6 +180,8 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
+			//TODO à rajouter dans le script
+			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 		
 			
 
@@ -197,7 +199,7 @@ public class CreationTables {
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','Jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','Francois','1 avenue des boreliens 35 000 Rennes', 'francoiscoquet@gmail.com', '1', '1','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'singe','Benabar','Bruno','10 rue de la poesie 35 170 Bruz', 'brunobenabar@gmail.com', '1', '0','3')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'requin','Delprat','David','0 rue des etudiants 35 170 Bruz', 'deviddelprat@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'requin','Delprat','David','0 rue des etudiants 35 170 Bruz', 'daviddelprat@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'baleine','Christie','Agatha','9 rue du crime 35 170 Bruz', 'agathachristie@gmail.com', '1', '0','3')");
 						
 			// Insertion TECHNICIEN
@@ -206,7 +208,7 @@ public class CreationTables {
 
 
 			//Insertion types interventions
-			s2.executeUpdate("insert into TypeIntervention values('" + TypeIntervention.TYPE_NON_JUSTIFIEE + "','demande d'intervention non justifiée')");
+			s2.executeUpdate("insert into TypeIntervention values('" + TypeIntervention.TYPE_NON_JUSTIFIEE + "','demande non justifiée')");
 			s2.executeUpdate("insert into TypeIntervention values('" + TypeIntervention.TYPE_DESTRUCTION + "','destruction')");			
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'pneu creve')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'selle manquante')");
@@ -214,11 +216,6 @@ public class CreationTables {
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'deraillement')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'freins')");
 			s2.executeUpdate("insert into TypeIntervention values(seqTypeIntervention.nextval,'autres')");
-			//TODO :  les interventions qui vont avec le type destruction
-			//TODO type demande non justifiŽe
-			/* TODO : soit on permet au tech de créer un nouveau type (sous réserve d'être accepté par l'admin ? )
-			 * soit on partitionne parfaitement le vélo par les types
-			 */
 			
 			//Insertion interventions
 
@@ -266,11 +263,18 @@ public class CreationTables {
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE-2,"+"'',"+"'25')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE-34/24,"+"'',"+"'27')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE,"+"'',"+"'28')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-12-2009 12:01','DD-MM-YYYY HH24:MI'),"+"'7',"+"'30')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-06-2009 18:54','DD-MM-YYYY HH24:MI'),"+"'7',"+"'31')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('19-04-2009 12:59','DD-MM-YYYY HH24:MI'),"+"'7',"+"'32')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-09-2009 13:01','DD-MM-YYYY HH24:MI'),"+"'7',"+"'33')");
-
+			//TODO : 4 lignes suivantes à rajouter dans le script
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-12-2009 12:01','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','30')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-06-2009 18:54','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','31')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('19-04-2009 12:59','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','32')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-09-2009 13:01','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','33')");
+			//TODO : 4 lignes suivantes à rajouter dans le script
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-04-2009 12:00','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('12-01-2009 15:32','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','13')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('02-03-2009 15:40','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','18')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('22-07-2009 17:15','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','22')");
+			
+			
 			//Insertion demandes intervention
 
 			s2.executeUpdate("insert into DemandeIntervention values(seqDemandeIntervention.nextval,"+"TO_DATE('06-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'u1',"+"'1',"+"'1'"+")");
@@ -330,8 +334,9 @@ public class CreationTables {
 			"SYSDATE - (27*60+8)/(24*60), '2','5','u3','3')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-((60*2)/(24*60))," +
 			"SYSDATE- (60*2+21)/(24*60), '4','2','u4','4')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 10:03','DD-MM-YYYY HH24:MI')," +
-			"TO_DATE('03-12-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u10','16')");
+			//TODO : ligne a changé (car il a un emprunt de plus de 40 jours donc ça collait pas)
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-10-2009 10:03','DD-MM-YYYY HH24:MI')," +
+			"TO_DATE('03-10-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u10','16')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 13:24','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('04-12-2009 13:27','DD-MM-YYYY HH24:MI'), '1','2','u6','17')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 11:05','DD-MM-YYYY HH24:MI')," +
@@ -408,6 +413,9 @@ public class CreationTables {
 			"TO_DATE('10-10-2009 13:28','DD-MM-YYYY HH24:MI'), '1','','u1','16')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('07-09-2009 15:17','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('07-09-2009 16:24','DD-MM-YYYY HH24:MI'), '2','','u1','17')");
+			//TODO : à rajouter dans le script
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-40," +
+			"'', '4','','u10','34')");
 			
 			s2.executeUpdate("COMMIT");
 			System.out.println("Update effectué.");
