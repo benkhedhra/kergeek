@@ -29,8 +29,8 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 	private Administrateur admin;
 	private JLabel labelAdmin = new JLabel("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
-	private JButton boutonHistorique = new JButton("Historique des interventions sur un vélo");
-	private JButton boutonInterventions = new JButton("Interventions les plus fréquentes");
+	private JButton boutonHistorique = new JButton("<html> <center>Historique des<br>interventions<br>sur un vélo</center></html>");
+	private JButton boutonInterventions = new JButton("<html> <center>Nombre d'interventions<br>par type<br>sur les 6 derniers mois</center></html>");
 
 	public Administrateur getAdministrateur() {
 		return admin;

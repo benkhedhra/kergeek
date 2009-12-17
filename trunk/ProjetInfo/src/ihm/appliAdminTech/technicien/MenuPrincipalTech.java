@@ -31,10 +31,10 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	private Technicien tech;
 	private JLabel labelTech = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
-	private JButton bouton1 = new JButton("Enregistrer \n"+"un nouveau vélo");
-	private JButton bouton2 = new JButton("Retirer un vélo \n"+"défectueux \n"+" d'une station");
-	private JButton bouton3 = new JButton("Gérer les demandes\n"+" d'assignation");
-	private JButton bouton4 = new JButton("Gérer les interventions");
+	private JButton bouton1 = new JButton("<html> <center>Enregistrerr<br>un nouveau vélo</center></html>");
+	private JButton bouton2 = new JButton("<html> <center>Retirer un vélo<br>défectueux<br>d'une station</center></html>");
+	private JButton bouton3 = new JButton("<html> <center>Gérer les demandes<br>d'assignation</center></html>");
+	private JButton bouton4 = new JButton("<html> <center>Gérer les<br>interventions</center></html>");
 	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
 
 	public Technicien getTechnicien() {

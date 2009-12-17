@@ -32,7 +32,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JButton boutonComptes = new JButton("Gérer les comptes");
 	private JButton boutonStats = new JButton("Demander des statistiques");
-	private JButton boutonEtat = new JButton("Voir l'état actuel des stations et des vélos");
+	private JButton boutonEtat = new JButton("Voir l'état actuel du parc");
 	private JButton boutonChangeMdp = new JButton("Changer votre mot de passe");
 
 	public Administrateur getAdministrateur() {
