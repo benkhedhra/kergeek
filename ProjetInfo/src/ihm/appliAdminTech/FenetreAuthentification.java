@@ -148,7 +148,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	public int testerAuthent (String id,String motDePasse) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		//cette methode rend -1 si la combinaison id/mdp est erronee, ou le type du compte si la combinaison est correcte
 		int resul=-1;
-		if(DAOCompte.estDansLaBdd(id)){
+		if(DAOCompte.estDansLaBddCompte(id)){
 			Compte compte = DAOCompte.getCompteById(id);
 			if(motDePasse.equals(compte.getMotDePasse()) && compte.isActif()){
 				resul=compte.getType();

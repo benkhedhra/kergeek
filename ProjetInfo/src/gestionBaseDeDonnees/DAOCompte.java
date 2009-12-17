@@ -253,16 +253,14 @@ public class DAOCompte {
 		return compte;
 	}
 
-
-
-
-	public static boolean estDansLaBdd (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		return (getCompteById(id)!=null);
+	public static boolean estDansLaBddCompte (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		return (getCompteById(id)!=null && getCompteById(id).isActif());
 	}
 
 
-
-
+	public static boolean estDansLaBddUtil (String idUtil) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		return (estDansLaBddCompte(idUtil) && getCompteById(idUtil).getType()==Compte.TYPE_UTILISATEUR);
+	}
 
 	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		//le type est toujours renseigné, les autres peuvent valoir null

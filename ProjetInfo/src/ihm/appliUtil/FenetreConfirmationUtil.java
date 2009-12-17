@@ -17,7 +17,7 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private JLabel labelUtil = new JLabel ("Vous êtes à présent déconnecté");
 	private JLabel labelConfirm = new JLabel("");
 	private JButton boutonAuthentification = new JButton("Nouvelle authentification");
@@ -55,16 +55,21 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 		north.add(labelUtil);
 		north.add(boutonAuthentification);
 		this.getContentPane().add(north,BorderLayout.NORTH);
-		
+
 		JPanel center = new JPanel();
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		labelConfirm.setText(msg);
-		labelConfirm.setFont(FenetreAuthentificationUtil.POLICE1);
+		if(labelUtil.getText().length()>=30){
+			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
+		}
+		else{
+			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE1);
+		}
 		center.add(labelConfirm);
 		this.getContentPane().add(center, BorderLayout.CENTER);
-		
+
 		this.setVisible(true);
-	
+
 		//on veut attendre 5 secondes, puis fermer la fenêtre et ouvrir une nouvelle fenêtre d'authentification (solution à trouver)
 		/*try {
 			//il y a un problème ici : pendant les 5 secondes la fenêtre ne s'affiche même pas
@@ -81,6 +86,6 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 		if(arg0.getSource()==boutonAuthentification){
 			new FenetreAuthentificationUtil(false);			
 		}
-		
+
 	}
 }

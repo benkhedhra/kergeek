@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -30,13 +31,14 @@ public class TableauListeVelosSortis extends JPanel {
 
 		String[] columnNames = {"Identifiant du vélo",
 				"Dernière Station fréquentée",
+				"Utilisateur",
 				"Date de l'emprunt",
 				"Heure de l'emprunt"};
 
 		
 		List<Velo> liste = DAOVelo.getVelosByLieu(Sortie.getInstance());
 		
-		Object[][] donnees = new Object[liste.size()][4];
+		Object[][] donnees = new Object[liste.size()][5];
 		for(int k=0;k<liste.size();k++){
 			
 			// déclaration d'un calendrier
@@ -47,8 +49,9 @@ public class TableauListeVelosSortis extends JPanel {
 			
 			donnees[k][0] = liste.get(k).getId();
 			donnees[k][1] = liste.get(k).getEmpruntEnCours().getLieuEmprunt().getAdresse();
-			donnees[k][2] = gCal.DATE + "/" + gCal.MONTH + "/" + gCal.YEAR;
-			donnees[k][3] = gCal.HOUR_OF_DAY + " h "+gCal.MINUTE + " min";
+			donnees[k][2] = liste.get(k).getEmpruntEnCours().getUtilisateur().getCompte().getId();
+			donnees[k][3] = gCal.get(Calendar.DAY_OF_MONTH)+"/"+ (gCal.get(Calendar.MONTH)+1);
+			donnees[k][4] = gCal.get(Calendar.HOUR_OF_DAY) + "h" + gCal.get(Calendar.MINUTE);
 		}
 		final MonJTable table = new MonJTable(donnees, columnNames);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 100));

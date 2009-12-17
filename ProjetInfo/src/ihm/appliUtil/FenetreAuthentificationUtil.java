@@ -34,7 +34,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	private static final long serialVersionUID = 1L;
 	// définition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 24);
-	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 20);
+	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
 	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,16);
 
@@ -128,7 +128,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	public boolean testerIdent (String idUtilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean resul;
-		if(DAOCompte.estDansLaBdd(idUtilisateur)){resul=true;}
+		if(DAOCompte.estDansLaBddUtil(idUtilisateur)){resul=true;}
 		else {resul=false;}
 		return resul;
 	}
@@ -137,7 +137,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonInfo){
-				new FenetreConfirmationUtil("<html><center>Bélo Breizh est une système de location de vélos sur le campus de Ker Lann. <br>Notre réseau comporte 7 stations : <br>Etangs<br>ENSAI<br>Coeur de Campus<br>Résidence<br>ENS<br>EME");
+				new FenetreConfirmationUtil("<html><center>Bélo Breizh est un système de location de vélos sur le campus de Ker Lann. <br>Notre réseau comporte 7 stations. <br><br>Pour plus de détails, contactez-nous à l'adresse<br>kergeek@gmail.com<br><br> Pour vous inscrire et pouvoir utiliser notre réseau, veuillez vous rendre à notre agence au <br>1, rue des vélos (Bruz)<br><br>muni d'une pièce d'identité et d'une photo. <br><br>A très bientôt ! ");
 			}
 			else{		
 				String id = idARemplir.getText();
