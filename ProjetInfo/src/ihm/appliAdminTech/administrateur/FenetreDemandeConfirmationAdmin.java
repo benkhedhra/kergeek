@@ -142,7 +142,7 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 			}
 			else if(fenetrePrecedente.getTitle().equals("Suppression d'un vélo")){
 				if(arg0.getSource()==boutonOui){
-					Velo v = this.getAdministrateur().supprimerUnVelo(this.getVelo());
+					Velo v = this.getAdministrateur().supprimerVelo(this.getVelo());
 					DAOVelo.updateVelo(v);
 					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 				}
