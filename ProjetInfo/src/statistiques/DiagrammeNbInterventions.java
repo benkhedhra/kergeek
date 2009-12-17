@@ -75,14 +75,14 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		/*TODO vérifier que le.get(i) corresponde au bon type d'intervention*/
 		
 		
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(1), series1, category1);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category2);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category3);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category4);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(5), series1, category5);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(6), series1, category6);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(TypeIntervention.TYPE_DESTRUCTION), series1, category7);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(TypeIntervention.TYPE_NON_JUSTIFIEE), series1, category8);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category1);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category2);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category3);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(5), series1, category4);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(6), series1, category5);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(7), series1, category6);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(0), series1, category7);
+			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(1), series1, category8);
 
 		return dataset;
 

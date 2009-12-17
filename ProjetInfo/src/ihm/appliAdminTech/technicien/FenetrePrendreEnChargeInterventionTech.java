@@ -142,6 +142,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauTypes);
 
 			JComboBox combo = new JComboBox(model);
+			combo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			combo.setFont(FenetreAuthentificationUtil.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
