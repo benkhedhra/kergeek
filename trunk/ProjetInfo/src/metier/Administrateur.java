@@ -178,11 +178,12 @@ public class Administrateur {
 		return ddeAssignation;
 	}
 	
-	public Velo supprimerUnVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Velo v = velo;
-		v.setLieu(Detruit.getInstance());
-		return v;
+	public Velo supprimerUnVelo(Velo v) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		Velo v2 = v;
+		v2.setLieu(Detruit.getInstance());
+		return v2;
 	}
+	
 
 
 	/**
