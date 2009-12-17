@@ -150,14 +150,7 @@ import org.jfree.ui.RefineryUtilities;
 			return chart;
 
 		}
-		
-		public static void main(final String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-			final DiagrammeNbEmpruntsUtilisateur demo = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById("u1"));
-			demo.pack();
-			RefineryUtilities.centerFrameOnScreen(demo);
-			demo.setVisible(true);
 
-		}
 
 	}
 

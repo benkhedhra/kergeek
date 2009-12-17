@@ -1,10 +1,6 @@
 package envoieMail;
 
-import gestionBaseDeDonnees.DAOCompte;
-import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
-
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -65,10 +61,6 @@ public class SendMail {
 			Transport.send(mesg);
  
 	}
-	
-	
-	public static void main(String[] args) throws MessagingException, UnsupportedEncodingException, SQLException, ClassNotFoundException, ConnexionFermeeException{
-		sendMail(DAOCompte.getCompteById("u2").getAdresseEmail(),"test","bonjour");
-	}
+
 }
  

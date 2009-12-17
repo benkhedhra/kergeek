@@ -146,12 +146,4 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
-		final DiagrammeFreqStations demo = new DiagrammeFreqStations("30 derniers jours");
-		demo.pack();
-		RefineryUtilities.centerFrameOnScreen(demo);
-		demo.setVisible(true);
-
-	}
-
 }
