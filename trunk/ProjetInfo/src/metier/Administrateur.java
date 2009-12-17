@@ -178,7 +178,7 @@ public class Administrateur {
 		return ddeAssignation;
 	}
 	
-	public Velo supprimerUnVelo(Velo v) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public Velo supprimerVelo(Velo v) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo v2 = v;
 		v2.setLieu(Detruit.getInstance());
 		return v2;
