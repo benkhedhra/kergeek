@@ -63,7 +63,7 @@ public class CreationTables {
 
 	
 			s.executeUpdate (
-			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE -2");
+			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 3 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE TypeIntervention (idTypeIntervention char(4)," +
 					"description char(250)," +
@@ -180,7 +180,6 @@ public class CreationTables {
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'1','" + Lieu.ID_DETRUIT + "')");
-			//TODO à rajouter dans le script
 			s2.executeUpdate("insert into Velo values(seqVelo.nextval,'0','" + Lieu.ID_SORTIE +"')");
 		
 			
@@ -193,7 +192,7 @@ public class CreationTables {
 
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'id3033@ensai.fr', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'georgesbrassens@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'id2989@ensai.fr', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','Jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
@@ -219,61 +218,59 @@ public class CreationTables {
 			
 			//Insertion interventions
 
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'1')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'3',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('28-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'6',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'5',"+"'3')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('05-07-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'7',"+"'4')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-07-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'7',"+"'5')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('22-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'4',"+"'6')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('24-08-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'3',"+"'7')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('26-08-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'8')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-08-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'5',"+"'9')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('30-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'4',"+"'10')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-09-2009 09:00','DD-MM-YYYY HH24:MI'),"+"'3',"+"'11')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-09-2009 10:00','DD-MM-YYYY HH24:MI'),"+"'7',"+"'12')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-09-2009 11:00','DD-MM-YYYY HH24:MI'),"+"'4',"+"'13')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('05-09-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'3',"+"'14')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('10-09-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'4',"+"'15')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('12-09-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'3',"+"'16')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-09-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'17')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('02-10-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'7',"+"'18')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'4',"+"'19')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-10-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'20')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('15-10-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('18-10-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'5',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('24-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'8',"+"'3')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('30-10-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'6',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('05-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'3',"+"'4')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('10-11-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'4',"+"'5')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('20-11-2009 17:20','DD-MM-YYYY HH24:MI'),"+"'4',"+"'3')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('20-11-2009 18:00','DD-MM-YYYY HH24:MI'),"+"'7',"+"'1')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('23-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'4',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('26-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'8',"+"'6')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'6',"+"'7')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'8')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('28-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'4',"+"'1')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'3',"+"'3')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('05-07-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'5',"+"'4')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-07-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'5',"+"'5')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('22-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'2',"+"'6')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('24-08-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'1',"+"'7')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('26-08-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'8')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-08-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'3',"+"'9')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('30-08-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'2',"+"'10')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-09-2009 09:00','DD-MM-YYYY HH24:MI'),"+"'1',"+"'11')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-09-2009 10:00','DD-MM-YYYY HH24:MI'),"+"'5',"+"'12')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-09-2009 11:00','DD-MM-YYYY HH24:MI'),"+"'2',"+"'13')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('05-09-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'1',"+"'14')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('10-09-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'2',"+"'15')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('12-09-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'1',"+"'16')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-09-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'17')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('02-10-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'5',"+"'18')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'2',"+"'19')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-10-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'20')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('15-10-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'1')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('18-10-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'3',"+"'2')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('24-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'6',"+"'3')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('30-10-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'1')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('03-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'2')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('05-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'1',"+"'4')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('10-11-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'2',"+"'5')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('20-11-2009 17:20','DD-MM-YYYY HH24:MI'),"+"'2',"+"'3')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('20-11-2009 18:00','DD-MM-YYYY HH24:MI'),"+"'5',"+"'1')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('23-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'2',"+"'2')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('26-10-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'6',"+"'6')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('06-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'7')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('27-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'8')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('28-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'2',"+"'1')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'6',"+"'2')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('25-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'5',"+"'2')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('07-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'2',"+"'15')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('11-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'6',"+"'16')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 13:46','DD-MM-YYYY HH24:MI'),"+"'2',"+"'17')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 16:16','DD-MM-YYYY HH24:MI'),"+"'8',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('25-11-2009 10:18','DD-MM-YYYY HH24:MI'),"+"'7',"+"'2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('07-11-2009 09:18','DD-MM-YYYY HH24:MI'),"+"'4',"+"'15')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('11-11-2009 14:30','DD-MM-YYYY HH24:MI'),"+"'8',"+"'16')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('13-11-2009 13:46','DD-MM-YYYY HH24:MI'),"+"'4',"+"'17')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE-3,"+"'',"+"'26')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE-2,"+"'',"+"'25')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE-34/24,"+"'',"+"'27')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"SYSDATE,"+"'',"+"'28')");
-			//TODO : 4 lignes suivantes à rajouter dans le script
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-12-2009 12:01','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','30')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-06-2009 18:54','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','31')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('19-04-2009 12:59','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','32')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-09-2009 13:01','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','33')");
-			//TODO : 4 lignes suivantes à rajouter dans le script
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-04-2009 12:00','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','2')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('12-01-2009 15:32','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','13')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('02-03-2009 15:40','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','18')");
-			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('22-07-2009 17:15','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','22')");
-			
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-12-2009 12:01','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','30')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('04-10-2009 18:54','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','31')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('19-11-2009 12:59','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','32')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('08-09-2009 13:01','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_DESTRUCTION+"','33')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('01-08-2009 12:08','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','2')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('12-10-2009 15:32','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','13')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('02-12-2009 15:40','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','18')");
+			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('22-09-2009 17:15','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','22')");
+			//TODO typeInter = typeInter+2
 			
 			//Insertion demandes intervention
 
@@ -334,7 +331,6 @@ public class CreationTables {
 			"SYSDATE - (27*60+8)/(24*60), '2','5','u3','3')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-((60*2)/(24*60))," +
 			"SYSDATE- (60*2+21)/(24*60), '4','2','u4','4')");
-			//TODO : ligne a changé (car il a un emprunt de plus de 40 jours donc ça collait pas)
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-10-2009 10:03','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-10-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u10','16')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 13:24','DD-MM-YYYY HH24:MI')," +
@@ -413,7 +409,6 @@ public class CreationTables {
 			"TO_DATE('10-10-2009 13:28','DD-MM-YYYY HH24:MI'), '1','','u1','16')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('07-09-2009 15:17','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('07-09-2009 16:24','DD-MM-YYYY HH24:MI'), '2','','u1','17')");
-			//TODO : à rajouter dans le script
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-40," +
 			"'', '4','','u10','34')");
 			
