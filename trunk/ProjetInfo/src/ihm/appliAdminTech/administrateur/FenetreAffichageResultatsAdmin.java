@@ -39,9 +39,6 @@ import statistiques.TableauListeVelosSortis;
  */
 public class FenetreAffichageResultatsAdmin extends JFrame implements ActionListener {
 
-	int x1 = this.getWidth()/4;
-	int y1 = this.getHeight()/4;
-
 	/**
 	 * serial version ID par défaut
 	 */
@@ -90,7 +87,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Affichage des résultats");
-		this.setSize(x1,y1);
+		this.setSize(1280,1000);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
@@ -100,23 +97,23 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(500,30));
+		labelAdminTech.setPreferredSize(new Dimension(1200,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1280,50));
 		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,600));
+		center.setPreferredSize(new Dimension(1280,850));
 		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,50));
+		south.setPreferredSize(new Dimension(1280,100));
 		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 
-		bouton1.setPreferredSize(new Dimension(250,40));
-		bouton1.setMaximumSize(new Dimension(250,40));
+		bouton1.setPreferredSize(new Dimension(350,50));
+		bouton1.setMaximumSize(new Dimension(350,50));
 		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
 		bouton1.setBackground(Color.GREEN);
 
@@ -126,7 +123,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
-			bouton1.setText("Fréquentation pour une autre période");
+			bouton1.setText("<html> <center>Fréquentation pour<br>une autre période</center></html>");
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
@@ -138,7 +135,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
 			center.add(lblChart);
-			bouton1.setText("Afficher statistiques sur un autre utilisateur");
+			bouton1.setText("<html> <center>Afficher statistiques<br>sur un autre utilisateur</center></html>");
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
@@ -158,18 +155,18 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			center.add(labelMsg);
 			TableauInterventionVelo tableau = new TableauInterventionVelo(f.getVeloEntre().getId());
 			center.add(tableau);
-			bouton1.setText("Afficher historique d'un autre vélo");
+			bouton1.setText("<html> <center>Afficher historique<br>pour un autre vélo</center></html>");
 			bouton1.addActionListener(this);
 			south.add(bouton1);			
 		}
 
 		else if((fenetrePrec.getTitle().equals("Menu <voir état du parc> de l'administrateur")) || (fenetrePrec.getTitle().equals("Ecran de confirmation"))){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
-			labelMsg.setPreferredSize(new Dimension(600,100));
+			labelMsg.setPreferredSize(new Dimension(1200,100));
 			center.add(labelMsg);
 			TableauListeVelosSortis tableau = new TableauListeVelosSortis();
 			center.add(tableau);
-			bouton1.setText("Déclarer comme supprimé un vélo perdu");
+			bouton1.setText("<html> <center>Déclarer comme supprimé<br>un vélo perdu</center></html>");
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
@@ -181,11 +178,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 			JPanel panel1 = new JPanel();
 			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			panel1.setPreferredSize(new Dimension(300,300));
+			panel1.setPreferredSize(new Dimension(600,600));
 
 			JPanel panel2 = new JPanel();
 			panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			panel2.setPreferredSize(new Dimension(300,300));
+			panel2.setPreferredSize(new Dimension(600,600));
 
 			DiagrammeNbVelosStation diag1;
 			DiagrammeTxOccupationStation diag2;
@@ -204,7 +201,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 					panel2.add(lblChart2);
 				}
 			}
-			if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
+			if (fenetrePrec.getTitle().equals("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
 				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
 				panel1.add(lblChart1);
@@ -217,9 +214,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			center.add(panel1);
 			center.add(panel2);
 
-			bouton1.setText("Voir l'état d'une autre station");
-			bouton2.setText("Voir les stations sur et sous-occupées");
-			bouton3.setText("Envoyer une demande d'assignation");
+			bouton1.setText("<html> <center>Voir l'état<br>d'une autre station</center></html>");
+			bouton2.setText("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>");
+			bouton3.setText("<html> <center>Envoyer une<br>demande d'assignation</center></html>");
 
 			bouton1.setPreferredSize(new Dimension(200,40));
 			bouton1.setMaximumSize(new Dimension(200,40));
