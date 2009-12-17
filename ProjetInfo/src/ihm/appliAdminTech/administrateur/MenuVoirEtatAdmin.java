@@ -29,7 +29,7 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	private Administrateur admin;
 	private JLabel labelAdmin = new JLabel("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
-	private JButton boutonStationsSurSous = new JButton("Stations sur et sous occupées");
+	private JButton boutonStationsSurSous = new JButton("<html> <center>Stations<br>sur et sous-occupées</center></html>");
 	private JButton boutonEtatStation = new JButton("Etat d'une station");
 	private JButton boutonVelosSortis = new JButton("Liste des vélos sortis");
 

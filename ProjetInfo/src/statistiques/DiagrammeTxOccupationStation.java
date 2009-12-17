@@ -32,6 +32,11 @@ import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JFreeChart chart;
 
 	public DiagrammeTxOccupationStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
@@ -39,13 +44,13 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		super("");
 		chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(300, 300));
+		chartPanel.setPreferredSize(new Dimension(600,600));
 		this.setContentPane(chartPanel);
 
 	}
 
 	public Image getImage() {
-		return this.chart.createBufferedImage(300, 300);
+		return this.chart.createBufferedImage(600, 600);
 	}
 
 	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {

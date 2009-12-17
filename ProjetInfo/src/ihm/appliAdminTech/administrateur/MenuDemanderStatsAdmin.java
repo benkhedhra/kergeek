@@ -26,8 +26,8 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 	private JLabel labelAdmin = new JLabel("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 	private JButton boutonFrequentation = new JButton("Fréquentation des stations");
-	private JButton boutonInterventions = new JButton("Interventions de maintenance");
-	private JButton boutonUtilisateurs = new JButton("Statistiques sur les utilisateurs");
+	private JButton boutonInterventions = new JButton("<html> <center>Statistiques sur<br>les interventions<br>de maintenance</center></html>");
+	private JButton boutonUtilisateurs = new JButton("<html> <center>Statistiques sur<br>les utilisateurs</center></html>");
 
 	public Administrateur getAdministrateur() {
 		return admin;

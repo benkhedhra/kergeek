@@ -30,7 +30,6 @@ import metier.Technicien;
 
 public class FenetreAuthentification extends JFrame implements ActionListener {
 
-
 	/**
 	 * 
 	 */
@@ -56,7 +55,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		this.setContentPane(new Panneau());
 		this.setTitle("Authentification");
-		this.setSize(700,500);
+		this.setPreferredSize(new Dimension(700,500));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
