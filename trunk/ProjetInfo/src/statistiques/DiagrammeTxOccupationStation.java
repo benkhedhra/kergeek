@@ -129,12 +129,5 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		final DiagrammeTxOccupationStation demo = new DiagrammeTxOccupationStation((Station)DAOLieu.getLieuById("2"));
-		demo.pack();
-		RefineryUtilities.centerFrameOnScreen(demo);
-		demo.setVisible(true);
-
-	}
 
 }

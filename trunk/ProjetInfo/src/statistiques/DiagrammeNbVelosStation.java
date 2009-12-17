@@ -121,12 +121,5 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 
 	}
 
-	public static void main(final String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		final DiagrammeNbVelosStation demo = new DiagrammeNbVelosStation((Station) DAOLieu.getLieuById("2"));
-		demo.pack();
-		RefineryUtilities.centerFrameOnScreen(demo);
-		demo.setVisible(true);
-
-	}
 
 }

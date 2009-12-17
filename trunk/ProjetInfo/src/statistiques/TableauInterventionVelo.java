@@ -101,25 +101,5 @@ public class TableauInterventionVelo extends JPanel {
 		frame.setVisible(true);
 	}
 
-	public static void main(String[] args) throws ConnexionFermeeException{
-		//Schedule a job for the event-dispatching thread:
-		//creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-					try {
-						createAndShowGUI("2");
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ConnexionFermeeException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			}
-		});
-	}
 
 }
