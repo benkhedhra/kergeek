@@ -325,11 +325,11 @@ public class CreationTables {
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 08:13','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 09:01','DD-MM-YYYY HH24:MI'), '2','4','u1','1')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-((21*60+58)/(24*60))," +
-			"TO_DATE(SYSDATE - (22*60+17)/(24*60),'DD-MM-YYYY HH24:MI'), '1','2','u7','2')");
+			"SYSDATE - (22*60+17)/(24*60), '1','2','u7','2')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-((27*60)/(24*60))," +
-			"TO_DATE(SYSDATE - (27*60+8)/(24*60),'DD-MM-YYYY HH24:MI'), '2','5','u3','3')");
+			"SYSDATE - (27*60+8)/(24*60), '2','5','u3','3')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-((60*2)/(24*60))," +
-			"TO_DATE(SYSDATE- (60*2+21)/(24*60),'DD-MM-YYYY HH24:MI'), '4','2','u4','4')");
+			"SYSDATE- (60*2+21)/(24*60), '4','2','u4','4')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('03-12-2009 10:03','DD-MM-YYYY HH24:MI')," +
 			"TO_DATE('03-12-2009 12:00','DD-MM-YYYY HH24:MI'), '2','3','u10','16')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"TO_DATE('04-12-2009 13:24','DD-MM-YYYY HH24:MI')," +
