@@ -173,7 +173,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		}
 		else if(fenetrePrec.getTitle().equals("Voir la liste des vélos présents dans un lieu")){
 			FenetreVoirVelosDansLieuAdmin f = (FenetreVoirVelosDansLieuAdmin)fenetrePrec;
+			System.out.println(f.getLieuEntre());
 			Lieu lieu = f.getLieuEntre();
+			System.out.println(lieu);
 			if(lieu.getId().equals(Lieu.ID_SORTIE)){
 				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 				labelMsg.setPreferredSize(new Dimension(1200,100));

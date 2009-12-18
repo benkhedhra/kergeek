@@ -42,14 +42,14 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		CategoryDataset dataset = createDataset();
 		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(550, 400));
+		chartPanel.setPreferredSize(new Dimension(800, 800));
 
 		setContentPane(chartPanel);
 
 	}
 
 	public Image getImage() {
-		return this.chart.createBufferedImage(550, 400);
+		return this.chart.createBufferedImage(800, 800);
 	}
 	
 	private static CategoryDataset createDataset() throws ConnexionFermeeException, SQLException, ClassNotFoundException {

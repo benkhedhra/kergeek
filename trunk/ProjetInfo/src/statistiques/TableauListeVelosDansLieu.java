@@ -69,13 +69,7 @@ public class TableauListeVelosDansLieu extends JPanel {
 			
 			donnees = new Object[liste.size()][2];
 			for(int k=0;k<liste.size();k++){
-
-				// déclaration d'un calendrier
-				GregorianCalendar gCal = new GregorianCalendar();
-				// initialise le calendrier à la date courante;
 				System.out.println("Vélo " + liste.get(k).getId());
-				gCal.setTime(liste.get(k).getEmpruntEnCours().getDateEmprunt());
-
 				donnees[k][0] = liste.get(k).getId();
 				String enPanne;
 				if(liste.get(k).isEnPanne()){
@@ -97,12 +91,7 @@ public class TableauListeVelosDansLieu extends JPanel {
 				
 				donnees = new Object[liste.size()][2];
 				for(int k=0;k<liste.size();k++){
-
-					// déclaration d'un calendrier
-					GregorianCalendar gCal = new GregorianCalendar();
-					// initialise le calendrier à la date courante;
 					System.out.println("Vélo " + liste.get(k).getId());
-					gCal.setTime(liste.get(k).getEmpruntEnCours().getDateEmprunt());
 
 					donnees[k][0] = liste.get(k).getId();
 					String enPanne;
