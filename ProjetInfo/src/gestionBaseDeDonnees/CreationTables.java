@@ -343,9 +343,9 @@ public class CreationTables {
 			"TO_DATE('03-12-2009 12:54','DD-MM-YYYY HH24:MI'), '1','2','u9','2')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-5," +
 			"'', '4','','u1','11')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-(28/(24*60))," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-(0.0194)," +
 			"'', '2','','u2','12')");
-			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-(57/(24*60))," +
+			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE-(0.39583)," +
 			"'', '2','','u3','13')");
 			s2.executeUpdate("insert into Emprunt values(seqEmprunt.nextval,"+"SYSDATE," +
 			"'', '2','','u4','14')");

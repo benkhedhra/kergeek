@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Lieu;
+import metier.Sortie;
 import metier.Station;
 
 public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListener {
@@ -48,7 +49,7 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		return lieuEntre;
 	}
 
-	public void setLieuEntre(Lieu lieuentre) {
+	public void setLieuEntre(Lieu lieuEntre) {
 		this.lieuEntre = lieuEntre;
 	}
 
@@ -188,7 +189,7 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 				}
 			}
 			else if (arg0.getSource()==boutonVelosSortis){
-				this.setLieuEntre(DAOLieu.getLieuById(Lieu.ID_SORTIE));
+				this.setLieuEntre(Sortie.getInstance());
 				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			}
 			else if (arg0.getSource()==boutonRetour){
