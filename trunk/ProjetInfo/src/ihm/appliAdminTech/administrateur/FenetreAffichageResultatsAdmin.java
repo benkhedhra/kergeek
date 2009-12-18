@@ -22,14 +22,15 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Lieu;
+import metier.Sortie;
 import metier.Station;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
-import statistiques.DiagrammeNbVelosStation;
+import statistiques.DiagrammeNbVelosLieu;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
-import statistiques.TableauListeVelosSortis;
+import statistiques.TableauListeVelosDansLieu;
 
 
 /** 
@@ -160,17 +161,40 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			south.add(bouton1);			
 		}
 
-		else if((fenetrePrec.getTitle().equals("Menu <voir état du parc> de l'administrateur")) || (fenetrePrec.getTitle().equals("Ecran de confirmation"))){
+		else if(fenetrePrec.getTitle().equals("Ecran de confirmation")){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 			labelMsg.setPreferredSize(new Dimension(1200,100));
 			center.add(labelMsg);
-			TableauListeVelosSortis tableau = new TableauListeVelosSortis();
+			TableauListeVelosDansLieu tableau = new TableauListeVelosDansLieu(Sortie.getInstance());
 			center.add(tableau);
 			bouton1.setText("<html> <center>Déclarer comme supprimé<br>un vélo perdu</center></html>");
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
-
+		else if(fenetrePrec.getTitle().equals("Voir la liste des vélos présents dans un lieu")){
+			FenetreVoirVelosDansLieuAdmin f = (FenetreVoirVelosDansLieuAdmin)fenetrePrec;
+			Lieu lieu = f.getLieuEntre();
+			if(lieu.getId().equals(Lieu.ID_SORTIE)){
+				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
+				labelMsg.setPreferredSize(new Dimension(1200,100));
+				center.add(labelMsg);
+				TableauListeVelosDansLieu tableau = new TableauListeVelosDansLieu(Sortie.getInstance());
+				center.add(tableau);
+				bouton1.setText("<html> <center>Déclarer comme supprimé<br>un vélo perdu</center></html>");
+				bouton1.addActionListener(this);
+				south.add(bouton1);
+			}
+			else{
+				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement au lieu : "+lieu.getAdresse());
+				labelMsg.setPreferredSize(new Dimension(1200,100));
+				center.add(labelMsg);
+				TableauListeVelosDansLieu tableau = new TableauListeVelosDansLieu(lieu);
+				center.add(tableau);
+				bouton1.setText("<html> <center>Voir la liste des vélos<br>pour un autre lieu</center></html>");
+				bouton1.addActionListener(this);
+				south.add(bouton1);
+			}
+		}
 		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
 
 			JLabel lblChart1 = new JLabel();
@@ -184,14 +208,14 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
 			panel2.setPreferredSize(new Dimension(600,600));
 
-			DiagrammeNbVelosStation diag1;
+			DiagrammeNbVelosLieu diag1;
 			DiagrammeTxOccupationStation diag2;
 
 			FenetreEtatStationAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
 				f1 = (FenetreEtatStationAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosStation(f1.getLieuEntre());
+				diag1 = new DiagrammeNbVelosLieu(f1.getLieuEntre());
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				panel1.add(lblChart1);
 				System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
@@ -203,7 +227,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			}
 			if (fenetrePrec.getTitle().equals("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
+				diag1 = new DiagrammeNbVelosLieu(f2.getStationEntree());
 				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
@@ -273,8 +297,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
 					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
-				else if((this.getFenetrePrecedente().getTitle().equals("Menu <voir état du parc> de l'administrateur")) || (this.getFenetrePrecedente().getTitle().equals("Ecran de confirmation"))){
+				else if(this.getFenetrePrecedente().getTitle().equals("Ecran de confirmation")){
 					new FenetreSupprimerUnVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
+				}
+				else if(this.getFenetrePrecedente().getTitle().equals("Voir la liste des vélos présents dans un lieu")){
+					new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
 				}
 			}
 			else if(arg0.getSource()==bouton2){

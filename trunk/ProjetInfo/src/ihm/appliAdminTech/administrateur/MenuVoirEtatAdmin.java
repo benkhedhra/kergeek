@@ -30,8 +30,8 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	private JLabel labelAdmin = new JLabel("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 	private JButton boutonStationsSurSous = new JButton("<html> <center>Stations<br>sur et sous-occupées</center></html>");
-	private JButton boutonEtatStation = new JButton("Etat d'une station");
-	private JButton boutonVelosSortis = new JButton("Liste des vélos sortis");
+	private JButton boutonEtatStation = new JButton("Etat d'un lieu");
+	private JButton boutonVelos = new JButton("Liste des vélos par lieu");
 
 	public Administrateur getAdministrateur() {
 		return admin;
@@ -86,11 +86,11 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		boutonEtatStation.setFont(FenetreAuthentificationUtil.POLICE3);
 		boutonEtatStation.addActionListener(this);
 		center.add(boutonEtatStation);
-		boutonVelosSortis.setPreferredSize(new Dimension(200,120));
-		boutonVelosSortis.setMaximumSize(new Dimension(200,120));
-		boutonVelosSortis.setFont(FenetreAuthentificationUtil.POLICE3);
-		boutonVelosSortis.addActionListener(this);
-		center.add(boutonVelosSortis);
+		boutonVelos.setPreferredSize(new Dimension(200,120));
+		boutonVelos.setMaximumSize(new Dimension(200,120));
+		boutonVelos.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonVelos.addActionListener(this);
+		center.add(boutonVelos);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
@@ -130,13 +130,9 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 				new FenetreAuthentification(false);
 			}
 		}
-		else if (arg0.getSource()==boutonVelosSortis){
+		else if (arg0.getSource()==boutonVelos){
 			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
+				new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
 			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
