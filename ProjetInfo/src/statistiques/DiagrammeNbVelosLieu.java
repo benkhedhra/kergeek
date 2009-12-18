@@ -30,7 +30,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-public class DiagrammeNbVelosStation extends ApplicationFrame {
+public class DiagrammeNbVelosLieu extends ApplicationFrame {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	
 	private JFreeChart chart;
 
-	public DiagrammeNbVelosStation(Lieu lieu) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+	public DiagrammeNbVelosLieu(Lieu lieu) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("");
 		chart = createChart(lieu);
