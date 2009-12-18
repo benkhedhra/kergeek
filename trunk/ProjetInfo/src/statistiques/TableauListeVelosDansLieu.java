@@ -109,7 +109,7 @@ public class TableauListeVelosDansLieu extends JPanel {
 
 		liste = DAOVelo.getVelosByLieu(Sortie.getInstance());
 
-		table.setPreferredScrollableViewportSize(new Dimension(500, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(800, table.getRowCount()*16));
 		table.setFillsViewportHeight(true);
 
 
