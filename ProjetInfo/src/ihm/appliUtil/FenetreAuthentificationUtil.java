@@ -5,6 +5,7 @@ import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Utilisateur;
 import metier.UtilitaireDate;
@@ -42,7 +42,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	private JLabel labelBienvenue = new JLabel("");
 	private JLabel labelInvitation = new JLabel("");
-	private JTextField idARemplir = new JTextField("");
+	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
 	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonInfo = new JButton ("Plus d'informations ... ");
 

@@ -1,7 +1,6 @@
 package statistiques;
 
 import gestionBaseDeDonnees.DAOEmprunt;
-import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
@@ -12,7 +11,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import metier.Lieu;
-import metier.Station;
 import metier.UtilitaireDate;
 
 import org.jfree.chart.ChartPanel;
@@ -28,7 +26,6 @@ import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeNbVelosLieu extends ApplicationFrame {
 

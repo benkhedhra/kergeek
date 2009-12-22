@@ -1,6 +1,5 @@
 package metier;
 
-import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.sql.SQLException;

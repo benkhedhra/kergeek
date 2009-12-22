@@ -3,6 +3,7 @@ package ihm.appliAdminTech.administrateur;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
@@ -21,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.DemandeAssignation;
@@ -43,7 +43,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	private JLabel labelStation = new JLabel("Station");
 	private JLabel labelStationConcernee = new JLabel ("");
 	private JLabel labelNbVelos = new JLabel("Nombre de vélos souhaité");
-	private JTextField nbVelosARemplir = new JTextField ("");
+	private TextFieldLimite nbVelosARemplir = new TextFieldLimite (4,"");
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonEtatAutreStation = new JButton ("Voir l'état d'une autre station");
 	private JButton boutonStationsSurSous = new JButton ("Voir les stations sur et sous occupées");

@@ -6,6 +6,7 @@ import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
@@ -27,7 +28,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
@@ -48,13 +48,13 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	private JLabel labelQualite = new JLabel("Qualité");
 	private int typeEntre;
 	private JLabel labelNom = new JLabel("Nom");
-	private JTextField nomARemplir = new JTextField("");
+	private TextFieldLimite nomARemplir = new TextFieldLimite(20,"");
 	private JLabel labelPrenom = new JLabel("Prénom");
-	private JTextField prenomARemplir = new JTextField("");
+	private TextFieldLimite prenomARemplir = new TextFieldLimite(20,"");
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
-	private JTextField adresseEMailARemplir = new JTextField("");
+	private TextFieldLimite adresseEMailARemplir = new TextFieldLimite(250,"");
 	private JLabel labelAdressePostale = new JLabel("Adresse Postale");
-	private JTextField adressePostaleARemplir = new JTextField("");
+	private TextFieldLimite adressePostaleARemplir = new TextFieldLimite(50,"");
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 

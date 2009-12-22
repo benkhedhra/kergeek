@@ -10,8 +10,6 @@ import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
 
-import metier.TypeIntervention;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -24,7 +22,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 public class DiagrammeNbInterventions extends ApplicationFrame {
 

@@ -4,6 +4,7 @@ package ihm.appliAdminTech.administrateur;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -18,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Velo;
@@ -33,7 +33,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 	private Administrateur a;
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel ("Veuillez entrer l'identifiant du vélo");
-	private JTextField idVeloARemplir = new JTextField ("");
+	private TextFieldLimite idVeloARemplir = new TextFieldLimite(4,"");
 	private JButton boutonAfficher = new JButton ("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 	private Velo veloEntre = new Velo();

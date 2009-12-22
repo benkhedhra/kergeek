@@ -1,7 +1,6 @@
 package statistiques;
 
 import gestionBaseDeDonnees.DAOEmprunt;
-import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.awt.Color;
@@ -27,7 +26,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 
 	public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
