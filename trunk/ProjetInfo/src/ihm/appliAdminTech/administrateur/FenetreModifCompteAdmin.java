@@ -6,6 +6,7 @@ import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
@@ -24,7 +25,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
@@ -45,14 +45,14 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 	private JLabel labelQualite = new JLabel("Qualité");
 	private JLabel labelQualiteCompte = new JLabel("");
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
-	private JTextField adresseEMailCompte = new JTextField("");
+	private TextFieldLimite adresseEMailCompte = new TextFieldLimite(250,"");
 
 	private JLabel labelNom = new JLabel("Nom");
-	private JTextField nomCompte = new JTextField("");
+	private TextFieldLimite nomCompte = new TextFieldLimite(20,"");
 	private JLabel labelPrenom = new JLabel("Prénom");
-	private JTextField prenomCompte = new JTextField("");
+	private TextFieldLimite prenomCompte = new TextFieldLimite(20,"");
 	private JLabel labelAdressePostale = new JLabel("Adresse Postale");
-	private JTextField adressePostaleCompte = new JTextField("");
+	private TextFieldLimite adressePostaleCompte = new TextFieldLimite(250,"");
 	private JLabel labelStatut = new JLabel("Statut du compte");
 	private JComboBox statutCompte = new JComboBox();
 	private boolean bloqueEntre;

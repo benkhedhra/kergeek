@@ -5,6 +5,7 @@ import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -24,7 +25,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.DemandeIntervention;
 import metier.Intervention;
@@ -44,7 +44,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	private DemandeIntervention demandeEntree=null;
 	private JButton boutonValider = new JButton("Retirer le vélo indiqué");
 	private JLabel labelMsg2 = new JLabel("<html><center>Si vous voulez constater un défaut sur un vélo qui ne figure pas dans les demandes ci-dessus, <br>veuillez entrer son identifiant : </center></html> ");
-	private JTextField idVeloARemplir = new JTextField("");
+	private TextFieldLimite idVeloARemplir = new TextFieldLimite(4,"");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 	public Technicien getTechnicien() {

@@ -3,6 +3,7 @@ package ihm.appliAdminTech;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
@@ -22,7 +23,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
@@ -44,7 +44,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 	private JLabel labelInvitation = new JLabel("");
 	private JLabel labelId = new JLabel("identifiant");
-	private JTextField idARemplir = new JTextField("");
+	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
 	private JLabel labelMotDePasse = new JLabel("mot de passe");
 	private JPasswordField motDePasseARemplir = new JPasswordField();
 	private JButton boutonValider = new JButton ("Valider");

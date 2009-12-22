@@ -7,6 +7,7 @@ import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +23,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Station;
@@ -43,7 +43,7 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JLabel labelVelo = new JLabel ("Veuillez entrer l'identifiant du vélo emprunté");
-	private JTextField veloARemplir = new JTextField ("");
+	private TextFieldLimite veloARemplir = new TextFieldLimite(4,"");
 	private JButton boutonValider = new JButton ("Valider");
 
 	public Utilisateur getUtilisateur() {

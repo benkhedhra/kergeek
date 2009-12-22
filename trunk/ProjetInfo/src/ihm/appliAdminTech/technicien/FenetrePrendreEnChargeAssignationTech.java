@@ -4,6 +4,7 @@ import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
@@ -23,7 +24,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.DemandeAssignation;
 import metier.Garage;
@@ -182,7 +182,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
-						JTextField veloARemplir = new JTextField(l.get(i));
+						TextFieldLimite veloARemplir = new TextFieldLimite(4,l.get(i));
 						veloARemplir.setPreferredSize(new Dimension(250,30));
 						panelVelos.add(veloARemplir);
 					}
@@ -212,7 +212,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
-						JTextField veloARemplir = new JTextField(l.get(i));
+						TextFieldLimite veloARemplir = new TextFieldLimite(4,l.get(i));
 						veloARemplir.setPreferredSize(new Dimension(250,30));
 						panelVelos.add(veloARemplir);
 					}
@@ -259,8 +259,8 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			for(int i=0; i<panelVelos.getComponentCount(); i++){
-				if(panelVelos.getComponent(i) instanceof JTextField){
-					listeIdVelos.add(((JTextField)panelVelos.getComponent(i)).getText());
+				if(panelVelos.getComponent(i) instanceof TextFieldLimite){
+					listeIdVelos.add(((TextFieldLimite)panelVelos.getComponent(i)).getText());
 				}
 			}
 			ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();

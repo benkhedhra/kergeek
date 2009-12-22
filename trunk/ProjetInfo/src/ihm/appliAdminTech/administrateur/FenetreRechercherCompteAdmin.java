@@ -2,6 +2,7 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.TextFieldLimite;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 
@@ -17,7 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import metier.Administrateur;
 import metier.Compte;
@@ -38,16 +38,16 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 
 	private JLabel labelId = new JLabel("Identifiant");
-	private JTextField idARemplir = new JTextField("");
+	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
 
 	private JLabel labelNom = new JLabel("Nom");
-	private JTextField nomARemplir = new JTextField("");
+	private TextFieldLimite nomARemplir = new TextFieldLimite(20,"");
 
 	private JLabel labelPrenom = new JLabel("Prénom");
-	private JTextField prenomARemplir = new JTextField("");
+	private TextFieldLimite prenomARemplir = new TextFieldLimite(20,"");
 
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
-	private JTextField adresseEMailARemplir = new JTextField("");
+	private TextFieldLimite adresseEMailARemplir = new TextFieldLimite(50,"");
 
 	private int typeEntre;
 	private String idEntre;
