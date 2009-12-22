@@ -88,7 +88,7 @@ public class UtilitaireIhm {
 	 * @see Compte
 	 */
 	public static boolean verifieChampsModifMdp(Compte c,String ancienMdp,String nouveauMdp1,String nouveauMdp2){
-		return(c.getMotDePasse().equals(ancienMdp) && nouveauMdp1.length()>0 && nouveauMdp1.length()<21 && nouveauMdp1.equals(nouveauMdp2));
+		return(c.getMotDePasse().equals(ancienMdp) && nouveauMdp1.length()>5 && nouveauMdp1.length()<21 && nouveauMdp1.equals(nouveauMdp2));
 	}
 
 	/**
@@ -166,6 +166,7 @@ public class UtilitaireIhm {
 	
 	
 	public static String obtenirMotDePasse(JPasswordField motDePasseARemplir) throws MotDePasseNonRempliException{
+		//TODO verifier que JpasswordField marche (et qu'il ne faut pas necessairement PasswordFieldLimite)
 		String mdp = "";
 		try{
 			char[] mdpChar = motDePasseARemplir.getPassword();

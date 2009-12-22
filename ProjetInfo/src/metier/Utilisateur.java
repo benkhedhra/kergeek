@@ -142,9 +142,10 @@ public class Utilisateur {
 					this.setBloque(true);
 					System.out.println("compte bloqué");
 					//TODO
-					System.out.println(emprunt.getTempsEmprunt());
-					System.out.println(emprunt.getDateEmprunt());
-					System.out.println(emprunt.getDateRetour());
+					System.out.println("date de l'emprunt : " + emprunt.getDateEmprunt());
+					System.out.println("date de retour : " + emprunt.getDateRetour());
+					System.out.println("durée de l'emprunt : " + emprunt.getTempsEmprunt());
+					
 				}
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);

@@ -5,6 +5,7 @@ import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.PasswordFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
@@ -24,7 +25,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 
 import metier.Compte;
 
@@ -39,11 +39,11 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	private JLabel labelAdminTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez compléter les champs suivants");
 	private JLabel labelAncienMdp = new JLabel("ancien mot de passe");
-	private JPasswordField ancienMdpARemplir = new JPasswordField("");
-	private JLabel labelNouveauMdp1 = new JLabel("nouveau mot de passe");
-	private JPasswordField nouveauMdpARemplir1 = new JPasswordField("");
+	private PasswordFieldLimite ancienMdpARemplir = new PasswordFieldLimite(20,"");
+	private JLabel labelNouveauMdp1 = new JLabel("nouveau mot de passe (6 caractères minimum)");
+	private PasswordFieldLimite nouveauMdpARemplir1 = new PasswordFieldLimite(20,"");
 	private JLabel labelNouveauMdp2 = new JLabel("confirmation du nouveau mot de passe");
-	private JPasswordField nouveauMdpARemplir2 = new JPasswordField("");
+	private PasswordFieldLimite nouveauMdpARemplir2 = new PasswordFieldLimite(20,"");
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -166,7 +166,8 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		try{
 			if(arg0.getSource()==boutonValider){
 				//TODO verifier que ca marche, y compris quand on ne remplit rien,
-				//il semble que l'exception MotDePasseNonRempliException ne serve a rien
+				//il semble que l'exception MotDePasseNonRempliException ne serve a rien...
+				
 				String ancienMdp = UtilitaireIhm.obtenirMotDePasse(ancienMdpARemplir);
 				String nouveauMdp1 = UtilitaireIhm.obtenirMotDePasse(nouveauMdpARemplir1);
 				String nouveauMdp2 = UtilitaireIhm.obtenirMotDePasse(nouveauMdpARemplir2);

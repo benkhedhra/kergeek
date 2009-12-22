@@ -3,6 +3,7 @@ package ihm.appliAdminTech;
 import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.PasswordFieldLimite;
 import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
@@ -24,7 +25,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 
 import metier.Administrateur;
 import metier.Compte;
@@ -48,7 +48,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	private JLabel labelId = new JLabel("identifiant");
 	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
 	private JLabel labelMotDePasse = new JLabel("mot de passe");
-	private JPasswordField motDePasseARemplir = new JPasswordField();
+	private PasswordFieldLimite motDePasseARemplir = new PasswordFieldLimite(20,"");
 	private JButton boutonValider = new JButton ("Valider");
 
 	public FenetreAuthentification (Boolean erreurAuthent){
@@ -165,8 +165,12 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		String id = idARemplir.getText();
 		try {
 			String mdp = UtilitaireIhm.obtenirMotDePasse(motDePasseARemplir);
+			//TODO
+			System.out.println("mdp : " + mdp);
 			//TODO verifier que ca marche, y compris quand on ne remplit rien,
-			//il semble que l'exception MotDePasseNonRempliException ne serve a rien
+			//il semble que l'exception MotDePasseNonRempliException ne serve a rien...
+			
+			
 			Compte c = DAOCompte.getCompteById(id);
 			System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
 			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
