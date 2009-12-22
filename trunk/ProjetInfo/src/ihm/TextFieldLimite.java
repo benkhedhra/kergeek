@@ -14,7 +14,7 @@ public class TextFieldLimite extends JTextField {
 
 	public TextFieldLimite(int longueurMax, String message){
 		super(message);
-		AbstractDocument doc = (AbstractDocument) getDocument();
+		AbstractDocument doc = (AbstractDocument) this.getDocument();
 		doc.setDocumentFilter(new TextLimiter(longueurMax));
 	}
 
