@@ -29,7 +29,9 @@ import org.jfree.ui.ApplicationFrame;
 
 
 	public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
-	
+		
+		private static final long serialVersionUID = 1L;
+		
 		private JFreeChart chart;
 
 		

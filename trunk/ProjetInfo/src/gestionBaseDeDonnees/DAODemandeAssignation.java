@@ -3,12 +3,10 @@ package gestionBaseDeDonnees;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -247,11 +245,9 @@ public class DAODemandeAssignation {
 			try {
 				if (res.next()) {
 
-					GregorianCalendar cal = new GregorianCalendar();
-
 					ddeAssignation.setId(identifiant);
 					java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
-					java.sql.Date date = new Date(tempsAssignation.getTime());
+					java.sql.Date date = new java.sql.Date(tempsAssignation.getTime());
 					int nombre = res.getInt("nombre");
 					String idLieu = res.getString("idLieu");
 					Boolean priseEnCharge = res.getBoolean("priseEnCharge");

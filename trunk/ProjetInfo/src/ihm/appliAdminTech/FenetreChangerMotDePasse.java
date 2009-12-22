@@ -11,6 +11,7 @@ import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
+import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -164,8 +165,14 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		this.dispose();
 		try{
 			if(arg0.getSource()==boutonValider){
-				if (UtilitaireIhm.verifieChampsModifMdp(this.getCompte(), ancienMdpARemplir.getText(), nouveauMdpARemplir1.getText(), nouveauMdpARemplir2.getText())){
-					this.getCompte().setMotDePasse(nouveauMdpARemplir1.getText());
+				//TODO verifier que ca marche, y compris quand on ne remplit rien,
+				//il semble que l'exception MotDePasseNonRempliException ne serve a rien
+				String ancienMdp = UtilitaireIhm.obtenirMotDePasse(ancienMdpARemplir);
+				String nouveauMdp1 = UtilitaireIhm.obtenirMotDePasse(nouveauMdpARemplir1);
+				String nouveauMdp2 = UtilitaireIhm.obtenirMotDePasse(nouveauMdpARemplir2);
+				
+				if (UtilitaireIhm.verifieChampsModifMdp(this.getCompte(), ancienMdp, nouveauMdp1, nouveauMdp2)){
+					this.getCompte().setMotDePasse(nouveauMdp1);
 					DAOCompte.updateCompte(this.getCompte());
 					new FenetreConfirmation(this.getCompte(),this);
 					//à voir s'il ne faut pas passer par updateAdmin et updateTech (mais normalement non)
@@ -174,6 +181,9 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 					MsgBox.affMsg("L'un des champs entrés au moins est incorrect");
 					new FenetreChangerMotDePasse(this.getCompte());
 				}
+				ancienMdp = null;//pour augmenter la sŽcuritŽ de l'application
+				nouveauMdp1 = null;//pour augmenter la sŽcuritŽ de l'application
+				nouveauMdp2 = null;//pour augmenter la sŽcuritŽ de l'application
 			}
 			else if (arg0.getSource()==boutonRetour){
 				if(this.getCompte().getType()==Compte.TYPE_ADMINISTRATEUR){
@@ -183,10 +193,16 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 			}
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
-		} catch (ClassNotFoundException e) {
+		} 
+		catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+		}
+		catch(MotDePasseNonRempliException e){
+			MsgBox.affMsg("Veillez bien remplir les trois mots de passe");
+			new FenetreChangerMotDePasse(this.getCompte());
 		}
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");

@@ -11,4 +11,6 @@ import metier.Emprunt;
  */
 public class PasDeDateRetourException extends Exception{
 
+	private static final long serialVersionUID = 1L;
+
 }

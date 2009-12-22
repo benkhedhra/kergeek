@@ -2,10 +2,13 @@ package ihm;
 
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JPasswordField;
 
 import metier.Compte;
 import metier.Lieu;
@@ -29,8 +32,8 @@ public class UtilitaireIhm {
 	public static boolean verifieTypeCreationCompte(int type){
 		return((type==Compte.TYPE_ADMINISTRATEUR || type==Compte.TYPE_TECHNICIEN ||type==Compte.TYPE_UTILISATEUR));
 	}
-	
-	
+
+
 	/**
 	 * Vérifie si un entier et une String peuvent correspondre à des paramètres adéquats pour construire un administrateur
 	 * @param type : int
@@ -72,7 +75,7 @@ public class UtilitaireIhm {
 	public static boolean verifieChampsCreationUtil(int type,String adresseEMail,String nom,String prenom,String adressePostale){
 		return (verifieTypeCreationCompte(type) && adresseEMail.length()>0 && adresseEMail.length()<51 && prenom.length()>0 && prenom.length()<21 && nom.length()>0 && nom.length()<21 && adressePostale.length()>0 && adressePostale.length()<251);
 	}
-	
+
 	/**
 	 * Vérifie si la modification de mot de passe est possible
 	 * @param c : Compte
@@ -87,7 +90,7 @@ public class UtilitaireIhm {
 	public static boolean verifieChampsModifMdp(Compte c,String ancienMdp,String nouveauMdp1,String nouveauMdp2){
 		return(c.getMotDePasse().equals(ancienMdp) && nouveauMdp1.length()>0 && nouveauMdp1.length()<21 && nouveauMdp1.equals(nouveauMdp2));
 	}
-	
+
 	/**
 	 * Vérifie s'il n'existe pas de demande d'intervention sur un vélo
 	 * @param v : Velo
@@ -98,7 +101,7 @@ public class UtilitaireIhm {
 	public static boolean verifieSiPasDemandeInterventionSurVelo (Velo v){
 		return (v.isEnPanne());
 	}
-	
+
 	/**
 	 * Vérifie s'il y a encore au moins une place disponible dans une station
 	 * @param station : Station
@@ -111,10 +114,10 @@ public class UtilitaireIhm {
 	 */
 	public static boolean verifieSiPlaceDisponibleDansStation(Station station) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return(DAOVelo.getVelosByLieu(station).size() < station.getCapacite());
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Vérifie si des vélos peuvent être assignés à une station
 	 * @param ancienneliste : la liste des identifiants des vélos que l'on veut assigner
@@ -152,11 +155,31 @@ public class UtilitaireIhm {
 		}
 		return nouvelleListe;
 	}
+
+	
 	
 	public static boolean verifieParametresAssignation(int nbVelos,Lieu l){
 		return (nbVelos>0 && nbVelos<=l.getCapacite());
 	}
+
 	
 	
 	
+	public static String obtenirMotDePasse(JPasswordField motDePasseARemplir) throws MotDePasseNonRempliException{
+		String mdp = "";
+		try{
+			char[] mdpChar = motDePasseARemplir.getPassword();
+			for(char c : mdpChar){
+				mdp += c;
+			}
+			mdpChar = null;//pour augmenter la sŽcuritŽ de l'application
+		}
+		catch(NullPointerException e){
+			throw new MotDePasseNonRempliException(e.getMessage());
+		}
+		return mdp;
+	}
+
+
+
 }

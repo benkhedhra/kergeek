@@ -21,6 +21,9 @@ import metier.Intervention;
 
 
 public class TableauInterventionVelo extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+
 	private boolean DEBUG = false;
 
 	public TableauInterventionVelo(String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException {

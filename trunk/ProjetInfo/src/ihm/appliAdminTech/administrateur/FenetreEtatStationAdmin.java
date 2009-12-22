@@ -47,7 +47,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		return lieuEntre;
 	}
 
-	public void setLieuEntre(Lieu lieuentre) {
+	public void setLieuEntre(Lieu lieuEntre) {
 		this.lieuEntre = lieuEntre;
 	}
 

@@ -24,6 +24,9 @@ import metier.Velo;
 
 
 public class TableauListeVelosDansLieu extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private boolean DEBUG = false;
 
 
