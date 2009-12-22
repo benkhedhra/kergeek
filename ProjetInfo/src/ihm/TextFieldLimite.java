@@ -10,6 +10,8 @@ import javax.swing.text.AbstractDocument;
  */
 public class TextFieldLimite extends JTextField {
 
+	private static final long serialVersionUID = 1L;
+
 	public TextFieldLimite(int longueurMax, String message){
 		super(message);
 		AbstractDocument doc = (AbstractDocument) getDocument();

@@ -12,6 +12,8 @@ import metier.Velo;
  */
 public class CompteBloqueException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public CompteBloqueException() {
 		super();
 	}

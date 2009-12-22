@@ -14,6 +14,8 @@ import metier.Utilisateur;
  */
 public class TypeCompteException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public TypeCompteException() {
 		super();
 	}

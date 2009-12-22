@@ -25,12 +25,14 @@ import org.jfree.ui.ApplicationFrame;
 
 public class DiagrammeNbInterventions extends ApplicationFrame {
 
+	private static final long serialVersionUID = 1L;
+	
+	//TODO javadoc
 	/**
 	 * Creates a new demo instance.
 	 *
 	 * @param title  the frame title.
 	 */
-	
 	private JFreeChart chart;
 	
 	public DiagrammeNbInterventions() throws ConnexionFermeeException, SQLException, ClassNotFoundException {

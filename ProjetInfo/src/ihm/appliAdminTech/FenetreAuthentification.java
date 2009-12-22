@@ -4,10 +4,12 @@ import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.TextFieldLimite;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliUtil.FenetreAuthentificationUtil;
 import ihm.appliUtil.Panneau;
+import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,7 +37,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
+
 	// definition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
@@ -161,13 +163,15 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		this.dispose();
 
 		String id = idARemplir.getText();
-		String mdp = motDePasseARemplir.getText();
-
 		try {
+			String mdp = UtilitaireIhm.obtenirMotDePasse(motDePasseARemplir);
+			//TODO verifier que ca marche, y compris quand on ne remplit rien,
+			//il semble que l'exception MotDePasseNonRempliException ne serve a rien
 			Compte c = DAOCompte.getCompteById(id);
 			System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
 			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
 			int resultatAuthent = testerAuthent(id,mdp);
+			mdp = null;//pour augmenter la sŽcuritŽ de l'application
 
 			//si aucune exception levee et si l'utilisateur existe bien dans la base, on ferme la fenetre
 			//d'authentification et on ouvre la fenetre de l'utilisateur
@@ -187,6 +191,10 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		} 
 		catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+		}
+		catch (MotDePasseNonRempliException e){
+				MsgBox.affMsg("Veillez à bien renseigner votre mot de passe");
+				new FenetreAuthentification(true);
 		}
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
