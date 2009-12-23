@@ -79,7 +79,7 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
-		labelTech.setFont(FenetreAuthentification.POLICE4);
+		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,100));

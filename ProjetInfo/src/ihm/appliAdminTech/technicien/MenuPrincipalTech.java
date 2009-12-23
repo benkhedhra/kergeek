@@ -67,7 +67,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
-		labelTech.setFont(FenetreAuthentification.POLICE4);
+		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);

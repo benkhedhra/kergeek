@@ -14,7 +14,6 @@ import ihm.exceptionsInterface.MotDePasseNonRempliException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +28,14 @@ import metier.Administrateur;
 import metier.Compte;
 import metier.Technicien;
 
+/**
+ * FenetreAuthentification hérite de JFrame
+ * cette fenêtre permet à un administrateur ou à un technicien de s'authentifier en entrant son identifiant et son mot de passe
+ * @see MenuPrincipalAdmin
+ * @see MenuPrincipalTech
+ * @author KerGeek
+ */
+
 public class FenetreAuthentification extends JFrame implements ActionListener {
 
 	/**
@@ -36,13 +43,9 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-	// definition des polices
-	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 18);
-	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 16);
-	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
-	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,14);
-
+	/**
+	 * liste des attributs privés : composants de la fenêtre
+	 */
 	private JLabel labelInvitation = new JLabel("");
 	private JLabel labelId = new JLabel("identifiant");
 	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
@@ -50,6 +53,15 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	private PasswordFieldLimite motDePasseARemplir = new PasswordFieldLimite(20,"");
 	private JButton boutonValider = new JButton ("Valider");
 
+	/**
+	 * constructeur
+	 * @param erreurAuthent : vaut true si l'individu a déjà essayé de s'identifier précédemment sans succès
+	 * @see BorderLayout
+	 * @see JLabel
+	 * @see TextFieldLimite
+	 * @see PasswordFieldLimite
+	 * @see JButton
+	 */
 	public FenetreAuthentification (Boolean erreurAuthent){
 
 		System.out.println("Ouverture d'une fenêtre d'authentification de l'appli admin tech");
@@ -78,7 +90,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			labelInvitation.setText("Bienvenue ! Veuillez vous authentifier");		
 			labelInvitation.setPreferredSize(new Dimension(400,40));
 		}
-		labelInvitation.setFont(POLICE2);
+		labelInvitation.setFont(UtilitaireIhm.POLICE2);
 		north.add(labelInvitation);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
@@ -88,7 +100,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelId.setFont(POLICE3);
+		labelId.setFont(UtilitaireIhm.POLICE3);
 		labelId.setPreferredSize(new Dimension(150,30));
 		labelId.setMaximumSize(new Dimension(150,30));
 		panel1.add(labelId);
@@ -96,7 +108,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		idARemplir.setFont(POLICE3);
+		idARemplir.setFont(UtilitaireIhm.POLICE3);
 		idARemplir.setPreferredSize(new Dimension(150, 30));
 		idARemplir.setMaximumSize(new Dimension(150, 30));
 		idARemplir.setForeground(Color.BLUE);
@@ -105,7 +117,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelMotDePasse.setFont(POLICE3);
+		labelMotDePasse.setFont(UtilitaireIhm.POLICE3);
 		labelMotDePasse.setPreferredSize(new Dimension(150,30));
 		labelMotDePasse.setMaximumSize(new Dimension(150,30));
 		panel3.add(labelMotDePasse);
@@ -113,7 +125,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		motDePasseARemplir.setFont(POLICE3);
+		motDePasseARemplir.setFont(UtilitaireIhm.POLICE3);
 		motDePasseARemplir.setPreferredSize(new Dimension(150, 30));
 		motDePasseARemplir.setMaximumSize(new Dimension(150, 30));
 		panel4.add(motDePasseARemplir);
@@ -128,7 +140,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		boutonValider.setPreferredSize(new Dimension(150,30));
 		boutonValider.setMaximumSize(new Dimension(150,30));
 		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		//On ajoute notre Fenetre à la liste des auditeurs de notre Bouton
 		boutonValider.addActionListener(this);
 		panel6.add(boutonValider);
@@ -138,15 +150,39 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		this.setVisible(true);
 	}
+	
+	/**
+	 * méthode utile si l'individu qui s'est authentifié est un administrateur
+	 * @return l'administrateur une fois qu'il est correctement authentifié
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 
 	public Administrateur getAdministrateur() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return gestionBaseDeDonnees.DAOAdministrateur.getAdministrateurById(idARemplir.getText());
 	}
 
+	/**
+	 * méthode utile si l'individu qui s'est authentifié est un technicien
+	 * @return le technicien une fois qu'il est correctement authentifié
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public Technicien getTechnicien() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return gestionBaseDeDonnees.DAOTechnicien.getTechnicienById(idARemplir.getText());
 	}
 
+	/**
+	 * méthode permettant de tester les paramètres d'authentification entrés par l'individu qui cherche à se connecter
+	 * @param id : l'identifiant entré
+	 * @param motDePasse : le mot de passe entré
+	 * @return un entier correspondant au type du compte si l'individu s'est correctement identifié, à -1 sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public int testerAuthent (String id,String motDePasse) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		//cette methode rend -1 si la combinaison id/mdp est erronee, ou le type du compte si la combinaison est correcte
 		int resul=-1;
@@ -159,6 +195,16 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		return resul;
 	}
 
+	/**
+	 * Override
+	 * si l'individu a cliqué sur le bouton "Valider", cette méthode récupère les paramètres entrés et les teste
+	 * le menu principal s'affiche si l'individu s'est correctement identifié
+	 * sinon une nouvelle fenêtre d'authentification s'affiche avec un message différent
+	 * @throws {@SQLException}
+	 * @throws {@ClassNotFoundException}
+	 * @throws {@ConnexionFermeeException}
+	 * @throws {@link MotDePasseNonRempliException}
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 
@@ -169,8 +215,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			System.out.println("mdp : " + mdp);
 			//TODO verifier que ca marche, y compris quand on ne remplit rien,
 			//il semble que l'exception MotDePasseNonRempliException ne serve a rien...
-			
-			
+
+
 			Compte c = DAOCompte.getCompteById(id);
 			System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
 			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
@@ -197,8 +243,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		}
 		catch (MotDePasseNonRempliException e){
-				MsgBox.affMsg("Veillez à bien renseigner votre mot de passe");
-				new FenetreAuthentification(true);
+			MsgBox.affMsg("Veillez à bien renseigner votre mot de passe");
+			new FenetreAuthentification(true);
 		}
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
