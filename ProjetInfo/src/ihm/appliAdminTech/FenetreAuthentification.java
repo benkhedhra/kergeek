@@ -29,8 +29,9 @@ import metier.Compte;
 import metier.Technicien;
 
 /**
- * FenetreAuthentification hérite de JFrame
+ * FenetreAuthentification hérite de JFrame et implémente ActionListener
  * cette fenêtre permet à un administrateur ou à un technicien de s'authentifier en entrant son identifiant et son mot de passe
+ * cette fenêtre est commune à l'administrateur et au technicien
  * @see MenuPrincipalAdmin
  * @see MenuPrincipalTech
  * @author KerGeek
@@ -57,6 +58,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 * constructeur
 	 * @param erreurAuthent : vaut true si l'individu a déjà essayé de s'identifier précédemment sans succès
 	 * @see BorderLayout
+	 * @see JPanel
 	 * @see JLabel
 	 * @see TextFieldLimite
 	 * @see PasswordFieldLimite
