@@ -2,6 +2,7 @@ package ihm.appliUtil;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -60,15 +61,15 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		this.setUtilisateur(u);
 		
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
-		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
@@ -77,7 +78,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		boutonChoix.setPreferredSize(new Dimension(350,100));
 		boutonChoix.setMaximumSize(new Dimension(350,100));
 		boutonChoix.setBackground(Color.CYAN);
-		boutonChoix.setFont(FenetreAuthentificationUtil.POLICE2);
+		boutonChoix.setFont(UtilitaireIhm.POLICE2);
 				
 		if (!empruntEnCours){
 			boutonChoix.setText("Emprunter un vélo");
@@ -88,7 +89,7 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		
 		boutonChoix.addActionListener(this);
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(boutonChoix);
 		this.getContentPane().add(center, BorderLayout.CENTER);
 

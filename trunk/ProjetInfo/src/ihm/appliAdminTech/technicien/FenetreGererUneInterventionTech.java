@@ -2,8 +2,8 @@ package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -81,39 +81,39 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		this.setIntervention(i);
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
-		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
-		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
+		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerCenter = new JPanel();
 		centerCenter.setPreferredSize(new Dimension(550,350));
-		centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerCenter.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelId.setPreferredSize(new Dimension(250,30));
 		labelId.setMaximumSize(new Dimension(250,30));
 		panel1.add(labelId);
 		centerCenter.add(panel1);
 
 		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelIdInter.setText(i.getId());
 		labelIdInter.setPreferredSize(new Dimension(250,30));
 		labelIdInter.setMaximumSize(new Dimension(250,30));
@@ -121,14 +121,14 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		centerCenter.add(panel2);
 
 		JPanel panel3 = new JPanel();
-		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelVelo.setPreferredSize(new Dimension(250,30));
 		labelVelo.setMaximumSize(new Dimension(250,30));
 		panel3.add(labelVelo);
 		centerCenter.add(panel3);	
 
 		JPanel panel4 = new JPanel();
-		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelVeloInter.setText(i.getVelo().getId());
 		labelVeloInter.setPreferredSize(new Dimension(250,30));
 		labelVeloInter.setMaximumSize(new Dimension(250,30));
@@ -136,14 +136,14 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		centerCenter.add(panel4);	
 
 		JPanel panel5 = new JPanel();
-		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelDate.setPreferredSize(new Dimension(250,30));
 		labelDate.setMaximumSize(new Dimension(250,30));
 		panel5.add(labelDate);
 		centerCenter.add(panel5);	
 
 		JPanel panel6 = new JPanel();
-		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelDateInter.setText(i.getDate().toString());
 		labelDateInter.setPreferredSize(new Dimension(250,30));
 		labelDateInter.setMaximumSize(new Dimension(250,30));
@@ -155,7 +155,7 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
 		boutonPrendreEnCharge.setMaximumSize(new Dimension(350,40));
 		boutonPrendreEnCharge.setBackground(Color.CYAN);
-		boutonPrendreEnCharge.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonPrendreEnCharge.setFont(UtilitaireIhm.POLICE3);
 		boutonPrendreEnCharge.addActionListener(this);
 		centerCenter.add(boutonPrendreEnCharge);
 		center.add(centerCenter,BorderLayout.EAST);
@@ -164,14 +164,14 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel7 = new JPanel();
-		panel7.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel7.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		panel7.add(boutonRetour);

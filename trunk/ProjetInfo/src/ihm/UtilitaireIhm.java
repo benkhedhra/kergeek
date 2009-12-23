@@ -4,6 +4,8 @@ import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,20 @@ import metier.Velo;
  */
 
 public class UtilitaireIhm {
+	
+	/** Définition des objets servant à l'ensemble de l'ihm
+	 * polices, transparence, dimensions
+	 */
+	
+	// définition des polices
+	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 24);
+	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 18);
+	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
+	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,16);
 
+	public static final Color TRANSPARENCE = new Color(0,0,0,0);
+
+	
 	/**
 	 * Vérifie si un entier correspond bien à un type de compte répertorié
 	 * @param un entier : type

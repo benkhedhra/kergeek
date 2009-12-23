@@ -8,7 +8,6 @@ import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 import ihm.appliUtil.Panneau;
 import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
@@ -57,8 +56,9 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		this.setContentPane(new Panneau());
 		this.setTitle("Authentification");
-		this.setPreferredSize(new Dimension(700,500));
-		this.setMinimumSize(new Dimension(700,500));
+		Dimension d=getToolkit().getScreenSize();
+		this.setPreferredSize(d);
+		this.setSize(d);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
@@ -67,7 +67,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		if(erreurAuthent){
 			labelInvitation.setText("Combinaison identifiant/mot de passe incorrecte. Veuillez à nouveau vous authentifier");
@@ -83,11 +83,11 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setLayout(new GridLayout(3,2));
 
 		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelId.setFont(POLICE3);
 		labelId.setPreferredSize(new Dimension(150,30));
 		labelId.setMaximumSize(new Dimension(150,30));
@@ -95,7 +95,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		center.add(panel1);
 
 		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		idARemplir.setFont(POLICE3);
 		idARemplir.setPreferredSize(new Dimension(150, 30));
 		idARemplir.setMaximumSize(new Dimension(150, 30));
@@ -104,7 +104,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		center.add(panel2);
 
 		JPanel panel3 = new JPanel();
-		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelMotDePasse.setFont(POLICE3);
 		labelMotDePasse.setPreferredSize(new Dimension(150,30));
 		labelMotDePasse.setMaximumSize(new Dimension(150,30));
@@ -112,7 +112,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		center.add(panel3);
 
 		JPanel panel4 = new JPanel();
-		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		motDePasseARemplir.setFont(POLICE3);
 		motDePasseARemplir.setPreferredSize(new Dimension(150, 30));
 		motDePasseARemplir.setMaximumSize(new Dimension(150, 30));
@@ -120,11 +120,11 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		center.add(panel4);
 
 		JPanel panel5 = new JPanel();
-		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		center.add(panel5);
 
 		JPanel panel6 = new JPanel();
-		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);		
+		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);		
 		boutonValider.setPreferredSize(new Dimension(150,30));
 		boutonValider.setMaximumSize(new Dimension(150,30));
 		boutonValider.setBackground(Color.CYAN);

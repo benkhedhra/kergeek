@@ -6,8 +6,8 @@ import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -88,18 +88,18 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.setStat(stat);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,500));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 
 		List<Compte> listeComptes;
@@ -127,7 +127,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 				DefaultComboBoxModel model = new DefaultComboBoxModel(tableauComptes);
 
 				JComboBox tableau = new JComboBox(model);
-				tableau.setFont(FenetreAuthentificationUtil.POLICE3);
+				tableau.setFont(UtilitaireIhm.POLICE3);
 				tableau.setPreferredSize(new Dimension(400,50));
 				tableau.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent ae){
@@ -158,9 +158,9 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 				this.setCompteEntre(compteEntre);
 				center.add(labelMsg);
 				center.add(tableau);
-				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.setFont(UtilitaireIhm.POLICE3);
 				boutonValider.setBackground(Color.CYAN);
-				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.setFont(UtilitaireIhm.POLICE3);
 				boutonValider.addActionListener(this);
 				center.add(boutonValider);
 			}
@@ -176,9 +176,9 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		}	
 
 
-		boutonNouvelleRecherche.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonNouvelleRecherche.setFont(UtilitaireIhm.POLICE3);
 		boutonNouvelleRecherche.setBackground(Color.CYAN);
-		boutonNouvelleRecherche.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonNouvelleRecherche.setFont(UtilitaireIhm.POLICE3);
 		boutonNouvelleRecherche.addActionListener(this);
 		center.add(boutonNouvelleRecherche);
 
@@ -187,10 +187,10 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

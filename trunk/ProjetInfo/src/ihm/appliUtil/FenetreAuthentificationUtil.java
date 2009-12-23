@@ -6,11 +6,11 @@ import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.TextFieldLimite;
+import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -32,13 +32,6 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	// définition des polices
-	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 24);
-	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 18);
-	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
-	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,16);
-
-	public static final Color TRANSPARENCE = new Color(0,0,0,0);
 
 	private JLabel labelBienvenue = new JLabel("");
 	private JLabel labelInvitation = new JLabel("");
@@ -63,7 +56,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		labelBienvenue.setPreferredSize(new Dimension(200,50));		
 		labelBienvenue.setMaximumSize(new Dimension(500,50));
 		labelBienvenue.setText("   Bienvenue ! ");
-		labelBienvenue.setFont(POLICE1);
+		labelBienvenue.setFont(UtilitaireIhm.POLICE1);
 		this.getContentPane().add(labelBienvenue,BorderLayout.NORTH);
 
 		if(erreurAuthent){
@@ -79,28 +72,28 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		}
 
 		JPanel center = new JPanel();
-		center.setBackground(TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));center.setLayout(new BorderLayout());
 
 		JPanel centerCenter = new JPanel();
-		centerCenter.setBackground(TRANSPARENCE);
+		centerCenter.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerCenter.setPreferredSize(new Dimension(700,300));
 
-		labelInvitation.setFont(POLICE2);
+		labelInvitation.setFont(UtilitaireIhm.POLICE2);
 		centerCenter.add(labelInvitation);
-		idARemplir.setFont(POLICE3);
+		idARemplir.setFont(UtilitaireIhm.POLICE3);
 		idARemplir.setPreferredSize(new Dimension(150,30));
 		idARemplir.setForeground(Color.BLUE);
 		centerCenter.add(idARemplir);
 		center.add(centerCenter,BorderLayout.CENTER);
 
 		JPanel centerSouth = new JPanel();
-		centerSouth.setBackground(TRANSPARENCE);
+		centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerSouth.setPreferredSize(new Dimension(700,50));
 		boutonValider.setPreferredSize(new Dimension(100,30));
 		boutonValider.setMaximumSize(new Dimension(100,30));
 		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
 		centerSouth.add(boutonValider);
 		center.add(centerSouth,BorderLayout.SOUTH);
@@ -108,12 +101,12 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setBackground(TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setPreferredSize(new Dimension(700,100));
 		boutonInfo.setPreferredSize(new Dimension(350,30));
 		boutonInfo.setMaximumSize(new Dimension(250,30));
 		boutonInfo.setBackground(Color.MAGENTA);
-		boutonInfo.setFont(POLICE3);
+		boutonInfo.setFont(UtilitaireIhm.POLICE3);
 		boutonInfo.addActionListener(this);
 		south.add(boutonInfo);
 		this.getContentPane().add(south,BorderLayout.SOUTH);

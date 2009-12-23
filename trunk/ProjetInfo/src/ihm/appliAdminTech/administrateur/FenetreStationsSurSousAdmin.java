@@ -3,8 +3,8 @@ package ihm.appliAdminTech.administrateur;
 import gestionBaseDeDonnees.DAOLieu;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -75,18 +75,18 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		this.setAdministrateur(a);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,400));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 
 		List<Station> listeStationsSur;
@@ -109,7 +109,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 
 			JComboBox tableau = new JComboBox(model);
 			tableau.setPreferredSize(new Dimension(300,30));
-			tableau.setFont(FenetreAuthentificationUtil.POLICE3);
+			tableau.setFont(UtilitaireIhm.POLICE3);
 			tableau.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
@@ -134,9 +134,9 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 				}
 			});
 			center.add(tableau);
-			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.setBackground(Color.CYAN);
-			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.addActionListener(this);
 			center.add(boutonValider);
 
@@ -150,10 +150,10 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

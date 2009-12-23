@@ -1,5 +1,7 @@
 package ihm.appliUtil;
 
+import ihm.UtilitaireIhm;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -55,15 +57,15 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 		this.setUtilisateur(u);
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
-		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
@@ -74,7 +76,7 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 		labelMsg.setPreferredSize(new Dimension(340,120));
 		
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 		this.add(center, BorderLayout.CENTER);
 

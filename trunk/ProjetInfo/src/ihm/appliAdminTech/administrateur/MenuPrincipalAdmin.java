@@ -2,10 +2,10 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreChangerMotDePasse;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -70,46 +70,46 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 			
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
-		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,300));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonComptes.setPreferredSize(new Dimension(210,130));
 		boutonComptes.setMaximumSize(new Dimension(210,130));
-		boutonComptes.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonComptes.setFont(UtilitaireIhm.POLICE3);
 		boutonComptes.addActionListener(this);
 		center.add(boutonComptes);
 		boutonStats.setPreferredSize(new Dimension(210,130));
 		boutonStats.setMaximumSize(new Dimension(210,130));
-		boutonStats.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonStats.setFont(UtilitaireIhm.POLICE3);
 		boutonStats.addActionListener(this);
 		center.add(boutonStats);
 		boutonEtat.setPreferredSize(new Dimension(210,130));
 		boutonEtat.setMaximumSize(new Dimension(210,130));
-		boutonEtat.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonEtat.setFont(UtilitaireIhm.POLICE3);
 		boutonEtat.addActionListener(this);
 		center.add(boutonEtat);
 		this.getContentPane().add(center, BorderLayout.CENTER);
 		
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonChangeMdp.setPreferredSize(new Dimension(250,30));
 		boutonChangeMdp.setMaximumSize(new Dimension(250,30));
-		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.setFont(UtilitaireIhm.POLICE3);
 		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);
 		boutonChangeMdp.addActionListener(this);

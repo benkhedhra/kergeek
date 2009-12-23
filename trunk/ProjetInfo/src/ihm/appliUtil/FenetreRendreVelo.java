@@ -95,15 +95,15 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 		this.setVelo(this.getUtilisateur().getEmpruntEnCours().getVelo());
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
-		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
@@ -118,9 +118,9 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			JPanel center = new JPanel();
-			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			center.setBackground(UtilitaireIhm.TRANSPARENCE);
 			JComboBox combo = new JComboBox(model);
-			combo.setFont(FenetreAuthentificationUtil.POLICE3);
+			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					try{
@@ -135,7 +135,7 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 							MsgBox.affMsg(e.getMessage());
 						}
 						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
-						labelMsg.setFont(FenetreAuthentificationUtil.POLICE3);
+						labelMsg.setFont(UtilitaireIhm.POLICE3);
 					}
 					catch (Exception  e){
 						System.out.println("Erreur dans la sélection de la station");
@@ -144,12 +144,12 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 			});
 			center.add(combo);
 
-			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.setBackground(Color.CYAN);
-			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.addActionListener(this);
 			labelMsg.setText("Sélectionnez la station où vous vous trouvez");
-			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+			labelMsg.setFont(UtilitaireIhm.POLICE2);
 			center.add(labelMsg);
 			center.add(boutonValider);
 			this.getContentPane().add(center, BorderLayout.CENTER);

@@ -2,8 +2,8 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -65,40 +65,40 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonStationsSurSous.setPreferredSize(new Dimension(200,120));
 		boutonStationsSurSous.setMaximumSize(new Dimension(200,120));
-		boutonStationsSurSous.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonStationsSurSous.setFont(UtilitaireIhm.POLICE3);
 		boutonStationsSurSous.addActionListener(this);
 		center.add(boutonStationsSurSous);
 		boutonEtatStation.setPreferredSize(new Dimension(200,120));
 		boutonEtatStation.setMaximumSize(new Dimension(200,120));
-		boutonEtatStation.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonEtatStation.setFont(UtilitaireIhm.POLICE3);
 		boutonEtatStation.addActionListener(this);
 		center.add(boutonEtatStation);
 		boutonVelos.setPreferredSize(new Dimension(200,120));
 		boutonVelos.setMaximumSize(new Dimension(200,120));
-		boutonVelos.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonVelos.setFont(UtilitaireIhm.POLICE3);
 		boutonVelos.addActionListener(this);
 		center.add(boutonVelos);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,40));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour,BorderLayout.EAST);

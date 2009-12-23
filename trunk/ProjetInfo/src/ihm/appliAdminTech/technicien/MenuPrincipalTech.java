@@ -2,10 +2,10 @@ package ihm.appliAdminTech.technicien;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreChangerMotDePasse;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -71,35 +71,35 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		labelTech.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
-		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		bouton1.setPreferredSize(new Dimension(200,100));
 		bouton1.setMaximumSize(new Dimension(200,100));
-		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton1.setFont(UtilitaireIhm.POLICE3);
 		bouton1.addActionListener(this);
 		center.add(bouton1);
 		bouton2.setPreferredSize(new Dimension(200,100));
 		bouton2.setMaximumSize(new Dimension(200,100));
-		bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton2.setFont(UtilitaireIhm.POLICE3);
 		bouton2.addActionListener(this);
 		center.add(bouton2);
 		bouton3.setPreferredSize(new Dimension(200,100));
 		bouton3.setMaximumSize(new Dimension(200,100));
-		bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton3.setFont(UtilitaireIhm.POLICE3);
 		bouton3.addActionListener(this);
 		center.add(bouton3);
 		bouton4.setPreferredSize(new Dimension(200,100));
 		bouton4.setMaximumSize(new Dimension(200,100));
-		bouton4.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton4.setFont(UtilitaireIhm.POLICE3);
 		bouton4.addActionListener(this);
 		center.add(bouton4);
 
@@ -107,10 +107,10 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonChangeMdp.setPreferredSize(new Dimension(250,30));
 		boutonChangeMdp.setMaximumSize(new Dimension(250,30));
-		boutonChangeMdp.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonChangeMdp.setFont(UtilitaireIhm.POLICE3);
 		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);
 		boutonChangeMdp.addActionListener(this);

@@ -6,9 +6,9 @@ import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.TextFieldLimite;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -87,24 +87,24 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		this.setTechnicien(t);
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
-		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,400));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
 		centerNorth.setPreferredSize(new Dimension(700,250));
-		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelMsg1.setPreferredSize(new Dimension(650,50));		
 		labelMsg1.setMinimumSize(new Dimension(650,50));
@@ -125,7 +125,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			JComboBox combo = new JComboBox(model);
 			combo.setPreferredSize(new Dimension(400,50));		
 			combo.setMinimumSize(new Dimension(400,50));
-			combo.setFont(FenetreAuthentificationUtil.POLICE3);
+			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
@@ -162,7 +162,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 		JPanel centerSouth = new JPanel();
 		centerSouth.setPreferredSize(new Dimension(700,150));
-		centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelMsg2.setPreferredSize(new Dimension(650,50));		
 		labelMsg2.setMinimumSize(new Dimension(650,50));
@@ -171,7 +171,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		idVeloARemplir.setMinimumSize(new Dimension(200,50));
 		centerSouth.add(idVeloARemplir);
 		
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setPreferredSize(new Dimension(250,50));		
 		boutonValider.setMinimumSize(new Dimension(250,50));
@@ -184,10 +184,10 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

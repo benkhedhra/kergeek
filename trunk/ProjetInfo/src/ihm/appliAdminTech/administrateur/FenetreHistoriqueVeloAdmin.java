@@ -5,8 +5,8 @@ import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.TextFieldLimite;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -77,39 +77,39 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		this.setAdministrateur(a);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelMsg.setPreferredSize(new Dimension(600,30));
 		center.add(labelMsg);
-		idVeloARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
+		idVeloARemplir.setFont(UtilitaireIhm.POLICE3);
 		idVeloARemplir.setPreferredSize(new Dimension(150, 30));
 		idVeloARemplir.setForeground(Color.BLUE);
 		center.add(idVeloARemplir);
-		boutonAfficher.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonAfficher.setFont(UtilitaireIhm.POLICE3);
 		boutonAfficher.setBackground(Color.CYAN);
-		boutonAfficher.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonAfficher.setFont(UtilitaireIhm.POLICE3);
 		boutonAfficher.addActionListener(this);
 		center.add(boutonAfficher);
 		this.getContentPane().add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
-		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		panel11.add(boutonRetour);
