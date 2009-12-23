@@ -34,6 +34,7 @@ public class UtilitaireIhm {
 	public static final Font POLICE3 = new Font("Arial Narrow", Font.PLAIN,16);
 	public static final Font POLICE4 = new Font("Arial Narrow", Font.ITALIC,16);
 
+	// définition de la couleur transparence pour rendre les panels transparents et continuer à voir l'image de fond
 	public static final Color TRANSPARENCE = new Color(0,0,0,0);
 
 	
