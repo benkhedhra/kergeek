@@ -25,7 +25,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.Compte;
+
+/**
+ * FenetreAuthentification hérite de JFrame et implémente ActionListener
+ * cette fenêtre permet à un administrateur ou à un technicien de changer de mot de passe
+ * cette fenêtre est commune à l'administrateur et au technicien
+ * @see MenuPrincipalAdmin
+ * @see MenuPrincipalTech
+ * @author KerGeek
+ */
 
 public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
@@ -34,6 +44,9 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * attributs privés : composants de la fenêtre
+	 */
 	private Compte compte;
 	private JLabel labelAdminTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez compléter les champs suivants");
@@ -46,13 +59,34 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	// Accesseurs utiles
+	
+	/**
+	 * @return	le {@link Administrateur#compte} de l'Administrateur connecté ou le {@link Technicien#compte} du Technicien connecté 
+	 */
+
 	public Compte getCompte() {
 		return compte;
 	}
 
+	/**
+	 * Initialise le {@link Administrateur#compte} de la {@link FenetreChangerMotDePasse}
+	 * @param compte
+	 * le compte de l'individu connecté sur cette fenêtre
+	 * @see Compte
+	 */
+
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
+	
+	/**
+	 * constructeur de FenetreChangerMotDePasse
+	 * @param c : le compte de l'individu connecté (Administrateur ou Technicien)
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see 
+	 */
 
 	public FenetreChangerMotDePasse(Compte c){
 
@@ -66,7 +100,9 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		this.setCompte(c);
 
 		this.setTitle("Changer son mot de passe");
-		this.setSize(700,500);
+		Dimension d=getToolkit().getScreenSize();
+		this.setPreferredSize(d);
+		this.setSize(d);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
@@ -75,20 +111,20 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,600));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ this.getCompte().getId());
 		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(500,30));
+		labelAdminTech.setPreferredSize(new Dimension(1000,40));
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
-		labelMsg.setPreferredSize(new Dimension(600,30));
+		labelMsg.setPreferredSize(new Dimension(1000,50));
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		center.add(labelMsg);
 
@@ -101,54 +137,53 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		ancienMdpARemplir.setPreferredSize(new Dimension(250,30));
-		ancienMdpARemplir.setMinimumSize(new Dimension(250,30));
+		ancienMdpARemplir.setPreferredSize(new Dimension(300,40));
+		ancienMdpARemplir.setMinimumSize(new Dimension(300,40));
 		panel2.add(ancienMdpARemplir);
 		center.add(panel2);
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelNouveauMdp1.setPreferredSize(new Dimension(250,30));
-		labelNouveauMdp1.setMinimumSize(new Dimension(250,30));
+		labelNouveauMdp1.setPreferredSize(new Dimension(300,40));
+		labelNouveauMdp1.setMinimumSize(new Dimension(300,40));
 		panel3.add(labelNouveauMdp1);
 		center.add(panel3);
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		nouveauMdpARemplir1.setPreferredSize(new Dimension(250,30));
-		nouveauMdpARemplir1.setMinimumSize(new Dimension(250,30));
+		nouveauMdpARemplir1.setPreferredSize(new Dimension(300,40));
+		nouveauMdpARemplir1.setMinimumSize(new Dimension(300,30));
 		panel4.add(nouveauMdpARemplir1);
 		center.add(panel4);
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelNouveauMdp2.setPreferredSize(new Dimension(250,30));
-		labelNouveauMdp2.setMinimumSize(new Dimension(250,30));
+		labelNouveauMdp2.setPreferredSize(new Dimension(300,40));
+		labelNouveauMdp2.setMinimumSize(new Dimension(300,40));
 		panel5.add(labelNouveauMdp2);
 		center.add(panel5);
 
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		nouveauMdpARemplir2.setPreferredSize(new Dimension(250,30));
-		nouveauMdpARemplir2.setMinimumSize(new Dimension(250,30));
+		nouveauMdpARemplir2.setPreferredSize(new Dimension(300,40));
+		nouveauMdpARemplir2.setMinimumSize(new Dimension(300,40));
 		panel6.add(nouveauMdpARemplir2);
 		center.add(panel6);
 
-		boutonValider.setPreferredSize(new Dimension(170,30));
-		boutonValider.setMinimumSize(new Dimension(170,30));
+		boutonValider.setPreferredSize(new Dimension(200,50));
+		boutonValider.setMinimumSize(new Dimension(200,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
-
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,40));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(300,50));
+		boutonRetour.setMaximumSize(new Dimension(300,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		south.add(boutonRetour);
@@ -160,6 +195,16 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	}
 
 
+	/**
+	 * Override
+	 * méthode qui est exécutée si l'individu a appuyé sur le bouton "Valider"
+	 * affiche une fenetre de confirmation si les champs entrés sont corrects (ancien mot de passe correct et nouveau mot de passe respectant les contraintes et confirmé
+	 * sinon affiche une MsgBox adaptée puis ouvre une nouvelle FenetreChangerMotDePasse
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws MotDePasseNonRempliException
+	 * @throws ConnexionFermeeException
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{
@@ -201,7 +246,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		}
 		catch(MotDePasseNonRempliException e){
-			MsgBox.affMsg("Veillez bien remplir les trois mots de passe");
+			MsgBox.affMsg("Veuillez bien remplir les trois champs");
 			new FenetreChangerMotDePasse(this.getCompte());
 		}
 		catch (ConnexionFermeeException e){

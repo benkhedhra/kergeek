@@ -9,7 +9,10 @@ import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.FenetreAffichageResultatsAdmin;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreDemandeConfirmationAdmin;
+import ihm.appliAdminTech.administrateur.FenetreEnvoyerDemandeAssignationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
+import ihm.appliAdminTech.administrateur.FenetreExisteDejaDemandeAssignationAdmin;
+import ihm.appliAdminTech.administrateur.FenetreModifCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
@@ -17,6 +20,7 @@ import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
 import ihm.appliAdminTech.technicien.FenetreGererDemandesAssignationTech;
 import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
+import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeAssignationTech;
 import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeInterventionTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloDefectueuxTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
@@ -34,9 +38,28 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.Compte;
 import metier.TypeIntervention;
 
+/**
+ * FenetreConfirmation hérite de JFrame et implémente ActionListener
+ * cette fenêtre permet d'afficher un message de confirmation adaptée en fonction de la fenêtre précédente
+ * cette fenêtre est commune à l'administrateur et au technicien
+ * @see MenuPrincipalAdmin
+ * @see MenuPrincipalTech
+ * @see FenetreChangerMotDePasse
+ * @see FenetreCreationCompteAdmin
+ * @see FenetreModifCompteAdmin
+ * @see FenetreDemandeConfirmationAdmin
+ * @see FenetreEnvoyerDemandeAssignationAdmin
+ * @see FenetreExisteDejaDemandeAssignationAdmin
+ * @see FenetreEnregistrerVeloTech
+ * @see FenetreRetirerVeloDefectueuxTech
+ * @see FenetrePrendreEnChargeInterventionTech
+ * @see FenetrePrendreEnChargeAssignationTech
+ * @author KerGeek
+ */
 public class FenetreConfirmation extends JFrame implements ActionListener {
 
 	/**
@@ -44,6 +67,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * attributs privés : composants de la fenêtre
+	 */
 	private Compte compte;
 	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
@@ -52,22 +78,49 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	private JButton bouton2 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link Administrateur#compte} de l'Administrateur connecté ou le {@link Technicien#compte} du Technicien connecté 
+	 */
 	public Compte getCompte() {
 		return compte;
 	}
 
+	/**
+	 * Initialise le {@link Administrateur#compte} de la {@link FenetreConfirmation}
+	 * @param compte
+	 * le compte de l'individu connecté sur cette fenêtre
+	 * @see Compte
+	 */
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
 
+	/**
+	 * @return	la {@link JFrame} sur laquelle l'individu était précédemment connecté
+	 */
 	public JFrame getFenetrePrecedente() {
 		return fenetrePrecedente;
 	}
 
+	/**
+	 * Initialise la {@link JFrame} de la {@link FenetreConfirmation}
+	 * @param fenetrePrecedente
+	 * la fenêtre sur laquelle l'individu était connecté à l'étape précédente
+	 */
 	public void setFenetrePrecedente(JFrame fenetrePrecedente) {
 		this.fenetrePrecedente = fenetrePrecedente;
 	}
 
+	/**
+	 * constructeur d'une FenetreConfirmation
+	 * @param c : le compte de l'individu connecté
+	 * @param fenetrePrec : la fenêtre précédente
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public FenetreConfirmation(Compte c,JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
@@ -81,7 +134,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Ecran de confirmation");
-		this.setSize(700, 500);
+		Dimension d=getToolkit().getScreenSize();
+		this.setPreferredSize(d);
+		this.setSize(d);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
@@ -90,20 +145,20 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,600));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
 			labelAdminTech = new JLabel("Vous êtes à présent déconnecté");
 			labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-			labelAdminTech.setPreferredSize(new Dimension(400,30));
+			labelAdminTech.setPreferredSize(new Dimension(1000,50));
 			bouton1.setText("Nouvelle authentification");
-			bouton1.setPreferredSize(new Dimension(250,30));
+			bouton1.setPreferredSize(new Dimension(300,50));
 			bouton1.setBackground(Color.MAGENTA);
 			bouton1.setFont(UtilitaireIhm.POLICE4);
 			bouton1.addActionListener(this);
@@ -130,25 +185,25 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		else {
 			labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ c.getId());
 			labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-			labelAdminTech.setPreferredSize(new Dimension(500,30));
+			labelAdminTech.setPreferredSize(new Dimension(1000,50));
 
 			JPanel south = new JPanel();
-			south.setPreferredSize(new Dimension(700,40));
+			south.setPreferredSize(new Dimension(1200,100));
 			south.setBackground(UtilitaireIhm.TRANSPARENCE);
 			//south.setLayout(new GridLayout(1,3));
 
-			bouton1.setPreferredSize(new Dimension(250,40));
-			bouton1.setMaximumSize(new Dimension(250,40));
+			bouton1.setPreferredSize(new Dimension(300,50));
+			bouton1.setMaximumSize(new Dimension(300,50));
 			bouton1.setFont(UtilitaireIhm.POLICE3);
 			bouton1.setBackground(Color.GREEN);
 
-			bouton2.setPreferredSize(new Dimension(250,40));
-			bouton2.setMaximumSize(new Dimension(250,40));
+			bouton2.setPreferredSize(new Dimension(300,50));
+			bouton2.setMaximumSize(new Dimension(300,50));
 			bouton2.setFont(UtilitaireIhm.POLICE3);
 			bouton2.setBackground(Color.GREEN);
 
-			boutonRetour.setPreferredSize(new Dimension(250,40));
-			boutonRetour.setMaximumSize(new Dimension(250,40));
+			boutonRetour.setPreferredSize(new Dimension(300,50));
+			boutonRetour.setMaximumSize(new Dimension(300,50));
 			boutonRetour.setFont(UtilitaireIhm.POLICE3);
 			boutonRetour.setBackground(Color.YELLOW);
 
@@ -257,19 +312,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(boutonRetour);
 			}
 
-			else if(fenetrePrec.getTitle().equals("Remettre un vélo réparé en station")){
-				north.add(labelAdminTech);
-				this.getContentPane().add(north,BorderLayout.NORTH);
-				labelConfirm.setText("Le changement de lieu du vélo a bien été enregistré. ");
-				bouton1.setText("Remettre un autre vélo en station");
-				bouton1.addActionListener(this);
-				boutonRetour.addActionListener(this);
-				JPanel panel = new JPanel();
-				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
-				south.add(panel);
-				south.add(bouton1);
-				south.add(boutonRetour);
-			}		
 			else if(fenetrePrec.getTitle().equals("Prendre en charge une assignation")){
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
@@ -312,6 +354,14 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	}
 
 
+	/**
+	 * Override
+	 * méthode exécutée sur l'individu a cliqué sur un des boutons qui se présentaient à lui
+	 * la fenêtre courante se ferme et laisse place à la fenêtre suivante adaptée à l'événement arg0
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

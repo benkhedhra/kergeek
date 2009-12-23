@@ -32,7 +32,7 @@ public class Administrateur {
 
 	/**
 	 * Constructeur d'initialisation d'Administrateur.
-	 * L'objet administrateur est créer à partir d'un compte
+	 * L'objet administrateur est créé à partir d'un compte
 	 * 
 	 * @param  compte
 	 * le compte de l'administrateur
