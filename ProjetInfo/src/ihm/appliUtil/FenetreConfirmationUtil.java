@@ -1,5 +1,7 @@
 package ihm.appliUtil;
 
+import ihm.UtilitaireIhm;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,27 +45,27 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(300,30));
 		boutonAuthentification.setPreferredSize(new Dimension(250,30));
 		boutonAuthentification.setBackground(Color.MAGENTA);
-		boutonAuthentification.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonAuthentification.setFont(UtilitaireIhm.POLICE4);
 		boutonAuthentification.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		north.add(boutonAuthentification);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelConfirm.setText(msg);
 		if(labelUtil.getText().length()>=30){
-			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
+			labelConfirm.setFont(UtilitaireIhm.POLICE2);
 		}
 		else{
-			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE1);
+			labelConfirm.setFont(UtilitaireIhm.POLICE1);
 		}
 		center.add(labelConfirm);
 		this.getContentPane().add(center, BorderLayout.CENTER);
@@ -75,7 +77,7 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 			//il y a un problème ici : pendant les 5 secondes la fenêtre ne s'affiche même pas
 			Thread.sleep(5000);
 			this.dispose();
-			new FenetreAuthentificationUtil(false);
+			new UtilitaireIhm(false);
 		} catch (InterruptedException e) {
 			MsgBox.affMsg(e.getMessage());
 		}*/

@@ -5,9 +5,9 @@ import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -94,26 +94,26 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.setIntervention(i);
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
-		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
-		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelMsg.setPreferredSize(new Dimension(600,50));
 		labelMsg.setMaximumSize(new Dimension(600,50));
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		labelMsg.setFont(UtilitaireIhm.POLICE2);
 
 		labelMsg.setText(DAOIntervention.ligne(i));
 		centerNorth.add(labelMsg);
@@ -121,10 +121,10 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelTypeIntervention.setPreferredSize(new Dimension(200,30));		
 		panel1.add(labelTypeIntervention);
 		centerWest.add(panel1);
@@ -141,8 +141,8 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauTypes);
 
 			JComboBox combo = new JComboBox(model);
-			combo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			combo.setFont(FenetreAuthentificationUtil.POLICE3);
+			combo.setBackground(UtilitaireIhm.TRANSPARENCE);
+			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
@@ -166,7 +166,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			});
 
 			JPanel panel2 = new JPanel();
-			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
 			combo.setPreferredSize(new Dimension(300,30));
 			panel2.add(combo);
 			centerWest.add(panel2);		
@@ -174,8 +174,8 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			center.add(centerWest,BorderLayout.WEST);
 
 			JPanel centerSouth = new JPanel();
-			centerSouth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+			centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
+			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.addActionListener(this);
 			centerSouth.add(boutonValider);
@@ -193,11 +193,11 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

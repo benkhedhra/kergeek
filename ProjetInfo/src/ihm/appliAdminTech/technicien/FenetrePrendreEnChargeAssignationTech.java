@@ -8,7 +8,6 @@ import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -106,23 +105,23 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.setDemande(d);
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
-		labelTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(500,30));
 		labelTech.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,400));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
 		centerNorth.setPreferredSize(new Dimension(700,60));
-		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		int nbVelosADeplacer;
 
@@ -136,11 +135,11 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 			labelMsg.setPreferredSize(new Dimension(600,50));
 			labelMsg.setMaximumSize(new Dimension(600,50));
-			labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+			labelMsg.setFont(UtilitaireIhm.POLICE2);
 
 			labelListeVelosAssignables.setPreferredSize(new Dimension(700,50));
 			labelListeVelosAssignables.setMaximumSize(new Dimension(700,50));
-			labelListeVelosAssignables.setFont(FenetreAuthentificationUtil.POLICE2);
+			labelListeVelosAssignables.setFont(UtilitaireIhm.POLICE2);
 
 			//a priori ne sert pas
 			if(nbVelosADeplacer==0){
@@ -151,9 +150,9 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			else{
 				JPanel centerCenter = new JPanel();
 				centerCenter.setPreferredSize(new Dimension(550,350));
-				centerCenter.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				centerCenter.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-				panelVelos.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				panelVelos.setBackground(UtilitaireIhm.TRANSPARENCE);
 				panelVelos.setLayout(new GridLayout(nbVelosADeplacer,2));
 
 				if(this.getDiff()<0){
@@ -177,7 +176,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					for (int i =0;i<nbVelosADeplacer;i++){
 						JLabel labelVelo = new JLabel("");
 
-						labelVelo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						labelVelo.setBackground(UtilitaireIhm.TRANSPARENCE);
 						labelVelo.setPreferredSize(new Dimension(250,30));
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
@@ -207,7 +206,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 					for (int i=0;i<nbVelosADeplacer;i++){
 						JLabel labelVelo = new JLabel("");
 
-						labelVelo.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+						labelVelo.setBackground(UtilitaireIhm.TRANSPARENCE);
 						labelVelo.setPreferredSize(new Dimension(250,30));
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
@@ -224,7 +223,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				center.add(centerNorth,BorderLayout.NORTH);
 				center.add(centerCenter,BorderLayout.CENTER);
 
-				boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+				boutonValider.setFont(UtilitaireIhm.POLICE3);
 				boutonValider.setBackground(Color.CYAN);
 				boutonValider.addActionListener(this);
 				centerCenter.add(boutonValider);
@@ -242,11 +241,11 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

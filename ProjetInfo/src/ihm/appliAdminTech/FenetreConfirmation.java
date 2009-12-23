@@ -5,6 +5,7 @@ import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.FenetreAffichageResultatsAdmin;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreDemandeConfirmationAdmin;
@@ -20,7 +21,6 @@ import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeInterventionTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloDefectueuxTech;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -91,27 +91,27 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,600));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
 			labelAdminTech = new JLabel("Vous êtes à présent déconnecté");
-			labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+			labelAdminTech.setFont(UtilitaireIhm.POLICE4);
 			labelAdminTech.setPreferredSize(new Dimension(400,30));
 			bouton1.setText("Nouvelle authentification");
 			bouton1.setPreferredSize(new Dimension(250,30));
 			bouton1.setBackground(Color.MAGENTA);
-			bouton1.setFont(FenetreAuthentificationUtil.POLICE4);
+			bouton1.setFont(UtilitaireIhm.POLICE4);
 			bouton1.addActionListener(this);
 			north.add(labelAdminTech);
 			north.add(bouton1);
 
 			labelConfirm.setText("Au revoir et à bientôt ! ");
-			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
+			labelConfirm.setFont(UtilitaireIhm.POLICE2);
 			center.add(labelConfirm);
 
 			this.getContentPane().add(north,BorderLayout.NORTH);
@@ -129,27 +129,27 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		}
 		else {
 			labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ c.getId());
-			labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+			labelAdminTech.setFont(UtilitaireIhm.POLICE4);
 			labelAdminTech.setPreferredSize(new Dimension(500,30));
 
 			JPanel south = new JPanel();
 			south.setPreferredSize(new Dimension(700,40));
-			south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			south.setBackground(UtilitaireIhm.TRANSPARENCE);
 			//south.setLayout(new GridLayout(1,3));
 
 			bouton1.setPreferredSize(new Dimension(250,40));
 			bouton1.setMaximumSize(new Dimension(250,40));
-			bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton1.setFont(UtilitaireIhm.POLICE3);
 			bouton1.setBackground(Color.GREEN);
 
 			bouton2.setPreferredSize(new Dimension(250,40));
 			bouton2.setMaximumSize(new Dimension(250,40));
-			bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton2.setFont(UtilitaireIhm.POLICE3);
 			bouton2.setBackground(Color.GREEN);
 
 			boutonRetour.setPreferredSize(new Dimension(250,40));
 			boutonRetour.setMaximumSize(new Dimension(250,40));
-			boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+			boutonRetour.setFont(UtilitaireIhm.POLICE3);
 			boutonRetour.setBackground(Color.YELLOW);
 
 
@@ -161,7 +161,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				labelConfirm.setText("Le mot de passe a bien été changé. ");
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);
 				south.add(panel);
 				south.add(boutonRetour);
 			}
@@ -174,7 +174,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -187,7 +187,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -208,7 +208,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -238,7 +238,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -251,7 +251,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -265,7 +265,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -278,7 +278,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
@@ -295,14 +295,14 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
-				panel.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
 				south.add(panel);
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
 
-			center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-			labelConfirm.setFont(FenetreAuthentificationUtil.POLICE2);
+			center.setBackground(UtilitaireIhm.TRANSPARENCE);
+			labelConfirm.setFont(UtilitaireIhm.POLICE2);
 			center.add(labelConfirm);
 			this.getContentPane().add(center,BorderLayout.CENTER);
 			this.getContentPane().add(south,BorderLayout.SOUTH);

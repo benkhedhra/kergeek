@@ -4,8 +4,8 @@ import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -97,25 +97,25 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		this.getContentPane().setLayout(new BorderLayout());
 
 		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
 		labelAdminTech.setPreferredSize(new Dimension(1200,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1280,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1280,850));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);	
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(1280,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		bouton1.setPreferredSize(new Dimension(350,50));
 		bouton1.setMaximumSize(new Dimension(350,50));
-		bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+		bouton1.setFont(UtilitaireIhm.POLICE3);
 		bouton1.setBackground(Color.GREEN);
 
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
@@ -203,11 +203,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			JLabel lblChart2 = new JLabel();
 
 			JPanel panel1 = new JPanel();
-			panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
 			panel1.setPreferredSize(new Dimension(600,600));
 
 			JPanel panel2 = new JPanel();
-			panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 			panel2.setPreferredSize(new Dimension(600,600));
 
 			DiagrammeNbVelosLieu diag1;
@@ -246,19 +246,19 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 			bouton1.setPreferredSize(new Dimension(200,40));
 			bouton1.setMaximumSize(new Dimension(200,40));
-			bouton1.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton1.setFont(UtilitaireIhm.POLICE3);
 			bouton1.setBackground(Color.GREEN);
 			bouton1.addActionListener(this);
 
 			bouton2.setPreferredSize(new Dimension(200,40));
 			bouton2.setMaximumSize(new Dimension(200,40));
-			bouton2.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton2.setFont(UtilitaireIhm.POLICE3);
 			bouton2.setBackground(Color.GREEN);
 			bouton2.addActionListener(this);
 
 			bouton3.setPreferredSize(new Dimension(350,40));
 			bouton3.setMaximumSize(new Dimension(350,40));
-			bouton3.setFont(FenetreAuthentificationUtil.POLICE3);
+			bouton3.setFont(UtilitaireIhm.POLICE3);
 			bouton3.setBackground(Color.CYAN);
 			bouton3.addActionListener(this);
 
@@ -270,7 +270,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

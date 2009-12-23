@@ -8,6 +8,7 @@ import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.TextFieldLimite;
+import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -77,31 +78,31 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.setUtilisateur(u);
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
-		boutonDeconnexion.setFont(FenetreAuthentificationUtil.POLICE4);
+		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelVelo.setPreferredSize(new Dimension(600,30));
 		center.add(labelVelo);
-		veloARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
+		veloARemplir.setFont(UtilitaireIhm.POLICE3);
 		veloARemplir.setPreferredSize(new Dimension(150, 30));
 		veloARemplir.setForeground(Color.BLUE);
 		center.add(veloARemplir);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
 		this.getContentPane().add(center, BorderLayout.CENTER);

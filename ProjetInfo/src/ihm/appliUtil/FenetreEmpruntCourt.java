@@ -4,6 +4,7 @@ import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -74,11 +75,11 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		this.setVelo(v);
 		
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
@@ -92,7 +93,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		boutonOui.addActionListener(this);
 		boutonNon.addActionListener(this);
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 		center.add(boutonOui);
 		center.add(boutonNon);

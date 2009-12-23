@@ -3,9 +3,9 @@ package ihm.appliAdminTech.administrateur;
 import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -79,11 +79,11 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 		this.getContentPane().setLayout(new BorderLayout());
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.add(north, BorderLayout.NORTH);
 
@@ -97,7 +97,7 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 		boutonOui.addActionListener(this);
 		boutonNon.addActionListener(this);
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 		center.add(boutonOui);
 		center.add(boutonNon);

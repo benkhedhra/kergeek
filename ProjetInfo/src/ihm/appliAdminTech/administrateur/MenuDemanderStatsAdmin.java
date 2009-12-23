@@ -1,6 +1,6 @@
 package ihm.appliAdminTech.administrateur;
 
-import ihm.appliUtil.FenetreAuthentificationUtil;
+import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -62,40 +62,40 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonFrequentation.setPreferredSize(new Dimension(200,120));
 		boutonFrequentation.setMaximumSize(new Dimension(200,120));
-		boutonFrequentation.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonFrequentation.setFont(UtilitaireIhm.POLICE3);
 		boutonFrequentation.addActionListener(this);
 		center.add(boutonFrequentation);
 		boutonInterventions.setPreferredSize(new Dimension(200,120));
 		boutonInterventions.setMaximumSize(new Dimension(200,120));
-		boutonInterventions.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonInterventions.setFont(UtilitaireIhm.POLICE3);
 		boutonInterventions.addActionListener(this);
 		center.add(boutonInterventions);
 		boutonUtilisateurs.setPreferredSize(new Dimension(200,120));
 		boutonUtilisateurs.setMaximumSize(new Dimension(200,120));
-		boutonUtilisateurs.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonUtilisateurs.setFont(UtilitaireIhm.POLICE3);
 		boutonUtilisateurs.addActionListener(this);
 		center.add(boutonUtilisateurs);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,40));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour,BorderLayout.EAST);

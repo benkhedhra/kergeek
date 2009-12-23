@@ -7,7 +7,6 @@ import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -99,25 +98,25 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.setLieuConcerne(l);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(300,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));
 
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		labelMsg.setPreferredSize(new Dimension (600,30));
 		center.add(labelMsg);
 
 		center.setPreferredSize(new Dimension(550,350));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelStation.setPreferredSize(new Dimension (250,30));
 		center.add(labelStation);
@@ -130,12 +129,12 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		nbVelosARemplir.setPreferredSize(new Dimension (250,30));
 		center.add(nbVelosARemplir);
 
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(200,350));
 		boutonValider.setPreferredSize(new Dimension(200,40));
 		boutonValider.setMaximumSize(new Dimension(200,40));
 		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
 
@@ -143,25 +142,25 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		boutonEtatAutreStation.setPreferredSize(new Dimension(250,40));
 		boutonEtatAutreStation.setMaximumSize(new Dimension(250,40));
-		boutonEtatAutreStation.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonEtatAutreStation.setFont(UtilitaireIhm.POLICE3);
 		boutonEtatAutreStation.setBackground(Color.GREEN);
 		boutonEtatAutreStation.addActionListener(this);
 		south.add(boutonEtatAutreStation);
 
 		boutonStationsSurSous.setPreferredSize(new Dimension(250,40));
 		boutonStationsSurSous.setMaximumSize(new Dimension(250,40));
-		boutonStationsSurSous.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonStationsSurSous.setFont(UtilitaireIhm.POLICE3);
 		boutonStationsSurSous.setBackground(Color.GREEN);
 		boutonStationsSurSous.addActionListener(this);
 		south.add(boutonStationsSurSous);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		south.add(boutonRetour);

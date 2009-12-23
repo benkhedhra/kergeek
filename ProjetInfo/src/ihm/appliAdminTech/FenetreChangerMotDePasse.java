@@ -11,7 +11,6 @@ import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.BorderLayout;
@@ -77,59 +76,59 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(700,600));
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ this.getCompte().getId());
-		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
 		labelAdminTech.setPreferredSize(new Dimension(500,30));
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		labelMsg.setPreferredSize(new Dimension(600,30));
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		center.add(labelMsg);
 
 		JPanel panel1 = new JPanel();
-		panel1.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelAncienMdp.setPreferredSize(new Dimension(250,30));
 		labelAncienMdp.setMinimumSize(new Dimension(250,30));
 		panel1.add(labelAncienMdp);
 		center.add(panel1);
 
 		JPanel panel2 = new JPanel();
-		panel2.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		ancienMdpARemplir.setPreferredSize(new Dimension(250,30));
 		ancienMdpARemplir.setMinimumSize(new Dimension(250,30));
 		panel2.add(ancienMdpARemplir);
 		center.add(panel2);
 
 		JPanel panel3 = new JPanel();
-		panel3.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelNouveauMdp1.setPreferredSize(new Dimension(250,30));
 		labelNouveauMdp1.setMinimumSize(new Dimension(250,30));
 		panel3.add(labelNouveauMdp1);
 		center.add(panel3);
 
 		JPanel panel4 = new JPanel();
-		panel4.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		nouveauMdpARemplir1.setPreferredSize(new Dimension(250,30));
 		nouveauMdpARemplir1.setMinimumSize(new Dimension(250,30));
 		panel4.add(nouveauMdpARemplir1);
 		center.add(panel4);
 
 		JPanel panel5 = new JPanel();
-		panel5.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelNouveauMdp2.setPreferredSize(new Dimension(250,30));
 		labelNouveauMdp2.setMinimumSize(new Dimension(250,30));
 		panel5.add(labelNouveauMdp2);
 		center.add(panel5);
 
 		JPanel panel6 = new JPanel();
-		panel6.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);	
+		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		nouveauMdpARemplir2.setPreferredSize(new Dimension(250,30));
 		nouveauMdpARemplir2.setMinimumSize(new Dimension(250,30));
 		panel6.add(nouveauMdpARemplir2);
@@ -146,11 +145,11 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,40));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		south.add(boutonRetour);
 		boutonRetour.addActionListener(this);

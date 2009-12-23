@@ -1,5 +1,7 @@
 package ihm.appliUtil;
 
+import ihm.UtilitaireIhm;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -56,11 +58,11 @@ public class FenetreDefautDeclare extends JFrame implements ActionListener {
 		this.setUtilisateur(u);
 
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
-		labelUtil.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelUtil);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
@@ -74,7 +76,7 @@ public class FenetreDefautDeclare extends JFrame implements ActionListener {
 		boutonOui.addActionListener(this);
 		boutonNon.addActionListener(this);
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 		center.add(boutonOui);
 		center.add(boutonNon);

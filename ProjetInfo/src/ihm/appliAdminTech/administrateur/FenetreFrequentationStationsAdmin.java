@@ -2,8 +2,8 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -72,23 +72,23 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.setAdministrateur(a);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdmin.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(300,30));
 		labelAdmin.setMaximumSize(new Dimension(550,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,50));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(700,350));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
-		centerNorth.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
-		labelMsg.setFont(FenetreAuthentificationUtil.POLICE2);
+		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
+		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
@@ -102,7 +102,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		JComboBox periodeARemplir = new JComboBox(model);
 		periodeARemplir.setPreferredSize(new Dimension(250,30));
 		periodeARemplir.setMaximumSize(new Dimension(250,30));
-		periodeARemplir.setFont(FenetreAuthentificationUtil.POLICE3);
+		periodeARemplir.setFont(UtilitaireIhm.POLICE3);
 		periodeARemplir.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent ae){
@@ -118,18 +118,18 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
-		centerWest.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerWest.add(periodeARemplir);
 
 		center.add(centerWest,BorderLayout.WEST);
 
 		JPanel centerEast = new JPanel();
-		centerEast.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(200,350));
 		boutonValider.setPreferredSize(new Dimension(80,40));
 		boutonValider.setMaximumSize(new Dimension(80,40));
 		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
 		centerEast.add(boutonValider);
 		center.add(centerEast,BorderLayout.EAST);
@@ -138,14 +138,14 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,100));
-		south.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
-		panel11.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
-		boutonRetour.setFont(FenetreAuthentificationUtil.POLICE3);
+		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		panel11.add(boutonRetour);

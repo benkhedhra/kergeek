@@ -4,9 +4,9 @@ import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
 import ihm.appliAdminTech.FenetreConfirmation;
-import ihm.appliUtil.FenetreAuthentificationUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -89,11 +89,11 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		this.getContentPane().setLayout(new BorderLayout());
 
 		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdminTech.setFont(FenetreAuthentificationUtil.POLICE4);
+		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
 		labelAdminTech.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
-		north.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdminTech);
 		this.add(north, BorderLayout.NORTH);
 
@@ -118,7 +118,7 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		boutonOui.addActionListener(this);
 		boutonNon.addActionListener(this);
 		JPanel center = new JPanel();
-		center.setBackground(FenetreAuthentificationUtil.TRANSPARENCE);
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelConfirm);
 		center.add(boutonOui);
 		center.add(boutonNon);
