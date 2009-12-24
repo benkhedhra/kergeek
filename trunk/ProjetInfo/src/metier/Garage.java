@@ -20,7 +20,7 @@ public class Garage extends Lieu{
 	}
 
 
-	//Methodes
+	//Méthodes
 	
 	public static Garage getInstance(){
 		if (garage == null){

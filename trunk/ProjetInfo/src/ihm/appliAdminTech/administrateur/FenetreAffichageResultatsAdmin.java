@@ -63,7 +63,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 	private JButton bouton3 = new JButton("");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}

@@ -27,7 +27,7 @@ public class Station extends Lieu {
 		this.setCapacite(capacite);
 	}
 	
-	//Methodes
+	//Méthodes
 	
 	public String toString(){
 		return this.getId() +" - "+ this.getAdresse();

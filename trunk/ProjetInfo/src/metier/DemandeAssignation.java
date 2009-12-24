@@ -54,36 +54,39 @@ public class DemandeAssignation {
 	//Constructeurs
 
 	/**
+	 * Constructeur par dÈfaut d'une DemandeAssignation.
+	 */
+	public DemandeAssignation(){
+		super();
+	}
+	
+	/**
 	 * CrÈation d'une DemandeAssignation à partir d'un {@link DemandeAssignation#nombreVelosVoulusDansLieu}
 	 *  et d'un {@link DemandeAssignation#lieu}, la {@link DemandeAssignation#date} est initialisÈe ‡ la date système
 	 *  et la nouvelle DemandeAssignation n'est pas encore {@link DemandeAssignation#priseEnCharge} .
+	 *  @param nombre
+	 *  DemandeAssignation#nombreVelosVoulusDansLieu
+	 *  @param lieu
 	 */
 	public DemandeAssignation(int nombre, Lieu lieu) {
 		this.setDate(UtilitaireDate.dateCourante());
 		this.setPriseEnCharge(false);
 		this.setNombreVelosVoulusDansLieu(nombre);
 		this.setLieu(lieu);
-	}
+	}	
+
+
+	// Accesseurs et Mutateurs
 
 	/**
-	 * Constructeur vide d'une DemandeAssignation.
-	 */
-	public DemandeAssignation(){
-		super();
-	}
-
-
-	// Accesseurs
-
-	/**
-	 * @return l'{@link DemandeAssignation#id} du compte
+	 * @return {@link DemandeAssignation#id}
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * Initialise l'{@link DemandeAssignation#id} de la DemandeAssignation
+	 * Initialise le {@link DemandeAssignation#id}
 	 * @param id
 	 * l'identifiant de la DemandeAssignation
 	 */
@@ -93,14 +96,14 @@ public class DemandeAssignation {
 
 
 	/**
-	 * @return l'{@link DemandeAssignation#date} de la DemandeAssignation
+	 * @return {@link DemandeAssignation#date}
 	 */
 	public Date getDate() {
 		return date;
 	}
 
 	/**
-	 * Initialise l'{@link DemandeAssignation#date} de la DemandeAssignation
+	 * Initialise la {@link DemandeAssignation#date}
 	 * @param date
 	 * la date de la DemandeAssignation
 	 */
@@ -108,25 +111,30 @@ public class DemandeAssignation {
 		this.date = date;
 	}
 
-
+	/**
+	 * @return {@link DemandeAssignation#priseEnCharge}
+	 */
 	public Boolean isPriseEnCharge() {
 		return priseEnCharge;
 	}
 
-
+	/**
+	 * Initialise le {@link DemandeAssignation#priseEnCharge}
+	 * @param priseEnCharge
+	 */
 	public void setPriseEnCharge(boolean priseEnCharge) {
 		this.priseEnCharge = priseEnCharge;
 	}
 
 	/**
-	 * @return le {@link DemandeAssignation#nombreVelosVoulusDansLieu} de la DemandeAssignation
+	 * @return {@link DemandeAssignation#nombreVelosVoulusDansLieu}
 	 */
 	public int getNombreVelosVoulusDansLieu() {
 		return nombreVelosVoulusDansLieu;
 	}
 
 	/**
-	 * Initialise le {@link DemandeAssignation#nombreVelosVoulusDansLieu} de la DemandeAssignation
+	 * Initialise le {@link DemandeAssignation#nombreVelosVoulusDansLieu}
 	 * @param nombreVelos
 	 * le nombre de vÈlos souhaîtÈ dans le lieu 
 	 */
@@ -135,7 +143,7 @@ public class DemandeAssignation {
 	}
 
 	/**
-	 * @return le {@link DemandeAssignation#lieu} de la DemandeAssignation
+	 * @return {@link DemandeAssignation#lieu}
 	 * @see Lieu
 	 */
 	public Lieu getLieu() {
@@ -143,7 +151,7 @@ public class DemandeAssignation {
 	}
 
 	/**
-	 * Initialise le {@link DemandeAssignation#lieu} de la DemandeAssignation
+	 * Initialise le {@link DemandeAssignation#lieu}
 	 * @param lieu
 	 * le lieu concernÈ par la DemandeAssignation
 	 * @see Lieu

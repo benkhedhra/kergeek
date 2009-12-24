@@ -58,7 +58,7 @@ public class Emprunt {
 
 
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	public String getId() {
 		return id;
@@ -114,7 +114,7 @@ public class Emprunt {
 	}
 
 
-	//Methodes
+	//Méthodes
 
 	public long getTempsEmprunt() throws PasDeDateRetourException{
 		long diff;

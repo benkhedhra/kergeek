@@ -16,7 +16,7 @@ public class Sortie extends Lieu {
 		this.setAdresse(Lieu.ADRESSE_SORTIE);
 	}
 	
-//Methodes
+	//Méthodes
 	
 	public static Sortie getInstance(){
 		if (sortie == null){

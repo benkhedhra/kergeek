@@ -25,7 +25,7 @@ public abstract class Lieu {
 	//pas de constructeur puisqu'il s'agit d'une classe abstraite
 
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	public String getId() {
 		return id;
