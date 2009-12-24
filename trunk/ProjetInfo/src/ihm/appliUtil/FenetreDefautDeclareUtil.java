@@ -1,9 +1,5 @@
 package ihm.appliUtil;
 
-import gestionBaseDeDonnees.DAODemandeIntervention;
-import gestionBaseDeDonnees.DAOVelo;
-import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
-import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 
 import java.awt.BorderLayout;
@@ -11,52 +7,63 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import metier.DemandeIntervention;
 import metier.Utilisateur;
-import metier.Velo;
 
-public class FenetreEmpruntCourt extends JFrame implements ActionListener {
+/**
+ * FenetreDefautDeclareUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de déclarer un défaut sur un vélo suite à un emprunt court
+ * elle propose à l'utilisateur d'emprunter un autre vélo
+ * cette fenêtre est propre à l'application Utilisateur
+ * @author KerGeek
+ */
+public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Utilisateur utilisateur;
-	private Velo velo;
 	private JLabel labelUtil = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JButton boutonOui = new JButton("OUI");
 	private JButton boutonNon = new JButton("NON (Déconnexion)");
 
+	/**
+	 * @return le {@link Utilisateur} de la FenetreDefautDeclareUtil 
+	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
+	/**
+	 * Initialise le {@link Utilisateur} de la FenetreDefautDeclareUtil
+	 * @param utilisateur
+	 * le nouvel utilisateur de la FenetreDefautDeclareUtil
+	 * @see Utilisateur
+	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	
-	public Velo getVelo() {
-		return velo;
-	}
 
-	public void setVelo(Velo velo) {
-		this.velo = velo;
-	}
+	/**
+	 * constructeur de FenetreDefautDeclareUtil
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 * @param u : l'utilisateur connecté à l'application
+	 */
+	public FenetreDefautDeclareUtil (Utilisateur u) {
 
-	public FenetreEmpruntCourt (Utilisateur u,Velo v){
-
-		this.setContentPane(new Panneau());
-		System.out.println("Le temps d'emprunt a été très court");
+		this.setContentPane(new PanneauUtil());
+		System.out.println("Fenêtre proposant emprunt après déclaration d'un vélo défectueux");
 		//Définit un titre pour notre fenêtre
-		this.setTitle("Temps d'emprunt < 2 minutes");
+		this.setTitle("Fenêtre défaut déclaré");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
@@ -72,8 +79,7 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 
 		this.setUtilisateur(u);
-		this.setVelo(v);
-		
+
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
@@ -83,8 +89,8 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		north.add(labelUtil);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
-		labelMsg.setText("Vous avez emprunté ce vélo pendant un laps de temps très court. Souhaitez-vous signaler un défaut sur celui-ci ? ");
-		labelMsg.setPreferredSize(new Dimension(650,30));
+		labelMsg.setText("La présence d’un défaut a bien été signalée. Souhaitez-vous emprunter un autre vélo ? ");
+		labelMsg.setPreferredSize(new Dimension(550,30));
 		boutonOui.setPreferredSize(new Dimension(150,50));
 		boutonOui.setBackground(Color.CYAN);
 		boutonNon.setPreferredSize(new Dimension(150,50));
@@ -102,24 +108,16 @@ public class FenetreEmpruntCourt extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Override
+	 * cette méthode est exécutée si l'utilisateur a cliqué sur l'un des deux boutons qui lui étaient proposés
+	 * s'il a cliqué sur "Oui", une nouvelle FenetreEmprunterVeloUtil s'ouvre
+	 * s'il a cliqué sur "Non", une nouvelle FenetreConfirmationUtil s'ouvre indiquant un message d'au-revoir à l'utilisateur
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){
-			this.getVelo().setEnPanne(true);
-			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),velo);
-			try {
-				DAODemandeIntervention.createDemandeIntervention(demande);
-				DAOVelo.updateVelo(this.getVelo());
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-			}
-			catch (ConnexionFermeeException e3){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentificationUtil(false);
-			}
-			new FenetreDefautDeclare(this.getUtilisateur());
+			new FenetreEmprunterVeloUtil(utilisateur);
 		}
 		else if (arg0.getSource()==boutonNon){
 			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");

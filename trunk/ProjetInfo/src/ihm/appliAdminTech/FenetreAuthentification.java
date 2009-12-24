@@ -8,7 +8,7 @@ import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
-import ihm.appliUtil.Panneau;
+import ihm.appliUtil.PanneauUtil;
 import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.BorderLayout;
@@ -55,7 +55,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	private JButton boutonValider = new JButton ("Valider");
 
 	/**
-	 * constructeur
+	 * constructeur de FenetreAuthentification
 	 * @param erreurAuthent : vaut true si l'individu a déjà essayé de s'identifier précédemment sans succès
 	 * @see BorderLayout
 	 * @see JPanel
@@ -68,7 +68,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		System.out.println("Ouverture d'une fenêtre d'authentification de l'appli admin tech");
 
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		this.setTitle("Authentification");
 		Dimension d=getToolkit().getScreenSize();
 		this.setPreferredSize(d);

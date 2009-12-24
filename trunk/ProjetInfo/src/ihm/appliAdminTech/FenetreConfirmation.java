@@ -81,7 +81,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	// Accesseurs utiles
 
 	/**
-	 * @return	le {@link Administrateur#compte} de l'Administrateur connecté ou le {@link Technicien#compte} du Technicien connecté 
+	 * @return	le {@link Administrateur#compte} de l'Administrateur connecté ou le {@link Technicien#compte} du Technicien connecté sur la FenetreConfirmation
 	 */
 	public Compte getCompte() {
 		return compte;

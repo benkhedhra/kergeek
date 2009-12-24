@@ -17,29 +17,62 @@ import javax.swing.JPanel;
 
 import metier.Utilisateur;
 
-public class MenuUtilisateur extends JFrame implements ActionListener {
+/**
+ * MenuUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre propose à l'utilisateur connecté le seul choix possible compte tenu de s'il a un emprunt en cours ou non
+ * elle propose aussi à l'utilisateur de se déconnecter
+ * cette fenêtre est propre à l'application Utilisateur
+ * @author KerGeek
+ */
+public class MenuUtil extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
+	
+	/**
+	 * attributs privés : composants de la fenêtre
+	 */
+	private Utilisateur utilisateur;
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JButton boutonChoix = new JButton("");
 	Boolean empruntEnCours=false;
 
+	// Accesseurs utiles
+	
+	/**
+	 * @return le {@link Utilisateur} du MenuUtil 
+	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
+
+	/**
+	 * Initialise le {@link Utilisateur} du MenuUtil
+	 * @param utilisateur
+	 * 
+	 * le nouvel utilisateur du MenuUtil
+	 * @see Utilisateur
+	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+	
+	/**
+	 * constructeur de MenuUtil
+	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
 
-	public MenuUtilisateur (Utilisateur u){
+	public MenuUtil (Utilisateur u){
 		
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		System.out.println("Affichage du menu de l'utilisateur");
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu de l'utilisateur");
@@ -96,19 +129,27 @@ public class MenuUtilisateur extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Override
+	 * méthode exécutée lorsque l'utilisateur connecté à cliqué sur l'un des boutons qui lui étaient proposés
+	 * s'il a cliqué sur le bouton "Déconnexion", la fenêtre  courante se ferme et une fenêtre d'au-revoir apparaît
+	 * sinon c'est qu'il a cliqué sur "Rendre" ou "!emprunter" un vélo, selon qu'il a un emprunt en cours ou non
+	 * @see FenetreRendreVeloUtil
+	 * @see FenetreEmprunterVeloUtil
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonDeconnexion){
 			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
 		else if(!empruntEnCours){
-			FenetreEmprunterVelo f = new FenetreEmprunterVelo(this.getUtilisateur());
+			FenetreEmprunterVeloUtil f = new FenetreEmprunterVeloUtil(this.getUtilisateur());
 			f.setVisible(true);
 		}
 		else if (empruntEnCours){
-			FenetreRendreVelo f;
+			FenetreRendreVeloUtil f;
 			try {
-				f = new FenetreRendreVelo(this.getUtilisateur());
+				f = new FenetreRendreVeloUtil(this.getUtilisateur());
 				f.setVisible(true);
 			} catch (ConnexionFermeeException e3){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
