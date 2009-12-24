@@ -73,6 +73,12 @@ public class Compte {
 	//Constructeurs
 
 	/**
+	 * Constructeur par défaut d'un compte.
+	 */
+	public Compte() {
+	}
+	
+	/**
 	 * Création d'un compte à partir d'un {@link Compte#type} et d'une {@link Compte#adresseEmail}, 
 	 * automatiquement initialisé actif et dont le {@link Compte#motDePasse} est généré automatiquement.
 	 * @param type
@@ -86,16 +92,9 @@ public class Compte {
 		this.setAdresseEmail(adresseEmail);
 	}
 
-	/**
-	 * Constructeur vide d'un compte.
-	 */
-	public Compte() {
-	}
-
-
 	
 	
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	/**
 	 * @return l'{@link Compte#id} du compte
@@ -181,7 +180,7 @@ public class Compte {
 		this.adresseEmail = adresseEmail;
 	}
 
-	//methodes
+	//Méthodes
 	/**
 	 * Génère automatiquement un mot de passe pour le compte en question et initialise l'attribut motDePasse de celui-ci.
 	 * 

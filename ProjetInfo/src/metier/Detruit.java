@@ -23,7 +23,7 @@ public class Detruit extends Lieu{
 	}
 
 
-	//Methodes
+	//Méthodes
 	
 	public static Detruit getInstance(){
 		if (detruit == null){

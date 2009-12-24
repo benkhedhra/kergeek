@@ -29,7 +29,7 @@ public class TypeIntervention {
 	}
 
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	public int getType() {
 		return type;

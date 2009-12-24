@@ -58,7 +58,7 @@ public class Utilisateur {
 		this.setEmpruntEnCours(null);
 	}
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	public Compte getCompte() {
 		return compte;

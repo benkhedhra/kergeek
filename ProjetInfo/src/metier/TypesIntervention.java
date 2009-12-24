@@ -18,7 +18,7 @@ public class TypesIntervention {
 	}
 
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	public Map<Integer,String> getTypesIntervention() {
 		return typesIntervention;
@@ -29,7 +29,7 @@ public class TypesIntervention {
 		this.typesIntervention = typesIntervention;
 	}
 
-	//Methodes
+	//Méthodes
 
 	public int getType(String description) {
 		int id = 0;

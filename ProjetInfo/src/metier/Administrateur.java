@@ -29,7 +29,13 @@ public class Administrateur {
 
 	// Constructeurs
 
-
+	/**
+	 * Constructeur par défaut d'un Administrateur.
+	 */
+	public Administrateur() {
+		super();
+	}
+	
 	/**
 	 * Constructeur d'initialisation d'Administrateur.
 	 * L'objet administrateur est créé à partir d'un compte
@@ -42,28 +48,20 @@ public class Administrateur {
 	public Administrateur(Compte compte) {
 		this.setCompte(compte);
 	}
-	
-	
-	/**
-	 * Constructeur vide d'un Administrateur.
-	 */
-	public Administrateur() {
-		super();
-	}
 
 
 
-	// Accesseurs et modificateurs
+	// Accesseurs et Mutateurs
 
 	/**
-	 * @return le {@link Administrateur#compte} de l'Administrateur. 
+	 * @return {@link Administrateur#compte} 
 	 */
 	public Compte getCompte() {
 		return this.compte;
 	}
 
 	/**
-	 * Initialise le {@link Administrateur#compte} de l'Administrateur.
+	 * Initialise {@link Administrateur#compte}.
 	 * @param compte
 	 * le nouveau compte de l'administrateur
 	 * @see Compte
@@ -72,7 +70,9 @@ public class Administrateur {
 		this.compte = compte;
 	}
 
-	// Methodes
+	
+	
+	//Méthodes
 
 	/**
 	 * Crée un compte, pour un futur Utilisateur du parc à velos par exemple, 
@@ -161,7 +161,7 @@ public class Administrateur {
 		compte.setActif(false);
 	}
 
-	// editerCompte() correspond a l'ensemble des setters!
+	// Le cas d'utilisation editerCompte() correspond a l'ensemble des setters!
 
 	/**
 	 * Crée une demande d'assignation, c'est-à-dire une demande de déplacement de vélos 
@@ -199,6 +199,7 @@ public class Administrateur {
 	}
 
 	/**
+	 * @return l'identifiant du compte de l'administrateur suivi de son adresse email
 	 * @see Compte#toString()
 	 */
 	@Override

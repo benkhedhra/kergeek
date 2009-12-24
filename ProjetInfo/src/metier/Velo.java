@@ -28,7 +28,7 @@ public class Velo {
 
 
 
-	//Accesseurs
+	//Accesseurs et Mutateurs
 
 	public String getId() {
 		return id;

@@ -83,7 +83,7 @@ public class Technicien {
 		this.compte = compte;
 	}
 
-	// Methodes
+	//Méthodes
 
 	/**
 	 * Ajoute un vélo 
