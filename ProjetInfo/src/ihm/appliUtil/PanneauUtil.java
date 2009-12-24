@@ -8,13 +8,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class Panneau extends JPanel {
+public class PanneauUtil extends JPanel {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * méthode qui sera appelé par défaut à chaque construction d'un nouveau panneau et qui peint l'image velo3.jpg en image de fond
+	 */
 	public void paintComponent(Graphics g){
 
 		try {

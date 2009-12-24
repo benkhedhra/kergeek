@@ -37,15 +37,24 @@ import metier.Velo;
 import metier.exceptionsMetier.PasDeDateRetourException;
 import metier.exceptionsMetier.PasDeVeloEmprunteException;
 
+/**
+ * FenetreRendreVeloUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de manifester son intention de rendre son vélo dans son menu
+ * elle demande à l'utilisateur de sélectionner la station où il se trouve et dans laquelle il désire rendre son vélo
+ * cette fenêtre est propre à l'application Utilisateur
+ * @author KerGeek
+ */
+public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
-public class FenetreRendreVelo extends JFrame implements ActionListener {
+	/**
+	 * attribut de sérialisation par défaut
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
+	private Utilisateur utilisateur;
 	private JLabel labelUtil = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JButton boutonValider = new JButton("Valider");
@@ -53,26 +62,60 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 	private Station stationEntree;
 	private Velo velo;
 
+	// Accesseurs utiles
+
+	/**
+	 * @return le {@link Utilisateur} de la FenetreRendreVeloUtil 
+	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
+
+	/**
+	 * Initialise le {@link Utilisateur} de la FenetreRendreVeloUtil
+	 * @param utilisateur
+	 * 
+	 * le nouvel utilisateur de la FenetreRendreVeloUtil
+	 * @see Utilisateur
+	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 
+	/**
+	 * @return le {@link Velo} qui vient d'être rendu plus de 2 heures après avoir été emprunté
+	 */
 	public Velo getVelo() {
 		return velo;
 	}
 
+	/**
+	 * Initialise le {@link Velo} de la FenetreRendreVeloUtil
+	 * @param utilisateur
+	 * le nouveau vélo de la FenetreRendreVeloUtil
+	 * @see Utilisateur
+	 */
 	public void setVelo(Velo velo) {
 		this.velo = velo;
 	}
 
-	public FenetreRendreVelo(Utilisateur u) throws ConnexionFermeeException {
+
+	/**
+	 * constructeur de FenetreRendreVeloUtil
+	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+
+	public FenetreRendreVeloUtil(Utilisateur u) throws ConnexionFermeeException {
 
 		System.out.println("Fenêtre pour rendre un vélo");
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Rendre un vélo");
 		//Définit une taille pour celle-ci
@@ -164,14 +207,28 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 	}
 
 
+	/**
+	 * Override
+	 * cette méthode est appelée lorsque l'utilisateur a cliqué sur un des deux boutons "Valider" ou "Déconnexion"
+	 * s'il a validé, le vélo est rendu à la station et l'emprunt est mis à jour (date et lieu de retour)
+	 * sinon, l'utilisateur est déconnecté et une fenêtre d'au-revoir apparaît
+	 * si après le rendu du vélo la station n'a plus d'emplacement libre un mail est envoyé à l'ensemble des admin et des tech
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws PasDeVeloEmprunteException
+	 * @throws PasDeDateRetourException
+	 * @throws ConnexionFermeeException
+	 * @throws UnsupportedEncodingException
+	 * @throws MessagingException
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if (arg0.getSource()==boutonDeconnexion){
-			new FenetreConfirmationUtil("Merci et à bientôt ! ");
-		}
-		else if (arg0.getSource()==boutonValider){
-			if(stationEntree!=null){
-				try{
+		try{
+			if (arg0.getSource()==boutonDeconnexion){
+				new FenetreConfirmationUtil("Merci et à bientôt ! ");
+			}
+			else if (arg0.getSource()==boutonValider){
+				if(stationEntree!=null){
 					System.out.println(stationEntree);
 					if (UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
 						Emprunt emprunt = this.getUtilisateur().rendreVelo(stationEntree);
@@ -183,12 +240,12 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 							if(b){
 								if (emprunt.getTempsEmprunt()<Emprunt.TPS_EMPRUNT_MIN){
 									//emprunt trop court
-									new FenetreEmpruntCourt(this.getUtilisateur(),this.getVelo());
+									new FenetreEmpruntCourtUtil(this.getUtilisateur(),this.getVelo());
 								}
 
 								else if (this.getUtilisateur().isBloque()){
 									//emprunt trop long
-									new FenetreEmpruntLong(this.getUtilisateur());
+									new FenetreEmpruntLongUtil(this.getUtilisateur());
 									DAOUtilisateur.updateUtilisateur(this.getUtilisateur());
 								}
 
@@ -201,14 +258,14 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 							else{
 								System.out.println("Le vélo n'a pas été rendu");
 								this.labelMsg.setText("Le vélo n'a pas été rendu");
-								new FenetreRendreVelo(this.getUtilisateur());
+								new FenetreRendreVeloUtil(this.getUtilisateur());
 							}
 						}
 						//on vérifie si la station est maintenant pleine
 						if(!UtilitaireIhm.verifieSiPlaceDisponibleDansStation(stationEntree)){
 							List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
 							List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
-							
+
 							String adresseEMail;
 							for (Technicien t : listeTech){
 								adresseEMail = t.getCompte().getAdresseEmail();
@@ -228,41 +285,34 @@ public class FenetreRendreVelo extends JFrame implements ActionListener {
 						}
 						else if(i==listeStations.size()-1){
 							new FenetreConfirmationUtil("<html><center>Il n'y a plus de places disponibles dans cette station. <br> La station la plus proche est : <br>"+listeStations.get(i-1).getAdresse()+"<br>Au revoir et à bientôt !<center></html>");
-							}
+						}
 						else{
 							new FenetreConfirmationUtil("<html><center>Il n'y a plus de places disponibles dans cette station. <br> Les stations les plus proches sont : <br>"+listeStations.get(i-1).getAdresse()+"<br>"+listeStations.get(i+1).getAdresse()+"<br>Au revoir et à bientôt !<center></html>");
 						}
 					}
-				} catch (SQLException e) {
-					MsgBox.affMsg("SQL exception " + e.getMessage());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg("ClassNotFound " + e.getMessage());
-				} catch (PasDeVeloEmprunteException e) {
-					MsgBox.affMsg("PasDeVeloEmprunte " + e.getMessage());
-				} catch (PasDeDateRetourException e) {
-					MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
 				}
-				catch (ConnexionFermeeException e3){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentificationUtil(false);
-				} catch (UnsupportedEncodingException e) {
-					MsgBox.affMsg("UnsupportedEncodingException : "+e.getMessage());
-					new FenetreAuthentificationUtil(false);
-				} catch (MessagingException e) {
-					MsgBox.affMsg("MessagingException : "+e.getMessage());
-					new FenetreAuthentificationUtil(false);
+				else{
+					MsgBox.affMsg("Aucune station sélectionnée");
+					new FenetreRendreVeloUtil(this.getUtilisateur());
 				}
 			}
-			else{
-				MsgBox.affMsg("Aucune station sélectionnée");
-				try {
-					new FenetreRendreVelo(this.getUtilisateur());
-				}
-				catch (ConnexionFermeeException e3){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentificationUtil(false);
-				}
-			}
+		} catch (SQLException e) {
+			MsgBox.affMsg("SQL exception " + e.getMessage());
+		} catch (ClassNotFoundException e) {
+			MsgBox.affMsg("ClassNotFound " + e.getMessage());
+		} catch (PasDeVeloEmprunteException e) {
+			MsgBox.affMsg("PasDeVeloEmprunte " + e.getMessage());
+		} catch (PasDeDateRetourException e) {
+			MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
+		} catch (ConnexionFermeeException e3){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentificationUtil(false);
+		} catch (UnsupportedEncodingException e) {
+			MsgBox.affMsg("UnsupportedEncodingException : "+e.getMessage());
+			new FenetreAuthentificationUtil(false);
+		} catch (MessagingException e) {
+			MsgBox.affMsg("MessagingException : "+e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		}
 
 	}

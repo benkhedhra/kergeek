@@ -5,8 +5,11 @@ import gestionBaseDeDonnees.DAOCompte;
 import gestionBaseDeDonnees.DAOUtilisateur;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
+import ihm.PasswordFieldLimite;
 import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
+import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
+import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,6 +29,13 @@ import javax.swing.JPanel;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 
+/**
+ * FenetreAuthentificationUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre permet à un utilisateur du parc de s'authentifier en entrant son identifiant
+ * cette fenêtre est propre à l'application Utilisateur
+ * @see MenuUtil
+ * @author KerGeek
+ */
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
 	/**
@@ -33,17 +43,30 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * liste des attributs privés : composants de la fenêtre
+	 */
 	private JLabel labelBienvenue = new JLabel("");
 	private JLabel labelInvitation = new JLabel("");
 	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
 	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonInfo = new JButton ("Plus d'informations ... ");
 
+	/**
+	 * constructeur
+	 * @param erreurAuthent : vaut true si l'utilisateur a déjà essayé de s'identifier précédemment sans succès
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see TextFieldLimite
+	 * @see PasswordFieldLimite
+	 * @see JButton
+	 */
 	public FenetreAuthentificationUtil(Boolean erreurAuthent){
 
 		System.out.println("Ouverture d'une fenêtre d'authentification de l'utilisateur");
 
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		this.setTitle("Authentification");
 		this.setSize(new Dimension(700,500));		
 		this.setMinimumSize(new Dimension(700,500));
@@ -115,10 +138,25 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	}
 
+	/**
+	 * @return l'utilisateur une fois qu'il est correctement authentifié
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
+
 	public Utilisateur getUtilisateur() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return gestionBaseDeDonnees.DAOUtilisateur.getUtilisateurById(idARemplir.getText());
 	}
 
+	/**
+	 * méthode permettant de tester le champ entré par l'utilisateur qui cherche à s'identifier à la borne
+	 * @param idUtilisateur : l'identifiant entré par l'utilisateur
+	 * @return un booléen valant true si l'identifiant entré correspond bien à un utilisateur existant dans la base de données
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public boolean testerIdent (String idUtilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean resul;
 		if(DAOCompte.estDansLaBddUtil(idUtilisateur)){resul=true;}
@@ -126,6 +164,17 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		return resul;
 	}
 
+	/**
+	 * Override
+	 * méthode exécutée une fois que l'utilisateur à la borne a cliqué sur le bouton "Valider"
+	 * ferme la fenêtre courante et ouvre la fenêtre suivante
+	 * il s'agit du menu de l'utilisateur si celui-ci s'est correctement authentifié
+	 * d'une fenêtre lui indiquant que son compte est bloqué s'il s'est correctement identifié mais que son compte est bloqué
+	 * d'une nouvelle fenêtre d'authentification si l'identifiant entré ne correspond à aucun utilisateur
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
@@ -146,7 +195,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 						}
 					}
 					if(!u.isBloque()){
-						new MenuUtilisateur(u);
+						new MenuUtil(u);
 					}
 					else{
 						Date dateLimite = UtilitaireDate.ajouteJours(dateDernierRetour,7);

@@ -15,28 +15,61 @@ import javax.swing.JPanel;
 
 import metier.Utilisateur;
 
-public class FenetreEmpruntLong extends JFrame implements ActionListener {
+/**
+ * FenetreEmpruntLongUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de rendre un vélo plus de 2 h après l'avoir emprunté
+ * elle informe l'utilisateur que son compte sera bloqué pendant 7 jours
+ * l'utilisateur doit cliquer sur un bouton de déconnexion pour montrer qu'il a bien pris connaissance du message
+ * cette fenêtre est propre à l'application Utilisateur
+ * @author KerGeek
+ */
+public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-	private Utilisateur utilisateur = LancerAppliUtil.UTEST;
+	
+	/**
+	 * attributs privés : composants de la fenêtre
+	 */
+	private Utilisateur utilisateur;
 	private JLabel labelUtil = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 
+	// Accesseurs utiles
+	
+	/**
+	 * @return le {@link Utilisateur} de la FenetreEmpruntLongUtil 
+	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
+
+	/**
+	 * Initialise le {@link Utilisateur} de la FenetreEmpruntLongUtil
+	 * @param utilisateur
+	 * 
+	 * le nouvel utilisateur de la FenetreEmpruntLongUtil
+	 * @see Utilisateur
+	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+	
+	/**
+	 * constructeur de FenetreEmpruntLongUtil
+	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
+	public FenetreEmpruntLongUtil (Utilisateur u){
 
-	public FenetreEmpruntLong (Utilisateur u){
-
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		System.out.println("Temps d'emprunt trop long");
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Temps d'emprunt > 2 heures");
@@ -83,14 +116,15 @@ public class FenetreEmpruntLong extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Override
+	 * cette méthode est appelée lorsque l'utilisateur a cliqué sur le bouton "Déconnexion"
+	 * elle ferme la fenêtre courante et ouvre une nouvelle fenêtre d'au-revoir
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonDeconnexion){
 			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
-	}
-	
-	public static void main (String[]args){
-		new FenetreEmpruntLong(LancerAppliUtil.UTEST);
 	}
 }

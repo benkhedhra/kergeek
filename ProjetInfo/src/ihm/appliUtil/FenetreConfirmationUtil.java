@@ -13,20 +13,37 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * FenetreConfirmationUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre permet d'afficher un message à l'utilisateur qui vient de terminer à son action et qui est donc déconnecté
+ * cette fenêtre est propre à l'application Utilisateur
+ * @author KerGeek
+ */
 public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * liste des attributs privés : composants de la fenêtre
+	 */
 	private JLabel labelUtil = new JLabel ("Vous êtes à présent déconnecté");
 	private JLabel labelConfirm = new JLabel("");
 	private JButton boutonAuthentification = new JButton("Nouvelle authentification");
 
+	/**
+	 * constructeur
+	 * @param msg : le message à afficher dans la fenêtre
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
 	public FenetreConfirmationUtil(String msg){
 
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		System.out.println("Ecran de confirmation");
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Ecran de confirmation");
@@ -82,7 +99,12 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		}*/
 	}
-
+	
+	/**
+	 * Override
+	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Nouvelle identification"
+	 * ferme la fenêtre en cours et ouvre une nouvelle fenêtre d'authentification
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonAuthentification){

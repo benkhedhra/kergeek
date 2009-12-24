@@ -1,15 +1,14 @@
 package ihm.appliUtil;
 
-import metier.Compte;
-import metier.Utilisateur;
 
-
+/**
+ * classe ne comportant qu'un main permettant de lancer l'application de l'utilisateur
+ * cette application simule une borne présente à une station
+ * @author KerGeek
+ *
+ */
 public class LancerAppliUtil {
-
-	public static Utilisateur UTEST = new Utilisateur(new Compte(Compte.TYPE_UTILISATEUR,"utest@gmail.com"),"Test","Utilisateur","1 rue des Lilas");
-
 	public static void main(String[] args) {
-
 		new FenetreAuthentificationUtil(false);
 
 	}

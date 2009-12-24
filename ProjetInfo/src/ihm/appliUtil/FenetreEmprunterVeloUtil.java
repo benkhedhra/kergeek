@@ -32,32 +32,63 @@ import metier.Utilisateur;
 import metier.Velo;
 import metier.exceptionsMetier.CompteBloqueException;
 
-
-public class FenetreEmprunterVelo extends JFrame implements ActionListener {
+/**
+ * FenetreEmprunterVeloUtil hérite de JFrame et implémente ActionListener
+ * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de manifester son intention d'emprunter un vélo dans son menu
+ * elle demande à l'utilisateur d'entrer l'identifiant du vélo qu'il désire emprunter
+ * cette fenêtre est propre à l'application Utilisateur
+ * @author KerGeek
+ */
+public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Utilisateur u;
+	/**
+	 * attributs privés : composants de la fenêtre
+	 */
+	private Utilisateur utilisateur;
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JLabel labelVelo = new JLabel ("Veuillez entrer l'identifiant du vélo emprunté");
 	private TextFieldLimite veloARemplir = new TextFieldLimite(4,"");
 	private JButton boutonValider = new JButton ("Valider");
 
+	// Accesseurs utiles
+		
+	/**
+	 * @return le {@link Utilisateur} de la FenetreEmprunterVeloUtil 
+	 */
 	public Utilisateur getUtilisateur() {
-		return u;
+		return utilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur u) {
-		this.u = u;
+
+	/**
+	 * Initialise le {@link Utilisateur} de la FenetreEmprunterVeloUtil
+	 * @param utilisateur
+	 * 
+	 * le nouvel utilisateur de la FenetreEmprunterVeloUtil
+	 * @see Utilisateur
+	 */
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
+	
+	/**
+	 * constructeur de FenetreEmprunterVeloUtil
+	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
 
-	public FenetreEmprunterVelo(Utilisateur u){
+	public FenetreEmprunterVeloUtil(Utilisateur u){
 
-		this.setContentPane(new Panneau());
+		this.setContentPane(new PanneauUtil());
 		System.out.println("Affichage de la fenêtre d'emprunt d'un vélo");
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Emprunter un vélo");
@@ -110,7 +141,20 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-
+	
+	/**
+	 * Override
+	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Valider"
+	 * la fenêtre courante se ferme et une nouvelle fenêtre adaptée s'ouvre
+	 * si le vélo entré par l'utilisateur est bien existant disponible dans la station une fenêtre de confirmation s'ouvre et le nouvel emprunt est créé
+	 * si l'identifiant du vélo entré n'est pas valide l'utilisateur est prévenu par une MsgBox adaptée
+	 * si l'utilisateur emprunte le dernier vélo de la station un e-mail est envoyé à l'ensemble des admin et des tech
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws CompteBloqueException
+	 * @throws UnsupportedEncodingException
+	 * @throws MessagingException
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		Velo velo;
 		this.dispose();
@@ -118,11 +162,11 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 			try {
 				if(!DAOVelo.existe(veloARemplir.getText())){
 					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
-					new FenetreEmprunterVelo(this.getUtilisateur());
+					new FenetreEmprunterVeloUtil(this.getUtilisateur());
 				}
 				else if(!DAOVelo.estDisponible(veloARemplir.getText())){
 					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'est pas disponible");
-					new FenetreEmprunterVelo(this.getUtilisateur());
+					new FenetreEmprunterVeloUtil(this.getUtilisateur());
 				}
 				else{
 					
@@ -132,11 +176,10 @@ public class FenetreEmprunterVelo extends JFrame implements ActionListener {
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
 					
-					u.emprunteVelo(velo);
+					this.getUtilisateur().emprunteVelo(velo);
 
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
 					DAOVelo.updateVelo(velo);
-					
 					
 					if (DAOVelo.getVelosByLieu(station).isEmpty()){
 						List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
