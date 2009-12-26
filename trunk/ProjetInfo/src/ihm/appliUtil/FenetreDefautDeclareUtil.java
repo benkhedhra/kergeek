@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import metier.Utilisateur;
 
 /**
- * FenetreDefautDeclareUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de déclarer un défaut sur un vélo suite à un emprunt court
- * elle propose à l'utilisateur d'emprunter un autre vélo
- * cette fenêtre est propre à l'application Utilisateur
+ * FenetreDefautDeclareUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre s'ouvre dans le cas où l'utilisateur vient de déclarer un défaut sur un vélo suite à un emprunt court
+ * <br>elle propose à l'utilisateur d'emprunter un autre vélo
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
@@ -35,16 +35,16 @@ public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 	private JButton boutonNon = new JButton("NON (Déconnexion)");
 
 	/**
-	 * @return le {@link Utilisateur} de la FenetreDefautDeclareUtil 
+	 * @return l'{@link Utilisateur} de la {@link FenetreDefautDeclareUtil} 
 	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
 	/**
-	 * Initialise le {@link Utilisateur} de la FenetreDefautDeclareUtil
+	 * Initialise l'{@link Utilisateur} de la {@link FenetreDefautDeclareUtil}
 	 * @param utilisateur
-	 * le nouvel utilisateur de la FenetreDefautDeclareUtil
+	 * le nouvel {@link Utilisateur} de la {@link FenetreDefautDeclareUtil}
 	 * @see Utilisateur
 	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
@@ -52,7 +52,7 @@ public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * constructeur de FenetreDefautDeclareUtil
+	 * constructeur de {@link FenetreDefautDeclareUtil}
 	 * @see JPanel
 	 * @see JLabel
 	 * @see JButton
@@ -109,10 +109,12 @@ public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Override
+	 * @override
 	 * cette méthode est exécutée si l'utilisateur a cliqué sur l'un des deux boutons qui lui étaient proposés
-	 * s'il a cliqué sur "Oui", une nouvelle FenetreEmprunterVeloUtil s'ouvre
-	 * s'il a cliqué sur "Non", une nouvelle FenetreConfirmationUtil s'ouvre indiquant un message d'au-revoir à l'utilisateur
+	 * <br>s'il a cliqué sur "Oui", une nouvelle FenetreEmprunterVeloUtil s'ouvre
+	 * <br>s'il a cliqué sur "Non", une nouvelle FenetreConfirmationUtil s'ouvre indiquant un message d'au-revoir à l'utilisateur
+	 * @see FenetreEmprunterVeloUtil#FenetreEmprunterVeloUtil(Utilisateur)
+	 * @see FenetreConfirmationUtil#FenetreConfirmationUtil(String)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();

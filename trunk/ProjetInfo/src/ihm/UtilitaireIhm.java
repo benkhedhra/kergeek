@@ -18,13 +18,13 @@ import metier.Station;
 import metier.Velo;
 
 /** 
- * UtilitaireIhm est la classe regroupant un certain nombre de méthodes servant à vérifier la cohérence des champs entrés par rapport à un contexte donné par la fenêtre ihm en cours
+ * UtilitaireIhm est la classe regroupant les méthodes servant à vérifier la cohérence des champs entrés par rapport à un contexte donné par la fenêtre ihm en cours
  * @author KerGeek
  */
 
 public class UtilitaireIhm {
 	
-	/** Définition des objets servant à l'ensemble de l'ihm
+	/* Définition des objets servant à l'ensemble de l'ihm
 	 * polices, transparence, dimensions
 	 */
 	
@@ -40,7 +40,8 @@ public class UtilitaireIhm {
 	
 	/**
 	 * Vérifie si un entier correspond bien à un type de compte répertorié
-	 * @param un entier : type
+	 * @param type : un entier correspondant au type du {@link Compte} entré au moment de la création
+	 * 
 	 * @return un booléen
 	 * qui vaut vrai si type est bien un type de compte existant
 	 * faux sinon
@@ -64,7 +65,7 @@ public class UtilitaireIhm {
 	}
 
 	/**
-	 * Vérifie si un entier et une String peuvent correspondre à des paramètres adéquats pour construire un technicien
+	 * Vérifie si un entier et une String peuvent correspondre à des paramètres adéquats pour construire un {@link Technicien}
 	 * @param type : int
 	 * @param adresseEMail : String
 	 * @return un booléen
@@ -77,7 +78,7 @@ public class UtilitaireIhm {
 	}
 
 	/**
-	 * Vérifie si un entier et quatre String peuvent correspondre à des paramètres adéquats pour construire un utilisateur
+	 * Vérifie si un entier et quatre String peuvent correspondre à des paramètres adéquats pour construire un {@link Utilisateur}
 	 * @param type : int
 	 * @param adresseEMail : String
 	 * @param nom : String

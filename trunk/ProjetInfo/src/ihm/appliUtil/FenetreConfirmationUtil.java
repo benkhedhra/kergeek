@@ -14,9 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * FenetreConfirmationUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre permet d'afficher un message à l'utilisateur qui vient de terminer à son action et qui est donc déconnecté
- * cette fenêtre est propre à l'application Utilisateur
+ * FenetreConfirmationUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre permet d'afficher un message à l'utilisateur qui vient de terminer à son action et qui est donc déconnecté
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class FenetreConfirmationUtil extends JFrame implements ActionListener {
@@ -34,7 +34,7 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 	private JButton boutonAuthentification = new JButton("Nouvelle authentification");
 
 	/**
-	 * constructeur
+	 * constructeur de FenetreConfirmationUtil
 	 * @param msg : le message à afficher dans la fenêtre
 	 * @see BorderLayout
 	 * @see JPanel
@@ -101,9 +101,10 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * Override
+	 * @override
 	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Nouvelle identification"
-	 * ferme la fenêtre en cours et ouvre une nouvelle fenêtre d'authentification
+	 * <br>ferme la fenêtre en cours et ouvre une nouvelle fenêtre d'authentification
+	 * @see FenetreAuthentificationUtil#FenetreAuthentificationUtil(Boolean)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();

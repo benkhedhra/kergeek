@@ -38,10 +38,10 @@ import metier.exceptionsMetier.PasDeDateRetourException;
 import metier.exceptionsMetier.PasDeVeloEmprunteException;
 
 /**
- * FenetreRendreVeloUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de manifester son intention de rendre son vélo dans son menu
- * elle demande à l'utilisateur de sélectionner la station où il se trouve et dans laquelle il désire rendre son vélo
- * cette fenêtre est propre à l'application Utilisateur
+ * FenetreRendreVeloUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre s'ouvre dans le cas où l'utilisateur vient de manifester son intention de rendre son vélo dans son menu
+ * <br>elle demande à l'utilisateur de sélectionner la station où il se trouve et dans laquelle il désire rendre son vélo
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
@@ -92,9 +92,9 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
 	/**
 	 * Initialise le {@link Velo} de la FenetreRendreVeloUtil
-	 * @param utilisateur
+	 * @param velo : 
 	 * le nouveau vélo de la FenetreRendreVeloUtil
-	 * @see Utilisateur
+	 * @see Velo
 	 */
 	public void setVelo(Velo velo) {
 		this.velo = velo;
@@ -208,11 +208,15 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
 
 	/**
-	 * Override
+	 * @override
 	 * cette méthode est appelée lorsque l'utilisateur a cliqué sur un des deux boutons "Valider" ou "Déconnexion"
-	 * s'il a validé, le vélo est rendu à la station et l'emprunt est mis à jour (date et lieu de retour)
-	 * sinon, l'utilisateur est déconnecté et une fenêtre d'au-revoir apparaît
-	 * si après le rendu du vélo la station n'a plus d'emplacement libre un mail est envoyé à l'ensemble des admin et des tech
+	 * <br>s'il a validé, le vélo est rendu à la station et l'emprunt est mis à jour (date et lieu de retour)
+	 * <br>sinon, l'utilisateur est déconnecté et une fenêtre d'au-revoir apparaît
+	 * <br>si après le rendu du vélo la station n'a plus d'emplacement libre un mail est envoyé à l'ensemble des admin et des tech
+	 * @see UtilitaireIhm#verifieSiPlaceDisponibleDansStation(Station)
+	 * @see Utilisateur#rendreVelo(Station)
+	 * @see SendMail#sendMail(String, String, String)
+	 * @see FenetreConfirmationUtil#FenetreConfirmationUtil(String)
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws PasDeVeloEmprunteException
@@ -314,6 +318,5 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 			MsgBox.affMsg("MessagingException : "+e.getMessage());
 			new FenetreAuthentificationUtil(false);
 		}
-
 	}
 }

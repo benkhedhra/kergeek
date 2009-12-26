@@ -8,8 +8,6 @@ import ihm.MsgBox;
 import ihm.PasswordFieldLimite;
 import ihm.TextFieldLimite;
 import ihm.UtilitaireIhm;
-import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
-import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,16 +28,16 @@ import metier.Utilisateur;
 import metier.UtilitaireDate;
 
 /**
- * FenetreAuthentificationUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre permet à un utilisateur du parc de s'authentifier en entrant son identifiant
- * cette fenêtre est propre à l'application Utilisateur
- * @see MenuUtil
+ * FenetreAuthentificationUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre permet à un utilisateur du parc de s'authentifier en entrant son identifiant
+ * <br>cette fenêtre est propre à l'application utilisateur
+ * @see MenuUtil#MenuUtil(Utilisateur)
  * @author KerGeek
  */
 public class FenetreAuthentificationUtil extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -165,12 +163,15 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	}
 
 	/**
-	 * Override
+	 * @override
 	 * méthode exécutée une fois que l'utilisateur à la borne a cliqué sur le bouton "Valider"
-	 * ferme la fenêtre courante et ouvre la fenêtre suivante
-	 * il s'agit du menu de l'utilisateur si celui-ci s'est correctement authentifié
-	 * d'une fenêtre lui indiquant que son compte est bloqué s'il s'est correctement identifié mais que son compte est bloqué
-	 * d'une nouvelle fenêtre d'authentification si l'identifiant entré ne correspond à aucun utilisateur
+	 * <br>ferme la fenêtre courante et ouvre la fenêtre suivante
+	 * <br>il s'agit du menu de l'utilisateur si celui-ci s'est correctement authentifié
+	 * <br>d'une fenêtre lui indiquant que son compte est bloqué s'il s'est correctement identifié mais que son compte est bloqué
+	 * <br>d'une nouvelle fenêtre d'authentification si l'identifiant entré ne correspond à aucun utilisateur
+	 * @see Utilisateur#isBloque()
+	 * @see FenetreConfirmationUtil#FenetreConfirmationUtil(String)
+	 * @see MenuUtil#MenuUtil(Utilisateur)
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
