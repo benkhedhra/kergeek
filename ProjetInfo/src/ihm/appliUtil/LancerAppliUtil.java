@@ -3,7 +3,7 @@ package ihm.appliUtil;
 
 /**
  * classe ne comportant qu'un main permettant de lancer l'application de l'utilisateur
- * cette application simule une borne présente à une station
+ *<br> cette application simule une borne présente à une station
  * @author KerGeek
  *
  */

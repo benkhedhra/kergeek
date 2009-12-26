@@ -18,10 +18,10 @@ import javax.swing.JPanel;
 import metier.Utilisateur;
 
 /**
- * MenuUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre propose à l'utilisateur connecté le seul choix possible compte tenu de s'il a un emprunt en cours ou non
- * elle propose aussi à l'utilisateur de se déconnecter
- * cette fenêtre est propre à l'application Utilisateur
+ * MenuUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre propose à l'utilisateur connecté le seul choix possible compte tenu de s'il a un emprunt en cours ou non
+ * <br>elle propose aussi à l'utilisateur de se déconnecter
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class MenuUtil extends JFrame implements ActionListener {
@@ -30,7 +30,7 @@ public class MenuUtil extends JFrame implements ActionListener {
 	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * attributs privés : composants de la fenêtre
 	 */
@@ -41,7 +41,7 @@ public class MenuUtil extends JFrame implements ActionListener {
 	Boolean empruntEnCours=false;
 
 	// Accesseurs utiles
-	
+
 	/**
 	 * @return le {@link Utilisateur} du MenuUtil 
 	 */
@@ -60,7 +60,7 @@ public class MenuUtil extends JFrame implements ActionListener {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	
+
 	/**
 	 * constructeur de MenuUtil
 	 * @param u : l'utilisateur connecté sur la fenêtre
@@ -71,7 +71,7 @@ public class MenuUtil extends JFrame implements ActionListener {
 	 */
 
 	public MenuUtil (Utilisateur u){
-		
+
 		this.setContentPane(new PanneauUtil());
 		System.out.println("Affichage du menu de l'utilisateur");
 		//Définit un titre pour notre fenêtre
@@ -92,7 +92,7 @@ public class MenuUtil extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 
 		this.setUtilisateur(u);
-		
+
 		labelUtil = new JLabel("Vous êtes connecté en tant que "+ u.getPrenom()+" "+u.getNom());
 		labelUtil.setFont(UtilitaireIhm.POLICE4);
 		labelUtil.setPreferredSize(new Dimension(500,30));
@@ -112,14 +112,14 @@ public class MenuUtil extends JFrame implements ActionListener {
 		boutonChoix.setMaximumSize(new Dimension(350,100));
 		boutonChoix.setBackground(Color.CYAN);
 		boutonChoix.setFont(UtilitaireIhm.POLICE2);
-				
+
 		if (!empruntEnCours){
 			boutonChoix.setText("Emprunter un vélo");
-			}
+		}
 		else {
 			boutonChoix.setText("Rendre le vélo emprunté");
 		}
-		
+
 		boutonChoix.addActionListener(this);
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -130,33 +130,30 @@ public class MenuUtil extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Override
+	 * @override
 	 * méthode exécutée lorsque l'utilisateur connecté à cliqué sur l'un des boutons qui lui étaient proposés
-	 * s'il a cliqué sur le bouton "Déconnexion", la fenêtre  courante se ferme et une fenêtre d'au-revoir apparaît
-	 * sinon c'est qu'il a cliqué sur "Rendre" ou "!emprunter" un vélo, selon qu'il a un emprunt en cours ou non
-	 * @see FenetreRendreVeloUtil
-	 * @see FenetreEmprunterVeloUtil
+	 * <br>s'il a cliqué sur le bouton "Déconnexion", la fenêtre  courante se ferme et une fenêtre d'au-revoir apparaît
+	 * <br>sinon c'est qu'il a cliqué sur "Rendre" ou "!emprunter" un vélo, selon qu'il a un emprunt en cours ou non
+	 * @see FenetreRendreVeloUtil#FenetreRendreVeloUtil(Utilisateur)
+	 * @see FenetreEmprunterVeloUtil#FenetreEmprunterVeloUtil(Utilisateur)
+	 * @throws ConnexionFermeeException
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if (arg0.getSource()==boutonDeconnexion){
-			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
-		}
-		else if(!empruntEnCours){
-			FenetreEmprunterVeloUtil f = new FenetreEmprunterVeloUtil(this.getUtilisateur());
-			f.setVisible(true);
-		}
-		else if (empruntEnCours){
-			FenetreRendreVeloUtil f;
-			try {
-				f = new FenetreRendreVeloUtil(this.getUtilisateur());
-				f.setVisible(true);
-			} catch (ConnexionFermeeException e3){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentificationUtil(false);
+		try {
+			if (arg0.getSource()==boutonDeconnexion){
+				new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 			}
-			
+			else if(!empruntEnCours){
+				FenetreEmprunterVeloUtil f = new FenetreEmprunterVeloUtil(this.getUtilisateur());
+				f.setVisible(true);
+			}
+			else if (empruntEnCours){
+				new FenetreRendreVeloUtil(this.getUtilisateur());
+			}
+		}catch (ConnexionFermeeException e3){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentificationUtil(false);
 		}
-
 	}
 }

@@ -33,10 +33,10 @@ import metier.Velo;
 import metier.exceptionsMetier.CompteBloqueException;
 
 /**
- * FenetreEmprunterVeloUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de manifester son intention d'emprunter un vélo dans son menu
- * elle demande à l'utilisateur d'entrer l'identifiant du vélo qu'il désire emprunter
- * cette fenêtre est propre à l'application Utilisateur
+ * FenetreEmprunterVeloUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre s'ouvre dans le cas où l'utilisateur vient de manifester son intention d'emprunter un vélo dans son menu
+ * <br>elle demande à l'utilisateur d'entrer l'identifiant du vélo qu'il désire emprunter
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
@@ -143,12 +143,14 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 
 	
 	/**
-	 * Override
+	 * @override
 	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Valider"
-	 * la fenêtre courante se ferme et une nouvelle fenêtre adaptée s'ouvre
-	 * si le vélo entré par l'utilisateur est bien existant disponible dans la station une fenêtre de confirmation s'ouvre et le nouvel emprunt est créé
-	 * si l'identifiant du vélo entré n'est pas valide l'utilisateur est prévenu par une MsgBox adaptée
-	 * si l'utilisateur emprunte le dernier vélo de la station un e-mail est envoyé à l'ensemble des admin et des tech
+	 * <br>la fenêtre courante se ferme et une nouvelle fenêtre adaptée s'ouvre
+	 * <br>si le vélo entré par l'utilisateur est bien existant disponible dans la station une fenêtre de confirmation s'ouvre et le nouvel emprunt est créé
+	 * <br>si l'identifiant du vélo entré n'est pas valide l'utilisateur est prévenu par une MsgBox adaptée
+	 * <br>si l'utilisateur emprunte le dernier vélo de la station un e-mail est envoyé à l'ensemble des admin et des tech
+	 * @see Utilisateur#emprunteVelo(Velo)
+	 * @see SendMail#sendMail(String, String, String)
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws CompteBloqueException

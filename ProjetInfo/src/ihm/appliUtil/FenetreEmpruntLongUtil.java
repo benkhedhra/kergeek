@@ -16,11 +16,11 @@ import javax.swing.JPanel;
 import metier.Utilisateur;
 
 /**
- * FenetreEmpruntLongUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de rendre un vélo plus de 2 h après l'avoir emprunté
- * elle informe l'utilisateur que son compte sera bloqué pendant 7 jours
- * l'utilisateur doit cliquer sur un bouton de déconnexion pour montrer qu'il a bien pris connaissance du message
- * cette fenêtre est propre à l'application Utilisateur
+ * FenetreEmpruntLongUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre s'ouvre dans le cas où l'utilisateur vient de rendre un vélo plus de 2 h après l'avoir emprunté
+ * <br>elle informe l'utilisateur que son compte sera bloqué pendant 7 jours
+ * <br>l'utilisateur doit cliquer sur un bouton de déconnexion pour montrer qu'il a bien pris connaissance du message
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
@@ -62,6 +62,7 @@ public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
 	/**
 	 * constructeur de FenetreEmpruntLongUtil
 	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @see Utilisateur#setBloque(boolean)
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel
@@ -117,9 +118,9 @@ public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Override
+	 * @override
 	 * cette méthode est appelée lorsque l'utilisateur a cliqué sur le bouton "Déconnexion"
-	 * elle ferme la fenêtre courante et ouvre une nouvelle fenêtre d'au-revoir
+	 * <br>elle ferme la fenêtre courante et ouvre une nouvelle fenêtre d'au-revoir
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();

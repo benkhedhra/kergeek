@@ -23,10 +23,10 @@ import metier.Utilisateur;
 import metier.Velo;
 
 /**
- * FenetreEmpruntCourtUtil hérite de JFrame et implémente ActionListener
- * cette fenêtre s'ouvre dans le cas où l'utilisateur vient de rendre un vélo moins de 2 minutes après l'avoir emprunté
- * elle propose à l'utilisateur de déclarer ou non un défaut sur le vélo qu'il vient de rendre
- * cette fenêtre est propre à l'application Utilisateur
+ * FenetreEmpruntCourtUtil hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre s'ouvre dans le cas où l'utilisateur vient de rendre un vélo moins de 2 minutes après l'avoir emprunté
+ * <br>elle propose à l'utilisateur de déclarer ou non un défaut sur le vélo qu'il vient de rendre
+ * <br>cette fenêtre est propre à l'application Utilisateur
  * @author KerGeek
  */
 public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
@@ -47,7 +47,7 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 	private JButton boutonNon = new JButton("NON (Déconnexion)");
 
 	/**
-	 * @return le {@link Utilisateur} de la FenetreEmpruntCourtUtil 
+	 * @return l'{@link Utilisateur} de la {@link FenetreEmpruntCourtUtil}
 	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
@@ -55,7 +55,7 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 
 
 	/**
-	 * Initialise le {@link Utilisateur} de la FenetreEmpruntCourtUtil
+	 * Initialise l'{@link Utilisateur} de la {@link FenetreEmpruntCourtUtil}
 	 * @param utilisateur
 	 * 
 	 * le nouvel utilisateur de la FenetreEmpruntCourtUtil
@@ -74,16 +74,15 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 
 	/**
 	 * Initialise le {@link Velo} de la FenetreEmpruntCourtUtil
-	 * @param utilisateur
-	 * le nouveau vélo de la FenetreEmpruntCourtUtil
-	 * @see Utilisateur
+	 * @param velo : le nouveau vélo de la FenetreEmpruntCourtUtil
+	 * @see Velo
 	 */
 	public void setVelo(Velo velo) {
 		this.velo = velo;
 	}
 
 	/**
-	 * constructeur de FenetreEmpruntCourtUtil
+	 * constructeur de {@link FenetreEmpruntCourtUtil}
 	 * @param u : l'utilisateur connecté sur la fenêtre
 	 * @param v : le vélo qui vient d'être emprunté et rendu moins de 2 minutes après
 	 * @see JPanel
@@ -142,13 +141,15 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Override
+	 * @override
 	 * méthode exécutée quand l'utilisateur a cliqué sur l'un des deux boutons qui lui étaient proposés
-	 * si l'utilisateur veut déclarer le vélo défectueux, le vélo est déclaré en panne et une nouvelle demande d'intervention est créée dans la base de données
-	 * sinon, l'utilisateur a terminé son action, il est déconnecté et un message d'au-revoir apparaît
+	 * <br>si l'utilisateur veut déclarer le vélo défectueux, le vélo est déclaré en panne et une nouvelle demande d'intervention est créée dans la base de données
+	 * <br>sinon, l'utilisateur a terminé son action, il est déconnecté et un message d'au-revoir apparaît
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
+	 * @see {@link DemandeIntervention#DemandeIntervention(Utilisateur, Velo)}
+	 * @see DAODemandeIntervention#createDemandeIntervention(DemandeIntervention)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
