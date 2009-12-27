@@ -6,6 +6,8 @@ import java.sql.Date;
  * La classe DemandeIntervention reprÈsente les demandes d'intervention faîtes par un {@link Utilisateur} 
  * lorsqu'il rend un vÈlo aprËs un emprunt court.
  * @see Utilisateur#rendreVelo(Station)
+ * @see Emprunt
+ * @see Intervention
  * @author KerGeek
  */
 public class DemandeIntervention {
@@ -13,14 +15,14 @@ public class DemandeIntervention {
 	//Attributs
 
 	/**
-	 * L'identifiant d'une DemandeIntervention est unique. Une fois attribuÈ, il ne doit pas être modifiÈ
+	 * L'identifiant d'une DemandeIntervention est unique. Une fois attribuÈ, il ne doit pas être modifiÈ.
 	 * @see DemandeIntervention#getId()
 	 * @see DemandeIntervention#setId(String)
 	 */
 	private String id;
 	
 	/**
-	 * La date à laquelle la DemandeIntervention ‡ ÈtÈ faîte
+	 * La date ‡ laquelle la DemandeIntervention ‡ ÈtÈ faîte.
 	 * @see DemandeIntervention#getDate()
 	 * @see DemandeIntervention#setDate(Date)
 	 */
@@ -76,9 +78,8 @@ public class DemandeIntervention {
 	}
 	
 	/**
-	 * Initialise le {@link DemandeIntervention#id}
+	 * Initialise {@link DemandeIntervention#id}
 	 * @param id
-	 * l'identifiant de la DemandeIntervention
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -93,7 +94,6 @@ public class DemandeIntervention {
 	/**
 	 * Initialise la {@link DemandeIntervention#date}
 	 * @param date
-	 * la date de la DemandeIntervention
 	 */
 	public void setDate(Date date) {
 		this.date = date;
@@ -109,7 +109,6 @@ public class DemandeIntervention {
 	/**
 	 * Initialise le {@link DemandeIntervention#velo}
 	 * @param velo
-	 * le velo concernÈ la DemandeIntervention
 	 */
 	public void setVelo(Velo velo) {
 		this.velo = velo;
@@ -125,7 +124,6 @@ public class DemandeIntervention {
 	/**
 	 * Initialise le {@link DemandeIntervention#utilisateur}
 	 * @param utilisateur
-	 * l' utilisateur de la DemandeIntervention
 	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
@@ -142,7 +140,6 @@ public class DemandeIntervention {
 	/**
 	 * Initialise la {@link DemandeIntervention#intervention}
 	 * @param intervention
-	 * l'intervention associÈe ‡ la DemandeIntervention lorsque celle-ci est prise en charge.
 	 * @see DemandeIntervention#prendreEnCharge(TypeIntervention)
 	 */
 	public void setIntervention(Intervention intervention) {
