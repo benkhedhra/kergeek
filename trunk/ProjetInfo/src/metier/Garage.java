@@ -2,6 +2,7 @@ package metier;
 
 
 /**La classe Garage utilise le pattern singleton garantissant l'existence d'une seule instance du Garage.
+ * @see Lieu
  * @author KerGeek
  */
 

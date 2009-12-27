@@ -1,7 +1,13 @@
 package metier;
 
 
-
+/**
+ * 
+ * @see Detruit
+ * @see Garage
+ * @see Sortie
+ * @author KerGeek
+ */
 public abstract class Lieu {
 
 	//Attributs
