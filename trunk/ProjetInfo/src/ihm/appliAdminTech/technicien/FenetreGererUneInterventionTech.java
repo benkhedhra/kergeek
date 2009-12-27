@@ -19,10 +19,18 @@ import javax.swing.JPanel;
 import metier.Intervention;
 import metier.Technicien;
 
+/**
+ * la classe {@link FenetreGererUneInterventionTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a sélectionné une {@link Intervention} dans la {@link FenetreGererInterventionsTech}
+ * <br>elle offre au {@link Technicien} la possibilité de prendre en charge cette {@link Intervention}, lorsque le vélo est à nouveau en état de marche
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class FenetreGererUneInterventionTech extends JFrame implements ActionListener {
 
-	/**
-	 * 
+	/*
+	 * attributs privés de la fenêtre 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -39,21 +47,50 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette intervention");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link FenetreGererUneInterventionTech#technicien} de la {@link FenetreGererUneInterventionTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetreGererUneInterventionTech#technicien} de la {@link FenetreGererUneInterventionTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
+	/**
+	 * @return	l' {@link FenetreGererUneInterventionTech#intervention} de la {@link FenetreGererUneInterventionTech}
+	 */
 	public Intervention getIntervention() {
 		return intervention;
 	}
-
+	/**
+	 * Initialise la {@link FenetreGererUneInterventionTech#intervention} de la {@link FenetreGererUneInterventionTech}
+	 * @param intervention
+	 * l'intervention sélectionnée à la fenêtre précédente
+	 * @see Intervention
+	 */
 	public void setIntervention(Intervention intervention) {
 		this.intervention = intervention;
 	}
+
+	/**
+	 * constructeur de la {@link FenetreGererUneInterventionTech}
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @param i : l'intervention sélectionnée à la fenêtre précédente
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
 
 	public FenetreGererUneInterventionTech(Technicien t,Intervention i){
 
@@ -149,7 +186,7 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		labelDateInter.setMaximumSize(new Dimension(250,30));
 		panel6.add(labelDateInter);
 		centerCenter.add(panel6);	
-		
+
 		center.add(centerCenter,BorderLayout.CENTER);
 
 		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
@@ -180,19 +217,28 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 
 		this.setVisible(true);
 	}
-
+	/**
+	 * @override
+	 * cette méthode est exécutée lorsque le {@link Technicien} a cliqué sur l'un des deux boutons qui se présentaient à lui
+	 * <br>s'il a cliqué sur {@link FenetreGererUneInterventionTech#boutonPrendreEnCharge} une nouvelle fenêtre apparaît lui demandant de renseigner le type d'intervention effectué
+	 * <br>s'il a cliqué sur le {@link FenetreGererUneInterventionTech#boutonRetour} il retourne à son menu principal
+	 * @see FenetrePrendreEnChargeInterventionTech#FenetrePrendreEnChargeInterventionTech(Technicien, Intervention)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 * @param arg0
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonPrendreEnCharge){
-			try {
+		try {
+			if(arg0.getSource()==boutonPrendreEnCharge){
+				//le technicien ne doit cliquer sur le bouton "prendre en charge" que s'il a DEJA réalisé l'opération physique sur le vélo, et qu'il souhaite le re-déclarer en état de marche (et donc le rendre assignable)
 				new FenetrePrendreEnChargeInterventionTech(this.getTechnicien(),this.getIntervention());
-			} catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
 			}
-		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
+			}
+		} catch (ConnexionFermeeException e){
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}		
 }

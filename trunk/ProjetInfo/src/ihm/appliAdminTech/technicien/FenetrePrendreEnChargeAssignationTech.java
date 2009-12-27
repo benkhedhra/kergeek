@@ -30,9 +30,18 @@ import metier.Station;
 import metier.Technicien;
 import metier.Velo;
 
+/**
+ * la classe {@link FenetrePrendreEnChargeAssignationTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a cliqué sur "Prendre en charge" dans la {@link FenetreGererUneAssignationTech}
+ * <br>elle demande au {@link Technicien} d'entrer les identifiants des vélos qui viennent d'être assignés afin de traiter cette {@link DemandeAssignation}
+ * <br>cette prise en charge s'accompagne d'une action physique qui a lieu quasiment simultanément (on peut imaginer que le technicien a accès à l'application depuis un ordinateur présent dans son camion)
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class FenetrePrendreEnChargeAssignationTech extends JFrame implements ActionListener {
-	/**
-	 * 
+	/*
+	 * liste des attributs privés de la fenêtre
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -47,27 +56,55 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	private ArrayList<String> listeIdVelos = new ArrayList<String>();
 	private int diff;
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link FenetrePrendreEnChargeAssignationTech#technicien} de la {@link FenetrePrendreEnChargeAssignationTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetrePrendreEnChargeAssignationTech#technicien} de la {@link FenetrePrendreEnChargeAssignationTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
-
+	/**
+	 * @return	la {@link FenetrePrendreEnChargeAssignationTech#demande} de la {@link FenetrePrendreEnChargeAssignationTech}
+	 */
 	public DemandeAssignation getDemande() {
 		return demande;
 	}
 
+	/**
+	 * Initialise la {@link FenetrePrendreEnChargeAssignationTech#demande} de la {@link FenetrePrendreEnChargeAssignationTech}
+	 * @param d
+	 * la demande d'assignation en train d'être prise en charge
+	 * @see DemandeAssignation
+	 */
 	public void setDemande(DemandeAssignation d) {
 		this.demande = d;
 	}
 
+	/**
+	 * @return	la {@link FenetrePrendreEnChargeAssignationTech#diff} de la {@link FenetrePrendreEnChargeAssignationTech}
+	 */
 	public int getDiff() {
 		return diff;
 	}
 
+	/**
+	 * Initialise la {@link FenetrePrendreEnChargeAssignationTech#diff} de la {@link FenetrePrendreEnChargeAssignationTech}
+	 * @param diff
+	 * le nombre de vélos à ajouter ou à retirer
+	 * <br>il sera calculé en fonction du nombre de vélos actuellement en station et du nombre de vélos voulu par l'auteur de la demande d'assignation
+	 */
 	public void setDiff(int diff) {
 		this.diff = diff;
 	}
@@ -80,6 +117,15 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.listeIdVelos = listeIdVelos;
 	}
 
+	/**
+	 * 
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @param d : la demande d'assignation en train d'être prise en charge
+	 * @param l : la liste des identifiants de vélos pré-entrés dans les JTextField, avec des champs vides si rien n'a été entré précédemment ou si l'identifiant entré n'était pas valide
+	 * @param b : un booléen valant false si dans la fenêtre précédente le {@link Technicien} a déjà entré une liste d'identifiants dont certains n'étaient pas valides
+	 * @throws ConnexionFermeeException
+	 * @see {@link FenetrePrendreEnChargeAssignationTech#setDiff(int)}
+	 */
 	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l, boolean b) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");
 		this.setContentPane(new PanneauTech());
@@ -254,11 +300,22 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.setVisible(true);
 	}
 
+	/**
+	 * @override
+	 * cette méthode est exécutée quand le {@link Technicien} a cliqué sur l'un des boutons qui se présentaient à lui
+	 * @param arg0
+	 * @see UtilitaireIhm#verifieSiVelosPeuventEtreAssignes(ArrayList, metier.Lieu)
+	 * @see Technicien#rajouterVelo(Velo, Station)
+	 * @see Technicien#retirerVelo(Velo)
+	 * @see FenetreConfirmation
+	 * @see MenuPrincipalTech
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonValider){
 			for(int i=0; i<panelVelos.getComponentCount(); i++){
 				if(panelVelos.getComponent(i) instanceof TextFieldLimite){
+					//on récupère tous les ids de vélos entrés dans listeIdVelos
 					listeIdVelos.add(((TextFieldLimite)panelVelos.getComponent(i)).getText());
 				}
 			}
@@ -272,16 +329,22 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				}
 				System.out.println(nouvelleListeIdVelos);
 				if(nouvelleListeIdVelos.contains("")){
+					/* c'est que l'un des identifiants de vélos entrés au moins n'était pas valide
+					 * il faut donc ré-ouvrir la même fenêtre, en laissant pré-entrés dans les champs les ids entrés qui étaient valides
+					 */
 					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos, false);
 
 				}
 				else{
+					//tous les id de vélos entrés étaient valides
 					for(String idVelo : nouvelleListeIdVelos){
 						Velo velo = DAOVelo.getVeloById(idVelo);
 						if(this.getDiff()<0){
+							//il s'agit d'un ajout de vélos
 							this.getTechnicien().rajouterVelo(velo,(Station) this.getDemande().getLieu());	
 						}
 						else{
+							//il s'agit d'un retrait de vélos
 							this.getTechnicien().retirerVelo(velo);	
 						}
 						DAOVelo.updateVelo(velo);

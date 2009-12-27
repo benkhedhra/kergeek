@@ -22,12 +22,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.DemandeAssignation;
 import metier.Lieu;
 import metier.Technicien;
 
+/**
+ * la classe {@link FenetreGererDemandesAssignationTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a cliqué sur le bouton "Voir les demandes d'assignation" dans le {@link MenuPrincipalTech}
+ * <br>lui sont présentées sous forme de menu déroulant toutes les {@link DemandeAssignation} émanant des constatations des {@link Administrateur}
+ * @author KerGeek
+ *
+ */
 public class FenetreGererDemandesAssignationTech extends JFrame implements ActionListener {
 
+	
+	/*
+	 * liste des attributs privés de la fenêtre
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
@@ -37,14 +49,34 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link FenetreGererDemandesAssignationTech#technicien} de la {@link FenetreGererDemandesAssignationTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetreGererDemandesAssignationTech#technicien} de la {@link FenetreGererDemandesAssignationTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
+	/**
+	 * constructeur de {@link FenetreGererDemandesAssignationTech}
+	 * @param t : le technicien connecté sur la {@link FenetreGererDemandesAssignationTech}
+	 * @throws ConnexionFermeeException
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JComboBox
+	 */
 	public FenetreGererDemandesAssignationTech (Technicien t) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir toutes les demandes d'assignation");
 		this.setContentPane(new PanneauTech());
@@ -88,11 +120,16 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
+				//à cet endroit il faut regarder si la demande d'assignation n'a pas été prise en charge indirectement, par les mouvements de vélos des utilisateurs (emprunts et rendus)
+				//si le nombre de vélos voulu par l'administrateur s'avère être égal au nombre de vélos effectivement présents dans la station, on déclare la demande d'assignation prise en charge (elle ne figurera donc pas dans le menu déroulant)
+				//l'administrateur n'avait entré qu'un nombre de vélos voulu, aussi une demande correspondant à un ajout de vélos peut se transformer en demande de retrait de vélos suite aux mouvements de vélos par les utilisateurs
 				if(demandei.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demandei.getLieu()).size() == 0){
 					demandei.setPriseEnCharge(true);
 					DAODemandeAssignation.updateDemandeAssignation(demandei);
 					listeDemandes.remove(i);
 				}
+				//dans le cas où la demande d'assignation concernait le garage, on imagine que la demande d'assignation est prise en charge si le nombre de vélos présent est supérieur au nombre de vélos voulu
+				//en effet le "nombre de vélos voulu" est plus un nombre minimal, un seuil, pour pouvoir faire face aux différentes demandes d'assignation, et si le nombre de vélos au garage est supérieur l'objectif de l'administrateur est atteint pareillement
 				else if(demandei.getLieu().getId().equals(""+Lieu.ID_GARAGE) && demandei.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demandei.getLieu()).size() < 0){
 					demandei.setPriseEnCharge(true);
 					DAODemandeAssignation.updateDemandeAssignation(demandei);
@@ -166,6 +203,15 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		this.setVisible(true);
 	}
 
+	/**
+	 * @override
+	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des boutons qui lui étaient proposés
+	 * <br>s'il a cliqué sur le {@link FenetreGererDemandesAssignationTech#boutonValider} une fenêtre s'ouvre détaillant la demande d'assignation sélectionnée
+	 * <br>s'il a cliqué sur le {@link FenetreGererDemandesAssignationTech#boutonRetour} il retourne à son menu principal
+	 * @see FenetreGererUneDemandeAssignationTech#FenetreGererUneDemandeAssignationTech(Technicien, DemandeAssignation)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 * @param arg0
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {

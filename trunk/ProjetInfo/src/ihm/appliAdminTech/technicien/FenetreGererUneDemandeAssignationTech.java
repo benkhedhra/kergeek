@@ -27,15 +27,25 @@ import metier.Lieu;
 import metier.Technicien;
 import metier.Velo;
 
+/**
+ * la classe {@link FenetreGererUneDemandeAssignationTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a sélectionné une {@link DemandeAssignation} dans la {@link FenetreGererDemandesAssignationTech}
+ * <br>elle offre au {@link Technicien} la possibilité de prendre en charge cette {@link DemandeAssignation}, lorsqu'il vient de réaliser un ajout ou un retrait physique de vélos
+ * <br>cette action s'accompagne d'une action physique qui a lieu quasiment simultanément (on peut imaginer que le technicien a accès à l'application depuis un ordinateur présent dans son camion)
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class FenetreGererUneDemandeAssignationTech extends JFrame implements ActionListener {
 
-	/**
-	 * 
+	/*
+	 * attributs privés de la fenêtre 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
 	private DemandeAssignation demande;
+	
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("Demande d'assignation à traiter");
 	private JLabel labelLieu = new JLabel("Lieu concerné par la demande d'assignation");
@@ -51,23 +61,54 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link FenetreGererUneDemandeAssignationTech#technicien} de la {@link FenetreGererUneDemandeAssignationTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetreGererUneDemandeAssignationTech#technicien} de la {@link FenetreGererUneDemandeAssignationTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
-
+	/**
+	 * @return	la {@link FenetreGererUneDemandeAssignationTech#demande} de la {@link FenetreGererUneDemandeAssignationTech}
+	 */
 	public DemandeAssignation getDemande() {
 		return demande;
 	}
 
+	/**
+	 * Initialise la {@link FenetreGererUneDemandeAssignationTech#demande} de la {@link FenetreGererUneDemandeAssignationTech}
+	 * @param d
+	 * la demande d'assignation sélectionnée à la fenêtre précédente
+	 * @see DemandeAssignation
+	 */
 	public void setDemande(DemandeAssignation d) {
 		this.demande = d;
 	}
 
+	/**
+	 * constructeur de la {@link FenetreGererUneDemandeAssignationTech}
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @param d : la demande d'assignation sélectionnée à la fenêtre précédente
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
 	public FenetreGererUneDemandeAssignationTech(Technicien t,DemandeAssignation d) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour gérer une demande d'assignation");
@@ -231,10 +272,20 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		this.setVisible(true);
 	}
 
+	/**
+	 * @override
+	 * cette méthode est exécutée lorsque le {@link Technicien} a cliqué sur l'un des deux boutons qui se présentaient à lui
+	 * <br>s'il a cliqué sur {@link FenetreGererUneDemandeAssignationTech#boutonPrendreEnCharge} une nouvelle fenêtre apparaît lui demandant de renseigner les identifiants des vélos déplacés
+	 * <br>s'il a cliqué sur le {@link FenetreGererUneDemandeAssignationTech#boutonRetour} il retourne à son menu principal
+	 * @see FenetrePrendreEnChargeAssignationTech#FenetrePrendreEnChargeAssignationTech(Technicien, DemandeAssignation, ArrayList, boolean)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 * @param arg0
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonPrendreEnCharge){
+				//le technicien doit cliquer sur le bouton "prendre en charge" juste avant ou juste après avoir effectivement déplacé les vélos, de manière à être sûr qu'aucun autre technicien n'ait effectué l'opération (il a accès à l'application depuis son camion)
 				if(this.getDemande().getLieu().getId().equals(""+Lieu.ID_GARAGE)){
 					new FenetreEnregistrerArrivageVelosTech(this.getTechnicien());
 				}

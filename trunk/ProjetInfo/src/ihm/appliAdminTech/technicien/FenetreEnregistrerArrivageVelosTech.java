@@ -33,13 +33,15 @@ import metier.Velo;
  * <br>cette action est précédée de la création physique d'un nouveau vélo (arrivage...)
  * <br>le technicien ne peut enregistrer de vélos que dix par dix au maximum
  * <br>s'il a un arrivage de 14 vélos, il devra le déclarer en deux fois
+ * <br>cette fenêtreest propre au volet technicien de l'application AdminTech
  * @author KerGeek
+ * @see {@link FenetreEnregistrerArrivageVelosTech#FenetreEnregistrerArrivageVelosTech(Technicien)}
  *
  */
 public class FenetreEnregistrerArrivageVelosTech extends JFrame implements ActionListener{
 
-	/**
-	 * 
+	/*
+	 * déclaration des attributs 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -71,22 +73,48 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		this.technicien = tech;
 	}
 
+	/**
+	 * @return	le {@link FenetreEnregistrerArrivageVelosTech#nbVelosEntre} de la {@link FenetreEnregistrerArrivageVelosTech}
+	 */
 	public int getNbVelosEntre() {
 		return nbVelosEntre;
 	}
 
+	/**
+	 * Initialise le {@link FenetreEnregistrerArrivageVelosTech#nbVelosEntre} de la {@link FenetreEnregistrerArrivageVelosTech}
+	 * @param nbVelosEntre
+	 * le nombre de nouveaux vélos à enregistrer
+	 */
 	public void setNbVelosEntre(int nbVelosEntre) {
 		this.nbVelosEntre = nbVelosEntre;
 	}
 
+	/**
+	 * @return	la {@link FenetreEnregistrerArrivageVelosTech#listeVelosCrees} de la {@link FenetreEnregistrerArrivageVelosTech}
+	 */
 	public List<Velo> getListeVelosCrees() {
 		return listeVelosCrees;
 	}
 
+	/**
+	 * Initialise le {@link FenetreEnregistrerArrivageVelosTech#listeVelosCrees} de la {@link FenetreEnregistrerArrivageVelosTech}
+	 * @param listeVelosCrees
+	 * la liste des nouveaux vélos enregistrés
+	 */
 	public void setListeVelosCrees(List<Velo> listeVelosCrees) {
 		this.listeVelosCrees = listeVelosCrees;
 	}
 
+	/**
+	 * constructeur de {@link FenetreEnregistrerArrivageVelosTech}
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JComboBox
+	 */
 	public FenetreEnregistrerArrivageVelosTech(Technicien t) throws SQLException, ClassNotFoundException{
 
 		System.out.println("Ouverture d'une fenêtre d'enregistrement de vélos du technicien");
@@ -128,9 +156,6 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		center.add(labelMsg);
 
-
-
-
 		Object [] tableauEntiers = new Object[11];
 		tableauEntiers[0]="Sélectionnez un nombre de vélos";
 		for (int i=0;i<10;i++){
@@ -153,7 +178,6 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 			}
 		});
 		center.add(combo);
-
 
 		boutonValider.setPreferredSize(new Dimension(150,30));
 		boutonValider.setMaximumSize(new Dimension(150,30));
@@ -178,6 +202,17 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		this.setVisible(true);
 	}
 
+	/**
+	 * @override
+	 * cette méthode est exécutée si le technicien a cliqué sur l'un des deux boutons qui lui étaient proposés
+	 * <br>s'il a cliqué sur "Valider", une nouvelle fenêtre lui indiquera les identifiants à apposer sur les nouveaux vélos
+	 * <br>s'il a cliqué sur "Retour au menu principal", il retourne au menu principal
+	 * <br>cette méthode est propre au volet "Technicien" de l'application AdminTech
+	 * @param arg0
+	 * @see Technicien#enregistrerVelo()
+	 * @see FenetreConfirmation#FenetreConfirmation(Compte, JFrame)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
