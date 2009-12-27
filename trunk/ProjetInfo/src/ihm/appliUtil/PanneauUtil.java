@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class PanneauUtil extends JPanel {
 
-	/**
+	/*
 	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;

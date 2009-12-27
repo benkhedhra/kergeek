@@ -30,14 +30,24 @@ import metier.Intervention;
 import metier.Technicien;
 import metier.TypeIntervention;
 
+/**
+ * la classe {@link FenetrePrendreEnChargeInterventionTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a cliqué sur "Prendre en charge" dans la {@link FenetreGererUneInterventionTech}
+ * <br>elle demande au {@link Technicien} de sélectionner le type d'intervention effectué sur le vélo concerné par l'{@link Intervention}
+ * <br>cette prise en charge doit s'effectuer APRES l'opération physique effectuée sur le vélo
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class FenetrePrendreEnChargeInterventionTech extends JFrame implements ActionListener {
-	/**
-	 * 
+	/*
+	 * liste des attributs privés de la fenêtre
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
 	private Intervention intervention;
+	
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JLabel labelTypeIntervention = new JLabel ("Veuillez entrer le type d'intervention");
@@ -45,30 +55,68 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	private JButton boutonValider = new JButton("Terminer l'intervention");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link FenetrePrendreEnChargeInterventionTech#technicien} de la {@link FenetrePrendreEnChargeInterventionTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetrePrendreEnChargeInterventionTech#technicien} de la {@link FenetrePrendreEnChargeInterventionTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
+	/**
+	 * @return	le {@link FenetrePrendreEnChargeInterventionTech#intervention} de la {@link FenetrePrendreEnChargeInterventionTech}
+	 */
 	public Intervention getIntervention() {
 		return intervention;
 	}
 
+	/**
+	 * Initialise le {@link FenetrePrendreEnChargeInterventionTech#intervention} de la {@link FenetrePrendreEnChargeInterventionTech}
+	 * @param intervention
+	 * l'intervention prise en charge dans la fenêtre précédente
+	 * @see Technicien
+	 */
 	public void setIntervention(Intervention intervention) {
 		this.intervention = intervention;
 	}
 
+	/**
+	 * @return	le {@link FenetrePrendreEnChargeInterventionTech#typeInterventionEntre} de la {@link FenetrePrendreEnChargeInterventionTech}
+	 */
 	public TypeIntervention getTypeInterventionEntre() {
 		return typeInterventionEntre;
 	}
 
+	/**
+	 * Initialise le {@link FenetrePrendreEnChargeInterventionTech#typeInterventionEntre} de la {@link FenetrePrendreEnChargeInterventionTech}
+	 * @param typeInterventionEntre
+	 * le type d'intervention réalisé sur le vélo concerné par l'intervention (y compris la destruction du vélo s'il est irréparable)
+	 */
 	public void setTypeInterventionEntre(TypeIntervention typeInterventionEntre) {
 		this.typeInterventionEntre = typeInterventionEntre;
 	}
 
+	/**
+	 * constructeur de {@link FenetrePrendreEnChargeInterventionTech}
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @param i : l'intervention en train d'être prise en charge
+	 * @throws ConnexionFermeeException
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JComboBox
+	 */
 	public FenetrePrendreEnChargeInterventionTech(Technicien t, Intervention i) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour prendre en charge une intervention");
 		this.setContentPane(new PanneauTech());
@@ -206,6 +254,16 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.setVisible(true);
 	}
 
+	/**
+	 * @override
+	 * cette méthode est exécutée si le {@link Technicien} a cliqué surl 'un des deux boutons qui lui étaient proposés
+	 * <br>s'il a cliqué sur {@link FenetrePrendreEnChargeInterventionTech#boutonValider}, l'intervention est terminée
+	 * <br>s'il a cliqué sur le {@link FenetrePrendreEnChargeInterventionTech#boutonRetour} il retourne à son menu principal
+	 * @see Technicien#retirerDuParc(Intervention)
+	 * @see Technicien#terminerIntervention(Intervention, TypeIntervention)
+	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
