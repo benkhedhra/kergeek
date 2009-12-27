@@ -118,13 +118,16 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	}
 
 	/**
-	 * 
+	 * constructeur de {@link FenetrePrendreEnChargeAssignationTech}
 	 * @param t : le technicien connecté sur la fenêtre
 	 * @param d : la demande d'assignation en train d'être prise en charge
 	 * @param l : la liste des identifiants de vélos pré-entrés dans les JTextField, avec des champs vides si rien n'a été entré précédemment ou si l'identifiant entré n'était pas valide
 	 * @param b : un booléen valant false si dans la fenêtre précédente le {@link Technicien} a déjà entré une liste d'identifiants dont certains n'étaient pas valides
 	 * @throws ConnexionFermeeException
 	 * @see {@link FenetrePrendreEnChargeAssignationTech#setDiff(int)}
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
 	 */
 	public FenetrePrendreEnChargeAssignationTech(Technicien t, DemandeAssignation d, ArrayList<String> l, boolean b) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour prendre en charge une demande d'assignation");

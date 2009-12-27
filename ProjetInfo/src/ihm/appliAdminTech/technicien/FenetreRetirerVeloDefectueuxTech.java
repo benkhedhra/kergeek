@@ -31,10 +31,19 @@ import metier.Intervention;
 import metier.Technicien;
 import metier.Velo;
 
+/**
+ * la classe {@link FenetreRetirerVeloDefectueuxTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a cliqué sur "Retirer un vélo défectueux" dans la {@link MenuPrincipalTech}
+ * <br>elle demande au {@link Technicien} soit de sélectionner une demande d'intervention pour la prendre en charge, soit de retirer un vélo de sa propre initiative s'il a constaté un défaut de lui-même sur un vélo
+ * <br>cette action doit se réaliser juste avant le retrait physique du vélo
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionListener {
 
-	/**
-	 * 
+	/*
+	 * liste des attributs privés de la fenêtre
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -47,22 +56,53 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	private TextFieldLimite idVeloARemplir = new TextFieldLimite(4,"");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	
+	/**
+	 * @return	le {@link FenetreRetirerVeloDefectueuxTech#technicien} de la {@link FenetreRetirerVeloDefectueuxTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetreRetirerVeloDefectueuxTech#technicien} de la {@link FenetreRetirerVeloDefectueuxTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
+	/**
+	 * @return	la {@link FenetreRetirerVeloDefectueuxTech#} de la {@link FenetreRetirerVeloDefectueuxTech}
+	 */
 	public DemandeIntervention getDemandeEntree() {
 		return demandeEntree;
 	}
-
+	
+	/**
+	 * Initialise la {@link FenetreRetirerVeloDefectueuxTech#demandeEntree} de la {@link FenetreRetirerVeloDefectueuxTech}
+	 * @param demandeEntree
+	 * la demande d'assignation sélectionnée à la fenêtre précédente
+	 * @see DemandeIntervention
+	 */
 	public void setDemandeEntree(DemandeIntervention demandeEntree) {
 		this.demandeEntree = demandeEntree;
 	}
 
+	/**
+	 * constructeur de la {@link FenetreRetirerVeloDefectueuxTech}
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 * @see JComboBox
+	 */
 	public FenetreRetirerVeloDefectueuxTech (Technicien t) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour retirer un vélo défectueux d'une station");
 		this.setContentPane(new PanneauTech());
@@ -195,7 +235,17 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 		this.setVisible(true);
 	}
-
+	
+	
+	/**
+	 * @override
+	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des deux boutons qui lui étaient proposés
+	 * <br>s'il a cliqué sur {@link FenetreRetirerVeloDefectueuxTech#boutonValider}, le technicien commence une intervention sur le vélo sélectionné ou entré
+	 * <br>s'il a cliqué sur le {@link FenetreRetirerVeloDefectueuxTech#boutonRetour} il retourne à son menu principal
+	 * @see Technicien#intervenir(Velo)
+	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
@@ -206,11 +256,12 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					listeIdVelos.add(ddeI.getVelo().getId());
 				}
 				if(this.getDemandeEntree()!=null && !idVeloARemplir.getText().equals("")){
-					System.out.println("Problème : 2 vélos entrés");
+					//le technicien a à la fois sélectionné une demande et entré un id de vélo. Il doit faire l'un OU l'autre
 					MsgBox.affMsg("Vous avez sélectionné une demande ET entré un vélo : veuillez faire l'un ou l'autre");
 					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 				}
 				else if(this.getDemandeEntree()!=null){
+					//le technicien a sélectionné une demande d'intervention
 					System.out.println("Une demande d'intervention a été sélectionnée");
 					Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
 					this.getDemandeEntree().setIntervention(i);
@@ -219,15 +270,19 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					}
 				}
 				else if(!idVeloARemplir.getText().equals("")){
+					//le technicien a entré un id de vélo
 					System.out.println("Un vélo a été entré");
 					if(listeIdVelos.contains(idVeloARemplir.getText())){
+						//l'id de vélo entré correspond déjà à une demande d'intervention : il faut qu'il sélectionne la demande
 						System.out.println("Problème : vélo entré fait déjà l'objet d'une demande d'intervention");
 						MsgBox.affMsg("Vous avez sélectionné un vélo qui fait déjà l'objet d'une demande d'intervention : veuillez selectionner la demande d'intervention en question");
 						new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 
 					}
 					else{
+						//l'id de vélo entré ne correspond à aucune demande d'intervention
 						if(DAOVelo.existe(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
+							//l'id de vélo entré est valide
 							Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
 							veloEntre.setEnPanne(true);
 							Intervention i = this.getTechnicien().intervenir(veloEntre);
@@ -236,11 +291,13 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 							}
 						}
 						else if (!DAOVelo.existe(idVeloARemplir.getText())){
+							//l'id de vélo entré ne correspond à aucun vélo existant dans la bdd
 							System.out.println("Le vélo entré n'existe pas");
 							MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
 							new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 						}
 						else {
+							//l'id de vélo entré correspond à un vélo qui n'est pas disponible en station
 							System.out.println("Le vélo entré n'est pas en station actuellement");
 							MsgBox.affMsg("Le vélo que vous avez entré n'est pas en station actuellement. ");
 							new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());

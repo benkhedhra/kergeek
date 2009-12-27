@@ -21,30 +21,59 @@ import javax.swing.JPanel;
 
 import metier.Technicien;
 
+/**
+ * la classe {@link MenuPrincipalTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien vient de se connecter ou vient de cliquer sur un bouton "Retour au menu principal"
+ * <br>elle propose au {@link Technicien} soit de se déconnecter, soit de cliquer sur un des 4 onglets suivants
+ * <br>"Enregistrer un nouvel arrivage de vélos"
+ * <br>"Retirer un vélo défectueux"
+ * <br>"Gérer les demandes d'assignation"
+ * <br>"Gérer les interventions"
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class MenuPrincipalTech extends JFrame implements ActionListener {
 
-	/**
-	 * 
+	/*
+	 * liste des attributs privés de la fenêtre
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Technicien tech;
+	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
-	private JButton bouton1 = new JButton("<html> <center>Enregistrer<br>un nouveau vélo</center></html>");
+	private JButton bouton1 = new JButton("<html> <center>Enregistrer<br>un nouvel arrivage de vélos</center></html>");
 	private JButton bouton2 = new JButton("<html> <center>Retirer un vélo<br>défectueux<br>d'une station</center></html>");
 	private JButton bouton3 = new JButton("<html> <center>Gérer les demandes<br>d'assignation</center></html>");
 	private JButton bouton4 = new JButton("<html> <center>Gérer les<br>interventions</center></html>");
 	private JButton boutonChangeMdp = new JButton("Changer le mot de passe");
 
+	/**
+	 * @return	le {@link MenuPrincipalTech#technicien} de la {@link MenuPrincipalTech}
+	 */
 	public Technicien getTechnicien() {
-		return tech;
+		return technicien;
 	}
 
+	/**
+	 * Initialise le {@link MenuPrincipalTech#technicien} de la {@link MenuPrincipalTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
 	public void setTechnicien(Technicien tech) {
-		this.tech = tech;
+		this.technicien = tech;
 	}
 
+	/**
+	 * constructeur du {@link MenuPrincipalTech}
+	 * @param t : le technicien connecté sur la fenêtre
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JButton
+	 */
 	public MenuPrincipalTech(Technicien t){
 
 		this.setTechnicien(t);
@@ -116,11 +145,19 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		boutonChangeMdp.addActionListener(this);
 		south.add(boutonChangeMdp);
 		this.getContentPane().add(south, BorderLayout.SOUTH);
-
-
 		this.setVisible(true);
 	}
 
+
+	/**
+	 * @override
+	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des cinq boutons qui lui étaient proposés
+	 * @see FenetreEnregistrerArrivageVelosTech#FenetreEnregistrerArrivageVelosTech(Technicien)
+	 * @see FenetreRetirerVeloDefectueuxTech#FenetreRetirerVeloDefectueuxTech(Technicien)
+	 * @see FenetreGererDemandesAssignationTech#FenetreGererDemandesAssignationTech(Technicien)
+	 * @see FenetreGererInterventionsTech#FenetreGererInterventionsTech(Technicien)
+	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{
