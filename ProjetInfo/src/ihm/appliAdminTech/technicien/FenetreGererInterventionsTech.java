@@ -24,8 +24,20 @@ import javax.swing.JPanel;
 import metier.Intervention;
 import metier.Technicien;
 
+/**
+ * la classe {@link FenetreGererInterventionsTech} hérite de {@link JFrame} et implémente l'interface {@link ActionListener}
+ * <br>cette fenêtre apparaît lorsque le technicien a cliqué sur le bouton "Voir les interventions" dans le {@link MenuPrincipalTech}
+ * <br>lui sont présentées sous forme de menu déroulant toutes les {@link Intervention} non prises en charge
+ * <br>les vélos concernés par ces {@link Intervention} ont déjà été retirés des stations et sont donc présents au garage
+ * <br>cette fenêtre est propre au volet Technicien de l'application AdminTech
+ * @author KerGeek
+ *
+ */
 public class FenetreGererInterventionsTech extends JFrame implements ActionListener {
 
+	/*
+	 * liste des attributs de la fenêtre
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
@@ -35,14 +47,42 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	// Accesseurs utiles
+
+	/**
+	 * @return	le {@link FenetreGererInterventionsTech#technicien} de la {@link FenetreGererInterventionsTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
-	public void setTechnicien(Technicien technicien) {
-		this.technicien = technicien;
+	/**
+	 * Initialise le {@link FenetreGererInterventionsTech#technicien} de la {@link FenetreGererInterventionsTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
+	public void setTechnicien(Technicien tech) {
+		this.technicien = tech;
 	}
 
+	public Intervention getInterventionEntree() {
+		return interventionEntree;
+	}
+
+	public void setInterventionEntree(Intervention interventionEntree) {
+		this.interventionEntree = interventionEntree;
+	}
+
+	/**
+	 * constructeur de {@link FenetreGererInterventionsTech}
+	 * @param t : le technicien connecté sur la {@link FenetreGererInterventionsTech}
+	 * @throws ConnexionFermeeException
+	 * @see BorderLayout
+	 * @see JPanel
+	 * @see JLabel
+	 * @see JComboBox
+	 */
 	public FenetreGererInterventionsTech (Technicien t) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir toutes les interventions non traitées");
 		this.setContentPane(new PanneauTech());
@@ -91,7 +131,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 			else{
 				labelMsg.setText("Veuillez sélectionner une des interventions suivantes");
 				center.add(labelMsg);
-				String [] tableauInterventions = new String[listeInterventions.size()+1];
+				final String [] tableauInterventions = new String[listeInterventions.size()+1];
 				tableauInterventions[0]=listeInterventions.size()+" intervention(s) trouvée(s)";
 				for (int i=0;i<listeInterventions.size();i++){
 					Intervention interventioni = listeInterventions.get(i);
@@ -107,6 +147,9 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 						try {
 							String chaineSelectionnee = (String)(o);
+							if(chaineSelectionnee==null || chaineSelectionnee.equals(tableauInterventions[0])){
+								interventionEntree = null;
+							}
 							String idInterventionEntre="";
 							int i=13;
 							while(chaineSelectionnee.charAt(i)!=' '){
@@ -156,13 +199,33 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		}
 	}
 
+	/**
+	 * @override
+	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des boutons qui lui étaient proposés
+	 * <br>s'il a cliqué sur le {@link FenetreGererInterventionsTech#boutonValider} une fenêtre s'ouvre détaillant l'intervention sélectionnée
+	 * <br>s'il a cliqué sur le {@link FenetreGererInterventionsTech#boutonRetour} il retourne à son menu principal
+	 * @see FenetreGererUneInterventionTech#FenetreGererUneInterventionTech(Technicien, Intervention)
+	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
+	 * @param arg0
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if (arg0.getSource()==boutonValider){
-			new FenetreGererUneInterventionTech(this.getTechnicien(),interventionEntree);
-		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
+		try {
+			if (arg0.getSource()==boutonValider){
+				if(this.getInterventionEntree()==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucune intervention");
+				}
+				else{
+					new FenetreGererUneInterventionTech(this.getTechnicien(),this.getInterventionEntree());
+				}
+			}
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
+			}
+			new FenetreGererInterventionsTech(this.getTechnicien());
+		} catch (ConnexionFermeeException e) {
+			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+			new FenetreAuthentification(false);
 		}
 	}
 }
