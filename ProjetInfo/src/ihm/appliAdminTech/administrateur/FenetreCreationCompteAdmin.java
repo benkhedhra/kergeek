@@ -34,16 +34,36 @@ import metier.Technicien;
 import metier.Utilisateur;
 import metier.exceptionsMetier.TypeCompteException;
 
+
+
+/** 
+ * FenetreCreationCompteAdmin est une classe de l'application réservée à un @link Administrateur
+ * <br>elle permet à l'{@link Administrateur} de créer un nouveau {@link Compte}
+ * @author KerGeek
+ */
 public class FenetreCreationCompteAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * serial version ID par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	//Attributs
+	/**
+	 * administrateur est l'administrateur actuellement connecté
+	 * <br>labelAdmin est le JLabel permettant d'afficher qui est l'administrateur connecté
+	 * <br>labelMsg est le JLabel disant à l'administrateur ce qu'il doit faire dans cette fenêtre
+	 * <br>labelQualite, labelNom, labelPrenom, labelAdresseEMail et labelAdressePostale sont des JLabel
+	 * <br>typeEntre est le type de compte choisi pour le nouveau compte à créer
+	 * <br>nomARemplir, prenomARemplir, adresseEMailARemplir, adressePostaleARemplir sont des TextFieldLimite
+	 * <br>boutonValider est le bouton permettant de créer le nouveau compte si les paramètres entrés sont corrects
+	 * <br>boutonRetour est le bouton de retour au menu principal
+	 */
 	private Administrateur administrateur;
-	private JLabel labelAdmin = new JLabel("");;
+	
+	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Entrer les données du titulaire du nouveau compte");
+
 	private JLabel labelQualite = new JLabel("Qualité");
 	private int typeEntre;
 	private JLabel labelNom = new JLabel("Nom");
@@ -54,6 +74,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	private TextFieldLimite adresseEMailARemplir = new TextFieldLimite(250,"");
 	private JLabel labelAdressePostale = new JLabel("Adresse Postale");
 	private TextFieldLimite adressePostaleARemplir = new TextFieldLimite(50,"");
+
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -67,6 +88,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	}
 
 
+	//constructeur
 	public FenetreCreationCompteAdmin(Administrateur a){
 
 		System.out.println("Fenêtre pour créer un nouveau compte");
