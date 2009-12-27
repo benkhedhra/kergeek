@@ -236,7 +236,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		try {
 			if(arg0.getSource()==boutonPrendreEnCharge){
 				if(this.getDemande().getLieu().getId().equals(""+Lieu.ID_GARAGE)){
-					new FenetreEnregistrerVeloTech(this.getTechnicien());
+					new FenetreEnregistrerArrivageVelosTech(this.getTechnicien());
 				}
 				else{
 					ArrayList<String> listeVide = new ArrayList<String>();

@@ -17,7 +17,7 @@ import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreStationsSurSousAdmin;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
-import ihm.appliAdminTech.technicien.FenetreEnregistrerVeloTech;
+import ihm.appliAdminTech.technicien.FenetreEnregistrerArrivageVelosTech;
 import ihm.appliAdminTech.technicien.FenetreGererDemandesAssignationTech;
 import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
 import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeAssignationTech;
@@ -40,7 +40,9 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
+import metier.Technicien;
 import metier.TypeIntervention;
+import metier.Velo;
 
 /**
  * FenetreConfirmation hérite de JFrame et implémente ActionListener
@@ -54,7 +56,7 @@ import metier.TypeIntervention;
  * @see FenetreDemandeConfirmationAdmin
  * @see FenetreEnvoyerDemandeAssignationAdmin
  * @see FenetreExisteDejaDemandeAssignationAdmin
- * @see FenetreEnregistrerVeloTech
+ * @see FenetreEnregistrerArrivageVelosTech
  * @see FenetreRetirerVeloDefectueuxTech
  * @see FenetrePrendreEnChargeInterventionTech
  * @see FenetrePrendreEnChargeAssignationTech
@@ -284,12 +286,21 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 
 			//situations possibles pour un technicien
-			else if(fenetrePrec.getTitle().equals("Enregistrer un nouveau vélo")){
+			else if(fenetrePrec.getTitle().equals("Enregistrer un nouvel arrivage de vélos")){
+				FenetreEnregistrerArrivageVelosTech f = (FenetreEnregistrerArrivageVelosTech) fenetrePrec;
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
-				labelConfirm.setText( "<html><center>Le vélo a bien été ajouté et affecté au garage. <br> Son identifiant est : "
-						+ ((FenetreEnregistrerVeloTech) fenetrePrec).getVeloEntre().getId()+"</center></html>");
-				bouton1.setText("Enregistrer un autre nouveau vélo");
+				labelConfirm.setText( "<html><center>"+f.getNbVelosEntre()+" vélo(s) ont bien été enregistré(s) et affecté(s) au garage. <br> Veuillez dès à présent leur apposer les identifiants suivants : "+"</center></html>");
+				JPanel panelIds = new JPanel();
+				panelIds.setBackground(UtilitaireIhm.TRANSPARENCE);	
+				for(int i=0;i<f.getNbVelosEntre();i++){
+					Velo velo = f.getListeVelosCrees().get(i);
+					JLabel labelIdVelo = new JLabel(velo.getId());
+					labelIdVelo.setPreferredSize(new Dimension(700,40));
+					labelIdVelo.setFont(UtilitaireIhm.POLICE2);
+					panelIds.add(labelIdVelo);
+				}
+				bouton1.setText("Enregistrer un autre arrivage");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
@@ -355,9 +366,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 
 	/**
-	 * Override
+	 * @override
 	 * méthode exécutée sur l'individu a cliqué sur un des boutons qui se présentaient à lui
-	 * la fenêtre courante se ferme et laisse place à la fenêtre suivante adaptée à l'événement arg0
+	 * <br>la fenêtre courante se ferme et laisse place à la fenêtre suivante adaptée à l'événement arg0
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -422,9 +433,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 			}
-			else if(fenetrePrecedente.getTitle().equals("Enregistrer un nouveau vélo")){
+			else if(fenetrePrecedente.getTitle().equals("Enregistrer un nouvel arrivage de vélos")){
 				if(arg0.getSource()==bouton1){
-					new FenetreEnregistrerVeloTech(DAOTechnicien.getTechnicienById(compte.getId()));
+					new FenetreEnregistrerArrivageVelosTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));

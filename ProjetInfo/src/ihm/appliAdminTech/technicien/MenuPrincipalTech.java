@@ -125,7 +125,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		this.dispose();
 		try{
 			if(arg0.getSource()==bouton1){
-				new FenetreEnregistrerVeloTech(this.getTechnicien());
+				new FenetreEnregistrerArrivageVelosTech(this.getTechnicien());
 			}
 			else if (arg0.getSource()==bouton2){
 				new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());

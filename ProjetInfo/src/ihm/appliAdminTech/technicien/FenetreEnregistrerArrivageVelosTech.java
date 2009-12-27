@@ -13,16 +13,30 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Compte;
 import metier.Technicien;
 import metier.Velo;
 
-public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener{
+/**
+ * {@link FenetreEnregistrerArrivageVelosTech} hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>cette fenêtre permet au technicien connecté de confirmer l'enregistrement d'un nouveau arrivage de vélos
+ * <br>cette action est précédée de la création physique d'un nouveau vélo (arrivage...)
+ * <br>le technicien ne peut enregistrer de vélos que dix par dix au maximum
+ * <br>s'il a un arrivage de 14 vélos, il devra le déclarer en deux fois
+ * @author KerGeek
+ *
+ */
+public class FenetreEnregistrerArrivageVelosTech extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -30,40 +44,59 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 	private static final long serialVersionUID = 1L;
 
 	private Technicien technicien;
+	private int nbVelosEntre;
+	private List<Velo> listeVelosCrees = new ArrayList<Velo>();
 
 	private JLabel labelTech = new JLabel("");
-	private JLabel labelMsg = new JLabel("Voulez-vous ajouter un nouveau vélo ? Il sera affecté au lieu : Garage");
-	private JButton boutonValider = new JButton ("Oui");
+	private JLabel labelMsg = new JLabel("Combien de vélos souhaitez-vous enregistrer ? ");
+	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
-	private Velo veloEntre;
 
+	// Accesseurs utiles
 
+	/**
+	 * @return	le {@link FenetreEnregistrerArrivageVelosTech#technicien} de la {@link FenetreEnregistrerArrivageVelosTech}
+	 */
 	public Technicien getTechnicien() {
 		return technicien;
 	}
 
+	/**
+	 * Initialise le {@link FenetreEnregistrerArrivageVelosTech#technicien} de la {@link FenetreEnregistrerArrivageVelosTech}
+	 * @param tech
+	 * le technicien connecté sur cette fenêtre
+	 * @see Technicien
+	 */
 	public void setTechnicien(Technicien tech) {
 		this.technicien = tech;
 	}
-	
-	public Velo getVeloEntre() {
-		return veloEntre;
+
+	public int getNbVelosEntre() {
+		return nbVelosEntre;
 	}
 
-	public void setVeloEntre(Velo veloEntre) {
-		this.veloEntre = veloEntre;
+	public void setNbVelosEntre(int nbVelosEntre) {
+		this.nbVelosEntre = nbVelosEntre;
 	}
 
-	public FenetreEnregistrerVeloTech(Technicien t) throws SQLException, ClassNotFoundException{
+	public List<Velo> getListeVelosCrees() {
+		return listeVelosCrees;
+	}
 
-		System.out.println("Ouverture d'une fenêtre d'enregistrement de vélo du technicien");
+	public void setListeVelosCrees(List<Velo> listeVelosCrees) {
+		this.listeVelosCrees = listeVelosCrees;
+	}
+
+	public FenetreEnregistrerArrivageVelosTech(Technicien t) throws SQLException, ClassNotFoundException{
+
+		System.out.println("Ouverture d'une fenêtre d'enregistrement de vélos du technicien");
 
 		this.setTechnicien(t);
 		this.setContentPane(new PanneauTech());
 
 		//Définit un titre pour votre fenêtre
-		this.setTitle("Enregistrer un nouveau vélo");
-		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
+		this.setTitle("Enregistrer un nouvel arrivage de vélos");
+		//Définit une taille pour celle-ci
 		this.setSize(700, 500);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
@@ -93,7 +126,35 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 		labelMsg.setPreferredSize(new Dimension(600,30));
 		labelMsg.setMaximumSize(new Dimension(600,30));
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
-		center.add(labelMsg);	
+		center.add(labelMsg);
+
+
+
+
+		Object [] tableauEntiers = new Object[11];
+		tableauEntiers[0]="Sélectionnez un nombre de vélos";
+		for (int i=0;i<10;i++){
+			tableauEntiers[i+1] = i+1;
+		}
+		DefaultComboBoxModel model = new DefaultComboBoxModel(tableauEntiers);
+
+		JComboBox combo = new JComboBox(model);
+		combo.setFont(UtilitaireIhm.POLICE3);
+		combo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
+				if (o instanceof Integer){
+					nbVelosEntre = (Integer)(o);
+				}
+				else{
+					nbVelosEntre = 0;
+				}
+				System.out.println("nombre de vélos entré : "+nbVelosEntre);
+			}
+		});
+		center.add(combo);
+
+
 		boutonValider.setPreferredSize(new Dimension(150,30));
 		boutonValider.setMaximumSize(new Dimension(150,30));
 		boutonValider.setBackground(Color.CYAN);
@@ -116,13 +177,16 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 
 		this.setVisible(true);
 	}
-	
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonValider){
-				veloEntre = this.getTechnicien().enregistrerVelo();
-				DAOVelo.createVelo(veloEntre);
+				for(int k = 0;k<this.getNbVelosEntre();k++){
+					Velo veloEnregistre = this.getTechnicien().enregistrerVelo();
+					this.getListeVelosCrees().add(veloEnregistre);
+					DAOVelo.createVelo(veloEnregistre);
+				}
 				new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 			}
 			else if(arg0.getSource()==boutonRetour){
@@ -137,5 +201,9 @@ public class FenetreEnregistrerVeloTech extends JFrame implements ActionListener
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
 		}
+	}
+	
+	public static void main (String[]args) throws SQLException, ClassNotFoundException{
+		new FenetreEnregistrerArrivageVelosTech(new Technicien(new Compte(12,"lalilalou")));
 	}
 }
