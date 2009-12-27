@@ -20,6 +20,9 @@ public class MainConnexionBdd {
 		System.out.println(DAOLieu.getStationsEtGarage());
 		System.out.println(DAOLieu.getAllStations());
 		
+		/*TODO
+		 * REGLER LE PB DES ZONES GRISES AVEC LES COMBO BOX
+		 */
 
 		/*
 		GregorianCalendar cal =  new GregorianCalendar(2009,5,5);
