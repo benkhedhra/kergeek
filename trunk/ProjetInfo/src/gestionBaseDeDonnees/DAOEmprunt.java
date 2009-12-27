@@ -13,6 +13,7 @@ import java.util.List;
 import metier.Compte;
 import metier.Emprunt;
 import metier.Lieu;
+import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 import metier.Velo;
@@ -30,14 +31,14 @@ public class DAOEmprunt {
 				String id = res.getString("id");
 				emprunt.setId(id);
 
-				if (emprunt.getLieuRetour() != null){
+				if (emprunt.getStationRetour() != null){
 
 					s.executeUpdate("INSERT into Emprunt values (" 
 							+ "'" + emprunt.getId() + "',"
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'),"
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI'),"
-							+ "'" + emprunt.getLieuEmprunt().getId() + "',"
-							+ "'" + emprunt.getLieuRetour().getId() + "',"
+							+ "'" + emprunt.getStationEmprunt().getId() + "',"
+							+ "'" + emprunt.getStationRetour().getId() + "',"
 							+ "'" + emprunt.getUtilisateur().getCompte().getId() + "'," 
 							+ "'" + emprunt.getVelo().getId() + "'" +
 					")");
@@ -49,7 +50,7 @@ public class DAOEmprunt {
 							+ "'" +  emprunt.getId() + "',"
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'),"
 							+ "'',"
-							+  "'" + emprunt.getLieuEmprunt().getId() + "',"
+							+  "'" + emprunt.getStationEmprunt().getId() + "',"
 							+ "'',"
 							+  "'" + emprunt.getUtilisateur().getCompte().getId() + "'," 
 							+  "'" + emprunt.getVelo().getId() + "'" +
@@ -92,8 +93,8 @@ public class DAOEmprunt {
 			s.executeUpdate("UPDATE Emprunt SET "
 					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "', "
 					+ "idvelo = '" + emprunt.getVelo().getId() + "', "
-					+ "idlieuEmprunt = '" + emprunt.getLieuEmprunt().getId() + "', "
-					+ "idlieuRetour = '" + emprunt.getLieuRetour().getId() + "', "
+					+ "idlieuEmprunt = '" + emprunt.getStationEmprunt().getId() + "', "
+					+ "idlieuRetour = '" + emprunt.getStationRetour().getId() + "', "
 					+ "dateEmprunt = " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'), "
 					+ "dateRetour = " +  "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI') "
 					+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
@@ -145,8 +146,8 @@ public class DAOEmprunt {
 					emprunt.setId(identifiant);
 					emprunt.setDateEmprunt(dateEmprunt);
 					emprunt.setDateRetour(dateRetour);
-					emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
-					emprunt.setLieuRetour(DAOLieu.getLieuById(idLieuRetour));
+					emprunt.setStationEmprunt((Station) DAOLieu.getLieuById(idLieuEmprunt));
+					emprunt.setStationRetour((Station) DAOLieu.getLieuById(idLieuRetour));
 					emprunt.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
 					emprunt.setVelo(DAOVelo.getVeloById(idVelo));
 
@@ -460,7 +461,7 @@ public class DAOEmprunt {
 
 				emprunt.setId(idEmprunt);
 				emprunt.setDateEmprunt(dateEmprunt);
-				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
+				emprunt.setStationEmprunt((Station) DAOLieu.getLieuById(idLieuEmprunt));
 				emprunt.setVelo(velo);
 
 				ConnexionOracleViaJdbc.ouvrir();
@@ -531,7 +532,7 @@ public class DAOEmprunt {
 				emprunt.setUtilisateur(utilisateur);
 				emprunt.setId(idEmprunt);
 				emprunt.setDateEmprunt(dateEmprunt);
-				emprunt.setLieuEmprunt(DAOLieu.getLieuById(idLieuEmprunt));
+				emprunt.setStationEmprunt((Station) DAOLieu.getLieuById(idLieuEmprunt));
 
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s2 = ConnexionOracleViaJdbc.createStatement();
