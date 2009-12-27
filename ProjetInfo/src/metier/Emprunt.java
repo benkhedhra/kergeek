@@ -47,17 +47,17 @@ public class Emprunt {
 	
 	/**
 	 * Le lieu où le {@link Emprunt#velo} a ÈtÈ empruntÈ.
-	 *@see Emprunt#getLieuEmprunt()
-	 *@see Emprunt#setLieuEmprunt(Lieu)
+	 *@see Emprunt#getStationEmprunt()
+	 *@see Emprunt#setStationEmprunt(Lieu)
 	 */
-	private Lieu lieuEmprunt;
+	private Station stationEmprunt;
 	
 	/**
 	 * Le lieu où le {@link Emprunt#velo} a ÈtÈ rendu.
-	 * @see Emprunt#getLieuRetour()
-	 * @see Emprunt#setLieuRetour(Lieu)
+	 * @see Emprunt#getStationRetour()
+	 * @see Emprunt#setStationRetour(Lieu)
 	 */
-	private Lieu lieuRetour;
+	private Station stationRetour;
 
 
 	//Constantes
@@ -83,36 +83,36 @@ public class Emprunt {
 	
 	/**
 	 * CrÈation d'un Emprunt ‡ partir des ÈlÈments suivants : {@link Emprunt#utilisateur}, {@link Emprunt#velo},
-	 *  {@link Emprunt#dateEmprunt} et {@link Emprunt#lieuEmprunt}. 
+	 *  {@link Emprunt#dateEmprunt} et {@link Emprunt#stationEmprunt}. 
 	 * @param utilisateur
 	 * @param velo
 	 * @param dateEmprunt
-	 * @param lieuEmprunt
+	 * @param stationEmprunt
 	 */
-	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt) {
+	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Station stationEmprunt) {
 		this.setUtilisateur(utilisateur);
 		this.setVelo(velo);
 		this.setDateEmprunt(dateEmprunt);
-		this.setLieuEmprunt(lieuEmprunt);
+		this.setStationEmprunt(stationEmprunt);
 	}
 	
 	/**
 	 * CrÈation d'un Emprunt ‡ partir des ÈlÈments suivants : {@link Emprunt#utilisateur}, {@link Emprunt#velo},
-	 *  {@link Emprunt#dateEmprunt}, {@link Emprunt#lieuEmprunt}, {@link Emprunt#dateRetour} et {@link Emprunt#lieuRetour}.
+	 *  {@link Emprunt#dateEmprunt}, {@link Emprunt#stationEmprunt}, {@link Emprunt#dateRetour} et {@link Emprunt#stationRetour}.
 	 * @param utilisateur
 	 * @param velo
 	 * @param dateEmprunt
-	 * @param lieuEmprunt
+	 * @param stationEmprunt
 	 * @param dateRetour
-	 * @param lieuRetour
+	 * @param stationRetour
 	 */
-	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Lieu lieuEmprunt, Date dateRetour, Lieu lieuRetour) {
+	public Emprunt(Utilisateur utilisateur, Velo velo, Date dateEmprunt, Station stationEmprunt, Date dateRetour, Station stationRetour) {
 		this.setUtilisateur(utilisateur);
 		this.setVelo(velo);
 		this.setDateEmprunt(dateEmprunt);
-		this.setLieuEmprunt(lieuEmprunt);
+		this.setStationEmprunt(stationEmprunt);
 		this.setDateRetour(dateRetour);
-		this.setLieuRetour(lieuRetour);
+		this.setStationRetour(stationRetour);
 	}
 
 
@@ -122,9 +122,9 @@ public class Emprunt {
 	 * @param utilisateur
 	 * @param velo
 	 * @param dateEmprunt
-	 * @param lieuEmprunt
+	 * @param stationEmprunt
 	 * @param dateRetour
-	 * @param lieuRetour
+	 * @param stationRetour
 	 */
 	public Emprunt(Emprunt e) {
 		this.id = e.getId();
@@ -132,8 +132,8 @@ public class Emprunt {
 		this.velo = e.getVelo();
 		this.dateEmprunt = e.getDateEmprunt();
 		this.dateRetour = e.getDateRetour();
-		this.lieuEmprunt = e.getLieuEmprunt();
-		this.lieuRetour = e.getLieuRetour();
+		this.stationEmprunt = e.getStationEmprunt();
+		this.stationRetour = e.getStationRetour();
 	}
 
 
@@ -215,33 +215,33 @@ public class Emprunt {
 	}
 	
 	/**
-	 * @return {@link Emprunt#lieuEmprunt}
+	 * @return {@link Emprunt#stationEmprunt}
 	 */
-	public Lieu getLieuEmprunt() {
-		return lieuEmprunt;
+	public Station getStationEmprunt() {
+		return stationEmprunt;
 	}
 	
 	/**
-	 * Initialise {@link Emprunt#lieuEmprunt}.
-	 * @param lieuEmprunt
+	 * Initialise {@link Emprunt#stationEmprunt}.
+	 * @param stationEmprunt
 	 */
-	public void setLieuEmprunt(Lieu lieuEmprunt) {
-		this.lieuEmprunt = lieuEmprunt;
+	public void setStationEmprunt(Station stationEmprunt) {
+		this.stationEmprunt = stationEmprunt;
 	}
 	
 	/**
-	 * @return {@link Emprunt#lieuRetour}
+	 * @return {@link Emprunt#stationRetour}
 	 */
-	public Lieu getLieuRetour() {
-		return lieuRetour;
+	public Station getStationRetour() {
+		return stationRetour;
 	}
 	
 	/**
-	 * Initialise {@link Emprunt#lieuRetour}.
-	 * @param lieuRetour
+	 * Initialise {@link Emprunt#stationRetour}.
+	 * @param stationRetour
 	 */
-	public void setLieuRetour(Lieu lieuRetour) {
-		this.lieuRetour = lieuRetour;
+	public void setStationRetour(Station stationRetour) {
+		this.stationRetour = stationRetour;
 	}
 
 
@@ -280,12 +280,12 @@ public class Emprunt {
 			this.getId().equals(e.getId());
 		}
 		if(this.getDateRetour() == null){
-			b = e.getDateRetour() == null && e.getLieuRetour() == null;
+			b = e.getDateRetour() == null && e.getStationRetour() == null;
 		}
 		else{
-			b = (this.getDateRetour().equals(e.getDateRetour())) && (this.getLieuRetour().equals(e.getLieuRetour()));
+			b = (this.getDateRetour().equals(e.getDateRetour())) && (this.getStationRetour().equals(e.getStationRetour()));
 		}
-		return a && b && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateEmprunt()))  && (this.getLieuEmprunt().equals(e.getLieuEmprunt()));
+		return a && b && (this.getUtilisateur().equals(e.getUtilisateur()))&& (this.getVelo().equals(e.getVelo())) && (this.getDateEmprunt().equals(e.getDateEmprunt()))  && (this.getStationEmprunt().equals(e.getStationEmprunt()));
 	}
 
 

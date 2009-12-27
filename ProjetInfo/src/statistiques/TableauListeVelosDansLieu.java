@@ -56,7 +56,7 @@ public class TableauListeVelosDansLieu extends JPanel {
 				gCal.setTime(liste.get(k).getEmpruntEnCours().getDateEmprunt());
 
 				donnees[k][0] = liste.get(k).getId();
-				donnees[k][1] = liste.get(k).getEmpruntEnCours().getLieuEmprunt().getAdresse();
+				donnees[k][1] = liste.get(k).getEmpruntEnCours().getStationEmprunt().getAdresse();
 				donnees[k][2] = liste.get(k).getEmpruntEnCours().getUtilisateur().getCompte().getId();
 				donnees[k][3] = gCal.get(Calendar.DAY_OF_MONTH)+"/"+ (gCal.get(Calendar.MONTH)+1);
 				donnees[k][4] = gCal.get(Calendar.HOUR_OF_DAY) + "h" + gCal.get(Calendar.MINUTE);

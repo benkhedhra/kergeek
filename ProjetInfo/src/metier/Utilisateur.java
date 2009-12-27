@@ -115,7 +115,7 @@ public class Utilisateur {
 
 	public void emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException, CompteBloqueException{
 		if (!this.bloque){
-			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(), velo.getLieu()));
+			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(), (Station) velo.getLieu()));
 			this.setEmpruntEnCours(velo.getEmpruntEnCours());
 			velo.getLieu().enleverVelo(velo);
 		}
@@ -136,7 +136,7 @@ public class Utilisateur {
 				station.ajouterVelo(velo);
 				emprunt = new Emprunt(empruntEnCours);
 				emprunt.setDateRetour(UtilitaireDate.dateCourante());
-				emprunt.setLieuRetour(station);
+				emprunt.setStationRetour(station);
 				if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
 					//emprunt trop long
 					this.setBloque(true);
