@@ -278,7 +278,6 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		this.getContentPane().add(center,BorderLayout.CENTER);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
-
 		this.setVisible(true);
 	}
 
