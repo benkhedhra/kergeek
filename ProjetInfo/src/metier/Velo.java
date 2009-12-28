@@ -64,7 +64,10 @@ public class Velo {
 	public void setEmpruntEnCours(Emprunt emprunt){
 		this.empruntEnCours = emprunt;
 	}
-
+	
+	
+	//Méthodes
+	
 	@Override
 	public boolean equals(Object o) {
 		Velo v =(Velo) o;

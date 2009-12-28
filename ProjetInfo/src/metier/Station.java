@@ -1,6 +1,9 @@
 package metier;
 
-
+/**
+ * 
+ * @author KerGeek
+ */
 public class Station extends Lieu {
 	
 	//Attributs

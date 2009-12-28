@@ -2,7 +2,7 @@ package metier;
 
 
 /**
- * 
+ * La classe Lieu est une classe abstra”te qui représente les diffrents lieus dans lesquels peut tre placé un Vélo.
  * @see Detruit
  * @see Garage
  * @see Sortie
@@ -12,8 +12,26 @@ public abstract class Lieu {
 
 	//Attributs
 
+	/**
+	 * L'identifiant d'un Lieu est unique. Une fois attribué, il ne doit pas tre modifié.
+	 * @see Lieu#getId()
+	 * @see Lieu#setId(String)
+	 */
 	protected String id;
+	
+	/**
+	 * L'adresse d'un Lieu.
+	 * @see Lieu#getAdresse()
+	 * @see Lieu#setAdresse(String)
+	 */
 	protected String adresse;
+	
+	/**
+	 * Le nombre maximum de Vélo pouvant contenir ce Lieu. {@link Sortie} et {@link Detruit} n'ont pas cette limite,
+	 *  leur attribut capacite vaut 0.
+	 * @see Lieu#getCapacite()
+	 * @see Lieu#setCapacite(int)
+	 */
 	protected int capacite;
 
 	//Constantes
@@ -32,38 +50,79 @@ public abstract class Lieu {
 
 
 	//Accesseurs et Mutateurs
-
+	
+	/**
+	 * @return {@link Lieu#id}
+	 */
 	public String getId() {
 		return id;
 	}
+	
+	/**
+	 * Initialise {@link Lieu#id}.
+	 * @param id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	
+	/**
+	 * @return {@link Lieu#adresse}
+	 */
 	public String getAdresse() {
 		return adresse;
 	}
+	
+	/**
+	 * Initialise {@link Lieu#adresse}.
+	 * @param adresse
+	 */
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+	
+	/**
+	 * @return {@link Lieu#capacite}.
+	 */
 	public int getCapacite() {
 		return capacite;
 	}
+	
+	/**
+	 * Initialise  {@link Lieu#capacite}.
+	 * @param capacite
+	 */
 	public void setCapacite(int capacite) {
 		this.capacite = capacite;
 	}
 
 	//Méthodes
 	
+	/**
+	 * Retire un {@link Velo} de ce Lieu pour le placer en {@link Sortie}.
+	 * @param velo
+	 * @see Velo#setLieu(Lieu)
+	 * @see Sortie
+	 */
 	public void enleverVelo(Velo velo){
 		velo.setLieu(Sortie.getInstance());
 	}
 
+	/**
+	 * place un {@link Velo} dans ce Lieu.
+	 * @param velo
+	 * @see Velo#setLieu(Lieu)
+	 */
 	public void ajouterVelo(Velo velo){
 		velo.setLieu(this);
 	}
 
-
+	/**
+	 * Vérifie l'égalité entre deux instances de la classe Lieu en comparant les valeurs de leurs attributs respectifs.
+	 * @return un boolen
+	 * qui vaut vrai si les deux instances de la classe Lieu ont les mêmes valeurs pour chacun de leurs attributs,
+	 * faux sinon
+	 */
 	@Override
 	public boolean equals(Object o) {
 		Lieu l = (Lieu) o;
