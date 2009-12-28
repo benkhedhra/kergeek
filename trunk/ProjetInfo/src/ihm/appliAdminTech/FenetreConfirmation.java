@@ -372,7 +372,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

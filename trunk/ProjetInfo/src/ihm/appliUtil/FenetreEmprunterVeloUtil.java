@@ -156,7 +156,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		Velo velo;
 		this.dispose();

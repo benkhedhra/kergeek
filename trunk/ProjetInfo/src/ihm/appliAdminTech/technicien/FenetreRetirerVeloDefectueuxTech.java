@@ -245,7 +245,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){

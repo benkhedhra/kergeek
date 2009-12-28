@@ -204,7 +204,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	 * @throws MotDePasseNonRempliException
 	 * @throws ConnexionFermeeException
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

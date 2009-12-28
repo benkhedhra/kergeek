@@ -263,7 +263,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
