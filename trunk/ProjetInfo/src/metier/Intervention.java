@@ -145,7 +145,7 @@ public class Intervention {
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Intervention en comparant les valeurs de leurs attributs respectifs.
 	 * @return un boolen
-	 * qui vaut vrai si les deux instances de la classe compte ont les mme valeurs pour chacun de leurs attributs,
+	 * qui vaut vrai si les deux instances de la classe Intervention ont les mêmes valeurs pour chacun de leurs attributs,
 	 * faux sinon
 	 */
 	@Override

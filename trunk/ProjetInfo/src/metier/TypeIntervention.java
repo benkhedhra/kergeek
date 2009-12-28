@@ -1,5 +1,9 @@
 package metier;
 
+/**
+ * 
+ * @author KerGeek
+ */
 public class TypeIntervention {
 
 	//Constantes
@@ -19,6 +23,9 @@ public class TypeIntervention {
 
 	//Constructeurs
 	
+	/**
+	 * Constructeur par défaut d'un TypeIntervention.
+	 */
 	public TypeIntervention() {
 		this.setType(0);
 	}
@@ -36,11 +43,9 @@ public class TypeIntervention {
 	}
 
 
-
 	public void setType(int type) {
 		this.type = type;
 	}
-
 
 
 	public String getDescription() {
@@ -48,11 +53,19 @@ public class TypeIntervention {
 	}
 
 
-
 	public void setDescription(String descritpion) {
 		this.description = descritpion;
 	}
 	
+	//Méthode
+	
+	
+	/**
+	 * Vérifie l'égalité entre deux instances de la TypeIntervention en comparant les valeurs de leurs attributs respectifs.
+	 * @return un boolŽen
+	 * qui vaut vrai si les deux instances de la classe TypeIntervention ont les mêmes valeurs pour chacun de leurs attributs,
+	 * faux sinon
+	 */
 	@Override
 	public boolean equals(Object o) {
 		TypeIntervention t = (TypeIntervention) o;
