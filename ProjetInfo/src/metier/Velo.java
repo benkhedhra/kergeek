@@ -1,6 +1,9 @@
 package metier;
 
-
+/**
+ * 
+ * @author KerGeek
+ */
 public class Velo {
 
 	// Attributs
@@ -68,6 +71,12 @@ public class Velo {
 	
 	//Méthodes
 	
+	/**
+	 * Vérifie l'égalité entre deux instances de la classe Velo en comparant les valeurs de leurs attributs respectifs.
+	 * @return un booléen
+	 * qui vaut vrai si les deux instances de la classe Compte ont les mêmes valeurs pour chacun de leurs attributs,
+	 * faux sinon
+	 */
 	@Override
 	public boolean equals(Object o) {
 		Velo v =(Velo) o;

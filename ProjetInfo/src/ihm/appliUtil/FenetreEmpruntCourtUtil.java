@@ -141,7 +141,6 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * @override
 	 * méthode exécutée quand l'utilisateur a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>si l'utilisateur veut déclarer le vélo défectueux, le vélo est déclaré en panne et une nouvelle demande d'intervention est créée dans la base de données
 	 * <br>sinon, l'utilisateur a terminé son action, il est déconnecté et un message d'au-revoir apparaît
@@ -151,6 +150,7 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 	 * @see {@link DemandeIntervention#DemandeIntervention(Utilisateur, Velo)}
 	 * @see DAODemandeIntervention#createDemandeIntervention(DemandeIntervention)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonOui){

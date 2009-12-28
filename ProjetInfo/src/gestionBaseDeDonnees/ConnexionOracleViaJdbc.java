@@ -62,6 +62,8 @@ public class ConnexionOracleViaJdbc {
 
 	/**
 	 * fermeture de la connexion
+	 * @throws SQLException 
+	 * @throws ConnexionFermeeException 
 	 */	
 	public static void fermer() throws SQLException, ConnexionFermeeException{
 		if(c != null){
@@ -74,7 +76,8 @@ public class ConnexionOracleViaJdbc {
 
 	/**
 	 * ouverture de la connexion
-	 * @throws SQLException, ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */	
 	public static void ouvrir() throws SQLException,ClassNotFoundException{
 		
@@ -119,6 +122,8 @@ public class ConnexionOracleViaJdbc {
 
 	/**
 	 * création d'instructions (statements) - redéfinition de la méthode
+	 * @return  st
+	 * @throws java.lang.NullPointerException 
 	 */	
 	public static Statement createStatement() throws java.lang.NullPointerException{
 		Statement st = null;

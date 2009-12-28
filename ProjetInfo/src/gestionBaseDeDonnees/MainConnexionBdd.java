@@ -11,7 +11,8 @@ public class MainConnexionBdd {
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
-
+		
+		/*
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
 		System.out.println("Ouvert");
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
@@ -19,6 +20,7 @@ public class MainConnexionBdd {
 		
 		System.out.println(DAOLieu.getStationsEtGarage());
 		System.out.println(DAOLieu.getAllStations());
+		*/
 		
 		/*TODO
 		 * REGLER LE PB DES ZONES GRISES AVEC LES COMBO BOX

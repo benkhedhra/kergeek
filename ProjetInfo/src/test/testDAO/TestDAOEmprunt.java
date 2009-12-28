@@ -11,7 +11,6 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import metier.Emprunt;
-import metier.Lieu;
 import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;

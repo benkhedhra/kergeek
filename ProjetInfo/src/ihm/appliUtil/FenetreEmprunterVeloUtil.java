@@ -143,7 +143,6 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 
 	
 	/**
-	 * @override
 	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Valider"
 	 * <br>la fenêtre courante se ferme et une nouvelle fenêtre adaptée s'ouvre
 	 * <br>si le vélo entré par l'utilisateur est bien existant disponible dans la station une fenêtre de confirmation s'ouvre et le nouvel emprunt est créé
@@ -157,6 +156,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Velo velo;
 		this.dispose();

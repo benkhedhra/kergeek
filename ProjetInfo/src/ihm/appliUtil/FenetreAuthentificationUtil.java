@@ -163,7 +163,6 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	}
 
 	/**
-	 * @override
 	 * méthode exécutée une fois que l'utilisateur à la borne a cliqué sur le bouton "Valider"
 	 * <br>ferme la fenêtre courante et ouvre la fenêtre suivante
 	 * <br>il s'agit du menu de l'utilisateur si celui-ci s'est correctement authentifié
@@ -176,6 +175,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {

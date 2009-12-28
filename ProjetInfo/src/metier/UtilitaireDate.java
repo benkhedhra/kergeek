@@ -1,13 +1,18 @@
 package metier;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * La classe UtilitaireDate rassemble l'ensemble des méthodes static relatives à l'utilisation
+ *  des dates et horaires dans l'applications.
+ * @author KerGeek
+ */
 public class UtilitaireDate {
-
-	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-
+	
+	/**
+	 * @return une instance de la classe {@link java.sql.Date} correspondant à la date courante.
+	 */
 	public static java.sql.Date dateCourante() {
 		GregorianCalendar cal = new GregorianCalendar();
 		java.util.Date dateUtil = cal.getTime();
@@ -15,11 +20,14 @@ public class UtilitaireDate {
 		return dateSql; //cal.getTime renvoie une Date 
 
 	}
-
-	public static Time heureCourante(){
-		return new Time(System.currentTimeMillis());
-	}
-
+	
+	/**
+	 * Retranche nbHeures heures à la date dateSql.
+	 * @param dateSql
+	 * @param nbHeures
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql ˆ laquelle
+	 *  on a retranché nbHeures heures
+	 */
 	public static java.sql.Date retrancheHeures(java.sql.Date dateSql, int nbHeures){
 
 		// déclaration d'un calendrier
@@ -33,7 +41,14 @@ public class UtilitaireDate {
 
 		return nouvelleDateSql;
 	}
-
+	
+	/**
+	 * Retranche nbJours jours à la date dateSql.
+	 * @param dateSql
+	 * @param nbJours
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql ˆ laquelle
+	 *  on a retranché nbJours jours
+	 */
 	public static java.sql.Date retrancheJours(java.sql.Date dateSql, int nbJours){
 
 		// déclaration d'un calendrier
@@ -47,7 +62,14 @@ public class UtilitaireDate {
 
 		return nouvelleDateSql;
 	}
-
+	
+	/**
+	 * Ajoute nbJours jours à la date dateSql.
+	 * @param dateSql
+	 * @param nbJours
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql ˆ laquelle
+	 *  on a ajouté nbJours jours
+	 */
 	public static java.sql.Date ajouteJours(java.sql.Date dateSql, int nbJours){
 
 		// déclaration d'un calendrier
@@ -61,7 +83,14 @@ public class UtilitaireDate {
 
 		return nouvelleDateSql;
 	}
-
+	
+	/**
+	 * Retranche nbMois mois à la date dateSql.
+	 * @param dateSql
+	 * @param nbMois
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql à laquelle
+	 *  on a retranché nbMois mois
+	 */
 	public static java.sql.Date retrancheMois(java.sql.Date dateSql, int nbMois){
 
 		// déclaration d'un calendrier
@@ -75,7 +104,13 @@ public class UtilitaireDate {
 
 		return nouvelleDateSql;
 	}
-
+	
+	/**
+	 * Initialise la date dateSql au dbut du premier jour du mois de celle-ci.
+	 * @param dateSql
+	 * @return  une nouvelle instance de la classe {@link java.sql.Date} dont l'annƒe et le mois sont les mêmes que ceux de dateSql,
+	 *  mais dont le jour est le premier de ce mois, à l'horaire 00:00:00.
+	 */
 	public static java.sql.Date initialisationDebutMois(java.sql.Date dateSql){
 
 		// déclaration d'un calendrier
@@ -88,7 +123,13 @@ public class UtilitaireDate {
 
 		return nouvelleDateSql;
 	}
-
+	
+	/**
+	 * Initialise la date dateSql au dbut du jour de celle-ci.
+	 * @param dateSql
+	 * @return  une nouvelle instance de la classe {@link java.sql.Date} dont l'annƒe le mois et le jour sont les mêmes que ceux de dateSql,
+	 *  mais dont l'horaire est : 00:00:00 .
+	 */
 	public static java.sql.Date initialisationDebutJour(java.sql.Date dateSql){
 
 		// déclaration d'un calendrier
@@ -102,7 +143,13 @@ public class UtilitaireDate {
 		return nouvelleDateSql;
 	}
 
-
+	/**
+	 * Convertit une instance de la Classe {@link java.sql.Date} en cha”ne de caractre
+	 *  utilisable pour remplir la base de données associée ˆ l'application.
+	 * @param date
+	 * @return une cha”ne de caractre prsentant la date au format 'DD-MM-YYYY HH24:MI'
+	 *  utilisé par la base de données associée ˆ l'application.
+	 */
 	public static String conversionPourSQL(java.sql.Date date){
 
 		String stringDate = "";

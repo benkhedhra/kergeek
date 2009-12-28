@@ -104,6 +104,7 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 	/**
 	 * constructeur de FenetreRendreVeloUtil
 	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @throws ConnexionFermeeException 
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel
@@ -208,7 +209,6 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
 
 	/**
-	 * @override
 	 * cette méthode est appelée lorsque l'utilisateur a cliqué sur un des deux boutons "Valider" ou "Déconnexion"
 	 * <br>s'il a validé, le vélo est rendu à la station et l'emprunt est mis à jour (date et lieu de retour)
 	 * <br>sinon, l'utilisateur est déconnecté et une fenêtre d'au-revoir apparaît
@@ -225,6 +225,7 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

@@ -101,11 +101,11 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * @override
 	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Nouvelle identification"
 	 * <br>ferme la fenêtre en cours et ouvre une nouvelle fenêtre d'authentification
 	 * @see FenetreAuthentificationUtil#FenetreAuthentificationUtil(Boolean)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if(arg0.getSource()==boutonAuthentification){

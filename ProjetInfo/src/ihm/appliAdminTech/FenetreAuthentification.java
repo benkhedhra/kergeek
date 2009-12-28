@@ -198,7 +198,6 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Override
 	 * si l'individu a cliqué sur le bouton "Valider", cette méthode récupère les paramètres entrés et les teste
 	 * le menu principal s'affiche si l'individu s'est correctement identifié
 	 * sinon une nouvelle fenêtre d'authentification s'affiche avec un message différent
@@ -207,6 +206,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 * @throws {@ConnexionFermeeException}
 	 * @throws {@link MotDePasseNonRempliException}
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 
