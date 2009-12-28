@@ -194,6 +194,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 						else if(qualiteEntree.equals("technicien")){typeEntre=Compte.TYPE_TECHNICIEN;}
 					}
 					modifieSiPasUtilisateur(typeEntre);
+					repaint();
 				}
 			});
 

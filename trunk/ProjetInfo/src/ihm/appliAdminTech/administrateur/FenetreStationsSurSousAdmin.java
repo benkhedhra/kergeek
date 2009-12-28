@@ -131,6 +131,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 							new FenetreAuthentification(false);
 						}
 					}
+					repaint();
 				}
 			});
 			center.add(tableau);

@@ -60,7 +60,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	 * <br>boutonRetour est le bouton de retour au menu principal
 	 */
 	private Administrateur administrateur;
-	
+
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Entrer les données du titulaire du nouveau compte");
 
@@ -164,19 +164,18 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				String qualiteEntree = (String)o;
-
 				if(qualiteEntree.equals("utilisateur")){
 					typeEntre=Compte.TYPE_UTILISATEUR;
-					}
-				if(qualiteEntree.equals("administrateur")){
+				}
+				else if(qualiteEntree.equals("administrateur")){
 					typeEntre=Compte.TYPE_ADMINISTRATEUR;
-					}
-				if(qualiteEntree.equals("technicien")){
+				}
+				else if(qualiteEntree.equals("technicien")){
 					typeEntre=Compte.TYPE_TECHNICIEN;
-					}
+				}
 				modifieSiPasUtilisateur(typeEntre);
+				repaint();
 			}
-
 		});
 		panel2.add(qualiteARemplir);
 		centerWest.add(panel2);	
@@ -361,6 +360,6 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-		
+
 	}
 }

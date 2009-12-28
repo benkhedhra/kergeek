@@ -127,6 +127,7 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 							new FenetreAuthentification(false);
 						}
 					}
+					repaint();
 				}
 			});
 			centerWest.add(labelMsg);

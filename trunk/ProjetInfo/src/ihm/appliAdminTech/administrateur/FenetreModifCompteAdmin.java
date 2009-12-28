@@ -253,6 +253,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 					String statutEntre = (String) (o);
 					if(statutEntre.equals("bloqué")){bloqueEntre=true;}
 					else if (statutEntre.equals("non bloqué")){bloqueEntre=false;}
+					repaint();
 				}
 
 			});

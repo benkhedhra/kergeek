@@ -158,6 +158,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 							}
 							System.out.println("id de l'intervention entrée : "+idInterventionEntre);
 							interventionEntree = DAOIntervention.getInterventionById(idInterventionEntre);
+							repaint();
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {

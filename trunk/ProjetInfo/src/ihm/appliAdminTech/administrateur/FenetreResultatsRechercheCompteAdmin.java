@@ -142,6 +142,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 							String idCompteEntre = chaineSelectionnee.substring(0,k+1);
 							compteEntre = DAOCompte.getCompteById(idCompteEntre);
 							System.out.println("idCompteEntre = "+idCompteEntre + " - "+compteEntre.isActif());
+							repaint();
 						} 
 						catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());

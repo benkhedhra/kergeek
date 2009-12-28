@@ -153,7 +153,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		List<DemandeIntervention> listeDemandes;
 		try {
 			listeDemandes= DAODemandeIntervention.getDemandesInterventionEnAttente();
-			String [] tableauDemandes = new String[listeDemandes.size()+1];
+			final String [] tableauDemandes = new String[listeDemandes.size()+1];
 			tableauDemandes[0]=listeDemandes.size()+" demandes formulées";
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeIntervention demandei = listeDemandes.get(i);
@@ -171,6 +171,10 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					try {
 						String chaineSelectionnee = (String)(o);
+						if(chaineSelectionnee==null || chaineSelectionnee.equals(tableauDemandes[0])){
+							demandeEntree=null;
+						}
+						else{
 						String idDemandeEntre="";
 						int i=8;
 						while(chaineSelectionnee.charAt(i)!=' '){
@@ -179,6 +183,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 						}
 						System.out.println("id de la demande entré : "+idDemandeEntre);
 						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
+						}repaint();
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {
