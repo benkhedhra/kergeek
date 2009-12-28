@@ -60,9 +60,8 @@ public class Technicien {
 	}
 
 	/**
-	 * Initialise {@link Technicien#compte}
+	 * Initialise {@link Technicien#compte}.
 	 * @param compte
-	 * le nouveau compte du Technicien
 	 */
 
 	public void setCompte(Compte compte) {

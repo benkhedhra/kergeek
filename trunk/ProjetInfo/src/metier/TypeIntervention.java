@@ -9,15 +9,26 @@ public class TypeIntervention {
 	//Constantes
 	
 	/**
-	 * @see TypeIntervention#type
+	 * @see TypeIntervention#numero
 	 */
 	public static final int TYPE_NON_JUSTIFIEE = 1;
+	
+	/**
+	 * @see TypeIntervention#numero
+	 */
 	public static final int TYPE_DESTRUCTION = 2;
 
 	
 	//Attributs
 	
-	private int type;
+	/**
+	 * 
+	 */
+	private int numero;
+	
+	/**
+	 * 
+	 */
 	private String description;
 	
 
@@ -27,38 +38,53 @@ public class TypeIntervention {
 	 * Constructeur par défaut d'un TypeIntervention.
 	 */
 	public TypeIntervention() {
-		this.setType(0);
+		this.setNumero(0);
 	}
-
+	
+	/**
+	 * 
+	 * @param descritpion
+	 */
 	public TypeIntervention(String descritpion) {
 		this.setDescription(descritpion);
-		this.setType(0);
+		this.setNumero(0);
 	}
 
 
 	//Accesseurs et Mutateurs
-
-	public int getType() {
-		return type;
+	
+	/**
+	 * @return {@link TypeIntervention#numero}
+	 */
+	public int getNumero() {
+		return numero;
 	}
 
-
-	public void setType(int type) {
-		this.type = type;
+	/**
+	 * Initialise {@link TypeIntervention#numero}.
+	 * @param numero
+	 */
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
-
+	/**
+	 * @return {@link TypeIntervention#description}
+	 */
 	public String getDescription() {
 		return description;
 	}
 
-
+	/**
+	 * Initialise {@link TypeIntervention#description}.
+	 * @param descritpion
+	 */
 	public void setDescription(String descritpion) {
 		this.description = descritpion;
 	}
 	
-	//Méthode
 	
+	//Méthode
 	
 	/**
 	 * Vérifie l'égalité entre deux instances de la TypeIntervention en comparant les valeurs de leurs attributs respectifs.
@@ -70,17 +96,21 @@ public class TypeIntervention {
 	public boolean equals(Object o) {
 		TypeIntervention t = (TypeIntervention) o;
 		Boolean a =false;
-		if(this.getType() == 0){
-			a = t.getType() == 0;
+		if(this.getNumero() == 0){
+			a = t.getNumero() == 0;
 		}
 		else{
-			a = this.getType() == t.getType();
+			a = this.getNumero() == t.getNumero();
 		}
 		return a && (this.getDescription().equals(t.getDescription()));
 	}
 	
+	/**
+	 * Affiche {@link TypeIntervention#numero} suivi de {@link TypeIntervention#description}.
+	 */
+	@Override
 	public String toString(){
-		return this.getType()+" - "+this.getDescription();
+		return this.getNumero()+" - "+this.getDescription();
 	}
 	
 
