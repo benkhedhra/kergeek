@@ -17,6 +17,7 @@ public class PanneauUtil extends JPanel {
 
 	/**
 	 * méthode qui sera appelé par défaut à chaque construction d'un nouveau panneau et qui peint l'image velo3.jpg en image de fond
+	 * @param g 
 	 */
 	public void paintComponent(Graphics g){
 

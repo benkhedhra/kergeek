@@ -150,7 +150,6 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 
 	/**
-	 * @override
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des cinq boutons qui lui étaient proposés
 	 * @see FenetreEnregistrerArrivageVelosTech#FenetreEnregistrerArrivageVelosTech(Technicien)
 	 * @see FenetreRetirerVeloDefectueuxTech#FenetreRetirerVeloDefectueuxTech(Technicien)
@@ -158,6 +157,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	 * @see FenetreGererInterventionsTech#FenetreGererInterventionsTech(Technicien)
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

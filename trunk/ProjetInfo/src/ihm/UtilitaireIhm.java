@@ -58,7 +58,7 @@ public class UtilitaireIhm {
 	 * @return un booléen
 	 * qui vaut vrai si type correspond à un type de compte existant et que adresseEMail vérifie les contraintes du MLD
 	 * faux sinon
-	 * @see verifieTypeCreationCompte(type)
+	 * @see UtilitaireIhm#verifieTypeCreationCompte(int)
 	 */
 	public static boolean verifieChampsCreationAdmin(int type,String adresseEMail){
 		return verifieTypeCreationCompte(type) && adresseEMail.length()>0 && adresseEMail.length()<51;
@@ -71,7 +71,7 @@ public class UtilitaireIhm {
 	 * @return un booléen
 	 * qui vaut vrai si type correspond à un type de compte existant et que adresseEMail vérifie les contraintes du MLD
 	 * faux sinon
-	 * @see verifieTypeCreationCompte(type)
+	 * @see UtilitaireIhm#verifieTypeCreationCompte(int)
 	 */
 	public static boolean verifieChampsCreationTech(int type,String adresseEMail){
 		return verifieTypeCreationCompte(type) && adresseEMail.length()>0 && adresseEMail.length()<51;
@@ -87,7 +87,7 @@ public class UtilitaireIhm {
 	 * @return un booléen
 	 * qui vaut vrai si type correspond à un type de compte existant et que adresseEMail, nom, prenom et adressePostale vérifie les contraintes du MLD
 	 * faux sinon
-	 * @see verifieTypeCreationCompte(type)
+	 * @see UtilitaireIhm#verifieTypeCreationCompte(int)
 	 */
 	public static boolean verifieChampsCreationUtil(int type,String adresseEMail,String nom,String prenom,String adressePostale){
 		return (verifieTypeCreationCompte(type) && adresseEMail.length()>0 && adresseEMail.length()<51 && prenom.length()>0 && prenom.length()<21 && nom.length()>0 && nom.length()<21 && adressePostale.length()>0 && adressePostale.length()<251);
@@ -121,7 +121,7 @@ public class UtilitaireIhm {
 
 	/**
 	 * Vérifie s'il y a encore au moins une place disponible dans une station
-	 * @param station : Station
+	 * @param station
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -137,7 +137,9 @@ public class UtilitaireIhm {
 
 	/**
 	 * Vérifie si des vélos peuvent être assignés à une station
-	 * @param ancienneliste : la liste des identifiants des vélos que l'on veut assigner
+	 * @param ancienneliste
+	 *  la liste des identifiants des vélos que l'on veut assigner
+	 * @param lieu 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -174,14 +176,14 @@ public class UtilitaireIhm {
 	}
 
 	
-	
+	//TODO javadoc
 	public static boolean verifieParametresAssignation(int nbVelos,Lieu l){
 		return (nbVelos>0 && nbVelos<=l.getCapacite());
 	}
 
 	
 	
-	
+	//TODO javadoc
 	public static String obtenirMotDePasse(JPasswordField motDePasseARemplir) throws MotDePasseNonRempliException{
 		//TODO verifier que JpasswordField marche (et qu'il ne faut pas necessairement PasswordFieldLimite)
 		String mdp = "";

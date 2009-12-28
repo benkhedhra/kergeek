@@ -255,7 +255,6 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	}
 
 	/**
-	 * @override
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué surl 'un des deux boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur {@link FenetrePrendreEnChargeInterventionTech#boutonValider}, l'intervention est terminée
 	 * <br>s'il a cliqué sur le {@link FenetrePrendreEnChargeInterventionTech#boutonRetour} il retourne à son menu principal
@@ -264,6 +263,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {

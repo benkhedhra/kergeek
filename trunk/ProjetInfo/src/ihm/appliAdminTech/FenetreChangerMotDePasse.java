@@ -196,7 +196,6 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 
 	/**
-	 * Override
 	 * méthode qui est exécutée si l'individu a appuyé sur le bouton "Valider"
 	 * affiche une fenetre de confirmation si les champs entrés sont corrects (ancien mot de passe correct et nouveau mot de passe respectant les contraintes et confirmé
 	 * sinon affiche une MsgBox adaptée puis ouvre une nouvelle FenetreChangerMotDePasse
@@ -205,6 +204,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	 * @throws MotDePasseNonRempliException
 	 * @throws ConnexionFermeeException
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

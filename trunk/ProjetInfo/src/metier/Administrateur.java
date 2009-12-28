@@ -169,6 +169,7 @@ public class Administrateur {
 	 *  en question.
 	 * @param nombreVelosVouluDansStation
 	 * @param lieu
+	 * @return la nouvelle demande d'assignation
 	 * @see DemandeAssignation
 	 */
 

@@ -183,8 +183,9 @@ public class DAOEmprunt {
 
 	/**
 	 * 
-	 * @param station
-	 * @param depuisJours : nombre de jours sur lesquels ont veut avoir les nombre de velos sortis de la station
+	 * @param lieu
+	 * @param depuisJours
+	 *  nombre de jours sur lesquels ont veut avoir les nombre de velos sortis du lieu
 	 * @return le nombre de velos rentres dans la staion depuis depuisJours jours (depuisJours doit etre positif).
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -285,8 +286,9 @@ public class DAOEmprunt {
 
 	/**
 	 * 
-	 * @param station
-	 * @param depuisJours: nombre de jours sur lesquels ont veut avoir les nombre de vélos rentres dans la station
+	 * @param lieu
+	 * @param depuisJours
+	 *  le nombre de jours sur lesquels ont veut avoir le nombre de vÈlos rentres dans le lieu.
 	 * @return le nombre de velos rentres dans la station depuis depuisJours jours.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -332,7 +334,8 @@ public class DAOEmprunt {
 	/**
 	 * 
 	 * @param lieu
-	 * @param depuisheures: nombre d'heures sur lesquels ont veut avoir les nombre de vélos rentres dans la station
+	 * @param depuisHeures
+	 *  le nombre d'heures sur lesquels ont veut avoir les nombre de vélos rentres dans la station
 	 * @return le nombre de velos rentres dans la station depuis depuisHeures heures.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException

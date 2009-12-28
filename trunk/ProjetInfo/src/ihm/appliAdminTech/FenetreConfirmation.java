@@ -366,13 +366,13 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 
 	/**
-	 * @override
 	 * méthode exécutée sur l'individu a cliqué sur un des boutons qui se présentaient à lui
 	 * <br>la fenêtre courante se ferme et laisse place à la fenêtre suivante adaptée à l'événement arg0
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

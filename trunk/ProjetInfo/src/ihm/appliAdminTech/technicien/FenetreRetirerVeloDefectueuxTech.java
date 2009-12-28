@@ -65,7 +65,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	}
 
 	/**
-	 * Initialise le {@link FenetreRetirerVeloDefectueuxTech#technicien} de la {@link FenetreRetirerVeloDefectueuxTech}
+	 * Initialise {@link FenetreRetirerVeloDefectueuxTech#technicien}
 	 * @param tech
 	 * le technicien connecté sur cette fenêtre
 	 * @see Technicien
@@ -75,7 +75,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	}
 
 	/**
-	 * @return	la {@link FenetreRetirerVeloDefectueuxTech#} de la {@link FenetreRetirerVeloDefectueuxTech}
+	 * @return {@link FenetreRetirerVeloDefectueuxTech#demandeEntree}
 	 */
 	public DemandeIntervention getDemandeEntree() {
 		return demandeEntree;
@@ -238,7 +238,6 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	
 	
 	/**
-	 * @override
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur {@link FenetreRetirerVeloDefectueuxTech#boutonValider}, le technicien commence une intervention sur le vélo sélectionné ou entré
 	 * <br>s'il a cliqué sur le {@link FenetreRetirerVeloDefectueuxTech#boutonRetour} il retourne à son menu principal
@@ -246,6 +245,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){

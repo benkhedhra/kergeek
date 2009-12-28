@@ -119,6 +119,7 @@ public class Emprunt {
 
 	/**
 	 * CrÈation d'un Emprunt ‡ partir d'un autre Emprunt. Les deux emprunts ont alors les mêmes attributs.
+	 * @param emprunt 
 	 * @param utilisateur
 	 * @param velo
 	 * @param dateEmprunt
@@ -126,14 +127,14 @@ public class Emprunt {
 	 * @param dateRetour
 	 * @param stationRetour
 	 */
-	public Emprunt(Emprunt e) {
-		this.id = e.getId();
-		this.utilisateur = e.getUtilisateur();
-		this.velo = e.getVelo();
-		this.dateEmprunt = e.getDateEmprunt();
-		this.dateRetour = e.getDateRetour();
-		this.stationEmprunt = e.getStationEmprunt();
-		this.stationRetour = e.getStationRetour();
+	public Emprunt(Emprunt emprunt) {
+		this.id = emprunt.getId();
+		this.utilisateur = emprunt.getUtilisateur();
+		this.velo = emprunt.getVelo();
+		this.dateEmprunt = emprunt.getDateEmprunt();
+		this.dateRetour = emprunt.getDateRetour();
+		this.stationEmprunt = emprunt.getStationEmprunt();
+		this.stationRetour = emprunt.getStationRetour();
 	}
 
 
@@ -249,6 +250,7 @@ public class Emprunt {
 
 	/**
 	 * @return la durÈe de l'Emprunt en faisant la diffÈrence entre {@link Emprunt#dateRetour} et {@link Emprunt#dateRetour}.
+	 * @throws PasDeDateRetourException
 	 */
 	public long getTempsEmprunt() throws PasDeDateRetourException{
 		long diff;

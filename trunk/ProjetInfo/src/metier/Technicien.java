@@ -131,16 +131,15 @@ public class Technicien {
 	 *  et en associant le {@link TypeIntervention} {@link TypeIntervention#TYPE_DESTRUCTION}  à l'{@link Intervention} dont 
 	 *  il faisait l'objet.
 	 * @param intervention
-	 * @return
+	 * @return intervention
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
 	public Intervention retirerDuParc(Intervention intervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Intervention i = intervention;
-		i.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(TypeIntervention.TYPE_DESTRUCTION));
-		i.getVelo().setLieu(Detruit.getInstance());
-		return i;
+		intervention.setTypeIntervention(DAOTypeIntervention.getTypeInterventionById(TypeIntervention.TYPE_DESTRUCTION));
+		intervention.getVelo().setLieu(Detruit.getInstance());
+		return intervention;
 	}
 
 	/**
