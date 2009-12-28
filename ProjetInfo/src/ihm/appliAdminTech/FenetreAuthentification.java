@@ -206,7 +206,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 * @throws {@ConnexionFermeeException}
 	 * @throws {@link MotDePasseNonRempliException}
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 

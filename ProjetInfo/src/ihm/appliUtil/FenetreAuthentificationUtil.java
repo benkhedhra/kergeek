@@ -175,7 +175,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {

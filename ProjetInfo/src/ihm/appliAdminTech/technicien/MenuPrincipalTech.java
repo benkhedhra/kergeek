@@ -157,7 +157,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	 * @see FenetreGererInterventionsTech#FenetreGererInterventionsTech(Technicien)
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 */
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{
