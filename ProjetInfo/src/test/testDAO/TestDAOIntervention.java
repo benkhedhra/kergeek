@@ -29,7 +29,7 @@ public class TestDAOIntervention extends TestCase{
 	@Test
 	public void testGetInterventionById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Intervention i = DAOIntervention.getInterventionById("1");
-		assertEquals(1, i.getTypeIntervention().getType());
+		assertEquals(1, i.getTypeIntervention().getNumero());
 		assertEquals("1", i.getVelo().getId());
 	}
 	

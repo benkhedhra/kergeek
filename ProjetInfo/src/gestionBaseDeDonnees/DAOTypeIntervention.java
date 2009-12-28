@@ -22,10 +22,10 @@ public class DAOTypeIntervention {
 			ResultSet res = s.executeQuery("Select seqTypeIntervention.NEXTVAL as type from dual");
 			if (res.next()){
 				int type = res.getInt("type");
-				typeIntervention.setType(type);
+				typeIntervention.setNumero(type);
 
 				s.executeUpdate("INSERT into TypeIntervention values ('" 
-						+ typeIntervention.getType() +  "', '" 
+						+ typeIntervention.getNumero() +  "', '" 
 						+ typeIntervention.getDescription()
 						+ "')");
 				effectue=true;
@@ -60,7 +60,7 @@ public class DAOTypeIntervention {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			s.executeUpdate("UPDATE TypeIntervention SET "
 					+"descritpion = '" + typeIntervention.getDescription() +  "'" 
-					+ " WHERE idTypeIntervention = '" +typeIntervention.getType() + "'"
+					+ " WHERE idTypeIntervention = '" +typeIntervention.getNumero() + "'"
 			);
 			effectue=true;
 		}
@@ -95,7 +95,7 @@ public class DAOTypeIntervention {
 			ResultSet res = s.executeQuery("Select * FROM TypeIntervention WHERE idTypeIntervention ='" + type + "'");
 			try {
 				if (res.next()) {
-					typeIntervention.setType(type);
+					typeIntervention.setNumero(type);
 					typeIntervention.setDescription(res.getString("description"));
 				}
 				else {

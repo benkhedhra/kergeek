@@ -268,7 +268,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonValider){
-				if(this.getTypeInterventionEntre().getType()==TypeIntervention.TYPE_DESTRUCTION){
+				if(this.getTypeInterventionEntre().getNumero()==TypeIntervention.TYPE_DESTRUCTION){
 					Intervention i = this.getTechnicien().retirerDuParc(this.getIntervention());
 					DAOVelo.updateVelo(i.getVelo());
 					DAOIntervention.updateIntervention(i);
