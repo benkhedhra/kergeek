@@ -164,6 +164,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 							System.out.println("id de la demande entrée : "+idDemandeEntre);
 							demandeEntree = DAODemandeAssignation.getDemandeAssignationById(idDemandeEntre);
 						}
+						repaint();
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (ClassNotFoundException e) {

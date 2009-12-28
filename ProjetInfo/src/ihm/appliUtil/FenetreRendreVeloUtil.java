@@ -180,6 +180,7 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 						}
 						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
 						labelMsg.setFont(UtilitaireIhm.POLICE3);
+						repaint();
 					}
 					catch (Exception  e){
 						System.out.println("Erreur dans la sélection de la station");

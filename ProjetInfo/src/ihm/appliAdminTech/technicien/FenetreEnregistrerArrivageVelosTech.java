@@ -175,6 +175,7 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 					nbVelosEntre = 0;
 				}
 				System.out.println("nombre de vélos entré : "+nbVelosEntre);
+				repaint();
 			}
 		});
 		center.add(combo);

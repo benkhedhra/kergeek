@@ -38,7 +38,7 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 	private JLabel labelAdminTech = new JLabel("");
 	private JLabel labelConfirm = new JLabel("");
 	private JButton boutonOui = new JButton("OUI");
-	private JButton boutonNon = new JButton("NON (revenir à l'écran précédent)");
+	private JButton boutonNon = new JButton("<html><center>NON <br>(revenir à l'écran précédent)</center></html>");
 
 	public Administrateur getAdministrateur() {
 		return administrateur;

@@ -47,7 +47,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 	private Technicien technicien;
 	private Intervention intervention;
-	
+
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private JLabel labelTypeIntervention = new JLabel ("Veuillez entrer le type d'intervention");
@@ -181,7 +181,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			Collection<String> collection = DAOTypeIntervention.getAllTypesIntervention().values();
 			final List<String> listeTypes = new ArrayList<String>(collection.size());
 			listeTypes.addAll(collection);
-			String [] tableauTypes = new String[listeTypes.size()+1];
+			final String [] tableauTypes = new String[listeTypes.size()+1];
 			tableauTypes[0]="Sélectionnez un type d'intervention";
 			for (int k=0;k<listeTypes.size();k++){
 				tableauTypes[k+1]=listeTypes.get(k).toString();
@@ -196,8 +196,15 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String chaineSelectionnee = (String) o;
 					try {
-						int i = listeTypes.indexOf(chaineSelectionnee);
-						typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(i);
+						if(chaineSelectionnee==null || chaineSelectionnee.equals(tableauTypes[0])){
+							typeInterventionEntre=null;
+						}
+						else{
+
+							int i = listeTypes.indexOf(chaineSelectionnee);
+							typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(i);
+						}
+						repaint();
 					} catch (NumberFormatException e) {
 						MsgBox.affMsg(e.getMessage());
 					} catch (SQLException e) {
@@ -268,7 +275,11 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.dispose();
 		try {
 			if(arg0.getSource()==boutonValider){
-				if(this.getTypeInterventionEntre().getNumero()==TypeIntervention.TYPE_DESTRUCTION){
+				if (this.getTypeInterventionEntre()==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucun type d'intervention.");
+					new FenetrePrendreEnChargeInterventionTech(this.getTechnicien(),this.getIntervention());
+				}
+				else if(this.getTypeInterventionEntre().getNumero()==TypeIntervention.TYPE_DESTRUCTION){
 					Intervention i = this.getTechnicien().retirerDuParc(this.getIntervention());
 					DAOVelo.updateVelo(i.getVelo());
 					DAOIntervention.updateIntervention(i);

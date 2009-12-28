@@ -125,6 +125,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 							new FenetreAuthentification(false);
 						}
 					}
+					repaint();
 				}
 			});
 			centerWest.add(labelMsg);
