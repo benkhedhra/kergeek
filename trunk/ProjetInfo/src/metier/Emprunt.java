@@ -266,8 +266,7 @@ public class Emprunt {
 	
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Emprunt en comparant les valeurs de leurs attributs respectifs.
-	 * @return un boolen
-	 * qui vaut vrai si les deux instances de la classe Emprunt ont les mêmes valeurs pour chacun de leurs attributs,
+	 * @return vrai si les deux instances de la classe Emprunt ont les mêmes valeurs pour chacun de leurs attributs,
 	 * faux sinon
 	 */
 	@Override

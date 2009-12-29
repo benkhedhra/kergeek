@@ -6,9 +6,9 @@ import metier.Velo;
 /**
  * L’exception PasDeVeloEmprunteException est soulevÈe lorsqu’un {@link Utilisateur} essaye de rendre un Velo
  *  alors qu’il n’a pas d’empruntEnCours (et n’a donc pas emprunté de {@link Velo} actuellement).
+ * @see Utilisateur#getEmpruntEnCours()
+ * @see Utilisateur#rendreVelo(metier.Station)
  * @author KerGeek
- *@see Utilisateur#getEmpruntEnCours()
- *@see Utilisateur#rendreVelo(metier.Station)
  */
 public class PasDeVeloEmprunteException extends Exception{
 

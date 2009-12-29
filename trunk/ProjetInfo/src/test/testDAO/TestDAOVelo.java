@@ -19,7 +19,8 @@ public class TestDAOVelo extends TestCase {
 	@Test
 	public void testCreateVelo() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Lieu l = DAOLieu.getLieuById("1");
-		Velo v = new Velo(l, true);
+		Velo v = new Velo(l);
+		v.setEnPanne(true);
 		
 		Boolean b = DAOVelo.createVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);

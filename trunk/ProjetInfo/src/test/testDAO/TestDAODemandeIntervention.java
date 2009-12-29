@@ -23,7 +23,7 @@ public class TestDAODemandeIntervention extends TestCase{
 	public void testCreateDemandeIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurById("u1");
 		Lieu l = DAOLieu.getLieuById("1");
-		Velo v = new Velo(l, false);
+		Velo v = new Velo(l);
 		l.ajouterVelo(v);
 		DAOVelo.createVelo(v);
 		DemandeIntervention d = new DemandeIntervention(u,v);

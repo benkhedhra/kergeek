@@ -6,7 +6,7 @@ import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import java.sql.SQLException;
 
 /** 
- * Technicien est la classe representant un technicien du parc a vélos
+ * Technicien est la classe representant un technicien du parc à vélos
  * Un technicien est caracterisé par un {@link Compte}.
  * @see Velo
  * @see Lieu
@@ -76,7 +76,7 @@ public class Technicien {
 	 * @return velo, le nouveau vélo.
 	 */
 	public Velo enregistrerVelo(){
-		Velo velo = new Velo(Garage.getInstance(), false);
+		Velo velo = new Velo(Garage.getInstance());
 		return velo;
 	}
 	
@@ -144,8 +144,7 @@ public class Technicien {
 
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Technicien en comparant leur compte respectifs.
-	 * @return un boolŽen
-	 * qui vaut vrai si les deux instances de la classe Technicien ont le même compte,
+	 * @return vrai si les deux instances de la classe Technicien ont le même compte,
 	 * faux sinon
 	 * @see Compte#equals(Object)
 	 */

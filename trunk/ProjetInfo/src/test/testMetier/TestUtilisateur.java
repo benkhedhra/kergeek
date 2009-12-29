@@ -22,8 +22,9 @@ public class TestUtilisateur extends TestCase{
 	public void testEmprunteVelo() throws SQLException, ClassNotFoundException, CompteBloqueException{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
-		Station s = new Station("id","adresse", 50);
-		Velo v = new Velo(s,false);
+		Station s = new Station("adresse", 50);
+		s.setId("id");
+		Velo v = new Velo(s);
 		u.emprunteVelo(v);
 		
 		assertEquals(Lieu.ID_SORTIE, v.getLieu().getId());
@@ -39,8 +40,9 @@ public class TestUtilisateur extends TestCase{
 	public void testRendreVelo() throws SQLException, ClassNotFoundException, PasDeVeloEmprunteException, PasDeDateRetourException, CompteBloqueException{
 		Compte c =new Compte();
 		Utilisateur u = new Utilisateur(c);
-		Station s = new Station("id","adresse", 50);
-		Velo v = new Velo(s,false);
+		Station s = new Station("adresse", 50);
+		s.setId("id");
+		Velo v = new Velo(s);
 		u.emprunteVelo(v);
 		Emprunt e = u.rendreVelo(s);
 		assertFalse(e == u.getEmpruntEnCours());

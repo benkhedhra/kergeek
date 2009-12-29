@@ -5,7 +5,7 @@ import java.sql.Date;
 /**
  * La classe DemandeAssignation représente les demandes d'assignation fa”tes par un {@link Administrateur} lorsqu'il y a trop
  *  ou trop peu de vélo dans un {@link Lieu}. Le sytme déterminera ensuite s'il s'agit d'un ajout ou d'un retrait.
- *  <br> Une demande d'assignation de vélo au {@link Garage} signifie qu'il faut ajouter des vélos au parc.
+ * <br> Une demande d'assignation de vélo au {@link Garage} signifie qu'il faut ajouter des vélos au parc.
  * @see Administrateur#demanderAssignation(int, Lieu)
  * @author KerGeek
  */
@@ -165,8 +165,7 @@ public class DemandeAssignation {
 
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe DemandeAssignation en comparant les valeurs de leurs attributs respectifs.
-	 * @return un boolen
-	 * qui vaut vrai si les deux instances de la classe DemandeAssignation ont les mêmes valeurs pour chacun de leurs attributs,
+	 * @return vrai si les deux instances de la classe DemandeAssignation ont les mêmes valeurs pour chacun de leurs attributs,
 	 * faux sinon
 	 */
 	@Override

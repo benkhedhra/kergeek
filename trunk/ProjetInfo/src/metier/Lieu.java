@@ -27,7 +27,7 @@ public abstract class Lieu {
 	protected String adresse;
 	
 	/**
-	 * Le nombre maximum de Vélo pouvant contenir ce Lieu. {@link Sortie} et {@link Detruit} n'ont pas cette limite,
+	 * Le nombre maximum de vélo que ce Lieu peut contenir . {@link Sortie} et {@link Detruit} n'ont pas cette limite,
 	 *  leur attribut capacite vaut 0.
 	 * @see Lieu#getCapacite()
 	 * @see Lieu#setCapacite(int)
@@ -119,8 +119,7 @@ public abstract class Lieu {
 
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Lieu en comparant les valeurs de leurs attributs respectifs.
-	 * @return un boolen
-	 * qui vaut vrai si les deux instances de la classe Lieu ont les mêmes valeurs pour chacun de leurs attributs,
+	 * @return vrai si les deux instances de la classe Lieu ont les mêmes valeurs pour chacun de leurs attributs,
 	 * faux sinon
 	 */
 	@Override
@@ -142,7 +141,14 @@ public abstract class Lieu {
 		}
 		return a && b && (this.getAdresse().equals(l.getAdresse())) && (this.getCapacite() == l.getCapacite());
 	}
-
+	
+	/**
+	 * @return {@link Lieu#id} suivi de {@link Lieu#adresse}
+	 */
+	@Override
+	public String toString(){
+		return this.getId() +" - "+ this.getAdresse();
+	}
 
 
 }
