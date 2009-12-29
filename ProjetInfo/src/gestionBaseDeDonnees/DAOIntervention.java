@@ -9,13 +9,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import metier.Garage;
 import metier.Intervention;
+import metier.TypeIntervention;
 import metier.UtilitaireDate;
 import metier.Velo;
 
+/**
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Intervention}.
+ * @author KerGeek
+ */
 public class DAOIntervention {
 
-
+	/**
+	 * Ajoute une instance de la classe {@link Intervention} à la base de données.
+	 * C'est au cours de cette action que les identifiants sont générés à l'aide de séquences SQL.
+	 * @param intervention
+	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean createIntervention(Intervention intervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -60,12 +75,21 @@ public class DAOIntervention {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevées
 		}
 		return effectue;
 	}
 
-
+	/**
+	 * Met à jour une instance de la classe {@link Intervention} déjà présente dans la base de données.
+	 * @param intervention
+	 * l'instance de la classe {@link Intervention} à mettre à jour dans la base de données.
+	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
+	 *  faux sinon
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean updateIntervention(Intervention intervention) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -98,14 +122,21 @@ public class DAOIntervention {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception	
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
 		}
 		return effectue;
 	}
 
 
 
-
+	/**
+	 * @param identifiant
+	 * de l'intervention recherchée
+	 * @return l'instance de la classe {@link Intervention} dont l'identifiant correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static Intervention getInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Intervention intervention = new Intervention();
 
@@ -161,7 +192,14 @@ public class DAOIntervention {
 		return intervention;
 	}
 
-
+	/**
+	 * @param velo
+	 * des interventions recherchés
+	 * @return a liste des instances de la classe {@link Intervention} dont le vélo correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static List<Intervention> getInterventionsByVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Intervention> liste = new ArrayList<Intervention>();
 
@@ -209,12 +247,15 @@ public class DAOIntervention {
 
 	}
 
-
-
-
-
-
-
+	/**
+	 * @param depuisMois
+	 * le nombre de mois auquels on s'interesse en jusqu'à la date actuelle. 
+	 * @return La liste des nombres de vélos ayant subit chaque {@link TypeIntervention} depuis depuisMois mois.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOTypeIntervention#getAllTypesIntervention()
+	 */
 	public static List<Integer> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		List <Integer> liste = new ArrayList<Integer>();
@@ -257,13 +298,18 @@ public class DAOIntervention {
 
 		return liste;
 	}
-
-
-
-
-
-
-
+	
+	
+	
+	/** 
+	 * @return La liste des interventions en attente de traitement, c'est-à-dire auquelles aucun {@link TypeIntervention} n'a 
+	 * encore ŽtŽ assignŽs, concernant donc des vélos en panne au {@link Garage}
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see Velo#enPanne
+	 */
+	//TODO la liste des vŽlos en panne au garage plut™t?
 	public static List<Intervention> getInterventionsNonTraitees() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Intervention> liste = new ArrayList<Intervention>();
 
@@ -311,9 +357,5 @@ public class DAOIntervention {
 
 	}
 
-	public static String ligne(Intervention i){
-		return "Intervention "+i.getId()+" - vélo "+i.getVelo().getId();
-
-	}
-
+	
 }

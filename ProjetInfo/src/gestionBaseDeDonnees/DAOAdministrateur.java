@@ -12,9 +12,9 @@ import metier.Administrateur;
 import metier.Compte;
 
 /**
- * Rassemble l'ensembles des mthodes static de liaison avec la base de données concernant la classe metier {@link Administrateur}
- * @author KerGeek
+ * Rassemble l'ensemble des mthodes static de liaison avec la base de données concernant la classe metier {@link Administrateur}
  * @see DAOCompte
+ * @author KerGeek
  */
 public class DAOAdministrateur {
 

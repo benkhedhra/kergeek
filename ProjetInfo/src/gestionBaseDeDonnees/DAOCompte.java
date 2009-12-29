@@ -13,7 +13,7 @@ import metier.Compte;
 import metier.Utilisateur;
 
 /**
- * Rassemble l'ensembles des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Compte}
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Compte}.
  * @author KerGeek
  */
 public class DAOCompte {
@@ -128,7 +128,7 @@ public class DAOCompte {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -182,7 +182,7 @@ public class DAOCompte {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si des exceptions sont soulevees
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -253,8 +253,8 @@ public class DAOCompte {
 
 	/**
 	 * @param email
-	 du compte recherché
-	 * @return l'instance de la classe {@link Compte} dont l'adresseEmail correspond au paramètre.
+	 * des comptes recherchés
+	 * @return la liste des instances de la classe {@link Compte} dont l'adresseEmail correspond au paramètre.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
