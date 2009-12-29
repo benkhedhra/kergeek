@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import metier.Compte;
+import metier.Utilisateur;
 
 /**
  * Rassemble l'ensembles des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Compte}
@@ -304,16 +305,49 @@ public class DAOCompte {
 		}
 		return listeComptes;
 	}
-
+	
+	/**
+	 * Test si un identifiant correspond bien à un compte actif de la table COMPTE.
+	 * @param id
+	 * l'identifiant à tester
+	 * @return vrai si l'identifiant entrée en paramètre correspond à un compte acif de la base de données
+	 * faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see CreationTables
+	 */
 	public static boolean estDansLaBddCompte (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (getCompteById(id)!=null && getCompteById(id).isActif());
 	}
 
-
+	/**
+	 * Test si un identifiant correspond bien à un compte {@link Utilisateur} actif de la table COMPTE.
+	 * @param idUtil
+	 * @return vrai si l'identifiant entrée en paramètre correspond à un compte {@link Utilisateur} acif de la base de données
+	 * faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOCompte#estDansLaBddCompte(String)
+	 * @see Compte#TYPE_UTILISATEUR
+	 */
 	public static boolean estDansLaBddUtil (String idUtil) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (estDansLaBddCompte(idUtil) && getCompteById(idUtil).getType()==Compte.TYPE_UTILISATEUR);
 	}
-
+	
+	/**
+	 * TODO Ma‘lle, je te laisse commenter celle lˆ...
+	 * @param type
+	 * @param ident
+	 * @param nom
+	 * @param prenom
+	 * @param adresseEMail
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConnexionFermeeException
+	 */
 	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		//le type est toujours renseigné, les autres peuvent valoir null
 		//on va compter le nombre de paramètres non-nuls
