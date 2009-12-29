@@ -31,7 +31,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 	private Administrateur administrateur;
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("Veuillez entrer le lieu (station ou garage) dont vous voulez voir l'état");
-	private Lieu lieuEntre;
+	private Station stationEntree;
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -43,12 +43,12 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.administrateur = administrateur;
 	}
 
-	public Lieu getLieuEntre() {
-		return lieuEntre;
+	public Station getStationEntree() {
+		return stationEntree;
 	}
 
-	public void setLieuEntre(Lieu lieuEntre) {
-		this.lieuEntre = lieuEntre;
+	public void setStationEntree(Station stationEntree) {
+		this.stationEntree = stationEntree;
 	}
 
 	public FenetreEtatStationAdmin(Administrateur a) throws ConnexionFermeeException{
@@ -109,12 +109,12 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String chaineSelectionnee = (String)(o);
 					if(chaineSelectionnee.equals(tableauStations[0])){
-						lieuEntre=null;
+						stationEntree=null;
 					}
 					else{
 						String idStationEntre = chaineSelectionnee.substring(0,1);
 						try {
-							lieuEntre = (Station) DAOLieu.getLieuById(idStationEntre);
+							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {
@@ -172,7 +172,7 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				if(this.getLieuEntre()==null){
+				if(this.getStationEntree()==null){
 					MsgBox.affMsg("Vous n'avez sélectionné aucun lieu. ");
 					new FenetreEtatStationAdmin(this.getAdministrateur());
 				}

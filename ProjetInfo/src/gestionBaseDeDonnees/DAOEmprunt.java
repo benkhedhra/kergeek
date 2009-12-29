@@ -12,15 +12,27 @@ import java.util.List;
 
 import metier.Compte;
 import metier.Emprunt;
-import metier.Lieu;
 import metier.Station;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 import metier.Velo;
 
+/**
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Emprunt}.
+ * @author KerGeek
+ */
 public class DAOEmprunt {
 
-
+	/**
+	 * Ajoute une instance de la classe {@link Emprunt} à la base de données.
+	 * @param emprunt
+	 * l'instance de la classe {@link Emprunt} à ajouter à la base de données.
+	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean createEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -80,10 +92,16 @@ public class DAOEmprunt {
 		return effectue;
 	}
 
-
-
-
-
+	/**
+	 * Met à jour une instance de la classe {@link Emprunt} déjà présente dans la base de données.
+	 * @param emprunt
+	 * l'instance de la classe {@link Emprunt} à mettre à jour dans la base de données.
+	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean updateEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -121,7 +139,13 @@ public class DAOEmprunt {
 		return effectue;
 	}
 
-
+	/**
+	 * @param identifiant
+	 * @return l'instance de la classe {@link Emprunt} dont l'identifiant correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static Emprunt getEmpruntById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Emprunt emprunt = new Emprunt();
 
@@ -182,16 +206,19 @@ public class DAOEmprunt {
 
 
 	/**
-	 * 
-	 * @param lieu
+	 * @param station
 	 * @param depuisJours
-	 *  nombre de jours sur lesquels ont veut avoir les nombre de velos sortis du lieu
-	 * @return le nombre de velos rentres dans la staion depuis depuisJours jours (depuisJours doit etre positif).
+	 * le nombre de jours depuis la date actuelle au cours desquels ont veut avoir les nombre de vélos sortis de la station,
+	 * doit ítre positif
+	 * @return le nombre de velos empruntés à la staion depuis depuisJours jours
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException 
+	 * @throws ConnexionFermeeException
+	 * @see UtilitaireDate#retrancheJours(Date, int)
+	 * @see UtilitaireDate#dateCourante()
+	 * @see UtilitaireDate#initialisationDebutJour(Date) 
 	 */
-	public static int NombreVelosSortis(Lieu lieu, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static int NombreVelosSortisJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -200,7 +227,7 @@ public class DAOEmprunt {
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		try{
-			ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
+			ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + station.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
 				if (res.next()){
 					nb = res.getInt("nombreVeloSortis");
@@ -231,15 +258,19 @@ public class DAOEmprunt {
 
 
 	/**
-	 * 
-	 * @param lieu
-	 * @param depuisHeures : nombre d'heures sur lesquelles ont veut avoir les nombre de velos sortis de la station
-	 * @return le nombre de velos rentres dans la staion depuis depuisHeures heures (depuisHeures doit etre positif).
+	 * @param station
+	 * @param depuisHeures
+	 * le nombre d'heures depuis la date actuelle au cours desquelles ont veut avoir le nombre de vélos sortis de la station, 
+	 * doit ítre positif
+	 * @return le nombre de vélos empruntés à la staion depuis depuisHeures heures
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException 
+	 * @throws ConnexionFermeeException
+	 * @see UtilitaireDate#retrancheHeures(Date, int)
+	 * @see UtilitaireDate#dateCourante()
+	 * @see UtilitaireDate#initialisationDebutJour(Date)  
 	 */
-	public static int NombreVelosSortisHeures(Lieu lieu, int depuisHeures) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static int NombreVelosSortisHeures(Station station, int depuisHeures) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -252,7 +283,7 @@ public class DAOEmprunt {
 		 System.out.println("dateSql = "+dateSql.getHours());*/
 
 		try{
-			ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + lieu.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
+			ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + station.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
 				if (res.next()){
 					nb = res.getInt("nombreVeloSortis");
@@ -285,16 +316,19 @@ public class DAOEmprunt {
 
 
 	/**
-	 * 
-	 * @param lieu
+	 * @param station
 	 * @param depuisJours
-	 *  le nombre de jours sur lesquels ont veut avoir le nombre de vélos rentres dans le lieu.
-	 * @return le nombre de velos rentres dans la station depuis depuisJours jours.
+	 * le nombre de jours depuis la date actuelle au cours desquels ont veut avoir le nombre de vélos rendus à la station,
+	 * doit ítre positif
+	 * @return le nombre de velos rendus à la station depuis depuisJours jours.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException 
+	 * @throws ConnexionFermeeException
+	 * @see UtilitaireDate#retrancheJours(Date, int)
+	 * @see UtilitaireDate#dateCourante()
+	 * @see UtilitaireDate#initialisationDebutJour(Date)  
 	 */
-	public static int NombreVelosRentres(Lieu lieu, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static int NombreVelosRendusJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -303,7 +337,7 @@ public class DAOEmprunt {
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		try{
-			ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
+			ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + station.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
 				if (res.next()){
 					nb = res.getInt("nombreVeloRentres");
@@ -331,18 +365,21 @@ public class DAOEmprunt {
 	}
 
 
-	/**
-	 * 
-	 * @param lieu
+	/** 
+	 * @param station
 	 * @param depuisHeures
-	 *  le nombre d'heures sur lesquels ont veut avoir les nombre de vŽlos rentres dans la station
-	 * @return le nombre de velos rentres dans la station depuis depuisHeures heures.
+	 * le nombre d'heures depuis la date actuelle au cours desquelles ont veut avoir le nombre de vélos rendus à la station,
+	 * doit ítre positif
+	 * @return le nombre de velos rendus dans la station depuis depuisHeures heures.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException 
+	 * @throws ConnexionFermeeException
+	 * @see UtilitaireDate#retrancheHeures(Date, int)
+	 * @see UtilitaireDate#dateCourante()
+	 * @see UtilitaireDate#initialisationDebutJour(Date) 
 	 */
 
-	public static int NombreVelosRentresHeures(Lieu lieu, int depuisHeures) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static int NombreVelosRendusHeures(Station station, int depuisHeures) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -351,7 +388,7 @@ public class DAOEmprunt {
 		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
 		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		try{
-			ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + lieu.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
+			ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + station.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
 				if (res.next()){
 					nb = res.getInt("nombreVeloRentres");
@@ -385,23 +422,26 @@ public class DAOEmprunt {
 
 
 
-	/**
-	 * 
-	 * @param u
+	/** 
+	 * @param utilisateur
 	 * @param nbMois
-	 * @return la liste des nombre d'emprunts effectue par l'utilisateur u au cours
-	 *			des nbMois derniers mois, pour chacun de ces mois.
+	 * le nombre de mois depuis la date actuelle au cours de chacun desquels ont veut avoir le nombre d'emprunts effectués 
+	 * par l'utilisateur u, doit ítre positif
+	 * @return la liste des nombres d'emprunts effectués par l'utilisateur u au cours des nbMois derniers mois,
+	 * pour chacun de ces mois.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException 
+	 * @throws ConnexionFermeeException
+	 * @see UtilitaireDate#retrancheMois(Date, int)
+	 * @see UtilitaireDate#dateCourante()
+	 * @see UtilitaireDate#initialisationDebutMois(Date) 
 	 */
-	public static List<Integer> getNombreEmpruntParUtilisateurParMois(Utilisateur u, int nbMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static List<Integer> getNombreEmpruntParUtilisateurParMois(Utilisateur utilisateur, int nbMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		List <Integer> liste = new ArrayList<Integer>();
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
 
 			ResultSet res = null;
 			for (int i=1; i <= nbMois; i++){
@@ -411,7 +451,7 @@ public class DAOEmprunt {
 				java.sql.Date dateSqlMinTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i+1);
 				java.sql.Date dateSqlMin = UtilitaireDate.initialisationDebutMois(dateSqlMinTemp);
 
-				res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + u.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSqlSup) + "','DD-MM-YYYY HH24:MI') and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSqlMin) + "','DD-MM-YYYY HH24:MI')");
+				res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + utilisateur.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSqlSup) + "','DD-MM-YYYY HH24:MI') and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSqlMin) + "','DD-MM-YYYY HH24:MI')");
 				if (res.next()){
 					liste.add(res.getInt("nombreEmpruntParMois"));
 				}
@@ -441,9 +481,13 @@ public class DAOEmprunt {
 		return liste;
 	}
 
-
-
-
+	/**
+	 * 
+	 * @param velo
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConnexionFermeeException
+	 */
 	public static void setEmpruntEnCoursByVelo(Velo velo) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 
 		try {
@@ -511,9 +555,13 @@ public class DAOEmprunt {
 	}
 
 
-
-
-
+	/**
+	 * 
+	 * @param utilisateur
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static void setEmpruntEnCoursByUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Emprunt emprunt = null;
 

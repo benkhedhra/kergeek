@@ -97,13 +97,13 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 			series.add(heureencours, (DAOVelo.getVelosByLieu(station).size()*100)/station.getCapacite());
 			series.add(heure1, ((DAOVelo.getVelosByLieu(station).size() 
 					+ DAOEmprunt.NombreVelosSortisHeures(station, 1)
-					- DAOEmprunt.NombreVelosRentresHeures(station, 1))*100)/station.getCapacite());
+					- DAOEmprunt.NombreVelosRendusHeures(station, 1))*100)/station.getCapacite());
 			series.add(heure2, ((DAOVelo.getVelosByLieu(station).size() 
 					+ DAOEmprunt.NombreVelosSortisHeures(station, 2)
-					- DAOEmprunt.NombreVelosRentresHeures(station, 2))*100)/station.getCapacite());
+					- DAOEmprunt.NombreVelosRendusHeures(station, 2))*100)/station.getCapacite());
 			series.add(heure3, ((DAOVelo.getVelosByLieu(station).size() 
 					+ DAOEmprunt.NombreVelosSortisHeures(station, 3)
-					- DAOEmprunt.NombreVelosRentresHeures(station, 3))*100)/station.getCapacite());
+					- DAOEmprunt.NombreVelosRendusHeures(station, 3))*100)/station.getCapacite());
 		
 
 

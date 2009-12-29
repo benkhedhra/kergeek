@@ -83,8 +83,8 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 
 			for(int i=0;i<category.size();i++){
-				dataset.addValue(DAOEmprunt.NombreVelosSortis(DAOLieu.getLieuById(stations.get(i).getId()), nbJoursEntre), sortis, category.get(i));
-				dataset.addValue(DAOEmprunt.NombreVelosRentres(DAOLieu.getLieuById(stations.get(i).getId()), nbJoursEntre), entres, category.get(i));
+				dataset.addValue(DAOEmprunt.NombreVelosSortisJours(stations.get(i), nbJoursEntre), sortis, category.get(i));
+				dataset.addValue(DAOEmprunt.NombreVelosRendusJours(stations.get(i), nbJoursEntre), entres, category.get(i));
 			}
 		return dataset;
 

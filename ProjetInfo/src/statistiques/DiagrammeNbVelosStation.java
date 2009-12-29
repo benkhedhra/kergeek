@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import metier.Lieu;
+import metier.Station;
 import metier.UtilitaireDate;
 
 import org.jfree.chart.ChartPanel;
@@ -27,19 +27,20 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
-public class DiagrammeNbVelosLieu extends ApplicationFrame {
+/*TODO
+ * problème pour le garage... a voir 
+ */
 
-	/**
-	 * 
-	 */
+public class DiagrammeNbVelosStation extends ApplicationFrame {
+
 	private static final long serialVersionUID = 1L;
 	
 	private JFreeChart chart;
-
-	public DiagrammeNbVelosLieu(Lieu lieu) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+	
+	public DiagrammeNbVelosStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("");
-		chart = createChart(lieu);
+		chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
 		chartPanel.setPreferredSize(new Dimension(600, 600));
 		this.setContentPane(chartPanel);
@@ -49,11 +50,11 @@ public class DiagrammeNbVelosLieu extends ApplicationFrame {
 	public Image getImage() {
 		return this.chart.createBufferedImage(600, 600);
 	}
-
-	JFreeChart createChart(Lieu lieu) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+	
+	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		// create subplot
-		final XYSeriesCollection data1 = createDataset(lieu);
+		final XYSeriesCollection data1 = createDataset(station);
 		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
 		final NumberAxis axeVelo = new NumberAxis("nombre de vÈlos");
 		final XYPlot subplot1 = new XYPlot(data1, null, axeVelo, renderer1);
@@ -72,13 +73,13 @@ public class DiagrammeNbVelosLieu extends ApplicationFrame {
 		plot.setOrientation(PlotOrientation.VERTICAL);
 
 		// return a new chart containing the overlaid plot...
-		return new JFreeChart("Nombre de vÈlos de la station " + lieu.getAdresse()+ " le " + UtilitaireDate.dateCourante(),
+		return new JFreeChart("Nombre de vÈlos de la station " + station.getAdresse()+ " le " + UtilitaireDate.dateCourante(),
 				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 
 	}
 
 
-	private XYSeriesCollection createDataset(Lieu lieu) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 
 		
@@ -92,23 +93,23 @@ public class DiagrammeNbVelosLieu extends ApplicationFrame {
 		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
 
 		final XYSeries series = new XYSeries("Nombre de vÈlos");
-			series.add(heureencours, DAOVelo.getVelosByLieu(lieu).size());
-			series.add(heure1, DAOVelo.getVelosByLieu(lieu).size()
-					+ (DAOEmprunt.NombreVelosSortisHeures(lieu, 1))
-					- (DAOEmprunt.NombreVelosRentresHeures(lieu, 1)));
-			series.add(heure2,  DAOVelo.getVelosByLieu(lieu).size()
-					+ (DAOEmprunt.NombreVelosSortisHeures(lieu, 2))
-					- (DAOEmprunt.NombreVelosRentresHeures(lieu, 2)));
-			series.add(heure3,  DAOVelo.getVelosByLieu(lieu).size()
-					+ (DAOEmprunt.NombreVelosSortisHeures(lieu, 3))
-					- (DAOEmprunt.NombreVelosRentresHeures(lieu, 3)));
+			series.add(heureencours, DAOVelo.getVelosByLieu(station).size());
+			series.add(heure1, DAOVelo.getVelosByLieu(station).size()
+					+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
+					- (DAOEmprunt.NombreVelosRendusHeures(station, 1)));
+			series.add(heure2,  DAOVelo.getVelosByLieu(station).size()
+					+ (DAOEmprunt.NombreVelosSortisHeures(station, 2))
+					- (DAOEmprunt.NombreVelosRendusHeures(station, 2)));
+			series.add(heure3,  DAOVelo.getVelosByLieu(station).size()
+					+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
+					- (DAOEmprunt.NombreVelosRendusHeures(station, 3)));
 
 
 		final XYSeries series2 = new XYSeries("CapacitÈ de l'endroit");
-		series2.add(heureencours, lieu.getCapacite());
-		series2.add(heure3, lieu.getCapacite());
-		series2.add(heure2, lieu.getCapacite());
-		series2.add(heure1, lieu.getCapacite());
+		series2.add(heureencours, station.getCapacite());
+		series2.add(heure3, station.getCapacite());
+		series2.add(heure2, station.getCapacite());
+		series2.add(heure1, station.getCapacite());
 
 
 		final XYSeriesCollection collection = new XYSeriesCollection();

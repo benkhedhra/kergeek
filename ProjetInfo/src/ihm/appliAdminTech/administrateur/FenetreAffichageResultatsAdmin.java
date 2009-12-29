@@ -27,7 +27,7 @@ import metier.Station;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
-import statistiques.DiagrammeNbVelosLieu;
+import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
 import statistiques.TableauListeVelosDansLieu;
@@ -210,26 +210,26 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 			panel2.setPreferredSize(new Dimension(600,600));
 
-			DiagrammeNbVelosLieu diag1;
+			DiagrammeNbVelosStation diag1;
 			DiagrammeTxOccupationStation diag2;
 
 			FenetreEtatStationAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
 				f1 = (FenetreEtatStationAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosLieu(f1.getLieuEntre());
+				diag1 = new DiagrammeNbVelosStation(f1.getStationEntree());
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				panel1.add(lblChart1);
-				System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
-				if(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE)){
-					diag2 = new DiagrammeTxOccupationStation((Station)f1.getLieuEntre());
+				System.out.println(!f1.getStationEntree().getId().equals(""+Lieu.ID_GARAGE));
+				if(!f1.getStationEntree().getId().equals(""+Lieu.ID_GARAGE)){
+					diag2 = new DiagrammeTxOccupationStation((Station)f1.getStationEntree());
 					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 					panel2.add(lblChart2);
 				}
 			}
 			if (fenetrePrec.getTitle().equals("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosLieu(f2.getStationEntree());
+				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
 				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
@@ -311,7 +311,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			else if(arg0.getSource()==bouton3){
 				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'un lieu")){
 					FenetreEtatStationAdmin f = (FenetreEtatStationAdmin) fenetrePrecedente;
-					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getLieuEntre());
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getStationEntree());
 				}
 				else{
 					FenetreStationsSurSousAdmin f = (FenetreStationsSurSousAdmin) fenetrePrecedente;
