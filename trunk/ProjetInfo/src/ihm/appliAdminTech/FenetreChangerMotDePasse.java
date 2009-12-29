@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.Compte;
+import metier.Technicien;
 
 /**
  * FenetreAuthentification hérite de JFrame et implémente ActionListener

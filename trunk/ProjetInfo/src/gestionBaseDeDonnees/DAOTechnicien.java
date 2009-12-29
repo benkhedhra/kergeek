@@ -11,34 +11,76 @@ import java.util.List;
 import metier.Compte;
 import metier.Technicien;
 
+/**
+ * Rassemble l'ensembles des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Technicien}
+ * @author KerGeek
+ * @see DAOCompte
+ */
 public class DAOTechnicien {
-
-
-
+	
+	/**
+	 * Ajoute une instance de la classe {@link Technicien} à la base de données.
+	 * @param tech
+	 * l'instance de la classe {@link Technicien} à ajouter à la base de données.
+	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOCompte#createCompte(Compte)
+	 */
 	public static boolean createTechnicien(Technicien tech) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return DAOCompte.createCompte(tech.getCompte());
 	}
 
-
-
+	/**
+	 * Met à jour une instance de la classe {@link Technicien} déjà présente dans la base de données.
+	 * @param tech
+	 * l'instance de la classe {@link Technicien} à mettre à jour dans la base de données.
+	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOCompte#updateCompte(Compte)
+	 */
 	public static boolean updateTechnicien(Technicien tech) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		return DAOCompte.updateCompte(tech.getCompte());
 	}
 
-
-
+	/** 
+	 * @param identifiant
+	 * @return l'instance de la classe {@link Technicien} dont l'identifiant correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOCompte#getCompteById(String)
+	 */
 	public static Technicien getTechnicienById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Technicien admin = new Technicien(DAOCompte.getCompteById(identifiant));
 		return admin;
 	}
 
-
-
+	/**
+	 * @param email
+	 * @return l'instance de la classe {@link Technicien} dont l'adresseEmail correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOCompte#getCompteByAdresseEmail(String)
+	 */
 	public static Technicien getTechnicienByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Technicien admin = new Technicien(DAOCompte.getCompteByAdresseEmail(email));
 		return admin;
 	}
-
+	
+	/**
+	 * @return la liste de l'ensemble des {@link Technicien} présents dans la base de données.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOTechnicien#getTechnicienById(String)
+	 */
 	public static List<Technicien> getAllTechniciens() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Technicien> liste = new ArrayList<Technicien>();
 		List<String> listeId = new ArrayList<String>();

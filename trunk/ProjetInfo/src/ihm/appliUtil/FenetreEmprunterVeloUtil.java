@@ -1,6 +1,5 @@
 package ihm.appliUtil;
 
-import envoieMail.SendMail;
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOTechnicien;
@@ -31,6 +30,7 @@ import metier.Technicien;
 import metier.Utilisateur;
 import metier.Velo;
 import metier.exceptionsMetier.CompteBloqueException;
+import envoieMail.SendMail;
 
 /**
  * FenetreEmprunterVeloUtil hérite de {@link JFrame} et implémente {@link ActionListener}
