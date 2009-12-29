@@ -61,7 +61,8 @@ public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
 	
 	/**
 	 * constructeur de FenetreEmpruntLongUtil
-	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @param u
+	 * l'utilisateur connecté sur la fenêtre
 	 * @see Utilisateur#setBloque(boolean)
 	 * @see BorderLayout
 	 * @see JPanel
