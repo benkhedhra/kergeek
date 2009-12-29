@@ -120,6 +120,7 @@ public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
 	/**
 	 * cette méthode est appelée lorsque l'utilisateur a cliqué sur le bouton "Déconnexion"
 	 * <br>elle ferme la fenêtre courante et ouvre une nouvelle fenêtre d'au-revoir
+	 * @param arg0 
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {

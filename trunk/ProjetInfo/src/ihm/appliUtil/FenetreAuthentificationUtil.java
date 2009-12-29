@@ -168,6 +168,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 * <br>il s'agit du menu de l'utilisateur si celui-ci s'est correctement authentifié
 	 * <br>d'une fenêtre lui indiquant que son compte est bloqué s'il s'est correctement identifié mais que son compte est bloqué
 	 * <br>d'une nouvelle fenêtre d'authentification si l'identifiant entré ne correspond à aucun utilisateur
+	 * @param arg0 
 	 * @see Utilisateur#isBloque()
 	 * @see FenetreConfirmationUtil#FenetreConfirmationUtil(String)
 	 * @see MenuUtil#MenuUtil(Utilisateur)

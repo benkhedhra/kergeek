@@ -144,6 +144,7 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 	 * méthode exécutée quand l'utilisateur a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>si l'utilisateur veut déclarer le vélo défectueux, le vélo est déclaré en panne et une nouvelle demande d'intervention est créée dans la base de données
 	 * <br>sinon, l'utilisateur a terminé son action, il est déconnecté et un message d'au-revoir apparaît
+	 * @param arg0 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

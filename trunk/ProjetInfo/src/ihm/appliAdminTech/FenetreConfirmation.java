@@ -368,6 +368,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	/**
 	 * méthode exécutée sur l'individu a cliqué sur un des boutons qui se présentaient à lui
 	 * <br>la fenêtre courante se ferme et laisse place à la fenêtre suivante adaptée à l'événement arg0
+	 * @param arg0 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

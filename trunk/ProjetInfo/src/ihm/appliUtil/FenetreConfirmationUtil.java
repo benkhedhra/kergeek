@@ -103,6 +103,7 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 	/**
 	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Nouvelle identification"
 	 * <br>ferme la fenêtre en cours et ouvre une nouvelle fenêtre d'authentification
+	 * @param arg0 
 	 * @see FenetreAuthentificationUtil#FenetreAuthentificationUtil(Boolean)
 	 */
 
