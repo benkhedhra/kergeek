@@ -52,7 +52,7 @@ public class TestDAOUtilisateur extends TestCase {
 
 	@Test
 	public void testGetUtilisateurByAdresseEmail() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
+		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		assertEquals("Mathieu", u.getPrenom());
 	}
 	

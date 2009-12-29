@@ -71,7 +71,8 @@ public class DAOAdministrateur {
 	 * @see DAOCompte#getCompteByAdresseEmail(String)
 	 */
 	public static Administrateur getAdministrateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		Administrateur admin = new Administrateur(DAOCompte.getCompteByAdresseEmail(email));
+		Administrateur admin = new Administrateur(DAOCompte.getCompteByAdresseEmail(email).get(0)); 
+		//Deux Administrateurs ne doivent pas avoir la míme adresse email
 		return admin;
 	}
 	

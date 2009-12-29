@@ -23,7 +23,7 @@ public class TestDAOEmprunt extends TestCase{
 
 	@Test
 	public void testCreateEmprunt() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
+		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		Velo v = DAOVelo.getVeloById("1");
 		Station s = (Station) DAOLieu.getLieuById("1");
 		
@@ -34,10 +34,10 @@ public class TestDAOEmprunt extends TestCase{
 
 	@Test
 	public void testUpdateEmprunt() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
+		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		Velo v = DAOVelo.getVeloById("1");
 		Station s = (Station) DAOLieu.getLieuById("1");
-		Utilisateur u2 = DAOUtilisateur.getUtilisateurByAdresseEmail("francoiscoquet@gmail.com");
+		Utilisateur u2 = DAOUtilisateur.getUtilisateurByAdresseEmail("francoiscoquet@gmail.com").get(0);
 		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), s,UtilitaireDate.dateCourante(), s);
 		DAOEmprunt.createEmprunt(e);
 		e.setUtilisateur(u2);
@@ -55,7 +55,7 @@ public class TestDAOEmprunt extends TestCase{
 	
 	@Test
 	public void testGetNombreEmpruntParUtilisateurParMois() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com");
+		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		List <Integer> liste = DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 3);
 		
 		assertEquals((int)2, (int)liste.get(0));

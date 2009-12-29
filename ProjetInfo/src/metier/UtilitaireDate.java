@@ -144,10 +144,10 @@ public class UtilitaireDate {
 	}
 
 	/**
-	 * Convertit une instance de la Classe {@link java.sql.Date} en cha”ne de caractre
+	 * Convertit une instance de la Classe {@link java.sql.Date} en chaîne de caractre
 	 *  utilisable pour remplir la base de données associée ˆ l'application.
 	 * @param date
-	 * @return une cha”ne de caractre prsentant la date au format 'DD-MM-YYYY HH24:MI'
+	 * @return une chaîne de caractre prsentant la date au format 'DD-MM-YYYY HH24:MI'
 	 *  utilisé par la base de données associée ˆ l'application.
 	 */
 	public static String conversionPourSQL(java.sql.Date date){

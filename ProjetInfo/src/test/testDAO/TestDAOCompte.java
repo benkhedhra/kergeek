@@ -39,7 +39,7 @@ public class TestDAOCompte extends TestCase{
 	}
 	@Test
 	public void testgetCompteByAdresseEmail() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Compte c1 = DAOCompte.getCompteByAdresseEmail("mathieuchedid@gmail.com");
+		Compte c1 = DAOCompte.getCompteByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		System.out.println(c1.getAdresseEmail());
 		System.out.println(c1.getId());
 		System.out.println(c1.getMotDePasse());
