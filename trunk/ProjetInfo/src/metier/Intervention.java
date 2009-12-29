@@ -159,8 +159,15 @@ public class Intervention {
 		}
 		return a && (this.getVelo().equals(i.getVelo())) && (this.getDate().equals(i.getDate())) && (this.getTypeIntervention().equals(i.getTypeIntervention()));
 	}
+	
+	/**
+	 * @return l'identifiant de l'intervention suivi du vélo concerné
+	 */
+	@Override
+	public String toString(){
+		return "Intervention "+this.getId()+" - vélo "+this.getVelo().getId();
+
+	}
 
 	
-	
-
 }

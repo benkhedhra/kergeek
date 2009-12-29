@@ -117,7 +117,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 		List<DemandeAssignation> listeDemandes;
 		try {
-			listeDemandes= DAODemandeAssignation.getAllDemandesAssignation();
+			listeDemandes= DAODemandeAssignation.getDemandesAssignationEnAttente();
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
 				//à cet endroit il faut regarder si la demande d'assignation n'a pas été prise en charge indirectement, par les mouvements de vélos des utilisateurs (emprunts et rendus)

@@ -135,7 +135,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 				tableauInterventions[0]=listeInterventions.size()+" intervention(s) trouvée(s)";
 				for (int i=0;i<listeInterventions.size();i++){
 					Intervention interventioni = listeInterventions.get(i);
-					tableauInterventions[i+1] = DAOIntervention.ligne(interventioni);
+					tableauInterventions[i+1] = interventioni.toString();
 				}
 
 				DefaultComboBoxModel model = new DefaultComboBoxModel(tableauInterventions);

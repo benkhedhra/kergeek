@@ -163,7 +163,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		labelMsg.setMaximumSize(new Dimension(600,50));
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
 
-		labelMsg.setText(DAOIntervention.ligne(i));
+		labelMsg.setText(i.toString());
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 

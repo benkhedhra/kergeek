@@ -136,7 +136,7 @@ public class DAOLieu {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd meme si la requete sql souleve une exception
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
 		}
 		return effectue;
 	}

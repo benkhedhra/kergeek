@@ -12,9 +12,9 @@ import metier.Compte;
 import metier.Technicien;
 
 /**
- * Rassemble l'ensembles des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Technicien}
- * @author KerGeek
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Technicien}
  * @see DAOCompte
+ * @author KerGeek
  */
 public class DAOTechnicien {
 	
