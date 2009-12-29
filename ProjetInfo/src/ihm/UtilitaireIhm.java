@@ -15,6 +15,8 @@ import javax.swing.JPasswordField;
 import metier.Compte;
 import metier.Lieu;
 import metier.Station;
+import metier.Technicien;
+import metier.Utilisateur;
 import metier.Velo;
 
 /** 

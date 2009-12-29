@@ -1,10 +1,5 @@
 package gestionBaseDeDonnees;
 
-/**
- * @author KerGeek
- * @version 1.0
- */
-
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.exceptionsTechniques.ExceptionAuthentification;
 

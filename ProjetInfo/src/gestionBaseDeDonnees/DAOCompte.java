@@ -11,9 +11,28 @@ import java.util.List;
 
 import metier.Compte;
 
+/**
+ * Rassemble l'ensembles des méthodes static de liaison avec la base de donnÈes concernant la classe metier {@link Compte}
+ * @author KerGeek
+ */
 public class DAOCompte {
 
-
+	/**
+	 * Ajoute une instance de la classe {@link Compte} ‡ la base de donnÈes.
+	 * C'est au cours de cette action que les identifiants sont gÈnÈrÈs ‡ l'aide de sÈquences SQL. 
+	 * Il existe une sÈquence par type de compte et un identifiant commence toujours par la lettre correspondant au type de 
+	 * compte en question ('a' pour Administrateur, 't' pour Technicien et 'u' pour Utilisateur).
+	 * <br> <br> Une fois l'identifiant attribuer ‡ l'instance, on insère les valeurs des attributs de celles-ci dans la table COMPTE
+	 * où une nouvelle ligne est crÈÈe.
+	 * @param compte
+	 * l'instance de la classe {@link Compte} ‡ ajouter ‡ la base de donnÈes.
+	 * @return vrai si l'ajout ‡ la base de donnÈes a bel et bien ÈtÈ effectuÈ,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see CreationTables
+	 */
 	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
@@ -112,7 +131,17 @@ public class DAOCompte {
 	}
 
 
-
+	/**
+	 * Met ‡ jour une instance de la classe {@link Compte} dÈj‡ prÈsente dans la base de donnÈes.
+	 * @param compte
+	 * l'instance de la classe {@link Compte} ‡ mettre ‡ jour dans la base de donnÈes.
+	 * @return vrai si la mise ‡ jour de la base de donnÈes a bel et bien ÈtÈ effectuÈe,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see CreationTables
+	 */
 	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
@@ -261,7 +290,7 @@ public class DAOCompte {
 	public static boolean estDansLaBddUtil (String idUtil) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (estDansLaBddCompte(idUtil) && getCompteById(idUtil).getType()==Compte.TYPE_UTILISATEUR);
 	}
-
+	
 	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		//le type est toujours renseignÈ, les autres peuvent valoir null
 		//on va compter le nombre de paramËtres non-nuls
