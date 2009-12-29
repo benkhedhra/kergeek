@@ -45,15 +45,6 @@ public class TestDAODemandeAssignation extends TestCase{
 	}
 	
 	@Test
-	public void testGetAllDemandesAssignation() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		List<DemandeAssignation> liste = DAODemandeAssignation.getAllDemandesAssignation();
-		assertEquals(5, liste.get(0).getNombreVelosVoulusDansLieu());
-		assertEquals(4, liste.get(1).getNombreVelosVoulusDansLieu());
-		assertEquals(10, liste.get(2).getNombreVelosVoulusDansLieu());
-		assertEquals(4, liste.get(3).getNombreVelosVoulusDansLieu());
-	}
-	
-	@Test
 	public void testGetDemandesAssignationEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<DemandeAssignation> liste =DAODemandeAssignation.getDemandesAssignationEnAttente();
 		System.out.println(liste.size());

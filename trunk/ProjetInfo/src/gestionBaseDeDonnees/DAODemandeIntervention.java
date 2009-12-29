@@ -11,13 +11,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.DemandeIntervention;
+import metier.Intervention;
 import metier.UtilitaireDate;
+import metier.Velo;
 
 /**
- * 
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link DemandeIntervention}.
  * @author KerGeek
  */
 public class DAODemandeIntervention {
+	
+	/**
+	 * Ajoute une instance de la classe {@link DemandeIntervention} à la base de données.
+	 * @param ddeIntervention
+	 * l'instance de la classe {@link DemandeIntervention} à ajouter à la base de données.
+	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean createDemandeIntervention(DemandeIntervention ddeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -70,7 +83,16 @@ public class DAODemandeIntervention {
 		return effectue;
 	}
 
-
+	/**
+	 * Met à jour une instance de la classe {@link DemandeIntervention} déjà présente dans la base de données.
+	 * @param ddeIntervention
+	 * l'instance de la classe {@link DemandeIntervention} à mettre à jour dans la base de données.
+	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
+	 *  faux sinon
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -110,7 +132,80 @@ public class DAODemandeIntervention {
 		return effectue;
 	}
 
+	/**
+	 * 
+	 * @param identifiant
+	 * @return l'instance de la classe {@link DemandeIntervention} dont l'identifiant correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
+	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		DemandeIntervention ddeIntervention = new DemandeIntervention();
+	
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+		try{
+			ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
+			try {
+				if (res.next()) {
+	
+					java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
+					java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
+					String idVelo = res.getString("idVelo");
+					String idCompte = res.getString("idCompte");
+					String idIntervention = res.getString("idIntervention");
+	
+					ddeIntervention.setId(identifiant);
+					ddeIntervention.setDate(dateDemandeI);
+					ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
+					ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
+					if(idIntervention!=null){
+						ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
+					}
+					else{
+						ddeIntervention.setIntervention(null);
+					}
+	
+				}
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
+				}
+			}
+			catch(PasDansLaBaseDeDonneeException e1){
+				System.out.println(e1.getMessage());
+				ddeIntervention = null;
+			}
+			catch (SQLException e2){
+				System.out.println(e2.getMessage());
+			}
+		}
+		catch(NullPointerException e2){
+			if (ConnexionOracleViaJdbc.getC() == null){
+				throw new ConnexionFermeeException();
+			}
+			else if (ConnexionOracleViaJdbc.getC().isClosed()){
+				throw new ConnexionFermeeException();
+			}
+			else{
+				throw new NullPointerException(e2.getMessage());
+			}
+		}
+		finally{
+			ConnexionOracleViaJdbc.fermer();
+		}
+		return ddeIntervention;
+	}
 
+	/**
+	 * @return la liste de l'ensemble des {@link DemandeIntervention} non prise en charge, c'est-à-dire auquelles 
+	 * aucune {@link Intervention} n'a encore été associée, présentes dans la base de données 
+	 * ordonnées par dat, de la plus ancienne à la plus récente.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAODemandeIntervention#getDemandeInterventionById(String)
+	 */
 	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
 
@@ -155,69 +250,15 @@ public class DAODemandeIntervention {
 		return liste;
 	}
 
-
-
-
-	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		DemandeIntervention ddeIntervention = new DemandeIntervention();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-		try{
-			ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
-			try {
-				if (res.next()) {
-
-					java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
-					java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
-					String idVelo = res.getString("idVelo");
-					String idCompte = res.getString("idCompte");
-					String idIntervention = res.getString("idIntervention");
-
-					ddeIntervention.setId(identifiant);
-					ddeIntervention.setDate(dateDemandeI);
-					ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
-					ddeIntervention.setUtilisateur(DAOUtilisateur.getUtilisateurById(idCompte));
-					if(idIntervention!=null){
-						ddeIntervention.setIntervention(DAOIntervention.getInterventionById(idIntervention));
-					}
-					else{
-						ddeIntervention.setIntervention(null);
-					}
-
-				}
-				else {
-					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
-				}
-			}
-			catch(PasDansLaBaseDeDonneeException e1){
-				System.out.println(e1.getMessage());
-				ddeIntervention = null;
-			}
-			catch (SQLException e2){
-				System.out.println(e2.getMessage());
-			}
-		}
-		catch(NullPointerException e2){
-			if (ConnexionOracleViaJdbc.getC() == null){
-				throw new ConnexionFermeeException();
-			}
-			else if (ConnexionOracleViaJdbc.getC().isClosed()){
-				throw new ConnexionFermeeException();
-			}
-			else{
-				throw new NullPointerException(e2.getMessage());
-			}
-		}
-		finally{
-			ConnexionOracleViaJdbc.fermer();
-		}
-		return ddeIntervention;
-	}
-
-
-	public static String ligne(DemandeIntervention d){
-		return "Demande "+d.getId()+" - Vélo "+d.getVelo().getId()+" - Station "+d.getVelo().getLieu().getAdresse()+" - "+d.getDate().toString();
+	/**
+	 * Une fonction qui sert à l'affichage d'une demande d'intervention.
+	 * @param ddeI
+	 * la demande d'intervention à afficher
+	 * @return Une chaíne de caractères présentant l'identifiant de la demande d'intervention, le {@link Velo} concerné, 
+	 * l'adresse de la station dans laquelle il se trouve et la date de la demande.
+	 */
+	public static String ligne(DemandeIntervention ddeI){
+		return "Demande "+ddeI.getId()+" - Vélo "+ddeI.getVelo().getId()+" - Station "+ddeI.getVelo().getLieu().getAdresse()+" - "+ddeI.getDate().toString();
 	}
 
 }
