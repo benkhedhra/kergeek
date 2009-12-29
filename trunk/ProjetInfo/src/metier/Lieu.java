@@ -2,7 +2,7 @@ package metier;
 
 
 /**
- * La classe Lieu est une classe abstra”te qui représente les diffrents lieus dans lesquels peut tre placé un Vélo.
+ * La classe Lieu est une classe abstraîte qui représente les diffrents lieus dans lesquels peut tre placé un Vélo.
  * @see Detruit
  * @see Garage
  * @see Sortie

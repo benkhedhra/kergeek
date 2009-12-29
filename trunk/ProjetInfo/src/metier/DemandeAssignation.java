@@ -3,7 +3,7 @@ package metier;
 import java.sql.Date;
 
 /**
- * La classe DemandeAssignation représente les demandes d'assignation fa”tes par un {@link Administrateur} lorsqu'il y a trop
+ * La classe DemandeAssignation représente les demandes d'assignation faîtes par un {@link Administrateur} lorsqu'il y a trop
  *  ou trop peu de vélo dans un {@link Lieu}. Le sytme déterminera ensuite s'il s'agit d'un ajout ou d'un retrait.
  * <br> Une demande d'assignation de vélo au {@link Garage} signifie qu'il faut ajouter des vélos au parc.
  * @see Administrateur#demanderAssignation(int, Lieu)
@@ -21,7 +21,7 @@ public class DemandeAssignation {
 	private String id;
 
 	/**
-	 * La date ˆ laquelle la DemandeAssignation à été fa”te
+	 * La date ˆ laquelle la DemandeAssignation à été faîte
 	 * @see DemandeAssignation#getDate()
 	 * @see DemandeAssignation#setDate(Date)
 	 */
@@ -36,14 +36,14 @@ public class DemandeAssignation {
 	private boolean priseEnCharge;
 
 	/**
-	 * Le nombre de vélos souhéa”té dans le lieu, qui sera comparƒ avec le nombre de vélos dans le lieu en question
+	 * Le nombre de vélos souhéaîté dans le lieu, qui sera comparƒ avec le nombre de vélos dans le lieu en question
 	 * @see DemandeAssignation#getNombreVelosVoulusDansLieu()
 	 * @see DemandeAssignation#setNombreVelosVoulusDansLieu(int)
 	 */
 	private int nombreVelosVoulusDansLieu;
 
 	/**
-	 * Le lieu o la demande d'assignation est fa”te
+	 * Le lieu o la demande d'assignation est faîte
 	 * @see DemandeAssignation#getLieu()
 	 * @see DemandeAssignation#setLieu(Lieu)
 	 * @see Lieu
@@ -136,7 +136,7 @@ public class DemandeAssignation {
 	/**
 	 * Initialise le {@link DemandeAssignation#nombreVelosVoulusDansLieu}
 	 * @param nombreVelos
-	 * le nombre de vélos souha”té dans le lieu 
+	 * le nombre de vélos souhaîté dans le lieu 
 	 */
 	public void setNombreVelosVoulusDansLieu(int nombreVelos) {
 		this.nombreVelosVoulusDansLieu = nombreVelos;

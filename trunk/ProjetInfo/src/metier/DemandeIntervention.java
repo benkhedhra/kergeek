@@ -3,7 +3,7 @@ package metier;
 import java.sql.Date;
 
 /**
- * La classe DemandeIntervention représente les demandes d'intervention fa”tes par un {@link Utilisateur} 
+ * La classe DemandeIntervention représente les demandes d'intervention faîtes par un {@link Utilisateur} 
  * lorsqu'il rend un vélo après un emprunt court.
  * @see Utilisateur#rendreVelo(Station)
  * @see Emprunt
@@ -22,7 +22,7 @@ public class DemandeIntervention {
 	private String id;
 	
 	/**
-	 * La date à laquelle la DemandeIntervention à été fa”te.
+	 * La date à laquelle la DemandeIntervention à été faîte.
 	 * @see DemandeIntervention#getDate()
 	 * @see DemandeIntervention#setDate(Date)
 	 */

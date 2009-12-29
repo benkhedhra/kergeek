@@ -70,7 +70,8 @@ public class DAOTechnicien {
 	 * @see DAOCompte#getCompteByAdresseEmail(String)
 	 */
 	public static Technicien getTechnicienByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		Technicien admin = new Technicien(DAOCompte.getCompteByAdresseEmail(email));
+		Technicien admin = new Technicien(DAOCompte.getCompteByAdresseEmail(email).get(0));
+		//Deux Techniciens ne doivent pas avoir la míme adresse email
 		return admin;
 	}
 	

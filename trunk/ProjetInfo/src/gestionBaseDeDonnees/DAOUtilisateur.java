@@ -114,10 +114,12 @@ public class DAOUtilisateur {
 
 
 
-	public static Utilisateur getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		String idCompte = DAOCompte.getCompteByAdresseEmail(email).getId();
-		Utilisateur u = getUtilisateurById(idCompte);
-		return u;
+	public static List<Utilisateur> getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
+		for (Compte c : DAOCompte.getCompteByAdresseEmail(email)){
+			listeUtilisateur.add(getUtilisateurById(c.getId()));
+		}
+		return listeUtilisateur;
 	}
 
 
