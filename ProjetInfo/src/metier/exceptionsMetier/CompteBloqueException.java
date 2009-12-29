@@ -6,9 +6,9 @@ import metier.Velo;
 
 /**
  * LÕexception CompteBloqueException est soulevée lorsquÕun {@link Utilisateur} dont le {@link Compte} est bloqué 
- * (parce quÕil a dépassé le temps maximum dÕemprunt dÕun vélo par exemple) essaye néanmoins dÕemprunter un {@link Velo}.
- *@author KerGeek
- *@see Utilisateur#emprunteVelo(metier.Velo)
+ *  (parce quÕil a dépassé le temps maximum dÕemprunt dÕun vélo par exemple) essaye néanmoins dÕemprunter un {@link Velo}.
+ * @see Utilisateur#emprunteVelo(metier.Velo)
+ * @author KerGeek
  */
 public class CompteBloqueException extends Exception {
 

@@ -6,28 +6,92 @@ import metier.exceptionsMetier.CompteBloqueException;
 import metier.exceptionsMetier.PasDeDateRetourException;
 import metier.exceptionsMetier.PasDeVeloEmprunteException;
 
+/**
+ * Utilisateur est la classe representant un abonnÈ du parc ‡ vÈlos
+ * @see Compte
+ * @author KerGeek
+ */
 public class Utilisateur {
 
 	//Attributs
+	
+	/**
+	 * Compte de l'Utilisateur. Ce compte est modifiable.
+	 * @see Utilisateur#getCompte()
+	 * @see Utilisateur#setCompte(Compte)
+	 */
 	private Compte compte;
+	
+	/**
+	 * Nom de famille de l'Utilisateur.
+	 * @see Utilisateur#getNom()
+	 * @see Utilisateur#setNom(String)
+	 */
 	private String nom;
+	
+	/**
+	 * PrÈnom de l'Utilisateur.
+	 * @see Utilisateur#getPrenom()
+	 * @see Utilisateur#setPrenom(String)
+	 */
 	private String prenom;
+	
+	/**
+	 * Adresse postale de l'Utilisateur.
+	 * @see Utilisateur#getAdressePostale()
+	 * @see Utilisateur#setAdressePostale(String)
+	 */
 	private String adressePostale;
+	
+	/**
+	 * Est vrai si le compte de l'Utilisateur ‡ ÈtÈ bloquÈ (suite ‡ un emprunt trop long par exemple),
+	 * faux si ce dernier peut utilisÈ le parc de vÈlos normalement.
+	 * @see Utilisateur#isBloque()
+	 * @see Utilisateur#setBloque(boolean)
+	 * @see Utilisateur#emprunteVelo(Velo)
+	 * @see Utilisateur#rendreVelo(Station)
+	 */
 	private boolean bloque;
-	private Emprunt empruntEnCours;
+	
+	/**
+	 * AttribuÈ lorsque l'Utilisateur a empruntÈ un {@link Velo} et ne l'a pas encore rendu.
+	 * @see Utilisateur#getEmpruntEnCours()
+	 * @see Utilisateur#setEmpruntEnCours(Emprunt)
+	 * @see Utilisateur#emprunteVelo(Velo)
+	 */	private Emprunt empruntEnCours;
 
+	 
+	//Constructeurs
+	
+	/**
+	 * Constructeur par dÈfaut d'un Utilisateur. 
+	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 */
 	public Utilisateur(){
 		this.setBloque(false);
 		this.setEmpruntEnCours(null);
 	}	
 
+	/**
+	 * CrÈation d'un Utilisateur ‡ partir de {@link Utilisateur#compte}. 
+	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * @param compte
+	 */
 	public Utilisateur(Compte compte) {
 		super();
 		this.setCompte(compte);
 		this.setBloque(false);
 		this.setEmpruntEnCours(null);
 	}
-
+	
+	/**
+	 * CrÈation d'un Utilisateur ‡ partir des ÈlÈments suivants : {@link Utilisateur#compte},
+	 *  {@link Utilisateur#nom} et {@link Utilisateur#prenom}. 
+	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * @param compte
+	 * @param nom
+	 * @param prenom
+	 */
 	public Utilisateur(Compte compte, String nom, String prenom) {
 		super();
 		this.setCompte(compte);
@@ -36,7 +100,16 @@ public class Utilisateur {
 		this.setBloque(false);
 		this.setEmpruntEnCours(null);
 	}
-
+	
+	/**
+	 * CrÈation d'un Utilisateur ‡ partir des ÈlÈments suivants : {@link Utilisateur#compte},
+	 *  {@link Utilisateur#nom}, {@link Utilisateur#prenom} et {@link Utilisateur#adressePostale}. 
+	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * @param compte
+	 * @param nom
+	 * @param prenom
+	 * @param adresse
+	 */
 	public Utilisateur(Compte compte, String nom, String prenom, String adresse) {
 		super();
 		this.setCompte(compte);
@@ -47,7 +120,16 @@ public class Utilisateur {
 		this.setEmpruntEnCours(null);
 	}
 
-
+	/**
+	 * CrÈation d'un Utilisateur ‡ partir des ÈlÈments suivants : {@link Utilisateur#compte},
+	 *  {@link Utilisateur#nom}, {@link Utilisateur#prenom}, {@link Utilisateur#adressePostale} et {@link Utilisateur#bloque}. 
+	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours}.
+	 * @param compte
+	 * @param nom
+	 * @param prenom
+	 * @param adressePostale
+	 * @param bloque
+	 */
 	public Utilisateur(Compte compte, String nom, String prenom, String adressePostale, boolean bloque) {
 		super();
 		this.setCompte(compte);
@@ -58,63 +140,120 @@ public class Utilisateur {
 		this.setEmpruntEnCours(null);
 	}
 
+	
 	//Accesseurs et Mutateurs
-
+	
+	/**
+	 * @return {@link Utilisateur#compte}
+	 */
 	public Compte getCompte() {
 		return compte;
 	}
-
+	
+	/**
+	 * Initialise {@link Utilisateur#compte}.
+	 * @param compte
+	 */
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
-
+	
+	/**
+	 * @return {@link Utilisateur#nom}
+	 */
 	public String getNom() {
 		return nom;
 	}
-
+	
+	/**
+	 * Initialise {@link Utilisateur#nom}.
+	 * @param nom
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
+	
+	/**
+	 * @return {@link Utilisateur#prenom}
+	 */
 	public String getPrenom() {
 		return prenom;
 	}
 
+	/**
+	 * Initialise {@link Utilisateur#prenom}.
+	 * @param prenom
+	 */
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-
+	
+	/**
+	 * @return {@link Utilisateur#adressePostale}
+	 */
 	public String getAdressePostale() {
 		return adressePostale;
 	}
-
+	
+	/**
+	 * Initialise {@link Utilisateur#adressePostale}.
+	 * @param adresse
+	 */
 	public void setAdressePostale(String adresse) {
 		this.adressePostale = adresse;
 	}
 
-
+	/**
+	 * @return vrai si le compte de l'Utilisateur est desactivÈ,
+	 *  faux sinon.
+	 */
 	public Boolean isBloque() {
 		return bloque;
 	}
-
+	
+	/**
+	 * Initilaise {@link Utilisateur#bloque}.
+	 * @param bloque
+	 */
 	public void setBloque(boolean bloque) {
 		this.bloque = bloque;
 	}
-
+	
+	/**
+	 * @return {@link Utilisateur#empruntEnCours}
+	 */
 	public Emprunt getEmpruntEnCours() {
 		return empruntEnCours;
 	}
-
+	
+	/**
+	 * Initialise {@link Utilisateur#empruntEnCours}.
+	 * @param emprunt
+	 */
 	public void setEmpruntEnCours(Emprunt emprunt) {
 		this.empruntEnCours = emprunt;
 	}
 
 
 	//MÈthodes
-
-
+	
+	/**
+	 * L'utilisateur emprunte un {@link Velo} du parc.
+	 * @param velo 
+	 * le vÈlo que l'Utilisateur emrunte
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws CompteBloqueException
+	 * @see Emprunt#Emprunt(Utilisateur, Velo, java.sql.Date, Station)
+	 * @see UtilitaireDate#dateCourante()
+	 * @see Velo#setEmpruntEnCours(Emprunt)
+	 * @see Lieu#enleverVelo(Velo)
+	 */
 	public void emprunteVelo(Velo velo) throws SQLException, ClassNotFoundException, CompteBloqueException{
 		if (!this.bloque){
+			/* Un Utilisateur ayant dÈj‡ un empruntEnCours ne se verra jamais proposer d'emprunter un Velo, 
+			 * il n'y a donc pas lieu de tester cela ici.
+			 */
 			velo.setEmpruntEnCours(new Emprunt(this, velo, UtilitaireDate.dateCourante(), (Station) velo.getLieu()));
 			this.setEmpruntEnCours(velo.getEmpruntEnCours());
 			velo.getLieu().enleverVelo(velo);
@@ -124,7 +263,17 @@ public class Utilisateur {
 		}
 	}
 
-
+	/**
+	 * L'Utilisateur rend un {@link Velo} empruntÈ au prÈalable. S'il l'a empruntÈ trop longtemps, son compte se bloque.
+	 * @param station
+	 * la station où le vÈlo est rendu
+	 * @return l'emprunt complet (avec sa DateRetour et sa stationRetour assignÈs)
+	 * @throws PasDeVeloEmprunteException
+	 * @throws PasDeDateRetourException
+	 * @see Lieu#ajouterVelo(Velo)
+	 * @see Emprunt
+	 * @see Utilisateur#bloque
+	 */
 	public Emprunt rendreVelo(Station station) throws PasDeVeloEmprunteException, PasDeDateRetourException{
 		Emprunt emprunt = null;
 		// cet emprunt sera une trace de l'ancien emprunt pour pallier au this.setVelo(null);
@@ -153,7 +302,12 @@ public class Utilisateur {
 		return emprunt;
 	}
 
-
+	
+	/**
+	 * VÈrifie l'ÈgalitÈ entre deux instances de la classe Utilisateur en comparant les valeurs de leurs attributs respectifs.
+	 * @return vrai si les deux instances de la classe Utilisateur ont les mÍmes valeurs pour chacun de leurs attributs,
+	 * faux sinon
+	 */
 	@Override
 	public boolean equals(Object o) {
 
@@ -195,7 +349,11 @@ public class Utilisateur {
 	}
 
 
-
+	/**
+	 * @return l'identifiant du Compte de l'utilisateur suivi de son adresse email,
+	 *  de {@link Utilisateur#prenom} et de {@link Utilisateur#nom}.
+	 * @see Compte#toString()
+	 */
 	@Override
 	public String toString(){
 		return this.getCompte().toString()+"-"+this.getPrenom()+" "+this.getNom();

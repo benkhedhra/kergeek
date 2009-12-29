@@ -5,10 +5,10 @@ import java.util.Random;
 /**
  * La classe compte représente le compte d'un Administrateur, d'un Technicien ou d'un Utilisateur,
  *  qui contient les données relatives à ces différents acteurs.
- *@see Administrateur
- *@see Utilisateur
- *@see Technicien
- **@author KerGeek
+ * @see Administrateur
+ * @see Utilisateur
+ * @see Technicien
+ * @author KerGeek
  */
 
 public class Compte {
@@ -208,8 +208,7 @@ public class Compte {
 	
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Compte en comparant les valeurs de leurs attributs respectifs.
-	 * @return un booléen
-	 * qui vaut vrai si les deux instances de la classe Compte ont les mêmes valeurs pour chacun de leurs attributs,
+	 * @return vrai si les deux instances de la classe Compte ont les mêmes valeurs pour chacun de leurs attributs,
 	 * faux sinon
 	 */
 	@Override
@@ -236,7 +235,7 @@ public class Compte {
 	
 	
 	/**
-	 * @return l'identifiant du compte suivi de son adresse email
+	 * @return l'identifiant du Compte suivi de son adresse email
 	 */
 	@Override
 	public String toString(){

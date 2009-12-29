@@ -10,7 +10,6 @@ import metier.exceptionsMetier.TypeCompteException;
  * Administrateur est la classe représentant un administrateur du parc à velos.
  * Un administrateur est caracterisé par un compte.
  * @see Compte
- * @see Utilisateur
  * @author KerGeek
  */
 
@@ -20,7 +19,6 @@ public class Administrateur {
 
 	/**
 	 * Compte de l'Administrateur. Ce compte est modifiable.
-	 * @see Compte
 	 * @see Administrateur#getCompte()
 	 * @see Administrateur#setCompte(Compte)
 	 */
@@ -188,8 +186,7 @@ public class Administrateur {
 
 	/**
 	 * Vérifie l'égalité entre deux instances de la classe Administrateur.
-	 * @return un booléen
-	 * qui vaut vrai si les deux instances de la classe Administrateur ont le même compte,
+	 * @return vrai si les deux instances de la classe Administrateur ont le même compte,
 	 * faux sinon
 	 * @see Compte#equals(Object)
 	 */
