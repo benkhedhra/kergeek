@@ -201,6 +201,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 * si l'individu a cliqué sur le bouton "Valider", cette méthode récupère les paramètres entrés et les teste
 	 * le menu principal s'affiche si l'individu s'est correctement identifié
 	 * sinon une nouvelle fenêtre d'authentification s'affiche avec un message différent
+	 * @param arg0 
 	 * @throws {@SQLException}
 	 * @throws {@ClassNotFoundException}
 	 * @throws {@ConnexionFermeeException}

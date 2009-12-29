@@ -214,6 +214,7 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 	 * <br>s'il a validé, le vélo est rendu à la station et l'emprunt est mis à jour (date et lieu de retour)
 	 * <br>sinon, l'utilisateur est déconnecté et une fenêtre d'au-revoir apparaît
 	 * <br>si après le rendu du vélo la station n'a plus d'emplacement libre un mail est envoyé à l'ensemble des admin et des tech
+	 * @param arg0 
 	 * @see UtilitaireIhm#verifieSiPlaceDisponibleDansStation(Station)
 	 * @see Utilisateur#rendreVelo(Station)
 	 * @see SendMail#sendMail(String, String, String)
@@ -226,7 +227,6 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
-
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{

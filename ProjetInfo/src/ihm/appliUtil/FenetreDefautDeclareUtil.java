@@ -112,6 +112,7 @@ public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 	 * cette méthode est exécutée si l'utilisateur a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur "Oui", une nouvelle FenetreEmprunterVeloUtil s'ouvre
 	 * <br>s'il a cliqué sur "Non", une nouvelle FenetreConfirmationUtil s'ouvre indiquant un message d'au-revoir à l'utilisateur
+	 * @param arg0 
 	 * @see FenetreEmprunterVeloUtil#FenetreEmprunterVeloUtil(Utilisateur)
 	 * @see FenetreConfirmationUtil#FenetreConfirmationUtil(String)
 	 */

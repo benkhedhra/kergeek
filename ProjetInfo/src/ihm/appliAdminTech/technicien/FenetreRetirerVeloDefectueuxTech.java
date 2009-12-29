@@ -246,11 +246,11 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur {@link FenetreRetirerVeloDefectueuxTech#boutonValider}, le technicien commence une intervention sur le vélo sélectionné ou entré
 	 * <br>s'il a cliqué sur le {@link FenetreRetirerVeloDefectueuxTech#boutonRetour} il retourne à son menu principal
+	 * @param arg0 
 	 * @see Technicien#intervenir(Velo)
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
-
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){

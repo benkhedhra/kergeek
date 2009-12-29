@@ -148,6 +148,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	 * <br>si le vélo entré par l'utilisateur est bien existant disponible dans la station une fenêtre de confirmation s'ouvre et le nouvel emprunt est créé
 	 * <br>si l'identifiant du vélo entré n'est pas valide l'utilisateur est prévenu par une MsgBox adaptée
 	 * <br>si l'utilisateur emprunte le dernier vélo de la station un e-mail est envoyé à l'ensemble des admin et des tech
+	 * @param arg0 
 	 * @see Utilisateur#emprunteVelo(Velo)
 	 * @see SendMail#sendMail(String, String, String)
 	 * @throws SQLException

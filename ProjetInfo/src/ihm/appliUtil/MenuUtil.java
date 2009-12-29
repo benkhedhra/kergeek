@@ -133,11 +133,11 @@ public class MenuUtil extends JFrame implements ActionListener {
 	 * méthode exécutée lorsque l'utilisateur connecté à cliqué sur l'un des boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur le bouton "Déconnexion", la fenêtre  courante se ferme et une fenêtre d'au-revoir apparaît
 	 * <br>sinon c'est qu'il a cliqué sur "Rendre" ou "!emprunter" un vélo, selon qu'il a un emprunt en cours ou non
+	 * @param arg0 
 	 * @see FenetreRendreVeloUtil#FenetreRendreVeloUtil(Utilisateur)
 	 * @see FenetreEmprunterVeloUtil#FenetreEmprunterVeloUtil(Utilisateur)
 	 * @throws ConnexionFermeeException
 	 */
-
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
