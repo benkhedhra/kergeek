@@ -74,7 +74,8 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 
 	/**
 	 * Initialise le {@link Velo} de la FenetreEmpruntCourtUtil
-	 * @param velo : le nouveau vélo de la FenetreEmpruntCourtUtil
+	 * @param velo
+	 * le nouveau vélo de la FenetreEmpruntCourtUtil
 	 * @see Velo
 	 */
 	public void setVelo(Velo velo) {
@@ -83,8 +84,10 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur de {@link FenetreEmpruntCourtUtil}
-	 * @param u : l'utilisateur connecté sur la fenêtre
-	 * @param v : le vélo qui vient d'être emprunté et rendu moins de 2 minutes après
+	 * @param u
+	 * l'utilisateur connecté sur la fenêtre
+	 * @param v
+	 * le vélo qui vient d'être emprunté et rendu moins de 2 minutes après
 	 * @see JPanel
 	 * @see JLabel
 	 * @see JButton

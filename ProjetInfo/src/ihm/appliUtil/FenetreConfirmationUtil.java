@@ -35,7 +35,8 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur de FenetreConfirmationUtil
-	 * @param msg : le message à afficher dans la fenêtre
+	 * @param msg
+	 * le message à afficher dans la fenêtre
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel

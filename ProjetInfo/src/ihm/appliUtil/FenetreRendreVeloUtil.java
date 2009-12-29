@@ -92,7 +92,7 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
 	/**
 	 * Initialise le {@link Velo} de la FenetreRendreVeloUtil
-	 * @param velo : 
+	 * @param velo
 	 * le nouveau vélo de la FenetreRendreVeloUtil
 	 * @see Velo
 	 */
@@ -103,7 +103,8 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur de FenetreRendreVeloUtil
-	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @param u
+	 * l'utilisateur connecté sur la fenêtre
 	 * @throws ConnexionFermeeException 
 	 * @see BorderLayout
 	 * @see JPanel

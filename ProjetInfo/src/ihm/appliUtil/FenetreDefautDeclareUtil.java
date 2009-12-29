@@ -56,7 +56,8 @@ public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 	 * @see JPanel
 	 * @see JLabel
 	 * @see JButton
-	 * @param u : l'utilisateur connecté à l'application
+	 * @param u
+	 * l'utilisateur connecté à l'application
 	 */
 	public FenetreDefautDeclareUtil (Utilisateur u) {
 
