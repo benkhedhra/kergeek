@@ -93,7 +93,8 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 	/**
 	 * constructeur de la {@link FenetreRetirerVeloDefectueuxTech}
-	 * @param t : le technicien connecté sur la fenêtre
+	 * @param t
+	 * le technicien connecté sur la fenêtre
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

@@ -24,21 +24,49 @@ import metier.Administrateur;
 import metier.Compte;
 import metier.Velo;
 
+/**
+ * FenetreDemandeConfirmationAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle propose à l'administrateur connecté de confirmer son action ou de revenir à l'écran précédent
+ * <br>elle intervient pour des actions considérées irréversibles: la suppression d'un compte ou d'un vélo
+ * @author KerGeek
+ */
 public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * administrateur est l'administrateur connecté à la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * fenetrePrecedente est la fenêtre sur laquelle l'administrateur était connecté à l'étape précédente
+	 */
 	private JFrame fenetrePrecedente;
+	/**
+	 * compte est le compte que l'administrateur a pu vouloir résilier à l'étape précédente
+	 */
 	private Compte compte;
+	/**
+	 * velo est le vélo que l'administrateur a pu vouloir résilier à l'étape précédente
+	 */
 	private Velo velo;
-	private JLabel labelAdminTech = new JLabel("");
+	/**
+	 * labelAdmin permet d'afficher en haut de la fenêtre qui est l'individu connecté
+	 */
+	private JLabel labelAdmin = new JLabel("");
+	/**
+	 * labelConfirm pose la question adéquate à l'administrateur
+	 */
 	private JLabel labelConfirm = new JLabel("");
+	//deux boutons pour que l'administrateur confirme ou infirme son intention
 	private JButton boutonOui = new JButton("OUI");
 	private JButton boutonNon = new JButton("<html><center>NON <br>(revenir à l'écran précédent)</center></html>");
+
+	//Accesseurs utiles
 
 	public Administrateur getAdministrateur() {
 		return administrateur;
@@ -72,6 +100,14 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		this.velo = velo;
 	}
 
+	/**
+	 * constructeur de {@link FenetreDemandeConfirmationAdmin}
+	 * @param a
+	 * l'administrateur connecté sur cette fenêtre
+	 * @param fenetrePrec
+	 * la fenêtre sur laquelle l'administrateur était connecté à l'étape précédente
+	 */
+
 	public FenetreDemandeConfirmationAdmin(Administrateur a, JFrame fenetrePrec){
 
 		this.setContentPane(new PanneauAdmin());
@@ -88,13 +124,13 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 
 		this.getContentPane().setLayout(new BorderLayout());
 
-		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(500,30));
+		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
+		labelAdmin.setPreferredSize(new Dimension(500,30));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(700,150));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
-		north.add(labelAdminTech);
+		north.add(labelAdmin);
 		this.add(north, BorderLayout.NORTH);
 
 		if(fenetrePrec.getTitle().equals("Modifier informations sur un compte")){
@@ -126,27 +162,39 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 
 		this.setVisible(true);
 	}
-
+	
+	/**
+	 * méthode exécutée quand l'administrateur vientde confirmer ou d'infirmer son action
+	 * @param arg0
+	 * @see Administrateur#resilierCompte(Compte)
+	 * @see Administrateur#supprimerVelo(Velo)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
+			//s'il est dans le contexte de la modification d'un compte
 			if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte")){
 				if(arg0.getSource()==boutonOui){
-					compte.setActif(false);
-					DAOCompte.updateCompte(compte);
+					//il vient de confirmer la suppression du compte
+					Compte c = this.getAdministrateur().resilierCompte(this.getCompte());
+					DAOCompte.updateCompte(c);
 					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 				}
 				else if (arg0.getSource()==boutonNon){
+					//il vient d'infirmer la suppression du compte
 					new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
 				}
 			}
+			//s'il est dans le contexte de la suppression d'un vélo (emprunté depuis plus de 30 jours)
 			else if(fenetrePrecedente.getTitle().equals("Suppression d'un vélo")){
 				if(arg0.getSource()==boutonOui){
+					//il vient de confirmer la suppression du vélo
 					Velo v = this.getAdministrateur().supprimerVelo(this.getVelo());
 					DAOVelo.updateVelo(v);
 					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 				}
 				else if (arg0.getSource()==boutonNon){
+					//il vient d'infirmer la suppression du vélo
 					new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
 				}
 			}

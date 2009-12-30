@@ -84,8 +84,10 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 
 	/**
 	 * constructeur de la {@link FenetreGererUneInterventionTech}
-	 * @param t : le technicien connecté sur la fenêtre
-	 * @param i : l'intervention sélectionnée à la fenêtre précédente
+	 * @param t
+	 * le technicien connecté sur la fenêtre
+	 * @param i
+	 * l'intervention sélectionnée à la fenêtre précédente
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel
@@ -218,7 +220,6 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		this.setVisible(true);
 	}
 	/**
-	 * @override
 	 * cette méthode est exécutée lorsque le {@link Technicien} a cliqué sur l'un des deux boutons qui se présentaient à lui
 	 * <br>s'il a cliqué sur {@link FenetreGererUneInterventionTech#boutonPrendreEnCharge} une nouvelle fenêtre apparaît lui demandant de renseigner le type d'intervention effectué
 	 * <br>s'il a cliqué sur le {@link FenetreGererUneInterventionTech#boutonRetour} il retourne à son menu principal

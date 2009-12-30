@@ -109,8 +109,10 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 	/**
 	 * constructeur de {@link FenetrePrendreEnChargeInterventionTech}
-	 * @param t : le technicien connecté sur la fenêtre
-	 * @param i : l'intervention en train d'être prise en charge
+	 * @param t
+	 * le technicien connecté sur la fenêtre
+	 * @param i
+	 * l'intervention en train d'être prise en charge
 	 * @throws ConnexionFermeeException
 	 * @see BorderLayout
 	 * @see JPanel

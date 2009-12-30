@@ -83,7 +83,8 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	
 	/**
 	 * constructeur de FenetreChangerMotDePasse
-	 * @param c : le compte de l'individu connecté (Administrateur ou Technicien)
+	 * @param c
+	 * le compte de l'individu connecté (Administrateur ou Technicien)
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see 

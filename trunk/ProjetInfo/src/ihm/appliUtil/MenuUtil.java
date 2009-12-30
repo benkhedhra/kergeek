@@ -63,7 +63,8 @@ public class MenuUtil extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur de MenuUtil
-	 * @param u : l'utilisateur connecté sur la fenêtre
+	 * @param u
+	 * l'utilisateur connecté sur la fenêtre
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel

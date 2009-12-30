@@ -25,18 +25,34 @@ import javax.swing.JPanel;
 import metier.Administrateur;
 import metier.DemandeAssignation;
 import metier.Lieu;
-import metier.Station;
 
+/**
+ * FenetreEnvoyerDemandeAssignationAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle demande à l'administateur d'entrer le nombre vélos souhaité pour un lieu donné
+ * @author KerGeek
+ */
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * le lieu (station ou garage) concerné par la demande d'assignation
+	 */
 	private Lieu lieuConcerne;
+	/**
+	 * la demande d'assignation en train d'être créée
+	 */
 	private DemandeAssignation demande;
+
+	//attributs privés : composants de la fenêtre : 5 JLabel, 1 TextFieldLimite, et 4 JButton
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
 	private JLabel labelStation = new JLabel("Station");
@@ -48,6 +64,8 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	private JButton boutonStationsSurSous = new JButton ("Voir les stations sur et sous occupées");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+
+	//Accesseurs utiles
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -72,6 +90,13 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.demande = demande;
 	}
 
+	/**
+	 * constructeur de {@link FenetreEnvoyerDemandeAssignationAdmin}
+	 * @param a
+	 * l'administrateur connecté sur la fenêtre
+	 * @param l
+	 * le lieu concerné par la demande d'assignation (déterminé par la {@link FenetreAffichageResultatsAdmin} précédente)
+	 */
 	public FenetreEnvoyerDemandeAssignationAdmin (Administrateur a,Lieu l){
 
 		System.out.println("Fenêtre pour envoyer une demande d'assignation");
@@ -169,32 +194,45 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur {@link FenetreEnvoyerDemandeAssignationAdmin#boutonValider} ou un autre bouton
+	 * @param arg0
+	 * @see UtilitaireIhm#verifieParametresAssignation(int, Lieu)
+	 * @see Administrateur#demanderAssignation(int, Lieu)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try{
+			//s'il veut envoyer cette demande d'assignation
 			if (arg0.getSource()==boutonValider){
+				//listeDemandes est la liste des demandes d'assignation déjà existantes et non prises en charge
 				List<DemandeAssignation> listeDemandes = DAODemandeAssignation.getDemandesAssignationEnAttente();
-				List<Station> listeStations = new ArrayList<Station>();
+				//listeLieux est la liste des lieux concernés par les demandes d'assignation non prises en charge
+				List<Lieu> listeLieux = new ArrayList<Lieu>();
 				for(int i=0;i<listeDemandes.size();i++){
-					listeStations.add((Station)listeDemandes.get(i).getLieu());
+					listeLieux.add(listeDemandes.get(i).getLieu());
 				}
-				int nbVelos = 0;
+				//nbVelos est le nombre de vélos souhaité entré par l'administrateur
+				int nbVelos = -1;
 				nbVelos = Integer.parseInt(nbVelosARemplir.getText());
 
+				//il faut vérifier que le nombre de vélos entré et le lieu sont bien corrects
 				if (UtilitaireIhm.verifieParametresAssignation(nbVelos,this.getLieuConcerne())){
 					this.setDemande(new DemandeAssignation(nbVelos,this.getLieuConcerne()));
 					System.out.println("station concernée : "+this.getLieuConcerne().getAdresse());
-					if(listeStations.contains(this.getLieuConcerne())){
-						DemandeAssignation ancienneDemande = listeDemandes.get(listeStations.indexOf(this.getLieuConcerne()));
+					if(listeLieux.contains(this.getLieuConcerne())){
+						//il existe déjà une demande d'assignation non prise en charge pour ce lieu (probablement formulée par un autre administrateur)
+						DemandeAssignation ancienneDemande = listeDemandes.get(listeLieux.indexOf(this.getLieuConcerne()));
 						new FenetreExisteDejaDemandeAssignationAdmin(this.getAdministrateur(),ancienneDemande,this.getDemande());
 					}
 					else if(DAODemandeAssignation.createDemandeAssignation(this.getDemande())){
+						//il n'existe pas de demande d'assignation non prise en charge pour ce lieu
 						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 						System.out.println("Une demande d'assignation a bien été envoyée pour "+this.getLieuConcerne().getAdresse()+" : "+nbVelos+" vélos demandés");
 					}
 				}
 				else{
-					MsgBox.affMsg("Le nombre de vélos entré est incorrect. La capacité de "+this.getLieuConcerne().getAdresse()+" est de "+this.getLieuConcerne().getCapacite()+" vélos. ");
+					MsgBox.affMsg("<html> <center>Le nombre de vélos entré est incorrect. <br>La capacité de "+this.getLieuConcerne().getAdresse()+" est de "+this.getLieuConcerne().getCapacite()+" vélos. </center></html>");
 					new FenetreEnvoyerDemandeAssignationAdmin(this.getAdministrateur(),this.getLieuConcerne());
 				}
 			}

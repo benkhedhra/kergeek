@@ -34,10 +34,9 @@ import metier.Technicien;
 import metier.Utilisateur;
 import metier.exceptionsMetier.TypeCompteException;
 
-
-
 /** 
- * FenetreCreationCompteAdmin est une classe de l'application réservée à un @link Administrateur
+ * FenetreCreationCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
  * <br>elle permet à l'{@link Administrateur} de créer un nouveau {@link Compte}
  * @author KerGeek
  */
@@ -88,7 +87,11 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	}
 
 
-	//constructeur
+	/**
+	 * constructeur de {@link FenetreCreationCompteAdmin}
+	 * @param a
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	public FenetreCreationCompteAdmin(Administrateur a){
 
 		System.out.println("Fenêtre pour créer un nouveau compte");
@@ -271,6 +274,13 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode qui modifie graphiquement la fenêtre si le type du compte à créer est un administrateur ou un technicien
+	 * les JLabel et les TextFieldLimite sont rendus invisibles
+	 * méthode appelée uniquement dans l'actionPerformed du JComboBox de la fenêtre
+	 * @param type
+	 * le type du compte en train d'être créé
+	 */
 	public void modifieSiPasUtilisateur(int type){
 		if(type!=Compte.TYPE_UTILISATEUR){
 			labelNom.setVisible(false);
@@ -280,10 +290,28 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 			labelAdressePostale.setVisible(false);
 			adressePostaleARemplir.setVisible(false);
 		}
+		else{
+			labelNom.setVisible(true);
+			nomARemplir.setVisible(true);
+			labelPrenom.setVisible(true);
+			prenomARemplir.setVisible(true);
+			labelAdressePostale.setVisible(true);
+			adressePostaleARemplir.setVisible(true);
+		}
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des boutons qui lui étaient proposés
+	 * @see Administrateur#creerAdministrateur(Compte)
+	 * @see Administrateur#creerTechnicien(Compte)
+	 * @see Administrateur#creerUtilisateur(Compte, String, String, String)
+	 * @see UtilitaireIhm#verifieChampsCreationAdmin(int, String)
+	 * @see UtilitaireIhm#verifieChampsCreationTech(int, String)
+	 * @see UtilitaireIhm#verifieChampsCreationUtil(int, String, String, String, String)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
+		// s'il a cliqué sur "Valider"
 		if(arg0.getSource()==boutonValider){
 			try {
 				if (UtilitaireIhm.verifieTypeCreationCompte(typeEntre)){
@@ -357,9 +385,9 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 				new FenetreAuthentification(false);
 			}
 		}
+		//s'il a cliqué sur "Retour au menu principal"
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
 	}
 }

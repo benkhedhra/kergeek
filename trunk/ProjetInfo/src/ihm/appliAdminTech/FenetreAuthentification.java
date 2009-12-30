@@ -56,7 +56,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur de FenetreAuthentification
-	 * @param erreurAuthent : vaut true si l'individu a déjà essayé de s'identifier précédemment sans succès
+	 * @param erreurAuthent
+	 * vaut true si l'individu a déjà essayé de s'identifier précédemment sans succès
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel
@@ -178,7 +179,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 	/**
 	 * méthode permettant de tester les paramètres d'authentification entrés par l'individu qui cherche à se connecter
-	 * @param id : l'identifiant entré
+	 * @param id
+	 * l'identifiant entré
 	 * @param motDePasse : le mot de passe entré
 	 * @return un entier correspondant au type du compte si l'individu s'est correctement identifié, à -1 sinon
 	 * @throws SQLException

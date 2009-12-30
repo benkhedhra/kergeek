@@ -76,7 +76,8 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 
 	/**
 	 * constructeur de {@link FenetreGererInterventionsTech}
-	 * @param t : le technicien connecté sur la {@link FenetreGererInterventionsTech}
+	 * @param t
+	 * le technicien connecté sur la {@link FenetreGererInterventionsTech}
 	 * @throws ConnexionFermeeException
 	 * @see BorderLayout
 	 * @see JPanel
@@ -201,7 +202,6 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 	}
 
 	/**
-	 * @override
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur le {@link FenetreGererInterventionsTech#boutonValider} une fenêtre s'ouvre détaillant l'intervention sélectionnée
 	 * <br>s'il a cliqué sur le {@link FenetreGererInterventionsTech#boutonRetour} il retourne à son menu principal

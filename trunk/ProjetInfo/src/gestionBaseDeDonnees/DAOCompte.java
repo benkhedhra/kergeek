@@ -10,31 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import metier.Compte;
-import metier.Utilisateur;
 
 /**
- * Rassemble l'ensemble des mÈthodes static de liaison avec la base de donnÈes concernant la classe metier {@link Compte}.
- * @author KerGeek
+ * Rassemble l'ensemble des mÈthodes static de liaison avec la base de donnÈes concernant la classe metier {link Compte}.
+ * author KerGeek
  */
 public class DAOCompte {
 
 	//TODO propager les exceptions PasDansLaBaseDeDonneesException
 	
 	/**
-	 * Ajoute une instance de la classe {@link Compte} ‡ la base de donnÈes.
+	 * Ajoute une instance de la classe {link Compte} ‡ la base de donnÈes.
 	 * C'est au cours de cette action que les identifiants sont gÈnÈrÈs ‡ l'aide de sÈquences SQL. 
 	 * Il existe une sÈquence par type de compte et un identifiant commence toujours par la lettre correspondant au type de 
 	 * compte en question ('a' pour Administrateur, 't' pour Technicien et 'u' pour Utilisateur).
-	 * <br> <br> Une fois l'identifiant attribuer ‡ l'instance, on insËre les valeurs des attributs de celles-ci dans la table COMPTE
-	 * où une nouvelle ligne est crÈÈe.
-	 * @param compte
-	 * l'instance de la classe {@link Compte} ‡ ajouter ‡ la base de donnÈes.
-	 * @return vrai si l'ajout ‡ la base de donnÈes a bel et bien ÈtÈ effectuÈ,
+	 * <br> <br> Une fois l'identifiant attribuer ‡ l'instance, on insËre les valeurs des attributs de celles-ci dans la table COMPTE et une nouvelle ligne est crÈÈe.
+	 * param compte
+	 * l'instance de la classe {link Compte} ‡ ajouter ‡ la base de donnÈes.
+	 * return vrai si l'ajout ‡ la base de donnÈes a bel et bien ÈtÈ effectuÈ,
 	 * faux sinon
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * throws SQLException
+	 * throws ClassNotFoundException
+	 * throws ConnexionFermeeException
+	 * see CreationTables
 	 */
 	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
@@ -135,15 +133,15 @@ public class DAOCompte {
 
 
 	/**
-	 * Met ‡ jour une instance de la classe {@link Compte} dÈj‡ prÈsente dans la base de donnÈes.
-	 * @param compte
-	 * l'instance de la classe {@link Compte} ‡ mettre ‡ jour dans la base de donnÈes.
-	 * @return vrai si la mise ‡ jour de la base de donnÈes a bel et bien ÈtÈ effectuÈe,
+	 * Met ‡ jour une instance de la classe {link Compte} dÈj‡ prÈsente dans la base de donnÈes.
+	 * param compte
+	 * l'instance de la classe {link Compte} ‡ mettre ‡ jour dans la base de donnÈes.
+	 * return vrai si la mise ‡ jour de la base de donnÈes a bel et bien ÈtÈ effectuÈe,
 	 * faux sinon
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * throws SQLException
+	 * throws ClassNotFoundException
+	 * throws ConnexionFermeeException
+	 * see {link CreerBdd}
 	 */
 	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
@@ -191,13 +189,13 @@ public class DAOCompte {
 
 
 	/**
-	 * @param identifiant
+	 * param identifiant
 	 * du compte recherchÈ
-	 * @return l'instance de la classe {@link Compte} dont l'identifiant correspond au paramËtre.
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * return l'instance de la classe {link Compte} dont l'identifiant correspond au paramËtre.
+	 * throws SQLException
+	 * throws ClassNotFoundException
+	 * throws ConnexionFermeeException
+	 * see CreerBdd
 	 */
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Compte compte = null;
@@ -252,12 +250,12 @@ public class DAOCompte {
 	}
 
 	/**
-	 * @param email
+	 * param email
 	 * des comptes recherchÈs
-	 * @return la liste des instances de la classe {@link Compte} dont l'adresseEmail correspond au paramËtre.
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException
+	 * return la liste des instances de la classe {link Compte} dont l'adresseEmail correspond au paramËtre.
+	 * throws SQLException
+	 * throws ClassNotFoundException
+	 * throws ConnexionFermeeException
 	 */
 	public static List<Compte> getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Compte> listeComptes = new ArrayList<Compte>();
@@ -308,48 +306,56 @@ public class DAOCompte {
 	
 	/**
 	 * Teste si un identifiant correspond bien ‡ un compte actif de la table COMPTE.
-	 * @param id
+	 * param id
 	 * l'identifiant ‡ tester
-	 * @return vrai si l'identifiant entrÈe en paramËtre correspond ‡ un compte acif de la base de donnÈes,
+	 * return vrai si l'identifiant entrÈe en paramËtre correspond ‡ un compte acif de la base de donnÈes,
 	 * faux sinon
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * throws SQLException
+	 * throws ClassNotFoundException
+	 * throws ConnexionFermeeException
+	 * see CreationTables
 	 */
 	public static boolean estDansLaBddCompte (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (getCompteById(id)!=null && getCompteById(id).isActif());
 	}
 
 	/**
-	 * Test si un identifiant correspond bien ‡ un compte {@link Utilisateur} actif de la table COMPTE.
-	 * @param idUtil
-	 * @return vrai si l'identifiant entrÈe en paramËtre correspond ‡ un compte {@link Utilisateur} acif de la base de donnÈes
+	 * Test si un identifiant correspond bien ‡ un compte {link Utilisateur} actif de la table COMPTE.
+	 * param idUtil
+	 * return vrai si l'identifiant entrÈe en paramËtre correspond ‡ un compte {link Utilisateur} acif de la base de donnÈes
 	 * faux sinon
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws ConnexionFermeeException
-	 * @see DAOCompte#estDansLaBddCompte(String)
-	 * @see Compte#TYPE_UTILISATEUR
+	 * throws SQLException
+	 * throws ClassNotFoundException
+	 * throws ConnexionFermeeException
+	 * see DAOCompte#estDansLaBddCompte(String)
+	 * see Compte#TYPE_UTILISATEUR
 	 */
 	public static boolean estDansLaBddUtil (String idUtil) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (estDansLaBddCompte(idUtil) && getCompteById(idUtil).getType()==Compte.TYPE_UTILISATEUR);
 	}
 	
 	/**
-	 * TODO Maëlle, je te laisse commenter celle l‡...
-	 * @param type
-	 * @param ident
-	 * @param nom
-	 * @param prenom
-	 * @param adresseEMail
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws ConnexionFermeeException
+	 * cette mÈthode permet d'obtenir la liste des comptes correspondant ‡ une recherche donnÈe
+	 * une recherche s'effectue sur un nombre de paramËtres allant de 0 ‡ 5
+	 * si le type n'est pas renseignÈ ou s'il est renseignÈ et correspond au type d'un utilisateur, l'administrateur pourra faire une recherche ‡ 4 paramËtres au plus (plus le type)
+	 * sinon, la recherche pourra s'effectuer au maximum sur 2 paramËtres (plus le type) : l'identifiant et l'adresse e-mail
+	 * param type
+	 * le type de compte recherchÈ (valant 0 si aucun type n'a ÈtÈ renseignÈ)
+	 * param ident
+	 * l'identifiant du compte recherchÈ
+	 * param nom
+	 * le nom de l'utilisateur recherchÈ
+	 * param prenom
+	 * le prÈnom de l'utilisateur recherchÈ
+	 * param adresseEMail
+	 * l'adresse e-mail du compte recherchÈ
+	 * return la liste des instances de la classe {link Compte} dont correspondant ‡ la requÍte crÈÈe ‡ partir des paramËtres remplis
+	 * throws ClassNotFoundException
+	 * throws SQLException
+	 * throws ConnexionFermeeException
 	 */
 	public static List<Compte> getComptesByRecherche (int type, String ident, String nom, String prenom, String adresseEMail) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
-		//le type est toujours renseignÈ, les autres peuvent valoir null
+
 		//on va compter le nombre de paramËtres non-nuls
 		ArrayList<String> listeChamps = new ArrayList<String>();
 		listeChamps.add(""+type);
@@ -358,6 +364,7 @@ public class DAOCompte {
 		listeChamps.add(prenom);
 		listeChamps.add(adresseEMail);
 
+		//nbChampsRemplis sera le nombre de champs sur lequel on effectuera la recherche (nombre de champs remplis par l'administrateur qui recherche un compte)
 		int nbChampsRemplis=0;
 		if (!listeChamps.get(0).equals("0")){nbChampsRemplis++;}
 		for (String champ : listeChamps){
@@ -367,6 +374,7 @@ public class DAOCompte {
 		nbChampsRemplis--;
 
 		List<Compte> listeComptes = new ArrayList<Compte>();
+		//requete est la requÍte SQL qui sera lancÈe
 		String requete = "select * from Compte where Compte.actif = 1";
 		if(nbChampsRemplis>0){
 			if(type!=0){
