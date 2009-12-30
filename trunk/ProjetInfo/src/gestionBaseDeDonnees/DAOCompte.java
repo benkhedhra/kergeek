@@ -307,10 +307,10 @@ public class DAOCompte {
 	}
 	
 	/**
-	 * Test si un identifiant correspond bien à un compte actif de la table COMPTE.
+	 * Teste si un identifiant correspond bien à un compte actif de la table COMPTE.
 	 * @param id
 	 * l'identifiant à tester
-	 * @return vrai si l'identifiant entrée en paramètre correspond à un compte acif de la base de données
+	 * @return vrai si l'identifiant entrée en paramètre correspond à un compte acif de la base de données,
 	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException

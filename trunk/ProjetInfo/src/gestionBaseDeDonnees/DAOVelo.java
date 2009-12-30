@@ -10,11 +10,27 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import metier.Detruit;
 import metier.Lieu;
+import metier.Station;
 import metier.Velo;
 
+/**
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Velo}.
+ * @author KerGeek
+ */
 public class DAOVelo {
-
+	
+	/**
+	 * Ajoute une instance de la classe {@link Velo} à la base de données.
+	 * @param velo
+	 *l'instance de la classe {@link Velo} à ajouter à la base de données.
+	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
@@ -56,10 +72,16 @@ public class DAOVelo {
 		return effectue;
 	}
 
-	
-	
-	
-	
+	/**
+	 *  Met à jour une instance de la classe {@link Velo} déjà présente dans la base de données.
+	 * @param velo
+	 * l'instance de la classe {@link Velo} à mettre à jour dans la base de données.
+	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean updateVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
@@ -96,7 +118,14 @@ public class DAOVelo {
 		return effectue;
 	}
 
-
+	/**
+	 * @param identifiant
+	 * @return  l'instance de la classe {@link Velo} dont l'identifiant correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOEmprunt#setEmpruntEnCoursByVelo(Velo)
+	 */
 	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Velo velo = new Velo();
 
@@ -146,8 +175,15 @@ public class DAOVelo {
 
 
 
-
-	//permet d'obtenir la liste des velos parques dans un lieu
+	/**
+	 * Permet d'obtenir la liste des velos parqués dans un Lieu.
+	 * @param lieu
+	 * @return la liste des {@link Velo} parqués dans le {@link Lieu} passé en paramètre
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see DAOVelo#getVeloById(String)
+	 */
 	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		
 		List<String> listeIdVelos = new ArrayList<String>();
@@ -194,12 +230,32 @@ public class DAOVelo {
 		}
 		return listeVelos;
 	}
-
+	
+	/**
+	 * Teste si un identifiant correspond bien à un Velo du parc.
+	 * @param id
+	 * @return vrai si l'identifiant entrée en paramètre correspond à un {@link Velo} non dŽtruit présent dans la base de données,
+	 * faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 * @see {@link Detruit}
+	 */
 	public static boolean existe(String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo velo = getVeloById(id);
 		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_DETRUIT));
 	}
-
+	
+	/**
+	 *  Teste si un identifiant correspond bien à un Velo du parc disponible en station pour ítre emprunté.
+	 * @param id
+	 * @return vrai si l'identifiant entrée en paramètre correspond à un {@link Velo} présent dans la base de données 
+	 * en état de marche et dans une {@link Station}
+	 * faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean estDisponible (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo velo = getVeloById(id);
 		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_GARAGE) && !velo.getLieu().getId().equals(Lieu.ID_SORTIE) && !velo.isEnPanne());
