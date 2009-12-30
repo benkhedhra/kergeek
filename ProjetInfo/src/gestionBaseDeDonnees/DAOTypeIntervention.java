@@ -11,9 +11,22 @@ import java.util.Map;
 
 import metier.TypeIntervention;
 
+/**
+ * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link TypeIntervention}.
+ * @author KerGeek
+ */
 public class DAOTypeIntervention {
 
-
+	/**
+	 *  Ajoute une instance de la classe {@link DemandeAssignationTypeIntervention} à la base de données.
+	 * @param typeIntervention
+	 * l'instance de la classe {@link TypeIntervention} à ajouter à la base de données.
+	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean createTypeIntervention(TypeIntervention typeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -51,8 +64,16 @@ public class DAOTypeIntervention {
 		return effectue;
 	}
 
-
-
+	/**
+	 * Met à jour une instance de la classe {@link TypeIntervention} déjà présente dans la base de données.
+	 * @param typeIntervention
+	 * l'instance de la classe {@link TypeIntervention} à mettre à jour dans la base de données.
+	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
+	 *  faux sinon
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static boolean updateTypeIntervention(TypeIntervention typeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
@@ -85,7 +106,13 @@ public class DAOTypeIntervention {
 	}
 
 
-
+	/**
+	 * @param type
+	 * @return  l'instance de la classe {@link TypeIntervention} dont le type correspond au paramètre.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static TypeIntervention getTypeInterventionById(int type) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		TypeIntervention typeIntervention = new TypeIntervention();
 
@@ -127,9 +154,12 @@ public class DAOTypeIntervention {
 		return typeIntervention;
 	}
 
-
-
-
+	/**
+	 * @return la carte de l'ensemble des {@link TypeIntervention} présents dans la base de données.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public static Map<Integer,String> getAllTypesIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Map<Integer,String> typesIntervention = new HashMap<Integer,String>();
 
@@ -168,7 +198,14 @@ public class DAOTypeIntervention {
 		return typesIntervention;
 	}
 
-	/*public static List<TypeIntervention> getAllTypesIntervention() throws SQLException, ClassNotFoundException{
+	/*
+	/**
+	 * @return la liste de l'ensemble des {@link TypeIntervention} présents dans la base de données.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @see DAOTypeIntervention#getTypeInterventionById(int) 
+	 *
+	public static List<TypeIntervention> getAllTypesIntervention() throws SQLException, ClassNotFoundException{
 
 		List<TypeIntervention> liste = new LinkedList<TypeIntervention>();
 

@@ -145,6 +145,9 @@ public class DAOEmprunt {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
+	 * @see DAOLieu#getLieuById(String)
+	 * @see DAOUtilisateur#getUtilisateurById(String)
+	 * @see DAOVelo#getVeloById(String)
 	 */
 	public static Emprunt getEmpruntById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Emprunt emprunt = new Emprunt();
@@ -482,11 +485,12 @@ public class DAOEmprunt {
 	}
 
 	/**
-	 * 
+	 * Associe un {@link Emprunt} au vélo passé en paramètre lorsque celui-ci est actuellement emprunté.
 	 * @param velo
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConnexionFermeeException
+	 * @see DAOVelo#getVeloById(String)
 	 */
 	public static void setEmpruntEnCoursByVelo(Velo velo) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 
@@ -556,11 +560,12 @@ public class DAOEmprunt {
 
 
 	/**
-	 * 
+	 * Associe un {@link Emprunt} à l'utilisateur passé en paramètre lorsque celui-ci a actuellement un emprunt en cours.
 	 * @param utilisateur
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
+	 * @see DAOUtilisateur#getUtilisateurById(String)
 	 */
 	public static void setEmpruntEnCoursByUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Emprunt emprunt = null;
