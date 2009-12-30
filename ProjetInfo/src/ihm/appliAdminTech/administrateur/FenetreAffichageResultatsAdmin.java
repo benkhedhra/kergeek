@@ -34,9 +34,17 @@ import statistiques.TableauListeVelosDansLieu;
 
 
 /** 
- * FenetreAffichageResultats est une classe de l'application réservée à un @link Administrateur
- * elle affiche les statistiques adéquates en fonction du contexte dans lequel on se trouve et propose à l'administrateur les choix adaptés de retour à une ou plusieurs fenêtres
+ * FenetreAffichageResultatsAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle affiche les statistiques adéquates en fonction du contexte dans lequel on se trouve et propose à l'administrateur les choix adaptés de retour à une ou plusieurs fenêtres
  * @author KerGeek
+ * @see DiagrammeFreqStations
+ * @see DiagrammeNbEmpruntsUtilisateur
+ * @see DiagrammeNbInterventions
+ * @see DiagrammeNbVelosStation
+ * @see DiagrammeTxOccupationStation
+ * @see TableauInterventionVelo
+ * @see TableauListeVelosDansLieu
  */
 public class FenetreAffichageResultatsAdmin extends JFrame implements ActionListener {
 
@@ -80,7 +88,16 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		this.fenetrePrecedente = fenetrePrecedente;
 	}
 
-	//Constructeur
+	/**
+	 * Constructeur de {@link FenetreAffichageResultatsAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @param fenetrePrec
+	 * la fenêtre sur laquelle l'administrateur était connecté à l'étape précédente (sera castée selon son type)
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException
+	 */
 	public FenetreAffichageResultatsAdmin(Administrateur a, JFrame fenetrePrec) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 
 		this.setContentPane(new PanneauAdmin());
@@ -118,8 +135,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		bouton1.setFont(UtilitaireIhm.POLICE3);
 		bouton1.setBackground(Color.GREEN);
 
+		//si à la fenêtre précédente il a choisi une période sur laquelle il voulait voir la fréquentation des stations
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
+			//on caste la fenêtre
 			FenetreFrequentationStationsAdmin f = (FenetreFrequentationStationsAdmin) fenetrePrec;
+			//création de l'objet diag en fonction de la période choisie que l'on récupère
 			DiagrammeFreqStations diag = new DiagrammeFreqStations(f.getPeriodeEntree());
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
@@ -129,7 +149,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			south.add(bouton1);
 		}
 
+		//si à la fenêtre précédente il a choisi un compte pour lequel il voulait voir les statistiques
 		else if(fenetrePrec.getTitle().equals("Informations sur un compte")){
+			//on caste la fenêtre pour pouvoir récupérer le compte choisi et tracer l'histogramme en fonction
 			FenetreInfoCompteAdmin f = (FenetreInfoCompteAdmin) fenetrePrec;
 			DiagrammeNbEmpruntsUtilisateur diag = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById(f.getCompte().getId()));
 			JLabel lblChart = new JLabel();
@@ -141,14 +163,15 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			south.add(bouton1);
 		}
 
-
+		//si à la fenêtre précédente il a choisi de voir les interventions les plus fréquentes
 		else if(fenetrePrec.getTitle().equals("Menu <interventions de maintenance> de l'administrateur")){
 			DiagrammeNbInterventions diag = new DiagrammeNbInterventions();
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
 		}
-
+		
+		//si à la fenêtre précédente il a sélectionné un vélo pour lequel il souhaite voir l'historique des interventions de maintenance
 		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
 			FenetreHistoriqueVeloAdmin f = (FenetreHistoriqueVeloAdmin) fenetrePrec;
 			JLabel labelMsg = new JLabel ("Historique du vélo "+f.getVeloEntre().getId());
@@ -160,7 +183,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			bouton1.addActionListener(this);
 			south.add(bouton1);			
 		}
-
+		
+		//si à la fenêtre précédente il a confirmé la suppression d'un vélo dans la nature depuis trop longtemps et qu'il souhaite voir à nouveau la liste des vélos sortis
 		else if(fenetrePrec.getTitle().equals("Ecran de confirmation")){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 			labelMsg.setPreferredSize(new Dimension(1200,100));
@@ -171,11 +195,15 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
+		
+		//si à la fenêtre précédente il a choisi un lieu pour lequel il souhaite voir la liste des vélos présents
 		else if(fenetrePrec.getTitle().equals("Voir la liste des vélos présents dans un lieu")){
+			//on caste la fenêtre
 			FenetreVoirVelosDansLieuAdmin f = (FenetreVoirVelosDansLieuAdmin)fenetrePrec;
-			System.out.println(f.getLieuEntre());
+			//on peut maintenant récupérer le lieu sélectionné dans la fenêtre précédente
 			Lieu lieu = f.getLieuEntre();
 			System.out.println(lieu);
+			//si ce lieu est la sortie, c'est que l'on veut voir tous les vélos actuellement empruntés
 			if(lieu.getId().equals(Lieu.ID_SORTIE)){
 				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
 				labelMsg.setPreferredSize(new Dimension(1200,100));
@@ -186,6 +214,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				bouton1.addActionListener(this);
 				south.add(bouton1);
 			}
+			//sinon c'est que ce lieu est une station ou le pool de vélos
 			else{
 				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement au lieu : "+lieu.getAdresse());
 				labelMsg.setPreferredSize(new Dimension(1200,100));
@@ -197,6 +226,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				south.add(bouton1);
 			}
 		}
+		
+		//si à la fenêtre précédente l'administrateur a souhaité voir l'état d'un lieu, soit directement, soit en passant par l'onglet "voir les stations sur et sous-occupées"
 		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
 
 			JLabel lblChart1 = new JLabel();
@@ -215,18 +246,23 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 			FenetreEtatStationAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
+			//s'il a directement entré un lieu pour voir son état
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
+				//dans tous les cas on trace le graphe indiquant le nombre de lieux présents
 				f1 = (FenetreEtatStationAdmin) fenetrePrec;
 				diag1 = new DiagrammeNbVelosStation(f1.getStationEntree());
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				panel1.add(lblChart1);
 				System.out.println(!f1.getStationEntree().getId().equals(""+Lieu.ID_GARAGE));
 				if(!f1.getStationEntree().getId().equals(""+Lieu.ID_GARAGE)){
+					//on ne trace le graphe des taux d'occupation que si le lieu est une station
+					//calculer le taux d'occupation du garage n'a pas de sens car sa capacité est grande
 					diag2 = new DiagrammeTxOccupationStation((Station)f1.getStationEntree());
 					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 					panel2.add(lblChart2);
 				}
 			}
+			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
 			if (fenetrePrec.getTitle().equals("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
 				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
@@ -306,9 +342,12 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				}
 			}
 			else if(arg0.getSource()==bouton2){
+				//il ne peut s'agir que du cas où l'administrateur souhaite voir les stations sur et sous-occupées
 				new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 			}
 			else if(arg0.getSource()==bouton3){
+				//il ne peut s'agir que du cas où l'administrateur a souhaité envoyer une demande d'assignation
+				// mais il faut faire 2 casts différents car il y a deux types de fenêtres précédentes possibles
 				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'un lieu")){
 					FenetreEtatStationAdmin f = (FenetreEtatStationAdmin) fenetrePrecedente;
 					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getStationEntree());
@@ -319,6 +358,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				}
 			}
 			else if(arg0.getSource()==boutonRetour){
+				//l'administrateur retourne à son menu principal
 				new MenuPrincipalAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 			}
 		} 

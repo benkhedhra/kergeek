@@ -107,7 +107,8 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 
 	/**
 	 * constructeur de {@link FenetreEnregistrerArrivageVelosTech}
-	 * @param t : le technicien connecté sur la fenêtre
+	 * @param t
+	 * le technicien connecté sur la fenêtre
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @see BorderLayout
@@ -204,7 +205,6 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 	}
 
 	/**
-	 * @override
 	 * cette méthode est exécutée si le technicien a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur "Valider", une nouvelle fenêtre lui indiquera les identifiants à apposer sur les nouveaux vélos
 	 * <br>s'il a cliqué sur "Retour au menu principal", il retourne au menu principal

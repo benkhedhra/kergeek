@@ -117,8 +117,10 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur d'une FenetreConfirmation
-	 * @param c : le compte de l'individu connecté
-	 * @param fenetrePrec : la fenêtre précédente
+	 * @param c
+	 * le compte de l'individu connecté
+	 * @param fenetrePrec
+	 * la fenêtre précédente
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

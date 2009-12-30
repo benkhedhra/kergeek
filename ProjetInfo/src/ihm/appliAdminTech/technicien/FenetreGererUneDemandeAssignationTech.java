@@ -99,8 +99,10 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 	/**
 	 * constructeur de la {@link FenetreGererUneDemandeAssignationTech}
-	 * @param t : le technicien connecté sur la fenêtre
-	 * @param d : la demande d'assignation sélectionnée à la fenêtre précédente
+	 * @param t
+	 * le technicien connecté sur la fenêtre
+	 * @param d
+	 * la demande d'assignation sélectionnée à la fenêtre précédente
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -273,7 +275,6 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	}
 
 	/**
-	 * @override
 	 * cette méthode est exécutée lorsque le {@link Technicien} a cliqué sur l'un des deux boutons qui se présentaient à lui
 	 * <br>s'il a cliqué sur {@link FenetreGererUneDemandeAssignationTech#boutonPrendreEnCharge} une nouvelle fenêtre apparaît lui demandant de renseigner les identifiants des vélos déplacés
 	 * <br>s'il a cliqué sur le {@link FenetreGererUneDemandeAssignationTech#boutonRetour} il retourne à son menu principal

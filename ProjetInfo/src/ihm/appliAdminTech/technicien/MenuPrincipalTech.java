@@ -68,7 +68,8 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 	/**
 	 * constructeur du {@link MenuPrincipalTech}
-	 * @param t : le technicien connecté sur la fenêtre
+	 * @param t
+	 * le technicien connecté sur la fenêtre
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel

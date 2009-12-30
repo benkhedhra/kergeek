@@ -52,7 +52,8 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	/**
 	 * constructeur
-	 * @param erreurAuthent : vaut true si l'utilisateur a déjà essayé de s'identifier précédemment sans succès
+	 * @param erreurAuthent
+	 * vaut true si l'utilisateur a déjà essayé de s'identifier précédemment sans succès
 	 * @see BorderLayout
 	 * @see JPanel
 	 * @see JLabel
@@ -149,7 +150,8 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 
 	/**
 	 * méthode permettant de tester le champ entré par l'utilisateur qui cherche à s'identifier à la borne
-	 * @param idUtilisateur : l'identifiant entré par l'utilisateur
+	 * @param idUtilisateur
+	 * l'identifiant entré par l'utilisateur
 	 * @return un booléen valant true si l'identifiant entré correspond bien à un utilisateur existant dans la base de données
 	 * @throws SQLException
 	 * @throws ClassNotFoundException

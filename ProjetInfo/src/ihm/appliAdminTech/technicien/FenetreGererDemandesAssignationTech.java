@@ -70,7 +70,8 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 	/**
 	 * constructeur de {@link FenetreGererDemandesAssignationTech}
-	 * @param t : le technicien connecté sur la {@link FenetreGererDemandesAssignationTech}
+	 * @param t
+	 * le technicien connecté sur la {@link FenetreGererDemandesAssignationTech}
 	 * @throws ConnexionFermeeException
 	 * @see BorderLayout
 	 * @see JPanel
@@ -205,7 +206,6 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 	}
 
 	/**
-	 * @override
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur le {@link FenetreGererDemandesAssignationTech#boutonValider} une fenêtre s'ouvre détaillant la demande d'assignation sélectionnée
 	 * <br>s'il a cliqué sur le {@link FenetreGererDemandesAssignationTech#boutonRetour} il retourne à son menu principal
