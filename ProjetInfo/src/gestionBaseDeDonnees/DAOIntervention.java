@@ -16,7 +16,7 @@ import metier.UtilitaireDate;
 import metier.Velo;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Intervention}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Intervention}.
  * @author KerGeek
  */
 public class DAOIntervention {
@@ -26,7 +26,7 @@ public class DAOIntervention {
 	 * C'est au cours de cette action que les identifiants sont générés à l'aide de séquences SQL.
 	 * @param intervention
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -85,7 +85,7 @@ public class DAOIntervention {
 	 * @param intervention
 	 * l'instance de la classe {@link Intervention} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConnexionFermeeException
@@ -303,13 +303,13 @@ public class DAOIntervention {
 	
 	/** 
 	 * @return La liste des interventions en attente de traitement, c'est-à-dire auquelles aucun {@link TypeIntervention} n'a 
-	 * encore ŽtŽ assignŽs, concernant donc des vélos en panne au {@link Garage}
+	 * encore été assignés, concernant donc des vélos en panne au {@link Garage}
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 * @see Velo#enPanne
 	 */
-	//TODO la liste des vŽlos en panne au garage plut™t?
+	//TODO la liste des vélos en panne au garage plut™t?
 	public static List<Intervention> getInterventionsNonTraitees() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Intervention> liste = new ArrayList<Intervention>();
 

@@ -28,7 +28,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
 /*TODO
- * problème pour le garage... a voir 
+ * problËme pour le garage... a voir 
  */
 
 public class DiagrammeNbVelosStation extends ApplicationFrame {

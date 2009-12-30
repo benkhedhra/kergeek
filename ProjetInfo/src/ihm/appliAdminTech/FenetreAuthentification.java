@@ -224,7 +224,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
 			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
 			int resultatAuthent = testerAuthent(id,mdp);
-			mdp = null;//pour augmenter la sŽcuritŽ de l'application
+			mdp = null;//pour augmenter la sécurité de l'application
 
 			//si aucune exception levee et si l'utilisateur existe bien dans la base, on ferme la fenetre
 			//d'authentification et on ouvre la fenetre de l'utilisateur

@@ -113,7 +113,7 @@ public class Technicien {
 
 	/**
 	 * Associe un {@link TypeIntervention} ‡ l'{@link Intervention} et marque le vÈlo concernÈ par cette {@link Intervention}
-	 *  comme en Ètat de marche.
+	 * comme en Ètat de marche.
 	 * @param intervention
 	 * en cours
 	 * @param typeIntervention
@@ -128,8 +128,8 @@ public class Technicien {
 	
 	/**
 	 * Retire un {@link Velo} du parc que le Technicien n' a pas pu rÈparer en le plaçant au {@link Lieu} {@link Detruit}
-	 *  et en associant le {@link TypeIntervention} {@link TypeIntervention#TYPE_DESTRUCTION}  ‡ l'{@link Intervention} dont 
-	 *  il faisait l'objet.
+	 * et en associant le {@link TypeIntervention} {@link TypeIntervention#TYPE_DESTRUCTION}  ‡ l'{@link Intervention} dont 
+	 * il faisait l'objet.
 	 * @param intervention
 	 * @return intervention
 	 * @throws SQLException

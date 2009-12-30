@@ -6,12 +6,12 @@ import java.sql.Date;
 import metier.exceptionsMetier.PasDeDateRetourException;
 
 /**
- * La classe Emprunt représente les emprunts effectus par les utilisateurs du parc  vélos.
+ * La classe Emprunt représente les emprunts effectués par les utilisateurs du parc  vélos.
  * @author KerGeek
  */
 public class Emprunt {
 	/**
-	 * L'identifiant d'un Emprunt est unique. Une fois attribué, il ne doit pas tre modifié.
+	 * L'identifiant d'un Emprunt est unique. Une fois attribué, il ne doit pas ítre modifié.
 	 * @see Emprunt#getId()
 	 * @see Emprunt#setId(String)
 	 */
@@ -63,12 +63,12 @@ public class Emprunt {
 	//Constantes
 	
 	/**
-	 * Temps au delˆ duquel un emprunt est cosidr comme long, c'est-à-dire supérieur à 2 heures.
+	 * Temps au delà duquel un emprunt est cosidéré comme long, c'est-à-dire supérieur à 2 heures.
 	 */
 	public static long TPS_EMPRUNT_MAX = 7200; //2h
 	
 	/**
-	 * Temps en decˆ duquel un emprunt est cosidr comme court, c'est-à-dire inférieur à 2 minutes.
+	 * Temps en deà duquel un emprunt est cosidéré comme court, c'est-à-dire inférieur à 2 minutes.
 	 */
 	public static long TPS_EMPRUNT_MIN = 120; //2min
 
@@ -83,7 +83,7 @@ public class Emprunt {
 	
 	/**
 	 * Création d'un Emprunt à partir des éléments suivants : {@link Emprunt#utilisateur}, {@link Emprunt#velo},
-	 *  {@link Emprunt#dateEmprunt} et {@link Emprunt#stationEmprunt}. 
+	 * {@link Emprunt#dateEmprunt} et {@link Emprunt#stationEmprunt}. 
 	 * @param utilisateur
 	 * @param velo
 	 * @param dateEmprunt
@@ -98,7 +98,7 @@ public class Emprunt {
 	
 	/**
 	 * Création d'un Emprunt à partir des éléments suivants : {@link Emprunt#utilisateur}, {@link Emprunt#velo},
-	 *  {@link Emprunt#dateEmprunt}, {@link Emprunt#stationEmprunt}, {@link Emprunt#dateRetour} et {@link Emprunt#stationRetour}.
+	 * {@link Emprunt#dateEmprunt}, {@link Emprunt#stationEmprunt}, {@link Emprunt#dateRetour} et {@link Emprunt#stationRetour}.
 	 * @param utilisateur
 	 * @param velo
 	 * @param dateEmprunt
@@ -118,7 +118,7 @@ public class Emprunt {
 
 
 	/**
-	 * Création d'un Emprunt à partir d'un autre Emprunt. Les deux emprunts ont alors les mmes attributs.
+	 * Création d'un Emprunt à partir d'un autre Emprunt. Les deux emprunts ont alors les mímes attributs.
 	 * @param emprunt 
 	 * @param utilisateur
 	 * @param velo

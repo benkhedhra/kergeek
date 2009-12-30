@@ -18,7 +18,7 @@ import metier.UtilitaireDate;
 import metier.Velo;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Emprunt}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Emprunt}.
  * @author KerGeek
  */
 public class DAOEmprunt {
@@ -28,7 +28,7 @@ public class DAOEmprunt {
 	 * @param emprunt
 	 * l'instance de la classe {@link Emprunt} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -97,7 +97,7 @@ public class DAOEmprunt {
 	 * @param emprunt
 	 * l'instance de la classe {@link Emprunt} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

@@ -79,7 +79,7 @@ public class Administrateur {
 	 * @param type
 	 * le type du compte à créer
 	 * @param adresseEmail
-	 *  l'adresse email du compte à créer
+	 * l'adresse email du compte à créer
 	 * @return le nouveau compte 
 	 * @see Compte
 	 */
@@ -163,8 +163,8 @@ public class Administrateur {
 
 	/**
 	 * Crée une demande d'assignation, c'est-à-dire une demande de déplacement de vélos 
-	 *  à partir d'une station ou du Garage vers une station, en indiquant le nombre de vélos souhaîté dans la station
-	 *  en question.
+	 * à partir d'une station ou du Garage vers une station, en indiquant le nombre de vélos souhaîté dans la station
+	 * en question.
 	 * @param nombreVelosVouluDansStation
 	 * @param lieu
 	 * @return la nouvelle demande d'assignation

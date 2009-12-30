@@ -16,7 +16,7 @@ import metier.Station;
 import metier.Velo;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Velo}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Velo}.
  * @author KerGeek
  */
 public class DAOVelo {
@@ -26,7 +26,7 @@ public class DAOVelo {
 	 * @param velo
 	 *l'instance de la classe {@link Velo} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -73,11 +73,11 @@ public class DAOVelo {
 	}
 
 	/**
-	 *  Met à jour une instance de la classe {@link Velo} déjà présente dans la base de données.
+	 * Met à jour une instance de la classe {@link Velo} déjà présente dans la base de données.
 	 * @param velo
 	 * l'instance de la classe {@link Velo} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -234,7 +234,7 @@ public class DAOVelo {
 	/**
 	 * Teste si un identifiant correspond bien à un Velo du parc.
 	 * @param id
-	 * @return vrai si l'identifiant entrée en paramètre correspond à un {@link Velo} non dŽtruit présent dans la base de données,
+	 * @return vrai si l'identifiant entrée en paramètre correspond à un {@link Velo} non détruit présent dans la base de données,
 	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -247,7 +247,7 @@ public class DAOVelo {
 	}
 	
 	/**
-	 *  Teste si un identifiant correspond bien à un Velo du parc disponible en station pour ítre emprunté.
+	 * Teste si un identifiant correspond bien à un Velo du parc disponible en station pour ítre emprunté.
 	 * @param id
 	 * @return vrai si l'identifiant entrée en paramètre correspond à un {@link Velo} présent dans la base de données 
 	 * en état de marche et dans une {@link Station}

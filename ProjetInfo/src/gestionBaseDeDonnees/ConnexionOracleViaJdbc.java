@@ -81,10 +81,23 @@ public class ConnexionOracleViaJdbc {
 	 */	
 	public static void ouvrir() throws SQLException,ClassNotFoundException{
 		
-		
+		try{
+			if (getC() != null) {
+				if(c.isClosed()){
+					connecter();
+				}				
+			}
+			else{
+				connecter();
+			}
+		}
+		catch (NullPointerException e){
+			connecter();
+		}
+
 		/*
-		 * Si jamais on souhaite demander l'identifiant et le mot de passe oracle de l'utilisateur de l'application
-		 * try  {
+		 //Si jamais on souhaite demander l'identifiant et le mot de passe oracle de l'utilisateur de l'application
+		 try  {
 			if (c.isClosed()){
 				// ce n'est pas la 1ere connexion au cours du programme : la connexion precedente a ete fermee
 				connecter();
@@ -103,21 +116,6 @@ public class ConnexionOracleViaJdbc {
 				
 				connecter();
 		}*/
-
-		try{
-			if (getC() != null) {
-				if(c.isClosed()){
-					connecter();
-				}				
-			}
-			else{
-				connecter();
-			}
-		}
-		catch (NullPointerException e){
-			connecter();
-		}
-
 	}
 
 	/**

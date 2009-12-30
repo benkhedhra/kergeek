@@ -15,7 +15,7 @@ public class DemandeIntervention {
 	//Attributs
 
 	/**
-	 * L'identifiant d'une DemandeIntervention est unique. Une fois attribué, il ne doit pas tre modifié.
+	 * L'identifiant d'une DemandeIntervention est unique. Une fois attribué, il ne doit pas ítre modifié.
 	 * @see DemandeIntervention#getId()
 	 * @see DemandeIntervention#setId(String)
 	 */
@@ -57,7 +57,7 @@ public class DemandeIntervention {
 	
 	/**
 	 * Création d'une DemandeIntervention à partir d'un {@link DemandeIntervention#utilisateur}
-	 *  et d'un {@link DemandeIntervention#velo} 
+	 * et d'un {@link DemandeIntervention#velo} 
 	 * @param utilisateur 
 	 * @param velo
 	 */
@@ -131,7 +131,7 @@ public class DemandeIntervention {
 	
 	/**
 	 * @return {@link DemandeIntervention#intervention}
-	 *  qui vaut <code>null</code> si la DemandeIntervention n'a pas été prise en charge.
+	 * qui vaut <code>null</code> si la DemandeIntervention n'a pas été prise en charge.
 	 */
 	public Intervention getIntervention() {
 		return intervention;
@@ -155,7 +155,7 @@ public class DemandeIntervention {
 	 * @return intervention
 	 * l'intervention associée à la DemandeIntervention
 	 * @param typeIntervention
-	 * le type de l'intervention associƒe à la DemandeIntervention
+	 * le type de l'intervention associée à la DemandeIntervention
 	 * @see UtilitaireDate#dateCourante()
 	 */
 	public Intervention prendreEnCharge(TypeIntervention typeIntervention){

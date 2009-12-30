@@ -140,7 +140,7 @@ public class UtilitaireIhm {
 	/**
 	 * Vérifie si des vélos peuvent être assignés à une station
 	 * @param ancienneliste
-	 *  la liste des identifiants des vélos que l'on veut assigner
+	 * la liste des identifiants des vélos que l'on veut assigner
 	 * @param lieu 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -194,7 +194,7 @@ public class UtilitaireIhm {
 			for(char c : mdpChar){
 				mdp += c;
 			}
-			mdpChar = null;//pour augmenter la sŽcuritŽ de l'application
+			mdpChar = null;//pour augmenter la sécurité de l'application
 		}
 		catch(NullPointerException e){
 			throw new MotDePasseNonRempliException(e.getMessage());

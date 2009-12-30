@@ -16,7 +16,7 @@ import metier.UtilitaireDate;
 import metier.Velo;
 
 /**
- * Rassemble l'ensemble des mthodes static de liaison avec la base de données concernant la classe metier {@link DemandeAssignation}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link DemandeAssignation}.
  * @author KerGeek
  */
 public class DAODemandeAssignation {
@@ -26,7 +26,7 @@ public class DAODemandeAssignation {
 	 * @param ddeAssignation
 	 * l'instance de la classe {@link DemandeAssignation} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -91,7 +91,7 @@ public class DAODemandeAssignation {
 	 * @param ddeAssignation
 	 * l'instance de la classe {@link DemandeAssignation} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConnexionFermeeException
@@ -287,8 +287,8 @@ public class DAODemandeAssignation {
 	 * @param ddA
 	 * la demande d'assignation à afficher
 	 * @return Une chaíne de caractères présentant l'identifiant de la demande d'assignation, l'adresse du {@link Lieu} concerné,
-	 * son type (ajout ou retrait) et la diffrence entre le nombre de vélos voulus dans le lieu et le
-	 * nombre actuel de vlos dans le Lieu
+	 * son type (ajout ou retrait) et la différence entre le nombre de vélos voulus dans le lieu et le
+	 * nombre actuel de vèlos dans le Lieu
 	 * @throws ConnexionFermeeException
 	 * @see DAODemandeAssignation#getDiff(DemandeAssignation)
 	 * @see DAOVelo#getVelosByLieu(metier.Lieu)
