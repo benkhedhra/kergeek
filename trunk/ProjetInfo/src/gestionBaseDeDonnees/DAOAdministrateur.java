@@ -12,7 +12,7 @@ import metier.Administrateur;
 import metier.Compte;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Administrateur}
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Administrateur}
  * @see DAOCompte
  * @author KerGeek
  */
@@ -23,7 +23,7 @@ public class DAOAdministrateur {
 	 * @param admin
 	 * l'instance de la classe {@link Administrateur} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -38,7 +38,7 @@ public class DAOAdministrateur {
 	 * @param admin
 	 * l'instance de la classe {@link Administrateur} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * La classe compte représente le compte d'un Administrateur, d'un Technicien ou d'un Utilisateur,
- *  qui contient les données relatives à ces différents acteurs.
+ * qui contient les données relatives à ces différents acteurs.
  * @see Administrateur
  * @see Utilisateur
  * @see Technicien
@@ -38,7 +38,7 @@ public class Compte {
 	
 	/**
 	 * Le type d'un compte nous renseigne sur la qualité de celui qui le possède, à si c'est un {@link Administrateur},
-	 *  un {@link Technicien} ou un {@link Utilisateur}
+	 * un {@link Technicien} ou un {@link Utilisateur}
 	 * @see Compte#TYPE_ADMINISTRATEUR
 	 * @see Compte#TYPE_TECHNICIEN
 	 * @see Compte#TYPE_UTILISATEUR
@@ -47,9 +47,9 @@ public class Compte {
 	
 	/**
 	 * L'adresseEmail d'un compte nous permet de contacter le propriétaire du compte si besoin.
-	 *  @see Compte#getAdresseEmail()
-	 *  @see Compte#setAdresseEmail(String)
-	 *  @see EnvoieMail  
+	 * @see Compte#getAdresseEmail()
+	 * @see Compte#setAdresseEmail(String)
+	 * @see EnvoieMail  
 	 */
 	private String adresseEmail;
 
@@ -187,9 +187,9 @@ public class Compte {
 	 * Le mot de passe généré comporte 6 caractères minuscules choisis aléatoirement entre dans l'alphabet 
 	 * auquel s'ajoute les 10 chiffres arabes.
 	 * <br><br>On génere un nombre aléatoire entre 0 et 1, qu'on multiplie par la taille de la bibliothèque de caractères
-	 *  dans laquelle on pioche pour généré le mot de passe, on prends sa partie entière, et on récupère le caractère
-	 *  correspondant ˆ cet indice dans notre bibliothèque. On répète cette action 6 fois en concateénant les caractères
-	 *  au fur et à mesure de leur obtention pour former le motDePasse.
+	 * dans laquelle on pioche pour généré le mot de passe, on prends sa partie entière, et on récupère le caractère
+	 * correspondant à cet indice dans notre bibliothèque. On répète cette action 6 fois en concateénant les caractères
+	 * au fur et à mesure de leur obtention pour former le motDePasse.
 	 * @see Compte#motDePasse
 	 * 
 	 */

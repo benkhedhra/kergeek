@@ -8,11 +8,12 @@ import java.sql.SQLException;
 public class UtilitaireSQL {
 	
 	/**
-	 * Test d'authentification
+	 * Test d'authentification d'un utilisateur oracle
 	 * @param idU : identifiant de l'utilisateur
 	 * @param mdp : mot de passe de l'utilisateur
 	 * @throws ExceptionAuthentification
-	 * @throws ConnexionFermeeException 
+	 * @throws ConnexionFermeeException
+	 * @author sbalmand
 	 */
 	public static void tester(String idU, String mdp) throws ExceptionAuthentification, ConnexionFermeeException{ // test de la connexion
 		try{

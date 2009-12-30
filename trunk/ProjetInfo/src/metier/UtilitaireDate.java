@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 /**
  * La classe UtilitaireDate rassemble l'ensemble des méthodes static relatives à l'utilisation
- *  des dates et horaires dans l'applications.
+ * des dates et horaires dans l'applications.
  * @author KerGeek
  */
 public class UtilitaireDate {
@@ -25,8 +25,8 @@ public class UtilitaireDate {
 	 * Retranche nbHeures heures à la date dateSql.
 	 * @param dateSql
 	 * @param nbHeures
-	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql ˆ laquelle
-	 *  on a retranché nbHeures heures
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql à laquelle
+	 * on a retranché nbHeures heures
 	 */
 	public static java.sql.Date retrancheHeures(java.sql.Date dateSql, int nbHeures){
 
@@ -46,8 +46,8 @@ public class UtilitaireDate {
 	 * Retranche nbJours jours à la date dateSql.
 	 * @param dateSql
 	 * @param nbJours
-	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql ˆ laquelle
-	 *  on a retranché nbJours jours
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql à laquelle
+	 * on a retranché nbJours jours
 	 */
 	public static java.sql.Date retrancheJours(java.sql.Date dateSql, int nbJours){
 
@@ -67,8 +67,8 @@ public class UtilitaireDate {
 	 * Ajoute nbJours jours à la date dateSql.
 	 * @param dateSql
 	 * @param nbJours
-	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql ˆ laquelle
-	 *  on a ajouté nbJours jours
+	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql à laquelle
+	 * on a ajouté nbJours jours
 	 */
 	public static java.sql.Date ajouteJours(java.sql.Date dateSql, int nbJours){
 
@@ -89,7 +89,7 @@ public class UtilitaireDate {
 	 * @param dateSql
 	 * @param nbMois
 	 * @return une nouvelle instance de la classe {@link java.sql.Date} dont la date est celle de dateSql à laquelle
-	 *  on a retranché nbMois mois
+	 * on a retranché nbMois mois
 	 */
 	public static java.sql.Date retrancheMois(java.sql.Date dateSql, int nbMois){
 
@@ -106,10 +106,10 @@ public class UtilitaireDate {
 	}
 	
 	/**
-	 * Initialise la date dateSql au dbut du premier jour du mois de celle-ci.
+	 * Initialise la date dateSql au début du premier jour du mois de celle-ci.
 	 * @param dateSql
-	 * @return  une nouvelle instance de la classe {@link java.sql.Date} dont l'annƒe et le mois sont les mêmes que ceux de dateSql,
-	 *  mais dont le jour est le premier de ce mois, à l'horaire 00:00:00.
+	 * @return  une nouvelle instance de la classe {@link java.sql.Date} dont l'année et le mois sont les mêmes que ceux de dateSql,
+	 * mais dont le jour est le premier de ce mois, à l'horaire 00:00:00.
 	 */
 	public static java.sql.Date initialisationDebutMois(java.sql.Date dateSql){
 
@@ -125,10 +125,10 @@ public class UtilitaireDate {
 	}
 	
 	/**
-	 * Initialise la date dateSql au dbut du jour de celle-ci.
+	 * Initialise la date dateSql au début du jour de celle-ci.
 	 * @param dateSql
-	 * @return  une nouvelle instance de la classe {@link java.sql.Date} dont l'annƒe le mois et le jour sont les mêmes que ceux de dateSql,
-	 *  mais dont l'horaire est : 00:00:00 .
+	 * @return  une nouvelle instance de la classe {@link java.sql.Date} dont l'année le mois et le jour sont les mêmes que ceux de dateSql,
+	 * mais dont l'horaire est : 00:00:00 .
 	 */
 	public static java.sql.Date initialisationDebutJour(java.sql.Date dateSql){
 
@@ -144,11 +144,11 @@ public class UtilitaireDate {
 	}
 
 	/**
-	 * Convertit une instance de la Classe {@link java.sql.Date} en chaîne de caractre
-	 *  utilisable pour remplir la base de données associée ˆ l'application.
+	 * Convertit une instance de la Classe {@link java.sql.Date} en chaîne de caractère
+	 * utilisable pour remplir la base de données associée à l'application.
 	 * @param date
-	 * @return une chaîne de caractre prsentant la date au format 'DD-MM-YYYY HH24:MI'
-	 *  utilisé par la base de données associée ˆ l'application.
+	 * @return une chaîne de caractère présentant la date au format 'DD-MM-YYYY HH24:MI'
+	 * utilisé par la base de données associée à l'application.
 	 */
 	public static String conversionPourSQL(java.sql.Date date){
 

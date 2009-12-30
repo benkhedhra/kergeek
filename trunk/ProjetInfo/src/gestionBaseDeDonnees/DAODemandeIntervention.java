@@ -16,7 +16,7 @@ import metier.UtilitaireDate;
 import metier.Velo;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link DemandeIntervention}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link DemandeIntervention}.
  * @author KerGeek
  */
 public class DAODemandeIntervention {
@@ -26,7 +26,7 @@ public class DAODemandeIntervention {
 	 * @param ddeIntervention
 	 * l'instance de la classe {@link DemandeIntervention} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -88,7 +88,7 @@ public class DAODemandeIntervention {
 	 * @param ddeIntervention
 	 * l'instance de la classe {@link DemandeIntervention} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConnexionFermeeException

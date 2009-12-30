@@ -12,17 +12,17 @@ import java.util.Map;
 import metier.TypeIntervention;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link TypeIntervention}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link TypeIntervention}.
  * @author KerGeek
  */
 public class DAOTypeIntervention {
 
 	/**
-	 *  Ajoute une instance de la classe {@link DemandeAssignationTypeIntervention} à la base de données.
+	 * Ajoute une instance de la classe {@link DemandeAssignationTypeIntervention} à la base de données.
 	 * @param typeIntervention
 	 * l'instance de la classe {@link TypeIntervention} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -69,7 +69,7 @@ public class DAOTypeIntervention {
 	 * @param typeIntervention
 	 * l'instance de la classe {@link TypeIntervention} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

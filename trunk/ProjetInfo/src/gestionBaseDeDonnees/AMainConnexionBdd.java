@@ -5,7 +5,7 @@ import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.sql.SQLException;
 
-public class MainConnexionBdd {
+public class AMainConnexionBdd {
 
 	
 	public static void main(String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {

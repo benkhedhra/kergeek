@@ -13,7 +13,7 @@ import metier.Compte;
 import metier.Utilisateur;
 
 /**
- * Rassemble l'ensemble des mthodes static de liaison avec la base de données concernant la classe metier {@link Compte}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Compte}.
  * @author KerGeek
  */
 public class DAOCompte {
@@ -25,12 +25,12 @@ public class DAOCompte {
 	 * C'est au cours de cette action que les identifiants sont générés à l'aide de séquences SQL. 
 	 * Il existe une séquence par type de compte et un identifiant commence toujours par la lettre correspondant au type de 
 	 * compte en question ('a' pour Administrateur, 't' pour Technicien et 'u' pour Utilisateur).
-	 * <br> <br> Une fois l'identifiant attribuer à l'instance, on insre les valeurs des attributs de celles-ci dans la table COMPTE
+	 * <br> <br> Une fois l'identifiant attribuer à l'instance, on insère les valeurs des attributs de celles-ci dans la table COMPTE
 	 * o une nouvelle ligne est créée.
 	 * @param compte
 	 * l'instance de la classe {@link Compte} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -139,7 +139,7 @@ public class DAOCompte {
 	 * @param compte
 	 * l'instance de la classe {@link Compte} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -337,7 +337,7 @@ public class DAOCompte {
 	}
 	
 	/**
-	 * TODO Ma‘lle, je te laisse commenter celle lˆ...
+	 * TODO Ma‘lle, je te laisse commenter celle là...
 	 * @param type
 	 * @param ident
 	 * @param nom

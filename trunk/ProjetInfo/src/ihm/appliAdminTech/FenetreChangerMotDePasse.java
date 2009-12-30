@@ -228,9 +228,9 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 					MsgBox.affMsg("L'un des champs entrés au moins est incorrect");
 					new FenetreChangerMotDePasse(this.getCompte());
 				}
-				ancienMdp = null;//pour augmenter la sŽcuritŽ de l'application
-				nouveauMdp1 = null;//pour augmenter la sŽcuritŽ de l'application
-				nouveauMdp2 = null;//pour augmenter la sŽcuritŽ de l'application
+				ancienMdp = null;//pour augmenter la sécurité de l'application
+				nouveauMdp1 = null;//pour augmenter la sécurité de l'application
+				nouveauMdp2 = null;//pour augmenter la sécurité de l'application
 			}
 			else if (arg0.getSource()==boutonRetour){
 				if(this.getCompte().getType()==Compte.TYPE_ADMINISTRATEUR){

@@ -3,7 +3,7 @@ package metier;
 import java.sql.Date;
 
 /**
- * La classe Intervention représente les interventions effectuƒes par un {@link Technicien}.
+ * La classe Intervention représente les interventions effectuées par un {@link Technicien}.
  * @author KerGeek
  */
 public class Intervention {
@@ -11,7 +11,7 @@ public class Intervention {
 	//Attributs
 	
 	/**
-	 * L'identifiant d'une Intervention est unique. Une fois attribué, il ne doit pas tre modifié.
+	 * L'identifiant d'une Intervention est unique. Une fois attribué, il ne doit pas ítre modifié.
 	 * @see Intervention#getId()
 	 * @see Intervention#setId(String)
 	 */

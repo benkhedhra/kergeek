@@ -14,7 +14,7 @@ import metier.Compte;
 import metier.Utilisateur;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Utilisateur}.
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Utilisateur}.
  * @see DAOCompte
  * @author KerGeek
  */
@@ -25,7 +25,7 @@ public class DAOUtilisateur {
 	 * @param utilisateur
 	 * l'instance de la classe {@link Utilisateur} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -43,7 +43,7 @@ public class DAOUtilisateur {
 	 * @param utilisateur
 	 * l'instance de la classe {@link Utilisateur} à mettre à jour dans la base de données.
 	 * @return vrai si la mise à jour de la base de données a bel et bien été effectuée,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -186,7 +186,7 @@ public class DAOUtilisateur {
 				listeUtils.add(getUtilisateurById(id));
 			}
 			if(listeUtils == null){
-				throw new PasDansLaBaseDeDonneeException("Nom absent de la base de donnŽes");
+				throw new PasDansLaBaseDeDonneeException("Nom absent de la base de données");
 			}
 		}
 		catch(PasDansLaBaseDeDonneeException e1){

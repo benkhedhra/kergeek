@@ -4,7 +4,7 @@ import java.sql.Date;
 
 /**
  * La classe DemandeAssignation représente les demandes d'assignation faîtes par un {@link Administrateur} lorsqu'il y a trop
- *  ou trop peu de vélo dans un {@link Lieu}. Le sytme déterminera ensuite s'il s'agit d'un ajout ou d'un retrait.
+ * ou trop peu de vélo dans un {@link Lieu}. Le sytème déterminera ensuite s'il s'agit d'un ajout ou d'un retrait.
  * <br> Une demande d'assignation de vélo au {@link Garage} signifie qu'il faut ajouter des vélos au parc.
  * @see Administrateur#demanderAssignation(int, Lieu)
  * @author KerGeek
@@ -14,14 +14,14 @@ public class DemandeAssignation {
 	//Attributs
 
 	/**
-	 * L'identifiant d'une demandeAssignation est unique. Une fois attribué, il ne doit pas tre modifié
+	 * L'identifiant d'une demandeAssignation est unique. Une fois attribué, il ne doit pas ítre modifié
 	 * @see DemandeAssignation#getId()
 	 * @see DemandeAssignation#setId(String)
 	 */
 	private String id;
 
 	/**
-	 * La date ˆ laquelle la DemandeAssignation à été faîte
+	 * La date à laquelle la DemandeAssignation à été faîte
 	 * @see DemandeAssignation#getDate()
 	 * @see DemandeAssignation#setDate(Date)
 	 */
@@ -36,7 +36,7 @@ public class DemandeAssignation {
 	private boolean priseEnCharge;
 
 	/**
-	 * Le nombre de vélos souhéaîté dans le lieu, qui sera comparƒ avec le nombre de vélos dans le lieu en question
+	 * Le nombre de vélos souhéaîté dans le lieu, qui sera comparé avec le nombre de vélos dans le lieu en question
 	 * @see DemandeAssignation#getNombreVelosVoulusDansLieu()
 	 * @see DemandeAssignation#setNombreVelosVoulusDansLieu(int)
 	 */
@@ -61,12 +61,12 @@ public class DemandeAssignation {
 	}
 	
 	/**
-	 * Création d'une DemandeAssignation ˆ partir d'un {@link DemandeAssignation#nombreVelosVoulusDansLieu}
-	 *  et d'un {@link DemandeAssignation#lieu}, la {@link DemandeAssignation#date} est initialisée à la date systme
-	 *  et la nouvelle DemandeAssignation n'est pas encore {@link DemandeAssignation#priseEnCharge} .
-	 *  @param nombre
-	 *  DemandeAssignation#nombreVelosVoulusDansLieu
-	 *  @param lieu
+	 * Création d'une DemandeAssignation à partir d'un {@link DemandeAssignation#nombreVelosVoulusDansLieu}
+	 * et d'un {@link DemandeAssignation#lieu}, la {@link DemandeAssignation#date} est initialisée à la date système
+	 * et la nouvelle DemandeAssignation n'est pas encore {@link DemandeAssignation#priseEnCharge} .
+	 * @param nombre
+	 * {@link DemandeAssignation#nombreVelosVoulusDansLieu}
+	 * @param lieu
 	 */
 	public DemandeAssignation(int nombre, Lieu lieu) {
 		this.setDate(UtilitaireDate.dateCourante());

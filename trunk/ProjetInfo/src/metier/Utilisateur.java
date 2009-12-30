@@ -65,7 +65,7 @@ public class Utilisateur {
 	
 	/**
 	 * Constructeur par défaut d'un Utilisateur. 
-	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
 	 */
 	public Utilisateur(){
 		this.setBloque(false);
@@ -74,7 +74,7 @@ public class Utilisateur {
 
 	/**
 	 * Création d'un Utilisateur à partir de {@link Utilisateur#compte}. 
-	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
 	 * @param compte
 	 */
 	public Utilisateur(Compte compte) {
@@ -86,8 +86,8 @@ public class Utilisateur {
 	
 	/**
 	 * Création d'un Utilisateur à partir des éléments suivants : {@link Utilisateur#compte},
-	 *  {@link Utilisateur#nom} et {@link Utilisateur#prenom}. 
-	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * {@link Utilisateur#nom} et {@link Utilisateur#prenom}. 
+	 * Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
 	 * @param compte
 	 * @param nom
 	 * @param prenom
@@ -103,8 +103,8 @@ public class Utilisateur {
 	
 	/**
 	 * Création d'un Utilisateur à partir des éléments suivants : {@link Utilisateur#compte},
-	 *  {@link Utilisateur#nom}, {@link Utilisateur#prenom} et {@link Utilisateur#adressePostale}. 
-	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
+	 * {@link Utilisateur#nom}, {@link Utilisateur#prenom} et {@link Utilisateur#adressePostale}. 
+	 * Il n'a pas d'{@link Utilisateur#empruntEnCours} et {@link Utilisateur#bloque} est faux.
 	 * @param compte
 	 * @param nom
 	 * @param prenom
@@ -122,8 +122,8 @@ public class Utilisateur {
 
 	/**
 	 * Création d'un Utilisateur à partir des éléments suivants : {@link Utilisateur#compte},
-	 *  {@link Utilisateur#nom}, {@link Utilisateur#prenom}, {@link Utilisateur#adressePostale} et {@link Utilisateur#bloque}. 
-	 *  Il n'a pas d'{@link Utilisateur#empruntEnCours}.
+	 * {@link Utilisateur#nom}, {@link Utilisateur#prenom}, {@link Utilisateur#adressePostale} et {@link Utilisateur#bloque}. 
+	 * Il n'a pas d'{@link Utilisateur#empruntEnCours}.
 	 * @param compte
 	 * @param nom
 	 * @param prenom
@@ -205,7 +205,7 @@ public class Utilisateur {
 
 	/**
 	 * @return vrai si le compte de l'Utilisateur est desactivé,
-	 *  faux sinon.
+	 * faux sinon.
 	 */
 	public Boolean isBloque() {
 		return bloque;
@@ -351,7 +351,7 @@ public class Utilisateur {
 
 	/**
 	 * @return l'identifiant du Compte de l'utilisateur suivi de son adresse email,
-	 *  de {@link Utilisateur#prenom} et de {@link Utilisateur#nom}.
+	 * de {@link Utilisateur#prenom} et de {@link Utilisateur#nom}.
 	 * @see Compte#toString()
 	 */
 	@Override

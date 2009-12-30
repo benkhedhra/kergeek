@@ -9,7 +9,7 @@ public class Velo {
 	// Attributs
 	
 	/**
-	 * L'identifiant d'un Velo est unique. Une fois attribué, il ne doit pas tre modifié.
+	 * L'identifiant d'un Velo est unique. Une fois attribué, il ne doit pas ítre modifié.
 	 * @see Velo#getId()
 	 * @see Velo#setId(String)
 	 */
@@ -48,7 +48,7 @@ public class Velo {
 	}
 	
 	/**
-	 *  Création d'un Velo en état de marche à partir d'un {@link Lieu} auquel il est directement assigné.
+	 * Création d'un Velo en état de marche à partir d'un {@link Lieu} auquel il est directement assigné.
 	 * @param lieu
 	 */
 	public Velo(Lieu lieu) {

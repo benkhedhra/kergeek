@@ -15,7 +15,7 @@ import metier.Sortie;
 import metier.Station;
 
 /**
- * Rassemble l'ensemble des mŽthodes static de liaison avec la base de données concernant la classe metier {@link Lieu}
+ * Rassemble l'ensemble des méthodes static de liaison avec la base de données concernant la classe metier {@link Lieu}
  * et ses classes filles.
  * @author KerGeek
  */
@@ -26,7 +26,7 @@ public class DAOLieu {
 	 * @param lieu
 	 * l'instance de {@link Lieu} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
-	 *  faux sinon
+	 * faux sinon
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException

@@ -2,7 +2,7 @@ package metier;
 
 /**
  * La classe TypeIntervention sert à répertorier les différents types dÕopérations de maintenance réalisables par un {@link Technicien}
- *  sur un {@link Velo}.
+ * sur un {@link Velo}.
  * @see Intervention
  * @author KerGeek
  */
@@ -12,14 +12,14 @@ public class TypeIntervention {
 	
 	/**
 	 * Si une {@link DemandeIntervention} formulée par un {@link Utilisateur} s'avère non justifiée, alors on associe
-	 *  ce TypeIntervention à l'{@link Intervention} correspondante.
+	 * ce TypeIntervention à l'{@link Intervention} correspondante.
 	 * @see TypeIntervention#numero
 	 */
 	public static final int TYPE_NON_JUSTIFIEE = 1;
 	
 	/**
 	 * Lorsqu'un {@link Technicien} ne parvient pas à réparé un {@link Velo} et qu'il décide de le retirer du parc définitivement, 
-	 *  on associe ce TypeIntervention à l'{@link Intervention} correspondante.
+	 * on associe ce TypeIntervention à l'{@link Intervention} correspondante.
 	 * @see TypeIntervention#numero
 	 * @see Technicien#retirerDuParc(Intervention)
 	 */
