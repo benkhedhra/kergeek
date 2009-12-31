@@ -151,15 +151,13 @@ public class Administrateur {
 	/**
 	 * Résilie un compte d'un abonné du parc à velos en mettant le booleen actif du compte en question à false
 	 * @param compte
-	 * @return le compte identique à compte mais rendu inactif
-	 * @see Compte
+	 * @return le compte rendu inactif
 	 * @see Compte#setActif(Boolean)
 	 */
 
 	public Compte resilierCompte(Compte compte){
-		Compte c2 = compte;
-		c2.setActif(false);
-		return c2;
+		compte.setActif(false);
+		return compte;
 	}
 
 	// Le cas d'utilisation editerCompte() correspond a l'ensemble des setters!
