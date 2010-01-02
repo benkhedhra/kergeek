@@ -169,7 +169,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 			try {
 				if(this.getStationEntree()==null){
 					MsgBox.affMsg("Vous n'avez sélectionné aucune station. ");
-					new FenetreEtatStationAdmin(this.getAdministrateur());
+					new FenetreEtatLieuAdmin(this.getAdministrateur());
 				}
 				else{
 					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);

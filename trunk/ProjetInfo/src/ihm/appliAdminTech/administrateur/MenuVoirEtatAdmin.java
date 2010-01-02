@@ -123,7 +123,7 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		}
 		else if (arg0.getSource()==boutonEtatStation){
 			try {
-				new FenetreEtatStationAdmin(this.getAdministrateur());
+				new FenetreEtatLieuAdmin(this.getAdministrateur());
 			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
