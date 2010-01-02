@@ -10,7 +10,7 @@ import ihm.appliAdminTech.administrateur.FenetreAffichageResultatsAdmin;
 import ihm.appliAdminTech.administrateur.FenetreCreationCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreDemandeConfirmationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreEnvoyerDemandeAssignationAdmin;
-import ihm.appliAdminTech.administrateur.FenetreEtatStationAdmin;
+import ihm.appliAdminTech.administrateur.FenetreEtatLieuAdmin;
 import ihm.appliAdminTech.administrateur.FenetreExisteDejaDemandeAssignationAdmin;
 import ihm.appliAdminTech.administrateur.FenetreModifCompteAdmin;
 import ihm.appliAdminTech.administrateur.FenetreRechercherCompteAdmin;
@@ -427,7 +427,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 			else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
 				if(arg0.getSource()==bouton1){
-					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
+					new FenetreEtatLieuAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}
 				else if (arg0.getSource()==bouton2){
 					new FenetreStationsSurSousAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));

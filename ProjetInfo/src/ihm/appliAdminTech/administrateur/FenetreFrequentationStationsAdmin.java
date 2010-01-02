@@ -21,16 +21,42 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 
+/**
+ * FenetreFrequentationStationsAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsqu'un Administrateur a cliqué sur "Fréquentation des stations" dans son {@link MenuDemanderStatsAdmin}
+ * <br>elle lui demande de sélectionner une période de temps pour laquelle on tracera le graphique, parmi les 4 périodes proposées
+ * @author KerGeek
+ */
 public class FenetreFrequentationStationsAdmin extends JFrame implements ActionListener {
+	/**
+	 * attribut de sérialisation par défaut
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+
+	/**
+	 * la période de temps sélectionnée par l'administrateur
+	 */
+	private String periodeEntree;
+
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message d'invitation à sélectionner la période
+	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("Veuillez entrer la période sur laquelle vous voulez les statistiques");
-	private String periodeEntree;
+
+	/**
+	 * 2JButton permettant à l'administrateur de valider sa période sélectionnée ou de retourner au menu principal
+	 */
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	//Accesseurs utiles
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -47,6 +73,12 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.periodeEntree = periodeEntree;
 	}
 
+	/**
+	 * constructeur de {@link FenetreFrequentationStationsAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @see JComboBox
+	 */
 	public FenetreFrequentationStationsAdmin(Administrateur a){
 
 		System.out.println("Fenêtre pour avoir la fréquentation des stations");
@@ -92,7 +124,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
-		String[] periodes = new String[5];
+		final String[] periodes = new String[5];
 		periodes[0] = "Sélectionnez une période";
 		periodes[1] = "30 derniers jours";
 		periodes[2] = "60 derniers jours";
@@ -108,14 +140,13 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 				periodeEntree = (String)o;
+				if(periodeEntree.equals(periodes[0])){
+					periodeEntree=null;
+				}
 				repaint();
 			}
 
 		});
-
-		this.setPeriodeEntree(periodeEntree);
-		//il y a un truc pas net ici car à la ligne suivante on voit que periodeEntree vaut toujours null
-		//System.out.println("périodeEntrée = "+periodeEntree);
 
 		JPanel centerWest = new JPanel();
 		centerWest.setPreferredSize(new Dimension(550,350));
@@ -156,11 +187,22 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a soit cliqué sur "valider", soit cliqué sur "retour au menu principal"
+	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+				if(this.getPeriodeEntree()!=null){
+					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+				}
+				else{
+					MsgBox.affMsg("<html> <center>Vous n'avez sélectionné aucune période. </center></html>");
+					new FenetreFrequentationStationsAdmin(this.getAdministrateur());
+				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
 			} catch (ClassNotFoundException e) {

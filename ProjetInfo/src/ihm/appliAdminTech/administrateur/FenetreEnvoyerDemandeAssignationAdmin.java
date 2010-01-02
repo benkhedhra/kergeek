@@ -24,12 +24,14 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 import metier.DemandeAssignation;
+import metier.Garage;
 import metier.Lieu;
 
 /**
  * FenetreEnvoyerDemandeAssignationAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
  * <br>c'est une classe de l'application réservée à un {@link Administrateur}
  * <br>elle demande à l'administateur d'entrer le nombre vélos souhaité pour un lieu donné
+ * <br>on peut envoyer une demande d'assignation sur une {@link Station}, mais aussi sur le {@link Garage}, puisqu'on peut avoir besoin d'un nombre de vélos suffisant au garage pour faire face aux demandes d'assignation et pallier les destructions de vélos
  * @author KerGeek
  */
 public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements ActionListener {
@@ -237,7 +239,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 				}
 			}
 			else if (arg0.getSource()==boutonEtatAutreStation){
-				new FenetreEtatStationAdmin(this.getAdministrateur());
+				new FenetreEtatLieuAdmin(this.getAdministrateur());
 			}
 			else if (arg0.getSource()==boutonStationsSurSous){
 				new FenetreStationsSurSousAdmin(this.getAdministrateur());

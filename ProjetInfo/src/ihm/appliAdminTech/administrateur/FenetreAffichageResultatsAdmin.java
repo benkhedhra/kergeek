@@ -27,7 +27,7 @@ import metier.Station;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
-import statistiques.DiagrammeNbVelosStation;
+import statistiques.DiagrammeNbVelosLieu;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
 import statistiques.TableauListeVelosDansLieu;
@@ -41,7 +41,7 @@ import statistiques.TableauListeVelosDansLieu;
  * @see DiagrammeFreqStations
  * @see DiagrammeNbEmpruntsUtilisateur
  * @see DiagrammeNbInterventions
- * @see DiagrammeNbVelosStation
+ * @see DiagrammeNbVelosLieu
  * @see DiagrammeTxOccupationStation
  * @see TableauInterventionVelo
  * @see TableauListeVelosDansLieu
@@ -241,23 +241,23 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 			panel2.setPreferredSize(new Dimension(600,600));
 
-			DiagrammeNbVelosStation diag1;
+			DiagrammeNbVelosLieu diag1;
 			DiagrammeTxOccupationStation diag2;
 
-			FenetreEtatStationAdmin f1 = null;
+			FenetreEtatLieuAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
 			//s'il a directement entré un lieu pour voir son état
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
-				//dans tous les cas on trace le graphe indiquant le nombre de lieux présents
-				f1 = (FenetreEtatStationAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosStation(f1.getStationEntree());
+				//dans tous les cas on trace le graphe indiquant le nombre de vélos présents
+				f1 = (FenetreEtatLieuAdmin) fenetrePrec;
+				diag1 = new DiagrammeNbVelosLieu(f1.getLieuEntre());
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				panel1.add(lblChart1);
-				System.out.println(!f1.getStationEntree().getId().equals(""+Lieu.ID_GARAGE));
-				if(!f1.getStationEntree().getId().equals(""+Lieu.ID_GARAGE)){
+				//System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
+				if(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE)){
 					//on ne trace le graphe des taux d'occupation que si le lieu est une station
 					//calculer le taux d'occupation du garage n'a pas de sens car sa capacité est grande
-					diag2 = new DiagrammeTxOccupationStation((Station)f1.getStationEntree());
+					diag2 = new DiagrammeTxOccupationStation((Station)f1.getLieuEntre());
 					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 					panel2.add(lblChart2);
 				}
@@ -265,7 +265,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
 			if (fenetrePrec.getTitle().equals("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
+				diag1 = new DiagrammeNbVelosLieu(f2.getStationEntree());
 				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
@@ -329,7 +329,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),true);
 				}
 				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
-					new FenetreEtatStationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
+					new FenetreEtatLieuAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
 					new FenetreHistoriqueVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
@@ -349,8 +349,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				//il ne peut s'agir que du cas où l'administrateur a souhaité envoyer une demande d'assignation
 				// mais il faut faire 2 casts différents car il y a deux types de fenêtres précédentes possibles
 				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'un lieu")){
-					FenetreEtatStationAdmin f = (FenetreEtatStationAdmin) fenetrePrecedente;
-					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getStationEntree());
+					FenetreEtatLieuAdmin f = (FenetreEtatLieuAdmin) fenetrePrecedente;
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getLieuEntre());
 				}
 				else{
 					FenetreStationsSurSousAdmin f = (FenetreStationsSurSousAdmin) fenetrePrecedente;

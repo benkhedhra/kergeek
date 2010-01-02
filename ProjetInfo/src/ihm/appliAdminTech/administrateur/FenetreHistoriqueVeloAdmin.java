@@ -23,20 +23,47 @@ import javax.swing.JPanel;
 import metier.Administrateur;
 import metier.Velo;
 
+/**
+ * FenetreHistoriqueVeloAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsqu'un Administrateur a cliqué sur "Historique d'un vélo" dans son {@link MenuInterventionsMaintenanceAdmin}
+ * <br>elle lui demande d'entrer l'identifiant du vélo sur lequel il souhaite avoir l'historique
+ * @author KerGeek
+ */
 public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur a;
+
+	/**
+	 * le vélo dont l'identifiant est entré par l'administrateur
+	 */
+	private Velo veloEntre = new Velo();
+	
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message d'invitation à sélectionner un vélo
+	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel ("Veuillez entrer l'identifiant du vélo");
+	/**
+	 * 1 TextFieldLimite pour que l'administrateur entre l'identifiant du vélo
+	 */
 	private TextFieldLimite idVeloARemplir = new TextFieldLimite(4,"");
+	/**
+	 * 2 JButton pour lui permettre soit d'afficher le tableau d'historique des interventions de maintenance pour ce vélo, soit de retourner au menu principal
+	 */
 	private JButton boutonAfficher = new JButton ("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
-	private Velo veloEntre = new Velo();
+
+	
+	//Accesseurs utiles
 
 	public Administrateur getAdministrateur() {
 		return a;
@@ -54,6 +81,11 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		this.veloEntre = veloEntre;
 	}
 
+	/**
+	 * constructeur de {@link FenetreHistoriqueVeloAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 */
 	public FenetreHistoriqueVeloAdmin(Administrateur a){
 
 		this.setContentPane(new PanneauAdmin());
@@ -119,6 +151,12 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée soit lorsque l'Administrateur a cliqué sur "Afficher l'historique", soit sur "Retour au menu principal"
+	 * @see DAOVelo#existe(String)
+	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
@@ -147,6 +185,5 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		else if(arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
 	}
 }

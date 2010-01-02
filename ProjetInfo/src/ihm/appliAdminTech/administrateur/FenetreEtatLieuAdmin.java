@@ -25,16 +25,41 @@ import metier.Administrateur;
 import metier.Lieu;
 import metier.Station;
 
-public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
+/**
+ * FenetreEtatLieuAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle demande à l'administrateur connecté de sélectionner une station parmi les stations existantes afin d'obtenir des graphiques sur son état actuel
+ * @author KerGeek
+ */
+public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
+	/**
+	 * attribut de sérialisation par défaut
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * le lieu (station ou garage) sélectionné par l'administrateur
+	 */
+	private Lieu lieuEntre;
+	
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'{@link Administrateur} connecté et le message d'invitation à sélectionner un {@link Lieu}
+	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("Veuillez entrer le lieu (station ou garage) dont vous voulez voir l'état");
-	private Station stationEntree;
-	private JButton boutonValider = new JButton("Valider");
-	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	/**
+	 * 2 JButton permettant de valider le lieu sélectionné ou de retourner au menu principal
+	 */
+	private JButton boutonValider = new JButton("Valider");
+	private JButton boutonRetour = new JButton("<html><center>Retour au<br>menu principal</center></html>");
+
+	// Accesseurs utiles
+	
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -43,15 +68,22 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.administrateur = administrateur;
 	}
 
-	public Station getStationEntree() {
-		return stationEntree;
+	public Lieu getLieuEntre() {
+		return lieuEntre;
 	}
 
-	public void setStationEntree(Station stationEntree) {
-		this.stationEntree = stationEntree;
+	public void setLieuEntre(Lieu lieuEntre) {
+		this.lieuEntre = lieuEntre;
 	}
 
-	public FenetreEtatStationAdmin(Administrateur a) throws ConnexionFermeeException{
+	/**
+	 * constructeur de {@link FenetreEtatLieuAdmin}
+	 * <br>appelé lorsque l'administrateur a cliqué sur "Voir état d'un lieu" dans son {@link MenuVoirEtatAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @throws ConnexionFermeeException
+	 */
+	public FenetreEtatLieuAdmin(Administrateur a) throws ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour avoir l'état d'une station");
 		this.setContentPane(new PanneauAdmin());
@@ -109,12 +141,12 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 					String chaineSelectionnee = (String)(o);
 					if(chaineSelectionnee.equals(tableauStations[0])){
-						stationEntree=null;
+						lieuEntre=null;
 					}
 					else{
 						String idStationEntre = chaineSelectionnee.substring(0,1);
 						try {
-							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
+							lieuEntre = (Station) DAOLieu.getLieuById(idStationEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {
@@ -168,15 +200,23 @@ public class FenetreEtatStationAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des deux boutons qui lui étaient proposés
+	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 * @param arg0
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				if(this.getStationEntree()==null){
+				if(this.getLieuEntre()==null){
 					MsgBox.affMsg("Vous n'avez sélectionné aucun lieu. ");
-					new FenetreEtatStationAdmin(this.getAdministrateur());
+					new FenetreEtatLieuAdmin(this.getAdministrateur());
 				}
 				else{
+					// l'administrateur a bien sélectionné un lieu de la liste puis a validé
+					// FenetreAffichageResultatsAdmin affichera les graphiques adéquats en fonction de la fenêtre en cours
 					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 				}
 			} 
