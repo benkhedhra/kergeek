@@ -22,22 +22,46 @@ import metier.Administrateur;
 import metier.Compte;
 import metier.Utilisateur;
 
+/**
+ * FenetreInfoCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsqu'un Administrateur a effectué une recherche et a sélectionné un compte parmi les résultats de {@link FenetreResultatsRechercheCompteAdmin}
+ * <br>elle peut donner lieu à deux situations différentes : l'affichage de statistiques sur un utilisateur ou la modification d'attributs sur un compte
+ * @author KerGeek
+ */
 public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * le compte dont on affiche les informations
+	 */
 	private Compte compte;
+	
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("");
+	
+	/**
+	 * 4 JLabel permettant d'afficher les informations du compte (quel que soit le type de compte)
+	 */
 	private JLabel labelQualite = new JLabel("Qualité");
 	private JLabel labelQualiteCompte = new JLabel("");
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
 	private JLabel labelAdresseEMailCompte = new JLabel("");
 
+	/**
+	 * 8 autres JLabel pour afficher les 4 renseignements supplémentaires s'il s'agit d'un compte de type Utilisateur
+	 */
 	private JLabel labelNom = new JLabel("Nom");
 	private JLabel labelNomCompte = new JLabel("");
 	private JLabel labelPrenom = new JLabel("Prénom");
@@ -47,11 +71,15 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 	private JLabel labelStatut = new JLabel("Statut du compte");
 	private JLabel labelStatutCompte = new JLabel("");
 
+	/**
+	 * 3 JButton permettant à l'administrateur d'afficher des stats OU de modifier le compte, d'afficher les informations d'un autre compte via une nouvelle recherche, ou de retourner au menu principal
+	 */
 	private JButton boutonChoix = new JButton("");
 	private JButton boutonAutreCompte = new JButton("Afficher informations sur un autre compte");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 
+	//Accesseurs utiles
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -68,6 +96,17 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		this.compte = compte;
 	}
 
+	/**
+	 * constructeur de {FenetreInfoCompte}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @param c
+	 * le compte dont on affiche les informations
+	 * @param stat
+	 * booléen valant true si l'administrateur est dans le contexte d'obtention de statistiques sur les emprunts effectués par un utilisateur (c est alors toujours un compte de type Utilisateur)
+	 * <br>s'il vaut false, c'est qu'il est dans le contexte de la gestion de l'ensemble des comptes (Utilisateur ou non)
+	 * @throws ConnexionFermeeException
+	 */
 	public FenetreInfoCompteAdmin(Administrateur a,Compte c,boolean stat) throws ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour afficher les informations sur un compte");
@@ -235,8 +274,11 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(200,350));
 
-		if(!stat){boutonChoix.setText("Modifier des informations sur ce compte");}
-		else{boutonChoix.setText("Afficher statistiques sur ce compte");
+		if(!stat){
+			boutonChoix.setText("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>");
+			}
+		else{
+			boutonChoix.setText("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>");
 		}
 		boutonChoix.setPreferredSize(new Dimension(190,60));
 		boutonChoix.setMaximumSize(new Dimension(190,60));
@@ -273,9 +315,18 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'Administrateur a cliqué sur l'un des boutons qui lui étaient proposés
+	 * @see FenetreModifCompteAdmin#FenetreModifCompteAdmin(Compte, Administrateur)
+	 * @see FenetreRechercherCompteAdmin#FenetreRechercherCompteAdmin(Administrateur, boolean)
+	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 * @param arg0
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Modifier des informations sur ce compte")){
+		//il a cliqué sur boutonChoix qui correspond à "modifier ce compte"
+		if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>")){
 			try {
 				new FenetreModifCompteAdmin(compte,this.getAdministrateur());
 			} 
@@ -284,7 +335,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 				new FenetreAuthentification(false);
 			}
 		}
-		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("Afficher statistiques sur ce compte")){
+		//il a cliqué sur boutonChoix qui correspond à "afficher stats sur cet utilisateur"
+		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>")){
 			try {
 				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			} 
@@ -299,13 +351,17 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 				new FenetreAuthentification(false);
 			}
 		}
-		else if(arg0.getSource()==boutonAutreCompte){
+		//il a cliqué sur "voir infos sur un autre compte" et on est dans le contexte de la gestion des comptes
+		else if(arg0.getSource()==boutonAutreCompte && boutonChoix.getText().equals("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>")){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
 		}
+		//il a cliqué sur "voir infos sur un autre compte" et on est dans le contexte de l'obtention de stats emprunts utilisateurs
+		else if(arg0.getSource()==boutonAutreCompte && boutonChoix.getText().equals("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>")){
+			new FenetreRechercherCompteAdmin(this.getAdministrateur(),true);
+		}
+		//il a cliqué sur "retour au menu principal"
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
-	}		
-
+	}
 }
