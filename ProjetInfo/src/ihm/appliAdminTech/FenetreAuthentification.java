@@ -9,7 +9,6 @@ import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliUtil.PanneauUtil;
-import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -219,11 +218,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		String id = idARemplir.getText();
 		try {
 			String mdp = UtilitaireIhm.obtenirMotDePasse(motDePasseARemplir);
-			//TODO
 			System.out.println("mdp : " + mdp);
-			//TODO verifier que ca marche, y compris quand on ne remplit rien,
-			//il semble que l'exception MotDePasseNonRempliException ne serve a rien...
-
 			if(id.equals("")){
 				MsgBox.affMsg("Vous n'avez entré aucun identifiant");
 				new FenetreAuthentification(false);
@@ -260,9 +255,6 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
-		} catch (MotDePasseNonRempliException e){
-			MsgBox.affMsg("Veillez à bien renseigner votre mot de passe");
-			new FenetreAuthentification(true);
 		} catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);

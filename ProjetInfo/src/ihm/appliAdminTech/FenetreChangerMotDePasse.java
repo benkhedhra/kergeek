@@ -11,7 +11,6 @@ import ihm.appliAdminTech.administrateur.MenuPrincipalAdmin;
 import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.MenuPrincipalTech;
 import ihm.appliAdminTech.technicien.PanneauTech;
-import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -214,9 +213,6 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		this.dispose();
 		try{
 			if(arg0.getSource()==boutonValider){
-				//TODO verifier que ca marche, y compris quand on ne remplit rien,
-				//il semble que l'exception MotDePasseNonRempliException ne serve a rien...
-				
 				String ancienMdp = UtilitaireIhm.obtenirMotDePasse(ancienMdpARemplir);
 				String nouveauMdp1 = UtilitaireIhm.obtenirMotDePasse(nouveauMdpARemplir1);
 				String nouveauMdp2 = UtilitaireIhm.obtenirMotDePasse(nouveauMdpARemplir2);
@@ -225,7 +221,6 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 					this.getCompte().setMotDePasse(nouveauMdp1);
 					DAOCompte.updateCompte(this.getCompte());
 					new FenetreConfirmation(this.getCompte(),this);
-					//à voir s'il ne faut pas passer par updateAdmin et updateTech (mais normalement non)
 				}
 				else{
 					MsgBox.affMsg("L'un des champs entrés au moins est incorrect");
@@ -249,10 +244,6 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		} 
 		catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
-		}
-		catch(MotDePasseNonRempliException e){
-			MsgBox.affMsg("Veuillez bien remplir les trois champs");
-			new FenetreChangerMotDePasse(this.getCompte());
 		}
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
