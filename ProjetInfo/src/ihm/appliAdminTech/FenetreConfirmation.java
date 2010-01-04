@@ -29,6 +29,7 @@ import ihm.appliAdminTech.technicien.PanneauTech;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -149,12 +150,14 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,100));
+		north.setPreferredSize(new Dimension(1200,200));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		
+		labelConfirm.setPreferredSize(new Dimension(300,800));
 
 		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
@@ -218,6 +221,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le mot de passe a bien été changé. ");
+				center.add(labelConfirm);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
 				panel.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -229,6 +233,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le nouveau compte a bien été créé. ");
+				center.add(labelConfirm);
 				bouton1.setText("Créer un autre compte");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
@@ -242,6 +247,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("La modification a bien été enregistrée. ");
+				center.add(labelConfirm);
 				bouton1.setText("Afficher informations sur un autre compte");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
@@ -264,6 +270,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					labelConfirm.setText("La suppression a bien été enregistrée. ");
 					bouton1.setText("Revoir la liste des vélos actuellement sortis");
 				}
+				center.add(labelConfirm);
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
 				JPanel panel = new JPanel();
@@ -277,6 +284,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("La demande d'assignation a bien été envoyée. ");
+				center.add(labelConfirm);
 				bouton1.setText("Voir l'état d'une autre station");
 				bouton1.addActionListener(this);
 				bouton2.setText("Voir les stations sur et sous-occupées");
@@ -293,15 +301,22 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText( "<html><center>"+f.getNbVelosEntre()+" vélo(s) ont bien été enregistré(s) et affecté(s) au garage. <br> Veuillez dès à présent leur apposer les identifiants suivants : "+"</center></html>");
+				labelConfirm.setPreferredSize(new Dimension(100,800));
+				center.add(labelConfirm);
 				JPanel panelIds = new JPanel();
-				panelIds.setBackground(UtilitaireIhm.TRANSPARENCE);	
+				panelIds.setBackground(UtilitaireIhm.TRANSPARENCE);
+				panelIds.setLayout(new GridLayout(f.getNbVelosEntre(),2));
 				for(int i=0;i<f.getNbVelosEntre();i++){
+					JLabel labelVelo = new JLabel("Vélo "+i+1);
+					labelVelo.setPreferredSize(new Dimension(600,40));
 					Velo velo = f.getListeVelosCrees().get(i);
 					JLabel labelIdVelo = new JLabel(velo.getId());
-					labelIdVelo.setPreferredSize(new Dimension(700,40));
+					labelIdVelo.setPreferredSize(new Dimension(400,40));
 					labelIdVelo.setFont(UtilitaireIhm.POLICE2);
+					panelIds.add(labelVelo);
 					panelIds.add(labelIdVelo);
 				}
+				center.add(panelIds);
 				bouton1.setText("Enregistrer un autre arrivage");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
@@ -315,6 +330,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le vélo défectueux a bien été retiré de la station et affecté au garage. ");
+				center.add(labelConfirm);
 				bouton1.setText("Retirer un autre vélo défectueux");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
@@ -329,6 +345,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le déplacement de ces vélos a bien été confirmé. ");
+				center.add(labelConfirm);
 				bouton1.setText("Gérer une autre demande d'assignation");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
@@ -346,6 +363,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 					labelConfirm.setText("La destruction du vélo a bien été enregistrée. ");
 				}
 				labelConfirm.setText("L'intervention a bien été enregistrée. ");
+				center.add(labelConfirm);
 				bouton1.setText("Gérer une autre demande d'intervention");
 				bouton1.addActionListener(this);
 				boutonRetour.addActionListener(this);
@@ -358,7 +376,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 			center.setBackground(UtilitaireIhm.TRANSPARENCE);
 			labelConfirm.setFont(UtilitaireIhm.POLICE2);
-			center.add(labelConfirm);
 			this.getContentPane().add(center,BorderLayout.CENTER);
 			this.getContentPane().add(south,BorderLayout.SOUTH);
 

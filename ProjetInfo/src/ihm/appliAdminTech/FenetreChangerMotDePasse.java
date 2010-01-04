@@ -113,7 +113,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,300));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
@@ -122,7 +122,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ this.getCompte().getId());
 		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(1000,40));
+		labelAdminTech.setPreferredSize(new Dimension(1000,100));
 		north.add(labelAdminTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
@@ -132,48 +132,48 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelAncienMdp.setPreferredSize(new Dimension(250,30));
-		labelAncienMdp.setMinimumSize(new Dimension(250,30));
+		labelAncienMdp.setPreferredSize(new Dimension(600,50));
+		labelAncienMdp.setMinimumSize(new Dimension(600,50));
 		panel1.add(labelAncienMdp);
 		center.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		ancienMdpARemplir.setPreferredSize(new Dimension(300,40));
-		ancienMdpARemplir.setMinimumSize(new Dimension(300,40));
+		ancienMdpARemplir.setPreferredSize(new Dimension(300,50));
+		ancienMdpARemplir.setMinimumSize(new Dimension(300,50));
 		panel2.add(ancienMdpARemplir);
 		center.add(panel2);
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelNouveauMdp1.setPreferredSize(new Dimension(300,40));
-		labelNouveauMdp1.setMinimumSize(new Dimension(300,40));
+		labelNouveauMdp1.setPreferredSize(new Dimension(600,50));
+		labelNouveauMdp1.setMinimumSize(new Dimension(600,50));
 		panel3.add(labelNouveauMdp1);
 		center.add(panel3);
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		nouveauMdpARemplir1.setPreferredSize(new Dimension(300,40));
-		nouveauMdpARemplir1.setMinimumSize(new Dimension(300,30));
+		nouveauMdpARemplir1.setPreferredSize(new Dimension(300,50));
+		nouveauMdpARemplir1.setMinimumSize(new Dimension(300,50));
 		panel4.add(nouveauMdpARemplir1);
 		center.add(panel4);
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelNouveauMdp2.setPreferredSize(new Dimension(300,40));
-		labelNouveauMdp2.setMinimumSize(new Dimension(300,40));
+		labelNouveauMdp2.setPreferredSize(new Dimension(600,50));
+		labelNouveauMdp2.setMinimumSize(new Dimension(600,50));
 		panel5.add(labelNouveauMdp2);
 		center.add(panel5);
 
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		nouveauMdpARemplir2.setPreferredSize(new Dimension(300,40));
-		nouveauMdpARemplir2.setMinimumSize(new Dimension(300,40));
+		nouveauMdpARemplir2.setPreferredSize(new Dimension(300,50));
+		nouveauMdpARemplir2.setMinimumSize(new Dimension(300,50));
 		panel6.add(nouveauMdpARemplir2);
 		center.add(panel6);
 
-		boutonValider.setPreferredSize(new Dimension(200,50));
-		boutonValider.setMinimumSize(new Dimension(200,50));
+		boutonValider.setPreferredSize(new Dimension(350,70));
+		boutonValider.setMinimumSize(new Dimension(350,70));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);

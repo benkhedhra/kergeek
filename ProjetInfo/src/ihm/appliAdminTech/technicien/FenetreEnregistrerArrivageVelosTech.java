@@ -238,8 +238,4 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 			new FenetreAuthentification(false);
 		}
 	}
-	
-	public static void main (String[]args) throws SQLException, ClassNotFoundException{
-		new FenetreEnregistrerArrivageVelosTech(new Technicien(new Compte(12,"lalilalou")));
-	}
 }

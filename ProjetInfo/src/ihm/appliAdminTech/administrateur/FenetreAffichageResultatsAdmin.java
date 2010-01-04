@@ -170,7 +170,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
 			center.add(lblChart);
 		}
-		
+
 		//si à la fenêtre précédente il a sélectionné un vélo pour lequel il souhaite voir l'historique des interventions de maintenance
 		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
 			FenetreHistoriqueVeloAdmin f = (FenetreHistoriqueVeloAdmin) fenetrePrec;
@@ -183,7 +183,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			bouton1.addActionListener(this);
 			south.add(bouton1);			
 		}
-		
+
 		//si à la fenêtre précédente il a confirmé la suppression d'un vélo dans la nature depuis trop longtemps et qu'il souhaite voir à nouveau la liste des vélos sortis
 		else if(fenetrePrec.getTitle().equals("Ecran de confirmation")){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
@@ -195,7 +195,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			bouton1.addActionListener(this);
 			south.add(bouton1);
 		}
-		
+
 		//si à la fenêtre précédente il a choisi un lieu pour lequel il souhaite voir la liste des vélos présents
 		else if(fenetrePrec.getTitle().equals("Voir la liste des vélos présents dans un lieu")){
 			//on caste la fenêtre
@@ -226,7 +226,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				south.add(bouton1);
 			}
 		}
-		
+
 		//si à la fenêtre précédente l'administrateur a souhaité voir l'état d'un lieu, soit directement, soit en passant par l'onglet "voir les stations sur et sous-occupées"
 		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
 
@@ -263,9 +263,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				}
 			}
 			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
-			if (fenetrePrec.getTitle().equals("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>")) {
+			if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosLieu(f2.getStationEntree());
+				diag1 = new DiagrammeNbVelosLieu((Lieu)f2.getStationEntree());
 				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
@@ -328,7 +328,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				else if(this.getFenetrePrecedente().getTitle().equals("Informations sur un compte")){
 					new FenetreRechercherCompteAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),true);
 				}
-				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'une station")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
+				else if((this.getFenetrePrecedente().getTitle().equals("Voir l'état d'un lieu")) || (this.getFenetrePrecedente().getTitle().equals("Stations sur et sous occupées"))){
 					new FenetreEtatLieuAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Historique d'un vélo")){
@@ -338,7 +338,13 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 					new FenetreSupprimerUnVeloAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()));
 				}
 				else if(this.getFenetrePrecedente().getTitle().equals("Voir la liste des vélos présents dans un lieu")){
-					new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
+					JButton boutonSource = (JButton) arg0.getSource();
+					if (boutonSource.getText().equals("<html> <center>Déclarer comme supprimé<br>un vélo perdu</center></html>")){
+						new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
+					}
+					else {
+						new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
+					}
 				}
 			}
 			else if(arg0.getSource()==bouton2){
@@ -364,9 +370,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		} 
 		catch (SQLException e) {
 			MsgBox.affMsg("SQLException "+e.getMessage());
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		} 
 		catch (ClassNotFoundException e) {
 			MsgBox.affMsg("ClassNotFoundException "+e.getMessage());
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");

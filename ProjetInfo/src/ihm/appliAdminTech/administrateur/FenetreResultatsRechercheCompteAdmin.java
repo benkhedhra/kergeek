@@ -32,6 +32,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 	private static final long serialVersionUID = 1L;
 
 	private Administrateur administrateur;
+	private FenetreRechercherCompteAdmin fenetrePrecedente;
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
 	private Compte compteEntre;
@@ -85,6 +86,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
+		fenetrePrecedente=fenetrePrec;
 		this.setStat(stat);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
@@ -105,11 +107,11 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		List<Compte> listeComptes;
 		try {
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
-			
+
 			System.out.println("Il y a "+listeComptes.size()+ " individu(s) trouvé(s)");
 			if(listeComptes.size()>0){
 				labelMsg.setText("Résultats de la recherche : "+listeComptes.size()+" individu(s) trouvé(s)");
-				String [] tableauComptes = new String[listeComptes.size()+1];
+				final String [] tableauComptes = new String[listeComptes.size()+1];
 				tableauComptes[0]="Sélectionnez un compte";
 				for (int i=0;i<listeComptes.size();i++){
 					Compte comptei = listeComptes.get(i);
@@ -134,14 +136,19 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 						try {
 							Object o = ((JComboBox)ae.getSource()).getSelectedItem();
 							String chaineSelectionnee = (String)(o);
-							//il faut récupérer l'identifiant du compte entré mais on ne connaît pas la taille de la String en question
-							int k=0;
-							while(chaineSelectionnee.charAt(k)!=' '){
-								k++;
+							if(chaineSelectionnee.equals(tableauComptes[0])){
+								compteEntre=null;
 							}
-							String idCompteEntre = chaineSelectionnee.substring(0,k+1);
-							compteEntre = DAOCompte.getCompteById(idCompteEntre);
-							System.out.println("idCompteEntre = "+idCompteEntre + " - "+compteEntre.isActif());
+							else{
+								//il faut récupérer l'identifiant du compte entré mais on ne connaît pas la taille de la String en question
+								int k=0;
+								while(chaineSelectionnee.charAt(k)!=' '){
+									k++;
+								}
+								String idCompteEntre = chaineSelectionnee.substring(0,k+1);
+								compteEntre = DAOCompte.getCompteById(idCompteEntre);
+								System.out.println("idCompteEntre = "+idCompteEntre + " - "+compteEntre.isActif());
+							}
 							repaint();
 						} 
 						catch (SQLException e) {
@@ -204,7 +211,13 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.dispose();
 		if (arg0.getSource()==boutonValider){
 			try {
-				new FenetreInfoCompteAdmin(this.getAdministrateur(),compteEntre,stat);
+				if(compteEntre==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucun compte");
+					new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(), fenetrePrecedente, this.isStat());
+				}
+				else{
+					new FenetreInfoCompteAdmin(this.getAdministrateur(),compteEntre,stat);
+				}
 			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
