@@ -105,19 +105,24 @@ public class DAOEmprunt {
 	public static boolean updateEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
+			if (DAOEmprunt.getEmpruntById(emprunt.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
 
-			s.executeUpdate("UPDATE Emprunt SET "
-					+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "', "
-					+ "idvelo = '" + emprunt.getVelo().getId() + "', "
-					+ "idlieuEmprunt = '" + emprunt.getStationEmprunt().getId() + "', "
-					+ "idlieuRetour = '" + emprunt.getStationRetour().getId() + "', "
-					+ "dateEmprunt = " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'), "
-					+ "dateRetour = " +  "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI') "
-					+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
-			);
-			effectue=true;
+				s.executeUpdate("UPDATE Emprunt SET "
+						+ "idCompte = '" + emprunt.getUtilisateur().getCompte().getId() + "', "
+						+ "idvelo = '" + emprunt.getVelo().getId() + "', "
+						+ "idlieuEmprunt = '" + emprunt.getStationEmprunt().getId() + "', "
+						+ "idlieuRetour = '" + emprunt.getStationRetour().getId() + "', "
+						+ "dateEmprunt = " + "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateEmprunt()) +"','DD-MM-YYYY HH24:MI'), "
+						+ "dateRetour = " +  "TO_DATE('" + UtilitaireDate.conversionPourSQL(emprunt.getDateRetour()) +"','DD-MM-YYYY HH24:MI') "
+						+ " WHERE idEmprunt = '"+ emprunt.getId() + "'"
+				);
+				effectue=true;
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
+			}
 		}
 		catch (SQLException e){
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
@@ -132,6 +137,9 @@ public class DAOEmprunt {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();

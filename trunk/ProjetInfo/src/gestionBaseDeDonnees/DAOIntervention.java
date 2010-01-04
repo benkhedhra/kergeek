@@ -94,19 +94,24 @@ public class DAOIntervention {
 	public static boolean updateIntervention(Intervention intervention) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
+			if (DAOIntervention.getInterventionById(intervention.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
 
-			s.executeUpdate("UPDATE Intervention SET "
-					+ "dateIntervention = TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-					+ "idTypeIntervention = '"+intervention.getTypeIntervention()+"',"
-					+ "idVelo = '" + intervention.getVelo().getId() + "' "
-					+ "WHERE idIntervention = '"+ intervention.getId() + "'"
-			);
+				s.executeUpdate("UPDATE Intervention SET "
+						+ "dateIntervention = TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
+						+ "idTypeIntervention = '"+intervention.getTypeIntervention()+"',"
+						+ "idVelo = '" + intervention.getVelo().getId() + "' "
+						+ "WHERE idIntervention = '"+ intervention.getId() + "'"
+				);
 
-			s.executeUpdate("COMMIT");
-			effectue=true;
-			System.out.println("Intervention mise a jour dans la base de données");
+				s.executeUpdate("COMMIT");
+				effectue=true;
+				System.out.println("Intervention mise a jour dans la base de données");
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
+			}
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -121,6 +126,9 @@ public class DAOIntervention {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
@@ -259,7 +267,7 @@ public class DAOIntervention {
 	 * @see DAOTypeIntervention#getAllTypesIntervention()
 	 */
 	public static List <List <Integer>> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		
+
 		List <List <Integer>> liste = new ArrayList<List<Integer>>();
 		try {
 
@@ -307,9 +315,9 @@ public class DAOIntervention {
 
 		return liste;
 	}
-	
-	
-	
+
+
+
 	/** 
 	 * @return La liste des interventions en attente de traitement, c'est-à-dire auquelles aucun {@link TypeIntervention} n'a 
 	 * encore été assignés, concernant donc des vélos en panne au {@link Garage}
@@ -318,7 +326,7 @@ public class DAOIntervention {
 	 * @throws ConnexionFermeeException
 	 * @see Velo#enPanne
 	 */
-	//TODO la liste des vélos en panne au garage plut™t?
+	//TODO la liste des vélos en panne au garage plutôt?
 	public static List<Intervention> getInterventionsNonTraitees() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Intervention> liste = new ArrayList<Intervention>();
 
@@ -366,5 +374,5 @@ public class DAOIntervention {
 
 	}
 
-	
+
 }

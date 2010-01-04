@@ -77,13 +77,18 @@ public class DAOTypeIntervention {
 	public static boolean updateTypeIntervention(TypeIntervention typeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE TypeIntervention SET "
-					+"descritpion = '" + typeIntervention.getDescription() +  "'" 
-					+ " WHERE idTypeIntervention = '" +typeIntervention.getNumero() + "'"
-			);
-			effectue=true;
+			if (DAOTypeIntervention.getTypeInterventionById(typeIntervention.getNumero()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				s.executeUpdate("UPDATE TypeIntervention SET "
+						+"descritpion = '" + typeIntervention.getDescription() +  "'" 
+						+ " WHERE idTypeIntervention = '" +typeIntervention.getNumero() + "'"
+				);
+				effectue=true;
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
+			}
 		}
 		catch (SQLException e1){
 			System.out.println(e1.getMessage());
@@ -98,6 +103,9 @@ public class DAOTypeIntervention {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées

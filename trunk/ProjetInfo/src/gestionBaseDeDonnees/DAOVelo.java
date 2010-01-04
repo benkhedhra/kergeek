@@ -20,7 +20,7 @@ import metier.Velo;
  * @author KerGeek
  */
 public class DAOVelo {
-	
+
 	/**
 	 * Ajoute une instance de la classe {@link Velo} à la base de données.
 	 * @param velo
@@ -34,22 +34,27 @@ public class DAOVelo {
 	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
-			if (res.next()){
-				String id = res.getString("id");
-				velo.setId(id);
-				if (velo.isEnPanne()){
-					s.executeUpdate("INSERT into Velo values ('" 
-							+ velo.getId() + "', '1','"+ velo.getLieu().getId() + "')");
-					effectue=true;
+			if (DAOVelo.getVeloById(velo.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
+				if (res.next()){
+					String id = res.getString("id");
+					velo.setId(id);
+					if (velo.isEnPanne()){
+						s.executeUpdate("INSERT into Velo values ('" 
+								+ velo.getId() + "', '1','"+ velo.getLieu().getId() + "')");
+						effectue=true;
+					}
+					else{
+						s.executeUpdate("INSERT into Velo values ('" 
+								+ velo.getId() + "', '0','"+ velo.getLieu().getId() + "')");
+						effectue=true;
+					}
 				}
-				else{
-					s.executeUpdate("INSERT into Velo values ('" 
-							+ velo.getId() + "', '0','"+ velo.getLieu().getId() + "')");
-					effectue=true;
-				}
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
 			}
 		}
 		catch (SQLException e1){
@@ -65,6 +70,9 @@ public class DAOVelo {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
@@ -130,10 +138,10 @@ public class DAOVelo {
 		Velo velo = new Velo();
 
 		try {
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-		ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
-		
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
+
 			if (resVelo.next()) {
 				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idLieu = resVelo.getString("idLieu");
@@ -185,7 +193,7 @@ public class DAOVelo {
 	 * @see DAOVelo#getVeloById(String)
 	 */
 	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-		
+
 		List<String> listeIdVelos = new ArrayList<String>();
 		List<Velo> listeVelos = new LinkedList<Velo>();
 
@@ -230,7 +238,7 @@ public class DAOVelo {
 		}
 		return listeVelos;
 	}
-	
+
 	/**
 	 * Teste si un identifiant correspond bien à un Velo du parc.
 	 * @param id
@@ -245,7 +253,7 @@ public class DAOVelo {
 		Velo velo = getVeloById(id);
 		return (velo!=null && !velo.getLieu().getId().equals(Lieu.ID_DETRUIT));
 	}
-	
+
 	/**
 	 * Teste si un identifiant correspond bien à un Velo du parc disponible en station pour ítre emprunté.
 	 * @param id

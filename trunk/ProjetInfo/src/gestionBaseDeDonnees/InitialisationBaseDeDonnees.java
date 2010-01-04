@@ -71,7 +71,7 @@ public class InitialisationBaseDeDonnees {
 			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 3 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
 					"CREATE TABLE TypeIntervention (idTypeIntervention char(4)," +
-					"description char(250)," +
+					"description varchar2(250)," +
 			"CONSTRAINT pk_TypeIntervention  PRIMARY KEY(idTypeIntervention))");
 
 
@@ -295,7 +295,7 @@ public class InitialisationBaseDeDonnees {
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('12-10-2009 15:32','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','13')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('02-12-2009 15:40','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','18')");
 			s2.executeUpdate("insert into Intervention values(seqIntervention.nextval,"+"TO_DATE('22-09-2009 17:15','DD-MM-YYYY HH24:MI'),'"+TypeIntervention.TYPE_NON_JUSTIFIEE+"','22')");
-			//TODO typeInter = typeInter+2
+
 
 			//Insertion demandes intervention
 

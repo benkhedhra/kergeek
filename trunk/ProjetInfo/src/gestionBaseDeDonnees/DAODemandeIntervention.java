@@ -20,7 +20,7 @@ import metier.Velo;
  * @author KerGeek
  */
 public class DAODemandeIntervention {
-	
+
 	/**
 	 * Ajoute une instance de la classe {@link DemandeIntervention} à la base de données.
 	 * @param ddeIntervention
@@ -96,21 +96,26 @@ public class DAODemandeIntervention {
 	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
+			if (DAODemandeIntervention.getDemandeInterventionById(ddeIntervention.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				s.executeUpdate("UPDATE DemandeIntervention SET "
+						+ "dateDemandeI = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeIntervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
+						+ "idVelo = '" + ddeIntervention.getVelo().getId() + "', "
+						+ "idCompte = '" + ddeIntervention.getUtilisateur().getCompte().getId() + "', "
+						+ "idLieu = '" + ddeIntervention.getVelo().getLieu().getId() + "', "
+						+ "idIntervention = '" + ddeIntervention.getIntervention().getId() + "'"
+						+ " WHERE idDemandeI = '"+ ddeIntervention.getId() + "'"
+				);
 
-			s.executeUpdate("UPDATE DemandeIntervention SET "
-					+ "dateDemandeI = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeIntervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-					+ "idVelo = '" + ddeIntervention.getVelo().getId() + "', "
-					+ "idCompte = '" + ddeIntervention.getUtilisateur().getCompte().getId() + "', "
-					+ "idLieu = '" + ddeIntervention.getVelo().getLieu().getId() + "', "
-					+ "idIntervention = '" + ddeIntervention.getIntervention().getId() + "'"
-					+ " WHERE idDemandeI = '"+ ddeIntervention.getId() + "'"
-			);
+				s.executeUpdate("COMMIT");
+				effectue=true;
+				System.out.println("Demande d'intervention mise a jour dans la base de données");
+			}
 
-			s.executeUpdate("COMMIT");
-			effectue=true;
-			System.out.println("Demande d'intervention mise a jour dans la base de données");
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
+			}
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -125,6 +130,9 @@ public class DAODemandeIntervention {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées	
@@ -142,20 +150,20 @@ public class DAODemandeIntervention {
 	 */
 	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		DemandeIntervention ddeIntervention = new DemandeIntervention();
-	
+
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 			ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
 			try {
 				if (res.next()) {
-	
+
 					java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
 					java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
 					String idVelo = res.getString("idVelo");
 					String idCompte = res.getString("idCompte");
 					String idIntervention = res.getString("idIntervention");
-	
+
 					ddeIntervention.setId(identifiant);
 					ddeIntervention.setDate(dateDemandeI);
 					ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
@@ -166,7 +174,7 @@ public class DAODemandeIntervention {
 					else{
 						ddeIntervention.setIntervention(null);
 					}
-	
+
 				}
 				else {
 					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Intervention");
