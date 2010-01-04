@@ -2,7 +2,6 @@ package ihm;
 
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
-import ihm.exceptionsInterface.MotDePasseNonRempliException;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -186,19 +185,13 @@ public class UtilitaireIhm {
 	
 	
 	//TODO javadoc
-	public static String obtenirMotDePasse(JPasswordField motDePasseARemplir) throws MotDePasseNonRempliException{
-		//TODO verifier que JpasswordField marche (et qu'il ne faut pas necessairement PasswordFieldLimite)
+	public static String obtenirMotDePasse(JPasswordField motDePasseARemplir){
 		String mdp = "";
-		try{
 			char[] mdpChar = motDePasseARemplir.getPassword();
 			for(char c : mdpChar){
 				mdp += c;
 			}
 			mdpChar = null;//pour augmenter la sécurité de l'application
-		}
-		catch(NullPointerException e){
-			throw new MotDePasseNonRempliException(e.getMessage());
-		}
 		return mdp;
 	}
 
