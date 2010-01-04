@@ -6,8 +6,6 @@ import gestionBaseDeDonnees.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.SQLException;
 
-import metier.Compte;
-
 public class AMainConnexionBdd {
 
 	

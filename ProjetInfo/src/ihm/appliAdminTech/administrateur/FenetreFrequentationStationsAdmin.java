@@ -189,6 +189,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 
 	/**
 	 * méthode exécutée quand l'administrateur a soit cliqué sur "valider", soit cliqué sur "retour au menu principal"
+	 * @param arg0 
 	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
