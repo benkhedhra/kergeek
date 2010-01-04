@@ -16,6 +16,8 @@ import ihm.exceptionsInterface.MotDePasseNonRempliException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -102,9 +104,9 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		this.setCompte(c);
 
 		this.setTitle("Changer son mot de passe");
-		Dimension d=getToolkit().getScreenSize();
-		this.setPreferredSize(d);
-		this.setSize(d);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
