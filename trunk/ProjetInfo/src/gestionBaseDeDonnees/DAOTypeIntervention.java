@@ -168,13 +168,8 @@ public class DAOTypeIntervention {
 
 		try {
 			ResultSet res = s.executeQuery("Select* from TypeIntervention");
-			boolean vide = true;
 			while (res.next()) {
-				vide = false;
 				typesIntervention.put((res.getInt("idTypeIntervention")),(res.getString("description")));
-			}
-			if(vide){
-				throw new SQLException("pas de type d'intervention reference");
 			}
 		}
 		catch(SQLException e1){
