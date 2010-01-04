@@ -147,6 +147,7 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 						String idStationEntre = chaineSelectionnee.substring(0,1);
 						try {
 							lieuEntre = (Station) DAOLieu.getLieuById(idStationEntre);
+							repaint();
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
 						} catch (ClassNotFoundException e) {
@@ -157,7 +158,6 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 							new FenetreAuthentification(false);
 						}
 					}
-					repaint();
 				}
 			});
 			centerWest.add(labelMsg);

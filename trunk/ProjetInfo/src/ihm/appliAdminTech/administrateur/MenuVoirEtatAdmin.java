@@ -95,13 +95,12 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,40));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		south.setLayout(new BorderLayout());
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour,BorderLayout.EAST);
+		south.add(boutonRetour);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);

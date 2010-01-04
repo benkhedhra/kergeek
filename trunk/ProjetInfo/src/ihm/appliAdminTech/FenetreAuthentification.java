@@ -104,16 +104,16 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelId.setFont(UtilitaireIhm.POLICE3);
-		labelId.setPreferredSize(new Dimension(150,30));
-		labelId.setMaximumSize(new Dimension(150,30));
+		labelId.setPreferredSize(new Dimension(350,30));
+		labelId.setMaximumSize(new Dimension(350,30));
 		panel1.add(labelId);
 		center.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		idARemplir.setFont(UtilitaireIhm.POLICE3);
-		idARemplir.setPreferredSize(new Dimension(150, 30));
-		idARemplir.setMaximumSize(new Dimension(150, 30));
+		idARemplir.setPreferredSize(new Dimension(250, 30));
+		idARemplir.setMaximumSize(new Dimension(250, 30));
 		idARemplir.setForeground(Color.BLUE);
 		panel2.add(idARemplir);
 		center.add(panel2);
@@ -121,16 +121,16 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelMotDePasse.setFont(UtilitaireIhm.POLICE3);
-		labelMotDePasse.setPreferredSize(new Dimension(150,30));
-		labelMotDePasse.setMaximumSize(new Dimension(150,30));
+		labelMotDePasse.setPreferredSize(new Dimension(350,30));
+		labelMotDePasse.setMaximumSize(new Dimension(350,30));
 		panel3.add(labelMotDePasse);
 		center.add(panel3);
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		motDePasseARemplir.setFont(UtilitaireIhm.POLICE3);
-		motDePasseARemplir.setPreferredSize(new Dimension(150, 30));
-		motDePasseARemplir.setMaximumSize(new Dimension(150, 30));
+		motDePasseARemplir.setPreferredSize(new Dimension(250, 30));
+		motDePasseARemplir.setMaximumSize(new Dimension(250, 30));
 		panel4.add(motDePasseARemplir);
 		center.add(panel4);
 
@@ -140,8 +140,8 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);		
-		boutonValider.setPreferredSize(new Dimension(150,30));
-		boutonValider.setMaximumSize(new Dimension(150,30));
+		boutonValider.setPreferredSize(new Dimension(250,50));
+		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		//On ajoute notre Fenetre à la liste des auditeurs de notre Bouton
@@ -153,7 +153,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		this.setVisible(true);
 	}
-	
+
 	/**
 	 * méthode utile si l'individu qui s'est authentifié est un administrateur
 	 * @return l'administrateur une fois qu'il est correctement authentifié
@@ -221,37 +221,46 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 			//TODO verifier que ca marche, y compris quand on ne remplit rien,
 			//il semble que l'exception MotDePasseNonRempliException ne serve a rien...
 
-
-			Compte c = DAOCompte.getCompteById(id);
-			System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
-			System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
-			int resultatAuthent = testerAuthent(id,mdp);
-			mdp = null;//pour augmenter la sécurité de l'application
-
-			//si aucune exception levee et si l'utilisateur existe bien dans la base, on ferme la fenetre
-			//d'authentification et on ouvre la fenetre de l'utilisateur
-
-			if (resultatAuthent==Compte.TYPE_ADMINISTRATEUR){
-				new MenuPrincipalAdmin(this.getAdministrateur());
+			if(id.equals("")){
+				MsgBox.affMsg("Vous n'avez entré aucun identifiant");
+				new FenetreAuthentification(false);
 			}
-			else if (resultatAuthent==Compte.TYPE_TECHNICIEN){
-				new MenuPrincipalTech(this.getTechnicien());
+			else if (mdp.equals("")){
+				MsgBox.affMsg("Vous n'avez entré aucun mot de passe");
+				new FenetreAuthentification(false);
 			}
+
 			else {
-				new FenetreAuthentification(true);
+				int resultatAuthent = testerAuthent(id,mdp);
+				if(resultatAuthent==Compte.TYPE_ADMINISTRATEUR || resultatAuthent==Compte.TYPE_TECHNICIEN){
+
+					Compte c = DAOCompte.getCompteById(id);
+
+					System.out.println("id renseigne = "+id + "\nmot de passe renseigne = "+mdp);
+					System.out.println("id = "+c.getId()+ " et mdp = "+c.getMotDePasse());
+
+					mdp = null;//pour augmenter la sécurité de l'application
+
+					//si aucune exception levee et si l'utilisateur existe bien dans la base, on ouvre le menu principal de l'individu connecté
+					if (resultatAuthent==Compte.TYPE_ADMINISTRATEUR){
+						new MenuPrincipalAdmin(this.getAdministrateur());
+					}
+					else if (resultatAuthent==Compte.TYPE_TECHNICIEN){
+						new MenuPrincipalTech(this.getTechnicien());
+					}
+				}
+				else{
+					new FenetreAuthentification(true);
+				}
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
-		} 
-		catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
-		}
-		catch (MotDePasseNonRempliException e){
+		} catch (MotDePasseNonRempliException e){
 			MsgBox.affMsg("Veillez à bien renseigner votre mot de passe");
 			new FenetreAuthentification(true);
-		}
-		catch (ConnexionFermeeException e){
+		} catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
 		}

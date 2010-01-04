@@ -372,14 +372,19 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} catch (UnsupportedEncodingException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
+				new FenetreCreationCompteAdmin(this.getAdministrateur());
 			} catch (MessagingException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());
+				new FenetreCreationCompteAdmin(this.getAdministrateur());
 			} catch (TypeCompteException e) {
 				MsgBox.affMsg(e.getMessage());
+				new FenetreCreationCompteAdmin(this.getAdministrateur());
 			}
 			catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
