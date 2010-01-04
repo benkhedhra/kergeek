@@ -2,6 +2,7 @@ package statistiques;
 
 
 import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.awt.Color;
@@ -9,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -54,22 +57,19 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		// étiquettes des lignes...
 		String series1 = "nombre d'interventions de ce type";
 
-
+		Map<Integer, String> m = DAOTypeIntervention.getAllTypesIntervention();
 		// étiquettes des colonnes...
-		String category1 = "pneu crevé";
-		String category2 = "selle manquante";
-		String category3 = "pédale cassée";
-		String category4 = "déraillement";
-		String category5 = "frein";
-		String category6 = "autres";
-		String category7 = "destruction du vélo";
-		String category8 = "demande d'intervention non justifiée";
 
 
 		// créer la dataset...
+		
+		List <List <Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(6);
+		for (List <Integer> duo : liste){
+			dataset.addValue(duo.get(1),series1,m.get(duo.get(0)));
+		}
 		/*TODO vérifier que le.get(i) corresponde au bon type d'intervention*/
 		
-		
+		/*
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category1);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category2);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category3);
@@ -78,7 +78,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(7), series1, category6);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(0), series1, category7);
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(1), series1, category8);
-
+*/
 		return dataset;
 
 	}

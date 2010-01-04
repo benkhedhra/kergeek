@@ -1,6 +1,7 @@
 package test.testDAO;
 
 import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
@@ -19,28 +20,25 @@ public class TestDAOIntervention extends TestCase{
 	@Test
 	public void testCreateIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo v = DAOVelo.getVeloById("1");
-		TypeIntervention typ= new TypeIntervention("deraillement");
+		TypeIntervention typ= DAOTypeIntervention.getTypeInterventionById(3);
 		Intervention i = new Intervention(v,UtilitaireDate.dateCourante(), typ);
 		System.out.println(i.getDate());
 		Boolean b= DAOIntervention.createIntervention(i);
-		assertEquals((Boolean)true, (Boolean)b);
+		assertTrue(b);
 	}
 	
 	@Test
 	public void testGetInterventionById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Intervention i = DAOIntervention.getInterventionById("1");
-		assertEquals(1, i.getTypeIntervention().getNumero());
-		assertEquals("1", i.getVelo().getId());
+		assertTrue(i instanceof Intervention);
+		//TODO
 	}
 	
 	@Test
 	public void testGetNombresVelosParTypeIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		List<Integer> liste = DAOIntervention.getNombresVelosParTypeIntervention(2);
-		assertEquals((int)2,(int) liste.get(0));
-		assertEquals((int)12,(int) liste.get(1));
-		assertEquals((int)2,(int) liste.get(2));
-		assertEquals((int)3,(int) liste.get(3));
-		assertEquals((int)3,(int) liste.get(4));
-		assertEquals((int)4,(int) liste.get(5));
+		List<List<Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(2);
+		//TODO
+		
+		
 	}
 }

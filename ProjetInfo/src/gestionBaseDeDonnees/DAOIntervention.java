@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import metier.Garage;
 import metier.Intervention;
@@ -44,7 +45,7 @@ public class DAOIntervention {
 					s.executeUpdate("INSERT into Intervention values ("
 							+ "'"+ intervention.getId() +  "', " 
 							+ "TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'),"
-							+ "'"+ intervention.getTypeIntervention() + "', "
+							+ "'"+ intervention.getTypeIntervention().getNumero() + "', "
 							+ "'"+ intervention.getVelo().getId() + "'"
 							+")");
 					effectue=true;
@@ -250,30 +251,38 @@ public class DAOIntervention {
 	/**
 	 * @param depuisMois
 	 * le nombre de mois auquels on s'interesse en jusqu'à la date actuelle. 
-	 * @return La liste des nombres de vélos ayant subit chaque {@link TypeIntervention} depuis depuisMois mois.
+	 * @return La liste des listes des nombres de vélos ayant subit chaque {@link TypeIntervention}
+	 * depuis depuisMois mois pour chaque mois.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 * @see DAOTypeIntervention#getAllTypesIntervention()
 	 */
-	public static List<Integer> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-
-		List <Integer> liste = new ArrayList<Integer>();
+	public static List <List <Integer>> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		
+		List <List <Integer>> liste = new ArrayList<List<Integer>>();
 		try {
 
 			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(), depuisMois);
 			java.sql.Date dateSql = UtilitaireDate.initialisationDebutMois(dateSqlTemp);
 
 			ResultSet res = null;
-			for (Integer type : DAOTypeIntervention.getAllTypesIntervention().keySet()){
+			Map<Integer, String> m = DAOTypeIntervention.getAllTypesIntervention();
+			for (Integer type : m.keySet()){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
 				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention WHERE idTypeIntervention = '" + type + "' and dateIntervention >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) + "','DD-MM-YYYY HH24:MI')");
 				if (res.next()){
-					liste.add(res.getInt("nombreVelosTypeIntervention"));
+					List <Integer> listeTypeNombre = new ArrayList<Integer>();
+					listeTypeNombre.add(type);
+					listeTypeNombre.add(res.getInt("nombreVelosTypeIntervention"));
+					liste.add(listeTypeNombre);
 				}
 				else{
-					liste.add(0);
+					List <Integer> listeTypeNombre = new ArrayList<Integer>();
+					listeTypeNombre.add(type);
+					listeTypeNombre.add(0);
+					liste.add(listeTypeNombre);
 				}
 			}
 		}

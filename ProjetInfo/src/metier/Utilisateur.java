@@ -266,7 +266,7 @@ public class Utilisateur {
 	/**
 	 * L'Utilisateur rend un {@link Velo} emprunté au préalable. S'il l'a emprunté trop longtemps, son compte se bloque.
 	 * @param station
-	 * la station o le vélo est rendu
+	 * la station où le vélo est rendu
 	 * @return l'emprunt complet (avec sa DateRetour et sa stationRetour assignés)
 	 * @throws PasDeVeloEmprunteException
 	 * @throws PasDeDateRetourException
@@ -290,11 +290,7 @@ public class Utilisateur {
 					//emprunt trop long
 					this.setBloque(true);
 					System.out.println("compte bloqué");
-					//TODO
-					System.out.println("date de l'emprunt : " + emprunt.getDateEmprunt());
-					System.out.println("date de retour : " + emprunt.getDateRetour());
 					System.out.println("durée de l'emprunt : " + emprunt.getTempsEmprunt());
-					
 				}
 				velo.setEmpruntEnCours(null);
 				this.setEmpruntEnCours(null);
