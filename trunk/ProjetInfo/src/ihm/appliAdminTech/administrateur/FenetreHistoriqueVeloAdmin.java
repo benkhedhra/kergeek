@@ -153,6 +153,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 
 	/**
 	 * méthode exécutée soit lorsque l'Administrateur a cliqué sur "Afficher l'historique", soit sur "Retour au menu principal"
+	 * @param arg0 
 	 * @see DAOVelo#existe(String)
 	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)

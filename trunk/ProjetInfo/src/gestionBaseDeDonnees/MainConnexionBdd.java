@@ -5,8 +5,6 @@ import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
 import java.sql.SQLException;
 
-import metier.exceptionsMetier.PasDeDateRetourException;
-
 public class MainConnexionBdd {
 
 	
