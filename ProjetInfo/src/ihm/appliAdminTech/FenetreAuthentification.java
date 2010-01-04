@@ -14,7 +14,9 @@ import ihm.exceptionsInterface.MotDePasseNonRempliException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -71,9 +73,10 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 
 		this.setContentPane(new PanneauUtil());
 		this.setTitle("Authentification");
-		Dimension d=getToolkit().getScreenSize();
-		this.setPreferredSize(d);
-		this.setSize(d);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);

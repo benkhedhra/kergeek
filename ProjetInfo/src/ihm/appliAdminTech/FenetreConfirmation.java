@@ -29,7 +29,9 @@ import ihm.appliAdminTech.technicien.PanneauTech;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -139,9 +141,10 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Ecran de confirmation");
-		Dimension d=getToolkit().getScreenSize();
-		this.setPreferredSize(d);
-		this.setSize(d);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
+		this.setLocationRelativeTo(null);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
@@ -157,7 +160,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		
-		labelConfirm.setPreferredSize(new Dimension(300,800));
+		labelConfirm.setPreferredSize(new Dimension(1100,300));
 
 		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
@@ -300,18 +303,18 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				FenetreEnregistrerArrivageVelosTech f = (FenetreEnregistrerArrivageVelosTech) fenetrePrec;
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
-				labelConfirm.setText( "<html><center>"+f.getNbVelosEntre()+" vélo(s) ont bien été enregistré(s) et affecté(s) au garage. <br> Veuillez dès à présent leur apposer les identifiants suivants : "+"</center></html>");
-				labelConfirm.setPreferredSize(new Dimension(100,800));
+				labelConfirm.setText( "<html><center>"+f.getNbVelosEntre()+" vélo(s) ont bien été enregistré(s) et affecté(s) au garage. Veuillez dès à présent leur apposer les identifiants suivants : "+"</center></html>");
+				labelConfirm.setPreferredSize(new Dimension(1100,100));
 				center.add(labelConfirm);
 				JPanel panelIds = new JPanel();
 				panelIds.setBackground(UtilitaireIhm.TRANSPARENCE);
 				panelIds.setLayout(new GridLayout(f.getNbVelosEntre(),2));
 				for(int i=0;i<f.getNbVelosEntre();i++){
 					JLabel labelVelo = new JLabel("Vélo "+i+1);
-					labelVelo.setPreferredSize(new Dimension(600,40));
+					labelVelo.setPreferredSize(new Dimension(800,40));
 					Velo velo = f.getListeVelosCrees().get(i);
 					JLabel labelIdVelo = new JLabel(velo.getId());
-					labelIdVelo.setPreferredSize(new Dimension(400,40));
+					labelIdVelo.setPreferredSize(new Dimension(300,40));
 					labelIdVelo.setFont(UtilitaireIhm.POLICE2);
 					panelIds.add(labelVelo);
 					panelIds.add(labelIdVelo);

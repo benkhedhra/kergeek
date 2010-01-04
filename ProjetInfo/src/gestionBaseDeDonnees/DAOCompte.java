@@ -26,7 +26,7 @@ public class DAOCompte {
 	 * Il existe une séquence par type de compte et un identifiant commence toujours par la lettre correspondant au type de 
 	 * compte en question ('a' pour Administrateur, 't' pour Technicien et 'u' pour Utilisateur).
 	 * <br> <br> Une fois l'identifiant attribuer à l'instance, on insère les valeurs des attributs de celles-ci dans la table COMPTE
-	 * o une nouvelle ligne est créée.
+	 * et une nouvelle ligne est créée.
 	 * @param compte
 	 * l'instance de la classe {@link Compte} à ajouter à la base de données.
 	 * @return vrai si l'ajout à la base de données a bel et bien été effectué,
@@ -337,13 +337,21 @@ public class DAOCompte {
 	}
 	
 	/**
-	 * TODO Ma‘lle, je te laisse commenter celle là...
+	 * cette méthode permet d'obtenir la liste des comptes correspondant à une recherche donnée
+	 * <br>une recherche s'effectue sur un nombre de paramètres allant de 0 à 5
+	 * <br>si le type n'est pas renseigné ou s'il est renseigné et correspond au type d'un utilisateur, l'administrateur pourra faire une recherche à 4 paramètres au plus (plus le type)
+	 * <br>sinon, la recherche pourra s'effectuer au maximum sur 2 paramètres (plus le type) : l'identifiant et l'adresse e-mail
 	 * @param type
+	 * le type de compte recherché (valant 0 si aucun type n'a été renseigné)
 	 * @param ident
+	 * l'identifiant du compte recherché
 	 * @param nom
+	 * le nom de l'utilisateur recherché
 	 * @param prenom
+	 * le prénom de l'utilisateur recherché
 	 * @param adresseEMail
-	 * @return
+	 * l'adresse e-mail du compte recherché
+	 * @return la liste des instances de la classe {@link Compte} dont correspondant à la requête créée à partir des paramètres remplis
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ConnexionFermeeException
