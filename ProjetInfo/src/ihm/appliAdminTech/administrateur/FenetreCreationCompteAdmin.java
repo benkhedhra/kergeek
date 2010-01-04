@@ -139,17 +139,17 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
-		JPanel centerCenter = new JPanel();
-		centerCenter.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerCenter.setPreferredSize(new Dimension(1200,800));
-		centerCenter.setLayout(new BorderLayout());
-		
+
+		JPanel centerWest = new JPanel();
+		centerWest.setPreferredSize(new Dimension(1000,800));
+		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
+
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelQualite.setPreferredSize(new Dimension(500,40));
 		labelQualite.setMaximumSize(new Dimension(500,40));
 		panel1.add(labelQualite);
-		center.add(panel1);
+		centerWest.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -181,70 +181,78 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 			}
 		});
 		panel2.add(qualiteARemplir);
-		center.add(panel2);	
+		centerWest.add(panel2);	
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelAdresseEMail.setPreferredSize(new Dimension(500,40));
 		labelAdresseEMail.setMaximumSize(new Dimension(500,40));
 		panel3.add(labelAdresseEMail);
-		center.add(panel3);	
+		centerWest.add(panel3);	
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		adresseEMailARemplir.setPreferredSize(new Dimension(250,40));
 		adresseEMailARemplir.setMaximumSize(new Dimension(250,40));
 		panel4.add(adresseEMailARemplir);
-		center.add(panel4);	
+		centerWest.add(panel4);	
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelNom.setPreferredSize(new Dimension(500,40));
 		labelNom.setMaximumSize(new Dimension(500,40));
 		panel5.add(labelNom);
-		center.add(panel5);	
+		centerWest.add(panel5);	
 
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		nomARemplir.setPreferredSize(new Dimension(250,40));
 		nomARemplir.setMaximumSize(new Dimension(250,40));
 		panel6.add(nomARemplir);
-		center.add(panel6);			
+		centerWest.add(panel6);			
 
 		JPanel panel7 = new JPanel();
 		panel7.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelPrenom.setPreferredSize(new Dimension(500,40));
 		labelPrenom.setMaximumSize(new Dimension(500,40));
 		panel7.add(labelPrenom);
-		center.add(panel7);	
+		centerWest.add(panel7);	
 
 		JPanel panel8 = new JPanel();
 		panel8.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		prenomARemplir.setPreferredSize(new Dimension(250,40));
 		prenomARemplir.setMaximumSize(new Dimension(250,40));
 		panel8.add(prenomARemplir);
-		center.add(panel8);	
+		centerWest.add(panel8);	
 
 		JPanel panel9 = new JPanel();
 		panel9.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		labelAdressePostale.setPreferredSize(new Dimension(500,40));
 		labelAdressePostale.setMaximumSize(new Dimension(500,40));
 		panel9.add(labelAdressePostale);
-		center.add(panel9);	
+		centerWest.add(panel9);	
 
 		JPanel panel10 = new JPanel();
-		panel10.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel10.setBackground(UtilitaireIhm.TRANSPARENCE);	
 		adressePostaleARemplir.setPreferredSize(new Dimension(250,40));
 		adressePostaleARemplir.setMaximumSize(new Dimension(250,40));
 		panel10.add(adressePostaleARemplir);
-		center.add(panel10);
-
-		boutonValider.setPreferredSize(new Dimension(150,50));
-		boutonValider.setMaximumSize(new Dimension(150,50));
+		centerWest.add(panel10);
+		
+		boutonValider.setPreferredSize(new Dimension(250,50));
+		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
-		//center.add(boutonValider);
+		centerWest.add(boutonValider);
+	
+		center.add(centerWest,BorderLayout.WEST);
+
+		JPanel centerEast = new JPanel();
+		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
+		centerEast.setPreferredSize(new Dimension(100,800));
+
+		center.add(centerEast,BorderLayout.EAST);
 
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		this.getContentPane().add(center,BorderLayout.CENTER);

@@ -36,7 +36,7 @@ import metier.Technicien;
  */
 public class FenetreGererDemandesAssignationTech extends JFrame implements ActionListener {
 
-	
+
 	/*
 	 * liste des attributs privés de la fenêtre
 	 */
@@ -217,7 +217,13 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		this.dispose();
 		try {
 			if (arg0.getSource()==boutonValider){
-				new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
+				if(demandeEntree==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucune demande d'assignation");
+					new FenetreGererDemandesAssignationTech(this.getTechnicien());
+				}
+				else{
+					new FenetreGererUneDemandeAssignationTech(this.getTechnicien(),demandeEntree);
+				}
 			}
 			else if (arg0.getSource()==boutonRetour){
 				new MenuPrincipalTech(this.getTechnicien());

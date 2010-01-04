@@ -183,6 +183,9 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			Collection<String> collection = DAOTypeIntervention.getAllTypesIntervention().values();
 			final List<String> listeTypes = new ArrayList<String>(collection.size());
 			listeTypes.addAll(collection);
+			for (int k = 0 ; k<listeTypes.size();k++){
+				System.out.println("listeTypes.get(k)="+listeTypes.get(k));
+			}
 			final String [] tableauTypes = new String[listeTypes.size()+1];
 			tableauTypes[0]="Sélectionnez un type d'intervention";
 			for (int k=0;k<listeTypes.size();k++){
@@ -202,7 +205,6 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 							typeInterventionEntre=null;
 						}
 						else{
-
 							int i = listeTypes.indexOf(chaineSelectionnee);
 							typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(i);
 						}
@@ -219,7 +221,6 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 						new FenetreAuthentification(false);
 					}
 				}
-
 			});
 
 			JPanel panel2 = new JPanel();

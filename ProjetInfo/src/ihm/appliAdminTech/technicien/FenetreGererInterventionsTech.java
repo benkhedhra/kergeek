@@ -215,6 +215,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 			if (arg0.getSource()==boutonValider){
 				if(this.getInterventionEntree()==null){
 					MsgBox.affMsg("Vous n'avez sélectionné aucune intervention");
+					new FenetreGererInterventionsTech(this.getTechnicien());
 				}
 				else{
 					new FenetreGererUneInterventionTech(this.getTechnicien(),this.getInterventionEntree());
@@ -223,7 +224,6 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 			else if (arg0.getSource()==boutonRetour){
 				new MenuPrincipalTech(this.getTechnicien());
 			}
-			new FenetreGererInterventionsTech(this.getTechnicien());
 		} catch (ConnexionFermeeException e) {
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);

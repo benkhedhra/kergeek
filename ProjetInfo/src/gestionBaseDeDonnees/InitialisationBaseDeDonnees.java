@@ -19,7 +19,7 @@ import metier.TypeIntervention;
 public class InitialisationBaseDeDonnees {
 	
 	/**
-	 * Création des tables o seront stockées les informations necessaires au fonctionnement de l'application, 
+	 * Création des tables où seront stockées les informations necessaires au fonctionnement de l'application, 
 	 * et des séquences SQL que celles-ci utilisent.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
