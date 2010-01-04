@@ -10,6 +10,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -45,7 +47,6 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 	public MenuPrincipalAdmin(Administrateur a){
 
-
 		this.setAdministrateur(a);
 		
 		this.setContentPane(new PanneauAdmin());
@@ -53,8 +54,9 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu principal de l'administrateur");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -67,48 +69,47 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
 
-
 			
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
-		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
+		labelAdmin.setPreferredSize(new Dimension(800,100));
+		labelAdmin.setMaximumSize(new Dimension(110,100));
+		boutonDeconnexion.setPreferredSize(new Dimension(250,40));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1100,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(boutonDeconnexion);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,300));
+		center.setPreferredSize(new Dimension(1100,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonComptes.setPreferredSize(new Dimension(210,130));
-		boutonComptes.setMaximumSize(new Dimension(210,130));
+		boutonComptes.setPreferredSize(new Dimension(300,200));
+		boutonComptes.setMaximumSize(new Dimension(300,200));
 		boutonComptes.setFont(UtilitaireIhm.POLICE3);
 		boutonComptes.addActionListener(this);
 		center.add(boutonComptes);
-		boutonStats.setPreferredSize(new Dimension(210,130));
-		boutonStats.setMaximumSize(new Dimension(210,130));
+		boutonStats.setPreferredSize(new Dimension(300,200));
+		boutonStats.setMaximumSize(new Dimension(300,200));
 		boutonStats.setFont(UtilitaireIhm.POLICE3);
 		boutonStats.addActionListener(this);
 		center.add(boutonStats);
-		boutonEtat.setPreferredSize(new Dimension(210,130));
-		boutonEtat.setMaximumSize(new Dimension(210,130));
+		boutonEtat.setPreferredSize(new Dimension(300,200));
+		boutonEtat.setMaximumSize(new Dimension(300,200));
 		boutonEtat.setFont(UtilitaireIhm.POLICE3);
 		boutonEtat.addActionListener(this);
 		center.add(boutonEtat);
 		this.getContentPane().add(center, BorderLayout.CENTER);
 		
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,50));
+		south.setPreferredSize(new Dimension(1100,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonChangeMdp.setPreferredSize(new Dimension(250,30));
-		boutonChangeMdp.setMaximumSize(new Dimension(250,30));
+		boutonChangeMdp.setPreferredSize(new Dimension(300,40));
+		boutonChangeMdp.setMaximumSize(new Dimension(300,40));
 		boutonChangeMdp.setFont(UtilitaireIhm.POLICE3);
 		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);

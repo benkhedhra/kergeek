@@ -306,8 +306,6 @@ public class DAODemandeAssignation {
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-
 		return resul;
 	}
-
 }

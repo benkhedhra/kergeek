@@ -5,6 +5,8 @@ import ihm.UtilitaireIhm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,8 +46,9 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu demander statistiques de l'administrateur");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -72,29 +75,29 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonFrequentation.setPreferredSize(new Dimension(200,120));
-		boutonFrequentation.setMaximumSize(new Dimension(200,120));
+		boutonFrequentation.setPreferredSize(new Dimension(300,200));
+		boutonFrequentation.setMaximumSize(new Dimension(300,200));
 		boutonFrequentation.setFont(UtilitaireIhm.POLICE3);
 		boutonFrequentation.addActionListener(this);
 		center.add(boutonFrequentation);
-		boutonInterventions.setPreferredSize(new Dimension(200,120));
-		boutonInterventions.setMaximumSize(new Dimension(200,120));
+		boutonInterventions.setPreferredSize(new Dimension(300,200));
+		boutonInterventions.setMaximumSize(new Dimension(300,1200));
 		boutonInterventions.setFont(UtilitaireIhm.POLICE3);
 		boutonInterventions.addActionListener(this);
 		center.add(boutonInterventions);
-		boutonUtilisateurs.setPreferredSize(new Dimension(200,120));
-		boutonUtilisateurs.setMaximumSize(new Dimension(200,120));
+		boutonUtilisateurs.setPreferredSize(new Dimension(300,200));
+		boutonUtilisateurs.setMaximumSize(new Dimension(300,200));
 		boutonUtilisateurs.setFont(UtilitaireIhm.POLICE3);
 		boutonUtilisateurs.addActionListener(this);
 		center.add(boutonUtilisateurs);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,40));
+		south.setPreferredSize(new Dimension(1200,800));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(300,50));
+		boutonRetour.setMaximumSize(new Dimension(300,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
@@ -119,5 +122,4 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),true);
 		}
 	}
-
 }
