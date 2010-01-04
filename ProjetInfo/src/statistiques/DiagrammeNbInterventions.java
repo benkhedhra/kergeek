@@ -66,8 +66,8 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		List <List <Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(6);
 		for (List <Integer> duo : liste){
 			dataset.addValue(duo.get(1),series1,m.get(duo.get(0)));
+			System.out.println(m.get(duo.get(0)));
 		}
-		/*TODO vérifier que le.get(i) corresponde au bon type d'intervention*/
 		
 		/*
 			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category1);
@@ -87,19 +87,19 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 
 		// créer la chart...
 		JFreeChart chart = ChartFactory.createBarChart(
-				"Nombre d'interventions par type ces six derniers mois", 	// chart title
-				"Types d'intervention",               // domain axis label
-				"Nombre d'intervention",                  // range axis label
-				dataset,                  // data
+				"Nombre d'interventions par type ces six derniers mois", 	// titre du diagramme
+				"Types d'intervention",               // titre de l'axe des abscisses
+				"Nombre d'intervention",                  // titre de l'axe des coordonnées
+				dataset,                  // données
 				PlotOrientation.VERTICAL, // orientation
-				true,                     // include legend
+				true,                     // présenter la legende
 				true,                     // tooltips?
 				false                     // URLs?
 		);
 
 
 
-		// couleur de l'arrrière plan du chart
+		// couleur de l'arrrière plan du diagramme
 		chart.setBackgroundPaint(Color.white);
 
 		// get a reference to the plot for further customisation...
@@ -129,7 +129,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(
-				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
+				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 3.0)
 		);
 
 		return chart;

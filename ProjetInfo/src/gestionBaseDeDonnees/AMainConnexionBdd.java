@@ -2,29 +2,29 @@ package gestionBaseDeDonnees;
 
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.exceptionsTechniques.PasDansLaBaseDeDonneeException;
 
 import java.sql.SQLException;
+
+import metier.Compte;
 
 public class AMainConnexionBdd {
 
 	
-	public static void main(String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException, ConnexionFermeeException, PasDansLaBaseDeDonneeException {
 
 		//System.out.println("Date courante : " + UtilitaireDate.dateCourante().toString());
 		
-		/*
+		
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.ouvrir();
 		System.out.println("Ouvert");
 		gestionBaseDeDonnees.ConnexionOracleViaJdbc.fermer();
 		System.out.println("Ferme");
 		
+		/*
 		System.out.println(DAOLieu.getStationsEtGarage());
 		System.out.println(DAOLieu.getAllStations());
 		*/
-		
-		/*TODO
-		 * REGLER LE PB DES ZONES GRISES AVEC LES COMBO BOX
-		 */
 
 		/*
 		GregorianCalendar cal =  new GregorianCalendar(2009,5,5);

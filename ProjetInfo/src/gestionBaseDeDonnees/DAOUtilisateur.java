@@ -37,7 +37,7 @@ public class DAOUtilisateur {
 		effectue = updateUtilisateur(utilisateur);
 		return effectue;
 	}
-	
+
 	/**
 	 * Met à jour une instance de la classe {@link Utilisateur} déjà présente dans la base de données.
 	 * @param utilisateur
@@ -52,24 +52,29 @@ public class DAOUtilisateur {
 	public static boolean updateUtilisateur(Utilisateur utilisateur) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Compte SET "  
-					+ "nom = '" + utilisateur.getNom() + "', "
-					+ "prenom = '"+ utilisateur.getPrenom() + "', "
-					+ "adressePostale = '"+ utilisateur.getAdressePostale() + "' "
-					+ "WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
-			);
-			if(utilisateur.isBloque()){
-				s.executeUpdate("UPDATE Compte SET bloque = '1'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
+			if (DAOUtilisateur.getUtilisateurById(utilisateur.getCompte().getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				s.executeUpdate("UPDATE Compte SET "  
+						+ "nom = '" + utilisateur.getNom() + "', "
+						+ "prenom = '"+ utilisateur.getPrenom() + "', "
+						+ "adressePostale = '"+ utilisateur.getAdressePostale() + "' "
+						+ "WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"
+				);
+				if(utilisateur.isBloque()){
+					s.executeUpdate("UPDATE Compte SET bloque = '1'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
+				}
+				else {
+					s.executeUpdate("UPDATE Compte SET bloque = '0'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
+
+				}
+				s.executeUpdate("COMMIT");
+				effectue = true;
+
 			}
 			else {
-				s.executeUpdate("UPDATE Compte SET bloque = '0'WHERE idCompte = '"+ utilisateur.getCompte().getId() + "'"); 
-
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
 			}
-			s.executeUpdate("COMMIT");
-			effectue = true;
-
 		}
 		catch (SQLException e1){
 			System.out.println(e1.getMessage());
@@ -84,6 +89,9 @@ public class DAOUtilisateur {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
@@ -261,7 +269,7 @@ public class DAOUtilisateur {
 		}
 		return listeUtils;
 	}
-	
+
 	/**
 	 * @param u
 	 * @return la dernière date à laquelle l'utilisateur u (en paramètre) a rendu un vélo. 

@@ -99,31 +99,35 @@ public class DAODemandeAssignation {
 	public static boolean updateDemandeAssignation(DemandeAssignation ddeAssignation) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
+			if (DAODemandeAssignation.getDemandeAssignationById(ddeAssignation.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				if (ddeAssignation.isPriseEnCharge()){
+					s.executeUpdate("UPDATE DemandeAssignation SET "
+							+ "dateAssignation = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
+							+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
+							+ "priseEnCharge = '1',"
+							+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
+							+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
+					);
+				}
+				else{
+					s.executeUpdate("UPDATE DemandeAssignation SET "
+							+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
+							+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
+							+ "priseEnCharge = '0',"
+							+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
+							+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
 
-			if (ddeAssignation.isPriseEnCharge()){
-				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
-						+ "priseEnCharge = '1',"
-						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
-						+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
-				);
+					);
+				}
+				s.executeUpdate("COMMIT");
+				effectue=true;
+				System.out.println("Demande d'assignation mise a jour dans la base de donnees");
 			}
-			else{
-				s.executeUpdate("UPDATE DemandeAssignation SET "
-						+ "dateAssignation = + TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-						+ "nombre = '" + ddeAssignation.getNombreVelosVoulusDansLieu() + "',"
-						+ "priseEnCharge = '0',"
-						+ "idLieu = '" + ddeAssignation.getLieu().getId() + "' "
-						+ "WHERE idDemandeA = '"+ ddeAssignation.getId() + "'"
-
-				);
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
 			}
-			s.executeUpdate("COMMIT");
-			effectue=true;
-			System.out.println("Demande d'assignation mise a jour dans la base de donnees");
 		}
 		catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -138,6 +142,9 @@ public class DAODemandeAssignation {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées	

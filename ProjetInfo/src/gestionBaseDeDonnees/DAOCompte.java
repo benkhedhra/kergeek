@@ -18,8 +18,6 @@ import metier.Utilisateur;
  */
 public class DAOCompte {
 
-	//TODO propager les exceptions PasDansLaBaseDeDonneesException
-	
 	/**
 	 * Ajoute une instance de la classe {@link Compte} à la base de données.
 	 * C'est au cours de cette action que les identifiants sont générés à l'aide de séquences SQL. 
@@ -143,32 +141,38 @@ public class DAOCompte {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
+	 * @throws PasDansLaBaseDeDonneeException 
 	 * @see CreationTables
 	 */
-	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Compte SET "
-					+ "motDePasse = '" + compte.getMotDePasse() + "', "
-					+ "adresseMail = '" + compte.getAdresseEmail() + "'"
-					+ " WHERE idCompte = '"+ compte.getId() + "'"
-			);
-			if (compte.isActif()){
-				s.executeUpdate("UPDATE Compte SET actif = 1 WHERE idCompte = '"+ compte.getId() + "'");
-				s.executeUpdate("COMMIT");
-				effectue=true;
+			if (DAOCompte.getCompteById(compte.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				s.executeUpdate("UPDATE Compte SET "
+						+ "motDePasse = '" + compte.getMotDePasse() + "', "
+						+ "adresseMail = '" + compte.getAdresseEmail() + "'"
+						+ " WHERE idCompte = '"+ compte.getId() + "'"
+				);
+				if (compte.isActif()){
+					s.executeUpdate("UPDATE Compte SET actif = 1 WHERE idCompte = '"+ compte.getId() + "'");
+					s.executeUpdate("COMMIT");
+					effectue=true;
+				}
+				else{
+					s.executeUpdate("UPDATE Compte SET actif = 0 WHERE idCompte = '"+ compte.getId() + "'");
+					s.executeUpdate("COMMIT");
+					effectue=true;
+				}
+				System.out.println("Compte mis a jour dans la base de donnees");
 			}
-			else{
-				s.executeUpdate("UPDATE Compte SET actif = 0 WHERE idCompte = '"+ compte.getId() + "'");
-				s.executeUpdate("COMMIT");
-				effectue=true;
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
 			}
-			System.out.println("Compte mis a jour dans la base de donnees");
 		}
-		catch (SQLException e){
-			System.out.println(e.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -180,6 +184,9 @@ public class DAOCompte {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
@@ -305,7 +312,7 @@ public class DAOCompte {
 		}
 		return listeComptes;
 	}
-	
+
 	/**
 	 * Teste si un identifiant correspond bien à un compte actif de la table COMPTE.
 	 * @param id
@@ -335,7 +342,7 @@ public class DAOCompte {
 	public static boolean estDansLaBddUtil (String idUtil) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (estDansLaBddCompte(idUtil) && getCompteById(idUtil).getType()==Compte.TYPE_UTILISATEUR);
 	}
-	
+
 	/**
 	 * cette méthode permet d'obtenir la liste des comptes correspondant à une recherche donnée
 	 * <br>une recherche s'effectue sur un nombre de paramètres allant de 0 à 5
