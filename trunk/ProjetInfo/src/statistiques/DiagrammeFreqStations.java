@@ -56,11 +56,11 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		// étiquettes des lignes...
+		// étiquettes des séries
 		String sortis = "Vélos sortis";
 		String entres = "Vélos entrés";
 
-		// étiquettes des colonnes...
+		// étiquettes des abscisses
 		List<Station> stations = DAOLieu.getAllStations();
 		ArrayList<String> category = new ArrayList<String>(stations.size());
 		for (int i=0;i<stations.size();i++){
