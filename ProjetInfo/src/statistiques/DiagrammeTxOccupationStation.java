@@ -130,21 +130,21 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		final XYSeries series = new XYSeries("Taux d'occupation");
 
 		// génération des données de la série du nombre de vélos dans la Station
-		float taux = DAOLieu.calculerTx(station);
+		float taux = DAOLieu.calculerTx(station)*100;
 		series.add(heureencours, taux);
 		series.add(heure1, (taux 
-				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 1)*100)/station.getCapacite())
-				- ((DAOEmprunt.NombreVelosRendusHeures(station, 1)*100)/station.getCapacite())
+				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 1)
+				- DAOEmprunt.NombreVelosRendusHeures(station, 1))*(100/station.getCapacite()))
 		)
 		);
 		series.add(heure2, (taux 
-				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 2)*100)/station.getCapacite())
-				- ((DAOEmprunt.NombreVelosRendusHeures(station, 2)*100)/station.getCapacite())
+				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 2)
+				- DAOEmprunt.NombreVelosRendusHeures(station, 2))*(100/station.getCapacite()))
 		)
 		);
 		series.add(heure3, (taux 
-				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 2)*100)/station.getCapacite())
-				- ((DAOEmprunt.NombreVelosRendusHeures(station, 2)*100)/station.getCapacite())
+				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 2)
+				- DAOEmprunt.NombreVelosRendusHeures(station, 2))*(100/station.getCapacite()))
 		)
 		);
 
