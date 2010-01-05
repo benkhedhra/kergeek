@@ -22,20 +22,41 @@ import javax.swing.JPanel;
 import metier.Administrateur;
 import metier.Compte;
 
+/**
+ * FenetreRechercherCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient dans 2 contextes différents
+ * <br>un Administrateur a cliqué sur "Afficher informations sur un compte" dans son {@link MenuGererComptesAdmin}
+ * <br>un Administrateur a cliqué sur "Afficher statistiques sur un utilisateur" dans son {@link MenuDemanderStatsAdmin}
+ * <br>il peut aussi résilier ce compte
+ * @author KerGeek
+ */
 public class FenetreRechercherCompteAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * booléen indiquant si l'on se trouve dans un contexte de recherche de statistiques sur les emprunts d'un Utilisateur ou non
+	 */
 	private boolean stat;
+	
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Rechercher par : ");
+	
+	/**
+	 * 
+	 */
 	private JLabel labelQualite = new JLabel("Qualité");
-
-
 
 	private JLabel labelId = new JLabel("Identifiant");
 	private TextFieldLimite idARemplir = new TextFieldLimite(4,"");
@@ -49,12 +70,18 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
 	private TextFieldLimite adresseEMailARemplir = new TextFieldLimite(50,"");
 
+	/**
+	 * 5 paramètres indiquant les champs remplis sur lesquels vont s'effectuer la recherche
+	 */
 	private int typeEntre;
 	private String idEntre;
 	private String nomEntre;
 	private String prenomEntre;
 	private String adresseEMailEntree;
 
+	/**
+	 * 2 JButton permettant à l'Administrateur de valider pour lancer la recherche ou de revenir à son menu principal
+	 */
 	private JButton boutonValider = new JButton("Lancer la recherche");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 

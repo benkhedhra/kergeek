@@ -10,13 +10,16 @@ import javax.swing.JPanel;
 
 public class PanneauAdmin extends JPanel {
 
-	/**
-	 * 
+	/*
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public void paintComponent(Graphics g){
-
+		/**
+		 * méthode qui sera appelé par défaut à chaque construction d'un nouveau panneau et qui peint l'image panneauAdministrateur.jpg en image de fond
+		 * @param g 
+		 */
 		try {
 			Image img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/ressources/panneauAdministrateur.jpg"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);

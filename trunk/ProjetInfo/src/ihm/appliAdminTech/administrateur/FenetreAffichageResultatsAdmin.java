@@ -2,6 +2,7 @@ package ihm.appliAdminTech.administrateur;
 
 import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAOUtilisateur;
+import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
@@ -15,6 +16,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,9 +25,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Garage;
 import metier.Lieu;
 import metier.Sortie;
 import metier.Station;
+import metier.Velo;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
@@ -252,18 +256,54 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			FenetreStationsSurSousAdmin f2 = null;
 			//s'il a directement entré un lieu pour voir son état
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
-				//dans tous les cas on trace le graphe indiquant le nombre de vélos présents
 				f1 = (FenetreEtatLieuAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosLieu(f1.getLieuEntre());
-				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
-				panel1.add(lblChart1);
 				//System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
 				if(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE)){
-					//on ne trace le graphe des taux d'occupation que si le lieu est une station
+					//on trace le graphe indiquant le nombre de vélos présents
+					diag1 = new DiagrammeNbVelosLieu(f1.getLieuEntre());
+					lblChart1.setIcon(new ImageIcon(diag1.getImage()));
+					panel1.add(lblChart1);
+					
+					//on trace le graphe des taux d'occupation
 					//calculer le taux d'occupation du garage n'a pas de sens car sa capacité est grande
 					diag2 = new DiagrammeTxOccupationStation((Station)f1.getLieuEntre());
 					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 					panel2.add(lblChart2);
+				}
+				else{
+					//il s'agit du garage
+					JLabel label1 = new JLabel("Nombre de vélos présents au garage");
+					List<Velo> listeVelos = DAOVelo.getVelosByLieu(Garage.getInstance());
+					JLabel label2 = new JLabel(""+listeVelos.size());
+					JLabel label3 = new JLabel("Nombre de vélos en panne au garage");
+					int nbVelosEnPanne=0;
+					for(Velo velo : listeVelos){
+						if(velo.isEnPanne()){
+							nbVelosEnPanne++;
+						}
+					}
+					JLabel label4 = new JLabel(""+nbVelosEnPanne);
+					JLabel label5 = new JLabel("Nombre de vélos au garage et assignables");
+					JLabel label6 = new JLabel(""+(listeVelos.size()-nbVelosEnPanne));
+					JLabel label7 = new JLabel("Capacité");
+					JLabel label8 = new JLabel(""+Garage.getInstance().getCapacite());
+					label1.setPreferredSize(new Dimension(500,40));
+					label2.setPreferredSize(new Dimension(500,40));
+					label3.setPreferredSize(new Dimension(500,40));
+					label4.setPreferredSize(new Dimension(500,40));
+					label5.setPreferredSize(new Dimension(500,40));
+					label6.setPreferredSize(new Dimension(500,40));
+					label7.setPreferredSize(new Dimension(500,40));
+					label8.setPreferredSize(new Dimension(500,40));
+					center.add(label1);
+					center.add(label2);
+					center.add(label3);
+					center.add(label4);
+					center.add(label5);
+					center.add(label6);
+					center.add(label7);
+					center.add(label8);
+					
 				}
 			}
 			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
