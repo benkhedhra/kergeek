@@ -1,7 +1,9 @@
 package metier;
 
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * La classe UtilitaireDate rassemble l'ensemble des méthodes static relatives à l'utilisation
@@ -204,6 +206,17 @@ public class UtilitaireDate {
 		stringDate = numeroJour+"-"+numeroMois+"-"+numeroAnnee+" "+numeroHeure+":"+numeroMinute;
 		return stringDate;
 		
+	}
+
+	public static String Presenter(Date date) {
+		
+		// déclaration d'un calendrier
+		GregorianCalendar gCal = new GregorianCalendar();
+		// initialise le calendrier à la date
+		gCal.setTime(date);
+		
+		String dateAPresenter =gCal.get(Calendar.DATE)+" "+gCal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH)+" "+gCal.get(Calendar.YEAR);
+		return dateAPresenter;
 	}
 
 

@@ -4,7 +4,11 @@ import gestionBaseDeDonnees.DAOEmprunt;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -31,53 +35,85 @@ import org.jfree.ui.ApplicationFrame;
 public class DiagrammeNbVelosStation extends ApplicationFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	private JFreeChart chart;
-	
-	public DiagrammeNbVelosStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
+	private JFreeChart chart;
+
+	public DiagrammeNbVelosStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		super("");
-		chart = createChart(station);
+		this.chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
 		chartPanel.setPreferredSize(new Dimension(600, 600));
 		this.setContentPane(chartPanel);
 
 	}
 
+
 	public Image getImage() {
 		return this.chart.createBufferedImage(600, 600);
 	}
-	
-	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
-		// create subplot
+	private JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+
+
+
+		//initialisation de l'axe des ordonnées
+		final NumberAxis axeVelo = new NumberAxis("nombre de vélos"); // titre
+		axeVelo.setLabelFont(new Font("Arial Narrow", Font.BOLD,16)); // police
+
+		// création du sous-dessin
 		final XYSeriesCollection data1 = createDataset(station);
 		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
-		final NumberAxis axeVelo = new NumberAxis("nombre de vélos");
 		final XYPlot subplot1 = new XYPlot(data1, null, axeVelo, renderer1);
 		subplot1.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
 
+		// initialisation de l'axe des abscisses
+		NumberAxis axeHeures = new NumberAxis("Heure"); // titre
+		axeHeures.setAutoRangeIncludesZero(false); // désactivation de l'obligation d'inclure le zéro sur l'axe
+		axeHeures.setTickUnit(new NumberTickUnit(1)); // graduation
+		axeHeures.setLabelFont(new Font("Arial Narrow", Font.BOLD,16)); // police
 
-
-		// parent plot...
-		NumberAxis axeHeures = new NumberAxis("Heure");
-		axeHeures.setAutoRangeIncludesZero(false);
-		axeHeures.setTickUnit(new NumberTickUnit(1));
+		// création du dessin
 		final CombinedDomainXYPlot plot = new CombinedDomainXYPlot(axeHeures);
 		plot.setGap(10.0);
-		// add the subplots...
+
+		// ajout du sous-dessin
 		plot.add(subplot1, 1);
+
+		//orientation du dessin
 		plot.setOrientation(PlotOrientation.VERTICAL);
 
-		// return a new chart containing the overlaid plot...
-		return new JFreeChart("Nombre de vélos de la station " + station.getAdresse()+ " le " + UtilitaireDate.dateCourante(),
-				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
+		// création du graphique
+		JFreeChart chart = new JFreeChart(
+				"Nombre de vélos de la station "+station.getAdresse()+" le "
+				+UtilitaireDate.Presenter(UtilitaireDate.dateCourante()), // titre
+				JFreeChart.DEFAULT_TITLE_FONT, //police
+				plot, 
+				true);
 
+		// couleurs des séries
+		GradientPaint gp0 = new GradientPaint(
+				0.0f, 0.0f, Color.green, 
+				0.0f, 0.0f, new Color(0, 64, 0)
+		);
+		GradientPaint gp1 = new GradientPaint(
+				0.0f, 0.0f, Color.red, 
+				0.0f, 0.0f, new Color(64, 0, 0)
+		);
+		renderer1.setSeriesPaint(0, gp0);
+		renderer1.setSeriesPaint(1, gp1);
+
+		// epaisseur de la séries concernant la capacité
+		renderer1.setSeriesStroke(1, new BasicStroke(1.8f));
+
+		// renvoie un JFreeChart comprenant le graphique résultant de la superposition
+		return chart;
 	}
 
 
+	// Création des données
 	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
+		// abscisses
 		GregorianCalendar calendar = new GregorianCalendar(); 
 		int heureencours = calendar.get(Calendar.HOUR_OF_DAY);
 		calendar.add(Calendar.HOUR_OF_DAY, -1);
@@ -87,25 +123,36 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		calendar.add(Calendar.HOUR_OF_DAY, -1);
 		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
 
+		// étiquette de la série du nombre de vélos dans la Station
 		final XYSeries series = new XYSeries("Nombre de vélos");
+
+		// génération des données de la série du nombre de vélos dans la Station
+		int nbVelos = DAOVelo.getVelosByLieu(station).size();
+		series.add(heureencours, nbVelos);
+		series.add(heure1, nbVelos
+				+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
+				- (DAOEmprunt.NombreVelosRendusHeures(station, 1))
+		);
+		series.add(heure2,  nbVelos
+				+ (DAOEmprunt.NombreVelosSortisHeures(station, 2))
+				- (DAOEmprunt.NombreVelosRendusHeures(station, 2))
+		);
+		series.add(heure3,  nbVelos
+				+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
+				- (DAOEmprunt.NombreVelosRendusHeures(station, 3))
+		);
+
+		// étiquette de la série correspondant à la Capacité de la Station
+		final XYSeries series2 = new XYSeries("Capacité de la station");
 		
-			series.add(heureencours, DAOVelo.getVelosByLieu(station).size());
-			series.add(heure1, DAOVelo.getVelosByLieu(station).size()
-					+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
-					- (DAOEmprunt.NombreVelosRendusHeures(station, 1)));
-			series.add(heure2,  DAOVelo.getVelosByLieu(station).size()
-					+ (DAOEmprunt.NombreVelosSortisHeures(station, 2))
-					- (DAOEmprunt.NombreVelosRendusHeures(station, 2)));
-			series.add(heure3,  DAOVelo.getVelosByLieu(station).size()
-					+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
-					- (DAOEmprunt.NombreVelosRendusHeures(station, 3)));
-			
-		final XYSeries series2 = new XYSeries("Capacité de l'endroit");
+		// données de la série correspondant à la Capacité de la Station
 		series2.add(heureencours, station.getCapacite());
 		series2.add(heure3, station.getCapacite());
 		series2.add(heure2, station.getCapacite());
 		series2.add(heure1, station.getCapacite());
 
+
+		// ajout des 2 séries à la collection renvoyée
 		final XYSeriesCollection collection = new XYSeriesCollection();
 		collection.addSeries(series);
 		collection.addSeries(series2);
