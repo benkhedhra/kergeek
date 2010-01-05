@@ -55,7 +55,7 @@ public class InitialisationBaseDeDonnees {
 			s.executeUpdate ("CREATE SEQUENCE seqUtilisateur INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate ("CREATE SEQUENCE seqTechnicien INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE Compte (idCompte char(4),	"+
+					"CREATE TABLE Compte (idCompte varchar2(4),	"+
 					"motDePasse varchar2(20) NOT NULL,"+
 					"nom varchar2(20),"+
 					"prenom varchar2(20),"+
@@ -70,7 +70,7 @@ public class InitialisationBaseDeDonnees {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqTypeIntervention INCREMENT BY 1 START WITH 3 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE TypeIntervention (idTypeIntervention char(4)," +
+					"CREATE TABLE TypeIntervention (idTypeIntervention varchar2(4)," +
 					"description varchar2(250)," +
 			"CONSTRAINT pk_TypeIntervention  PRIMARY KEY(idTypeIntervention))");
 
@@ -78,9 +78,9 @@ public class InitialisationBaseDeDonnees {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE Intervention (idIntervention char(4)," +
+					"CREATE TABLE Intervention (idIntervention varchar2(4)," +
 					"dateIntervention date NOT NULL," +
-					"idTypeIntervention char(4)," +
+					"idTypeIntervention varchar2(4)," +
 					"idVelo varchar2(4),"+
 					"CONSTRAINT pk_Intervention  PRIMARY KEY(idIntervention),"+
 					"CONSTRAINT fk_Inter_TypeInter FOREIGN KEY(idTypeIntervention) REFERENCES TypeIntervention," +
@@ -90,12 +90,12 @@ public class InitialisationBaseDeDonnees {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqDemandeIntervention INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE DemandeIntervention (idDemandeI char(4)," +
+					"CREATE TABLE DemandeIntervention (idDemandeI varchar2(4)," +
 					"dateDemandeI date NOT NULL," +
 					"idVelo varchar2(4) NOT NULL,"+
-					"idCompte char(4) NOT NULL,"+
+					"idCompte varchar2(4) NOT NULL,"+
 					"idLieu varchar2(4),"+
-					"idIntervention char(4),"+
+					"idIntervention varchar2(4),"+
 					"CONSTRAINT pk_DemandeIntervention  PRIMARY KEY(idDemandeI),"+
 					"CONSTRAINT fk_DemandeIntervention_Velo FOREIGN KEY(idVelo) REFERENCES Velo," +
 					"CONSTRAINT fk_DemandeI_Intervention FOREIGN KEY(idIntervention) REFERENCES Intervention," +
@@ -105,7 +105,7 @@ public class InitialisationBaseDeDonnees {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqDemandeAssignation INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE DemandeAssignation (idDemandeA char(4),	"+
+					"CREATE TABLE DemandeAssignation (idDemandeA varchar2(4),	"+
 					"dateAssignation date NOT NULL,"+
 					"priseEnCharge number,"+
 					"nombre number(2),"+
@@ -116,12 +116,12 @@ public class InitialisationBaseDeDonnees {
 			s.executeUpdate (
 			"CREATE SEQUENCE seqEmprunt INCREMENT BY 1 START WITH 1 NOMAXVALUE MINVALUE 0");
 			s.executeUpdate(
-					"CREATE TABLE Emprunt (idEmprunt char(4)," +
+					"CREATE TABLE Emprunt (idEmprunt varchar2(4)," +
 					"dateEmprunt date NOT NULL, " +
 					"dateRetour date, " +
 					"idLieuEmprunt varchar2(4) NOT NULL," +
 					"idLieuRetour varchar2(4)," +
-					"idCompte char(4)," +
+					"idCompte varchar2(4)," +
 					"idVelo varchar2(4)," +
 					"CONSTRAINT pk_Empunt  PRIMARY KEY(idEmprunt)," +
 					"CONSTRAINT fk_Emprunt_Compte FOREIGN KEY(idCompte) REFERENCES Compte," +

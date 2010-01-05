@@ -145,7 +145,8 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 								while(chaineSelectionnee.charAt(k)!=' '){
 									k++;
 								}
-								String idCompteEntre = chaineSelectionnee.substring(0,k+1);
+								String idCompteEntre = chaineSelectionnee.substring(0,k);
+								System.out.println("idCompteEntre="+idCompteEntre);
 								compteEntre = DAOCompte.getCompteById(idCompteEntre);
 								System.out.println("idCompteEntre = "+idCompteEntre + " - "+compteEntre.isActif());
 							}
