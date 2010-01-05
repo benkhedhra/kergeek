@@ -34,27 +34,22 @@ public class DAOVelo {
 	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
 		try{
-			if (DAOVelo.getVeloById(velo.getId()) != null){
-				ConnexionOracleViaJdbc.ouvrir();
-				Statement s = ConnexionOracleViaJdbc.createStatement();
-				ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
-				if (res.next()){
-					String id = res.getString("id");
-					velo.setId(id);
-					if (velo.isEnPanne()){
-						s.executeUpdate("INSERT into Velo values ('" 
-								+ velo.getId() + "', '1','"+ velo.getLieu().getId() + "')");
-						effectue=true;
-					}
-					else{
-						s.executeUpdate("INSERT into Velo values ('" 
-								+ velo.getId() + "', '0','"+ velo.getLieu().getId() + "')");
-						effectue=true;
-					}
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
+			if (res.next()){
+				String id = res.getString("id");
+				velo.setId(id);
+				if (velo.isEnPanne()){
+					s.executeUpdate("INSERT into Velo values ('" 
+							+ velo.getId() + "', '1','"+ velo.getLieu().getId() + "')");
+					effectue=true;
 				}
-			}
-			else {
-				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
+				else{
+					s.executeUpdate("INSERT into Velo values ('" 
+							+ velo.getId() + "', '0','"+ velo.getLieu().getId() + "')");
+					effectue=true;
+				}
 			}
 		}
 		catch (SQLException e1){
@@ -70,9 +65,6 @@ public class DAOVelo {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
-		}
-		catch(PasDansLaBaseDeDonneeException e3){
-			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
@@ -94,17 +86,22 @@ public class DAOVelo {
 		boolean effectue = false;
 		try{
 			Boolean b = false;
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			s.executeUpdate("UPDATE Velo SET "
-					+ "idVelo = '" + velo.getId() + "', "
-					+ "enPanne = '" + -b.compareTo(velo.isEnPanne()) + "', "
-					+ "idLieu = '" + velo.getLieu().getId() + "'"
-					+ " WHERE idVelo = '"+ velo.getId() + "'"
-			);
-			s.executeUpdate("COMMIT");
-			effectue=true;
+			if (DAOVelo.getVeloById(velo.getId()) != null){
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+				s.executeUpdate("UPDATE Velo SET "
+						+ "idVelo = '" + velo.getId() + "', "
+						+ "enPanne = '" + -b.compareTo(velo.isEnPanne()) + "', "
+						+ "idLieu = '" + velo.getLieu().getId() + "'"
+						+ " WHERE idVelo = '"+ velo.getId() + "'"
+				);
+				s.executeUpdate("COMMIT");
+				effectue=true;
 
+			}
+			else {
+				throw new PasDansLaBaseDeDonneeException("Ne figure pas dans la base de données, mise à jour impossible");
+			}
 		}
 		catch (SQLException e1){
 			System.out.println(e1.getMessage());
@@ -119,6 +116,9 @@ public class DAOVelo {
 			else{
 				throw new NullPointerException(e2.getMessage());
 			}
+		}
+		catch(PasDansLaBaseDeDonneeException e3){
+			System.out.println(e3.getMessage());
 		}
 		finally{
 			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
