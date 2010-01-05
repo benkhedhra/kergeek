@@ -26,7 +26,8 @@ public class MonJTable extends JTable {
 	
 	/**
 	 * TODO finir javadoc
-	 * Constructeur
+	 * Constructeur d'un MonJTable à partir d'un Object[][] : les données, 
+	 * et d'un Object[] : les noms des différentes colonnes.
 	 * @param rowData
 	 * @param columnNames
 	 */
