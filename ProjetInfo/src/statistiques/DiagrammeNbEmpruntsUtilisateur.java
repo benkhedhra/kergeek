@@ -9,6 +9,7 @@ import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -59,92 +60,94 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 		Calendar calendar = Calendar.getInstance(); 
 		int moisencours = calendar.get(Calendar.MONTH);
 		calendar.add(Calendar.MONTH, -1);
-		int moisent1 = calendar.get(Calendar.MONTH);
+		int moisAnt1 = calendar.get(Calendar.MONTH);
 		calendar.add(Calendar.MONTH, -1);
-		int moisent2 = calendar.get(Calendar.MONTH);
+		int moisAnt2 = calendar.get(Calendar.MONTH);
 		calendar.add(Calendar.MONTH, -1);
-		int moisent3 = calendar.get(Calendar.MONTH);
+		int moisAnt3 = calendar.get(Calendar.MONTH);
 		calendar.add(Calendar.MONTH, -1);
-		int moisent4 = calendar.get(Calendar.MONTH);
+		int moisAnt4 = calendar.get(Calendar.MONTH);
 		calendar.add(Calendar.MONTH, -1);
-		int moisent5 = calendar.get(Calendar.MONTH);
-		calendar.add(Calendar.MONTH, -1);
-		int moisent6 = calendar.get(Calendar.MONTH);
+		int moisAnt5 = calendar.get(Calendar.MONTH);
 
 
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("statistiques/utils",Locale.FRENCH);
-		
+
 		String nomMoisEnCours = resourceBundle.getString("mois."+moisencours);
-
-		String nomMoisEnCours1 = resourceBundle.getString("mois."+moisent1);
-		String nomMoisEnCours2 = resourceBundle.getString("mois."+moisent2);
-		String nomMoisEnCours3 = resourceBundle.getString("mois."+moisent3);
-		String nomMoisEnCours4 = resourceBundle.getString("mois."+moisent4);
-		String nomMoisEnCours5 = resourceBundle.getString("mois."+moisent5);
-		String nomMoisEnCours6 = resourceBundle.getString("mois."+moisent6);
+		String nomMoisAnt1 = resourceBundle.getString("mois."+moisAnt1);
+		String nomMoisAnt2 = resourceBundle.getString("mois."+moisAnt2);
+		String nomMoisAnt3 = resourceBundle.getString("mois."+moisAnt3);
+		String nomMoisAnt4 = resourceBundle.getString("mois."+moisAnt4);
+		String nomMoisAnt5 = resourceBundle.getString("mois."+moisAnt5);
 
 
 
-		// créer la dataset...
+
+		//// création des données
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-		dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 6).get(5), emprunts, nomMoisEnCours6);
-		dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 5).get(4), emprunts, nomMoisEnCours5);
-		dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 4).get(3), emprunts, nomMoisEnCours4);
-		dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 3).get(2), emprunts, nomMoisEnCours3);
-		dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 2).get(1), emprunts, nomMoisEnCours2);
-		dataset.addValue(DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 1).get(0), emprunts, nomMoisEnCours1);
+		List<Integer> liste = DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 5);
+		dataset.addValue(liste.get(5), emprunts, nomMoisAnt5);
+		dataset.addValue(liste.get(4), emprunts, nomMoisAnt4);
+		dataset.addValue(liste.get(3), emprunts, nomMoisAnt3);
+		dataset.addValue(liste.get(2), emprunts, nomMoisAnt2);
+		dataset.addValue(liste.get(1), emprunts, nomMoisAnt1);
+		dataset.addValue(liste.get(0), emprunts, nomMoisEnCours);
 
 		return dataset;
 
 	}
 
+
 	private static JFreeChart createChart(CategoryDataset dataset,Utilisateur u) {
 
 		// créer le graphique
 		JFreeChart chart = ChartFactory.createBarChart(
-				("Nombre d'emprunts de l'utilisateur "+ u.getPrenom()+" " +u.getNom() + " pour les six derniers mois"),
-				"6 derniers mois",               // domain axis label
-				"Nombre d' emprunts",        // range axis label
-				dataset,                  // data
-				PlotOrientation.VERTICAL, // orientation
-				true,                     // include legend
-				true,                     // tooltips?
-				false                     // URLs?
+				("Nombre d'emprunts de l'utilisateur "+ u.getPrenom()+
+						" " +u.getNom() + " pour les six derniers mois"), // titre du graphique
+						"6 derniers mois",        // nom de l'axe des abscisses
+						"Nombre d' emprunts",     // nom de l'axe des ordonnées
+						dataset,                  // données
+						PlotOrientation.VERTICAL, // orientation
+						true,                     // inclure la légende
+						true,                     // TODO tooltips?
+						false                     // TODO URLs?
 		);
 
 
-		// customisation de l'environnement du graphique
+		// couleur de l'arrière plan du graphique
 		chart.setBackgroundPaint(Color.white);
 
-		// get a reference to the plot for further customisation...
+		// customisation de l'environnement du graphique
 		CategoryPlot plot = chart.getCategoryPlot();
 		plot.setBackgroundPaint(Color.lightGray);
 		plot.setDomainGridlinePaint(Color.white);
 		plot.setDomainGridlinesVisible(true);
 		plot.setRangeGridlinePaint(Color.white);
 
-		// set the range axis to display integers only...
+		// réglage de l'axe des abscisses pour qu'il ne présente que des entiers
 		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-		// disable bar outlines...
+		// désactivation des bar outlines
 		BarRenderer renderer = (BarRenderer) plot.getRenderer();
 		renderer.setDrawBarOutline(false);
 
-		// set up gradient paints for series...
+		// définitions de la couleur de la série
 		GradientPaint gp0 = new GradientPaint(
 				0.0f, 0.0f, Color.blue, 
 				0.0f, 0.0f, new Color(0, 0, 64)
 		);
-
 		renderer.setSeriesPaint(0, gp0);
 
+		// orientation de la légende
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(
 				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
 		);
+		
+		// Réglage de la taille des battons à travers l'espace entre 2 batons
+		domainAxis.setCategoryMargin(0.6);
 
 		return chart;
 

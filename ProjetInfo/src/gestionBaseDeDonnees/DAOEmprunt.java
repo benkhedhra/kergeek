@@ -455,6 +455,17 @@ public class DAOEmprunt {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
 			ResultSet res = null;
+
+			// Mois en cours
+			res = s.executeQuery("Select count(*) as nombreEmpruntParMois from Emprunt WHERE idCompte= '" + utilisateur.getCompte().getId() + "' and dateEmprunt <= TO_DATE('" + UtilitaireDate.conversionPourSQL(UtilitaireDate.dateCourante()) + "','DD-MM-YYYY HH24:MI') and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(UtilitaireDate.initialisationDebutMois(UtilitaireDate.dateCourante())) + "','DD-MM-YYYY HH24:MI')");
+			if (res.next()){
+				liste.add(res.getInt("nombreEmpruntParMois"));
+			}
+			else{
+				liste.add(0);
+			}
+			
+			
 			for (int i=1; i <= nbMois; i++){
 				java.sql.Date dateSqlSupTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i);
 				java.sql.Date dateSqlSup = UtilitaireDate.initialisationDebutMois(dateSqlSupTemp);
