@@ -29,8 +29,6 @@ import org.jfree.ui.ApplicationFrame;
 public class DiagrammeNbInterventions extends ApplicationFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	//TODO javadoc
 
 	private JFreeChart chart;
 	
@@ -56,40 +54,26 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		
 		// étiquettes des lignes...
 		String series1 = "nombre d'interventions de ce type";
-
-		Map<Integer, String> m = DAOTypeIntervention.getAllTypesIntervention();
-		// étiquettes des colonnes...
-
-
-		// créer la dataset...
 		
+		// création des données
+		Map<Integer, String> m = DAOTypeIntervention.getAllTypesIntervention();
 		List <List <Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(6);
 		for (List <Integer> duo : liste){
 			dataset.addValue(duo.get(1),series1,m.get(duo.get(0)));
 			System.out.println(m.get(duo.get(0)));
 		}
 		
-		/*
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(2), series1, category1);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(3), series1, category2);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(4), series1, category3);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(5), series1, category4);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(6), series1, category5);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(7), series1, category6);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(0), series1, category7);
-			dataset.addValue(DAOIntervention.getNombresVelosParTypeIntervention(6).get(1), series1, category8);
-*/
 		return dataset;
 
 	}
 
 	private static JFreeChart createChart(CategoryDataset dataset) {
 
-		// créer la chart...
+		// créer le graphique
 		JFreeChart chart = ChartFactory.createBarChart(
 				"Nombre d'interventions par type ces six derniers mois", 	// titre du diagramme
-				"Types d'intervention",               // titre de l'axe des abscisses
-				"Nombre d'intervention",                  // titre de l'axe des coordonnées
+				"Types d'intervention",               // nom de l'axe des abscisses
+				"Nombre d'intervention",                  // nom de l'axe des coordonnées
 				dataset,                  // données
 				PlotOrientation.VERTICAL, // orientation
 				true,                     // présenter la legende
@@ -98,39 +82,40 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		);
 
 
-
-		// couleur de l'arrrière plan du diagramme
+		
+		// couleur de l'arrière plan du graphique
 		chart.setBackgroundPaint(Color.white);
 
-		// get a reference to the plot for further customisation...
+		// customisation de l'environnement du graphique
 		CategoryPlot plot = chart.getCategoryPlot();
 		plot.setBackgroundPaint(Color.lightGray);
 		plot.setDomainGridlinePaint(Color.white);
 		plot.setDomainGridlinesVisible(true);
 		plot.setRangeGridlinePaint(Color.white);
 
-		// set the range axis to display integers only...
+		// réglage de l'axe des abscisses pour qu'il ne présente que des entiers
 		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-		// disable bar outlines...
+		// désactivation des bar outlines
 		BarRenderer renderer = (BarRenderer) plot.getRenderer();
 		renderer.setDrawBarOutline(false);
 
-		// set up gradient paints for series...
+		// définitions de la couleur de la série
 		GradientPaint gp0 = new GradientPaint(
 				0.0f, 0.0f, Color.blue, 
 				0.0f, 0.0f, new Color(0, 0, 64)
 		);
-
-
 		renderer.setSeriesPaint(0, gp0);
 
-
+		// orientation de la légende
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(
 				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 3.0)
 		);
+		
+		// Réglage de la taille des battons à travers l'espace entre 2 batons
+		domainAxis.setCategoryMargin(0.6);
 
 		return chart;
 

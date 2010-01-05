@@ -67,7 +67,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			category.add(DAOLieu.getLieuById(stations.get(i).getId()).getAdresse());
 		}
 		
-		// Création des données
+		// création des données
 		int nbJoursEntre=365;
 		if (periodeEntree.equals("30 derniers jours")){
 			nbJoursEntre = 30;
@@ -92,20 +92,20 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	private static JFreeChart createChart(CategoryDataset dataset,String periodeEntree) {
 
-		// créer le chart
+		// créer le graphique
 		JFreeChart chart = ChartFactory.createBarChart(
 				("Fréquentation Stations sur les "+periodeEntree),
-				"Stations",               // domain axis label
-				"Nombre de vélos",        // range axis label
-				dataset,                  // data
+				"Stations",               // nom de l'axe des abscisses
+				"Nombre de vélos",        // nom de l'axe des ordonnées
+				dataset,                  // données
 				PlotOrientation.VERTICAL, // orientation
-				true,                     // include legend
-				true,                     // tooltips?
-				false                     // URLs?
+				true,                     // présenter la légende
+				true,                     // TODO tooltips? 
+				false                     // TODO URLs? 
 		);
 
 
-		// couleur de l'arrière plan du chart
+		// couleur de l'arrière plan du graphique
 		chart.setBackgroundPaint(Color.white);
 
 		// customisation de l'environnement du graphique
@@ -115,15 +115,18 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		plot.setDomainGridlinesVisible(true);
 		plot.setRangeGridlinePaint(Color.white);
 
-		// Réglage de l'axe des abscisses pour qu'il ne présente que des entiers
+		// réglage de l'axe des abscisses pour qu'il ne présente que des entiers
 		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-		// Desactivation des bar outlines...
+		// désactivation des bar outlines
 		BarRenderer renderer = (BarRenderer) plot.getRenderer();
 		renderer.setDrawBarOutline(false);
+		
+		// suppression de l'espace entre les 2 bars des 2 séries pour une même station
+		renderer.setItemMargin(0.0);
 
-		// Définitions des couleurs des 2 series
+		//  définitions des couleurs des 2 séries
 		GradientPaint gp0 = new GradientPaint(
 				0.0f, 0.0f, Color.green, 
 				0.0f, 0.0f, new Color(0, 64, 0)
@@ -135,10 +138,8 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		renderer.setSeriesPaint(0, gp0);
 		renderer.setSeriesPaint(1, gp1);
 
-		
+		// orientation de la légende
 		CategoryAxis domainAxis = plot.getDomainAxis();
-		
-		//Orientation de la légende
 		domainAxis.setCategoryLabelPositions(
 				CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
 		);
