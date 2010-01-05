@@ -50,6 +50,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	 * attributs privés : composants de la fenêtre
 	 */
 	private Utilisateur utilisateur;
+	private String idVeloAEmprunte;
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JLabel labelVelo = new JLabel ("Veuillez entrer l'identifiant du vélo emprunté");
@@ -175,7 +176,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 				else{
 					
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
-					
+					this.idVeloAEmprunte = velo.getId();
 					Station station = (Station) velo.getLieu();
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
@@ -210,9 +211,13 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 			} catch (CompteBloqueException e) {
 				MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
 			} catch (UnsupportedEncodingException e) {
-				MsgBox.affMsg(e.getMessage());
+				System.out.println("UnsupportedEncodingException : " + e.getMessage());
+				new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+idVeloAEmprunte +" de son emplacement. Merci et à bientôt ! ");
+				System.out.println("L'emprunt a bien été enregistré");
 			} catch (MessagingException e) {
-				MsgBox.affMsg(e.getMessage());
+				System.out.println(e.getMessage());
+				new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+idVeloAEmprunte +" de son emplacement. Merci et à bientôt ! ");
+				System.out.println("L'emprunt a bien été enregistré");
 			}
 			catch (ConnexionFermeeException e3){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");

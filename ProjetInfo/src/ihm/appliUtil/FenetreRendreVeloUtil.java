@@ -315,11 +315,9 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentificationUtil(false);
 		} catch (UnsupportedEncodingException e) {
-			MsgBox.affMsg("UnsupportedEncodingException : "+e.getMessage());
-			new FenetreAuthentificationUtil(false);
+			System.out.println("UnsupportedEncodingException : " + e.getMessage());
 		} catch (MessagingException e) {
-			MsgBox.affMsg("MessagingException : "+e.getMessage());
-			new FenetreAuthentificationUtil(false);
+			System.out.println("MessagingException : " + e.getMessage());
 		}
 	}
 }
