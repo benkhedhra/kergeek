@@ -115,6 +115,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		bouton1.setPreferredSize(new Dimension(200,100));
 		bouton1.setMaximumSize(new Dimension(200,100));
 		bouton1.setFont(UtilitaireIhm.POLICE3);
+		bouton1.setBackground(UtilitaireIhm.FONDBOUTON);
 		bouton1.addActionListener(this);
 		center.add(bouton1);
 		bouton2.setPreferredSize(new Dimension(200,100));

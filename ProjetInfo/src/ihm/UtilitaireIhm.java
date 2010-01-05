@@ -37,7 +37,7 @@ public class UtilitaireIhm {
 
 	// définition de la couleur transparence pour rendre les panels transparents et continuer à voir l'image de fond
 	public static final Color TRANSPARENCE = new Color(0,0,0,0);
-
+	public static final Color FONDBOUTON = new Color(100,100,100,100);
 	
 	/**
 	 * Vérifie si un entier correspond bien à un type de compte répertorié

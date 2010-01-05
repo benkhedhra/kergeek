@@ -63,7 +63,6 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 
 		this.setAdministrateur(a);
 
-
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
