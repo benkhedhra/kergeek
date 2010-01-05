@@ -33,7 +33,7 @@ import metier.Velo;
 import statistiques.DiagrammeFreqStations;
 import statistiques.DiagrammeNbEmpruntsUtilisateur;
 import statistiques.DiagrammeNbInterventions;
-import statistiques.DiagrammeNbVelosLieu;
+import statistiques.DiagrammeNbVelosStation;
 import statistiques.DiagrammeTxOccupationStation;
 import statistiques.TableauInterventionVelo;
 import statistiques.TableauListeVelosDansLieu;
@@ -47,7 +47,7 @@ import statistiques.TableauListeVelosDansLieu;
  * @see DiagrammeFreqStations
  * @see DiagrammeNbEmpruntsUtilisateur
  * @see DiagrammeNbInterventions
- * @see DiagrammeNbVelosLieu
+ * @see DiagrammeNbVelosStation
  * @see DiagrammeTxOccupationStation
  * @see TableauInterventionVelo
  * @see TableauListeVelosDansLieu
@@ -249,7 +249,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 			panel2.setPreferredSize(new Dimension(600,600));
 
-			DiagrammeNbVelosLieu diag1;
+			DiagrammeNbVelosStation diag1;
 			DiagrammeTxOccupationStation diag2;
 
 			FenetreEtatLieuAdmin f1 = null;
@@ -257,10 +257,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			//s'il a directement entré un lieu pour voir son état
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
 				f1 = (FenetreEtatLieuAdmin) fenetrePrec;
+
 				//System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
-				if(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE)){
+				if(!f1.getLieuEntre().getId().equals(Lieu.ID_GARAGE)){
 					//on trace le graphe indiquant le nombre de vélos présents
-					diag1 = new DiagrammeNbVelosLieu(f1.getLieuEntre());
+					diag1 = new DiagrammeNbVelosStation( (Station) f1.getLieuEntre());
 					lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 					panel1.add(lblChart1);
 					
@@ -309,7 +310,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
 			if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
-				diag1 = new DiagrammeNbVelosLieu((Lieu)f2.getStationEntree());
+				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
 				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
