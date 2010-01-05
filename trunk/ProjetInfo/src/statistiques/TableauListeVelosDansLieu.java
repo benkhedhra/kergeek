@@ -52,7 +52,7 @@ public class TableauListeVelosDansLieu extends JPanel {
 
 				// déclaration d'un calendrier
 				GregorianCalendar gCal = new GregorianCalendar();
-				// initialise le calendrier à la date courante;
+				// initialise le calendrier à la date de l'emprunt en cours du vélo concerné;
 				gCal.setTime(listeVelos.get(k).getEmpruntEnCours().getDateEmprunt());
 
 				// initialisation des données du tableau

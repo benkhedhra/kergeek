@@ -9,11 +9,12 @@ import java.awt.GradientPaint;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import metier.Utilisateur;
+import metier.UtilitaireDate;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -55,31 +56,29 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 		// étiquettes des ordonnées
 		String emprunts = "Nombre d'emprunts";
 
-
-		// étiquettes des abscisses
-		Calendar calendar = Calendar.getInstance(); 
-		int moisencours = calendar.get(Calendar.MONTH);
+		// étiquettes des abscisses :
+		
+		// déclaration d'un calendrier
+		GregorianCalendar calendar = new GregorianCalendar();
+		// initialise le calendrier à la date courante;
+		calendar.setTime(UtilitaireDate.dateCourante());
+		
+		String nomMoisEnCours = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
+		
 		calendar.add(Calendar.MONTH, -1);
-		int moisAnt1 = calendar.get(Calendar.MONTH);
+		String nomMoisAnt1 = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
+			
 		calendar.add(Calendar.MONTH, -1);
-		int moisAnt2 = calendar.get(Calendar.MONTH);
+		String nomMoisAnt2 = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
+		
 		calendar.add(Calendar.MONTH, -1);
-		int moisAnt3 = calendar.get(Calendar.MONTH);
+		String nomMoisAnt3 = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
+		
 		calendar.add(Calendar.MONTH, -1);
-		int moisAnt4 = calendar.get(Calendar.MONTH);
+		String nomMoisAnt4 = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
+		
 		calendar.add(Calendar.MONTH, -1);
-		int moisAnt5 = calendar.get(Calendar.MONTH);
-
-
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("statistiques/utils",Locale.FRENCH);
-
-		String nomMoisEnCours = resourceBundle.getString("mois."+moisencours);
-		String nomMoisAnt1 = resourceBundle.getString("mois."+moisAnt1);
-		String nomMoisAnt2 = resourceBundle.getString("mois."+moisAnt2);
-		String nomMoisAnt3 = resourceBundle.getString("mois."+moisAnt3);
-		String nomMoisAnt4 = resourceBundle.getString("mois."+moisAnt4);
-		String nomMoisAnt5 = resourceBundle.getString("mois."+moisAnt5);
-
+		String nomMoisAnt5 = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
 
 
 
