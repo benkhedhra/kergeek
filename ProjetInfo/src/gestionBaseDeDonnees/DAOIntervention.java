@@ -100,7 +100,7 @@ public class DAOIntervention {
 
 				s.executeUpdate("UPDATE Intervention SET "
 						+ "dateIntervention = TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
-						+ "idTypeIntervention = '"+intervention.getTypeIntervention()+"',"
+						+ "idTypeIntervention = '"+intervention.getTypeIntervention().getNumero()+"',"
 						+ "idVelo = '" + intervention.getVelo().getId() + "' "
 						+ "WHERE idIntervention = '"+ intervention.getId() + "'"
 				);
