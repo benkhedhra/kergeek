@@ -30,6 +30,13 @@ import metier.Compte;
 import metier.Technicien;
 import metier.Utilisateur;
 
+/**
+ * FenetreModifCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsqu'un Administrateur a cliqué sur "Modifier des informations" dans une {@link FenetreInfoCompteAdmin}
+ * <br>elle propose 
+ * @author KerGeek
+ */
 public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 	/**

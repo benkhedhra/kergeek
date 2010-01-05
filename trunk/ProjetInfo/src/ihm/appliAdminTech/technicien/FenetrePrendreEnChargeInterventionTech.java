@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -180,21 +181,23 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		centerWest.add(panel1);
 
 		try {
-			Collection<String> collection = DAOTypeIntervention.getAllTypesIntervention().values();
+			final Map<Integer, String> m = DAOTypeIntervention.getAllTypesIntervention();
+			Collection<String> collection = m.values();
 			final List<String> listeTypes = new ArrayList<String>(collection.size());
 			listeTypes.addAll(collection);
-			for (int k = 0 ; k<listeTypes.size();k++){
-				System.out.println("listeTypes.get(k)="+listeTypes.get(k));
-			}
+
 			final String [] tableauTypes = new String[listeTypes.size()+1];
 			tableauTypes[0]="Sélectionnez un type d'intervention";
 			for (int k=0;k<listeTypes.size();k++){
 				tableauTypes[k+1]=listeTypes.get(k).toString();
 			}
+			for (int k = 0 ; k<tableauTypes.length;k++){
+				System.out.println("tableauTypes["+k+"]="+tableauTypes[k]);
+			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauTypes);
 
 			JComboBox combo = new JComboBox(model);
-			combo.setBackground(UtilitaireIhm.TRANSPARENCE);
+			combo.setPreferredSize(new Dimension(300,40));		
 			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -205,8 +208,11 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 							typeInterventionEntre=null;
 						}
 						else{
-							int i = listeTypes.indexOf(chaineSelectionnee);
-							typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(i);
+							for (int k : m.keySet()){
+								if(m.get(k).equals(chaineSelectionnee)){
+									typeInterventionEntre = DAOTypeIntervention.getTypeInterventionById(k);
+								}
+							}
 						}
 						repaint();
 					} catch (NumberFormatException e) {
@@ -224,7 +230,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 			});
 
 			JPanel panel2 = new JPanel();
-			panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
+			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 			combo.setPreferredSize(new Dimension(300,30));
 			panel2.add(combo);
 			centerWest.add(panel2);		
