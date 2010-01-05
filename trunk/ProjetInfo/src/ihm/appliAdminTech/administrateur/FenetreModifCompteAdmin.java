@@ -34,25 +34,43 @@ import metier.Utilisateur;
  * FenetreModifCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
  * <br>c'est une classe de l'application réservée à un {@link Administrateur}
  * <br>elle intervient lorsqu'un Administrateur a cliqué sur "Modifier des informations" dans une {@link FenetreInfoCompteAdmin}
- * <br>elle propose 
+ * <br>l'administrateur peut modifier tous les champs du compte excepté son identifiant et son type
+ * <br>il peut aussi résilier ce compte
  * @author KerGeek
  */
 public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * le compte dont on affiche les informations
+	 */
 	private Compte compte;
+
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("");
+
+	/**
+	 * 2 JLabel et 2 TextFieldLimite permettant d'afficher les informations du compte et de les modifier(quel que soit le type de compte)
+	 */
 	private JLabel labelQualite = new JLabel("Qualité");
 	private JLabel labelQualiteCompte = new JLabel("");
 	private JLabel labelAdresseEMail = new JLabel("Adresse e-mail");
 	private TextFieldLimite adresseEMailCompte = new TextFieldLimite(250,"");
 
+	/**
+	 * 4 autres JLabel, et 3 TextFieldLimite et 1 JComboBox pour afficher les 4 renseignements supplémentaires s'il s'agit d'un compte de type Utilisateur
+	 */
 	private JLabel labelNom = new JLabel("Nom");
 	private TextFieldLimite nomCompte = new TextFieldLimite(20,"");
 	private JLabel labelPrenom = new JLabel("Prénom");
@@ -61,11 +79,20 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 	private TextFieldLimite adressePostaleCompte = new TextFieldLimite(250,"");
 	private JLabel labelStatut = new JLabel("Statut du compte");
 	private JComboBox statutCompte = new JComboBox();
+
+	/**
+	 * booléen correspondant au statut entré par l'administrateur (bloqué ou non)
+	 */
 	private boolean bloqueEntre;
 
+	/**
+	 * 3 JButton permettant à l'administrateur de valider les modifications, de résilier le compte, ou de retourner à son menu principal
+	 */
 	private JButton boutonValider = new JButton("Valider les modifications");
 	private JButton boutonResilier = new JButton("Résilier ce compte");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
+
+	//Accesseurs utiles
 
 	public Administrateur getAdministrateur() {
 		return administrateur;
@@ -83,6 +110,14 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.compte = compte;
 	}
 
+	/**
+	 * constructeur de {@link FenetreModifCompteAdmin}
+	 * @param c
+	 * le compte en train d'être modifié
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @throws ConnexionFermeeException
+	 */
 	public FenetreModifCompteAdmin(Compte c,Administrateur a) throws ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour modifier des informations sur un compte");
@@ -100,15 +135,13 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
-
-
 		// on définit un BorderLayout
 		this.getContentPane().setLayout(new BorderLayout());
 
+		//on donne à la fenêtre les attributs administrateur et compte à partir des paramètres du constructeur
 		this.setAdministrateur(a);
-
-		compte=c;
-
+		this.setCompte(c);
+		
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(500,30));
@@ -147,9 +180,15 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 		String qualiteCompte="";
-		if(c.getType()==Compte.TYPE_UTILISATEUR){qualiteCompte="utilisateur de Bélo Breizh";}
-		else if(c.getType()==Compte.TYPE_ADMINISTRATEUR){qualiteCompte="administrateur Bélo Breizh";}
-		else if(c.getType()==Compte.TYPE_TECHNICIEN){qualiteCompte="technicien de Bélo Breizh";}
+		if(c.getType()==Compte.TYPE_UTILISATEUR){
+			qualiteCompte="utilisateur de Bélo Breizh";
+		}
+		else if(c.getType()==Compte.TYPE_ADMINISTRATEUR){
+			qualiteCompte="administrateur Bélo Breizh";
+		}
+		else if(c.getType()==Compte.TYPE_TECHNICIEN){
+			qualiteCompte="technicien de Bélo Breizh";
+		}
 		labelQualiteCompte.setText(qualiteCompte);
 		labelQualiteCompte.setPreferredSize(new Dimension(250,30));
 		labelQualiteCompte.setMinimumSize(new Dimension(250,30));
@@ -171,6 +210,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		panel4.add(adresseEMailCompte);
 		centerWest.add(panel4);	
 
+		//la suite ne concerne que les comptes utilisateurs (les attributs nom, prenom, adressePostale et bloque, lui sont propres)
 		if (c.getType()==Compte.TYPE_UTILISATEUR){
 			Utilisateur u = new Utilisateur();
 			try {
@@ -262,11 +302,11 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 					else if (statutEntre.equals("non bloqué")){bloqueEntre=false;}
 					repaint();
 				}
-
 			});
 			panel12.add(statutCompte);
 			centerWest.add(panel12);
 		}
+		//fin de la partie supplémentaire pour les utilisateurs
 
 		center.add(centerWest,BorderLayout.WEST);
 
@@ -274,7 +314,6 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerEast.setPreferredSize(new Dimension(300,350));
 		centerEast.setMinimumSize(new Dimension(300,350));
-
 
 		boutonValider.setPreferredSize(new Dimension(250,40));
 		boutonValider.setMinimumSize(new Dimension(250,40));
@@ -289,8 +328,9 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		boutonResilier.addActionListener(this);
 		//l'administrateur ne peut pas s'autorésilier, pour la bonne poursuite de l'application
 		//en revanche un administrateur peut résilier n'importe quel compte excepté le sien, y compris celui d'un autre administrateur
-		if(c.equals(this.getAdministrateur().getCompte())){
-			boutonResilier.setEnabled(true);
+		System.out.println(c.getId()+"="+this.getAdministrateur().getCompte().getId());
+		if(c.getId().equals(this.getAdministrateur().getCompte().getId())){
+			boutonResilier.setVisible(false);
 		}
 		centerEast.add(boutonResilier);
 		center.add(centerEast,BorderLayout.EAST);
