@@ -211,7 +211,7 @@ public class InitialisationBaseDeDonnees {
 
 
 			// Insertion ADMINISTRATEUR
-			s2.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@gmail.com', '1','','1')");
+			s2.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@hotmail.fr', '1','','1')");
 
 			// Insertion UTILISATEUR
 
@@ -227,8 +227,8 @@ public class InitialisationBaseDeDonnees {
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'baleine','Christie','Agatha','9 rue du crime 35 170 Bruz', 'agathachristie@gmail.com', '1', '0','3')");
 
 			// Insertion TECHNICIEN
-			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'reparetout','','','', 'didierrepartout@gmail.com', '1','','2')");
-			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'debrouille','','','', 'jackydebrouille@gmail.com', '1','','2')");
+			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'reparetout','','','', 'id3033@ensai.fr', '1','','2')");
+			s2.executeUpdate("insert into Compte values(CONCAT('t',seqTechnicien.nextval),'debrouille','','','', 'id2989@ensai.fr', '1','','2')");
 
 
 			//Insertion types interventions
