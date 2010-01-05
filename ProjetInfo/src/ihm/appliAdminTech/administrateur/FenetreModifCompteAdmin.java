@@ -356,11 +356,24 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 3 JButton qui lui étaient proposés
+	 * @param arg0
+	 * @see UtilitaireIhm#verifieChampsCreationAdmin(int, String)
+	 * @see UtilitaireIhm#verifieChampsCreationTech(int, String)
+	 * @see UtilitaireIhm#verifieChampsCreationUtil(int, String)
+	 * @see FenetreConfirmation#FenetreConfirmation(Compte, JFrame)
+	 * @see FenetreDemandeConfirmationAdmin#FenetreDemandeConfirmationAdmin(Administrateur, JFrame)$
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
+		//s'il a cliqué sur "valider les modifications"
 		if(arg0.getSource()==boutonValider){
 			try {
+				//si le compte en train d'être modifié est celui d'un utilisateur
 				if (compte.getType()==Compte.TYPE_UTILISATEUR){
+					//champsOk indique si les champs remplis par l'administrateur sont corrects
 					boolean champsOk = UtilitaireIhm.verifieChampsCreationUtil(Compte.TYPE_UTILISATEUR, adresseEMailCompte.getText(), nomCompte.getText(), prenomCompte.getText(), adressePostaleCompte.getText());
 					if(champsOk){
 						compte.setAdresseEmail(adresseEMailCompte.getText());
@@ -421,13 +434,13 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 				new FenetreAuthentification(false);
 			}
 		}
+		//s'il a cliqué sur "résilier le compte", il y a une étape supplémentaire car l'action est irréversible
 		else if(arg0.getSource()==boutonResilier){
 			new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),this);
 		}
+		//sinon il retourne à son menu principal
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
 	}		
-
 }
