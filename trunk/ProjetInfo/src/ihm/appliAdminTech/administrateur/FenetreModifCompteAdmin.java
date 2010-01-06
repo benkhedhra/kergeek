@@ -363,7 +363,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 	 * @see UtilitaireIhm#verifieChampsCreationTech(int, String)
 	 * @see UtilitaireIhm#verifieChampsCreationUtil(int, String)
 	 * @see FenetreConfirmation#FenetreConfirmation(Compte, JFrame)
-	 * @see FenetreDemandeConfirmationAdmin#FenetreDemandeConfirmationAdmin(Administrateur, JFrame)$
+	 * @see FenetreDemandeConfirmationAdmin#FenetreDemandeConfirmationAdmin(Administrateur, JFrame)
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
