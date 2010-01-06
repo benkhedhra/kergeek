@@ -31,13 +31,32 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
-
+/**
+ * La classe DiagrammeTxOccupationStation permet de créer le diagramme relatif au taux d'occupation d'une station.
+ * @see Station
+ * @author KerGeek
+ */
 public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
+	//Attributs
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see DiagrammeFreqStations#getImage()
+	 */
 	private JFreeChart chart;
 
+	//Constructeur
+	
+	/**
+	 * Création d'un diagramme du taux d'occupation d'une station à partir d'un {@link DiagrammeTxOccupationStation#station}.
+	 * @param station
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeTxOccupationStation#createChart(Station)
+	 */
 	public DiagrammeTxOccupationStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("");
@@ -48,72 +67,27 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 
 	}
 
+	
+	//Méthodes
+	
+	/**
+	 * @return l'{@link DiagrammeTxOccupationStation#chart} du diagramme et en créer un image.
+	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(600, 600);
 	}
 
-	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
-
-		//initialisation de l'axe des ordonnées
-		final NumberAxis axeTaux = new NumberAxis("taux d'occupation (en %)");// titre
-		axeTaux.setLabelFont(new Font("Arial Narrow", Font.BOLD,16));// police
-
-		// création du sous-dessin
-		final XYSeriesCollection data1 = createDataset(station);
-		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
-		final XYPlot subplot1 = new XYPlot(data1, null, axeTaux, renderer1);
-		subplot1.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
-
-
-
-		// initialisation de l'axe des abscisses
-		NumberAxis axeHeures = new NumberAxis("Heure");// titre
-		axeHeures.setAutoRangeIncludesZero(false);// désactivation de l'obligation d'inclure le zéro sur l'axe
-		axeHeures.setTickUnit(new NumberTickUnit(1));// graduation
-		axeHeures.setLabelFont(new Font("Arial Narrow", Font.BOLD,16));// police
-
-		// création du dessin
-		final CombinedDomainXYPlot plot = new CombinedDomainXYPlot(axeHeures);
-		plot.setGap(10.0);
-
-		// ajout du sous-dessin
-		plot.add(subplot1, 1);
-
-		//orientation du dessin
-		plot.setOrientation(PlotOrientation.VERTICAL);
-
-		// création du graphique
-		JFreeChart chart = new JFreeChart("Taux d' occupation de la station "+station.getAdresse()+ " le "
-				+UtilitaireDate.Presenter(UtilitaireDate.dateCourante()), // titre
-				JFreeChart.DEFAULT_TITLE_FONT, // police
-				plot, 
-				true);
-
-		// couleurs des séries
-		GradientPaint gp0 = new GradientPaint(
-				0.0f, 0.0f, Color.green, 
-				0.0f, 0.0f, new Color(0, 64, 0)
-		);
-		GradientPaint gp1 = new GradientPaint(
-				0.0f, 0.0f, Color.blue, 
-				0.0f, 0.0f, new Color(0, 0, 64)
-		);
-		GradientPaint gp2 = new GradientPaint(
-				0.0f, 0.0f, Color.red, 
-				0.0f, 0.0f, new Color(64, 0, 0)
-		);
-		renderer1.setSeriesPaint(0, gp0); // taux d'occupation
-		renderer1.setSeriesPaint(1, gp1); // minimum
-		renderer1.setSeriesPaint(2, gp2); // maximum
-
-		// epaisseur des séries délimitant le maximum et le minimum
-		renderer1.setSeriesStroke(1, new BasicStroke(2.5f)); // minimum
-		renderer1.setSeriesStroke(2, new BasicStroke(2.5f)); // maximum
-
-		return chart;
-	}
-
+	
 	// Création des données
+	
+	/**
+	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeTxOccupationStation#station}.
+	 * @param station
+	 * @return collection
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		// abscisses
@@ -173,6 +147,76 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		collection.addSeries(series3);
 		return collection;
 
+	}
+	
+	/**
+	 * Création du chart du diagramme à partir d'un {@link DiagrammeTxOccupationStation#station}.
+	 * @param station
+	 * @return chart
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeTxOccupationStation#createDataset(Station)
+	 */
+	JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+
+		//initialisation de l'axe des ordonnées
+		final NumberAxis axeTaux = new NumberAxis("taux d'occupation (en %)");// titre
+		axeTaux.setLabelFont(new Font("Arial Narrow", Font.BOLD,16));// police
+
+		// création du sous-dessin
+		final XYSeriesCollection data1 = createDataset(station);
+		final XYItemRenderer renderer1 = new StandardXYItemRenderer();
+		final XYPlot subplot1 = new XYPlot(data1, null, axeTaux, renderer1);
+		subplot1.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
+
+
+
+		// initialisation de l'axe des abscisses
+		NumberAxis axeHeures = new NumberAxis("Heure");// titre
+		axeHeures.setAutoRangeIncludesZero(false);// désactivation de l'obligation d'inclure le zéro sur l'axe
+		axeHeures.setTickUnit(new NumberTickUnit(1));// graduation
+		axeHeures.setLabelFont(new Font("Arial Narrow", Font.BOLD,16));// police
+
+		// création du dessin
+		final CombinedDomainXYPlot plot = new CombinedDomainXYPlot(axeHeures);
+		plot.setGap(10.0);
+
+		// ajout du sous-dessin
+		plot.add(subplot1, 1);
+
+		//orientation du dessin
+		plot.setOrientation(PlotOrientation.VERTICAL);
+
+		// création du graphique
+		JFreeChart chart = new JFreeChart("Taux d' occupation de la station "+station.getAdresse()+ " le "
+				+UtilitaireDate.Presenter(UtilitaireDate.dateCourante()), // titre
+				JFreeChart.DEFAULT_TITLE_FONT, // police
+				plot, 
+				true);
+
+		// couleurs des séries
+		GradientPaint gp0 = new GradientPaint(
+				0.0f, 0.0f, Color.green, 
+				0.0f, 0.0f, new Color(0, 64, 0)
+		);
+		GradientPaint gp1 = new GradientPaint(
+				0.0f, 0.0f, Color.blue, 
+				0.0f, 0.0f, new Color(0, 0, 64)
+		);
+		GradientPaint gp2 = new GradientPaint(
+				0.0f, 0.0f, Color.red, 
+				0.0f, 0.0f, new Color(64, 0, 0)
+		);
+		renderer1.setSeriesPaint(0, gp0); // taux d'occupation
+		renderer1.setSeriesPaint(1, gp1); // minimum
+		renderer1.setSeriesPaint(2, gp2); // maximum
+
+		// epaisseur des séries délimitant le maximum et le minimum
+		renderer1.setSeriesStroke(1, new BasicStroke(2.5f)); // minimum
+		renderer1.setSeriesStroke(2, new BasicStroke(2.5f)); // maximum
+
+		return chart;
 	}
 
 
