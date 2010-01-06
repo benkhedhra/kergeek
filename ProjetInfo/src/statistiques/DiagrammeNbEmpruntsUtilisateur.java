@@ -109,8 +109,8 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 						dataset,                  // données
 						PlotOrientation.VERTICAL, // orientation
 						true,                     // inclure la légende
-						true,                     // TODO tooltips?
-						false                     // TODO URLs?
+						true,                     // tooltips
+						false                     // URLs
 		);
 
 

@@ -100,8 +100,8 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 				dataset,                  // données
 				PlotOrientation.VERTICAL, // orientation
 				true,                     // présenter la légende
-				true,                     // TODO tooltips? 
-				false                     // TODO URLs? 
+				true,                     // tooltips 
+				false                     // URLs
 		);
 
 
