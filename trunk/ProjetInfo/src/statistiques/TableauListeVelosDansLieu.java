@@ -18,11 +18,24 @@ import metier.Lieu;
 import metier.Sortie;
 import metier.Velo;
 
-
+/**
+ * La classe TableauListeVelosDansLieu permet de créer le tableau listant vélos présents dans un lieu donné.
+ * @author KerGeek
+ */
 public class TableauListeVelosDansLieu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	//Constructeur
+	
+	/**
+	 * Création d'un tableau listant les vélos présents dans un lieu à partir d'un {@link TableauListeVelosDansLieu#lieu}.
+	 * @param lieu
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	public TableauListeVelosDansLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		super(new GridLayout(1,0));
 

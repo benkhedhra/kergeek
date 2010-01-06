@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import metier.Station;
+import metier.Utilisateur;
 import metier.UtilitaireDate;
 
 import org.jfree.chart.ChartPanel;
@@ -27,17 +28,36 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
-
+/**
+ * La classe DiagrammeNbVelosStation permet de créer le diagramme relatif aux nombres de vélos dans une station.
+ * @see Station
+ * @author KerGeek
+ */
 public class DiagrammeNbVelosStation extends ApplicationFrame {
 
+	//Attributs
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see DiagrammeFreqStations#getImage()
+	 */
 	private JFreeChart chart;
 
+	//Constructeur
+	
+	/**
+	 * Création d'un diagramme des nombres de vélo par station à partir d'un {@link DiagrammeNbVelosStation#station}.
+	 * @param station
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeNbVelosStation#createChart(Station)
+	 */
 	public DiagrammeNbVelosStation(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		super("");
 		this.chart = createChart(station);
@@ -47,11 +67,84 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 
 	}
 
-
+	
+	//Méthodes
+	
+	/**
+	 * @return l'{@link DiagrammeNbVelosStation#chart} du diagramme et en créer un image.
+	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(600, 600);
 	}
 
+	// Création des données
+	
+	/**
+	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeNbVelosStation#station}.
+	 * @param station
+	 * @return collection
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
+	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
+
+		// abscisses
+		GregorianCalendar calendar = new GregorianCalendar(); 
+		int heureencours = calendar.get(Calendar.HOUR_OF_DAY);
+		calendar.add(Calendar.HOUR_OF_DAY, -1);
+		int heure1 = calendar.get(Calendar.HOUR_OF_DAY);
+		calendar.add(Calendar.HOUR_OF_DAY, -1);
+		int heure2 = calendar.get(Calendar.HOUR_OF_DAY);
+		calendar.add(Calendar.HOUR_OF_DAY, -1);
+		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
+
+		// étiquette de la série du nombre de vélos dans la Station
+		final XYSeries series = new XYSeries("Nombre de vélos");
+
+		// génération des données de la série du nombre de vélos dans la Station
+		int nbVelos = DAOVelo.getVelosByLieu(station).size();
+		series.add(heureencours, nbVelos);
+		series.add(heure1, nbVelos
+				+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
+				- (DAOEmprunt.NombreVelosRendusHeures(station, 1))
+		);
+		series.add(heure2,  nbVelos
+				+ (DAOEmprunt.NombreVelosSortisHeures(station, 2))
+				- (DAOEmprunt.NombreVelosRendusHeures(station, 2))
+		);
+		series.add(heure3,  nbVelos
+				+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
+				- (DAOEmprunt.NombreVelosRendusHeures(station, 3))
+		);
+
+		// étiquette de la série correspondant à la Capacité de la Station
+		final XYSeries series2 = new XYSeries("Capacité de la station");
+		
+		// données de la série correspondant à la Capacité de la Station
+		series2.add(heureencours, station.getCapacite());
+		series2.add(heure3, station.getCapacite());
+		series2.add(heure2, station.getCapacite());
+		series2.add(heure1, station.getCapacite());
+
+
+		// ajout des 2 séries à la collection renvoyée
+		final XYSeriesCollection collection = new XYSeriesCollection();
+		collection.addSeries(series);
+		collection.addSeries(series2);
+		return collection;
+
+	}
+	
+	/**
+	 * Création du chart du diagramme à partir d'un {@link DiagrammeNbVelosStation#station}.
+	 * @param station
+	 * @return chart
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeNbVelosStation#createDataset(Station)
+	 */
 	private JFreeChart createChart(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 
@@ -107,57 +200,6 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 
 		// renvoie un JFreeChart comprenant le graphique résultant de la superposition
 		return chart;
-	}
-
-
-	// Création des données
-	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
-
-		// abscisses
-		GregorianCalendar calendar = new GregorianCalendar(); 
-		int heureencours = calendar.get(Calendar.HOUR_OF_DAY);
-		calendar.add(Calendar.HOUR_OF_DAY, -1);
-		int heure1 = calendar.get(Calendar.HOUR_OF_DAY);
-		calendar.add(Calendar.HOUR_OF_DAY, -1);
-		int heure2 = calendar.get(Calendar.HOUR_OF_DAY);
-		calendar.add(Calendar.HOUR_OF_DAY, -1);
-		int heure3 = calendar.get(Calendar.HOUR_OF_DAY);
-
-		// étiquette de la série du nombre de vélos dans la Station
-		final XYSeries series = new XYSeries("Nombre de vélos");
-
-		// génération des données de la série du nombre de vélos dans la Station
-		int nbVelos = DAOVelo.getVelosByLieu(station).size();
-		series.add(heureencours, nbVelos);
-		series.add(heure1, nbVelos
-				+ (DAOEmprunt.NombreVelosSortisHeures(station, 1))
-				- (DAOEmprunt.NombreVelosRendusHeures(station, 1))
-		);
-		series.add(heure2,  nbVelos
-				+ (DAOEmprunt.NombreVelosSortisHeures(station, 2))
-				- (DAOEmprunt.NombreVelosRendusHeures(station, 2))
-		);
-		series.add(heure3,  nbVelos
-				+ (DAOEmprunt.NombreVelosSortisHeures(station, 3))
-				- (DAOEmprunt.NombreVelosRendusHeures(station, 3))
-		);
-
-		// étiquette de la série correspondant à la Capacité de la Station
-		final XYSeries series2 = new XYSeries("Capacité de la station");
-		
-		// données de la série correspondant à la Capacité de la Station
-		series2.add(heureencours, station.getCapacite());
-		series2.add(heure3, station.getCapacite());
-		series2.add(heure2, station.getCapacite());
-		series2.add(heure1, station.getCapacite());
-
-
-		// ajout des 2 séries à la collection renvoyée
-		final XYSeriesCollection collection = new XYSeriesCollection();
-		collection.addSeries(series);
-		collection.addSeries(series2);
-		return collection;
-
 	}
 
 

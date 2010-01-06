@@ -29,13 +29,32 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
-
+/**
+ * La classe DiagrammeNbEmpruntsUtilisateur permet de créer le diagramme relatif aux nombres d'emprunts d'un utilisateur.
+ * @see Utilisateur
+ * @author KerGeek
+ */
 public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 
+	//Attributs
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see DiagrammeFreqStations#getImage()
+	 */
 	private JFreeChart chart;
 
+	//Constructeur
+	
+	/**
+	 * Création d'un diagramme des nombres d'emprunt d'un utilisateur u à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#u}.
+	 * @param u
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeNbEmpruntsUtilisateur#createDataset(Utilisateur)
+	 * @see DiagrammeNbEmpruntsUtilisateur#createChart(CategoryDataset, Utilisateur)
+	 */
 	public DiagrammeNbEmpruntsUtilisateur(Utilisateur u) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		super("Nombre d'emprunts de l'utilisateur demandé pour les six derniers mois");
@@ -47,10 +66,23 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 
 	}
 
+	//Méthodes
+	
+	/**
+	 * @return l'{@link DiagrammeNbEmpruntsUtilisateur#chart} du diagramme et en créer un image.
+	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(800,800);
 	}
 
+	/**
+	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#u}.
+	 * @param u
+	 * @return dataset
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private static CategoryDataset createDataset(Utilisateur u) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		// étiquettes des ordonnées
@@ -97,7 +129,15 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 
 	}
 
-
+	/**
+	 * Création du chart du diagramme à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#dataset} et d'un {@link DiagrammeNbInterventions#u}.
+	 * @param dataset
+	 * @param u
+	 * @return chart
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private static JFreeChart createChart(CategoryDataset dataset,Utilisateur u) {
 
 		// créer le graphique

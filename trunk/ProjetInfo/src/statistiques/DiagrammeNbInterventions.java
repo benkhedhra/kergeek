@@ -26,12 +26,30 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
+/**
+ * La classe DiagrammeNbInterventions permet de créer le diagramme relatif aux nombres d'interventions par type d'intervention sur tous les vélos.
+ * @author KerGeek
+ */
 public class DiagrammeNbInterventions extends ApplicationFrame {
 
+	//Attributs
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see DiagrammeFreqStations#getImage()
+	 */
 	private JFreeChart chart;
 	
+	//Constructeur
+	
+	/**
+	 * Création d'un diagramme des nombres d'interventions par type d'intervention.
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeNbInterventions#createDataset()
+	 * @see DiagrammeNbInterventions#createChart(CategoryDataset)
+	 */
 	public DiagrammeNbInterventions() throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		
 		super("");
@@ -44,10 +62,23 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 
 	}
 
+	
+	//Méthodes
+	
+	/**
+	 * @return l'{@link DiagrammeNbInterventions#chart} du diagramme et en créer un image.
+	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(800, 800);
 	}
 	
+	/**
+	 * Création des données utiles dans le diagramme.
+	 * @return dataset
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private static CategoryDataset createDataset() throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -67,6 +98,14 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 
 	}
 
+	/**
+	 * Création du chart du diagramme à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#dataset}.
+	 * @param dataset
+	 * @return chart
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private static JFreeChart createChart(CategoryDataset dataset) {
 
 		// créer le graphique

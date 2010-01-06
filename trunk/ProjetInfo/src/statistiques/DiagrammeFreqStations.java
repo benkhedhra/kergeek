@@ -15,6 +15,7 @@ import java.util.List;
 
 import metier.Station;
 
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -28,15 +29,36 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
+
+/**
+ * La classe DiagrammeFreqStations permet de créer le diagramme relatif aux fréquentations des stations.
+ * @author KerGeek
+ */
+
+
 public class DiagrammeFreqStations extends ApplicationFrame {
 
-	/**
-	 * 
-	 */
+	//Attributs
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see DiagrammeFreqStations#getImage()
+	 */
 	private JFreeChart chart;
 
+	
+	//Constructeur
+	
+	/**
+	 * Création d'un diagramme de fréquentation des stations à partir d'un {@link DiagrammeFreqStations#periodeEntree}.
+	 * @param periodeEntree
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 * @see DiagrammeFreqStations#createDataset(String)
+	 * @see DiagrammeFreqStations#createChart(CategoryDataset, String)
+	 */
 	public DiagrammeFreqStations(String periodeEntree) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		super("Fréquentation des stations sur les " + periodeEntree);
@@ -48,10 +70,24 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
+	
+	//Méthodes
+	
+	/**
+	 * @return l'{@link DiagrammeFreqStations#chart} du diagramme et en créer un image.
+	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(800,800);
 	}
 
+	/**
+	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeFreqStations#periodeEntree}.
+	 * @param periodeEntree
+	 * @return dataset
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private static CategoryDataset createDataset(String periodeEntree) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -90,6 +126,16 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	}
 
+	
+	/**
+	 * Création du chart du diagramme à partir d'un {@link DiagrammeFreqStations#dataset} et d'un {@link DiagrammeFreqStations#periodeEntree}.
+	 * @param dataset
+	 * @param periodeEntree
+	 * @return chart
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	private static JFreeChart createChart(CategoryDataset dataset,String periodeEntree) {
 
 		// créer le graphique

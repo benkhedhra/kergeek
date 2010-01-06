@@ -13,13 +13,29 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+
 import metier.Intervention;
 
+/**
+ * La classe TableauInterventionVelo permet de créer le tableau relatif aux interventions sur un vélo.
+ * @author KerGeek
+ */
 
 public class TableauInterventionVelo extends JPanel {
 
+	//Attributs
+	
 	private static final long serialVersionUID = 1L;
 
+	//Constructeur
+	
+	/**
+	 * Création d'un tableau des interventions sur un vélo à partir d'un {@link TableauInterventionVelo#id}.
+	 * @param id
+	 * @throws ConnexionFermeeException
+	 * @throws SQLException
+	 * @throws ClassNotFoundExceptionException
+	 */
 	public TableauInterventionVelo(String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		super(new GridLayout(1,0));
 		
