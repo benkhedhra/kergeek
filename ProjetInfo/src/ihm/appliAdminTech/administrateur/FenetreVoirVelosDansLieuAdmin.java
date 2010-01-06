@@ -9,6 +9,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -22,21 +24,55 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Garage;
 import metier.Lieu;
 import metier.Sortie;
 import metier.Station;
 
+/**
+ * FenetreVoirVelosDansLieuAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsque l'Administrateur a cliqué "voir la liste des vélos présents en un lieu" de son {@link MenuVoirEtatAdmin}
+ * <br>elle permet à l'Administrateur de sélectionner le {@link Lieu} pour lequel il souhaite voir les vélos présents
+ * <br>ce lieu peut être une {@link Station}, mais aussi le {@link Garage} ou encore la {@link Sortie}
+ * @author KerGeek
+ */
 public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListener {
+	
+	/**
+	 * attribut de sérialisation par défaut
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
-	private JLabel labelAdmin = new JLabel("");;
+	
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 */
+	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer le lieu (station ou garage) dont vous voulez voir les vélos");
+	
+	/**
+	 * le lieu sélectionné par l'Administrateur
+	 */
 	private Lieu lieuEntre;
+	
+	/**
+	 * 3 JButton permettant à l'Administrateur de valider le lieu sélectionné (Station ou Garage), de voir les vélos sortis (lieu Sortie), ou de retourner au menu principal
+	 */
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonVelosSortis = new JButton("Voir les vélos sortis");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -45,6 +81,9 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		this.administrateur = administrateur;
 	}
 
+	/*
+	 * attribut lieuEntre
+	 */
 	public Lieu getLieuEntre() {
 		return lieuEntre;
 	}
@@ -53,6 +92,13 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		this.lieuEntre = lieuEntre;
 	}
 
+	/**
+	 * constructeur de {@link FenetreVoirVelosDansLieuAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @throws ConnexionFermeeException
+	 * @see {@link DAOLieu#getStationsEtGarage()}
+	 */
 	public FenetreVoirVelosDansLieuAdmin(Administrateur a) throws ConnexionFermeeException{
 
 		System.out.println("Fenêtre pour avoir la liste des vélos présents dans un lieu");
@@ -60,8 +106,9 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Voir la liste des vélos présents dans un lieu");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -79,21 +126,21 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 
 		JPanel centerWest = new JPanel();
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerWest.setPreferredSize(new Dimension(500,350));
+		centerWest.setPreferredSize(new Dimension(1000,800));
 		List<Lieu> listeStations;
 		try {
 			listeStations = DAOLieu.getStationsEtGarage();
@@ -133,15 +180,15 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 			centerWest.add(labelMsg);
 			centerWest.add(combo);
 
-			boutonValider.setPreferredSize(new Dimension(200,40));
-			boutonValider.setMaximumSize(new Dimension(200,40));
+			boutonValider.setPreferredSize(new Dimension(300,50));
+			boutonValider.setMaximumSize(new Dimension(300,50));
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.addActionListener(this);
 			centerWest.add(boutonValider);
 
-			boutonVelosSortis.setPreferredSize(new Dimension(200,40));
-			boutonVelosSortis.setMaximumSize(new Dimension(200,40));
+			boutonVelosSortis.setPreferredSize(new Dimension(300,50));
+			boutonVelosSortis.setMaximumSize(new Dimension(300,50));
 			boutonVelosSortis.setBackground(Color.CYAN);
 			boutonVelosSortis.setFont(UtilitaireIhm.POLICE3);
 			boutonVelosSortis.addActionListener(this);
@@ -159,14 +206,14 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(300,40));
+		boutonRetour.setMaximumSize(new Dimension(300,40));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
@@ -177,22 +224,35 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'Administrateur a cliqué sur l'un des 3 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		try {
+			//s'il a cliqué sur "Valider" après avoir sélectionné un lieu (ou non)
 			if (arg0.getSource()==boutonValider){
 				if(this.getLieuEntre()==null){
 					MsgBox.affMsg("Vous n'avez sélectionné aucun lieu. ");
 					new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
 				}
 				else{
+					//il a sélectionné un lieu valide (ici une station ou le garge)
 					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 				}
 			}
+			//s'il a cliqué sur "Voir les vélos sortis"
 			else if (arg0.getSource()==boutonVelosSortis){
+				//comme s'il avait sélectionné un lieu parmi les autres, ici la sortie
+				//bouton à part pour plus de lisibilité
 				this.setLieuEntre(Sortie.getInstance());
 				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			}
+			//s'il a cliqué sur "Retourner au menu principal"
 			else if (arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(this.getAdministrateur());
 			}

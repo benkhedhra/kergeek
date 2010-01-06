@@ -17,20 +17,45 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 
+/**
+ * MenuDemanderStatsAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsque l'Administrateur a cliqué "demander des statistiques" de son {@link MenuPrincipalAdmin}
+ * <br>elle propose à l'Administrateur 3 types de statistiques différentes : sur les fréquentations des stations, sur les interventions de maintenance, et sur les utilisateurs
+ * @author KerGeek
+ */
 public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
-
+	
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur admin;
+	
+	/**
+	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 */
 	private JLabel labelAdmin = new JLabel("");
-	private JButton boutonRetour = new JButton("Retour au menu principal");
+	
+	/**
+	 * 4 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
+	 */
 	private JButton boutonFrequentation = new JButton("Fréquentation des stations");
 	private JButton boutonInterventions = new JButton("<html> <center>Statistiques sur<br>les interventions<br>de maintenance</center></html>");
 	private JButton boutonUtilisateurs = new JButton("<html> <center>Statistiques sur<br>les utilisateurs</center></html>");
+	
+	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -39,6 +64,11 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		this.admin = admin;
 	}
 
+	/**
+	 * constructeur de {@link MenuDemanderStatsAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 */
 	public MenuDemanderStatsAdmin(Administrateur a){
 
 		this.setContentPane(new PanneauAdmin());
@@ -106,12 +136,18 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 4 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreFrequentationStationsAdmin#FenetreFrequentationStationsAdmin(Administrateur)
+	 * @see MenuInterventionsMaintenanceAdmin#MenuInterventionsMaintenanceAdmin(Administrateur)
+	 * @see FenetreRechercherCompteAdmin#FenetreRechercherCompteAdmin(Administrateur, boolean)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
-		}
-		else if (arg0.getSource()==boutonFrequentation){
+		if (arg0.getSource()==boutonFrequentation){
 			new FenetreFrequentationStationsAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonInterventions){
@@ -119,6 +155,9 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		}
 		else if (arg0.getSource()==boutonUtilisateurs){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),true);
+		}
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 	}
 }

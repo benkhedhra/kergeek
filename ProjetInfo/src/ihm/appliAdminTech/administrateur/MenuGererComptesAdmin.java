@@ -5,6 +5,8 @@ import ihm.UtilitaireIhm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,19 +17,43 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 
+/**
+ * MenuGererComptesAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsque l'Administrateur a cliqué "gérer les comptes" de son {@link MenuPrincipalAdmin}
+ * <br>elle propose à l'Administrateur 2 choix : créer un nouveau {@link Compte} ou afficher des informations sur un {@link Compte}, par exemple en vue de le modifier
+ * @author KerGeek
+ */
 public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur admin;
+	
+	/**
+	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 */
 	private JLabel labelAdmin = new JLabel("");
-	private JButton boutonRetour = new JButton("Retour au menu principal");
+	
+	/**
+	 * 3 JButton proposant les 2 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
+	 */
 	private JButton boutonCreation = new JButton("Création d'un nouveau compte");
 	private JButton boutonInformations = new JButton("Afficher informations sur un compte");
-
+	private JButton boutonRetour = new JButton("Retour au menu principal");
+	
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -36,6 +62,11 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 		this.admin = admin;
 	}
 
+	/**
+	 * constructeur de {@link MenuGererComptesAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 */
 	public MenuGererComptesAdmin(Administrateur a){
 
 		this.setContentPane(new PanneauAdmin());
@@ -43,8 +74,9 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu gérer comptes de l'administrateur");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -98,16 +130,24 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 4 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreCreationCompteAdmin#FenetreCreationCompteAdmin(Administrateur)
+	 * @see FenetreRechercherCompteAdmin#FenetreRechercherCompteAdmin(Administrateur, boolean)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
-		}
-		else if (arg0.getSource()==boutonCreation){
+		if (arg0.getSource()==boutonCreation){
 			new FenetreCreationCompteAdmin(this.getAdministrateur());
 		}
 		else if (arg0.getSource()==boutonInformations){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
+		}
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 	}
 

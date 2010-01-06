@@ -9,6 +9,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -24,17 +26,47 @@ import javax.swing.JPanel;
 import metier.Administrateur;
 import metier.Station;
 
+/**
+ * FenetreStationsSurSousAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsque l'administrateur a voulu directement avoir accès à une liste des stations sur et sous-occupées
+ * <br>donc dont le taux d'occupation est inférieur au taux minimal (20%) ou supérieur au taux maximal (80%)
+ * @author KerGeek
+ */
 public class FenetreStationsSurSousAdmin extends JFrame implements ActionListener {
 
+	/**
+	 * attribut de sérialisation par défaut
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez sélectionner une station");
+
+	/**
+	 * la station sélectionnée parmi les statios sur et sous-occupées
+	 */
 	Station stationEntree;
+
+	/**
+	 * 2 JButton proposant à l'Administrateur de valider son choix de station ou de retourner au menu principal
+	 */
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	//Accesseurs utiles
+
+	/*
+	 * attribut administrateur
+	 */
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -43,6 +75,9 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		this.administrateur = administrateur;
 	}
 
+	/*
+	 * attribut stationEntree
+	 */
 	public Station getStationEntree() {
 		return stationEntree;
 	}
@@ -51,14 +86,22 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		this.stationEntree = stationEntree;
 	}
 
+	/**
+	 * constructeur de {@link FenetreStationsSurSousAdmin}
+	 * @param a
+	 * l'administrateur 
+	 * @throws ConnexionFermeeException
+	 * @see {@link DAOLieu#getStationsSurSous()}
+	 */
 	public FenetreStationsSurSousAdmin (Administrateur a) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir les stations sur et sous occupées");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Stations sur et sous occupées");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -76,16 +119,16 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,40));
+		labelAdmin.setMaximumSize(new Dimension(1100,40));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,400));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 
@@ -108,7 +151,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 
 			JComboBox tableau = new JComboBox(model);
-			tableau.setPreferredSize(new Dimension(300,30));
+			tableau.setPreferredSize(new Dimension(350,40));
 			tableau.setFont(UtilitaireIhm.POLICE3);
 			tableau.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -150,10 +193,10 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(300,40));
+		boutonRetour.setMaximumSize(new Dimension(300,40));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
@@ -163,8 +206,15 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'Administrateur a cliqué sur l'un des deux boutons qui lui étaient proposés
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
+		//s'il a cliqué sur "Valider"
 		if (arg0.getSource()==boutonValider){
 			try {
 				if(this.getStationEntree()==null){
@@ -172,6 +222,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 					new FenetreStationsSurSousAdmin(this.getAdministrateur());
 				}
 				else{
+					//il a sélectionné une station valide
 					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 				}
 			} catch (SQLException e) {
@@ -184,9 +235,9 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 				new FenetreAuthentification(false);
 			}
 		}
+		//s'il a cliqué sur "Retourner au menu principal"
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
 	}
 }

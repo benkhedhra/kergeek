@@ -8,6 +8,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,17 +23,35 @@ import metier.Administrateur;
 public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur admin;
+	
+	/**
+	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 */
 	private JLabel labelAdmin = new JLabel("");
-	private JButton boutonRetour = new JButton("Retour au menu principal");
+	
+	/**
+	 * 4 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
+	 */
 	private JButton boutonStationsSurSous = new JButton("<html> <center>Stations<br>sur et sous-occupées</center></html>");
-	private JButton boutonEtatStation = new JButton("Etat d'un lieu");
+	private JButton boutonEtatLieu = new JButton("<html> <center>Voir l'état d'une station<br>ou du garage</center></html>");
 	private JButton boutonVelos = new JButton("Liste des vélos par lieu");
 
+	private JButton boutonRetour = new JButton("Retour au menu principal");
+
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -40,6 +60,11 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		this.admin = admin;
 	}
 
+	/**
+	 * constructeur de {@link MenuVoirEtatAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 */
 	public MenuVoirEtatAdmin(Administrateur a){
 
 		this.setContentPane(new PanneauAdmin());
@@ -47,8 +72,9 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu <voir état du parc> de l'administrateur");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -62,7 +88,6 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
@@ -80,11 +105,11 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		boutonStationsSurSous.setFont(UtilitaireIhm.POLICE3);
 		boutonStationsSurSous.addActionListener(this);
 		center.add(boutonStationsSurSous);
-		boutonEtatStation.setPreferredSize(new Dimension(200,120));
-		boutonEtatStation.setMaximumSize(new Dimension(200,120));
-		boutonEtatStation.setFont(UtilitaireIhm.POLICE3);
-		boutonEtatStation.addActionListener(this);
-		center.add(boutonEtatStation);
+		boutonEtatLieu.setPreferredSize(new Dimension(200,120));
+		boutonEtatLieu.setMaximumSize(new Dimension(200,120));
+		boutonEtatLieu.setFont(UtilitaireIhm.POLICE3);
+		boutonEtatLieu.addActionListener(this);
+		center.add(boutonEtatLieu);
 		boutonVelos.setPreferredSize(new Dimension(200,120));
 		boutonVelos.setMaximumSize(new Dimension(200,120));
 		boutonVelos.setFont(UtilitaireIhm.POLICE3);
@@ -106,13 +131,19 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 4 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreStationsSurSousAdmin#FenetreStationsSurSousAdmin(Administrateur)
+	 * @see FenetreEtatLieuAdmin#FenetreEtatLieuAdmin(Administrateur)
+	 * @see FenetreVoirVelosDansLieuAdmin#FenetreVoirVelosDansLieuAdmin(Administrateur)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonRetour){
-			MenuPrincipalAdmin m = new MenuPrincipalAdmin(this.getAdministrateur());
-			m.setVisible(true);
-		}
-		else if (arg0.getSource()==boutonStationsSurSous){
+		//s'il a cliqué sur "stations sur et sous-occupées"
+		if (arg0.getSource()==boutonStationsSurSous){
 			try {
 				new FenetreStationsSurSousAdmin(this.getAdministrateur());
 			} catch (ConnexionFermeeException e){
@@ -120,7 +151,8 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 				new FenetreAuthentification(false);
 			}
 		}
-		else if (arg0.getSource()==boutonEtatStation){
+		//s'il a cliqué sur "voir l'état d'une station ou du garage"
+		else if (arg0.getSource()==boutonEtatLieu){
 			try {
 				new FenetreEtatLieuAdmin(this.getAdministrateur());
 			} catch (ConnexionFermeeException e){
@@ -136,6 +168,8 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 				new FenetreAuthentification(false);
 			}
 		}
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
+		}
 	}
-
 }

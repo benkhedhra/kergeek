@@ -10,6 +10,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -108,7 +110,9 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 			this.setNouvelleDemande(nouvelleDemande);
 
 			this.setTitle("Demande d'assignation déjà existante pour cette station");
-			this.setSize(700, 500);
+		    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    Rectangle bounds = env.getMaximumWindowBounds();
+		    this.setBounds(bounds);
 			this.setLocationRelativeTo(null);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setResizable(true);

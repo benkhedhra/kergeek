@@ -12,6 +12,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -27,20 +29,59 @@ import javax.swing.JPanel;
 import metier.Administrateur;
 import metier.Compte;
 
+/**
+ * FenetreResultatsRechercheCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient suite à une {@link FenetreRechercherCompteAdmin], dans deux contextes différents
+ * <br>un Administrateur veut trouver un compte pour le modifier ou juste voir des informations
+ * <br>un Administrateur veut afficher des statistiques sur un Utilisateur
+ * @author KerGeek
+ */
 public class FenetreResultatsRechercheCompteAdmin extends JFrame implements ActionListener {
 
+	/**
+	 * attribut de sérialisation par défaut
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur administrateur;
+	/**
+	 * booléen indiquant si l'on se trouve dans un contexte de recherche de statistiques sur les emprunts d'un Utilisateur ou non
+	 */
+	private boolean stat;
+	
+	/**
+	 * attribut correspondant à la fenêtre précédente permettant de récupérer les paramètres de la recherche
+	 */
 	private FenetreRechercherCompteAdmin fenetrePrecedente;
+	
+	/**
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("");
+	
+	/**
+	 * le {@link Compte} sélectionnée parmi les résultats de la recherche
+	 */
 	private Compte compteEntre;
-	private boolean stat;
+	
+	/**
+	 * 3 JButton proposant à l'Administrateur de valider sa sélection, d'effectuer une nouvelle recherche, ou de retourner à son menu principal
+	 */
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonNouvelleRecherche = new JButton("Nouvelle recherche");	
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -49,6 +90,9 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.administrateur = administrateur;
 	}
 
+	/*
+	 * attribut compteEntre
+	 */
 	public Compte getCompteEntre() {
 		return compteEntre;
 	}
@@ -57,6 +101,9 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.compteEntre = compteEntre;
 	}
 
+	/*
+	 * attribut stat
+	 */
 	public boolean isStat() {
 		return stat;
 	}
@@ -65,14 +112,26 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.stat = stat;
 	}
 
+	/**
+	 * constructeur de {@link FenetreResultatsRechercheCompteAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 * @param fenetrePrec
+	 * la fenêtre précédente dans laquelle ont été entrés les paramètres de la recherche
+	 * @param stat
+	 * le booléen valant true si l'ont se trouve dans un contexte de recherche d'un utilisateur pour obtenir des statistiques sur ses emprunts
+	 * @throws ConnexionFermeeException
+	 * @see {@link DAOCompte#getComptesByRecherche(int, String, String, String, String)}
+	 */
 	public FenetreResultatsRechercheCompteAdmin (Administrateur a,FenetreRechercherCompteAdmin fenetrePrec,boolean stat) throws ConnexionFermeeException{
 		System.out.println("Fenêtre pour voir les résultats d'une recherche");
 		this.setContentPane(new PanneauAdmin());
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Résultats de la recherche");
 		//Définit une taille pour celle-ci
-		this.setPreferredSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -85,27 +144,29 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		// on définit un BorderLayout
 		this.getContentPane().setLayout(new BorderLayout());
 
+		//on attribue aux attributs privés de la fenêtre les paramètres indiqués du constructeur
 		this.setAdministrateur(a);
 		fenetrePrecedente=fenetrePrec;
 		this.setStat(stat);
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,40));
+		labelAdmin.setMaximumSize(new Dimension(110,40));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,500));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 
 		List<Compte> listeComptes;
 		try {
+			//listeComptes est la liste de tous les comptes correspondant à la recherche lancée dans la fenêtre précédente
 			listeComptes = DAOCompte.getComptesByRecherche(fenetrePrec.getTypeEntre(),fenetrePrec.getIdEntre(),fenetrePrec.getNomEntre(),fenetrePrec.getPrenomEntre(),fenetrePrec.getAdresseEMailEntree());
 
 			System.out.println("Il y a "+listeComptes.size()+ " individu(s) trouvé(s)");
@@ -130,7 +191,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 				JComboBox tableau = new JComboBox(model);
 				tableau.setFont(UtilitaireIhm.POLICE3);
-				tableau.setPreferredSize(new Dimension(400,50));
+				tableau.setPreferredSize(new Dimension(600,50));
 				tableau.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent ae){
 						try {
@@ -197,8 +258,8 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
@@ -208,8 +269,17 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 3 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreInfoCompteAdmin#FenetreInfoCompteAdmin(Administrateur, Compte, boolean)
+	 * @see FenetreRechercherCompteAdmin#FenetreRechercherCompteAdmin(Administrateur, boolean)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
+		//s'il a cliqué sur "Valider"
 		if (arg0.getSource()==boutonValider){
 			try {
 				if(compteEntre==null){
@@ -224,12 +294,13 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 				new FenetreAuthentification(false);
 			}
 		}
+		//s'il a cliqué sur "lancer une nouvelle recherche"
 		else if (arg0.getSource()==boutonNouvelleRecherche){
 			new FenetreRechercherCompteAdmin(this.getAdministrateur(),stat);
 		}
+		//s'il a cliqué sur "retourner au menu principal"
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-
 	}
 }
