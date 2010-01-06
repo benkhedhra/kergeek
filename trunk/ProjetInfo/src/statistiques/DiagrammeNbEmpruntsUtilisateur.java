@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import metier.Emprunt;
 import metier.Utilisateur;
 import metier.UtilitaireDate;
 
@@ -32,6 +33,7 @@ import org.jfree.ui.ApplicationFrame;
 /**
  * La classe DiagrammeNbEmpruntsUtilisateur permet de créer le diagramme relatif aux nombres d'emprunts d'un utilisateur.
  * @see Utilisateur
+ * @see Emprunt
  * @author KerGeek
  */
 public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
@@ -47,10 +49,12 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 	//Constructeur
 	
 	/**
-	 * Création d'un diagramme des nombres d'emprunt d'un utilisateur u à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#u}.
+	 * Création d'un diagramme des nombres d'emprunt d'un {@link Utilisateur} à partir de ce dernier.
 	 * @param u
+	 * Utilisateur sur lequel on souhaite obtenir des informations
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 * @throws ClassNotFoundExceptionException
 	 * @see DiagrammeNbEmpruntsUtilisateur#createDataset(Utilisateur)
 	 * @see DiagrammeNbEmpruntsUtilisateur#createChart(CategoryDataset, Utilisateur)
@@ -69,19 +73,23 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 	//Méthodes
 	
 	/**
-	 * @return l'{@link DiagrammeNbEmpruntsUtilisateur#chart} du diagramme et en créer un image.
+	 * @return l'{@link DiagrammeNbEmpruntsUtilisateur#chart} du diagramme sous forme d'image.
+	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(800,800);
 	}
 
 	/**
-	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#u}.
+	 * Création des données utiles pour le diagramme.
 	 * @param u
+	 * l'{@link Utilisateur} sur lequel on souhaite obtenir des informations
 	 * @return dataset
+	 * les données
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
+	 * @see DAOEmprunt#getNombreEmpruntParUtilisateurParMois(Utilisateur, int)
 	 */
 	private static CategoryDataset createDataset(Utilisateur u) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
@@ -130,10 +138,13 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 	}
 
 	/**
-	 * Création du chart du diagramme à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#dataset} et d'un {@link DiagrammeNbInterventions#u}.
+	 * Création du diagramme à partir des donnŽes et de l'{@link Utilisateur} sur lequel on souhaite obtenir des informations.
 	 * @param dataset
+	 * les données à représenter
 	 * @param u
+	 * l'{@link Utilisateur} sur lequel on souhaite obtenir des informations
 	 * @return chart
+	 * le diagramme
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException

@@ -15,7 +15,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import metier.Station;
-import metier.Utilisateur;
 import metier.UtilitaireDate;
 
 import org.jfree.chart.ChartPanel;
@@ -28,7 +27,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
@@ -51,10 +49,12 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	//Constructeur
 	
 	/**
-	 * Création d'un diagramme des nombres de vélo par station à partir d'un {@link DiagrammeNbVelosStation#station}.
+	 * Création d'un diagramme des nombres de vélo par station à partir de cette dernière.
 	 * @param station
+	 * la Station sur laquel on souhaite obtenir des informations
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 * @throws ClassNotFoundExceptionException
 	 * @see DiagrammeNbVelosStation#createChart(Station)
 	 */
@@ -71,7 +71,8 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	//Méthodes
 	
 	/**
-	 * @return l'{@link DiagrammeNbVelosStation#chart} du diagramme et en créer un image.
+	 * @return l'{@link DiagrammeNbVelosStation#chart} du diagramme sous forme d'image.
+	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(600, 600);
@@ -80,12 +81,16 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	// Création des données
 	
 	/**
-	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeNbVelosStation#station}.
+	 * Création des données utiles pour le diagramme.
 	 * @param station
+	 * la Station sur laquel on souhaite obtenir des informations
 	 * @return collection
+	 * les données
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
+	 * @see DAOEmprunt#NombreVelosSortisHeures(Station, int)
+	 * @see DAOEmprunt#NombreVelosRendusHeures(Station, int)
 	 */
 	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
@@ -137,9 +142,11 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	}
 	
 	/**
-	 * Création du chart du diagramme à partir d'un {@link DiagrammeNbVelosStation#station}.
+	 * Création du diagramme.
 	 * @param station
+	 * la {@link Station} sur laquel on souhaite obtenir des informations
 	 * @return chart
+	 * le diagramme
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
