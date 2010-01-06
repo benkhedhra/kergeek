@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JPasswordField;
 
 import metier.Compte;
+import metier.DemandeAssignation;
 import metier.Lieu;
 import metier.Station;
 import metier.Technicien;
@@ -24,11 +25,11 @@ import metier.Velo;
  */
 
 public class UtilitaireIhm {
-	
+
 	/* Définition des objets servant à l'ensemble de l'ihm
 	 * polices, transparence, dimensions
 	 */
-	
+
 	// définition des polices
 	public static final Font POLICE1 = new Font("Arial Narrow", Font.BOLD, 24);
 	public static final Font POLICE2 = new Font("Arial Narrow", Font.BOLD, 18);
@@ -38,7 +39,7 @@ public class UtilitaireIhm {
 	// définition de la couleur transparence pour rendre les panels transparents et continuer à voir l'image de fond
 	public static final Color TRANSPARENCE = new Color(0,0,0,0);
 	public static final Color FONDBOUTON = new Color(170,200,220,50);
-	
+
 	/**
 	 * Vérifie si un entier correspond bien à un type de compte répertorié
 	 * @param type : un entier correspondant au type du {@link Compte} entré au moment de la création
@@ -176,22 +177,34 @@ public class UtilitaireIhm {
 		return nouvelleListe;
 	}
 
-	
-	//TODO javadoc
-	public static boolean verifieParametresAssignation(int nbVelos,Lieu l){
-		return (nbVelos>0 && nbVelos<=l.getCapacite());
+	/**
+	 * vérifie si le nombre de vélos entré pour une demande d'assignation est cohérent avec le lieu concerné
+	 * @param nbVelos
+	 * le nombre de {@link Velo} souhaité entré par l'Administrateur
+	 * @param l
+	 * le {@link Lieu} pour lequel l'Administrateur a réalisé la {@link DemandeAssignation}
+	 * @return
+	 * un booleén valant true si nbVelos et lieu sont cohérents
+	 */
+	public static boolean verifieParametresAssignation(int nbVelos,Lieu lieu){
+		return (nbVelos>0 && nbVelos<=lieu.getCapacite());
 	}
 
-	
-	
-	//TODO javadoc
+
+	/**
+	 * obtient le mot de passe rempli dans un JPasswordField
+	 * @param motDePasseARemplir
+	 * le JPasswordField dans lequel l'individu a rempli son mot de passe
+	 * @return
+	 * le mot de passe sous forme de String
+	 */
 	public static String obtenirMotDePasse(JPasswordField motDePasseARemplir){
 		String mdp = "";
-			char[] mdpChar = motDePasseARemplir.getPassword();
-			for(char c : mdpChar){
-				mdp += c;
-			}
-			mdpChar = null;//pour augmenter la sécurité de l'application
+		char[] mdpChar = motDePasseARemplir.getPassword();
+		for(char c : mdpChar){
+			mdp += c;
+		}
+		mdpChar = null;//pour augmenter la sécurité de l'application
 		return mdp;
 	}
 
