@@ -23,20 +23,50 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 
+/**
+ * MenuPrincipalAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsque l'Administrateur vient de se connecter, ou à chaque fois qu'il a décidé d'y retourner
+ * <br>elle propose à l'Administrateur 3 choix principaux : gérer les comptes, demander des statistiques (sur une période de 6 mois ou sur une période à choisir), ou voir l'état actuel du parc
+ * <br>mais elle lui offre aussi la possibilité de se déconnecter et de changer son mot de passe
+ * @author KerGeek
+ */
 public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur admin;
+	
+	/**
+	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 */
 	private JLabel labelAdmin = new JLabel("");
-	private JButton boutonDeconnexion = new JButton("Déconnexion");
+	
+	/**
+	 * 5 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal et de changer son mot de passe
+	 */
+
 	private JButton boutonComptes = new JButton("Gérer les comptes");
 	private JButton boutonStats = new JButton("Demander des statistiques");
 	private JButton boutonEtat = new JButton("Voir l'état actuel du parc");
+	
 	private JButton boutonChangeMdp = new JButton("Changer votre mot de passe");
+	
+	private JButton boutonDeconnexion = new JButton("Déconnexion");
 
+	
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -45,6 +75,11 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		this.admin = admin;
 	}
 
+	/**
+	 * constructeur de {@link MenuPrincipalAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 */
 	public MenuPrincipalAdmin(Administrateur a){
 
 		this.setAdministrateur(a);
@@ -120,10 +155,19 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 5 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see MenuGererComptesAdmin#MenuGererComptesAdmin(Administrateur)
+	 * @see MenuDemanderStatsAdmin#MenuDemanderStatsAdmin(Administrateur)
+	 * @see MenuVoirEtatAdmin#MenuVoirEtatAdmin(Administrateur)
+	 * @see FenetreChangerMotDePasse#FenetreChangerMotDePasse(metier.Compte)
+	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
 		
-
 		if(arg0.getSource()==boutonComptes){
 			new MenuGererComptesAdmin(this.getAdministrateur());
 		}

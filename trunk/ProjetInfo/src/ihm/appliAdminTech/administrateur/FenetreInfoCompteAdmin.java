@@ -9,6 +9,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -114,8 +116,9 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Informations sur un compte");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre

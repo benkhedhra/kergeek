@@ -9,6 +9,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -54,7 +56,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	private JLabel labelMsg = new JLabel("Rechercher par : ");
 	
 	/**
-	 * 
+	 * JLabel et TextFieldLimite indiquant les paramètres à remplir (ou non) pour la recherche de compte
 	 */
 	private JLabel labelQualite = new JLabel("Qualité");
 
@@ -85,6 +87,12 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	private JButton boutonValider = new JButton("Lancer la recherche");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
+	
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur 
+	 */
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -93,6 +101,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.administrateur = administrateur;
 	}
 
+	/*
+	 * attribut typeEntre : le type de compte sélectionné pour la recherche
+	 */
 	public int getTypeEntre() {
 		return typeEntre;
 	}
@@ -101,6 +112,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.typeEntre = typeEntre;
 	}
 
+	/*
+	 * attribut idEntre : l'identifiant du compte sélectionné pour la recherche
+	 */
 	public String getIdEntre() {
 		return idEntre;
 	}
@@ -109,6 +123,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.idEntre = idEntre;
 	}
 
+	/*
+	 * attribut nomEntre : le nom (pour un utilisateur) sélectionné pour la recherche
+	 */
 	public String getNomEntre() {
 		return nomEntre;
 	}
@@ -117,6 +134,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.nomEntre = nomEntre;
 	}
 
+	/*
+	 * attribut prenomEntre : le prénom (pour un utilisateur) sélectionné pour la recherche
+	 */
 	public String getPrenomEntre() {
 		return prenomEntre;
 	}
@@ -125,6 +145,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.prenomEntre = prenomEntre;
 	}
 
+	/*
+	 * attribut adresseEMailEntree : l'adresse e-mail sélectionnée pour la recherche
+	 */
 	public String getAdresseEMailEntree() {
 		return adresseEMailEntree;
 	}
@@ -134,6 +157,13 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	}
 
 
+	/**
+	 * constructeur de {@link FenetreRechercherCompteAdmin}
+	 * @param a
+	 * l'administrateur connecté sur cette fenêtre
+	 * @param stat
+	 * le booléen valant true si l'ont se trouve dans un contexte de recherche d'un utilisateur pour obtenir des statistiques sur ses emprunts
+	 */
 	public FenetreRechercherCompteAdmin(Administrateur a,boolean stat){
 
 		System.out.println("Fenêtre pour rechercher un compte");
@@ -141,8 +171,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Rechercher un compte");
 		//Définit une taille pour celle-ci
-		this.setPreferredSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -161,17 +192,17 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
@@ -183,15 +214,15 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelQualite.setPreferredSize(new Dimension(150,30));
-		labelQualite.setMaximumSize(new Dimension(150,30));
+		labelQualite.setPreferredSize(new Dimension(500,40));
+		labelQualite.setMaximumSize(new Dimension(500,40));
 		panel1.add(labelQualite);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(450,350));
+		centerWest.setPreferredSize(new Dimension(1000,800));
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		if(!stat){
@@ -205,8 +236,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			types[3] = "technicien";
 			DefaultComboBoxModel model = new DefaultComboBoxModel(types);
 			JComboBox qualiteARemplir = new JComboBox(model);
-			qualiteARemplir.setPreferredSize(new Dimension(200,30));
-			qualiteARemplir.setMaximumSize(new Dimension(200,30));
+			qualiteARemplir.setPreferredSize(new Dimension(300,40));
+			qualiteARemplir.setMaximumSize(new Dimension(300,40));
 			qualiteARemplir.setFont(UtilitaireIhm.POLICE3);
 			qualiteARemplir.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -230,8 +261,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel3 = new JPanel();
 			panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelId.setPreferredSize(new Dimension(150,30));
-			labelId.setMaximumSize(new Dimension(150,30));
+			labelId.setPreferredSize(new Dimension(500,40));
+			labelId.setMaximumSize(new Dimension(500,40));
 			panel3.add(labelId);
 			centerWest.add(panel3);	
 
@@ -244,8 +275,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel5 = new JPanel();
 			panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelAdresseEMail.setPreferredSize(new Dimension(150,30));
-			labelAdresseEMail.setMaximumSize(new Dimension(150,30));
+			labelAdresseEMail.setPreferredSize(new Dimension(500,40));
+			labelAdresseEMail.setMaximumSize(new Dimension(500,40));
 			panel5.add(labelAdresseEMail);
 			centerWest.add(panel5);	
 
@@ -258,8 +289,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			
 			JPanel panel7 = new JPanel();
 			panel7.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelNom.setPreferredSize(new Dimension(150,30));
-			labelNom.setMaximumSize(new Dimension(150,30));
+			labelNom.setPreferredSize(new Dimension(500,40));
+			labelNom.setMaximumSize(new Dimension(500,40));
 			panel7.add(labelNom);
 			centerWest.add(panel7);
 
@@ -272,8 +303,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel9 = new JPanel();
 			panel9.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelPrenom.setPreferredSize(new Dimension(150,30));
-			labelPrenom.setMaximumSize(new Dimension(150,30));
+			labelPrenom.setPreferredSize(new Dimension(500,40));
+			labelPrenom.setMaximumSize(new Dimension(500,40));
 			panel9.add(labelPrenom);
 			centerWest.add(panel9);
 
@@ -293,8 +324,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel3 = new JPanel();
 			panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelId.setPreferredSize(new Dimension(150,30));
-			labelId.setMaximumSize(new Dimension(150,30));
+			labelId.setPreferredSize(new Dimension(500,40));
+			labelId.setMaximumSize(new Dimension(500,40));
 			panel3.add(labelId);
 			centerWest.add(panel3);	
 
@@ -307,8 +338,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel5 = new JPanel();
 			panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelAdresseEMail.setPreferredSize(new Dimension(150,30));
-			labelAdresseEMail.setMaximumSize(new Dimension(150,30));
+			labelAdresseEMail.setPreferredSize(new Dimension(500,40));
+			labelAdresseEMail.setMaximumSize(new Dimension(500,40));
 			panel5.add(labelAdresseEMail);
 			centerWest.add(panel5);	
 
@@ -321,29 +352,29 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			
 			JPanel panel7 = new JPanel();
 			panel7.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelNom.setPreferredSize(new Dimension(150,30));
-			labelNom.setMaximumSize(new Dimension(150,30));
+			labelNom.setPreferredSize(new Dimension(500,40));
+			labelNom.setMaximumSize(new Dimension(500,40));
 			panel7.add(labelNom);
 			centerWest.add(panel7);
 
 			JPanel panel8 = new JPanel();
 			panel8.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			nomARemplir.setPreferredSize(new Dimension(200,30));
-			nomARemplir.setMaximumSize(new Dimension(200,30));
+			nomARemplir.setPreferredSize(new Dimension(300,40));
+			nomARemplir.setMaximumSize(new Dimension(300,40));
 			panel8.add(nomARemplir);
 			centerWest.add(panel8);	
 
 			JPanel panel9 = new JPanel();
 			panel9.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			labelPrenom.setPreferredSize(new Dimension(150,30));
-			labelPrenom.setMaximumSize(new Dimension(150,30));
+			labelPrenom.setPreferredSize(new Dimension(500,40));
+			labelPrenom.setMaximumSize(new Dimension(500,40));
 			panel9.add(labelPrenom);
 			centerWest.add(panel9);
 
 			JPanel panel10 = new JPanel();
 			panel10.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			prenomARemplir.setPreferredSize(new Dimension(200,30));
-			prenomARemplir.setMaximumSize(new Dimension(200,30));
+			prenomARemplir.setPreferredSize(new Dimension(300,40));
+			prenomARemplir.setMaximumSize(new Dimension(300,40));
 			panel10.add(prenomARemplir);
 			centerWest.add(panel10);
 		}
@@ -352,9 +383,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,350));
-		boutonValider.setPreferredSize(new Dimension(160,40));
-		boutonValider.setMaximumSize(new Dimension(160,40));
+		centerEast.setPreferredSize(new Dimension(200,800));
+		boutonValider.setPreferredSize(new Dimension(200,50));
+		boutonValider.setMaximumSize(new Dimension(200,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
@@ -364,14 +395,14 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
@@ -383,6 +414,11 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 	}
 
+	/**
+	 * cette méthode rend invisible un certain nombre d'élements graphiques impropres à la recherche d'un compte autre qu'un compte de type Utilisateur
+	 * @param typeEntre
+	 * le type de compte en fonction duquel il faut dessiner le reste de la fenêtre
+	 */
 	private void modifieSiPasUtilisateur(int typeEntre){
 		if(typeEntre!=Compte.TYPE_UTILISATEUR){
 			labelNom.setVisible(false);
@@ -392,10 +428,17 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		}
 	}
 
+	/**
+	 * méthode exécutée quand l'Administrateur a cliqué sur l'un des 2 boutons qui lui étaient proposés
+	 * il peut n'avoir rempli aucun champ pour sa recherche
+	 * @see FenetreResultatsRechercheCompteAdmin#FenetreResultatsRechercheCompteAdmin(Administrateur, FenetreRechercherCompteAdmin, boolean)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
+		//s'il a cliqué sur "Lancer la recherche"
 		if(arg0.getSource()==boutonValider){
 			this.setTypeEntre(typeEntre);
+			//s'il n'a rien entré pour le type alors typeEntre vaudra null, ou 0 (pour un entier)
 			if(!idARemplir.getText().equals("")){
 				this.setIdEntre(idARemplir.getText());
 			}
@@ -416,6 +459,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 				new FenetreAuthentification(false);
 			}
 		}
+		//s'il a cliqué sur "Retourner au menu principal"
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}

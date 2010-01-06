@@ -8,6 +8,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -19,19 +21,46 @@ import javax.swing.JPanel;
 
 import metier.Administrateur;
 
+/**
+ * MenuInterventionsMaintenanceAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
+ * <br>c'est une classe de l'application réservée à un {@link Administrateur}
+ * <br>elle intervient lorsque l'Administrateur a cliqué "interventions de maintenance" de son {@link MenuDemanderStatsAdminc}
+ * <br>elle propose à l'Administrateur 2 choix : voir l'historique des interventions effectuées sur un {@link Velo} ou afficher sous forme d'histogramme la fréquence des interventions par type
+ * @author KerGeek
+ */
 public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * attribut de sérialisation par défaut
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * l'administrateur connecté sur la fenêtre
+	 */
 	private Administrateur admin;
+	
+	/**
+	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 */
 	private JLabel labelAdmin = new JLabel("");
-	private JButton boutonRetour = new JButton("Retour au menu principal");
+	
+	/**
+	 * 3 JButton proposant les 2 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
+	 */
+
 	private JButton boutonHistorique = new JButton("<html> <center>Historique des<br>interventions<br>sur un vélo</center></html>");
 	private JButton boutonInterventions = new JButton("<html> <center>Nombre d'interventions<br>par type<br>sur les 6 derniers mois</center></html>");
-
+	
+	private JButton boutonRetour = new JButton("Retour au menu principal");
+	
+	
+	//Accesseurs utiles
+	
+	/*
+	 * attribut administrateur
+	 */
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -40,6 +69,11 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 		this.admin = admin;
 	}
 
+	/**
+	 * constructeur de {@link MenuInterventionsMaintenanceAdmin}
+	 * @param a
+	 * l'administrateur connecté à la fenêtre
+	 */
 	public MenuInterventionsMaintenanceAdmin(Administrateur a){
 
 		this.setContentPane(new PanneauAdmin());
@@ -47,8 +81,9 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu <interventions de maintenance> de l'administrateur");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -65,33 +100,33 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1200,150));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonHistorique.setPreferredSize(new Dimension(250,150));
-		boutonHistorique.setMaximumSize(new Dimension(250,150));
+		boutonHistorique.setPreferredSize(new Dimension(300,200));
+		boutonHistorique.setMaximumSize(new Dimension(300,200));
 		boutonHistorique.setFont(UtilitaireIhm.POLICE3);
 		boutonHistorique.addActionListener(this);
 		center.add(boutonHistorique);
-		boutonInterventions.setPreferredSize(new Dimension(250,150));
-		boutonInterventions.setMaximumSize(new Dimension(250,150));
+		boutonInterventions.setPreferredSize(new Dimension(300,200));
+		boutonInterventions.setMaximumSize(new Dimension(300,200));
 		boutonInterventions.setFont(UtilitaireIhm.POLICE3);
 		boutonInterventions.addActionListener(this);
 		center.add(boutonInterventions);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,40));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(300,200));
+		boutonRetour.setMaximumSize(new Dimension(300,200));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
@@ -101,14 +136,21 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 		this.setVisible(true);
 	}
 
+	/**
+	 * méthode exécutée quand l'administrateur a cliqué sur l'un des 3 boutons écoutés par la fenêtre
+	 * @param arg0
+	 * l'action source
+	 * @see FenetreCreationCompteAdmin#FenetreCreationCompteAdmin(Administrateur)
+	 * @see FenetreRechercherCompteAdmin#FenetreRechercherCompteAdmin(Administrateur, boolean)
+	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		this.dispose();
-		if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
-		}
-		else if (arg0.getSource()==boutonHistorique){
+		//s'il a cliqué sur "Voir l'historique des interventions sur un vélo"
+		if (arg0.getSource()==boutonHistorique){
 			new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
 		}
+		//s'il a cliqué sur "Voir les interventions les plus fréquentes"
 		else if (arg0.getSource()==boutonInterventions){
 			try {
 				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
@@ -121,6 +163,9 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 				new FenetreAuthentification(false);
 			}
 		}
+		//s'il a cliqué sur "Retour au milieu principal"
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
+		}
 	}
-
 }
