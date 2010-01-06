@@ -50,10 +50,12 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	//Constructeur
 	
 	/**
-	 * Création d'un diagramme du taux d'occupation d'une station à partir d'un {@link DiagrammeTxOccupationStation#station}.
+	 * Création d'un diagramme du taux d'occupation d'une {@link Station} à partir de cette dernière.
 	 * @param station
+	 * la Station sur laquel on souhaite obtenir des informations
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 * @throws ClassNotFoundExceptionException
 	 * @see DiagrammeTxOccupationStation#createChart(Station)
 	 */
@@ -71,7 +73,8 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	//Méthodes
 	
 	/**
-	 * @return l'{@link DiagrammeTxOccupationStation#chart} du diagramme et en créer un image.
+	 * @return l'{@link DiagrammeTxOccupationStation#chart} du diagramme sous forme d'image.
+	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(600, 600);
@@ -81,12 +84,16 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	// Création des données
 	
 	/**
-	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeTxOccupationStation#station}.
+	 * Création des données utiles pour le diagramme.
 	 * @param station
+	 * la Station sur laquel on souhaite obtenir des informations
 	 * @return collection
+	 * les données
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
+	 * @see DAOEmprunt#NombreVelosSortisHeures(Station, int)
+	 * @see DAOEmprunt#NombreVelosRendusHeures(Station, int)
 	 */
 	private XYSeriesCollection createDataset(Station station) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
@@ -117,8 +124,8 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		)
 		);
 		series.add(heure3, (taux 
-				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 2)
-				- DAOEmprunt.NombreVelosRendusHeures(station, 2))*(100/station.getCapacite()))
+				+ ((DAOEmprunt.NombreVelosSortisHeures(station, 3)
+				- DAOEmprunt.NombreVelosRendusHeures(station, 3))*(100/station.getCapacite()))
 		)
 		);
 
@@ -150,9 +157,11 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	}
 	
 	/**
-	 * Création du chart du diagramme à partir d'un {@link DiagrammeTxOccupationStation#station}.
+	 * Création du diagramme.
 	 * @param station
+	 * la Station sur laquel on souhaite obtenir des informations
 	 * @return chart
+	 * le diagramme
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException

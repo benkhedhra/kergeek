@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import metier.Intervention;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -28,6 +30,7 @@ import org.jfree.ui.ApplicationFrame;
 
 /**
  * La classe DiagrammeNbInterventions permet de créer le diagramme relatif aux nombres d'interventions par type d'intervention sur tous les vélos.
+ * @see Intervention
  * @author KerGeek
  */
 public class DiagrammeNbInterventions extends ApplicationFrame {
@@ -46,6 +49,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	 * Création d'un diagramme des nombres d'interventions par type d'intervention.
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 * @throws ClassNotFoundExceptionException
 	 * @see DiagrammeNbInterventions#createDataset()
 	 * @see DiagrammeNbInterventions#createChart(CategoryDataset)
@@ -66,7 +70,8 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	//Méthodes
 	
 	/**
-	 * @return l'{@link DiagrammeNbInterventions#chart} du diagramme et en créer un image.
+	 * @return l'{@link DiagrammeNbInterventions#chart} du diagramme sous forme d'image.
+	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(800, 800);
@@ -75,9 +80,12 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	/**
 	 * Création des données utiles dans le diagramme.
 	 * @return dataset
+	 * les données
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
+	 * @see DAOTypeIntervention#getAllTypesIntervention()
+	 * @see DAOIntervention#getNombresVelosParTypeIntervention(int)
 	 */
 	private static CategoryDataset createDataset() throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 		
@@ -99,9 +107,11 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	}
 
 	/**
-	 * Création du chart du diagramme à partir d'un {@link DiagrammeNbEmpruntsUtilisateur#dataset}.
+	 * Création du diagramme à partir des données.
 	 * @param dataset
+	 * les données à représenter
 	 * @return chart
+	 * le diagramme
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException

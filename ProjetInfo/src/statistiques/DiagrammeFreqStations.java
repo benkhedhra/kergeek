@@ -55,6 +55,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	 * @param periodeEntree
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 * @throws ClassNotFoundExceptionException
 	 * @see DiagrammeFreqStations#createDataset(String)
 	 * @see DiagrammeFreqStations#createChart(CategoryDataset, String)
@@ -74,19 +75,25 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	//Méthodes
 	
 	/**
-	 * @return l'{@link DiagrammeFreqStations#chart} du diagramme et en créer un image.
+	 * @return l'{@link DiagrammeFreqStations#chart} du diagramme sous forme d'image.
+	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
 		return this.chart.createBufferedImage(800,800);
 	}
 
 	/**
-	 * Création des données utiles dans le diagramme à partir d'un {@link DiagrammeFreqStations#periodeEntree}.
+	 * Création des données utiles pour le diagramme.
 	 * @param periodeEntree
+	 * période sur laquelle on souhaite obtenir des informations
 	 * @return dataset
+	 * les données
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
+	 * @see DAOLieu#getAllStations()
+	 * @see DAOEmprunt#NombreVelosRendusJours(Station, int)
+	 * @see DAOEmprunt#NombreVelosSortisJours(Station, int)
 	 */
 	private static CategoryDataset createDataset(String periodeEntree) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
@@ -128,10 +135,13 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	
 	/**
-	 * Création du chart du diagramme à partir d'un {@link DiagrammeFreqStations#dataset} et d'un {@link DiagrammeFreqStations#periodeEntree}.
+	 * Création du diagramme à partir des donnŽes et de la période d'interít.
 	 * @param dataset
+	 * les données à représenter
 	 * @param periodeEntree
+	 * période sur laquelle on souhaite obtenir des informations
 	 * @return chart
+	 * le diagramme
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException

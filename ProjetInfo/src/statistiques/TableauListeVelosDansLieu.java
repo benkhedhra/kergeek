@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import metier.Emprunt;
 import metier.Garage;
 import metier.Lieu;
 import metier.Sortie;
@@ -20,6 +21,7 @@ import metier.Velo;
 
 /**
  * La classe TableauListeVelosDansLieu permet de créer le tableau listant vélos présents dans un lieu donné.
+ * @see Velo
  * @author KerGeek
  */
 public class TableauListeVelosDansLieu extends JPanel {
@@ -30,11 +32,19 @@ public class TableauListeVelosDansLieu extends JPanel {
 	//Constructeur
 	
 	/**
-	 * Création d'un tableau listant les vélos présents dans un lieu à partir d'un {@link TableauListeVelosDansLieu#lieu}.
+	 * Création du tableau listant les {@link Velo} présents dans un {@link Lieu} à partir de ce dernier.
 	 * @param lieu
 	 * @throws ConnexionFermeeException
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 * @throws ClassNotFoundExceptionException
+	 * @see DAOVelo#getVelosByLieu(Lieu)
+	 * @see Velo#getEmpruntEnCours()
+	 * @see Emprunt#getDateEmprunt()
+	 * @see Emprunt#getUtilisateur()
+	 * @see Velo#getId()
+	 * @see Velo#getLieu()
+	 * @see Velo#isEnPanne()
 	 */
 	public TableauListeVelosDansLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		super(new GridLayout(1,0));
