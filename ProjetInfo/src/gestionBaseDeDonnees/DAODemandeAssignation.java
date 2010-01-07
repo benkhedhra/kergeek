@@ -33,10 +33,9 @@ public class DAODemandeAssignation {
 	 */
 	public static boolean createDemandeAssignation(DemandeAssignation ddeAssignation) throws SQLException,ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res = s.executeQuery("Select seqDemandeAssignation.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
@@ -166,35 +165,32 @@ public class DAODemandeAssignation {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 			ResultSet res = s.executeQuery("Select * FROM DemandeAssignation WHERE idDemandeA ='" + identifiant + "'");
-			//System.out.println(res.getString("idLieu"));
-			try {
-				if (res.next()) {
 
-					ddeAssignation.setId(identifiant);
-					java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
-					java.sql.Date date = new java.sql.Date(tempsAssignation.getTime());
-					int nombre = res.getInt("nombre");
-					String idLieu = res.getString("idLieu");
-					Boolean priseEnCharge = res.getBoolean("priseEnCharge");
+			if (res.next()) {
+				ddeAssignation.setId(identifiant);
+				java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
+				java.sql.Date date = new java.sql.Date(tempsAssignation.getTime());
+				int nombre = res.getInt("nombre");
+				String idLieu = res.getString("idLieu");
+				Boolean priseEnCharge = res.getBoolean("priseEnCharge");
 
-					ddeAssignation.setId(identifiant);
-					ddeAssignation.setDate(date);
-					ddeAssignation.setNombreVelosVoulusDansLieu(nombre);
-					ddeAssignation.setLieu(DAOLieu.getLieuById(idLieu));
-					ddeAssignation.setPriseEnCharge(priseEnCharge);
+				ddeAssignation.setId(identifiant);
+				ddeAssignation.setDate(date);
+				ddeAssignation.setNombreVelosVoulusDansLieu(nombre);
+				ddeAssignation.setLieu(DAOLieu.getLieuById(idLieu));
+				ddeAssignation.setPriseEnCharge(priseEnCharge);
 
-				}
-				else {
-					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Assignation");
-				}
 			}
-			catch(PasDansLaBaseDeDonneeException e1){
-				System.out.println(e1.getMessage());
-				ddeAssignation = null;
+			else {
+				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant de la demande d'Assignation");
 			}
-			catch (SQLException e2){
-				System.out.println(e2.getMessage());
-			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println(e1.getMessage());
+			ddeAssignation = null;
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e3){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -226,37 +222,34 @@ public class DAODemandeAssignation {
 		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
-
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 			ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0'");
 
-			try {
-				DemandeAssignation ddeAssignation = new DemandeAssignation();
-				List<String> listeIdDde = new ArrayList<String>();
-				int diff;
+			DemandeAssignation ddeAssignation = new DemandeAssignation();
+			List<String> listeIdDde = new ArrayList<String>();
+			int diff;
 
-				while(res.next()) {
-					String idDdeAssignation = res.getString("idDemandeA");
-					listeIdDde.add(idDdeAssignation);
+			while(res.next()) {
+				String idDdeAssignation = res.getString("idDemandeA");
+				listeIdDde.add(idDdeAssignation);
+			}
+
+			for (String idDdeA : listeIdDde){
+				ddeAssignation = getDemandeAssignationById(idDdeA);
+				diff = ddeAssignation.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddeAssignation.getLieu()).size();
+				if (diff==0){
+					ddeAssignation.setPriseEnCharge(true);
+					updateDemandeAssignation(ddeAssignation);
 				}
-
-				for (String idDdeA : listeIdDde){
-					ddeAssignation = getDemandeAssignationById(idDdeA);
-					diff = ddeAssignation.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddeAssignation.getLieu()).size();
-					if (diff==0){
-						ddeAssignation.setPriseEnCharge(true);
-						updateDemandeAssignation(ddeAssignation);
-					}
-					else{
-						liste.add(ddeAssignation);
-					}
+				else{
+					liste.add(ddeAssignation);
 				}
 			}
-			catch(SQLException e1){
-				liste = null;
-				System.out.println(e1.getMessage());
-			}
+		}
+		catch(SQLException e1){
+			liste = null;
+			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){

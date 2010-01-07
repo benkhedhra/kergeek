@@ -20,7 +20,7 @@ import metier.Station;
  * @author KerGeek
  */
 public class DAOLieu {
-	
+
 	/**
 	 * Ajoute une instance de {@link Lieu} à la base de données.
 	 * @param lieu
@@ -33,9 +33,10 @@ public class DAOLieu {
 	 */
 	public static boolean createLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
 			if (lieu.getId() == Lieu.ID_GARAGE){
 				s.executeUpdate("INSERT into Lieu values ('" 
 						+ Garage.ID_GARAGE + "', '" 
@@ -107,40 +108,38 @@ public class DAOLieu {
 	 */
 	public static Lieu getLieuById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Lieu lieu;
-	
+
 		if (identifiant == Lieu.ID_GARAGE){ // c'est LE garage (unique)
 			lieu = (Garage) Garage.getInstance();
 		}
-	
+
 		else if (identifiant == Lieu.ID_SORTIE){ // pas de lieu
 			lieu = (Sortie) Sortie.getInstance();
 		}
-	
+
 		else{// alors il ne peut s'agir que d'une station
-	
+
 			lieu = (Station) new Station();
-	
+
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 			try{
 				ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant +"'");
-				try {
-					if (res.next()) {
-						lieu.setId(identifiant);
-						lieu.setCapacite(res.getInt("capacite"));
-						lieu.setAdresse(res.getString("adresseLieu"));
-					}
-					else {
-						throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du Lieu");
-					}
+				if (res.next()) {
+					lieu.setId(identifiant);
+					lieu.setCapacite(res.getInt("capacite"));
+					lieu.setAdresse(res.getString("adresseLieu"));
 				}
-				catch(PasDansLaBaseDeDonneeException e1){
-					System.out.println(e1.getMessage());
-					lieu = null;
+				else {
+					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du Lieu");
 				}
-				catch (SQLException e2){
-					System.out.println(e2.getMessage());
-				}
+			}
+			catch(PasDansLaBaseDeDonneeException e1){
+				System.out.println(e1.getMessage());
+				lieu = null;
+			}
+			catch (SQLException e2){
+				System.out.println(e2.getMessage());
 			}
 			catch(NullPointerException e3){
 				if (ConnexionOracleViaJdbc.getC() == null){
@@ -157,7 +156,7 @@ public class DAOLieu {
 				ConnexionOracleViaJdbc.fermer();
 			}
 		}
-	
+
 		return lieu;
 	}
 
@@ -171,27 +170,25 @@ public class DAOLieu {
 	public static List<Lieu> getStationsEtGarage() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Lieu> listeLieus = new ArrayList<Lieu>();
 		List<String> listeId = new ArrayList<String>();
-	
+
 		Lieu lieu;
-	
+
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 			ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_SORTIE + "' AND idLieu <> '" + Lieu.ID_DETRUIT + "'");
-			try {
-				while(res.next()) {
-					String idLieu = res.getString("idLieu"); 
-					listeId.add(idLieu);
-				}
-				for(String id : listeId){
-					lieu = DAOLieu.getLieuById(id);
-					listeLieus.add(lieu);
-				}
+			while(res.next()) {
+				String idLieu = res.getString("idLieu"); 
+				listeId.add(idLieu);
 			}
-			catch(SQLException e1){
-				listeLieus = null;
-				System.out.println(e1.getMessage());
+			for(String id : listeId){
+				lieu = DAOLieu.getLieuById(id);
+				listeLieus.add(lieu);
 			}
+		}
+		catch(SQLException e1){
+			listeLieus = null;
+			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -207,7 +204,7 @@ public class DAOLieu {
 		finally{
 			ConnexionOracleViaJdbc.fermer();
 		}
-	
+
 		return listeLieus;
 	}
 
@@ -228,7 +225,7 @@ public class DAOLieu {
 		}
 		return listeStations;
 	}
-	
+
 	/**
 	 * @param station
 	 * @return le taux d'occupation de la station passée en paramètre
@@ -292,7 +289,7 @@ public class DAOLieu {
 		String resul = s.toString()+ " - sur-occupée";
 		return resul;
 	}
-	
+
 	/**
 	 * Une fonction qui sert à l'affichage d'une station sous-occupée.
 	 * @param s

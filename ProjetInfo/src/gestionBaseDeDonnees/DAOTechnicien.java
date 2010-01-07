@@ -17,7 +17,7 @@ import metier.Technicien;
  * @author KerGeek
  */
 public class DAOTechnicien {
-	
+
 	/**
 	 * Ajoute une instance de la classe {@link Technicien} à la base de données.
 	 * @param tech
@@ -74,7 +74,7 @@ public class DAOTechnicien {
 		//Deux Techniciens ne doivent pas avoir la míme adresse email
 		return admin;
 	}
-	
+
 	/**
 	 * @return la liste de l'ensemble des {@link Technicien} présents dans la base de données.
 	 * @throws SQLException
@@ -92,20 +92,18 @@ public class DAOTechnicien {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 			ResultSet res = s.executeQuery("Select idCompte from Compte WHERE type = '" + Compte.TYPE_TECHNICIEN + "'");
-			try {
-				while(res.next()) {
-					String idCompte = res.getString("idCompte"); 
-					listeId.add(idCompte);
-				}
-				for(String id : listeId){
-					technicien = DAOTechnicien.getTechnicienById(id);
-					liste.add(technicien);
-				}
+			while(res.next()) {
+				String idCompte = res.getString("idCompte"); 
+				listeId.add(idCompte);
 			}
-			catch(SQLException e1){
-				liste = null;
-				System.out.println(e1.getMessage());
+			for(String id : listeId){
+				technicien = DAOTechnicien.getTechnicienById(id);
+				liste.add(technicien);
 			}
+		}
+		catch(SQLException e1){
+			liste = null;
+			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){

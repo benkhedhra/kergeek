@@ -29,9 +29,10 @@ public class DAOTypeIntervention {
 	 */
 	public static boolean createTypeIntervention(TypeIntervention typeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
+		
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res = s.executeQuery("Select seqTypeIntervention.NEXTVAL as type from dual");
 			if (res.next()){
 				int type = res.getInt("type");
@@ -216,7 +217,6 @@ public class DAOTypeIntervention {
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
 		ResultSet res = s.executeQuery("Select* from TypeIntervention");
-		try {
 			TypeIntervention typeIntervention = new TypeIntervention();
 			List<Integer> listeTypesInter = new ArrayList<Integer>();
 
@@ -232,7 +232,6 @@ public class DAOTypeIntervention {
 		catch(SQLException e1){
 			liste = null;
 			System.out.println(e1.getMessage());
-		}
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){

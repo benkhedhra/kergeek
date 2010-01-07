@@ -36,12 +36,12 @@ public class DAOCompte {
 	 */
 	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ResultSet res = null;
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-
-			ResultSet res = null;
-
 			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
 				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as id from dual");
 				if (res.next()){
@@ -210,36 +210,34 @@ public class DAOCompte {
 		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
+
+		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-
 			ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
-			try{
-				if (res.next()) {
-					compte = new Compte();
-					compte.setId(identifiant);
-					compte.setMotDePasse(res.getString("motDePasse"));
-					compte.setType(res.getInt("type"));
-					compte.setAdresseEmail(res.getString("adresseMail"));
+			if (res.next()) {
+				compte = new Compte();
+				compte.setId(identifiant);
+				compte.setMotDePasse(res.getString("motDePasse"));
+				compte.setType(res.getInt("type"));
+				compte.setAdresseEmail(res.getString("adresseMail"));
 
-					if (res.getBoolean("actif")){
-						compte.setActif(true);
-					}
-					else{
-						compte.setActif(false);
-					}
+				if (res.getBoolean("actif")){
+					compte.setActif(true);
 				}
-				else {
-					throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte");
+				else{
+					compte.setActif(false);
 				}
 			}
-			catch(PasDansLaBaseDeDonneeException e1){
-				System.out.println(e1.getMessage());
-				compte = null;
+			else {
+				throw new PasDansLaBaseDeDonneeException("Erreur d'identifiant du compte");
 			}
-			catch (SQLException e2){
-				System.out.println(e2.getMessage());
-			}
+		}
+		catch(PasDansLaBaseDeDonneeException e1){
+			System.out.println(e1.getMessage());
+			compte = null;
+		}
+		catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		catch(NullPointerException e3){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -419,9 +417,10 @@ public class DAOCompte {
 		}
 
 		System.out.println("requete = "+requete);
-		try {
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+		try {	
 			ResultSet res = s.executeQuery(requete);
 
 			Compte compte;
