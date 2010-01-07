@@ -181,7 +181,7 @@ public class UtilitaireIhm {
 	 * vérifie si le nombre de vélos entré pour une demande d'assignation est cohérent avec le lieu concerné
 	 * @param nbVelos
 	 * le nombre de {@link Velo} souhaité entré par l'Administrateur
-	 * @param l
+	 * @param lieu
 	 * le {@link Lieu} pour lequel l'Administrateur a réalisé la {@link DemandeAssignation}
 	 * @return
 	 * un booleén valant true si nbVelos et lieu sont cohérents
