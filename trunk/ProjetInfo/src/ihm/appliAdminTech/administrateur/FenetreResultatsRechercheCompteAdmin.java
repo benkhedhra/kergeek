@@ -32,7 +32,7 @@ import metier.Compte;
 /**
  * FenetreResultatsRechercheCompteAdmin hérite de {@link JFrame} et implémente {@link ActionListener}
  * <br>c'est une classe de l'application réservée à un {@link Administrateur}
- * <br>elle intervient suite à une {@link FenetreRechercherCompteAdmin], dans deux contextes différents
+ * <br>elle intervient suite à une {@link FenetreRechercherCompteAdmin}, dans deux contextes différents
  * <br>un Administrateur veut trouver un compte pour le modifier ou juste voir des informations
  * <br>un Administrateur veut afficher des statistiques sur un Utilisateur
  * @author KerGeek

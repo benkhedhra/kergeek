@@ -431,6 +431,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	/**
 	 * méthode exécutée quand l'Administrateur a cliqué sur l'un des 2 boutons qui lui étaient proposés
 	 * il peut n'avoir rempli aucun champ pour sa recherche
+	 * @param arg0 
 	 * @see FenetreResultatsRechercheCompteAdmin#FenetreResultatsRechercheCompteAdmin(Administrateur, FenetreRechercherCompteAdmin, boolean)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
