@@ -1,7 +1,10 @@
 package ihm.appliAdminTech.technicien;
 
+import envoieMail.SendMail;
+import gestionBaseDeDonnees.DAOAdministrateur;
 import gestionBaseDeDonnees.DAODemandeIntervention;
 import gestionBaseDeDonnees.DAOIntervention;
+import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
@@ -15,10 +18,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,8 +31,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import metier.Administrateur;
 import metier.DemandeIntervention;
 import metier.Intervention;
+import metier.Lieu;
+import metier.Station;
 import metier.Technicien;
 import metier.Velo;
 
@@ -56,7 +64,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	private TextFieldLimite idVeloARemplir = new TextFieldLimite(4,"");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	
+
 	/**
 	 * @return	le {@link FenetreRetirerVeloDefectueuxTech#technicien} de la {@link FenetreRetirerVeloDefectueuxTech}
 	 */
@@ -80,7 +88,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	public DemandeIntervention getDemandeEntree() {
 		return demandeEntree;
 	}
-	
+
 	/**
 	 * Initialise la {@link FenetreRetirerVeloDefectueuxTech#demandeEntree} de la {@link FenetreRetirerVeloDefectueuxTech}
 	 * @param demandeEntree
@@ -158,7 +166,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			tableauDemandes[0]=listeDemandes.size()+" demandes formulées";
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeIntervention demandei = listeDemandes.get(i);
-					tableauDemandes[i+1] = DAODemandeIntervention.ligne(demandei);
+				tableauDemandes[i+1] = DAODemandeIntervention.ligne(demandei);
 			}
 
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
@@ -176,14 +184,14 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 							demandeEntree=null;
 						}
 						else{
-						String idDemandeEntre="";
-						int i=8;
-						while(chaineSelectionnee.charAt(i)!=' '){
-							idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
-							i++;
-						}
-						System.out.println("id de la demande entré : "+idDemandeEntre);
-						demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
+							String idDemandeEntre="";
+							int i=8;
+							while(chaineSelectionnee.charAt(i)!=' '){
+								idDemandeEntre=idDemandeEntre+chaineSelectionnee.charAt(i);
+								i++;
+							}
+							System.out.println("id de la demande entré : "+idDemandeEntre);
+							demandeEntree = DAODemandeIntervention.getDemandeInterventionById(idDemandeEntre);
 						}repaint();
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
@@ -216,7 +224,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		idVeloARemplir.setPreferredSize(new Dimension(200,50));		
 		idVeloARemplir.setMinimumSize(new Dimension(200,50));
 		centerSouth.add(idVeloARemplir);
-		
+
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setPreferredSize(new Dimension(250,50));		
@@ -241,8 +249,8 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 		this.setVisible(true);
 	}
-	
-	
+
+
 	/**
 	 * cette méthode est exécutée si le {@link Technicien} a cliqué sur l'un des deux boutons qui lui étaient proposés
 	 * <br>s'il a cliqué sur {@link FenetreRetirerVeloDefectueuxTech#boutonValider}, le technicien commence une intervention sur le vélo sélectionné ou entré
@@ -270,11 +278,27 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					//le technicien a sélectionné une demande d'intervention
 					System.out.println("Une demande d'intervention a été sélectionnée");
 					Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
+					Station stationConcernee = (Station) demandeEntree.getVelo().getLieu();
 					this.getDemandeEntree().setIntervention(i);
 					if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i) && DAODemandeIntervention.updateDemandeIntervention(this.getDemandeEntree())){
 						new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 					}
+					if (DAOVelo.getVelosByLieu((Lieu)stationConcernee).isEmpty()){
+						List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
+						List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
+
+						String adresseEMail;
+						for (Technicien t : listeTech){
+							adresseEMail = t.getCompte().getAdresseEmail();
+							SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+						}
+						for (Administrateur a : listeAdmin){
+							adresseEMail = a.getCompte().getAdresseEmail();
+							SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+						}
+					}
 				}
+
 				else if(!idVeloARemplir.getText().equals("")){
 					//le technicien a entré un id de vélo
 					System.out.println("Un vélo a été entré");
@@ -321,10 +345,37 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
 				e.printStackTrace();
-			}
-			catch (ConnexionFermeeException e){
+			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
+			} catch (UnsupportedEncodingException e) {
+				System.out.println("UnsupportedEncodingException : " + e.getMessage());
+				try {
+					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+				} catch (SQLException e2) {
+					MsgBox.affMsg(e2.getMessage());
+					e.printStackTrace();
+				} catch (ClassNotFoundException e2) {
+					MsgBox.affMsg(e2.getMessage());
+					e.printStackTrace();
+				} catch (ConnexionFermeeException e2){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
+			} catch (MessagingException e) {
+				System.out.println(e.getMessage());
+				try {
+					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+				} catch (SQLException e2) {
+					MsgBox.affMsg(e2.getMessage());
+					e.printStackTrace();
+				} catch (ClassNotFoundException e2) {
+					MsgBox.affMsg(e2.getMessage());
+					e.printStackTrace();
+				} catch (ConnexionFermeeException e2){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
 			}
 		}
 		else if (arg0.getSource()==boutonRetour){

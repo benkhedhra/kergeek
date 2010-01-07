@@ -58,7 +58,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	private JButton boutonValider = new JButton ("Valider");
 
 	// Accesseurs utiles
-		
+
 	/**
 	 * @return le {@link Utilisateur} de la FenetreEmprunterVeloUtil 
 	 */
@@ -77,7 +77,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	
+
 	/**
 	 * constructeur de FenetreEmprunterVeloUtil
 	 * @param u
@@ -143,7 +143,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	
+
 	/**
 	 * méthode exécutée si l'utilisateur a cliqué sur le bouton "Valider"
 	 * <br>la fenêtre courante se ferme et une nouvelle fenêtre adaptée s'ouvre
@@ -174,22 +174,22 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 					new FenetreEmprunterVeloUtil(this.getUtilisateur());
 				}
 				else{
-					
+
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
 					this.idVeloAEmprunte = velo.getId();
 					Station station = (Station) velo.getLieu();
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
-					
+
 					this.getUtilisateur().emprunteVelo(velo);
 
 					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
 					DAOVelo.updateVelo(velo);
-					
+
 					if (DAOVelo.getVelosByLieu(station).isEmpty()){
 						List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
 						List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
-						
+
 						String adresseEMail;
 						for (Technicien t : listeTech){
 							adresseEMail = t.getCompte().getAdresseEmail();
@@ -199,7 +199,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 							adresseEMail = a.getCompte().getAdresseEmail();
 							SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
 						}
-				}
+					}
 
 					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
 					System.out.println("L'emprunt a bien été enregistré");
