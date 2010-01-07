@@ -113,8 +113,8 @@ public class DAOUtilisateur {
 		Utilisateur u = new Utilisateur(new Compte());
 
 		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
 			if (res.next()) {
 

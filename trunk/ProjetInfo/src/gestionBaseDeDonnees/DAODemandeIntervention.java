@@ -33,9 +33,9 @@ public class DAODemandeIntervention {
 	 */
 	public static boolean createDemandeIntervention(DemandeIntervention ddeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
+			try{
 			ResultSet res = s.executeQuery("Select seqDemandeIntervention.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");

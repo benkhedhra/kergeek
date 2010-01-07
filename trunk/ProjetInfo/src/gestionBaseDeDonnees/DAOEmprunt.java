@@ -35,9 +35,9 @@ public class DAOEmprunt {
 	 */
 	public static boolean createEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
 			ResultSet res = s.executeQuery("Select seqEmprunt.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
@@ -464,8 +464,8 @@ public class DAOEmprunt {
 			else{
 				liste.add(0);
 			}
-			
-			
+
+
 			for (int i=1; i <= nbMois; i++){
 				java.sql.Date dateSqlSupTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i);
 				java.sql.Date dateSqlSup = UtilitaireDate.initialisationDebutMois(dateSqlSupTemp);
