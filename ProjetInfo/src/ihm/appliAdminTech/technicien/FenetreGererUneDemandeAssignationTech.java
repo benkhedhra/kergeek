@@ -10,6 +10,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -118,8 +120,9 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer une demande d'assignation");
 		//Définit une taille pour celle-ci
-		this.setPreferredSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -138,17 +141,17 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(500,30));
-		labelTech.setMaximumSize(new Dimension(550,30));
+		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelTech.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
@@ -162,8 +165,8 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelLieu.setPreferredSize(new Dimension(250,30));
-		labelLieu.setMaximumSize(new Dimension(250,30));
+		labelLieu.setPreferredSize(new Dimension(500,40));
+		labelLieu.setMaximumSize(new Dimension(500,40));
 		panel1.add(labelLieu);
 		centerCenter.add(panel1);
 
@@ -172,30 +175,30 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		System.out.println(DAODemandeAssignation.ligne(d));
 		System.out.println(d.getLieu().getAdresse());
 		labelLieuDemande.setText(d.getLieu().getAdresse());
-		labelLieuDemande.setPreferredSize(new Dimension(250,30));
-		labelLieuDemande.setMaximumSize(new Dimension(250,30));
+		labelLieuDemande.setPreferredSize(new Dimension(350,40));
+		labelLieuDemande.setMaximumSize(new Dimension(350,40));
 		panel2.add(labelLieuDemande);
 		centerCenter.add(panel2);	
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelNbVelosSouhaite.setPreferredSize(new Dimension(250,30));
-		labelNbVelosSouhaite.setMaximumSize(new Dimension(250,30));
+		labelNbVelosSouhaite.setPreferredSize(new Dimension(500,40));
+		labelNbVelosSouhaite.setMaximumSize(new Dimension(500,40));
 		panel3.add(labelNbVelosSouhaite);
 		centerCenter.add(panel3);	
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelNbVelosSouhaiteDemande.setText(""+d.getNombreVelosVoulusDansLieu());
-		labelNbVelosSouhaiteDemande.setPreferredSize(new Dimension(250,30));
-		labelNbVelosSouhaiteDemande.setMaximumSize(new Dimension(250,30));
+		labelNbVelosSouhaiteDemande.setPreferredSize(new Dimension(350,40));
+		labelNbVelosSouhaiteDemande.setMaximumSize(new Dimension(350,40));
 		panel4.add(labelNbVelosSouhaiteDemande);
 		centerCenter.add(panel4);	
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelNbVelosActuel.setPreferredSize(new Dimension(250,30));
-		labelNbVelosActuel.setMaximumSize(new Dimension(250,30));
+		labelNbVelosActuel.setPreferredSize(new Dimension(500,40));
+		labelNbVelosActuel.setMaximumSize(new Dimension(500,40));
 		panel5.add(labelNbVelosActuel);
 		centerCenter.add(panel5);
 
@@ -203,15 +206,15 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);
 		List<Velo> velos = DAOVelo.getVelosByLieu(d.getLieu());
 		labelNbVelosActuelDemande.setText(""+velos.size());
-		labelNbVelosActuelDemande.setPreferredSize(new Dimension(250,30));
-		labelNbVelosActuelDemande.setMaximumSize(new Dimension(250,30));
+		labelNbVelosActuelDemande.setPreferredSize(new Dimension(350,40));
+		labelNbVelosActuelDemande.setMaximumSize(new Dimension(350,40));
 		panel6.add(labelNbVelosActuelDemande);
 		centerCenter.add(panel6);			
 
 		JPanel panel7 = new JPanel();
 		panel7.setBackground(UtilitaireIhm.TRANSPARENCE);
-		labelOperation.setPreferredSize(new Dimension(250,30));
-		labelOperation.setMaximumSize(new Dimension(250,30));
+		labelOperation.setPreferredSize(new Dimension(500,40));
+		labelOperation.setMaximumSize(new Dimension(500,40));
 		labelOperation.setForeground(Color.RED);
 		panel7.add(labelOperation);
 		centerCenter.add(panel7);
@@ -228,8 +231,8 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		}
 		operation=operation+" de "+Math.abs(diff)+" vélos";
 		labelOperationDemande.setText(operation);
-		labelOperationDemande.setPreferredSize(new Dimension(250,30));
-		labelOperationDemande.setMaximumSize(new Dimension(250,30));
+		labelOperationDemande.setPreferredSize(new Dimension(350,40));
+		labelOperationDemande.setMaximumSize(new Dimension(350,40));
 		labelOperationDemande.setForeground(Color.RED);
 		panel8.add(labelOperationDemande);
 		centerCenter.add(panel8);

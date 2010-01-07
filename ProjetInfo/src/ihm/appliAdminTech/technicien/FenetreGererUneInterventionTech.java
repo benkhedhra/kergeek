@@ -8,6 +8,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -101,8 +103,9 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer une intervention");
 		//Définit une taille pour celle-ci
-		this.setPreferredSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -121,17 +124,17 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(500,30));
-		labelTech.setMaximumSize(new Dimension(550,30));
+		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelTech.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
@@ -141,51 +144,51 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerCenter = new JPanel();
-		centerCenter.setPreferredSize(new Dimension(550,350));
+		centerCenter.setPreferredSize(new Dimension(1000,800));
 		centerCenter.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelId.setPreferredSize(new Dimension(250,30));
-		labelId.setMaximumSize(new Dimension(250,30));
+		labelId.setPreferredSize(new Dimension(500,40));
+		labelId.setMaximumSize(new Dimension(500,40));
 		panel1.add(labelId);
 		centerCenter.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelIdInter.setText(i.getId());
-		labelIdInter.setPreferredSize(new Dimension(250,30));
-		labelIdInter.setMaximumSize(new Dimension(250,30));
+		labelIdInter.setPreferredSize(new Dimension(350,40));
+		labelIdInter.setMaximumSize(new Dimension(350,40));
 		panel2.add(labelIdInter);
 		centerCenter.add(panel2);
 
 		JPanel panel3 = new JPanel();
 		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelVelo.setPreferredSize(new Dimension(250,30));
-		labelVelo.setMaximumSize(new Dimension(250,30));
+		labelVelo.setPreferredSize(new Dimension(500,40));
+		labelVelo.setMaximumSize(new Dimension(500,40));
 		panel3.add(labelVelo);
 		centerCenter.add(panel3);	
 
 		JPanel panel4 = new JPanel();
 		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelVeloInter.setText(i.getVelo().getId());
-		labelVeloInter.setPreferredSize(new Dimension(250,30));
-		labelVeloInter.setMaximumSize(new Dimension(250,30));
+		labelVeloInter.setPreferredSize(new Dimension(350,40));
+		labelVeloInter.setMaximumSize(new Dimension(350,40));
 		panel4.add(labelVeloInter);
 		centerCenter.add(panel4);	
 
 		JPanel panel5 = new JPanel();
 		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
-		labelDate.setPreferredSize(new Dimension(250,30));
-		labelDate.setMaximumSize(new Dimension(250,30));
+		labelDate.setPreferredSize(new Dimension(500,40));
+		labelDate.setMaximumSize(new Dimension(500,40));
 		panel5.add(labelDate);
 		centerCenter.add(panel5);	
 
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelDateInter.setText(i.getDate().toString());
-		labelDateInter.setPreferredSize(new Dimension(250,30));
-		labelDateInter.setMaximumSize(new Dimension(250,30));
+		labelDateInter.setPreferredSize(new Dimension(350,40));
+		labelDateInter.setMaximumSize(new Dimension(350,40));
 		panel6.add(labelDateInter);
 		centerCenter.add(panel6);	
 
@@ -202,7 +205,7 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,150));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 

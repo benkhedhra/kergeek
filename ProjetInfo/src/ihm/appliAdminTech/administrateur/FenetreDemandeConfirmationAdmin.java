@@ -11,6 +11,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -116,7 +118,9 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Fenêtre de demande de confirmation");
-		this.setSize(700, 500);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
@@ -126,9 +130,9 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1200,250));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.add(north, BorderLayout.NORTH);
@@ -145,10 +149,10 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 			this.setVelo(velo);
 			labelConfirm.setText("Souhaitez-vous confirmer la suppression du vélo "+velo.getId()+" ? ");
 		}
-		labelConfirm.setPreferredSize(new Dimension(550,30));
-		boutonOui.setPreferredSize(new Dimension(200,50));
+		labelConfirm.setPreferredSize(new Dimension(1100,40));
+		boutonOui.setPreferredSize(new Dimension(300,50));
 		boutonOui.setBackground(Color.CYAN);
-		boutonNon.setPreferredSize(new Dimension(200,50));
+		boutonNon.setPreferredSize(new Dimension(300,50));
 		boutonNon.setBackground(Color.CYAN);
 
 		boutonOui.addActionListener(this);

@@ -10,6 +10,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -85,7 +87,9 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		this.setTitle("Gérer les demandes d'assignation");
 		//Définit une taille pour celle-ci
 		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -103,16 +107,16 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(300,30));
-		labelTech.setMaximumSize(new Dimension(550,30));
+		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelTech.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1100,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,400));
+		center.setPreferredSize(new Dimension(1100,100));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.add(labelMsg);
 
@@ -192,7 +196,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1100,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
