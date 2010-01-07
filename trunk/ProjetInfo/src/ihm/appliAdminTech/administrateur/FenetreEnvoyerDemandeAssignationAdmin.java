@@ -11,6 +11,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -106,8 +108,9 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Envoyer une demande d'assignation");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -126,40 +129,40 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
-		labelMsg.setPreferredSize(new Dimension (600,30));
+		labelMsg.setPreferredSize(new Dimension(1100,40));
 		center.add(labelMsg);
 
-		center.setPreferredSize(new Dimension(550,350));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelStation.setPreferredSize(new Dimension (250,30));
+		labelStation.setPreferredSize(new Dimension(500,40));
 		center.add(labelStation);
 
 		labelStationConcernee.setText(l.getAdresse());
-		labelStationConcernee.setPreferredSize(new Dimension (250,30));
+		labelStationConcernee.setPreferredSize(new Dimension(500,40));
 		center.add(labelStationConcernee);
-		labelNbVelos.setPreferredSize(new Dimension (250,30));
+		labelNbVelos.setPreferredSize(new Dimension(500,40));
 		center.add(labelNbVelos);
-		nbVelosARemplir.setPreferredSize(new Dimension (250,30));
+		nbVelosARemplir.setPreferredSize(new Dimension(500,40));
 		center.add(nbVelosARemplir);
 
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(200,350));
-		boutonValider.setPreferredSize(new Dimension(200,40));
-		boutonValider.setMaximumSize(new Dimension(200,40));
+		center.setPreferredSize(new Dimension(1200,800));
+		boutonValider.setPreferredSize(new Dimension(1200,800));
+		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
@@ -171,22 +174,22 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		south.setPreferredSize(new Dimension(700,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		boutonEtatAutreStation.setPreferredSize(new Dimension(250,40));
-		boutonEtatAutreStation.setMaximumSize(new Dimension(250,40));
+		boutonEtatAutreStation.setPreferredSize(new Dimension(250,50));
+		boutonEtatAutreStation.setMaximumSize(new Dimension(250,50));
 		boutonEtatAutreStation.setFont(UtilitaireIhm.POLICE3);
 		boutonEtatAutreStation.setBackground(Color.GREEN);
 		boutonEtatAutreStation.addActionListener(this);
 		south.add(boutonEtatAutreStation);
 
-		boutonStationsSurSous.setPreferredSize(new Dimension(250,40));
-		boutonStationsSurSous.setMaximumSize(new Dimension(250,40));
+		boutonStationsSurSous.setPreferredSize(new Dimension(250,50));
+		boutonStationsSurSous.setMaximumSize(new Dimension(250,50));
 		boutonStationsSurSous.setFont(UtilitaireIhm.POLICE3);
 		boutonStationsSurSous.setBackground(Color.GREEN);
 		boutonStationsSurSous.addActionListener(this);
 		south.add(boutonStationsSurSous);
 
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);

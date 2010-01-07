@@ -12,6 +12,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -126,8 +128,9 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Prendre en charge une intervention");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -146,24 +149,24 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(500,30));
-		labelTech.setMaximumSize(new Dimension(550,30));
+		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelTech.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
 		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelMsg.setPreferredSize(new Dimension(600,50));
-		labelMsg.setMaximumSize(new Dimension(600,50));
+		labelMsg.setPreferredSize(new Dimension(1100,100));
+		labelMsg.setMaximumSize(new Dimension(1100,100));
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
 
 		labelMsg.setText(i.toString());
@@ -171,12 +174,12 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setPreferredSize(new Dimension(1000,800));
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
-		labelTypeIntervention.setPreferredSize(new Dimension(200,30));		
+		labelTypeIntervention.setPreferredSize(new Dimension(500,40));		
 		panel1.add(labelTypeIntervention);
 		centerWest.add(panel1);
 
@@ -231,7 +234,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 			JPanel panel2 = new JPanel();
 			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
-			combo.setPreferredSize(new Dimension(300,30));
+			combo.setPreferredSize(new Dimension(400,40));
 			panel2.add(combo);
 			centerWest.add(panel2);		
 
@@ -256,7 +259,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));

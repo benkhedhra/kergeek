@@ -10,6 +10,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -82,8 +84,10 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		System.out.println("Affichage du menu principal du technicien");
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Menu principal du technicien");
-		//Définit une taille pour celle-ci ; ici, 400 px de large et 500 px de haut
-		this.setSize(700, 500);
+		//Définit une taille pour celle-ci
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
@@ -98,13 +102,13 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(500,30));
-		boutonDeconnexion.setPreferredSize(new Dimension(150,30));
+		labelTech.setPreferredSize(new Dimension(1100,250));
+		boutonDeconnexion.setPreferredSize(new Dimension(1100,50));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1200,150));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		north.add(boutonDeconnexion);
@@ -112,23 +116,23 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		bouton1.setPreferredSize(new Dimension(200,100));
-		bouton1.setMaximumSize(new Dimension(200,100));
+		bouton1.setPreferredSize(new Dimension(300,200));
+		bouton1.setMaximumSize(new Dimension(300,200));
 		bouton1.setFont(UtilitaireIhm.POLICE3);
 		bouton1.addActionListener(this);
 		center.add(bouton1);
-		bouton2.setPreferredSize(new Dimension(200,100));
-		bouton2.setMaximumSize(new Dimension(200,100));
+		bouton2.setPreferredSize(new Dimension(300,200));
+		bouton2.setMaximumSize(new Dimension(300,200));
 		bouton2.setFont(UtilitaireIhm.POLICE3);
 		bouton2.addActionListener(this);
 		center.add(bouton2);
-		bouton3.setPreferredSize(new Dimension(200,100));
-		bouton3.setMaximumSize(new Dimension(200,100));
+		bouton3.setPreferredSize(new Dimension(300,200));
+		bouton3.setMaximumSize(new Dimension(300,200));
 		bouton3.setFont(UtilitaireIhm.POLICE3);
 		bouton3.addActionListener(this);
 		center.add(bouton3);
-		bouton4.setPreferredSize(new Dimension(200,100));
-		bouton4.setMaximumSize(new Dimension(200,100));
+		bouton4.setPreferredSize(new Dimension(300,200));
+		bouton4.setMaximumSize(new Dimension(300,200));
 		bouton4.setFont(UtilitaireIhm.POLICE3);
 		bouton4.addActionListener(this);
 		center.add(bouton4);
@@ -138,8 +142,8 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(700,50));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonChangeMdp.setPreferredSize(new Dimension(250,30));
-		boutonChangeMdp.setMaximumSize(new Dimension(250,30));
+		boutonChangeMdp.setPreferredSize(new Dimension(250,40));
+		boutonChangeMdp.setMaximumSize(new Dimension(250,40));
 		boutonChangeMdp.setFont(UtilitaireIhm.POLICE3);
 		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);

@@ -12,7 +12,9 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -139,8 +141,9 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Prendre en charge une assignation");
 		//Définit une taille pour celle-ci
-		this.setPreferredSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -159,21 +162,21 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(500,30));
-		labelTech.setMaximumSize(new Dimension(550,30));
+		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelTech.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,400));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
-		centerNorth.setPreferredSize(new Dimension(700,60));
+		centerNorth.setPreferredSize(new Dimension(1200,100));
 		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		int nbVelosADeplacer;
@@ -186,12 +189,12 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 			nbVelosADeplacer = Math.abs(diff);
 
-			labelMsg.setPreferredSize(new Dimension(600,50));
-			labelMsg.setMaximumSize(new Dimension(600,50));
+			labelMsg.setPreferredSize(new Dimension(1100,100));
+			labelMsg.setMaximumSize(new Dimension(1100,100));
 			labelMsg.setFont(UtilitaireIhm.POLICE2);
 
-			labelListeVelosAssignables.setPreferredSize(new Dimension(700,50));
-			labelListeVelosAssignables.setMaximumSize(new Dimension(700,50));
+			labelListeVelosAssignables.setPreferredSize(new Dimension(1100,50));
+			labelListeVelosAssignables.setMaximumSize(new Dimension(1100,50));
 			labelListeVelosAssignables.setFont(UtilitaireIhm.POLICE2);
 
 			//a priori ne sert pas
@@ -202,7 +205,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			}
 			else{
 				JPanel centerCenter = new JPanel();
-				centerCenter.setPreferredSize(new Dimension(550,350));
+				centerCenter.setPreferredSize(new Dimension(1200,700));
 				centerCenter.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 				panelVelos.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -230,12 +233,12 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						JLabel labelVelo = new JLabel("");
 
 						labelVelo.setBackground(UtilitaireIhm.TRANSPARENCE);
-						labelVelo.setPreferredSize(new Dimension(250,30));
+						labelVelo.setPreferredSize(new Dimension(400,40));
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
 						TextFieldLimite veloARemplir = new TextFieldLimite(4,l.get(i));
-						veloARemplir.setPreferredSize(new Dimension(250,30));
+						veloARemplir.setPreferredSize(new Dimension(400,40));
 						panelVelos.add(veloARemplir);
 					}
 				}
@@ -260,12 +263,12 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						JLabel labelVelo = new JLabel("");
 
 						labelVelo.setBackground(UtilitaireIhm.TRANSPARENCE);
-						labelVelo.setPreferredSize(new Dimension(250,30));
+						labelVelo.setPreferredSize(new Dimension(400,40));
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
 						TextFieldLimite veloARemplir = new TextFieldLimite(4,l.get(i));
-						veloARemplir.setPreferredSize(new Dimension(250,30));
+						veloARemplir.setPreferredSize(new Dimension(400,40));
 						panelVelos.add(veloARemplir);
 					}
 				}
@@ -293,7 +296,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,50));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		boutonRetour.setPreferredSize(new Dimension(250,40));

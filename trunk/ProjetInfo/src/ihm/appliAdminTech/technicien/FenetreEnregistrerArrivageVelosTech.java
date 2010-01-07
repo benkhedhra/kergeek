@@ -10,6 +10,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -126,7 +128,9 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Enregistrer un nouvel arrivage de vélos");
 		//Définit une taille pour celle-ci
-		this.setSize(700, 500);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
 		this.setLocationRelativeTo(null);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
@@ -151,9 +155,9 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
-		labelMsg.setPreferredSize(new Dimension(600,30));
-		labelMsg.setMaximumSize(new Dimension(600,30));
+		center.setPreferredSize(new Dimension(1200,800));
+		labelMsg.setPreferredSize(new Dimension(1100,50));
+		labelMsg.setMaximumSize(new Dimension(1100,50));
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		center.add(labelMsg);
 
@@ -181,8 +185,8 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		});
 		center.add(combo);
 
-		boutonValider.setPreferredSize(new Dimension(150,30));
-		boutonValider.setMaximumSize(new Dimension(150,30));
+		boutonValider.setPreferredSize(new Dimension(250,50));
+		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
@@ -191,7 +195,7 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1100,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));

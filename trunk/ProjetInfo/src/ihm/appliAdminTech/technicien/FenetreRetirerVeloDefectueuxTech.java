@@ -16,6 +16,8 @@ import ihm.appliAdminTech.FenetreConfirmation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
@@ -118,8 +120,9 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer les demandes d'intervention ou constater un vélo défectueux");
 		//Définit une taille pour celle-ci
-		this.setPreferredSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -137,26 +140,26 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(500,30));
-		labelTech.setMaximumSize(new Dimension(550,30));
+		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelTech.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(700,400));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
-		centerNorth.setPreferredSize(new Dimension(700,250));
+		centerNorth.setPreferredSize(new Dimension(1200,300));
 		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelMsg1.setPreferredSize(new Dimension(650,50));		
-		labelMsg1.setMinimumSize(new Dimension(650,50));
+		labelMsg1.setPreferredSize(new Dimension(1100,50));		
+	labelMsg1.setMinimumSize(new Dimension(1100,50));
 		centerNorth.add(labelMsg1);
 
 		List<DemandeIntervention> listeDemandes;
@@ -172,8 +175,8 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauDemandes);
 
 			JComboBox combo = new JComboBox(model);
-			combo.setPreferredSize(new Dimension(400,50));		
-			combo.setMinimumSize(new Dimension(400,50));
+			combo.setPreferredSize(new Dimension(600,50));		
+			combo.setMinimumSize(new Dimension(600,50));
 			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -215,14 +218,14 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerSouth = new JPanel();
-		centerSouth.setPreferredSize(new Dimension(700,150));
+		centerSouth.setPreferredSize(new Dimension(1200,150));
 		centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelMsg2.setPreferredSize(new Dimension(650,50));		
-		labelMsg2.setMinimumSize(new Dimension(650,50));
+		labelMsg2.setPreferredSize(new Dimension(1100,50));		
+		labelMsg2.setMinimumSize(new Dimension(1100,50));
 		centerSouth.add(labelMsg2);
-		idVeloARemplir.setPreferredSize(new Dimension(200,50));		
-		idVeloARemplir.setMinimumSize(new Dimension(200,50));
+		idVeloARemplir.setPreferredSize(new Dimension(300,50));		
+		idVeloARemplir.setMinimumSize(new Dimension(300,50));
 		centerSouth.add(idVeloARemplir);
 
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
@@ -237,7 +240,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,150));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		boutonRetour.setPreferredSize(new Dimension(250,40));
 		boutonRetour.setMaximumSize(new Dimension(250,40));
