@@ -63,7 +63,7 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 	/**
 	 * 3 JButton permettant à l'Administrateur de valider le lieu sélectionné (Station ou Garage), de voir les vélos sortis (lieu Sortie), ou de retourner au menu principal
 	 */
-	private JButton boutonValider = new JButton("Valider");
+	private JButton boutonValider = new JButton("Valider le lieu sélectionné");
 	private JButton boutonVelosSortis = new JButton("Voir les vélos sortis");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
@@ -137,10 +137,9 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(1200,800));
+		labelMsg.setPreferredSize(new Dimension(1200,100));
+		center.add(labelMsg);
 
-		JPanel centerWest = new JPanel();
-		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerWest.setPreferredSize(new Dimension(1000,800));
 		List<Lieu> listeStations;
 		try {
 			listeStations = DAOLieu.getStationsEtGarage();
@@ -152,6 +151,7 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			JComboBox combo = new JComboBox(model);
+			combo.setPreferredSize(new Dimension(300,40));
 			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -177,25 +177,22 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 					repaint();
 				}
 			});
-			centerWest.add(labelMsg);
-			centerWest.add(combo);
+			center.add(combo);
 
 			boutonValider.setPreferredSize(new Dimension(300,50));
 			boutonValider.setMaximumSize(new Dimension(300,50));
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.addActionListener(this);
-			centerWest.add(boutonValider);
+			center.add(boutonValider);
 
 			boutonVelosSortis.setPreferredSize(new Dimension(300,50));
 			boutonVelosSortis.setMaximumSize(new Dimension(300,50));
 			boutonVelosSortis.setBackground(Color.CYAN);
 			boutonVelosSortis.setFont(UtilitaireIhm.POLICE3);
 			boutonVelosSortis.addActionListener(this);
-			centerWest.add(boutonVelosSortis);
-
-			center.add(centerWest,BorderLayout.WEST);
-
+			center.add(boutonVelosSortis);
+			
 			this.getContentPane().add(center,BorderLayout.CENTER);
 
 		} catch (SQLException e) {
@@ -204,7 +201,6 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 			MsgBox.affMsg(e.getMessage());
 		}
 
-
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -212,8 +208,8 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(300,40));
-		boutonRetour.setMaximumSize(new Dimension(300,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);

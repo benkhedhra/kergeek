@@ -122,15 +122,15 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 
 			labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 			labelAdmin.setFont(UtilitaireIhm.POLICE4);
-			labelAdmin.setPreferredSize(new Dimension(500,30));
+			labelAdmin.setPreferredSize(new Dimension(1100,50));
 			JPanel north = new JPanel();
-			north.setPreferredSize(new Dimension(700,150));
+			north.setPreferredSize(new Dimension(1200,150));
 			north.setBackground(UtilitaireIhm.TRANSPARENCE);
 			north.add(labelAdmin);
 			this.add(north, BorderLayout.NORTH);
 
 			labelMsg.setText("<html><center>Une demande d'assignation a déjà été envoyée et non traitée pour la station "+ancienneDemande.getLieu().getAdresse()+". <br> Le nombre de vélos désiré pour cette station est de : "+ancienneDemande.getNombreVelosVoulusDansLieu()+"<br>Souhaitez-vous remplacer cette demande par la vôtre ("+nouvelleDemande.getNombreVelosVoulusDansLieu()+" vélos) ? <html>");
-			labelMsg.setPreferredSize(new Dimension(550,100));
+			labelMsg.setPreferredSize(new Dimension(1100,100));
 			boutonOui.setPreferredSize(new Dimension(200,50));
 			boutonOui.setBackground(Color.CYAN);
 			boutonNon.setPreferredSize(new Dimension(200,50));

@@ -112,21 +112,24 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
+		
+		labelMsg.setPreferredSize(new Dimension(1100,100));
+		center.add(labelMsg);
 
 		JPanel centerWest = new JPanel();
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerWest.setPreferredSize(new Dimension(500,350));
+		centerWest.setPreferredSize(new Dimension(1000,800));
 		List<Lieu> listeStations;
 		try {
 			listeStations = DAOLieu.getStationsEtGarage();
@@ -138,6 +141,7 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 			}
 			DefaultComboBoxModel model = new DefaultComboBoxModel(tableauStations);
 			JComboBox combo = new JComboBox(model);
+			combo.setPreferredSize(new Dimension(300,40));
 			combo.setFont(UtilitaireIhm.POLICE3);
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
@@ -161,18 +165,19 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 							new FenetreAuthentification(false);
 						}
 					}
+					repaint();
 				}
 			});
-			centerWest.add(labelMsg);
+
 			centerWest.add(combo);
 
-			boutonValider.setPreferredSize(new Dimension(200,40));
-			boutonValider.setMaximumSize(new Dimension(200,40));
+			boutonValider.setPreferredSize(new Dimension(250,50));
+			boutonValider.setMaximumSize(new Dimension(250,50));
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.addActionListener(this);
 			centerWest.add(boutonValider);
-
+			
 			center.add(centerWest,BorderLayout.WEST);
 
 			this.getContentPane().add(center,BorderLayout.CENTER);
@@ -183,16 +188,15 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 			MsgBox.affMsg(e.getMessage());
 		}
 
-
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);

@@ -75,7 +75,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	    Rectangle bounds = env.getMaximumWindowBounds();
 	    this.setBounds(bounds);
-		this.setLocationRelativeTo(null);
+		//this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);

@@ -222,7 +222,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(1000,800));
+		centerWest.setPreferredSize(new Dimension(950,800));
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		if(!stat){
@@ -268,8 +268,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel4 = new JPanel();
 			panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			idARemplir.setPreferredSize(new Dimension(200,30));
-			idARemplir.setMaximumSize(new Dimension(200,30));
+			idARemplir.setPreferredSize(new Dimension(300,40));
+			idARemplir.setMaximumSize(new Dimension(300,40));
 			panel4.add(idARemplir);
 			centerWest.add(panel4);	
 
@@ -282,8 +282,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
-			adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
+			adresseEMailARemplir.setPreferredSize(new Dimension(300,40));
+			adresseEMailARemplir.setMaximumSize(new Dimension(300,40));
 			panel6.add(adresseEMailARemplir);
 			centerWest.add(panel6);
 			
@@ -296,8 +296,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel8 = new JPanel();
 			panel8.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			nomARemplir.setPreferredSize(new Dimension(200,30));
-			nomARemplir.setMaximumSize(new Dimension(200,30));
+			nomARemplir.setPreferredSize(new Dimension(300,40));
+			nomARemplir.setMaximumSize(new Dimension(300,40));
 			panel8.add(nomARemplir);
 			centerWest.add(panel8);	
 
@@ -310,8 +310,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel10 = new JPanel();
 			panel10.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			prenomARemplir.setPreferredSize(new Dimension(200,30));
-			prenomARemplir.setMaximumSize(new Dimension(200,30));
+			prenomARemplir.setPreferredSize(new Dimension(300,40));
+			prenomARemplir.setMaximumSize(new Dimension(300,40));
 			panel10.add(prenomARemplir);
 			centerWest.add(panel10);
 		}
@@ -331,8 +331,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel4 = new JPanel();
 			panel4.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			idARemplir.setPreferredSize(new Dimension(200,30));
-			idARemplir.setMaximumSize(new Dimension(200,30));
+			idARemplir.setPreferredSize(new Dimension(300,40));
+			idARemplir.setMaximumSize(new Dimension(300,40));
 			panel4.add(idARemplir);
 			centerWest.add(panel4);	
 
@@ -345,8 +345,8 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 			JPanel panel6 = new JPanel();
 			panel6.setBackground(UtilitaireIhm.TRANSPARENCE);	
-			adresseEMailARemplir.setPreferredSize(new Dimension(200,30));
-			adresseEMailARemplir.setMaximumSize(new Dimension(200,30));
+			adresseEMailARemplir.setPreferredSize(new Dimension(300,40));
+			adresseEMailARemplir.setMaximumSize(new Dimension(300,40));
 			panel6.add(adresseEMailARemplir);
 			centerWest.add(panel6);
 			
@@ -383,7 +383,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,800));
+		centerEast.setPreferredSize(new Dimension(250,800));
 		boutonValider.setPreferredSize(new Dimension(200,50));
 		boutonValider.setMaximumSize(new Dimension(200,50));
 		boutonValider.setBackground(Color.CYAN);
