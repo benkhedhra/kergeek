@@ -92,8 +92,8 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	 * @throws SQLException
 	 * @throws ClassNotFoundExceptionException
 	 * @see DAOLieu#getAllStations()
-	 * @see DAOEmprunt#NombreVelosRendusJours(Station, int)
-	 * @see DAOEmprunt#NombreVelosSortisJours(Station, int)
+	 * @see DAOEmprunt#nombreVelosRendusJours(Station, int)
+	 * @see DAOEmprunt#nombreVelosSortisJours(Station, int)
 	 */
 	private static CategoryDataset createDataset(String periodeEntree) throws ConnexionFermeeException, SQLException, ClassNotFoundException {
 
@@ -125,12 +125,12 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 			nbJoursEntre = 365;
 		}
 		for(int i=0;i<category.size();i++){
-			dataset.addValue(DAOEmprunt.NombreVelosRendusJours(stations.get(i), nbJoursEntre), entres, category.get(i));
-			dataset.addValue(DAOEmprunt.NombreVelosSortisJours(stations.get(i), nbJoursEntre), sortis, category.get(i));
+			dataset.addValue(DAOEmprunt.nombreVelosRendusJours(stations.get(i), nbJoursEntre), entres, category.get(i));
+			dataset.addValue(DAOEmprunt.nombreVelosSortisJours(stations.get(i), nbJoursEntre), sortis, category.get(i));
 
 		}
 		return dataset;
-
+ 
 	}
 
 	

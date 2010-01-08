@@ -229,7 +229,7 @@ public class DAOEmprunt {
 	 * @see UtilitaireDate#dateCourante()
 	 * @see UtilitaireDate#initialisationDebutJour(Date) 
 	 */
-	public static int NombreVelosSortisJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static int nombreVelosSortisJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();
@@ -339,7 +339,7 @@ public class DAOEmprunt {
 	 * @see UtilitaireDate#dateCourante()
 	 * @see UtilitaireDate#initialisationDebutJour(Date)  
 	 */
-	public static int NombreVelosRendusJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+	public static int nombreVelosRendusJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
 
 		ConnexionOracleViaJdbc.ouvrir();

@@ -3,6 +3,12 @@ package envoieMail;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
+/**
+ * La classe MyAuthenticator permet de générer les mot de passe et identifiant nécesssaires à l'authentification, lors de l'envoi d'un e-mail..
+ * @see SendMail
+ * @author KerGeek
+ */ 
+
 public class MyAuthenticator extends Authenticator {
 
 	private final String LOGIN = "//DOMENSAI/id3033";

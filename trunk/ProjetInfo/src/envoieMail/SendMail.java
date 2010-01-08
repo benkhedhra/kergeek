@@ -1,5 +1,7 @@
 package envoieMail;
 
+
+
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
@@ -11,9 +13,24 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
- 
+
+
+/**
+ * La classe SendMail permet d'envoyer un mail.
+ * @see MyAuthenticator
+ * @author KerGeek
+ */ 
+
 public class SendMail {
  
+	/**
+	 * Envoi d'un e-mail ‡ partir d'un {@link SendMail#message_dest}, d'un {@link SendMail#message_objet} et d'un {@link SendMail#message_corps} .
+	 * @param message_dest
+	 * @param message_objet
+	 * @param message_corps
+	 * @throws MessagingException
+	 * @throws UnsupportedEncodingException
+	 */
 	
 	public static void sendMail(String message_dest,String message_objet,String message_corps) throws MessagingException, UnsupportedEncodingException{
 		
@@ -67,7 +84,7 @@ public class SendMail {
 			System.out.println("erreur smtp" + e.getMessage());
 		}
 		
-		//TODO Si ça ne marche pas, on revient à la révision 388 qui fonctionnait
+		//TODO Si Áa ne marche pas, on revient ‡ la rÈvision 388 qui fonctionnait
  
 	}
 
