@@ -243,11 +243,11 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 			JPanel panel1 = new JPanel();
 			panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
-			panel1.setPreferredSize(new Dimension(600,600));
+			panel1.setPreferredSize(new Dimension(600,650));
 
 			JPanel panel2 = new JPanel();
 			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
-			panel2.setPreferredSize(new Dimension(600,600));
+			panel2.setPreferredSize(new Dimension(600,650));
 
 			DiagrammeNbVelosStation diag1;
 			DiagrammeTxOccupationStation diag2;

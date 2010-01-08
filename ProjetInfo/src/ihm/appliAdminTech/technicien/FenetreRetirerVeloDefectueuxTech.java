@@ -280,8 +280,9 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 				else if(this.getDemandeEntree()!=null){
 					//le technicien a sélectionné une demande d'intervention
 					System.out.println("Une demande d'intervention a été sélectionnée");
+					Lieu lieuOriginal = demandeEntree.getVelo().getLieu();
 					Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
-					Station stationConcernee = (Station) demandeEntree.getVelo().getLieu();
+					Station stationConcernee = (Station) lieuOriginal;
 					this.getDemandeEntree().setIntervention(i);
 					if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i) && DAODemandeIntervention.updateDemandeIntervention(this.getDemandeEntree())){
 						new FenetreConfirmation(this.getTechnicien().getCompte(),this);

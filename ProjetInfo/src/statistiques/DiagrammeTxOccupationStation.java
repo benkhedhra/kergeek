@@ -64,7 +64,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		super("");
 		this.chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(600,600));
+		chartPanel.setPreferredSize(new Dimension(600,610));
 		this.setContentPane(chartPanel);
 
 	}
@@ -77,7 +77,7 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
-		return this.chart.createBufferedImage(600, 600);
+		return this.chart.createBufferedImage(600,610);
 	}
 
 	
@@ -147,11 +147,21 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 		series3.add(heure2, Station.TAUX_OCCUPATION_MAX * 100);
 		series3.add(heure1, Station.TAUX_OCCUPATION_MAX * 100);
 		
+		// étiquette de la série du taux minimum
+		final XYSeries series4 = new XYSeries("Capacité");
+		
+		// données de la série du taux minimum
+		series4.add(heureencours, 100);
+		series4.add(heure3, 100);
+		series4.add(heure2, 100);
+		series4.add(heure1, 100);
+		
 		// ajout des 3 séries à la collection renvoyée
 		final XYSeriesCollection collection = new XYSeriesCollection();
 		collection.addSeries(series);
 		collection.addSeries(series2);
 		collection.addSeries(series3);
+		collection.addSeries(series4);
 		return collection;
 
 	}
@@ -217,13 +227,19 @@ public class DiagrammeTxOccupationStation extends ApplicationFrame {
 				0.0f, 0.0f, Color.red, 
 				0.0f, 0.0f, new Color(64, 0, 0)
 		);
+		GradientPaint gp3 = new GradientPaint(
+				0.0f, 0.0f, Color.black, 
+				0.0f, 0.0f, new Color(64, 0, 0)
+		);
 		renderer1.setSeriesPaint(0, gp0); // taux d'occupation
 		renderer1.setSeriesPaint(1, gp1); // minimum
 		renderer1.setSeriesPaint(2, gp2); // maximum
+		renderer1.setSeriesPaint(3, gp3); // capacité
 
 		// epaisseur des séries délimitant le maximum et le minimum
 		renderer1.setSeriesStroke(1, new BasicStroke(2.5f)); // minimum
 		renderer1.setSeriesStroke(2, new BasicStroke(2.5f)); // maximum
+		renderer1.setSeriesStroke(3, new BasicStroke(2.5f)); // capacité
 
 		return chart;
 	}

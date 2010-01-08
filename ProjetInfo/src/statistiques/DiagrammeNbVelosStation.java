@@ -62,7 +62,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		super("");
 		this.chart = createChart(station);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(600, 600));
+		chartPanel.setPreferredSize(new Dimension(600, 610));
 		this.setContentPane(chartPanel);
 
 	}
@@ -75,7 +75,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
-		return this.chart.createBufferedImage(600, 600);
+		return this.chart.createBufferedImage(600, 610);
 	}
 
 	// Création des données
@@ -159,6 +159,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 		//initialisation de l'axe des ordonnées
 		final NumberAxis axeVelo = new NumberAxis("nombre de vélos"); // titre
 		axeVelo.setLabelFont(new Font("Arial Narrow", Font.BOLD,16)); // police
+		axeVelo.setTickUnit(new NumberTickUnit(1)); // graduation
 
 		// création du sous-dessin
 		final XYSeriesCollection data1 = createDataset(station);
@@ -196,7 +197,7 @@ public class DiagrammeNbVelosStation extends ApplicationFrame {
 				0.0f, 0.0f, new Color(0, 64, 0)
 		);
 		GradientPaint gp1 = new GradientPaint(
-				0.0f, 0.0f, Color.red, 
+				0.0f, 0.0f, Color.black, 
 				0.0f, 0.0f, new Color(64, 0, 0)
 		);
 		renderer1.setSeriesPaint(0, gp0);
