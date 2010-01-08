@@ -348,9 +348,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			center.add(bouton3);
 
 		}
-
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);

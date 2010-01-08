@@ -306,8 +306,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		boutonAutreCompte.setBackground(Color.GREEN);
 		boutonAutreCompte.addActionListener(this);
 		panel13.add(boutonAutreCompte);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);

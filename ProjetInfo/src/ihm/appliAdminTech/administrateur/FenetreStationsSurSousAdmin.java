@@ -119,8 +119,8 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(1100,40));
-		labelAdmin.setMaximumSize(new Dimension(1100,40));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -130,6 +130,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		labelMsg.setPreferredSize(new Dimension(1100,100));
 		center.add(labelMsg);
 
 		List<Station> listeStationsSur;
@@ -180,7 +181,7 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 			center.add(tableau);
 			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.setBackground(Color.CYAN);
-			boutonValider.setFont(UtilitaireIhm.POLICE3);
+			boutonValider.setPreferredSize(new Dimension(250,50));
 			boutonValider.addActionListener(this);
 			center.add(boutonValider);
 
@@ -195,14 +196,18 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(300,40));
-		boutonRetour.setMaximumSize(new Dimension(300,40));
+		south.setLayout(new BorderLayout());
+
+		JPanel panel11 = new JPanel();
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour);
+		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
-
 		this.setVisible(true);
 	}
 

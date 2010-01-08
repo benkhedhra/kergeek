@@ -24,7 +24,6 @@ public class TestDAODemandeAssignation extends TestCase{
 		assertEquals((Boolean)true,(Boolean) b);
 	}
 	
-
 	@Test
 	public void testGetDemandeAssignationById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		DemandeAssignation dmde = DAODemandeAssignation.getDemandeAssignationById("1");

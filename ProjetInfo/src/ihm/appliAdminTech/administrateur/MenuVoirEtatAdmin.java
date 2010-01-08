@@ -91,41 +91,47 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonStationsSurSous.setPreferredSize(new Dimension(200,120));
-		boutonStationsSurSous.setMaximumSize(new Dimension(200,120));
+		center.setPreferredSize(new Dimension(1200,600));
+		boutonStationsSurSous.setPreferredSize(new Dimension(300,200));
+		boutonStationsSurSous.setMaximumSize(new Dimension(300,200));
 		boutonStationsSurSous.setFont(UtilitaireIhm.POLICE3);
 		boutonStationsSurSous.addActionListener(this);
 		center.add(boutonStationsSurSous);
-		boutonEtatLieu.setPreferredSize(new Dimension(200,120));
-		boutonEtatLieu.setMaximumSize(new Dimension(200,120));
+		boutonEtatLieu.setPreferredSize(new Dimension(300,200));
+		boutonEtatLieu.setMaximumSize(new Dimension(300,200));
 		boutonEtatLieu.setFont(UtilitaireIhm.POLICE3);
 		boutonEtatLieu.addActionListener(this);
 		center.add(boutonEtatLieu);
-		boutonVelos.setPreferredSize(new Dimension(200,120));
-		boutonVelos.setMaximumSize(new Dimension(200,120));
+		boutonVelos.setPreferredSize(new Dimension(300,200));
+		boutonVelos.setMaximumSize(new Dimension(300,200));
 		boutonVelos.setFont(UtilitaireIhm.POLICE3);
 		boutonVelos.addActionListener(this);
 		center.add(boutonVelos);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,40));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		south.setLayout(new BorderLayout());
+
+		JPanel panel11 = new JPanel();
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour);
+		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);

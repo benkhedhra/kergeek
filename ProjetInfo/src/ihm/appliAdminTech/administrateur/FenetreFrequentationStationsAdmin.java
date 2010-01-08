@@ -8,6 +8,8 @@ import ihm.appliAdminTech.FenetreAuthentification;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -86,8 +88,9 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Fréquentation des stations");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
-		this.setMinimumSize(new Dimension(700,500));
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -105,17 +108,17 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(300,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(1200,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
@@ -132,8 +135,8 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		periodes[4] = "365 derniers jours";
 		DefaultComboBoxModel model = new DefaultComboBoxModel(periodes);
 		JComboBox periodeARemplir = new JComboBox(model);
-		periodeARemplir.setPreferredSize(new Dimension(250,30));
-		periodeARemplir.setMaximumSize(new Dimension(250,30));
+		periodeARemplir.setPreferredSize(new Dimension(300,40));
+		periodeARemplir.setMaximumSize(new Dimension(300,40));
 		periodeARemplir.setFont(UtilitaireIhm.POLICE3);
 		periodeARemplir.addActionListener(new ActionListener(){
 
@@ -145,11 +148,10 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 				}
 				repaint();
 			}
-
 		});
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(550,350));
+		centerWest.setPreferredSize(new Dimension(900,800));
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 		centerWest.add(periodeARemplir);
 
@@ -157,9 +159,9 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,350));
-		boutonValider.setPreferredSize(new Dimension(80,40));
-		boutonValider.setMaximumSize(new Dimension(80,40));
+		centerEast.setPreferredSize(new Dimension(300,800));
+		boutonValider.setPreferredSize(new Dimension(250,50));
+		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
@@ -169,21 +171,20 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		panel11.add(boutonRetour);
 		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
-
 		this.setVisible(true);
 	}
 

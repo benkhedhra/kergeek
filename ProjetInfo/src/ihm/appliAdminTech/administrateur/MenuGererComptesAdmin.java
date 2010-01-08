@@ -94,38 +94,43 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonCreation.setPreferredSize(new Dimension(250,150));
-		boutonCreation.setMaximumSize(new Dimension(250,150));
+		boutonCreation.setPreferredSize(new Dimension(300,200));
+		boutonCreation.setMaximumSize(new Dimension(300,200));
 		boutonCreation.setFont(UtilitaireIhm.POLICE3);
 		boutonCreation.addActionListener(this);
 		center.add(boutonCreation);
-		boutonInformations.setPreferredSize(new Dimension(250,150));
-		boutonInformations.setMaximumSize(new Dimension(250,150));
+		boutonInformations.setPreferredSize(new Dimension(300,200));
+		boutonInformations.setMaximumSize(new Dimension(300,200));
 		boutonInformations.setFont(UtilitaireIhm.POLICE3);
 		boutonInformations.addActionListener(this);
 		center.add(boutonInformations);
 		this.add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,40));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+
+		JPanel panel11 = new JPanel();
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour,BorderLayout.EAST);
+		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
+
 
 		this.setVisible(true);
 	}

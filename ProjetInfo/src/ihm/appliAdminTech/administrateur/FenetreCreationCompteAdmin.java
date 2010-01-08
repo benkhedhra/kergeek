@@ -260,6 +260,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
+		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -269,6 +270,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);

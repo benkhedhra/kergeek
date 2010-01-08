@@ -97,7 +97,7 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,250));
+		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
@@ -125,12 +125,16 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
-		boutonRetour.setPreferredSize(new Dimension(300,50));
-		boutonRetour.setMaximumSize(new Dimension(300,50));
+
+		JPanel panel11 = new JPanel();
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour,BorderLayout.EAST);
+		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);

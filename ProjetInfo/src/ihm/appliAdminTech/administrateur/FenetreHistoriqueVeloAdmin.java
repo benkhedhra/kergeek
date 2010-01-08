@@ -125,25 +125,26 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		labelMsg.setPreferredSize(new Dimension(600,30));
 		center.add(labelMsg);
 		idVeloARemplir.setFont(UtilitaireIhm.POLICE3);
-		idVeloARemplir.setPreferredSize(new Dimension(150, 30));
+		idVeloARemplir.setPreferredSize(new Dimension(250,40));
 		idVeloARemplir.setForeground(Color.BLUE);
 		center.add(idVeloARemplir);
 		boutonAfficher.setFont(UtilitaireIhm.POLICE3);
 		boutonAfficher.setBackground(Color.CYAN);
 		boutonAfficher.setFont(UtilitaireIhm.POLICE3);
+		idVeloARemplir.setPreferredSize(new Dimension(250,50));
 		boutonAfficher.addActionListener(this);
 		center.add(boutonAfficher);
 		this.getContentPane().add(center, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);

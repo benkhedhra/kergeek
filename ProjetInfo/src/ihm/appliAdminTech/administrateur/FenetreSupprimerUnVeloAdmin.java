@@ -152,15 +152,14 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 
 		JPanel panel11 = new JPanel();
 		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(300,40));
-		boutonRetour.setMaximumSize(new Dimension(300,40));
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
 		panel11.add(boutonRetour);
 		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
-
 		this.setVisible(true);
 	}
 

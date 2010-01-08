@@ -30,7 +30,7 @@ import metier.UtilitaireDate;
 /**
  * FenetreAuthentificationUtil hérite de {@link JFrame} et implémente {@link ActionListener}
  * <br>cette fenêtre permet à un utilisateur du parc de s'authentifier en entrant son identifiant
- * <br>cette fenêtre est propre à l'application utilisateur
+ * <br>cette fenêtre est propre à l'application {@link Utilisateur}
  * @see MenuUtil#MenuUtil(Utilisateur)
  * @author KerGeek
  */
