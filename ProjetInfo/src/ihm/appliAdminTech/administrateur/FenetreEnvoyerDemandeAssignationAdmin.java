@@ -56,7 +56,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	 */
 	private DemandeAssignation demande;
 
-	//attributs privés : composants de la fenêtre : 5 JLabel, 1 TextFieldLimite, et 4 JButton
+	//attributs privés : composants de la fenêtre : 5 JLabel, 1 TextFieldLimite, et 5 JButton
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
 	private JLabel labelStation = new JLabel("Station");
@@ -64,6 +64,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	private JLabel labelNbVelos = new JLabel("Nombre de vélos souhaité");
 	private TextFieldLimite nbVelosARemplir = new TextFieldLimite (4,"");
 	private JButton boutonValider = new JButton("Valider");
+	private JButton boutonEcranPrecedent = new JButton("Revenir à l'écran précédent");
 	private JButton boutonEtatAutreStation = new JButton ("Voir l'état d'une autre station");
 	private JButton boutonStationsSurSous = new JButton ("Voir les stations sur et sous occupées");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
@@ -161,7 +162,16 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(1200,800));
-		boutonValider.setPreferredSize(new Dimension(1200,800));
+		boutonEcranPrecedent.setPreferredSize(new Dimension(250,50));
+		boutonEcranPrecedent.setMaximumSize(new Dimension(250,50));
+		boutonEcranPrecedent.setBackground(Color.CYAN);
+		boutonEcranPrecedent.setFont(UtilitaireIhm.POLICE3);
+		boutonEcranPrecedent.addActionListener(this);
+		center.add(boutonEcranPrecedent);
+		
+		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(1200,800));
+		boutonValider.setPreferredSize(new Dimension(250,50));
 		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
@@ -240,6 +250,9 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 					MsgBox.affMsg("<html> <center>Le nombre de vélos entré est incorrect. <br>La capacité de "+this.getLieuConcerne().getAdresse()+" est de "+this.getLieuConcerne().getCapacite()+" vélos. </center></html>");
 					new FenetreEnvoyerDemandeAssignationAdmin(this.getAdministrateur(),this.getLieuConcerne());
 				}
+			}
+			else if (arg0.getSource()==boutonEcranPrecedent){
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
 			}
 			else if (arg0.getSource()==boutonEtatAutreStation){
 				new FenetreEtatLieuAdmin(this.getAdministrateur());

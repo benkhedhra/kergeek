@@ -261,13 +261,17 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
+		south.setLayout(new BorderLayout());
 
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		JPanel panel = new JPanel();
+		panel.setBackground(UtilitaireIhm.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour);
+		panel.add(boutonRetour);
+		south.add(panel,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);

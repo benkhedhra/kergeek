@@ -120,9 +120,9 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer les demandes d'intervention ou constater un vélo défectueux");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -155,11 +155,11 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
-		centerNorth.setPreferredSize(new Dimension(1200,300));
+		centerNorth.setPreferredSize(new Dimension(1200,150));
 		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelMsg1.setPreferredSize(new Dimension(1100,50));		
-	labelMsg1.setMinimumSize(new Dimension(1100,50));
+		labelMsg1.setMinimumSize(new Dimension(1100,50));
 		centerNorth.add(labelMsg1);
 
 		List<DemandeIntervention> listeDemandes;
@@ -221,8 +221,8 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		centerSouth.setPreferredSize(new Dimension(1200,150));
 		centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelMsg2.setPreferredSize(new Dimension(1100,50));		
-		labelMsg2.setMinimumSize(new Dimension(1100,50));
+		labelMsg2.setPreferredSize(new Dimension(800,150));		
+		labelMsg2.setMinimumSize(new Dimension(800,150));
 		centerSouth.add(labelMsg2);
 		idVeloARemplir.setPreferredSize(new Dimension(300,50));		
 		idVeloARemplir.setMinimumSize(new Dimension(300,50));
@@ -240,14 +240,19 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(1200,150));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonRetour.setPreferredSize(new Dimension(250,40));
-		boutonRetour.setMaximumSize(new Dimension(250,40));
+		south.setLayout(new BorderLayout());
+
+		JPanel panel11 = new JPanel();
+		panel11.setBackground(UtilitaireIhm.TRANSPARENCE);
+		boutonRetour.setPreferredSize(new Dimension(250,50));
+		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);
 		boutonRetour.setBackground(Color.YELLOW);
 		boutonRetour.addActionListener(this);
-		south.add(boutonRetour);
+		panel11.add(boutonRetour);
+		south.add(panel11,BorderLayout.EAST);
 		this.getContentPane().add(south,BorderLayout.SOUTH);
 
 		this.setVisible(true);
