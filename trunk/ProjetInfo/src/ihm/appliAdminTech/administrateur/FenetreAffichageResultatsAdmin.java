@@ -236,7 +236,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		}
 
 		//si à la fenêtre précédente l'administrateur a souhaité voir l'état d'un lieu, soit directement, soit en passant par l'onglet "voir les stations sur et sous-occupées"
-		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées"))){
+		else if((fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) || (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) || (fenetrePrec.getTitle().equals("Envoyer une demande d'assignation"))){
 
 			JLabel lblChart1 = new JLabel();
 			JLabel lblChart2 = new JLabel();
@@ -254,7 +254,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 			FenetreEtatLieuAdmin f1 = null;
 			FenetreStationsSurSousAdmin f2 = null;
-			//s'il a directement entré un lieu pour voir son état
+			FenetreEnvoyerDemandeAssignationAdmin f3=null;
+			//s'il a directement sélectionné un lieu pour voir son état
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
 				f1 = (FenetreEtatLieuAdmin) fenetrePrec;
 
@@ -270,6 +271,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 					diag2 = new DiagrammeTxOccupationStation((Station)f1.getLieuEntre());
 					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 					panel2.add(lblChart2);
+					
+					center.add(panel1);
+					center.add(panel2);
 				}
 				else{
 					//il s'agit du garage
@@ -308,7 +312,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				}
 			}
 			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
-			if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
+			else if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
 				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
 				panel1.add(lblChart1);
@@ -316,10 +320,66 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 				diag2 = new DiagrammeTxOccupationStation(f2.getStationEntree());
 				lblChart2.setIcon(new ImageIcon(diag2.getImage()));
 				panel2.add(lblChart2);
+				
+				center.add(panel1);
+				center.add(panel2);
 			}
+			
+			else if (fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")){
+				f3 = (FenetreEnvoyerDemandeAssignationAdmin) fenetrePrec;
 
-			center.add(panel1);
-			center.add(panel2);
+				//System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
+				if(!f3.getLieuConcerne().getId().equals(Lieu.ID_GARAGE)){
+					//on trace le graphe indiquant le nombre de vélos présents
+					diag1 = new DiagrammeNbVelosStation( (Station) f3.getLieuConcerne());
+					lblChart1.setIcon(new ImageIcon(diag1.getImage()));
+					panel1.add(lblChart1);
+					
+					//on trace le graphe des taux d'occupation
+					//calculer le taux d'occupation du garage n'a pas de sens car sa capacité est grande
+					diag2 = new DiagrammeTxOccupationStation((Station)f3.getLieuConcerne());
+					lblChart2.setIcon(new ImageIcon(diag2.getImage()));
+					panel2.add(lblChart2);
+					
+					center.add(panel1);
+					center.add(panel2);
+				}
+				else{
+					//il s'agit du garage
+					JLabel label1 = new JLabel("Nombre de vélos présents au garage");
+					List<Velo> listeVelos = DAOVelo.getVelosByLieu(Garage.getInstance());
+					JLabel label2 = new JLabel(""+listeVelos.size());
+					JLabel label3 = new JLabel("Nombre de vélos en panne au garage");
+					int nbVelosEnPanne=0;
+					for(Velo velo : listeVelos){
+						if(velo.isEnPanne()){
+							nbVelosEnPanne++;
+						}
+					}
+					JLabel label4 = new JLabel(""+nbVelosEnPanne);
+					JLabel label5 = new JLabel("Nombre de vélos au garage et assignables");
+					JLabel label6 = new JLabel(""+(listeVelos.size()-nbVelosEnPanne));
+					JLabel label7 = new JLabel("Capacité");
+					JLabel label8 = new JLabel(""+Garage.getInstance().getCapacite());
+					label1.setPreferredSize(new Dimension(500,40));
+					label2.setPreferredSize(new Dimension(500,40));
+					label3.setPreferredSize(new Dimension(500,40));
+					label4.setPreferredSize(new Dimension(500,40));
+					label5.setPreferredSize(new Dimension(500,40));
+					label6.setPreferredSize(new Dimension(500,40));
+					label7.setPreferredSize(new Dimension(500,40));
+					label8.setPreferredSize(new Dimension(500,40));
+					center.add(label1);
+					center.add(label2);
+					center.add(label3);
+					center.add(label4);
+					center.add(label5);
+					center.add(label6);
+					center.add(label7);
+					center.add(label8);
+					
+				}
+			}
 
 			bouton1.setText("<html> <center>Voir l'état<br>d'une autre station</center></html>");
 			bouton2.setText("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>");
