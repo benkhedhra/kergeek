@@ -165,7 +165,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		labelChemin.setPreferredSize(new Dimension(1100,50));
 		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,100));
+		north.setPreferredSize(new Dimension(1200,150));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(labelChemin);

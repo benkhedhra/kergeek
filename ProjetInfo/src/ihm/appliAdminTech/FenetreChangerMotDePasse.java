@@ -129,6 +129,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		labelChemin.setFont(UtilitaireIhm.POLICE4);
 		labelChemin.setPreferredSize(new Dimension(1100,50));
 		labelChemin.setMaximumSize(new Dimension(1100,50));
+		north.setPreferredSize(new Dimension(1200,150));
 		north.add(labelAdminTech);
 		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
