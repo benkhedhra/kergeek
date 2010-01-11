@@ -60,7 +60,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelChemin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
-	private JLabel labelStation = new JLabel("Station");
+	private JLabel labelStation = new JLabel("Lieu concerné");
 	private JLabel labelStationConcernee = new JLabel ("");
 	private JLabel labelNbVelos = new JLabel("Nombre de vélos souhaité");
 	private TextFieldLimite nbVelosARemplir = new TextFieldLimite (4,"");
@@ -129,7 +129,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		this.setAdministrateur(a);
 		this.setLieuConcerne(l);
 		
-		labelChemin.setText("Menu principal > Voir l'état du parc > Etat d'un lieu > "+this.getLieuConcerne()+" > Envoyer une demande d'assignation");
+		labelChemin.setText("Menu principal > Voir l'état du parc > Etat d'un lieu > "+this.getLieuConcerne().getAdresse()+" > Envoyer une demande d'assignation");
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
@@ -148,58 +148,89 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(1200,800));
+		center.setMaximumSize(new Dimension(1200,800));
 
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
 		labelMsg.setPreferredSize(new Dimension(1100,40));
+		labelMsg.setMinimumSize(new Dimension(1100,40));
 		center.add(labelMsg);
 
-		center.setPreferredSize(new Dimension(1200,800));
-		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel1.setPreferredSize(new Dimension(600,40));
+		panel1.setMinimumSize(new Dimension(600,40));
+		labelStation.setPreferredSize(new Dimension(300,40));
+		labelStation.setMinimumSize(new Dimension(300,40));
+		panel1.add(labelStation);
+		center.add(panel1);
 
-		labelStation.setPreferredSize(new Dimension(500,40));
-		center.add(labelStation);
-
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel2.setPreferredSize(new Dimension(600,40));
+		panel2.setMinimumSize(new Dimension(600,40));
 		labelStationConcernee.setText(l.getAdresse());
-		labelStationConcernee.setPreferredSize(new Dimension(500,40));
-		center.add(labelStationConcernee);
-		labelNbVelos.setPreferredSize(new Dimension(500,40));
-		center.add(labelNbVelos);
-		nbVelosARemplir.setPreferredSize(new Dimension(500,40));
-		center.add(nbVelosARemplir);
+		labelStationConcernee.setPreferredSize(new Dimension(250,40));
+		labelStationConcernee.setMinimumSize(new Dimension(250,40));
+		panel2.add(labelStationConcernee);
+		center.add(panel2);
+		
+		JPanel panel3 = new JPanel();
+		panel3.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel3.setPreferredSize(new Dimension(600,40));
+		panel3.setMinimumSize(new Dimension(600,40));
+		labelNbVelos.setPreferredSize(new Dimension(300,40));
+		labelNbVelos.setMinimumSize(new Dimension(300,40));
+		panel3.add(labelNbVelos);
+		center.add(panel3);
+		
+		JPanel panel4 = new JPanel();
+		panel4.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel4.setPreferredSize(new Dimension(600,40));
+		panel4.setMinimumSize(new Dimension(600,40));
+		nbVelosARemplir.setPreferredSize(new Dimension(250,40));
+		nbVelosARemplir.setMinimumSize(new Dimension(250,40));
+		panel4.add(nbVelosARemplir);
+		center.add(panel4);
 
-		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(1200,800));
-		boutonEcranPrecedent.setPreferredSize(new Dimension(250,50));
-		boutonEcranPrecedent.setMaximumSize(new Dimension(250,50));
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel5.setPreferredSize(new Dimension(1200,80));
+		panel5.setMinimumSize(new Dimension(1200,80));
+		boutonEcranPrecedent.setPreferredSize(new Dimension(300,50));
+		boutonEcranPrecedent.setMaximumSize(new Dimension(300,50));
 		boutonEcranPrecedent.setBackground(Color.CYAN);
 		boutonEcranPrecedent.setFont(UtilitaireIhm.POLICE3);
 		boutonEcranPrecedent.addActionListener(this);
-		center.add(boutonEcranPrecedent);
+		panel5.add(boutonEcranPrecedent);
+		center.add(panel5);
 		
-		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(1200,800));
-		boutonValider.setPreferredSize(new Dimension(250,50));
-		boutonValider.setMaximumSize(new Dimension(250,50));
+		JPanel panel6 = new JPanel();
+		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);
+		panel6.setPreferredSize(new Dimension(1200,80));
+		panel6.setMinimumSize(new Dimension(1200,80));
+		boutonValider.setPreferredSize(new Dimension(300,50));
+		boutonValider.setMaximumSize(new Dimension(300,50));
 		boutonValider.setBackground(Color.CYAN);
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.addActionListener(this);
-		center.add(boutonValider);
+		panel6.add(boutonValider);
+		center.add(panel6);
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		boutonEtatAutreStation.setPreferredSize(new Dimension(250,50));
-		boutonEtatAutreStation.setMaximumSize(new Dimension(250,50));
+		boutonEtatAutreStation.setPreferredSize(new Dimension(300,50));
+		boutonEtatAutreStation.setMaximumSize(new Dimension(300,50));
 		boutonEtatAutreStation.setFont(UtilitaireIhm.POLICE3);
 		boutonEtatAutreStation.setBackground(Color.GREEN);
 		boutonEtatAutreStation.addActionListener(this);
 		south.add(boutonEtatAutreStation);
 
-		boutonStationsSurSous.setPreferredSize(new Dimension(250,50));
-		boutonStationsSurSous.setMaximumSize(new Dimension(250,50));
+		boutonStationsSurSous.setPreferredSize(new Dimension(300,50));
+		boutonStationsSurSous.setMaximumSize(new Dimension(300,50));
 		boutonStationsSurSous.setFont(UtilitaireIhm.POLICE3);
 		boutonStationsSurSous.setBackground(Color.GREEN);
 		boutonStationsSurSous.addActionListener(this);

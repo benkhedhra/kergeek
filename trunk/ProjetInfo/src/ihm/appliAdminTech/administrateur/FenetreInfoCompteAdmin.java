@@ -164,8 +164,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerWest = new JPanel();
-		centerWest.setPreferredSize(new Dimension(400,350));
-		centerWest.setMinimumSize(new Dimension(400,350));
+		centerWest.setPreferredSize(new Dimension(800,800));
+		centerWest.setMinimumSize(new Dimension(800,800));
 		centerWest.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel panel1 = new JPanel();
@@ -280,7 +280,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 		JPanel centerEast = new JPanel();
 		centerEast.setBackground(UtilitaireIhm.TRANSPARENCE);
-		centerEast.setPreferredSize(new Dimension(200,350));
+		centerEast.setPreferredSize(new Dimension(400,800));
 
 		if(!stat){
 			boutonChoix.setText("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>");
@@ -288,8 +288,8 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		else{
 			boutonChoix.setText("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>");
 		}
-		boutonChoix.setPreferredSize(new Dimension(190,60));
-		boutonChoix.setMaximumSize(new Dimension(190,60));
+		boutonChoix.setPreferredSize(new Dimension(250,80));
+		boutonChoix.setMaximumSize(new Dimension(250,80));
 		boutonChoix.setBackground(Color.CYAN);
 		boutonChoix.setFont(UtilitaireIhm.POLICE3);
 		boutonChoix.addActionListener(this);
@@ -299,14 +299,14 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,100));
+		south.setPreferredSize(new Dimension(1200,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
 		south.setLayout(new BorderLayout());
 
 		JPanel panel13 = new JPanel();
 		panel13.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonAutreCompte.setPreferredSize(new Dimension(250,40));
-		boutonAutreCompte.setMaximumSize(new Dimension(250,40));
+		boutonAutreCompte.setPreferredSize(new Dimension(250,50));
+		boutonAutreCompte.setMaximumSize(new Dimension(250,50));
 		boutonAutreCompte.setFont(UtilitaireIhm.POLICE3);
 		boutonAutreCompte.setBackground(Color.GREEN);
 		boutonAutreCompte.addActionListener(this);

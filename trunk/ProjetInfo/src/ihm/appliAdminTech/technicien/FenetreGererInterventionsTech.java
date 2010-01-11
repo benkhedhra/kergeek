@@ -128,6 +128,8 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		
+		labelMsg.setPreferredSize(new Dimension(1100,100));
 
 		List<Intervention> listeInterventions;
 		try{
@@ -151,6 +153,8 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 
 				JComboBox combo = new JComboBox(model);
 				combo.setFont(UtilitaireIhm.POLICE3);
+				combo.setPreferredSize(new Dimension(400,50));
+				combo.setMinimumSize(new Dimension(400,50));
 				combo.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent ae){
 						Object o = ((JComboBox)ae.getSource()).getSelectedItem();
@@ -182,8 +186,9 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 				center.add(combo);
 
 				boutonValider.setFont(UtilitaireIhm.POLICE3);
+				boutonValider.setPreferredSize(new Dimension(250,50));
+				boutonValider.setMaximumSize(new Dimension(250,50));
 				boutonValider.setBackground(Color.CYAN);
-				boutonValider.setFont(UtilitaireIhm.POLICE3);
 				boutonValider.addActionListener(this);
 				center.add(boutonValider);
 

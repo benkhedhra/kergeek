@@ -121,8 +121,9 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
-		center.setPreferredSize(new Dimension(1100,100));
+		center.setPreferredSize(new Dimension(1200,100));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		labelMsg.setPreferredSize(new Dimension(1100,100));
 		center.add(labelMsg);
 
 		List<DemandeAssignation> listeDemandes;
@@ -156,6 +157,8 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(UtilitaireIhm.POLICE3);
+			combo.setPreferredSize(new Dimension(250,50));
+			combo.setMaximumSize(new Dimension(250,50));
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();
@@ -194,7 +197,8 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		}		
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.setBackground(Color.CYAN);
-		boutonValider.setFont(UtilitaireIhm.POLICE3);
+		boutonValider.setPreferredSize(new Dimension(250,50));
+		boutonValider.setMaximumSize(new Dimension(250,50));
 		boutonValider.addActionListener(this);
 		center.add(boutonValider);
 

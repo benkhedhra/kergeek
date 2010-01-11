@@ -239,7 +239,8 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 			JPanel panel2 = new JPanel();
 			panel2.setBackground(UtilitaireIhm.TRANSPARENCE);
-			combo.setPreferredSize(new Dimension(400,40));
+			combo.setPreferredSize(new Dimension(400,50));
+			combo.setMinimumSize(new Dimension(400,50));
 			panel2.add(combo);
 			centerWest.add(panel2);		
 
@@ -247,9 +248,13 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 			JPanel centerSouth = new JPanel();
 			centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
+			centerSouth.setPreferredSize(new Dimension(1200,500));
+			centerSouth.setMinimumSize(new Dimension(1200,500));
 			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.setBackground(Color.CYAN);
 			boutonValider.addActionListener(this);
+			boutonValider.setPreferredSize(new Dimension(300,50));
+			boutonValider.setMinimumSize(new Dimension(300,50));
 			centerSouth.add(boutonValider);
 			center.add(centerSouth, BorderLayout.SOUTH);
 
