@@ -54,9 +54,10 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 		private DemandeAssignation nouvelleDemande;
 		
 		/**
-		 * 2 JLabel permettant d'afficher l'id de l'{@link Administrateur} connecté et le message d'invitation à faire son choix
+		 * 3 JLabel permettant d'afficher l'id de l'{@link Administrateur} connectén l'endroit où il se trouve dans l'application et le message d'invitation à faire son choix
 		 */
 		private JLabel labelAdmin = new JLabel("");
+		private JLabel labelChemin = new JLabel("");
 		private JLabel labelMsg = new JLabel("");
 		
 		/**
@@ -121,13 +122,19 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 			this.getContentPane().setLayout(new BorderLayout());
 
 			labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
+			labelChemin.setText("Menu principal > Voir l'état du parc > Etat d'un lieu > "+this.getAncienneDemande().getLieu().getAdresse()+" > Envoyer une demande d'assignation > Demande déjà existante");
 			labelAdmin.setFont(UtilitaireIhm.POLICE4);
 			labelAdmin.setPreferredSize(new Dimension(1100,50));
+			labelAdmin.setMaximumSize(new Dimension(1100,50));
+			labelChemin.setFont(UtilitaireIhm.POLICE4);
+			labelChemin.setPreferredSize(new Dimension(1100,50));
+			labelChemin.setMaximumSize(new Dimension(1100,50));
 			JPanel north = new JPanel();
-			north.setPreferredSize(new Dimension(1200,150));
+			north.setPreferredSize(new Dimension(1200,100));
 			north.setBackground(UtilitaireIhm.TRANSPARENCE);
 			north.add(labelAdmin);
-			this.add(north, BorderLayout.NORTH);
+			north.add(labelChemin);
+			this.getContentPane().add(north,BorderLayout.NORTH);
 
 			labelMsg.setText("<html><center>Une demande d'assignation a déjà été envoyée et non traitée pour la station "+ancienneDemande.getLieu().getAdresse()+". <br> Le nombre de vélos désiré pour cette station est de : "+ancienneDemande.getNombreVelosVoulusDansLieu()+"<br>Souhaitez-vous remplacer cette demande par la vôtre ("+nouvelleDemande.getNombreVelosVoulusDansLieu()+" vélos) ? <html>");
 			labelMsg.setPreferredSize(new Dimension(1100,100));

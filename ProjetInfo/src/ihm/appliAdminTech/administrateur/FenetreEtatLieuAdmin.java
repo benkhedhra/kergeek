@@ -51,7 +51,8 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 	/**
 	 * 2 JLabel permettant d'afficher l'id de l'{@link Administrateur} connecté et le message d'invitation à sélectionner un {@link Lieu}
 	 */
-	private JLabel labelAdmin = new JLabel("");;
+	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Voir l'état du parc > Etat d'un lieu");
 	private JLabel labelMsg = new JLabel("Veuillez entrer le lieu (station ou garage) dont vous voulez voir l'état");
 
 	/**
@@ -114,10 +115,14 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

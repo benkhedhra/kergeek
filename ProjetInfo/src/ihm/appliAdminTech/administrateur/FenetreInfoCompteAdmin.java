@@ -46,12 +46,13 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 	 * le compte dont on affiche les informations
 	 */
 	private Compte compte;
-	
+
 	/**
-	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 * 3 JLabel permettant d'afficher l'id de l'administrateur connecté, l'endroit où il se trouve dans l'application, et le message introduisant le contenu de la fenêtre
 	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les comptes > Afficher informations sur un compte");
 	
 	/**
 	 * 4 JLabel permettant d'afficher les informations du compte (quel que soit le type de compte)
@@ -137,12 +138,16 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
-		labelAdmin.setMaximumSize(new Dimension(550,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

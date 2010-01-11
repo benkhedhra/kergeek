@@ -44,6 +44,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les interventions");
 	private JLabel labelMsg = new JLabel("Demandes d'intervention");
 	private Intervention interventionEntree;
 	private JButton boutonValider = new JButton("Valider");
@@ -114,10 +115,14 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
 		labelTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

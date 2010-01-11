@@ -61,6 +61,10 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 	 */
 	private JLabel labelAdmin = new JLabel("");
 	/**
+	 * labelChemin permet d'afficher l'endroit où l'on se trouve dans l'application
+	 */
+	private JLabel labelChemin = new JLabel("");
+	/**
 	 * labelConfirm pose la question adéquate à l'administrateur
 	 */
 	private JLabel labelConfirm = new JLabel("");
@@ -131,13 +135,19 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,250));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
-		this.add(north, BorderLayout.NORTH);
+		north.add(labelChemin);
+		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		if(fenetrePrec.getTitle().equals("Modifier informations sur un compte")){
+			labelChemin.setText("Menu principal > Gérer les comptes > Afficher informations sur un compte > Modifier > Confirmation de la résiliation");
 			FenetreModifCompteAdmin f = (FenetreModifCompteAdmin) fenetrePrec;
 			Compte compte = f.getCompte();
 			this.setCompte(compte);
@@ -145,6 +155,7 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		}
 		else if(fenetrePrec.getTitle().equals("Suppression d'un vélo")){
 			FenetreSupprimerUnVeloAdmin f = (FenetreSupprimerUnVeloAdmin)fenetrePrec;
+			labelChemin.setText("Menu principal > Voir l'état du parc > Liste des vélos présents dans un lieu > Vélos en cours d'emprunt > Supprimer un vélo > Confirmation de la suppression");
 			Velo velo = f.getVeloEntre();
 			this.setVelo(velo);
 			labelConfirm.setText("Souhaitez-vous confirmer la suppression du vélo "+velo.getId()+" ? ");

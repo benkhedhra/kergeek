@@ -33,9 +33,10 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	private Administrateur admin;
 	
 	/**
-	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et l'endroit de l'application où il se trouve
 	 */
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Voir l'état du parc");
 	
 	/**
 	 * 4 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
@@ -92,10 +93,13 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

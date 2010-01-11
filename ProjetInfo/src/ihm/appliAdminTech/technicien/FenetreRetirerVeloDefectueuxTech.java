@@ -59,6 +59,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Retirer un vélo défectueux");
 	private JLabel labelMsg1 = new JLabel("Sélectionnez une des demandes d'intervention formulées par les utilisateurs");
 	private DemandeIntervention demandeEntree=null;
 	private JButton boutonValider = new JButton("Retirer le vélo indiqué");
@@ -142,10 +143,14 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
 		labelTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

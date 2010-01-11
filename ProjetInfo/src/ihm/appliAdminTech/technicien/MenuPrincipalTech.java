@@ -44,6 +44,7 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JButton bouton1 = new JButton("<html> <center>Enregistrer<br>un nouvel arrivage de vélos</center></html>");
 	private JButton bouton2 = new JButton("<html> <center>Retirer un vélo<br>défectueux<br>d'une station</center></html>");
@@ -102,20 +103,25 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
-		labelTech.setPreferredSize(new Dimension(1100,250));
-		boutonDeconnexion.setPreferredSize(new Dimension(1100,50));
+		labelTech.setPreferredSize(new Dimension(900,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		boutonDeconnexion.setPreferredSize(new Dimension(250,50));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,150));
+		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
 		north.add(boutonDeconnexion);
+		north.add(labelChemin);
+		
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
+		center.setPreferredSize(new Dimension(1000,800));
 		bouton1.setPreferredSize(new Dimension(300,200));
 		bouton1.setMaximumSize(new Dimension(300,200));
 		bouton1.setFont(UtilitaireIhm.POLICE3);
@@ -140,16 +146,17 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		this.getContentPane().add(center,BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		south.setPreferredSize(new Dimension(700,50));
+		south.setPreferredSize(new Dimension(1100,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonChangeMdp.setPreferredSize(new Dimension(250,40));
-		boutonChangeMdp.setMaximumSize(new Dimension(250,40));
+		boutonChangeMdp.setPreferredSize(new Dimension(300,40));
+		boutonChangeMdp.setMaximumSize(new Dimension(300,40));
 		boutonChangeMdp.setFont(UtilitaireIhm.POLICE3);
 		boutonChangeMdp.setForeground(Color.WHITE);
 		boutonChangeMdp.setBackground(Color.BLUE);
 		boutonChangeMdp.addActionListener(this);
 		south.add(boutonChangeMdp);
 		this.getContentPane().add(south, BorderLayout.SOUTH);
+		
 		this.setVisible(true);
 	}
 

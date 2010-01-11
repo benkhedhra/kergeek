@@ -52,6 +52,7 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 	private Intervention intervention;
 
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les interventions > Gérer une intervention > Terminer l'intervention");
 	private JLabel labelMsg = new JLabel("");
 	private JLabel labelTypeIntervention = new JLabel ("Veuillez entrer le type d'intervention");
 	private TypeIntervention typeInterventionEntre;
@@ -151,10 +152,14 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
 		labelTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

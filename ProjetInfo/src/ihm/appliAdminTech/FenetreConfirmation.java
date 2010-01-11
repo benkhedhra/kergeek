@@ -78,6 +78,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	private Compte compte;
 	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("");
 	private JLabel labelConfirm = new JLabel("");
 	private JButton bouton1 = new JButton("");
 	private JButton bouton2 = new JButton("");
@@ -141,9 +142,9 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.setFenetrePrecedente(fenetrePrec);
 
 		this.setTitle("Ecran de confirmation");
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		this.setLocationRelativeTo(null);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,7 +160,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		
+
 		labelConfirm.setPreferredSize(new Dimension(1100,300));
 
 		System.out.println(fenetrePrec.getTitle());
@@ -197,6 +198,10 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			labelAdminTech.setFont(UtilitaireIhm.POLICE4);
 			labelAdminTech.setPreferredSize(new Dimension(1000,50));
 
+			labelChemin.setFont(UtilitaireIhm.POLICE4);
+			labelChemin.setPreferredSize(new Dimension(1100,50));
+			labelChemin.setMaximumSize(new Dimension(1100,50));
+
 			JPanel south = new JPanel();
 			south.setPreferredSize(new Dimension(1200,100));
 			south.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -222,6 +227,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 			if(fenetrePrec.getTitle().equals("Changer son mot de passe")){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Changer son mot de passe > Changement effectué");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le mot de passe a bien été changé. ");
 				center.add(labelConfirm);
@@ -234,6 +241,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 			else if (fenetrePrec.getTitle().equals("Création d'un nouveau compte")){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Gérer les comptes > Créer un compte > Compte créé");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le nouveau compte a bien été créé. ");
 				center.add(labelConfirm);
@@ -248,6 +257,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 			else if(fenetrePrec.getTitle().equals("Modifier informations sur un compte")){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Gérer les comptes > Afficher informations sur un compte > Modifier > Modifications effectuées");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("La modification a bien été enregistrée. ");
 				center.add(labelConfirm);
@@ -266,10 +277,14 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelAdminTech);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				if(f.getFenetrePrecedente().getTitle().equals("Modifier informations sur un compte")){
+					labelChemin.setText("Menu principal > Gérer les comptes > Afficher informations sur un compte > Modifier > Confirmation de la résiliation > Résiliation effectuée");
+					north.add(labelChemin);
 					labelConfirm.setText("La résiliation a bien été enregistrée. ");
 					bouton1.setText("Afficher informations sur un autre compte");
 				}
 				else{
+					labelChemin.setText("Menu principal > Voir l'état du parc > Liste des vélos présents dans un lieu > Vélos en cours d'emprunt > Supprimer un vélo > Confirmation de la suppression > Suppression effectuée");
+					north.add(labelChemin);
 					labelConfirm.setText("La suppression a bien été enregistrée. ");
 					bouton1.setText("Revoir la liste des vélos actuellement sortis");
 				}
@@ -285,6 +300,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 			else if((fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")) || (fenetrePrec.getTitle().equals("Demande d'assignation déjà existante pour cette station"))){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Voir l'état du parc > Etat d'un lieu > Envoyer une demande d'assignation > Demande envoyée");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("La demande d'assignation a bien été envoyée. ");
 				center.add(labelConfirm);
@@ -302,6 +319,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			else if(fenetrePrec.getTitle().equals("Enregistrer un nouvel arrivage de vélos")){
 				FenetreEnregistrerArrivageVelosTech f = (FenetreEnregistrerArrivageVelosTech) fenetrePrec;
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Enregistrer un nouvel arrivage de vélos > Vélo(s) enregistré(s)");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText( "<html><center>"+f.getNbVelosEntre()+" vélo(s) ont bien été enregistré(s) et affecté(s) au garage. Veuillez dès à présent leur apposer les identifiants suivants : "+"</center></html>");
 				labelConfirm.setPreferredSize(new Dimension(1100,100));
@@ -331,6 +350,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 			else if(fenetrePrec.getTitle().equals("Gérer les demandes d'intervention ou constater un vélo défectueux")){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Retirer un vélo défectueux > Vélo retiré");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le vélo défectueux a bien été retiré de la station et affecté au garage. ");
 				center.add(labelConfirm);
@@ -346,6 +367,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 
 			else if(fenetrePrec.getTitle().equals("Prendre en charge une assignation")){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Gérer les demandes d'assignation > Gérer une demande > Prendre en charge l'assignation > Prise en charge enregistrée");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				labelConfirm.setText("Le déplacement de ces vélos a bien été confirmé. ");
 				center.add(labelConfirm);
@@ -360,6 +383,8 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 			else if(fenetrePrec.getTitle().equals("Prendre en charge une intervention")){
 				north.add(labelAdminTech);
+				labelChemin.setText("Menu principal > Gérer les interventions > Gérer une intervention > Terminer l'intervention > Intervention terminée");
+				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 				FenetrePrendreEnChargeInterventionTech f = (FenetrePrendreEnChargeInterventionTech) fenetrePrec;
 				if(f.getTypeInterventionEntre()==DAOTypeIntervention.getTypeInterventionById(TypeIntervention.TYPE_DESTRUCTION)){

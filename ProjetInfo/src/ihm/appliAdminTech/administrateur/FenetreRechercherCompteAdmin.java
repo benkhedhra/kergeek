@@ -50,9 +50,10 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	private boolean stat;
 	
 	/**
-	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 * 3 JLabel permettant d'afficher l'id de l'administrateur connecté, l'endroit où il se trouve dans l'application, et le message introduisant le contenu de la fenêtre
 	 */
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Rechercher par : ");
 	
 	/**
@@ -189,15 +190,26 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		this.setAdministrateur(a);
 		this.stat=stat;
+		
+		if(stat){
+			labelChemin.setText("Menu principal > Demander des statistiques > Statistiques sur utilisateurs");
+		}
+		else{
+			labelChemin.setText("Menu principal > Gérer les comptes > Afficher informations sur un compte");
+		}
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

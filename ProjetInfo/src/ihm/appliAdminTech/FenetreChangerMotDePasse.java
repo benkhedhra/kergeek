@@ -51,6 +51,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	 */
 	private Compte compte;
 	private JLabel labelAdminTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Changer son mot de passe");
 	private JLabel labelMsg = new JLabel("Veuillez compléter les champs suivants");
 	private JLabel labelAncienMdp = new JLabel("ancien mot de passe");
 	private PasswordFieldLimite ancienMdpARemplir = new PasswordFieldLimite(20,"");
@@ -121,10 +122,15 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ this.getCompte().getId());
+		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ c.getId());
 		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(1000,100));
+		labelAdminTech.setPreferredSize(new Dimension(1100,50));
+		labelAdminTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		north.add(labelAdminTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		labelMsg.setPreferredSize(new Dimension(1000,50));

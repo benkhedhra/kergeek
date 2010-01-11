@@ -48,11 +48,12 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 	 * le vélo dont l'identifiant est entré par l'administrateur
 	 */
 	private Velo veloEntre = new Velo();
-	
+
 	/**
-	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message d'invitation à sélectionner un vélo
+	 * 3 JLabel permettant d'afficher l'id de l'{@link Administrateur} connectén l'endroit où il se trouve dans l'application et le message d'invitation à faire son choix
 	 */
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Demander des statistiques > Maintenance > Historique d'un vélo");
 	private JLabel labelMsg = new JLabel ("Veuillez entrer l'identifiant du vélo");
 	/**
 	 * 1 TextFieldLimite pour que l'administrateur entre l'identifiant du vélo
@@ -113,11 +114,16 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(500,30));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,150));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
