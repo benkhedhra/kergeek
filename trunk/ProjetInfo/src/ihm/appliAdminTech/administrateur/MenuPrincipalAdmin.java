@@ -108,8 +108,8 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(900,50));
-		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
 		boutonDeconnexion.setPreferredSize(new Dimension(250,50));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
@@ -120,7 +120,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		north.add(labelAdmin);
 		north.add(boutonDeconnexion);
 		north.add(labelChemin);
-		
+		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1100,800));

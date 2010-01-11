@@ -223,7 +223,7 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 		center.add(centerNorth,BorderLayout.NORTH);
 
 		JPanel centerSouth = new JPanel();
-		centerSouth.setPreferredSize(new Dimension(1200,150));
+		centerSouth.setPreferredSize(new Dimension(1200,600));
 		centerSouth.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		labelMsg2.setPreferredSize(new Dimension(800,150));		

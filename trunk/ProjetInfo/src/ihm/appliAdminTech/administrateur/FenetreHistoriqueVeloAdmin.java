@@ -120,7 +120,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		labelChemin.setPreferredSize(new Dimension(1100,50));
 		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,100));
+		north.setPreferredSize(new Dimension(1200,150));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(labelChemin);
@@ -128,10 +128,10 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		labelMsg.setPreferredSize(new Dimension(600,30));
+		labelMsg.setPreferredSize(new Dimension(300,30));
 		center.add(labelMsg);
 		idVeloARemplir.setFont(UtilitaireIhm.POLICE3);
-		idVeloARemplir.setPreferredSize(new Dimension(250,40));
+		idVeloARemplir.setPreferredSize(new Dimension(200,40));
 		idVeloARemplir.setForeground(Color.BLUE);
 		center.add(idVeloARemplir);
 		boutonAfficher.setFont(UtilitaireIhm.POLICE3);

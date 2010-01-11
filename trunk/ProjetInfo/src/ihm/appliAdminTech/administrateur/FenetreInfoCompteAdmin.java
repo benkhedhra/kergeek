@@ -52,8 +52,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("");
-	private JLabel labelChemin = new JLabel("Menu principal > Gérer les comptes > Afficher informations sur un compte");
-	
+	private JLabel labelChemin = new JLabel("");
 	/**
 	 * 4 JLabel permettant d'afficher les informations du compte (quel que soit le type de compte)
 	 */
@@ -140,11 +139,12 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setText("Menu principal > Gérer les comptes > Afficher informations sur un compte > "+this.getCompte().getId());
 		labelChemin.setFont(UtilitaireIhm.POLICE4);
 		labelChemin.setPreferredSize(new Dimension(1100,50));
 		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,100));
+		north.setPreferredSize(new Dimension(1200,150));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(labelChemin);
@@ -152,7 +152,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		center.setPreferredSize(new Dimension(700,350));
+		center.setPreferredSize(new Dimension(800,800));
 		center.setLayout(new BorderLayout());
 
 		JPanel centerNorth = new JPanel();
