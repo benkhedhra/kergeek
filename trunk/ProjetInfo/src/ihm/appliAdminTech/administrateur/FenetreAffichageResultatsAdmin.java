@@ -72,6 +72,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 	private Administrateur administrateur;
 	private JFrame fenetrePrecedente;
 	private JLabel labelAdminTech = new JLabel("");
+	private JLabel labelChemin=new JLabel("");
 	private JButton bouton1 = new JButton("");
 	private JButton bouton2 = new JButton("");
 	private JButton bouton3 = new JButton("");
@@ -121,15 +122,6 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 		this.getContentPane().setLayout(new BorderLayout());
 
-		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
-		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-		labelAdminTech.setPreferredSize(new Dimension(1200,50));
-		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1280,50));
-		north.setBackground(UtilitaireIhm.TRANSPARENCE);
-		north.add(labelAdminTech);
-		this.getContentPane().add(north,BorderLayout.NORTH);
-
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1280,850));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);	
@@ -147,6 +139,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		if(fenetrePrec.getTitle().equals("Fréquentation des stations")){
 			//on caste la fenêtre
 			FenetreFrequentationStationsAdmin f = (FenetreFrequentationStationsAdmin) fenetrePrec;
+			//on attribue le bon chemin
+			labelChemin.setText("Menu principal > Demander des statistiques > Fréquentation des stations > "+f.getPeriodeEntree());
 			//création de l'objet diag en fonction de la période choisie que l'on récupère
 			DiagrammeFreqStations diag = new DiagrammeFreqStations(f.getPeriodeEntree());
 			JLabel lblChart = new JLabel();
@@ -161,6 +155,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		else if(fenetrePrec.getTitle().equals("Informations sur un compte")){
 			//on caste la fenêtre pour pouvoir récupérer le compte choisi et tracer l'histogramme en fonction
 			FenetreInfoCompteAdmin f = (FenetreInfoCompteAdmin) fenetrePrec;
+			//on attribue le bon chemin
+			labelChemin.setText("Menu principal > Demander des statistiques > Statistiques sur utilisateurs > "+f.getCompte().getId());
+
 			DiagrammeNbEmpruntsUtilisateur diag = new DiagrammeNbEmpruntsUtilisateur(DAOUtilisateur.getUtilisateurById(f.getCompte().getId()));
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
@@ -173,6 +170,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 
 		//si à la fenêtre précédente il a choisi de voir les interventions les plus fréquentes
 		else if(fenetrePrec.getTitle().equals("Menu <interventions de maintenance> de l'administrateur")){
+			//on attribue le bon chemin
+			labelChemin.setText("Menu principal > Demander des statistiques > Maintenance > Fréquence des interventions");
+
 			DiagrammeNbInterventions diag = new DiagrammeNbInterventions();
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(diag.getImage()));
@@ -182,6 +182,10 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		//si à la fenêtre précédente il a sélectionné un vélo pour lequel il souhaite voir l'historique des interventions de maintenance
 		else if(fenetrePrec.getTitle().equals("Historique d'un vélo")){
 			FenetreHistoriqueVeloAdmin f = (FenetreHistoriqueVeloAdmin) fenetrePrec;
+
+			//on attribue le bon chemin
+			labelChemin.setText("Menu principal > Demander des statistiques > Maintenance > Historique d'un vélo > vélo "+f.getVeloEntre().getId());
+
 			JLabel labelMsg = new JLabel ("Historique du vélo "+f.getVeloEntre().getId());
 			labelMsg.setPreferredSize(new Dimension(600,100));
 			center.add(labelMsg);
@@ -195,6 +199,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		//si à la fenêtre précédente il a confirmé la suppression d'un vélo dans la nature depuis trop longtemps et qu'il souhaite voir à nouveau la liste des vélos sortis
 		else if(fenetrePrec.getTitle().equals("Ecran de confirmation")){
 			JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
+			//on attribue le bon chemin
+			labelChemin.setText("Menu principal > Voir l'état du parc > Liste des vélos dans un lieu > Vélos en cours d'emprunt");
+
 			labelMsg.setPreferredSize(new Dimension(1200,100));
 			center.add(labelMsg);
 			TableauListeVelosDansLieu tableau = new TableauListeVelosDansLieu(Sortie.getInstance());
@@ -210,10 +217,12 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			FenetreVoirVelosDansLieuAdmin f = (FenetreVoirVelosDansLieuAdmin)fenetrePrec;
 			//on peut maintenant récupérer le lieu sélectionné dans la fenêtre précédente
 			Lieu lieu = f.getLieuEntre();
-			System.out.println(lieu);
 			//si ce lieu est la sortie, c'est que l'on veut voir tous les vélos actuellement empruntés
 			if(lieu.getId().equals(Lieu.ID_SORTIE)){
 				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement empruntés");
+				//on attribue le bon chemin
+				labelChemin.setText("Menu principal > Voir l'état du parc > Liste des vélos dans un lieu > Vélos en cours d'emprunt");
+
 				labelMsg.setPreferredSize(new Dimension(1200,100));
 				center.add(labelMsg);
 				TableauListeVelosDansLieu tableau = new TableauListeVelosDansLieu(Sortie.getInstance());
@@ -226,6 +235,10 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			else{
 				JLabel labelMsg = new JLabel ("Liste de tous les vélos actuellement au lieu : "+lieu.getAdresse());
 				labelMsg.setPreferredSize(new Dimension(1200,100));
+
+				//on attribue le bon chemin
+				labelChemin.setText("Menu principal > Voir l'état du parc > Liste des vélos dans un lieu > "+lieu.getAdresse());
+
 				center.add(labelMsg);
 				TableauListeVelosDansLieu tableau = new TableauListeVelosDansLieu(lieu);
 				center.add(tableau);
@@ -258,6 +271,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			//s'il a directement sélectionné un lieu pour voir son état
 			if (fenetrePrec.getTitle().equals("Voir l'état d'un lieu")) {
 				f1 = (FenetreEtatLieuAdmin) fenetrePrec;
+
+				//on attribue le bon chemin
+				labelChemin.setText("Menu principal > Voir l'état du parc > Etat d'un lieu > "+f1.getLieuEntre().getAdresse());
 
 				//System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
 				if(!f1.getLieuEntre().getId().equals(Lieu.ID_GARAGE)){
@@ -314,6 +330,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			//s'il est passé par la fenêtre "voir les stations sur et sous-occupées" (idem mais le cast est différent)
 			else if (fenetrePrec.getTitle().equals("Stations sur et sous occupées")) {
 				f2 = (FenetreStationsSurSousAdmin) fenetrePrec;
+				//on attribue le bon chemin
+				labelChemin.setText("Menu principal > Voir l'état du parc > Stations sur et sous occupées > "+f2.getStationEntree().getAdresse());
+
 				diag1 = new DiagrammeNbVelosStation(f2.getStationEntree());
 				panel1.add(lblChart1);
 				lblChart1.setIcon(new ImageIcon(diag1.getImage()));
@@ -327,6 +346,8 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			
 			else if (fenetrePrec.getTitle().equals("Envoyer une demande d'assignation")){
 				f3 = (FenetreEnvoyerDemandeAssignationAdmin) fenetrePrec;
+				//on attribue le bon chemin
+				labelChemin.setText("Menu principal > Voir l'état du parc > Stations sur et sous occupées > "+f3.getLieuConcerne().getAdresse());
 
 				//System.out.println(!f1.getLieuEntre().getId().equals(""+Lieu.ID_GARAGE));
 				if(!f3.getLieuConcerne().getId().equals(Lieu.ID_GARAGE)){
@@ -408,6 +429,21 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			center.add(bouton3);
 
 		}
+		
+		labelAdminTech = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
+		labelAdminTech.setFont(UtilitaireIhm.POLICE4);
+		labelAdminTech.setPreferredSize(new Dimension(1100,50));
+		labelAdminTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
+		JPanel north = new JPanel();
+		north.setPreferredSize(new Dimension(1200,100));
+		north.setBackground(UtilitaireIhm.TRANSPARENCE);
+		north.add(labelAdminTech);
+		north.add(labelChemin);
+		this.getContentPane().add(north,BorderLayout.NORTH);
+		
 		boutonRetour.setPreferredSize(new Dimension(250,50));
 		boutonRetour.setMaximumSize(new Dimension(250,50));
 		boutonRetour.setFont(UtilitaireIhm.POLICE3);

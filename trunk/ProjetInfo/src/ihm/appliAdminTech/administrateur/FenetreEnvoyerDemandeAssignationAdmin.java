@@ -56,8 +56,9 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	 */
 	private DemandeAssignation demande;
 
-	//attributs privés : composants de la fenêtre : 5 JLabel, 1 TextFieldLimite, et 5 JButton
+	//attributs privés : composants de la fenêtre : 6 JLabel, 1 TextFieldLimite, et 5 JButton
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Veuillez entrer les paramètres de la demande d'assignation");
 	private JLabel labelStation = new JLabel("Station");
 	private JLabel labelStationConcernee = new JLabel ("");
@@ -127,15 +128,21 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 
 		this.setAdministrateur(a);
 		this.setLieuConcerne(l);
+		
+		labelChemin.setText("Menu principal > Voir l'état du parc > Etat d'un lieu > "+this.getLieuConcerne()+" > Envoyer une demande d'assignation");
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

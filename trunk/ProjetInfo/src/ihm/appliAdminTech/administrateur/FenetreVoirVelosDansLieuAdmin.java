@@ -50,9 +50,10 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 	private Administrateur administrateur;
 	
 	/**
-	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 * 3 JLabel permettant d'afficher l'id de l'{@link Administrateur} connectén l'endroit où il se trouve dans l'application et le message d'invitation à faire son choix
 	 */
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Voir l'état du parc > Liste des vélos présents dans un lieu");
 	private JLabel labelMsg = new JLabel("Veuillez entrer le lieu (station ou garage) dont vous voulez voir les vélos");
 	
 	/**
@@ -128,10 +129,14 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

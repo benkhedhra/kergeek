@@ -47,9 +47,10 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 	private String periodeEntree;
 
 	/**
-	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message d'invitation à sélectionner la période
+	 * 3 JLabel permettant d'afficher l'id de l'{@link Administrateur} connectén l'endroit où il se trouve dans l'application et le message d'invitation à faire son choix
 	 */
-	private JLabel labelAdmin = new JLabel("");;
+	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Demander des statistiques > Fréquentation des stations");
 	private JLabel labelMsg = new JLabel("Veuillez entrer la période sur laquelle vous voulez les statistiques");
 
 	/**
@@ -105,15 +106,19 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-
+		
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
 		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

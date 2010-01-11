@@ -46,6 +46,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les demandes d'assignation");
 	private JLabel labelMsg = new JLabel("Demandes d'assignation");
 	private DemandeAssignation demandeEntree;
 	private JButton boutonValider = new JButton("Valider");
@@ -109,10 +110,14 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
 		labelTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1100,100));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

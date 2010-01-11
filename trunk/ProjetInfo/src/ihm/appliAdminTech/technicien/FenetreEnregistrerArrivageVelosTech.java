@@ -52,6 +52,7 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 	private List<Velo> listeVelosCrees = new ArrayList<Velo>();
 
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Enregistrer un nouvel arrivage de vélos");
 	private JLabel labelMsg = new JLabel("Combien de vélos souhaitez-vous enregistrer ? ");
 	private JButton boutonValider = new JButton ("Valider");
 	private JButton boutonRetour = new JButton ("Retour au Menu Principal");
@@ -147,10 +148,13 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		labelTech = new JLabel("Vous êtes connecté en tant que "+ t.getCompte().getId());
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

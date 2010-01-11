@@ -38,7 +38,8 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 
 	private Technicien technicien;
 	private Intervention intervention;
-	private JLabel labelTech = new JLabel("");;
+	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les interventions > Gérer une intervention");
 	private JLabel labelMsg = new JLabel("Intervention à traiter");
 	private JLabel labelId = new JLabel("intervention n°");
 	private JLabel labelIdInter = new JLabel("");
@@ -46,7 +47,7 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 	private JLabel labelVeloInter = new JLabel("");
 	private JLabel labelDate = new JLabel("Date de la mise en garage");
 	private JLabel labelDateInter = new JLabel("");
-	private JButton boutonPrendreEnCharge = new JButton("Prendre en charge cette intervention");
+	private JButton boutonPrendreEnCharge = new JButton("Terminer cette intervention");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 	// Accesseurs utiles
@@ -126,10 +127,14 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
 		labelTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

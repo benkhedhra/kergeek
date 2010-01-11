@@ -37,9 +37,10 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 	private Administrateur admin;
 	
 	/**
-	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et l'endroit de l'application où il se trouve
 	 */
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les comptes");
 	
 	/**
 	 * 3 JButton proposant les 2 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
@@ -91,14 +92,16 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 
 		this.setAdministrateur(a);
 
-
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

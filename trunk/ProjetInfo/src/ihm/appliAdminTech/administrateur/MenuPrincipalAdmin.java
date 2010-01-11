@@ -44,9 +44,10 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	private Administrateur admin;
 	
 	/**
-	 * 1 JLabel permettant d'afficher l'id de l'administrateur connecté
+	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et l'endroit de l'application où il se trouve
 	 */
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal");
 	
 	/**
 	 * 5 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal et de changer son mot de passe
@@ -103,22 +104,23 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
-
-			
+		
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(800,100));
-		labelAdmin.setMaximumSize(new Dimension(110,100));
-		boutonDeconnexion.setPreferredSize(new Dimension(250,40));
+		labelAdmin.setPreferredSize(new Dimension(900,50));
+		labelAdmin.setFont(UtilitaireIhm.POLICE4);
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		boutonDeconnexion.setPreferredSize(new Dimension(250,50));
 		boutonDeconnexion.setBackground(Color.MAGENTA);
 		boutonDeconnexion.setFont(UtilitaireIhm.POLICE4);
 		boutonDeconnexion.addActionListener(this);
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1100,300));
+		north.setPreferredSize(new Dimension(1200,300));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
 		north.add(boutonDeconnexion);
-		this.getContentPane().add(north,BorderLayout.NORTH);
+		north.add(labelChemin);
+		
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1100,800));

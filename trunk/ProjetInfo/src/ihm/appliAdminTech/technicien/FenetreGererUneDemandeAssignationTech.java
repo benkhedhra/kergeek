@@ -49,6 +49,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	private DemandeAssignation demande;
 	
 	private JLabel labelTech = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les demandes d'assignation > Gérer une demande");
 	private JLabel labelMsg = new JLabel("Demande d'assignation à traiter");
 	private JLabel labelLieu = new JLabel("Lieu concerné par la demande d'assignation");
 	private JLabel labelLieuDemande = new JLabel("");
@@ -143,10 +144,14 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		labelTech.setFont(UtilitaireIhm.POLICE4);
 		labelTech.setPreferredSize(new Dimension(1100,50));
 		labelTech.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelTech);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

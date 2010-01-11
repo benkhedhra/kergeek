@@ -52,6 +52,7 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	/**
 	 * administrateur est l'administrateur actuellement connecté
 	 * <br>labelAdmin est le JLabel permettant d'afficher qui est l'administrateur connecté
+	 * labelChemin est le JLabel indiquant l'endroit de l'application où il se trouve dans l'application
 	 * <br>labelMsg est le JLabel disant à l'administrateur ce qu'il doit faire dans cette fenêtre
 	 * <br>labelQualite, labelNom, labelPrenom, labelAdresseEMail et labelAdressePostale sont des JLabel
 	 * <br>typeEntre est le type de compte choisi pour le nouveau compte à créer
@@ -62,6 +63,8 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	private Administrateur administrateur;
 
 	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelChemin = new JLabel("Menu principal > Gérer les comptes > Créer un compte");
+
 	private JLabel labelMsg = new JLabel("Entrer les données du titulaire du nouveau compte");
 
 	private JLabel labelQualite = new JLabel("Qualité");
@@ -120,12 +123,16 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(1100,100));
-		labelAdmin.setMaximumSize(new Dimension(110,100));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(700,50));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();

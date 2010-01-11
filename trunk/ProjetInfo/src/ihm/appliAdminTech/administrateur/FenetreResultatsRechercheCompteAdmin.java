@@ -59,10 +59,11 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 	private FenetreRechercherCompteAdmin fenetrePrecedente;
 	
 	/**
-	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et le message introduisant le contenu de la fenêtre
+	 * 3 JLabel permettant d'afficher l'id de l'administrateur connecté, l'endroit où il se trouve dans l'application, et le message introduisant le contenu de la fenêtre
 	 */
-	private JLabel labelAdmin = new JLabel("");
+	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("");
+	private JLabel labelChemin = new JLabel("");
 	
 	/**
 	 * le {@link Compte} sélectionnée parmi les résultats de la recherche
@@ -148,15 +149,26 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.setAdministrateur(a);
 		fenetrePrecedente=fenetrePrec;
 		this.setStat(stat);
+		
+		if(this.isStat()){
+			labelChemin.setText("Menu principal > Demander des statistiques > Statistiques sur utilisateurs > Résultats de la recherche");
+		}
+		else{
+			labelChemin.setText("Menu principal > Gérer les comptes > Afficher informations sur un compte > Résultats de la recherche");
+		}
 
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
-		labelAdmin.setPreferredSize(new Dimension(1100,40));
-		labelAdmin.setMaximumSize(new Dimension(110,40));
+		labelAdmin.setPreferredSize(new Dimension(1100,50));
+		labelAdmin.setMaximumSize(new Dimension(1100,50));
+		labelChemin.setFont(UtilitaireIhm.POLICE4);
+		labelChemin.setPreferredSize(new Dimension(1100,50));
+		labelChemin.setMaximumSize(new Dimension(1100,50));
 		JPanel north = new JPanel();
 		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 		north.add(labelAdmin);
+		north.add(labelChemin);
 		this.getContentPane().add(north,BorderLayout.NORTH);
 
 		JPanel center = new JPanel();
