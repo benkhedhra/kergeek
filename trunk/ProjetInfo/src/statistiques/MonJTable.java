@@ -1,6 +1,15 @@
 package statistiques;
 
+import java.awt.Component;
+import java.awt.Font;
+
+import ihm.UtilitaireIhm;
+
+import javax.swing.JComponent;
 import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 /**
  * Cette classe permet de créer des tableaux non modifiables afin de présenter des données.
  * @see JTable
@@ -22,8 +31,26 @@ public class MonJTable extends JTable {
 	public MonJTable() {
 		super();
 		this.getTableHeader().setReorderingAllowed( false ); // empêche la modification de l'ordre des colonnes
+		this.getTableHeader().setFont(UtilitaireIhm.POLICE2);
 	}
 	
+	
+	
+	//TODO a commenter
+	@Override
+	public JTableHeader getTableHeader() {
+		setFont(UtilitaireIhm.POLICE2);
+		return super.getTableHeader();
+	}
+	
+	//TODO a commenter
+	@Override
+	public Font getFont() {
+	return UtilitaireIhm.POLICE3;
+	}
+	
+
+
 	/**
 	 * Constructeur d'un MonJTable à partir d'un Object[][] : les données, 
 	 * et d'un Object[] : les noms des différentes colonnes.
