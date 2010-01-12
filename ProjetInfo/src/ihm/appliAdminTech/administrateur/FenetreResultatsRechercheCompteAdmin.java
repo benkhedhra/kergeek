@@ -242,7 +242,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 				center.add(tableau);
 				boutonValider.setFont(UtilitaireIhm.POLICE3);
 				boutonValider.setBackground(Color.CYAN);
-				boutonValider.setFont(UtilitaireIhm.POLICE3);
+				boutonValider.setPreferredSize(new Dimension(250,50));
 				boutonValider.addActionListener(this);
 				center.add(boutonValider);
 			}
@@ -260,7 +260,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 
 		boutonNouvelleRecherche.setFont(UtilitaireIhm.POLICE3);
 		boutonNouvelleRecherche.setBackground(Color.CYAN);
-		boutonNouvelleRecherche.setFont(UtilitaireIhm.POLICE3);
+		boutonNouvelleRecherche.setPreferredSize(new Dimension(250,50));
 		boutonNouvelleRecherche.addActionListener(this);
 		center.add(boutonNouvelleRecherche);
 

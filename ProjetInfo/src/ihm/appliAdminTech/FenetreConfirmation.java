@@ -154,22 +154,22 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 
 		JPanel north = new JPanel();
-		north.setPreferredSize(new Dimension(1200,200));
+		north.setPreferredSize(new Dimension(1200,100));
 		north.setBackground(UtilitaireIhm.TRANSPARENCE);
 
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 
-		labelConfirm.setPreferredSize(new Dimension(1100,300));
+		labelConfirm.setPreferredSize(new Dimension(1100,150));
 
 		System.out.println(fenetrePrec.getTitle());
 		if(fenetrePrec.getTitle().equals("Menu principal de l'administrateur") || fenetrePrec.getTitle().equals("Menu principal du technicien")){
 			labelAdminTech = new JLabel("Vous êtes à présent déconnecté");
 			labelAdminTech.setFont(UtilitaireIhm.POLICE4);
-			labelAdminTech.setPreferredSize(new Dimension(1000,50));
+			labelAdminTech.setPreferredSize(new Dimension(1100,40));
 			bouton1.setText("Nouvelle authentification");
-			bouton1.setPreferredSize(new Dimension(300,50));
+			bouton1.setPreferredSize(new Dimension(300,40));
 			bouton1.setBackground(Color.MAGENTA);
 			bouton1.setFont(UtilitaireIhm.POLICE4);
 			bouton1.addActionListener(this);
@@ -470,7 +470,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 
 
-			else if(fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")){
+			else if((fenetrePrecedente.getTitle().equals("Envoyer une demande d'assignation")) || (fenetrePrecedente.getTitle().equals("Demande d'assignation déjà existante pour cette station"))){
 				if(arg0.getSource()==bouton1){
 					new FenetreEtatLieuAdmin(DAOAdministrateur.getAdministrateurById(compte.getId()));
 				}

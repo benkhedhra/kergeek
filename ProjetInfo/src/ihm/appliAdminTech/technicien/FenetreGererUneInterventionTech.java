@@ -145,6 +145,7 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 		JPanel centerNorth = new JPanel();
 		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
+		labelMsg.setPreferredSize(new Dimension(1100,100));
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 

@@ -65,7 +65,7 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 		CategoryDataset dataset = createDataset(u);
 		this.chart = createChart(dataset,u);
 		ChartPanel chartPanel = new ChartPanel(this.chart, false);
-		chartPanel.setPreferredSize(new Dimension(800, 800));
+		chartPanel.setPreferredSize(new Dimension(750,750));
 		this.setContentPane(chartPanel);
 
 	}
@@ -77,7 +77,7 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
-		return this.chart.createBufferedImage(800,800);
+		return this.chart.createBufferedImage(750,750);
 	}
 
 	/**

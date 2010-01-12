@@ -136,7 +136,7 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 			north.add(labelChemin);
 			this.getContentPane().add(north,BorderLayout.NORTH);
 
-			labelMsg.setText("<html><center>Une demande d'assignation a déjà été envoyée et non traitée pour la station "+ancienneDemande.getLieu().getAdresse()+". <br> Le nombre de vélos désiré pour cette station est de : "+ancienneDemande.getNombreVelosVoulusDansLieu()+"<br>Souhaitez-vous remplacer cette demande par la vôtre ("+nouvelleDemande.getNombreVelosVoulusDansLieu()+" vélos) ? <html>");
+			labelMsg.setText("<html><center>Une demande d'assignation a déjà été envoyée et non traitée pour la station "+ancienneDemande.getLieu().getAdresse()+".  Le nombre de vélos désiré pour cette station est de : "+ancienneDemande.getNombreVelosVoulusDansLieu()+"<br>Souhaitez-vous remplacer cette demande par la vôtre ("+nouvelleDemande.getNombreVelosVoulusDansLieu()+" vélos) ? <html>");
 			labelMsg.setPreferredSize(new Dimension(1100,100));
 			boutonOui.setPreferredSize(new Dimension(200,50));
 			boutonOui.setBackground(Color.CYAN);

@@ -21,7 +21,7 @@ public class DemandeAssignation {
 	private String id;
 
 	/**
-	 * La date à laquelle la DemandeAssignation à été faîte
+	 * La date à laquelle la DemandeAssignation à été faite
 	 * @see DemandeAssignation#getDate()
 	 * @see DemandeAssignation#setDate(Date)
 	 */
@@ -43,7 +43,7 @@ public class DemandeAssignation {
 	private int nombreVelosVoulusDansLieu;
 
 	/**
-	 * Le lieu o la demande d'assignation est faîte
+	 * Le lieu où la demande d'assignation est faîte
 	 * @see DemandeAssignation#getLieu()
 	 * @see DemandeAssignation#setLieu(Lieu)
 	 * @see Lieu

@@ -174,6 +174,8 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 
 		JComboBox combo = new JComboBox(model);
 		combo.setFont(UtilitaireIhm.POLICE3);
+		combo.setPreferredSize(new Dimension(250,50));
+		combo.setMaximumSize(new Dimension(250,50));
 		combo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				Object o = ((JComboBox)ae.getSource()).getSelectedItem();

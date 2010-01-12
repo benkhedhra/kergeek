@@ -60,7 +60,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 		CategoryDataset dataset = createDataset();
 		chart = createChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(800, 800));
+		chartPanel.setPreferredSize(new Dimension(750,750));
 
 		setContentPane(chartPanel);
 
@@ -74,7 +74,7 @@ public class DiagrammeNbInterventions extends ApplicationFrame {
 	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
-		return this.chart.createBufferedImage(800, 800);
+		return this.chart.createBufferedImage(750,750);
 	}
 	
 	/**

@@ -194,12 +194,12 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 			nbVelosADeplacer = Math.abs(diff);
 
-			labelMsg.setPreferredSize(new Dimension(1100,100));
-			labelMsg.setMaximumSize(new Dimension(1100,100));
+			labelMsg.setPreferredSize(new Dimension(1000,50));
+			labelMsg.setMaximumSize(new Dimension(1000,50));
 			labelMsg.setFont(UtilitaireIhm.POLICE2);
 
-			labelListeVelosAssignables.setPreferredSize(new Dimension(1100,50));
-			labelListeVelosAssignables.setMaximumSize(new Dimension(1100,50));
+			labelListeVelosAssignables.setPreferredSize(new Dimension(1000,50));
+			labelListeVelosAssignables.setMaximumSize(new Dimension(1000,50));
 			labelListeVelosAssignables.setFont(UtilitaireIhm.POLICE2);
 
 			//a priori ne sert pas
@@ -239,11 +239,13 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 						labelVelo.setBackground(UtilitaireIhm.TRANSPARENCE);
 						labelVelo.setPreferredSize(new Dimension(400,40));
+						labelVelo.setMaximumSize(new Dimension(400,40));
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
 						TextFieldLimite veloARemplir = new TextFieldLimite(4,l.get(i));
-						veloARemplir.setPreferredSize(new Dimension(400,40));
+						veloARemplir.setPreferredSize(new Dimension(200,40));
+						veloARemplir.setMaximumSize(new Dimension(200,40));
 						panelVelos.add(veloARemplir);
 					}
 				}
@@ -269,11 +271,13 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 						labelVelo.setBackground(UtilitaireIhm.TRANSPARENCE);
 						labelVelo.setPreferredSize(new Dimension(400,40));
+						labelVelo.setMaximumSize(new Dimension(400,40));
 						labelVelo.setText("Vélo "+(i+1));
 						panelVelos.add(labelVelo);
 
 						TextFieldLimite veloARemplir = new TextFieldLimite(4,l.get(i));
-						veloARemplir.setPreferredSize(new Dimension(400,40));
+						veloARemplir.setPreferredSize(new Dimension(200,40));
+						veloARemplir.setMaximumSize(new Dimension(200,40));
 						panelVelos.add(veloARemplir);
 					}
 				}
@@ -286,6 +290,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 				boutonValider.setFont(UtilitaireIhm.POLICE3);
 				boutonValider.setBackground(Color.CYAN);
+				boutonValider.setPreferredSize(new Dimension(300,50));
 				boutonValider.addActionListener(this);
 				centerCenter.add(boutonValider);
 

@@ -87,7 +87,6 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer les demandes d'assignation");
 		//Définit une taille pour celle-ci
-		this.setSize(new Dimension(700,500));		
 	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	    Rectangle bounds = env.getMaximumWindowBounds();
 	    this.setBounds(bounds);
@@ -148,7 +147,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 				}
 			}
 			final String [] tableauDemandes = new String[listeDemandes.size()+1];
-			tableauDemandes[0]="Sélectionnez une demande";
+			tableauDemandes[0]=listeDemandes.size()+" demande(s) trouvée(s)";
 			for (int i=0;i<listeDemandes.size();i++){
 				DemandeAssignation demandei = listeDemandes.get(i);
 				tableauDemandes[i+1] = DAODemandeAssignation.ligne(demandei);
@@ -157,8 +156,8 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 
 			JComboBox combo = new JComboBox(model);
 			combo.setFont(UtilitaireIhm.POLICE3);
-			combo.setPreferredSize(new Dimension(250,50));
-			combo.setMaximumSize(new Dimension(250,50));
+			combo.setPreferredSize(new Dimension(400,50));
+			combo.setMaximumSize(new Dimension(400,50));
 			combo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent ae){
 					Object o = ((JComboBox)ae.getSource()).getSelectedItem();

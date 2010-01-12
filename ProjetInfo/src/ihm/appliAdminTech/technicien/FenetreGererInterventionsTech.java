@@ -45,7 +45,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 	private Technicien technicien;
 	private JLabel labelTech = new JLabel("");
 	private JLabel labelChemin = new JLabel("Menu principal > Gérer les interventions");
-	private JLabel labelMsg = new JLabel("Demandes d'intervention");
+	private JLabel labelMsg = new JLabel("Demandes d'intervention à traiter");
 	private Intervention interventionEntree;
 	private JButton boutonValider = new JButton("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
