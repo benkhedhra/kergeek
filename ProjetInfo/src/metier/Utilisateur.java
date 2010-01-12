@@ -352,6 +352,6 @@ public class Utilisateur {
 	 */
 	@Override
 	public String toString(){
-		return this.getCompte().toString()+"-"+this.getPrenom()+" "+this.getNom();
+		return this.getCompte().toString()+" - "+this.getPrenom()+" "+this.getNom();
 	}
 }
