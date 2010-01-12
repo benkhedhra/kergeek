@@ -66,7 +66,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 		CategoryDataset dataset = createDataset(periodeEntree);
 		chart = createChart(dataset,periodeEntree);
 		ChartPanel chartPanel = new ChartPanel(chart, false);
-		chartPanel.setPreferredSize(new Dimension(800, 800));
+		chartPanel.setPreferredSize(new Dimension(750,750));
 		this.setContentPane(chartPanel);
 
 	}
@@ -79,7 +79,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 	 * @see JFreeChart#createBufferedImage(int, int)
 	 */
 	public Image getImage() {
-		return this.chart.createBufferedImage(800,800);
+		return this.chart.createBufferedImage(750,750);
 	}
 
 	/**

@@ -406,20 +406,20 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			bouton2.setText("<html> <center>Voir les stations<br>sur et sous-occupées</center></html>");
 			bouton3.setText("<html> <center>Envoyer une<br>demande d'assignation</center></html>");
 
-			bouton1.setPreferredSize(new Dimension(200,40));
-			bouton1.setMaximumSize(new Dimension(200,40));
+			bouton1.setPreferredSize(new Dimension(200,50));
+			bouton1.setMaximumSize(new Dimension(200,50));
 			bouton1.setFont(UtilitaireIhm.POLICE3);
 			bouton1.setBackground(Color.GREEN);
 			bouton1.addActionListener(this);
 
-			bouton2.setPreferredSize(new Dimension(200,40));
-			bouton2.setMaximumSize(new Dimension(200,40));
+			bouton2.setPreferredSize(new Dimension(200,50));
+			bouton2.setMaximumSize(new Dimension(200,50));
 			bouton2.setFont(UtilitaireIhm.POLICE3);
 			bouton2.setBackground(Color.GREEN);
 			bouton2.addActionListener(this);
 
-			bouton3.setPreferredSize(new Dimension(350,40));
-			bouton3.setMaximumSize(new Dimension(350,40));
+			bouton3.setPreferredSize(new Dimension(350,50));
+			bouton3.setMaximumSize(new Dimension(350,50));
 			bouton3.setFont(UtilitaireIhm.POLICE3);
 			bouton3.setBackground(Color.CYAN);
 			bouton3.addActionListener(this);
@@ -493,10 +493,14 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			}
 			else if(arg0.getSource()==bouton3){
 				//il ne peut s'agir que du cas où l'administrateur a souhaité envoyer une demande d'assignation
-				// mais il faut faire 2 casts différents car il y a deux types de fenêtres précédentes possibles
+				// mais il faut faire 3 casts différents car il y a deux types de fenêtres précédentes possibles
 				if(this.getFenetrePrecedente().getTitle().equals("Voir l'état d'un lieu")){
 					FenetreEtatLieuAdmin f = (FenetreEtatLieuAdmin) fenetrePrecedente;
 					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getLieuEntre());
+				}
+				if(this.getFenetrePrecedente().getTitle().equals("Envoyer une demande d'assignation")){
+					FenetreEnvoyerDemandeAssignationAdmin f = (FenetreEnvoyerDemandeAssignationAdmin) fenetrePrecedente;
+					new FenetreEnvoyerDemandeAssignationAdmin(DAOAdministrateur.getAdministrateurById(this.getAdministrateur().getCompte().getId()),f.getLieuConcerne());
 				}
 				else{
 					FenetreStationsSurSousAdmin f = (FenetreStationsSurSousAdmin) fenetrePrecedente;

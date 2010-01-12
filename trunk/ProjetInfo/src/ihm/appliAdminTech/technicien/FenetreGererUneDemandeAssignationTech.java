@@ -162,6 +162,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		JPanel centerNorth = new JPanel();
 		centerNorth.setBackground(UtilitaireIhm.TRANSPARENCE);
 		labelMsg.setFont(UtilitaireIhm.POLICE2);
+		labelMsg.setPreferredSize(new Dimension(1100,100));
 		centerNorth.add(labelMsg);
 		center.add(centerNorth,BorderLayout.NORTH);
 
@@ -251,8 +252,8 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 
 		JPanel panel9 = new JPanel();
 		panel9.setBackground(UtilitaireIhm.TRANSPARENCE);
-		boutonPrendreEnCharge.setPreferredSize(new Dimension(350,40));
-		boutonPrendreEnCharge.setMaximumSize(new Dimension(350,40));
+		boutonPrendreEnCharge.setPreferredSize(new Dimension(400,50));
+		boutonPrendreEnCharge.setMaximumSize(new Dimension(400,50));
 		boutonPrendreEnCharge.setBackground(Color.CYAN);
 		boutonPrendreEnCharge.setFont(UtilitaireIhm.POLICE3);
 		boutonPrendreEnCharge.addActionListener(this);
