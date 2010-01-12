@@ -103,7 +103,7 @@ public class DiagrammeNbEmpruntsUtilisateur extends ApplicationFrame{
 		// initialise le calendrier à la date courante;
 		calendar.setTime(UtilitaireDate.dateCourante());
 		
-		String nomMoisEnCours = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
+		String nomMoisEnCours = calendar.getDisplayName(Calendar.MONTH, 2, Locale.FRENCH);
 		
 		calendar.add(Calendar.MONTH, -1);
 		String nomMoisAnt1 = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH);
