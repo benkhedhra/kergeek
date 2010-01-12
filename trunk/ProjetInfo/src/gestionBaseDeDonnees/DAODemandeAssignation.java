@@ -272,13 +272,20 @@ public class DAODemandeAssignation {
 	/**
 	 * @param ddeA
 	 * @return la différence entre le nombre de {@link Velo} voulus dans le {@link Lieu} selon la DemandeAssignation et le
-	 * nombre actuel de Velo dans le Lieu
+	 * nombre actuel de Velo dans le Lieu (vélos pas en panne s'il s'agit du garage)
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
 	public static int getDiff(DemandeAssignation ddeA) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Velo> velos = DAOVelo.getVelosByLieu(ddeA.getLieu());
+		if(ddeA.getLieu().getId().equals(Lieu.ID_GARAGE)){
+			for(Velo velo : velos){
+				if(velo.isEnPanne()){
+					velos.remove(velo);
+				}
+			}
+		}
 		return velos.size()-ddeA.getNombreVelosVoulusDansLieu();
 	}
 
@@ -296,10 +303,10 @@ public class DAODemandeAssignation {
 	public static String ligne(DemandeAssignation ddA) throws ConnexionFermeeException{
 		String resul = "Demande "+ddA.getId()+" - "+ddA.getLieu().getAdresse()+" - ";
 		try {
-			int diff = ddA.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddA.getLieu()).size();
+			int diff = DAODemandeAssignation.getDiff(DAODemandeAssignation.getDemandeAssignationById(ddA.getId()));
 			String type;
-			if(diff<0){type = "retrait";}
-			else{type = "ajout";}
+			if(diff<0){type = "ajout";}
+			else{type = "retrait";}
 			resul = resul+type+ " de "+Math.abs(diff)+" vélos - "+ddA.getDate().toString();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

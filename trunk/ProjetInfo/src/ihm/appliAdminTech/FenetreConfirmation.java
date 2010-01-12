@@ -1,6 +1,7 @@
 package ihm.appliAdminTech;
 
 import gestionBaseDeDonnees.DAOAdministrateur;
+import gestionBaseDeDonnees.DAODemandeAssignation;
 import gestionBaseDeDonnees.DAOTechnicien;
 import gestionBaseDeDonnees.DAOTypeIntervention;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
@@ -20,6 +21,7 @@ import ihm.appliAdminTech.administrateur.PanneauAdmin;
 import ihm.appliAdminTech.technicien.FenetreEnregistrerArrivageVelosTech;
 import ihm.appliAdminTech.technicien.FenetreGererDemandesAssignationTech;
 import ihm.appliAdminTech.technicien.FenetreGererInterventionsTech;
+import ihm.appliAdminTech.technicien.FenetreGererUneDemandeAssignationTech;
 import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeAssignationTech;
 import ihm.appliAdminTech.technicien.FenetrePrendreEnChargeInterventionTech;
 import ihm.appliAdminTech.technicien.FenetreRetirerVeloDefectueuxTech;
@@ -63,6 +65,7 @@ import metier.Velo;
  * @see FenetreRetirerVeloDefectueuxTech
  * @see FenetrePrendreEnChargeInterventionTech
  * @see FenetrePrendreEnChargeAssignationTech
+ * @see FenetreGererUneDemandeAssignationTech
  * @author KerGeek
  */
 public class FenetreConfirmation extends JFrame implements ActionListener {
@@ -401,6 +404,25 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				south.add(bouton1);
 				south.add(boutonRetour);
 			}
+			else if(fenetrePrec.getTitle().equals("Gérer une demande d'assignation")){
+				FenetreGererUneDemandeAssignationTech f = (FenetreGererUneDemandeAssignationTech) fenetrePrec;
+				north.add(labelAdminTech);
+				int nbVelosManquantsDansGarage = DAODemandeAssignation.getDiff(DAODemandeAssignation.getDemandeAssignationById(f.getDemande().getId()));
+				labelChemin.setText("Menu principal > Gérer les demandes d'assignation > Gérer une demande > Garage");
+				north.add(labelChemin);
+				this.getContentPane().add(north,BorderLayout.NORTH);
+				labelConfirm.setText( "<html><center>Le nombre de vélos dans le parc est devenu insuffisant. Afin de prendre en charge cette demande d'assignation, vous êtes prié d'effectuer une nouvelle commande de vélos auprès de votre fournisseur. <br>Une fois le nouvel arrivage reçu, vous devrez l'enregistrer et apposer aux nouveaux vélos les identifiants demandés. <br>Le nombre minimal de vélos conseillé pour cette commande est "+nbVelosManquantsDansGarage+". </center></html>");
+				labelConfirm.setPreferredSize(new Dimension(1100,100));
+				center.add(labelConfirm);
+				bouton1.setText("Gérer une autre demande d'assignation");
+				bouton1.addActionListener(this);
+				boutonRetour.addActionListener(this);
+				JPanel panel = new JPanel();
+				panel.setBackground(UtilitaireIhm.TRANSPARENCE);	
+				south.add(panel);
+				south.add(bouton1);
+				south.add(boutonRetour);
+			}
 
 			center.setBackground(UtilitaireIhm.TRANSPARENCE);
 			labelConfirm.setFont(UtilitaireIhm.POLICE2);
@@ -508,6 +530,14 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			else if(fenetrePrecedente.getTitle().equals("Prendre en charge une intervention")){
 				if(arg0.getSource()==bouton1){
 					new FenetreGererInterventionsTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				}
+				else if (arg0.getSource()==boutonRetour){
+					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));
+				}
+			}
+			else if(fenetrePrecedente.getTitle().equals("Gérer une demande d'assignation")){
+				if(arg0.getSource()==bouton1){
+					new FenetreGererDemandesAssignationTech(DAOTechnicien.getTechnicienById(compte.getId()));
 				}
 				else if (arg0.getSource()==boutonRetour){
 					new MenuPrincipalTech(DAOTechnicien.getTechnicienById(compte.getId()));

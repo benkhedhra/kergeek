@@ -6,6 +6,7 @@ import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import ihm.MsgBox;
 import ihm.UtilitaireIhm;
 import ihm.appliAdminTech.FenetreAuthentification;
+import ihm.appliAdminTech.FenetreConfirmation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -297,7 +298,7 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 			if(arg0.getSource()==boutonPrendreEnCharge){
 				//le technicien doit cliquer sur le bouton "prendre en charge" juste avant ou juste après avoir effectivement déplacé les vélos, de manière à être sûr qu'aucun autre technicien n'ait effectué l'opération (il a accès à l'application depuis son camion)
 				if(this.getDemande().getLieu().getId().equals(""+Lieu.ID_GARAGE)){
-					new FenetreEnregistrerArrivageVelosTech(this.getTechnicien());
+					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 				}
 				else{
 					ArrayList<String> listeVide = new ArrayList<String>();
