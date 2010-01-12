@@ -73,8 +73,8 @@ public class SendMail {
 			
 			//		 Enfin, envoyer le message !
 			Transport tr = session.getTransport("smtp");
-			tr.connect("smm-01.domensai.ecole", "//DOMENSAI/id3033", "bibliotheque");
-			//TODO "DOMENSAI/id3033"
+			tr.connect("smm-01.domensai.ecole", "\\\\DOMENSAI\\id3033", "bibliotheque");
+			//TODO "DOMENSAI\\id3033"
 			mesg.saveChanges();
 			tr.sendMessage(mesg, mesg.getAllRecipients());
 			tr.close();
