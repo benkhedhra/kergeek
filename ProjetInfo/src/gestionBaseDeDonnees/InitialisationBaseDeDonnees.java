@@ -211,18 +211,18 @@ public class InitialisationBaseDeDonnees {
 
 
 			// Insertion ADMINISTRATEUR
-			s2.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin','','','', 'kergeek@hotmail.fr', '1','','1')");
+			s2.executeUpdate("insert into Compte values(CONCAT('a',seqAdministrateur.nextval),'lapin1','','','', 'kergeek@hotmail.fr', '1','','1')");
 
 			// Insertion UTILISATEUR
 
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'kangourou','Vincent','Francky','69 rue de la passion 35 000 Bruz', 'id3033@ensai.fr', '1', '0','3')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison','Brassens','Georges','1 square des copains 35 180 Goven', 'id2989@ensai.fr', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'koala1','Chedid','Mathieu','10 rue Machistador 35 170 Bruz', 'mathieuchedid@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'bison1','Brassens','Georges','1 square des copains 35 180 Goven', 'id2989@ensai.fr', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'putois','Marley','Bob','6 rue Marie-Jeanne 35 250 Guichen', 'bobmarley@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fouine','Hilton','Paris','12 avenue de la pouf 35 040 Chartres', 'parishilton@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'colombe','Brel','Jacques','12 rue des amants 35 580 Pontrean', 'breljacques@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'fourmi','Coquet','Francois','1 avenue des boreliens 35 000 Rennes', 'francoiscoquet@gmail.com', '1', '1','3')");
-			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'singe','Benabar','Bruno','10 rue de la poesie 35 170 Bruz', 'brunobenabar@gmail.com', '1', '0','3')");
+			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'singe1','Benabar','Bruno','10 rue de la poesie 35 170 Bruz', 'brunobenabar@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'requin','Delprat','David','0 rue des etudiants 35 170 Bruz', 'daviddelprat@gmail.com', '1', '0','3')");
 			s2.executeUpdate("insert into Compte values(CONCAT('u',seqUtilisateur.nextval),'baleine','Christie','Agatha','9 rue du crime 35 170 Bruz', 'agathachristie@gmail.com', '1', '0','3')");
 
