@@ -4,7 +4,10 @@ import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
+import ihm.UtilitaireIhm;
+
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +15,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import metier.Intervention;
 import metier.Velo;
@@ -66,13 +70,21 @@ public class TableauInterventionVelo extends JPanel {
 		
 		//création du tableau
 		final MonJTable table = new MonJTable(donnees, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(800, table.getRowCount()*16));
-		table.setFillsViewportHeight(true);
 
 		//création du défilement (au cas ou le tableau serait trop grand)
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		//ajout du défilement
 		add(scrollPane);
+		
+		//TODO a commenter
+		for(int i=0; i<table.getColumnModel().getColumnCount(); i++){
+			TableColumn col = table.getColumnModel().getColumn(i);
+			col.setMinWidth(col.getHeaderValue().toString().length()*9);
+			col.setMaxWidth(col.getHeaderValue().toString().length()*9);
+		}
+		table.setPreferredScrollableViewportSize(new Dimension(table.getColumnModel().getTotalColumnWidth(), table.getRowCount()*16));
+		table.setFillsViewportHeight(true);
+		table.getTableHeader().setFont(UtilitaireIhm.POLICE2);
 	}
 }

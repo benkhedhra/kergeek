@@ -3,15 +3,19 @@ package statistiques;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
+import ihm.UtilitaireIhm;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.TableColumn;
 
 import metier.Emprunt;
 import metier.Garage;
@@ -82,7 +86,7 @@ public class TableauListeVelosDansLieu extends JPanel {
 				donnees[k][0] = listeVelos.get(k).getId();
 				donnees[k][1] = listeVelos.get(k).getEmpruntEnCours().getStationEmprunt().getAdresse();
 				donnees[k][2] = listeVelos.get(k).getEmpruntEnCours().getUtilisateur().getCompte().getId();
-				donnees[k][3] = gCal.get(Calendar.DAY_OF_MONTH)+"/"+ (gCal.get(Calendar.MONTH)+1);
+				donnees[k][3] = gCal.get(Calendar.DAY_OF_MONTH)+" "+ (gCal.getDisplayName(Calendar.MONTH, Calendar.SHORT,Locale.FRENCH));
 				donnees[k][4] = gCal.get(Calendar.HOUR_OF_DAY) + "h" + gCal.get(Calendar.MINUTE);
 			}
 			//création du tableau
@@ -149,14 +153,21 @@ public class TableauListeVelosDansLieu extends JPanel {
 			table = new MonJTable(donnees, columnNames);
 		}
 
-		table.setPreferredScrollableViewportSize(new Dimension(800, table.getRowCount()*16));
-		table.setFillsViewportHeight(true);
-
 		//création du défilement (au cas ou le tableau serait trop grand)
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		//ajout du défilement
 		add(scrollPane);
+		
+		//TODO a commenter
+		for(int i=0; i<table.getColumnModel().getColumnCount(); i++){
+			TableColumn col = table.getColumnModel().getColumn(i);
+			col.setMinWidth(col.getHeaderValue().toString().length()*9);
+			col.setMaxWidth(col.getHeaderValue().toString().length()*9);
+		}
+		table.setPreferredScrollableViewportSize(new Dimension(table.getColumnModel().getTotalColumnWidth(), table.getRowCount()*16));
+		table.setFillsViewportHeight(true);
+		table.getTableHeader().setFont(UtilitaireIhm.POLICE2);
 	}
 
 }
