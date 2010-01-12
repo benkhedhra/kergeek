@@ -202,7 +202,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			labelListeVelosAssignables.setMaximumSize(new Dimension(1000,50));
 			labelListeVelosAssignables.setFont(UtilitaireIhm.POLICE2);
 
-			//a priori ne sert pas
+			//ne sert que lorsque la demande a été prise en charge par un autre technicien quasi-simultanément
 			if(nbVelosADeplacer==0){
 				labelMsg.setText("Il n'y a aucun vélo à déplacer. Le nombre de vélos dans la station est le nombre voulu. ");
 				centerNorth.add(labelMsg);
@@ -231,7 +231,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 						labelMsg.setText("<html><center>Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getAdresse()+"</center></html>");
 					}
 					else{
-						labelMsg.setText("<html><center>Certains vélos entrés ne sont pas valides.<br> Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getId()+"</center></html>");
+						labelMsg.setText("<html><center>Certains vélos entrés ne sont pas valides. Veuillez entrer les identifiants des vélos affectés du garage à la station "+d.getLieu().getAdresse()+"</center></html>");
 						labelMsg.setForeground(Color.RED);					
 					}
 					for (int i =0;i<nbVelosADeplacer;i++){
@@ -344,10 +344,19 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 			}
 			ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();
 			try {
+
+				// il s'agit d'une demande d'assignation pour une station
+
+				/* si this.getDiff()<0 cela signifie qu'il faut ajouter des vélos depuis le garage vers la station
+				 * si this.getDiff()>0 c'est qu'il faudra en retirer de la station pour les mettre au garage
+				 */
+				
 				if(this.getDiff()<0){
 					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, Garage.getInstance());
 				}
 				else{
+					//notons que les vélos proposés seront uniquement les vélos en station et pas en panne
+					//on imagine que le tech s'est assuré avant qu'aucun vélo n'était en panne dans la station avec la consultation des demandes d'intervention émises par les utilisateurs
 					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, demande.getLieu());
 				}
 				System.out.println(nouvelleListeIdVelos);

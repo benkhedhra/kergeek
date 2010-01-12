@@ -138,10 +138,12 @@ public class UtilitaireIhm {
 
 
 	/**
-	 * Vérifie si des vélos peuvent être assignés à une station
-	 * @param ancienneliste
+	 * Vérifie si des vélos peuvent être assignés dans un lieu donné
+	 * @param listeVelosProposee
 	 * la liste des identifiants des vélos que l'on veut assigner
-	 * @param lieu 
+	 * @param lieu
+	 * le lieu d'origine des vélos concernés par la demande d'assignation
+	 * <br>ainsi pour demande correspondant à un ajout de 3 vélos à la station s, lieu sera le garage car les vélos doivent être assignés du garage vers s
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
@@ -151,18 +153,20 @@ public class UtilitaireIhm {
 	 * sinon le i-ème élément de la nouvelle liste est une chaîne vide
 	 * @see DAOVelo
 	 */
-	//TODO a commenter
-	public static ArrayList<String> verifieSiVelosPeuventEtreAssignes(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+
+	public static ArrayList<String> verifieSiVelosPeuventEtreAssignes(ArrayList<String> listeIdsVelosProposee, Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		ArrayList<String> nouvelleListe = new ArrayList<String>();
-		List<Velo> listeVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
+		// on crée la liste exhaustive de tous les vélos présents dans lieu
+		List<Velo> listeTousVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
+		// on crée la liste des ids des vélos présents dans lieu et pas en panne
 		List<String> listeIdVelosDansLieu = new ArrayList<String>();
-		for (Velo velo : listeVelosDansLieu){
+		for (Velo velo : listeTousVelosDansLieu){
 			if (!velo.isEnPanne()){
 				listeIdVelosDansLieu.add(velo.getId());
 			}
 		}
 		//System.out.println("vélos pouvant être assignés : " + listeIdVelosDansLieu.toString());
-		for (String idVelo : ancienneliste){
+		for (String idVelo : listeIdsVelosProposee){
 			if (DAOVelo.existe(idVelo)){
 				if(listeIdVelosDansLieu.contains(idVelo)){
 					nouvelleListe.add(idVelo);

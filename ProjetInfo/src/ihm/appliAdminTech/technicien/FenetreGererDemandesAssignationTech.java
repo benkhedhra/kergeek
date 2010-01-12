@@ -139,7 +139,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 					listeDemandes.remove(i);
 				}
 				//dans le cas où la demande d'assignation concernait le garage, on imagine que la demande d'assignation est prise en charge si le nombre de vélos présent est supérieur au nombre de vélos voulu
-				//en effet le "nombre de vélos voulu" est plus un nombre minimal, un seuil, pour pouvoir faire face aux différentes demandes d'assignation, et si le nombre de vélos au garage est supérieur l'objectif de l'administrateur est atteint pareillement
+				//en effet le "nombre de vélos voulu" est davantage un nombre minimal, un seuil, pour pouvoir faire face aux différentes demandes d'assignation, et si le nombre de vélos au garage est supérieur l'objectif de l'administrateur est atteint pareillement
 				else if(demandei.getLieu().getId().equals(""+Lieu.ID_GARAGE) && demandei.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(demandei.getLieu()).size() < 0){
 					demandei.setPriseEnCharge(true);
 					DAODemandeAssignation.updateDemandeAssignation(demandei);
