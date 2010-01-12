@@ -151,12 +151,15 @@ public class UtilitaireIhm {
 	 * sinon le i-ème élément de la nouvelle liste est une chaîne vide
 	 * @see DAOVelo
 	 */
+	//TODO a commenter
 	public static ArrayList<String> verifieSiVelosPeuventEtreAssignes(ArrayList<String> ancienneliste, Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		ArrayList<String> nouvelleListe = new ArrayList<String>();
 		List<Velo> listeVelosDansLieu = DAOVelo.getVelosByLieu(lieu);
 		List<String> listeIdVelosDansLieu = new ArrayList<String>();
 		for (Velo velo : listeVelosDansLieu){
-			listeIdVelosDansLieu.add(velo.getId());
+			if (!velo.isEnPanne()){
+				listeIdVelosDansLieu.add(velo.getId());
+			}
 		}
 		//System.out.println("vélos pouvant être assignés : " + listeIdVelosDansLieu.toString());
 		for (String idVelo : ancienneliste){
