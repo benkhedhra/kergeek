@@ -51,7 +51,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 	 * attributs privés : composants de la fenêtre
 	 */
 	private Utilisateur utilisateur;
-	private String idVeloAEmprunte;
+	private String idVeloAEmprunter;
 	private JLabel labelUtil = new JLabel("");
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 	private JLabel labelVelo = new JLabel ("Veuillez entrer l'identifiant du vélo emprunté");
@@ -177,7 +177,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 				else{
 
 					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
-					this.idVeloAEmprunte = velo.getId();
+					this.idVeloAEmprunter = velo.getId();
 					Station station = (Station) velo.getLieu();
 					System.out.println(station.getAdresse());
 					System.out.println(DAOVelo.getVelosByLieu(station).size());
@@ -223,10 +223,13 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
 			} catch (CompteBloqueException e) {
 				MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
+				new FenetreAuthentificationUtil(false);
 			} 
 			catch (ConnexionFermeeException e3){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");

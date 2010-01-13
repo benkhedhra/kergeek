@@ -212,8 +212,10 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 				}
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);

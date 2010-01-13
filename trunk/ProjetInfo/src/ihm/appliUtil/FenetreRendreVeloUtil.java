@@ -322,12 +322,16 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 			}
 		} catch (SQLException e) {
 			MsgBox.affMsg("SQL exception " + e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg("ClassNotFound " + e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		} catch (PasDeVeloEmprunteException e) {
 			MsgBox.affMsg("PasDeVeloEmprunte " + e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		} catch (PasDeDateRetourException e) {
 			MsgBox.affMsg("PasDeDateRetourException " + e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		} catch (ConnexionFermeeException e3){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentificationUtil(false);

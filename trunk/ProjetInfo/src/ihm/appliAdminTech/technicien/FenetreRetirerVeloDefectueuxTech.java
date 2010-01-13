@@ -373,9 +373,11 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 			} catch (SQLException e) {
 				MsgBox.affMsg("SQLException : " + e.getMessage());
 				e.printStackTrace();
+				new MenuPrincipalTech(this.getTechnicien());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg("ClassNotFoundException : " + e.getMessage());
 				e.printStackTrace();
+				new MenuPrincipalTech(this.getTechnicien());
 			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);

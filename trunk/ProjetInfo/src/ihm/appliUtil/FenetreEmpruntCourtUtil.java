@@ -165,8 +165,10 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 				DAOVelo.updateVelo(this.getVelo());
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
 			} catch (ConnexionFermeeException e3){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentificationUtil(false);
