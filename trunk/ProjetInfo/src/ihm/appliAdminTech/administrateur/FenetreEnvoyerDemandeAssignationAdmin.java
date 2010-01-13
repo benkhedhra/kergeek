@@ -28,6 +28,7 @@ import metier.Administrateur;
 import metier.DemandeAssignation;
 import metier.Garage;
 import metier.Lieu;
+import metier.Station;
 
 /**
  * FenetreEnvoyerDemandeAssignationAdmin hérite de {@link JFrame} et implémente {@link ActionListener}

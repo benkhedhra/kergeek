@@ -13,7 +13,8 @@ import java.sql.Statement;
 
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
-	//pour écrire l'id et le mp pour acceder â€¡ la base de donnees "en dur"
+	//TODO identifiants oracles
+	//pour écrire l'id et le mp pour acceder à la base de données "en dur"
 	public static final String UTILISATEUR ="id3033";
 	public static final String MOTDEPASSE ="id3033";
 
@@ -39,6 +40,7 @@ public class ConnexionOracleViaJdbc {
 	private static void connecter() throws ClassNotFoundException{
 		// création d'une connexion â€¡ une base de données		
 
+		//TODO URL Oracle
 		String url = "jdbc:oracle:thin:@oraens10g:1521:ORAENS";
 
 

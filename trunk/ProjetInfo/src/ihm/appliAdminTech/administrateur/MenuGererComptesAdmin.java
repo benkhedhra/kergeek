@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Compte;
 
 /**
  * MenuGererComptesAdmin hérite de {@link JFrame} et implémente {@link ActionListener}

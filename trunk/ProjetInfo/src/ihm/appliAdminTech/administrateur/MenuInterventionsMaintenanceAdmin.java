@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import metier.Administrateur;
+import metier.Velo;
 
 /**
  * MenuInterventionsMaintenanceAdmin hérite de {@link JFrame} et implémente {@link ActionListener}

@@ -2,7 +2,6 @@ package statistiques;
 
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
-
 import ihm.UtilitaireIhm;
 
 import java.awt.Dimension;

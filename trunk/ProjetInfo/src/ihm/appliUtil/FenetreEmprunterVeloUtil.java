@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -193,11 +194,27 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 						String adresseEMail;
 						for (Technicien t : listeTech){
 							adresseEMail = t.getCompte().getAdresseEmail();
-							SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
 						}
 						for (Administrateur a : listeAdmin){
 							adresseEMail = a.getCompte().getAdresseEmail();
-							SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
 						}
 					}
 
@@ -210,15 +227,7 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 				MsgBox.affMsg(e.getMessage());
 			} catch (CompteBloqueException e) {
 				MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
-			} catch (UnsupportedEncodingException e) {
-				System.out.println("UnsupportedEncodingException : " + e.getMessage());
-				new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+idVeloAEmprunte +" de son emplacement. Merci et à bientôt ! ");
-				System.out.println("L'emprunt a bien été enregistré");
-			} catch (MessagingException e) {
-				System.out.println(e.getMessage());
-				new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+idVeloAEmprunte +" de son emplacement. Merci et à bientôt ! ");
-				System.out.println("L'emprunt a bien été enregistré");
-			}
+			} 
 			catch (ConnexionFermeeException e3){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentificationUtil(false);
