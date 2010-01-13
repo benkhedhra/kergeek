@@ -26,7 +26,6 @@ public class TestUtilisateur extends TestCase{
 		s.setId("id");
 		Velo v = new Velo(s);
 		u.emprunteVelo(v);
-		
 		assertEquals(Lieu.ID_SORTIE, v.getLieu().getId());
 		assertFalse(null == u.getEmpruntEnCours());
 		assertTrue(v == u.getEmpruntEnCours().getVelo());

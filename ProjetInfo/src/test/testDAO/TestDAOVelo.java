@@ -21,7 +21,6 @@ public class TestDAOVelo extends TestCase {
 		Lieu l = DAOLieu.getLieuById("1");
 		Velo v = new Velo(l);
 		v.setEnPanne(true);
-		
 		Boolean b = DAOVelo.createVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
 	}
@@ -29,7 +28,6 @@ public class TestDAOVelo extends TestCase {
 	@Test
 	public void testUpdateVelo() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Velo v = DAOVelo.getVeloById("1");
-		
 		Boolean b =DAOVelo.updateVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
 	}
@@ -47,7 +45,6 @@ public class TestDAOVelo extends TestCase {
 	public void testGetVeloByLieu() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Lieu l = DAOLieu.getLieuById("2");
 		List<Velo> liste = DAOVelo.getVelosByLieu(l);
-		
 		assertEquals(0,liste.size());
 		
 	}

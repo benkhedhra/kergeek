@@ -26,7 +26,6 @@ public class TestDAOEmprunt extends TestCase{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		Velo v = DAOVelo.getVeloById("1");
 		Station s = (Station) DAOLieu.getLieuById("1");
-		
 		Emprunt e = new Emprunt(u, v, UtilitaireDate.dateCourante(), s,UtilitaireDate.dateCourante(), s);
 		Boolean b = DAOEmprunt.createEmprunt(e);
 		assertEquals((Boolean)true,(Boolean) b);
