@@ -29,9 +29,7 @@ public class TestTechnicien extends TestCase{
 		Technicien t = new Technicien(c);
 		Velo v = new Velo();
 		Station s = new Station();
-		TypeIntervention typeInt = new TypeIntervention("pneu Crevé");
 		Intervention i = t.intervenir(v);
-		//TODO
 		assertTrue(i instanceof Intervention);
 		assertEquals(v , i.getVelo());
 		}

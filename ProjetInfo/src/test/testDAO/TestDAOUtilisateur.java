@@ -29,15 +29,7 @@ public class TestDAOUtilisateur extends TestCase {
 		u1.setPrenom("henry");
 		u1.setAdressePostale("4 bld vert");
 		DAOUtilisateur.updateUtilisateur(u1);
-		Utilisateur u2 = DAOUtilisateur.getUtilisateurById(u1.getCompte().getId());/*
-		System.out.println("compte :" + u1.getCompte().equals(u2.getCompte())); 
-		System.out.println("prenom :" + u1.getPrenom().equals(u2.getPrenom()));
-		System.out.println("prenom u1:" + u1.getPrenom() +"; prenom u2:" + u2.getPrenom());
-		System.out.println("nom :" + u1.getNom().equals(u2.getNom()));
-		System.out.println("nom u1:" + u1.getNom() +"; nom u2:" + u2.getNom()); 
-		System.out.println("bloqué :" + u1.isBloque().equals(u2.isBloque()));
-		System.out.println("adresse postale :" + u1.getAdressePostale().equals(u2.getAdressePostale()));
-		System.out.println("adresse postale u1:" + u1.getAdressePostale() +"; adresse postale u2:" + u2.getAdressePostale());*/
+		Utilisateur u2 = DAOUtilisateur.getUtilisateurById(u1.getCompte().getId());
 		assertTrue(u1.equals(u2));
 	}
 	
