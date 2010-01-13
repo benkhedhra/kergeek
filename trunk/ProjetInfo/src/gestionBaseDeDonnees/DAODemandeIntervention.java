@@ -60,6 +60,7 @@ public class DAODemandeIntervention {
 							+ "'" + ddeIntervention.getVelo().getLieu().getId() +"'," 
 							+ "'')"
 					);
+					effectue=true;
 				}
 			}
 		}
@@ -135,7 +136,7 @@ public class DAODemandeIntervention {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées	
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées	
 		}
 		return effectue;
 	}
@@ -262,7 +263,7 @@ public class DAODemandeIntervention {
 	 * Une fonction qui sert à l'affichage d'une demande d'intervention.
 	 * @param ddeI
 	 * la demande d'intervention à afficher
-	 * @return Une chaíne de caractères présentant l'identifiant de la demande d'intervention, le {@link Velo} concerné, 
+	 * @return Une chaîne de caractères présentant l'identifiant de la demande d'intervention, le {@link Velo} concerné, 
 	 * l'adresse de la station dans laquelle il se trouve et la date de la demande.
 	 */
 	public static String ligne(DemandeIntervention ddeI){

@@ -95,7 +95,7 @@ public class DAOUtilisateur {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 			effectue = DAOCompte.updateCompte(utilisateur.getCompte());
 		}
 		return effectue;
@@ -311,7 +311,7 @@ public class DAOUtilisateur {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return dateDernierRetour;
 	}

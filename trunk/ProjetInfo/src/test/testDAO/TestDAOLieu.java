@@ -39,8 +39,7 @@ public class TestDAOLieu extends TestCase{
 		System.out.println(liste.get(2));
 		System.out.println(liste.get(3));
 		System.out.println(liste.get(4));
-		assertEquals("pool de velo", liste.get(0).getAdresse());
-		assertEquals("Gare du Campus", liste.get(1).getAdresse());
+		assertEquals("Gare du Campus", liste.get(0).getAdresse());
 		assertEquals(10, liste.get(2).getCapacite());
 	}
 	

@@ -27,25 +27,25 @@ public class TestDAODemandeIntervention extends TestCase{
 		l.ajouterVelo(v);
 		DAOVelo.createVelo(v);
 		DemandeIntervention d = new DemandeIntervention(u,v);
-		System.out.println("coucou");
 		Boolean b = DAODemandeIntervention.createDemandeIntervention(d);
-		System.out.println("coucou2");
-		assertEquals((Boolean)true, b);
+		assertTrue(b);
 	}
 	
 	@Test
 	public void testGetDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<DemandeIntervention> liste = DAODemandeIntervention.getDemandesInterventionEnAttente();
+		System.out.println(liste);
 		for (int i=0;i < liste.size();i++) {
-			assertEquals(null, liste.get(i).getIntervention().getId());
+			assertEquals(null, liste.get(i).getIntervention());
 		}
 	}
 	
 	@Test
 	public void testGetDemandeInterventionById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		DemandeIntervention dmde = DAODemandeIntervention.getDemandeInterventionById("1");
+		System.out.println(DAOUtilisateur.getUtilisateurById("u1"));
 		System.out.println(dmde.getUtilisateur());
-		assertTrue(dmde.getUtilisateur().equals(DAOUtilisateur.getUtilisateurById("u1")));
-		
+		Utilisateur u = DAOUtilisateur.getUtilisateurById("u1");
+		assertTrue(dmde.getUtilisateur().equals(u));
 	}
 }

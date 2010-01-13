@@ -131,7 +131,7 @@ public class DAOIntervention {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return effectue;
 	}

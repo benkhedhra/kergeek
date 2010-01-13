@@ -9,14 +9,14 @@ public class Velo {
 	// Attributs
 	
 	/**
-	 * L'identifiant d'un Velo est unique. Une fois attribué, il ne doit pas ítre modifié.
+	 * L'identifiant d'un Velo est unique. Une fois attribué, il ne doit pas être modifié.
 	 * @see Velo#getId()
 	 * @see Velo#setId(String)
 	 */
 	private String id;
 	
 	/**
-	 * Le lieu o est parqué le Velo
+	 * Le lieu où est parqué le Velo
 	 * @see Velo#getLieu()
 	 * @see Velo#setLieu(Lieu)
 	 */

@@ -50,16 +50,15 @@ public class TestDAOEmprunt extends TestCase{
 		Emprunt e = DAOEmprunt.getEmpruntById("1");
 		assertEquals("2", e.getStationEmprunt().getId());
 		assertEquals("1", e.getStationRetour().getId());
-		assertEquals("franckyvincent@gmail.com", e.getUtilisateur().getCompte().getAdresseEmail());
+		assertEquals("id3033@ensai.fr", e.getUtilisateur().getCompte().getAdresseEmail());
 	}
 	
 	@Test
 	public void testGetNombreEmpruntParUtilisateurParMois() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Utilisateur u = DAOUtilisateur.getUtilisateurByAdresseEmail("mathieuchedid@gmail.com").get(0);
 		List <Integer> liste = DAOEmprunt.getNombreEmpruntParUtilisateurParMois(u, 3);
-		
-		assertEquals((int)2, (int)liste.get(0));
-		assertEquals((int)2, (int)liste.get(1));
-		assertEquals((int)0, (int)liste.get(2));
+		assertEquals((int)1, (int)liste.get(1));
+		assertEquals((int)2, (int)liste.get(2));
+		assertEquals((int)2, (int)liste.get(3));
 	}
 }
