@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import metier.Compte;
+import metier.Emprunt;
 import metier.Utilisateur;
 
 /**

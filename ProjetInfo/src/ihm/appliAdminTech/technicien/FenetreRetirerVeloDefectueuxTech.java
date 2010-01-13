@@ -26,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -304,11 +305,27 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 						String adresseEMail;
 						for (Technicien t : listeTech){
 							adresseEMail = t.getCompte().getAdresseEmail();
-							SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
 						}
 						for (Administrateur a : listeAdmin){
 							adresseEMail = a.getCompte().getAdresseEmail();
-							SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
 						}
 					}
 				}
@@ -354,43 +371,15 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 				}
 			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("SQLException : " + e.getMessage());
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
+				MsgBox.affMsg("ClassNotFoundException : " + e.getMessage());
 				e.printStackTrace();
 			} catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 				new FenetreAuthentification(false);
-			} catch (UnsupportedEncodingException e) {
-				System.out.println("UnsupportedEncodingException : " + e.getMessage());
-				try {
-					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
-				} catch (SQLException e2) {
-					MsgBox.affMsg(e2.getMessage());
-					e.printStackTrace();
-				} catch (ClassNotFoundException e2) {
-					MsgBox.affMsg(e2.getMessage());
-					e.printStackTrace();
-				} catch (ConnexionFermeeException e2){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			} catch (MessagingException e) {
-				System.out.println(e.getMessage());
-				try {
-					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
-				} catch (SQLException e2) {
-					MsgBox.affMsg(e2.getMessage());
-					e.printStackTrace();
-				} catch (ClassNotFoundException e2) {
-					MsgBox.affMsg(e2.getMessage());
-					e.printStackTrace();
-				} catch (ConnexionFermeeException e2){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
+			} 
 		}
 		else if (arg0.getSource()==boutonRetour){
 			new MenuPrincipalTech(this.getTechnicien());

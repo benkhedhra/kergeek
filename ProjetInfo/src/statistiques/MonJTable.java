@@ -1,15 +1,11 @@
 package statistiques;
 
-import java.awt.Component;
-import java.awt.Font;
-
 import ihm.UtilitaireIhm;
 
-import javax.swing.JComponent;
+import java.awt.Font;
+
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 /**
  * Cette classe permet de créer des tableaux non modifiables afin de présenter des données.
  * @see JTable

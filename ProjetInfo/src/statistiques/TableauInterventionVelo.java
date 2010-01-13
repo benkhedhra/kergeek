@@ -3,11 +3,9 @@ package statistiques;
 import gestionBaseDeDonnees.DAOIntervention;
 import gestionBaseDeDonnees.DAOVelo;
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
-
 import ihm.UtilitaireIhm;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +13,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import metier.Intervention;

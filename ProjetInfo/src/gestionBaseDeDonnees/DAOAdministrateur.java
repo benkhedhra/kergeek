@@ -84,21 +84,29 @@ public class DAOAdministrateur {
 	 * @see DAOAdministrateur#getAdministrateurById(String)
 	 */
 	public static List<Administrateur> getAllAdministrateurs() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		List<Administrateur> liste = new ArrayList<Administrateur>();
-		List<String> listeId = new ArrayList<String>();
+		//La liste des administrateurs
+		List<Administrateur> liste = new ArrayList<Administrateur>();	
+		
+		// la listes des identifiants des administrateurs 
+		//(necessaire car l'appel à une DAO ferme la connection à la base de données)
+		List<String> listeId = new ArrayList<String>();	
 
 		Administrateur administrateur = new Administrateur();
 
+		//connection à la base données
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
 			ResultSet res = s.executeQuery("Select idCompte from Compte WHERE type = '" + Compte.TYPE_ADMINISTRATEUR + "'");
-
 			try{
+				// ajout de l'ensemble des identifiants correspondants à un compte administrateur à la liste des identifiants
 				while(res.next()) {
 					String idCompte = res.getString("idCompte"); 
 					listeId.add(idCompte);
 				}
+				//Pour chaque identifiants de compte administrateur de la liste,
+				//on récupère l'instance de la classe Adlministrateur correspondante
+				//et on l'ajoute à la liste des administrateurs
 				for(String id : listeId){
 					administrateur = DAOAdministrateur.getAdministrateurById(id);
 					liste.add(administrateur);

@@ -42,12 +42,15 @@ public class DAOCompte {
 
 		ResultSet res = null;
 		try{
+			//Si il s'agit d'un compte d'un administrateur
 			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
+				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
 				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as id from dual");
 				if (res.next()){
 					String nb = res.getString("id");
 					System.out.println(nb);
 					String id = "a" + res.getString("id");
+					//On assigne l'identifiant au compte ajouté à la base de données
 					compte.setId(id);
 
 				}
@@ -55,30 +58,37 @@ public class DAOCompte {
 					throw new SQLException("probleme de sequence");
 				}
 			}
+			//Si il s'agit d'un compte d'un utilisateur
 			else if (compte.getType() == Compte.TYPE_UTILISATEUR){
+				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
 				res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
 				if (res.next()){
 					String nb = res.getString("id");
 					System.out.println(nb);
 					String id = "u" + res.getString("id");
+					//On assigne l'identifiant au compte ajouté à la base de données
 					compte.setId(id);
 				}
 				else{
 					throw new SQLException("probleme de sequence");
 				}
 			}
+			//Si il s'agit d'un compte d'un technicien
 			else if (compte.getType() == Compte.TYPE_TECHNICIEN){
+				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
 				res = s.executeQuery("Select seqTechnicien.NEXTVAL as id from dual");
 				if (res.next()){
 					String nb = res.getString("id");
 					System.out.println(nb);
 					String id = "t" + res.getString("id");
+					//On assigne l'identifiant au compte ajouté à la base de données
 					compte.setId(id);
 				}
 				else{
 					throw new SQLException("probleme de sequence");
 				}
 			}
+			//Insertion du compte doté de son identifiant dans la base de données
 			if(compte.isActif()){
 				s.executeUpdate("INSERT into Compte values (" 
 						+ "'" + compte.getId() + "'," 
@@ -91,7 +101,6 @@ public class DAOCompte {
 						+ "'',"
 						+ "'" + compte.getType() + "'" 
 						+ ")");
-				s.executeUpdate("COMMIT");
 				effectue=true;
 			}
 			else{
@@ -106,7 +115,6 @@ public class DAOCompte {
 						+ "'',"
 						+ "'" + compte.getType() + "'" 
 						+ ")");
-				s.executeUpdate("COMMIT");
 				effectue=true;
 				System.out.println("Compte ajoutee a la base de donnees");
 			}
