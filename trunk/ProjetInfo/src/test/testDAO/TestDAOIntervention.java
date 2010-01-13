@@ -36,8 +36,8 @@ public class TestDAOIntervention extends TestCase{
 	
 	@Test
 	public void testGetNombresVelosParTypeIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		List<List<Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(2);
-		//TODO
+		List <List <Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(2);
+		
 		
 		
 	}

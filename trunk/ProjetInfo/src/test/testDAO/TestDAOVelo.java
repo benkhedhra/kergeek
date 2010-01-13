@@ -33,16 +33,7 @@ public class TestDAOVelo extends TestCase {
 		Boolean b =DAOVelo.updateVelo(v);
 		assertEquals((Boolean)true,(Boolean) b);
 	}
-	/*
-	@Test
-	public void testDeleteVelo() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Lieu l = DAOLieu.getLieuById("1");
-		Velo v = new Velo(l,false);
-		l.ajouterVelo(v);
-		DAOVelo.createVelo(v);
-		Boolean b = DAOVelo.deleteVelo(v);
-		assertEquals((Boolean)true,(Boolean) b);
-	}*/
+	
 	
 	@Test
 	public void testGetVeloById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
