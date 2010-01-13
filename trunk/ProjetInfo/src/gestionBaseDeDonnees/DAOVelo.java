@@ -197,7 +197,7 @@ public class DAOVelo {
 	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 
 		List<String> listeIdVelos = new ArrayList<String>();
-		List<Velo> listeVelos = new LinkedList<Velo>();
+		List<Velo> listeVelos = new ArrayList<Velo>();
 
 		Velo velo;
 		String idVelo;

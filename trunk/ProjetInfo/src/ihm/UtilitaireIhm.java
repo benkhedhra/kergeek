@@ -107,7 +107,7 @@ public class UtilitaireIhm {
 	 * @see Compte
 	 */
 	public static boolean verifieChampsModifMdp(Compte c,String ancienMdp,String nouveauMdp1,String nouveauMdp2){
-		return(c.getMotDePasse().equals(ancienMdp) && nouveauMdp1.length()>5 && nouveauMdp1.length()<21 && nouveauMdp1.equals(nouveauMdp2));
+		return(c.getMotDePasse().equals(ancienMdp) && nouveauMdp1.length()>4 && nouveauMdp1.length()<21 && nouveauMdp1.equals(nouveauMdp2));
 	}
 
 	/**
