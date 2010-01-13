@@ -6,9 +6,7 @@ import junit.framework.TestCase;
 import metier.Compte;
 import metier.Garage;
 import metier.Intervention;
-import metier.Station;
 import metier.Technicien;
-import metier.TypeIntervention;
 import metier.Velo;
 
 import org.junit.Test;
@@ -28,7 +26,6 @@ public class TestTechnicien extends TestCase{
 		Compte c = new Compte(2,"ttest@gmail.com");
 		Technicien t = new Technicien(c);
 		Velo v = new Velo();
-		Station s = new Station();
 		Intervention i = t.intervenir(v);
 		assertTrue(i instanceof Intervention);
 		assertEquals(v , i.getVelo());

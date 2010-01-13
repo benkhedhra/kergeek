@@ -154,18 +154,28 @@ public class TableauListeVelosDansLieu extends JPanel {
 
 		//création du défilement (au cas ou le tableau serait trop grand)
 		JScrollPane scrollPane = new JScrollPane(table);
-
+		
 		//ajout du défilement
 		add(scrollPane);
 		
-		//TODO a commenter
+		//Pour chaque colonne du tableau, on initialise sa largeur en fonction
 		for(int i=0; i<table.getColumnModel().getColumnCount(); i++){
 			TableColumn col = table.getColumnModel().getColumn(i);
 			col.setMinWidth(col.getHeaderValue().toString().length()*9);
 			col.setMaxWidth(col.getHeaderValue().toString().length()*9);
 		}
-		table.setPreferredScrollableViewportSize(new Dimension(table.getColumnModel().getTotalColumnWidth(), table.getRowCount()*16));
+		
+		//On établit la taille de la zone visible du tableau en fonction de sa largeur totale et de son nombre de lignes
+		if (table.getRowCount()<=10){
+			table.setPreferredScrollableViewportSize(new Dimension(table.getColumnModel().getTotalColumnWidth(), table.getRowCount()*16));
+		}
+		else{
+			//Si on a plus de 10 lignes, on présente un défilement
+			table.setPreferredScrollableViewportSize(new Dimension(table.getColumnModel().getTotalColumnWidth(), 10*16));
+		}
 		table.setFillsViewportHeight(true);
+		
+		// modification de la police des titres des colonnes du tableau
 		table.getTableHeader().setFont(UtilitaireIhm.POLICE2);
 	}
 

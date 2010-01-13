@@ -413,14 +413,13 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
 
-				labelConfirm.setText( "<html><center>Le nombre de vélos dans le parc est devenu insuffisant. Veuillez effectuer une nouvelle commande auprès de votre fournisseur <br>(nombre de vélos recommandé : "+nbVelosManquantsDansGarage+")</center></html>");
-				/*TODO labelConfirm.setText("<html><center>Le nombre de vélos dans le parc est devenu " +
-						"insuffisant. Afin de prendre en charge cette demande d'assignation, vous " +
+				labelConfirm.setText("<html>Le nombre de vélos dans le parc est devenu " +
+						"insuffisant.<br>Afin de prendre en charge cette demande d'assignation, vous " +
 						"êtes prié d'effectuer une nouvelle commande de vélos auprès de votre fournisseur." +
-						"<br>Une fois le nouvel arrivage reçu, vous devrez l'enregistrer et apposer aux " +
+						"<br><br>Une fois le nouvel arrivage reçu, vous devrez l'enregistrer et apposer aux " +
 						"nouveaux vélos les identifiants demandés.<br>Le nombre minimal de vélos conseillé " +
-						"pour cette commande est "+nbVelosManquantsDansGarage+".</center></html>");*/
-				labelConfirm.setPreferredSize(new Dimension(1100,500));
+						"pour cette commande est "+nbVelosManquantsDansGarage+".</html>");
+				labelConfirm.setPreferredSize(new Dimension(1100,300));
 				center.add(labelConfirm);
 				bouton1.setText("Gérer une autre demande d'assignation");
 				bouton1.addActionListener(this);
