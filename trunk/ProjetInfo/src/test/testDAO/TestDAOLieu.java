@@ -44,11 +44,6 @@ public class TestDAOLieu extends TestCase{
 	}
 	
 	@Test
-	public void testGetStationsSurSous() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		
-	}
-	
-	@Test
 	public void testCalculerTaux()throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Float tx =  DAOLieu.calculerTx( (Station) DAOLieu.getLieuById("1"));
 		assertTrue(tx instanceof Float);

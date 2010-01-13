@@ -31,13 +31,18 @@ public class TestDAOIntervention extends TestCase{
 	public void testGetInterventionById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Intervention i = DAOIntervention.getInterventionById("1");
 		assertTrue(i instanceof Intervention);
-		//TODO
+		assertTrue(i.getTypeIntervention().getNumero()  == 3);
 	}
 	
 	@Test
 	public void testGetNombresVelosParTypeIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List <List <Integer>> liste = DAOIntervention.getNombresVelosParTypeIntervention(2);
-		
+		assertTrue(liste instanceof List<?>);
+		int taille = liste.size();
+		for (int i=0;i<taille;i++){
+			List<Integer> l = liste.get(i);
+			assertTrue(l instanceof List<?>);
+		}
 		
 		
 	}

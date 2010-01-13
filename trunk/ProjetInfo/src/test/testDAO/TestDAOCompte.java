@@ -34,7 +34,6 @@ public class TestDAOCompte extends TestCase{
 		Compte c3 = DAOCompte.getCompteById(s);
 		assertEquals(s, c3.getId());
 		assertEquals(c2.getMotDePasse(), c3.getMotDePasse());
-		//assertEquals(c2.getType(), c3.getType(),"type");
 		assertEquals(c2.getAdresseEmail(), c3.getAdresseEmail());
 	}
 	@Test

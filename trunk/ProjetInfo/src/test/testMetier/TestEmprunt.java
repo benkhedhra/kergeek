@@ -20,9 +20,7 @@ public class TestEmprunt extends TestCase {
 		Utilisateur u = new Utilisateur();
 		Station s = new Station();
 		java.sql.Date d = UtilitaireDate.dateCourante();
-		
 		Emprunt e = new Emprunt(u, v, d, s,d,s); 
-		
 		e.getTempsEmprunt();
 		assertEquals(0,e.getTempsEmprunt());
 	}
