@@ -5,7 +5,6 @@ import ihm.UtilitaireIhm;
 import java.awt.Font;
 
 import javax.swing.JTable;
-import javax.swing.table.JTableHeader;
 /**
  * Cette classe permet de créer des tableaux non modifiables afin de présenter des données.
  * @see JTable
@@ -31,15 +30,7 @@ public class MonJTable extends JTable {
 	}
 	
 	
-	
-	//TODO a commenter
-	@Override
-	public JTableHeader getTableHeader() {
-		setFont(UtilitaireIhm.POLICE2);
-		return super.getTableHeader();
-	}
-	
-	//TODO a commenter
+	//permet de changer la police du texte à l'interieur des cellules du tableau
 	@Override
 	public Font getFont() {
 	return UtilitaireIhm.POLICE3;
