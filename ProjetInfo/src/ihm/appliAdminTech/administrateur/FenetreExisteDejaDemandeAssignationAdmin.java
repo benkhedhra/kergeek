@@ -183,8 +183,10 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 				new FenetreAuthentification(false);
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg("ClassNotFoundException : "+e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} catch (SQLException e) {
 				MsgBox.affMsg("SQLException : "+e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
 		}
 	}

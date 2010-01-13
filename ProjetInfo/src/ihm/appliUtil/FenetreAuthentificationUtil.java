@@ -216,9 +216,11 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		}
 		catch (SQLException e1) {
 			MsgBox.affMsg(e1.getMessage());
+			new FenetreAuthentificationUtil(false);
 		}
 		catch (ClassNotFoundException e2) {
 			MsgBox.affMsg(e2.getMessage());
+			new FenetreAuthentificationUtil(false);
 		}
 		catch (ConnexionFermeeException e3){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");

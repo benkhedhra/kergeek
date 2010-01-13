@@ -308,8 +308,10 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 			new FenetreAuthentification(false);
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 	}
 }

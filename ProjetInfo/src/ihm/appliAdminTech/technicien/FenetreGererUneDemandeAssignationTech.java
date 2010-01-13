@@ -324,8 +324,10 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 			}
 		} catch (SQLException e) {
 			MsgBox.affMsg("SQL Exception : " + e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		}
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");

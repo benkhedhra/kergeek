@@ -210,9 +210,11 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 			} 
 			catch (SQLException e) {
 				MsgBox.affMsg("SQLException"+e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} 
 			catch (ClassNotFoundException e) {
 				MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} 
 			catch (ConnexionFermeeException e){
 				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
