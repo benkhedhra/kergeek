@@ -11,7 +11,7 @@ import metier.exceptionsMetier.PasDeDateRetourException;
  */
 public class Emprunt {
 	/**
-	 * L'identifiant d'un Emprunt est unique. Une fois attribué, il ne doit pas ítre modifié.
+	 * L'identifiant d'un Emprunt est unique. Une fois attribué, il ne doit pas être modifié.
 	 * @see Emprunt#getId()
 	 * @see Emprunt#setId(String)
 	 */
@@ -46,14 +46,14 @@ public class Emprunt {
 	private Date dateRetour;
 	
 	/**
-	 * Le lieu o le {@link Emprunt#velo} a été emprunté.
+	 * Le lieu où le {@link Emprunt#velo} a été emprunté.
 	 *@see Emprunt#getStationEmprunt()
 	 *@see Emprunt#setStationEmprunt(Lieu)
 	 */
 	private Station stationEmprunt;
 	
 	/**
-	 * Le lieu o le {@link Emprunt#velo} a été rendu.
+	 * Le lieu où le {@link Emprunt#velo} a été rendu.
 	 * @see Emprunt#getStationRetour()
 	 * @see Emprunt#setStationRetour(Lieu)
 	 */
@@ -68,7 +68,7 @@ public class Emprunt {
 	public static long TPS_EMPRUNT_MAX = 7200; //2h
 	
 	/**
-	 * Temps en deà duquel un emprunt est cosidéré comme court, c'est-à-dire inférieur à 2 minutes.
+	 * Temps en deçà duquel un emprunt est cosidéré comme court, c'est-à-dire inférieur à 2 minutes.
 	 */
 	public static long TPS_EMPRUNT_MIN = 120; //2min
 
@@ -118,7 +118,7 @@ public class Emprunt {
 
 
 	/**
-	 * Création d'un Emprunt à partir d'un autre Emprunt. Les deux emprunts ont alors les mímes attributs.
+	 * Création d'un Emprunt à partir d'un autre Emprunt. Les deux emprunts ont alors les mêmes attributs.
 	 * @param emprunt 
 	 * @param utilisateur
 	 * @param velo
@@ -278,7 +278,7 @@ public class Emprunt {
 			a = e.getId() == null;
 		}
 		else{
-			this.getId().equals(e.getId());
+			a = this.getId().equals(e.getId());
 		}
 		if(this.getDateRetour() == null){
 			b = e.getDateRetour() == null && e.getStationRetour() == null;

@@ -67,7 +67,7 @@ public class DAOVelo {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -121,7 +121,7 @@ public class DAOVelo {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -177,7 +177,7 @@ public class DAOVelo {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return velo;
 	}
@@ -232,7 +232,7 @@ public class DAOVelo {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return listeVelos;
 	}
@@ -253,7 +253,7 @@ public class DAOVelo {
 	}
 
 	/**
-	 * Teste si un identifiant correspond bien à un Velo du parc disponible en station pour ítre emprunté.
+	 * Teste si un identifiant correspond bien à un Velo du parc disponible en station pour être emprunté.
 	 * @param id
 	 * @return vrai si l'identifiant entrée en paramètre correspond à un {@link Velo} présent dans la base de données 
 	 * en état de marche et dans une {@link Station}

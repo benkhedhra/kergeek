@@ -33,13 +33,13 @@ public class TestDAOTechnicien extends TestCase{
 	@Test
 	public void testGetTechnicienById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Technicien t = DAOTechnicien.getTechnicienById("t1");
-		assertEquals("Repartout", t.getCompte().getMotDePasse());
-		assertEquals("didierrepartout@gmail.com", t.getCompte().getAdresseEmail());
+		assertEquals("reparetout", t.getCompte().getMotDePasse());
+		assertEquals("id2927@ensai.fr", t.getCompte().getAdresseEmail());
 	}
 
 	@Test
 	public void testGetTechnicienByAdresseEmail() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Technicien t = DAOTechnicien.getTechnicienByAdresseEmail("didierrepartout@gmail.com");
-		assertEquals("Repartout", t.getCompte().getMotDePasse());
+		Technicien t = DAOTechnicien.getTechnicienByAdresseEmail("id2927@ensai.fr");
+		assertEquals("reparetout", t.getCompte().getMotDePasse());
 	}
 }

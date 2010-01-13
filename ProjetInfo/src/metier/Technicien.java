@@ -127,7 +127,7 @@ public class Technicien {
 	}
 	
 	/**
-	 * Retire un {@link Velo} du parc que le Technicien n' a pas pu réparer en le plaant au {@link Lieu} {@link Detruit}
+	 * Retire un {@link Velo} du parc que le Technicien n' a pas pu réparer en le plaçant au {@link Lieu} {@link Detruit}
 	 * et en associant le {@link TypeIntervention} {@link TypeIntervention#TYPE_DESTRUCTION}  à l'{@link Intervention} dont 
 	 * il faisait l'objet.
 	 * @param intervention

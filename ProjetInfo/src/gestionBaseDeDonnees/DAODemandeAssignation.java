@@ -80,7 +80,7 @@ public class DAODemandeAssignation {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -146,7 +146,7 @@ public class DAODemandeAssignation {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées	
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées	
 		}
 		return effectue;
 	}
@@ -293,7 +293,7 @@ public class DAODemandeAssignation {
 	 * Une fonction qui sert à l'affichage d'une demande d'assignation.
 	 * @param ddA
 	 * la demande d'assignation à afficher
-	 * @return Une chaíne de caractères présentant l'identifiant de la demande d'assignation, l'adresse du {@link Lieu} concerné,
+	 * @return Une chaîne de caractères présentant l'identifiant de la demande d'assignation, l'adresse du {@link Lieu} concerné,
 	 * son type (ajout ou retrait) et la différence entre le nombre de vélos voulus dans le lieu et le
 	 * nombre actuel de vèlos dans le Lieu
 	 * @throws ConnexionFermeeException

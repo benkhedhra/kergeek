@@ -73,7 +73,7 @@ public class DAOEmprunt {
 
 		}
 		catch (SQLException e){
-			System.out.println(e.getMessage());//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			System.out.println(e.getMessage());//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -87,7 +87,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -125,7 +125,7 @@ public class DAOEmprunt {
 			}
 		}
 		catch (SQLException e){
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -220,7 +220,7 @@ public class DAOEmprunt {
 	 * @param station
 	 * @param depuisJours
 	 * le nombre de jours depuis la date actuelle au cours desquels ont veut avoir les nombre de vélos sortis de la station,
-	 * doit ítre positif
+	 * doit être positif
 	 * @return le nombre de velos empruntés à la staion depuis depuisJours jours
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -272,7 +272,7 @@ public class DAOEmprunt {
 	 * @param station
 	 * @param depuisHeures
 	 * le nombre d'heures depuis la date actuelle au cours desquelles ont veut avoir le nombre de vélos sortis de la station, 
-	 * doit ítre positif
+	 * doit être positif
 	 * @return le nombre de vélos empruntés à la staion depuis depuisHeures heures
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -330,7 +330,7 @@ public class DAOEmprunt {
 	 * @param station
 	 * @param depuisJours
 	 * le nombre de jours depuis la date actuelle au cours desquels ont veut avoir le nombre de vélos rendus à la station,
-	 * doit ítre positif
+	 * doit être positif
 	 * @return le nombre de velos rendus à la station depuis depuisJours jours.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -380,7 +380,7 @@ public class DAOEmprunt {
 	 * @param station
 	 * @param depuisHeures
 	 * le nombre d'heures depuis la date actuelle au cours desquelles ont veut avoir le nombre de vélos rendus à la station,
-	 * doit ítre positif
+	 * doit être positif
 	 * @return le nombre de velos rendus dans la station depuis depuisHeures heures.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -437,7 +437,7 @@ public class DAOEmprunt {
 	 * @param utilisateur
 	 * @param nbMois
 	 * le nombre de mois depuis la date actuelle au cours de chacun desquels ont veut avoir le nombre d'emprunts effectués 
-	 * par l'utilisateur u, doit ítre positif
+	 * par l'utilisateur u, doit être positif
 	 * @return la liste des nombres d'emprunts effectués par l'utilisateur u au cours des nbMois derniers mois,
 	 * pour chacun de ces mois.
 	 * @throws SQLException
@@ -652,7 +652,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 	}
 }

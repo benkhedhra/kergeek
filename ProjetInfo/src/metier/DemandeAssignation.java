@@ -14,7 +14,7 @@ public class DemandeAssignation {
 	//Attributs
 
 	/**
-	 * L'identifiant d'une demandeAssignation est unique. Une fois attribué, il ne doit pas ítre modifié
+	 * L'identifiant d'une demandeAssignation est unique. Une fois attribué, il ne doit pas être modifié
 	 * @see DemandeAssignation#getId()
 	 * @see DemandeAssignation#setId(String)
 	 */

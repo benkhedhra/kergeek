@@ -35,13 +35,13 @@ public class TestDAOAdministrateur extends TestCase{
 	public void testGetAdministrateurById() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		
 		Administrateur admin = DAOAdministrateur.getAdministrateurById("a1");
-		assertEquals("kergeek@gmail.com", admin.getCompte().getAdresseEmail());
+		assertTrue("id3033@ensai.fr".equals(admin.getCompte().getAdresseEmail()));
 		
 	}
 	@Test
 	public void testGetAdministrateurByAdresseEmail() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-		Administrateur admin = DAOAdministrateur.getAdministrateurByAdresseEmail("kergeek@gmail.com");
-		assertEquals("lapin", admin.getCompte().getMotDePasse());
+		Administrateur admin = DAOAdministrateur.getAdministrateurByAdresseEmail("id3033@ensai.fr");
+		assertTrue(admin.equals(DAOAdministrateur.getAdministrateurById("a1")));
 	}
 
 }

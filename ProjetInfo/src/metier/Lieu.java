@@ -2,7 +2,7 @@ package metier;
 
 
 /**
- * La classe Lieu est une classe abstraîte qui représente les différents lieus dans lesquels peut ítre placé un Vélo.
+ * La classe Lieu est une classe abstraîte qui représente les différents lieus dans lesquels peut être placé un Vélo.
  * @see Detruit
  * @see Garage
  * @see Sortie
@@ -13,7 +13,7 @@ public abstract class Lieu {
 	//Attributs
 
 	/**
-	 * L'identifiant d'un Lieu est unique. Une fois attribué, il ne doit pas ítre modifié.
+	 * L'identifiant d'un Lieu est unique. Une fois attribué, il ne doit pas être modifié.
 	 * @see Lieu#getId()
 	 * @see Lieu#setId(String)
 	 */

@@ -134,7 +134,7 @@ public class DiagrammeFreqStations extends ApplicationFrame {
 
 	
 	/**
-	 * Création du diagramme à partir des donnŽes et de la période d'interít.
+	 * Création du diagramme à partir des donnŽes et de la période d'interêt.
 	 * @param dataset
 	 * les données à représenter
 	 * @param periodeEntree

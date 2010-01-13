@@ -15,7 +15,7 @@ public class DemandeIntervention {
 	//Attributs
 
 	/**
-	 * L'identifiant d'une DemandeIntervention est unique. Une fois attribué, il ne doit pas ítre modifié.
+	 * L'identifiant d'une DemandeIntervention est unique. Une fois attribué, il ne doit pas être modifié.
 	 * @see DemandeIntervention#getId()
 	 * @see DemandeIntervention#setId(String)
 	 */

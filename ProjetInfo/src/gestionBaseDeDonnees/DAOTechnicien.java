@@ -71,7 +71,7 @@ public class DAOTechnicien {
 	 */
 	public static Technicien getTechnicienByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Technicien admin = new Technicien(DAOCompte.getCompteByAdresseEmail(email).get(0));
-		//Deux Techniciens ne doivent pas avoir la míme adresse email
+		//Deux Techniciens ne doivent pas avoir la même adresse email
 		return admin;
 	}
 

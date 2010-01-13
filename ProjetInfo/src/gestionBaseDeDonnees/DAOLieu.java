@@ -94,7 +94,7 @@ public class DAOLieu {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
 		}
 		return effectue;
 	}
@@ -280,7 +280,7 @@ public class DAOLieu {
 	 * Une fonction qui sert à l'affichage d'une station sur-occupée.
 	 * @param s
 	 * la station sur-occupée à afficher
-	 * @return Une chaíne de caractères présentant la station et spécifiant que cette-dernière est sur-occupée
+	 * @return Une chaîne de caractères présentant la station et spécifiant que cette-dernière est sur-occupée
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @see Lieu#toString()
@@ -294,7 +294,7 @@ public class DAOLieu {
 	 * Une fonction qui sert à l'affichage d'une station sous-occupée.
 	 * @param s
 	 * la station sous-occupée à afficher
-	 * @return Une chaíne de caractères présentant la station et spécifiant que cette-dernière est sous-occupée
+	 * @return Une chaîne de caractères présentant la station et spécifiant que cette-dernière est sous-occupée
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @see Lieu#toString()

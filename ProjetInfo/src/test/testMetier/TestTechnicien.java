@@ -39,6 +39,7 @@ public class TestTechnicien extends TestCase{
 		Technicien t2 = new Technicien(c2);
 		Technicien t3 = new Technicien(c2);
 		
+		assertTrue(t1.equals(t1));
 		assertTrue(t2.equals(t3));
 		assertFalse(t1.equals(t2));
 		assertFalse(t1.equals(t3));

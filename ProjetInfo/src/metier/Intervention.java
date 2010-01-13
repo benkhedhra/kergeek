@@ -11,7 +11,7 @@ public class Intervention {
 	//Attributs
 	
 	/**
-	 * L'identifiant d'une Intervention est unique. Une fois attribué, il ne doit pas ítre modifié.
+	 * L'identifiant d'une Intervention est unique. Une fois attribué, il ne doit pas être modifié.
 	 * @see Intervention#getId()
 	 * @see Intervention#setId(String)
 	 */
