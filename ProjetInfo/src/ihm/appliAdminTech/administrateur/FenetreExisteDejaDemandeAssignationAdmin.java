@@ -167,8 +167,6 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 			try {
 				if(arg0.getSource()==boutonOui){
 					this.getAncienneDemande().setDate(this.getNouvelleDemande().getDate());
-					System.out.println("ancienne demande : "+DAODemandeAssignation.ligne(this.getAncienneDemande()));
-					System.out.println("nouvelle demande : "+DAODemandeAssignation.ligne(nouvelleDemande));
 					//on modifie uniquement l'attribut nbVelosVoulusDansLieu dans l'ancienne demande (on garde le meme identifiant, la même date ... )
 					//le fait de conserver la date de l'ancienne demande n'a pas d'importance puisqu'aucune statistique n'est effectuée sur les demandes d'assignation
 					this.getAncienneDemande().setNombreVelosVoulusDansLieu(nouvelleDemande.getNombreVelosVoulusDansLieu());

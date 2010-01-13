@@ -55,7 +55,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	private JLabel labelMsg = new JLabel("Veuillez compléter les champs suivants");
 	private JLabel labelAncienMdp = new JLabel("ancien mot de passe");
 	private PasswordFieldLimite ancienMdpARemplir = new PasswordFieldLimite(20,"");
-	private JLabel labelNouveauMdp1 = new JLabel("nouveau mot de passe (6 caractères minimum)");
+	private JLabel labelNouveauMdp1 = new JLabel("nouveau mot de passe (5 caractères minimum)");
 	private PasswordFieldLimite nouveauMdpARemplir1 = new PasswordFieldLimite(20,"");
 	private JLabel labelNouveauMdp2 = new JLabel("confirmation du nouveau mot de passe");
 	private PasswordFieldLimite nouveauMdpARemplir2 = new PasswordFieldLimite(20,"");

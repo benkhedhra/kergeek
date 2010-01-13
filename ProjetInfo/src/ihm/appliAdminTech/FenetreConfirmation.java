@@ -225,6 +225,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			boutonRetour.setFont(UtilitaireIhm.POLICE3);
 			boutonRetour.setBackground(Color.YELLOW);
 
+			labelConfirm.setFont(UtilitaireIhm.POLICE2);
 
 			//situations possibles pour un administrateur
 
@@ -407,12 +408,19 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			else if(fenetrePrec.getTitle().equals("Gérer une demande d'assignation")){
 				FenetreGererUneDemandeAssignationTech f = (FenetreGererUneDemandeAssignationTech) fenetrePrec;
 				north.add(labelAdminTech);
-				int nbVelosManquantsDansGarage = DAODemandeAssignation.getDiff(DAODemandeAssignation.getDemandeAssignationById(f.getDemande().getId()));
+				int nbVelosManquantsDansGarage = Math.abs(DAODemandeAssignation.getDiff(DAODemandeAssignation.getDemandeAssignationById(f.getDemande().getId())));
 				labelChemin.setText("Menu principal > Gérer les demandes d'assignation > Gérer une demande > Garage");
 				north.add(labelChemin);
 				this.getContentPane().add(north,BorderLayout.NORTH);
-				labelConfirm.setText( "<html><center>Le nombre de vélos dans le parc est devenu insuffisant. Afin de prendre en charge cette demande d'assignation, vous êtes prié d'effectuer une nouvelle commande de vélos auprès de votre fournisseur. <br>Une fois le nouvel arrivage reçu, vous devrez l'enregistrer et apposer aux nouveaux vélos les identifiants demandés. <br>Le nombre minimal de vélos conseillé pour cette commande est "+nbVelosManquantsDansGarage+". </center></html>");
-				labelConfirm.setPreferredSize(new Dimension(1100,100));
+
+				labelConfirm.setText( "<html><center>Le nombre de vélos dans le parc est devenu insuffisant. Veuillez effectuer une nouvelle commande auprès de votre fournisseur <br>(nombre de vélos recommandé : "+nbVelosManquantsDansGarage+")</center></html>");
+				/*TODO labelConfirm.setText("<html><center>Le nombre de vélos dans le parc est devenu " +
+						"insuffisant. Afin de prendre en charge cette demande d'assignation, vous " +
+						"êtes prié d'effectuer une nouvelle commande de vélos auprès de votre fournisseur." +
+						"<br>Une fois le nouvel arrivage reçu, vous devrez l'enregistrer et apposer aux " +
+						"nouveaux vélos les identifiants demandés.<br>Le nombre minimal de vélos conseillé " +
+						"pour cette commande est "+nbVelosManquantsDansGarage+".</center></html>");*/
+				labelConfirm.setPreferredSize(new Dimension(1100,500));
 				center.add(labelConfirm);
 				bouton1.setText("Gérer une autre demande d'assignation");
 				bouton1.addActionListener(this);
@@ -425,7 +433,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			}
 
 			center.setBackground(UtilitaireIhm.TRANSPARENCE);
-			labelConfirm.setFont(UtilitaireIhm.POLICE2);
 			this.getContentPane().add(center,BorderLayout.CENTER);
 			this.getContentPane().add(south,BorderLayout.SOUTH);
 

@@ -280,9 +280,9 @@ public class DAODemandeAssignation {
 	public static int getDiff(DemandeAssignation ddeA) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Velo> velos = DAOVelo.getVelosByLieu(ddeA.getLieu());
 		if(ddeA.getLieu().getId().equals(Lieu.ID_GARAGE)){
-			for(Velo velo : velos){
-				if(velo.isEnPanne()){
-					velos.remove(velo);
+			for(int k=0;k<velos.size();k++){
+				if(velos.get(k).isEnPanne()){
+					velos.remove(velos.get(k));
 				}
 			}
 		}
@@ -303,7 +303,7 @@ public class DAODemandeAssignation {
 	public static String ligne(DemandeAssignation ddA) throws ConnexionFermeeException{
 		String resul = "Demande "+ddA.getId()+" - "+ddA.getLieu().getAdresse()+" - ";
 		try {
-			int diff = DAODemandeAssignation.getDiff(DAODemandeAssignation.getDemandeAssignationById(ddA.getId()));
+			int diff = DAODemandeAssignation.getDiff(ddA);
 			String type;
 			if(diff<0){type = "ajout";}
 			else{type = "retrait";}

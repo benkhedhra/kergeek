@@ -187,7 +187,7 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 			labelChemin.setText("Menu principal > Demander des statistiques > Maintenance > Historique d'un vélo > vélo "+f.getVeloEntre().getId());
 
 			JLabel labelMsg = new JLabel ("Historique du vélo "+f.getVeloEntre().getId());
-			labelMsg.setPreferredSize(new Dimension(600,100));
+			labelMsg.setPreferredSize(new Dimension(1100,100));
 			center.add(labelMsg);
 			TableauInterventionVelo tableau = new TableauInterventionVelo(f.getVeloEntre().getId());
 			center.add(tableau);

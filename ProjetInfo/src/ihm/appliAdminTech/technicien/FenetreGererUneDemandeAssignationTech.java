@@ -212,6 +212,13 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		JPanel panel6 = new JPanel();
 		panel6.setBackground(UtilitaireIhm.TRANSPARENCE);
 		List<Velo> velos = DAOVelo.getVelosByLieu(d.getLieu());
+		if(d.getLieu().getId().equals(Lieu.ID_GARAGE)){
+			for(int k=0;k<velos.size();k++){
+				if(velos.get(k).isEnPanne()){
+					velos.remove(velos.get(k));
+				}
+			}
+		}
 		labelNbVelosActuelDemande.setText(""+velos.size());
 		labelNbVelosActuelDemande.setPreferredSize(new Dimension(350,40));
 		labelNbVelosActuelDemande.setMaximumSize(new Dimension(350,40));
