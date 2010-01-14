@@ -87,9 +87,9 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer les demandes d'assignation");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -179,8 +179,10 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 						repaint();
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
+						new FenetreAuthentification(false);
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
+						new FenetreAuthentification(false);
 					}
 					catch (ConnexionFermeeException e){
 						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
@@ -191,8 +193,10 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 			center.add(combo);
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		}		
 		boutonValider.setFont(UtilitaireIhm.POLICE3);
 		boutonValider.setBackground(Color.CYAN);

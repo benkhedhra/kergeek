@@ -162,8 +162,10 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 							repaint();
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
+							new FenetreAuthentification(false);
 						} catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
+							new FenetreAuthentification(false);
 						}
 						catch (ConnexionFermeeException e){
 							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
@@ -189,8 +191,10 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 
 		JPanel south = new JPanel();

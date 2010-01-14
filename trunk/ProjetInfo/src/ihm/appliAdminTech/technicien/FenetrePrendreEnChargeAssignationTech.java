@@ -142,9 +142,9 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Prendre en charge une assignation");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -299,8 +299,10 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		}
 
 		this.getContentPane().add(center,BorderLayout.CENTER);
@@ -350,7 +352,7 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 				/* si this.getDiff()<0 cela signifie qu'il faut ajouter des vélos depuis le garage vers la station
 				 * si this.getDiff()>0 c'est qu'il faudra en retirer de la station pour les mettre au garage
 				 */
-				
+
 				if(this.getDiff()<0){
 					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, Garage.getInstance());
 				}

@@ -223,12 +223,16 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 							}
 						}
 						repaint();
-					} catch (NumberFormatException e) {
+					} //TODO 
+					catch (NumberFormatException e) {
 						MsgBox.affMsg(e.getMessage());
+						new FenetreAuthentification(false);
 					} catch (SQLException e) {
 						MsgBox.affMsg(e.getMessage());
+						new FenetreAuthentification(false);
 					} catch (ClassNotFoundException e) {
 						MsgBox.affMsg(e.getMessage());
+						new FenetreAuthentification(false);
 					}
 					catch (ConnexionFermeeException e){
 						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
@@ -260,10 +264,14 @@ public class FenetrePrendreEnChargeInterventionTech extends JFrame implements Ac
 
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
-		} catch (NullPointerException e) {
+			new MenuPrincipalTech(this.getTechnicien());
+		} //TODO
+		catch (NullPointerException e) {
 			MsgBox.affMsg(e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		}
 
 		this.getContentPane().add(center,BorderLayout.CENTER);

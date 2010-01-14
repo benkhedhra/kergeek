@@ -177,8 +177,10 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
-						} catch (ClassNotFoundException e) {
+							new FenetreAuthentificationUtil(false);
+						}catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
+							new FenetreAuthentificationUtil(false);
 						}
 						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
 						labelMsg.setFont(UtilitaireIhm.POLICE3);
@@ -203,8 +205,10 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 
 		} catch (SQLException e) {
 			MsgBox.affMsg(e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
+			new FenetreAuthentificationUtil(false);
 		}
 
 		this.setVisible(true);
