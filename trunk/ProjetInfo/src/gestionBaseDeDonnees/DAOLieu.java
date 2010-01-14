@@ -62,14 +62,18 @@ public class DAOLieu {
 				effectue=true;
 			}
 			else{
+				// On récupère un identifiant à partir de la séquence SQL correspondante
 				ResultSet res = s.executeQuery("Select seqLieu.NEXTVAL as id from dual");
 				if (res.next()){
 					String id = res.getString("id");
+					//On assigne l'identifiant à l'instance qui va être ajoutée à la base de données
 					lieu.setId(id);
 				}
 				else{
 					throw new SQLException("probleme de sequence");
 				}
+				
+				//Insertion dans la base de données
 				s.executeUpdate("INSERT into Lieu values ('" 
 						+ lieu.getId() + "', '" 
 						+ lieu.getAdresse() + "', '" 
@@ -101,6 +105,7 @@ public class DAOLieu {
 	}
 
 	/**
+	 * Obtient un objet java Lieu à partir d'une ligne de la table LIEU de la base de données.
 	 * @param identifiant
 	 * @return l'instance de {@link Lieu} dont l'identifiant correspond au paramètre.
 	 * @throws SQLException
@@ -170,6 +175,7 @@ public class DAOLieu {
 	 * @see DAOLieu#getLieuById(String)
 	 */
 	public static List<Lieu> getStationsEtGarage() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		// La liste de toutes les stations, auquel s'ajoute le garage
 		List<Lieu> listeLieus = new ArrayList<Lieu>();
 		List<String> listeId = new ArrayList<String>();
 
@@ -177,12 +183,14 @@ public class DAOLieu {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
+			// On récupère les identifiantdes lieux qui ne sont 
+			//ni les lieu "sortie" ni le lieu imaginaire "detruit"
 			ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_SORTIE + "' AND idLieu <> '" + Lieu.ID_DETRUIT + "'");
 			while(res.next()) {
 				String idLieu = res.getString("idLieu"); 
 				listeId.add(idLieu);
 			}
+			//On ajoute ensuite les instances de lieu à la liste de toutes les stations et du garage
 			for(String id : listeId){
 				lieu = DAOLieu.getLieuById(id);
 				listeLieus.add(lieu);
@@ -218,12 +226,13 @@ public class DAOLieu {
 	 * @see DAOLieu#getStationsEtGarage()
 	 */
 	public static List<Station> getAllStations() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		//La listes de toutes les stations
 		List<Station> listeStations = new ArrayList<Station>();
 		List<Lieu> listeLieus = getStationsEtGarage();
 		if (!listeLieus.isEmpty()){
 			for(Lieu lieu : listeLieus){
-				if (!lieu.getId().equals(Lieu.ID_GARAGE)){
-					listeStations.add((Station) lieu);
+				if (!lieu.getId().equals(Lieu.ID_GARAGE)){// si c'est une station
+					listeStations.add((Station) lieu);// alors on cast le lieu en station et on l'ajoute à la liste des stations
 				}
 			}
 		}
@@ -255,22 +264,30 @@ public class DAOLieu {
 	 * @see DAOLieu#calculerTx(Station)
 	 */
 	public static List<List<Station>> getStationsSurSous() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-
+		//La liste des stations
 		List<Station> listeToutesStations = getAllStations();
 
+		// La liste des stations sur occupées
 		List<Station> listeStationsSurOccupees = new ArrayList<Station>();
+		// la liste des stations sous occupées
 		List<Station> listeStationsSousOccupees = new ArrayList<Station>();
-
+		// la liste 
+		//dont le premier élément est la liste des stations sur occupées
+		//et le second élément est la liste des stations sous occupées
 		List<List<Station>> liste = new ArrayList<List<Station>>();
 
 		float taux = 0;
-
-		for (Station station : listeToutesStations){
+		
+		for (Station station : listeToutesStations){// Pour chaque station
 			taux = calculerTx(station);
 			if (taux>Station.TAUX_OCCUPATION_MAX){
+				//si son taux d'occupation est supérieur au taux maximum
+				//on l'ajoute à la liste des stations sur occupées
 				listeStationsSurOccupees.add(station);
 			}
 			else if (taux<Station.TAUX_OCCUPATION_MIN){
+				//si son taux d'occupation est supérieur au taux maximum
+				//on l'ajoute à la liste des stations sous occupées
 				listeStationsSousOccupees.add(station);
 			}
 		}

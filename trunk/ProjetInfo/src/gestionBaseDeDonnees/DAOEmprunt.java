@@ -175,11 +175,15 @@ public class DAOEmprunt {
 			ResultSet res = s.executeQuery("Select dateEmprunt, dateRetour, idLieuEmprunt, idLieuRetour, idCompte, idVelo from Emprunt Where idEmprunt ='" + identifiant + "'");
 			try {
 				if (res.next()) {
+					//On récupère un Timestamp
 					java.sql.Timestamp timeEmprunt = res.getTimestamp("dateEmprunt");
+					//Transformation du Timestamp en date
 					java.sql.Date dateEmprunt = new Date(timeEmprunt.getTime());
 					java.sql.Date dateRetour = null;
 					if (res.getDate("dateRetour") != null){
+						//On récupère un Timestamp
 						java.sql.Timestamp timeRetour = res.getTimestamp("dateRetour");
+						//Transformation du Timestamp en date
 						dateRetour = new Date(timeRetour.getTime());
 					}
 					String idLieuEmprunt = res.getString("idLieuEmprunt");
@@ -550,7 +554,9 @@ public class DAOEmprunt {
 				Emprunt emprunt = new Emprunt();
 				//On crée ces variables locales pour pouvoir fermer la connexion sans perdre les infos du resultset
 				String idEmprunt = res.getString("idEmprunt");
+				//On récupère un Timestamp
 				java.sql.Timestamp tempsEmprunt = res.getTimestamp("dateEmprunt");
+				//Transformation du Timestamp en date
 				java.sql.Date dateEmprunt = new java.sql.Date(tempsEmprunt.getTime());
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idCompte = res.getString("idCompte");
@@ -629,7 +635,9 @@ public class DAOEmprunt {
 				emprunt = new Emprunt();
 
 				String idEmprunt = res.getString("idEmprunt");
+				//On récupère un Timestamp
 				java.sql.Timestamp tempsEmprunt = res.getTimestamp("dateEmprunt");
+				//Transformation du Timestamp en date
 				java.sql.Date dateEmprunt = new java.sql.Date(tempsEmprunt.getTime());
 				String idLieuEmprunt = res.getString("idLieuEmprunt");
 				String idVelo = res.getString("idVelo");

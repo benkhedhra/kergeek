@@ -194,9 +194,12 @@ public class Compte {
 	 * 
 	 */
 	public void genererMotDePasse() {
+		//caractères pouvant figurer dans le mot de passe
 		String bibliotheque = "abcdefghijklmnopqrstuvwxyz1234567890";
 		String motDePasse="";
+		//création d'un générateur de nombres aléatoire entre zéro et 1
 		Random rd = new Random();
+		//création d'un mot de passe aléatoire de 6 caractères
 		for(int x=0; x<6; x++){
 			int i = rd.nextInt(bibliotheque.length());
 			motDePasse += bibliotheque.charAt(i);

@@ -83,19 +83,28 @@ public class DAOTechnicien {
 	 * @see DAOTechnicien#getTechnicienById(String)
 	 */
 	public static List<Technicien> getAllTechniciens() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		//La liste des techniciens
 		List<Technicien> liste = new ArrayList<Technicien>();
+		
+		//La liste des identifiants des techniciens
+		//(necessaire car l'appel à une DAO ferme la connection à la base de données)
 		List<String> listeId = new ArrayList<String>();
-
+	
 		Technicien technicien = new Technicien();
+		
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
+			
+			// ajout de l'ensemble des identifiants correspondants à un compte technicien  à la liste des identifiants
 			ResultSet res = s.executeQuery("Select idCompte from Compte WHERE type = '" + Compte.TYPE_TECHNICIEN + "'");
 			while(res.next()) {
 				String idCompte = res.getString("idCompte"); 
 				listeId.add(idCompte);
 			}
+			//Pour chaque identifiants de compte technicien de la liste,
+			//on récupère l'instance de la classe Technicien correspondante
+			//et on l'ajoute à la liste des techniciens
 			for(String id : listeId){
 				technicien = DAOTechnicien.getTechnicienById(id);
 				liste.add(technicien);

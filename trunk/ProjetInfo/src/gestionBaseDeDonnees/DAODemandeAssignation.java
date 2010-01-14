@@ -176,7 +176,9 @@ public class DAODemandeAssignation {
 
 			if (res.next()) {
 				ddeAssignation.setId(identifiant);
+				//On récupère un Timestamp
 				java.sql.Timestamp tempsAssignation= res.getTimestamp("dateAssignation");
+				//Transformation du Timestamp en date
 				java.sql.Date date = new java.sql.Date(tempsAssignation.getTime());
 				int nombre = res.getInt("nombre");
 				String idLieu = res.getString("idLieu");

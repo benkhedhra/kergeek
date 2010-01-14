@@ -106,7 +106,7 @@ public class DAOAdministrateur {
 					listeId.add(idCompte);
 				}
 				//Pour chaque identifiants de compte administrateur de la liste,
-				//on récupère l'instance de la classe Adlministrateur correspondante
+				//on récupère l'instance de la classe Administrateur correspondante
 				//et on l'ajoute à la liste des administrateurs
 				for(String id : listeId){
 					administrateur = DAOAdministrateur.getAdministrateurById(id);
