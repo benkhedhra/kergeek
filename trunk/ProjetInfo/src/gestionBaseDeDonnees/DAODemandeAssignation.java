@@ -40,7 +40,7 @@ public class DAODemandeAssignation {
 			ResultSet res = s.executeQuery("Select seqDemandeAssignation.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
-				//On assigne l'identifiant à la DemandeAssignation qui va être ajouté à la base de données
+				//On assigne l'identifiant à la DemandeAssignation qui va être ajoutée à la base de données
 				ddeAssignation.setId(id);
 				//Insertion de la DemandeAssignation dotée de son identifiant dans la base de données
 				if (ddeAssignation.isPriseEnCharge()){
