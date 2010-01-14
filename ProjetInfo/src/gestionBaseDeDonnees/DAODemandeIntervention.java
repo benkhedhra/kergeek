@@ -33,9 +33,10 @@ public class DAODemandeIntervention {
 	 */
 	public static boolean createDemandeIntervention(DemandeIntervention ddeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			// On récupère un identifiant à partir de la séquence correspondante
 			ResultSet res = s.executeQuery("Select seqDemandeIntervention.NEXTVAL as id from dual");
 			if (res.next()){
@@ -160,10 +161,10 @@ public class DAODemandeIntervention {
 	 */
 	public static DemandeIntervention getDemandeInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		DemandeIntervention ddeIntervention = new DemandeIntervention();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
 			try {
 				if (res.next()) {
@@ -232,16 +233,16 @@ public class DAODemandeIntervention {
 	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		//Création de la liste des demandes en attente
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			// On récupère la liste des identifiants des DemandeIntervertion non prises en charges
 			//c'est-à-dire auquelles aucune intervention n'est associée
 			//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
-			
+
 			ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL ORDER BY dateDemandeI ASC");
-			
+
 			List<String> listeIdInter = new ArrayList<String>();
 			while(res.next()) {
 				String idDdeIntervention = res.getString("idDemandeI");

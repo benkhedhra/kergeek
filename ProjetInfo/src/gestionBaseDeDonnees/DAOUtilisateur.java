@@ -114,10 +114,10 @@ public class DAOUtilisateur {
 	 */
 	public static Utilisateur getUtilisateurById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Utilisateur u = new Utilisateur(new Compte());
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select nom, prenom, adressePostale, bloque from Compte Where idCompte ='" + identifiant+"'");
 			if (res.next()) {
 
@@ -185,11 +185,11 @@ public class DAOUtilisateur {
 	public static List<Utilisateur> getUtilisateurByNom(String nom) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
 		List<String> listeIdCompte = new ArrayList<String>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+
 			ResultSet res = s.executeQuery("Select idCompte from Compte Where nom ='" + nom +"'");
 			while (res.next()) {
 				listeIdCompte.add(res.getString("idCompte"));
@@ -236,10 +236,10 @@ public class DAOUtilisateur {
 	public static List<Utilisateur> getUtilisateurByPrenom(String prenom) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Utilisateur> listeUtils = new LinkedList<Utilisateur>();
 		List<String> listeIdCompte = new ArrayList<String>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select idCompte from Compte Where prenom ='" + prenom +"'");
 
 			while (res.next()) {

@@ -36,12 +36,12 @@ public class DAOCompte {
 	 */
 	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		ResultSet res = null;
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			ResultSet res = null;
+
 			//S'il s'agit d'un compte d'un administrateur
 			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
 				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
@@ -221,10 +221,10 @@ public class DAOCompte {
 	 */
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Compte compte = null;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
 			if (res.next()) {
 				compte = new Compte();
@@ -279,10 +279,10 @@ public class DAOCompte {
 	 */
 	public static List<Compte> getCompteByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Compte> listeComptes = new ArrayList<Compte>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select idCompte from Compte Where AdresseMail ='" + email + "'");
 			Compte compte;
 			String idCompte = "";
@@ -431,10 +431,10 @@ public class DAOCompte {
 		}
 
 		System.out.println("requete = "+requete);
+		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-		try {	
 			ResultSet res = s.executeQuery(requete);
 
 			Compte compte;

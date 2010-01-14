@@ -35,18 +35,19 @@ public class DAOEmprunt {
 	 */
 	public static boolean createEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			// On récupère un identifiant pour cet Emprunt à partir de la séquence correspondante
 			ResultSet res = s.executeQuery("Select seqEmprunt.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
 				//On assigne l'identifiant à l'Emprunt qui va être ajouté à la base de données
 				emprunt.setId(id);
-				
+
 				//Insertion de l'Emprunt doté de son identifiant dans la base de données
-				
+
 				if (emprunt.getStationRetour() != null){
 
 					s.executeUpdate("INSERT into Emprunt values (" 
@@ -167,10 +168,10 @@ public class DAOEmprunt {
 	 */
 	public static Emprunt getEmpruntById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Emprunt emprunt = new Emprunt();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select dateEmprunt, dateRetour, idLieuEmprunt, idLieuRetour, idCompte, idVelo from Emprunt Where idEmprunt ='" + identifiant + "'");
 			try {
 				if (res.next()) {
@@ -240,13 +241,13 @@ public class DAOEmprunt {
 	 */
 	public static int nombreVelosSortisJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
-		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
+			java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
+
 			// Compte le nombre de vélo sortis depuis depuisJours jours
 			ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + station.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
@@ -294,14 +295,14 @@ public class DAOEmprunt {
 	 */
 	public static int NombreVelosSortisHeures(Station station, int depuisHeures) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
-		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
-
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
+			java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
+
+
 			// Compte le nombre de vélo sortis depuis depuisHeures heures
 			ResultSet res = s.executeQuery("Select count(*) as nombreVeloSortis from Emprunt Where idLieuEmprunt ='" + station.getId() + "' and dateEmprunt >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
@@ -351,13 +352,13 @@ public class DAOEmprunt {
 	 */
 	public static int nombreVelosRendusJours(Station station, int depuisJours) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
-		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(), depuisJours);
+			java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
+
 			// Compte le nombre de vélo rendus à la station depuis depuisJours jours
 			ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + station.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
@@ -404,13 +405,13 @@ public class DAOEmprunt {
 
 	public static int NombreVelosRendusHeures(Station station, int depuisHeures) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		int nb =0;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
-		java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
-		java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+			java.sql.Date dateSqlTemp = UtilitaireDate.retrancheHeures(UtilitaireDate.dateCourante(), depuisHeures);
+			java.sql.Date dateSql = UtilitaireDate.initialisationDebutJour(dateSqlTemp);
+
 			// Compte le nombre de vélo rendus à la station depuis depuisHeures heures
 			ResultSet res = s.executeQuery("Select count(*) as nombreVeloRentres from Emprunt Where idLieuRetour ='" + station.getId() + "' and dateRetour >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) +"','DD-MM-YYYY HH24:MI')");
 			try {
@@ -467,7 +468,7 @@ public class DAOEmprunt {
 		//le deuxième au mois précédent
 		//etc
 		List <Integer> liste = new ArrayList<Integer>();
-		
+
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -484,7 +485,7 @@ public class DAOEmprunt {
 				liste.add(0);
 			}
 
-			
+
 			for (int i=1; i <= nbMois; i++){
 				//Pour le ième mois précédent
 				java.sql.Date dateSqlSupTemp = UtilitaireDate.retrancheMois(UtilitaireDate.dateCourante(),i);
@@ -537,7 +538,7 @@ public class DAOEmprunt {
 
 		//On ne peut pas utiliser la DAO getEmpruntById 
 		//car sinon celà fait des appels récursifs infinis aux 2 fonctions
-		
+
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -617,7 +618,7 @@ public class DAOEmprunt {
 
 		//On ne peut pas utiliser la DAO getEmpruntById 
 		//car sinon celà fait des appels récursifs infinis aux 2 fonctions
-		
+
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();

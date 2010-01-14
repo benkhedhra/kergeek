@@ -94,9 +94,10 @@ public class DAOAdministrateur {
 		Administrateur administrateur = new Administrateur();
 
 		//connection à la base données
+		try {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
-		try {
+		
 			ResultSet res = s.executeQuery("Select idCompte from Compte WHERE type = '" + Compte.TYPE_ADMINISTRATEUR + "'");
 			try{
 				// ajout de l'ensemble des identifiants correspondants à un compte administrateur à la liste des identifiants

@@ -32,10 +32,11 @@ public class DAOVelo {
 	 */
 	public static boolean createVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+
 			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
@@ -139,11 +140,11 @@ public class DAOVelo {
 	 */
 	public static Velo getVeloById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Velo velo = new Velo();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+
 			ResultSet resVelo = s.executeQuery("Select idLieu, enPanne from Velo Where idVelo ='" + identifiant+"'");
 
 			if (resVelo.next()) {
@@ -205,10 +206,10 @@ public class DAOVelo {
 		Velo velo;
 		String idVelo;
 
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select idVelo from Velo Where idLieu ='" + lieu.getId()+"'");
 			while(res.next()) {
 				idVelo = res.getString("idVelo");
