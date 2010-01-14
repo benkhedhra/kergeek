@@ -125,9 +125,9 @@ public class FenetreEmpruntLongUtil extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		if(arg0.getSource()==boutonDeconnexion){
 			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
+		this.dispose();
 	}
 }

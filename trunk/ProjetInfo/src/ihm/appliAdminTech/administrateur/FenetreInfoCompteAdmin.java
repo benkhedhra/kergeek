@@ -116,9 +116,9 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Informations sur un compte");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -213,7 +213,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 				MsgBox.affMsg(e.getMessage());
 				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
-			
+
 			JPanel panel5 = new JPanel();
 			panel5.setBackground(UtilitaireIhm.TRANSPARENCE);	
 			labelNom.setPreferredSize(new Dimension(400,40));
@@ -286,7 +286,7 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 
 		if(!stat){
 			boutonChoix.setText("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>");
-			}
+		}
 		else{
 			boutonChoix.setText("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>");
 		}
@@ -334,46 +334,50 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 	 * @param arg0
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		//il a cliqué sur boutonChoix qui correspond à "modifier ce compte"
-		if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>")){
-			try {
-				new FenetreModifCompteAdmin(compte,this.getAdministrateur());
-			} 
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+		try{
+			//il a cliqué sur boutonChoix qui correspond à "modifier ce compte"
+			if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>")){
+				try {
+					new FenetreModifCompteAdmin(compte,this.getAdministrateur());
+				} 
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
+			}
+			//il a cliqué sur boutonChoix qui correspond à "afficher stats sur cet utilisateur"
+			else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>")){
+				try {
+					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+				} 
+				catch (SQLException e) {
+					MsgBox.affMsg("SQLException " + e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ClassNotFoundException e) {
+					MsgBox.affMsg("ClassNotFoundException " + e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
+			}
+			//il a cliqué sur "voir infos sur un autre compte" et on est dans le contexte de la gestion des comptes
+			else if(arg0.getSource()==boutonAutreCompte && boutonChoix.getText().equals("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>")){
+				new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
+			}
+			//il a cliqué sur "voir infos sur un autre compte" et on est dans le contexte de l'obtention de stats emprunts utilisateurs
+			else if(arg0.getSource()==boutonAutreCompte && boutonChoix.getText().equals("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>")){
+				new FenetreRechercherCompteAdmin(this.getAdministrateur(),true);
+			}
+			//il a cliqué sur "retour au menu principal"
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
 		}
-		//il a cliqué sur boutonChoix qui correspond à "afficher stats sur cet utilisateur"
-		else if(arg0.getSource()==boutonChoix && boutonChoix.getText().equals("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>")){
-			try {
-				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
-			} 
-			catch (SQLException e) {
-				MsgBox.affMsg("SQLException " + e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ClassNotFoundException e) {
-				MsgBox.affMsg("ClassNotFoundException " + e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
-			}
-		}
-		//il a cliqué sur "voir infos sur un autre compte" et on est dans le contexte de la gestion des comptes
-		else if(arg0.getSource()==boutonAutreCompte && boutonChoix.getText().equals("<html><center>Modifier des<br>informations<br>sur ce compte</center></html>")){
-			new FenetreRechercherCompteAdmin(this.getAdministrateur(),false);
-		}
-		//il a cliqué sur "voir infos sur un autre compte" et on est dans le contexte de l'obtention de stats emprunts utilisateurs
-		else if(arg0.getSource()==boutonAutreCompte && boutonChoix.getText().equals("<html><center>Afficher les<br>statistiques<br>de cet utilisateur</center></html>")){
-			new FenetreRechercherCompteAdmin(this.getAdministrateur(),true);
-		}
-		//il a cliqué sur "retour au menu principal"
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
 	}
 }

@@ -89,9 +89,9 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Fréquentation des stations");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -106,7 +106,7 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 		this.getContentPane().setLayout(new BorderLayout());
 
 		this.setAdministrateur(a);
-		
+
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
@@ -200,29 +200,33 @@ public class FenetreFrequentationStationsAdmin extends JFrame implements ActionL
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		if (arg0.getSource()==boutonValider){
-			try {
-				if(this.getPeriodeEntree()!=null){
-					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+		try{
+			if (arg0.getSource()==boutonValider){
+				try {
+					if(this.getPeriodeEntree()!=null){
+						new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+					}
+					else{
+						MsgBox.affMsg("<html> <center>Vous n'avez sélectionné aucune période. </center></html>");
+						new FenetreFrequentationStationsAdmin(this.getAdministrateur());
+					}
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
 				}
-				else{
-					MsgBox.affMsg("<html> <center>Vous n'avez sélectionné aucune période. </center></html>");
-					new FenetreFrequentationStationsAdmin(this.getAdministrateur());
-				}
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
+			}
+			else if (arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(this.getAdministrateur());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
 			}
 		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
 
 	}

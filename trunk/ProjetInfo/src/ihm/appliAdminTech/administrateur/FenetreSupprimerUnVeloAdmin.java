@@ -45,24 +45,24 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 	 * l'administrateur connecté sur la fenêtre
 	 */
 	private Administrateur a;
-	
+
 	/**
 	 * vélo à supprimer entré par l'Administrateur
 	 */
 	private Velo veloEntre = new Velo();
-	
+
 	/**
 	 * 3 JLabel permettant d'afficher l'id de l'{@link Administrateur} connectén l'endroit où il se trouve dans l'application et le message d'invitation à faire son choix
 	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelChemin = new JLabel("Menu principal > Voir l'état du parc > Liste des vélos présents dans un lieu > Vélos en cours d'emprunt > Supprimer un vélo");
 	private JLabel labelMsg = new JLabel ("Veuillez entrer l'identifiant du vélo");
-	
+
 	/**
 	 * TextFieldLimite pour permettre à l'administrateur d'entrer l'identifiant du vélo à supprimer
 	 */
 	private TextFieldLimite idVeloARemplir = new TextFieldLimite(4,"");
-	
+
 	/**
 	 * 2 JButton permettant à l'Administrateur de valider la suppression du vélo ou de retourner au menu principal
 	 */
@@ -71,7 +71,7 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 
 
 	//Accesseurs utiles
-	
+
 	/*
 	 * attribut administrateur
 	 */
@@ -106,9 +106,9 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Suppression d'un vélo");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -178,52 +178,56 @@ public class FenetreSupprimerUnVeloAdmin extends JFrame implements ActionListene
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		//il a cliqué sur "Valider"
-		if(arg0.getSource()==boutonValider){
-			try {
-				if(!DAOVelo.existe(idVeloARemplir.getText())){
-					//le vélo n'existe pas (pas dans la bdd ou a existé mais a été supprimé)
-					System.out.println("id du vélo entré : "+idVeloARemplir.getText());
-					MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
-					new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
-				}
-				else{
-					//il existe bien (quelque part dans le parc)
-					Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
-					this.setVeloEntre(veloEntre);
-					if(!this.getVeloEntre().getLieu().getId().equals(Lieu.ID_SORTIE)){
-						//le lieu du vélo n'est pas "sortie"
-						MsgBox.affMsg("<html><center>Le vélo que vous avez entré n'est pas en sortie. <br>Il est actuellement au lieu : "+this.getVeloEntre().getLieu().getAdresse()+". </center></html>");
-						new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
-					}
-					else if(this.getVeloEntre().getEmpruntEnCours().getDateEmprunt().after(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),30))){
-						//le vélo est bien sorti, donc en cours d'emprunt, mais pas depuis plus de 30 jours
-						MsgBox.affMsg("<html><center>Le vélo que vous avez entré n'est pas sorti depuis plus de 30 jours. <br>C'est la durée minimale pour avoir le droit de supprimer définitivement un vélo. </center></html>");
+		try{
+			//il a cliqué sur "Valider"
+			if(arg0.getSource()==boutonValider){
+				try {
+					if(!DAOVelo.existe(idVeloARemplir.getText())){
+						//le vélo n'existe pas (pas dans la bdd ou a existé mais a été supprimé)
+						System.out.println("id du vélo entré : "+idVeloARemplir.getText());
+						MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
 						new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
 					}
 					else{
-						// le vélo est dans la nature depuis plus de 30 jours : l'administrateur a la possibilité de le supprimer
-						new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),this);
+						//il existe bien (quelque part dans le parc)
+						Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
+						this.setVeloEntre(veloEntre);
+						if(!this.getVeloEntre().getLieu().getId().equals(Lieu.ID_SORTIE)){
+							//le lieu du vélo n'est pas "sortie"
+							MsgBox.affMsg("<html><center>Le vélo que vous avez entré n'est pas en sortie. <br>Il est actuellement au lieu : "+this.getVeloEntre().getLieu().getAdresse()+". </center></html>");
+							new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
+						}
+						else if(this.getVeloEntre().getEmpruntEnCours().getDateEmprunt().after(UtilitaireDate.retrancheJours(UtilitaireDate.dateCourante(),30))){
+							//le vélo est bien sorti, donc en cours d'emprunt, mais pas depuis plus de 30 jours
+							MsgBox.affMsg("<html><center>Le vélo que vous avez entré n'est pas sorti depuis plus de 30 jours. <br>C'est la durée minimale pour avoir le droit de supprimer définitivement un vélo. </center></html>");
+							new FenetreSupprimerUnVeloAdmin(this.getAdministrateur());
+						}
+						else{
+							// le vélo est dans la nature depuis plus de 30 jours : l'administrateur a la possibilité de le supprimer
+							new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),this);
+						}
 					}
+				} 
+				catch (SQLException e) {
+					MsgBox.affMsg("SQLException"+e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ClassNotFoundException e) {
+					MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
 				}
-			} 
-			catch (SQLException e) {
-				MsgBox.affMsg("SQLException"+e.getMessage());
+			}
+			//il a cliqué sur "Retour au menu principal"
+			else if(arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ClassNotFoundException e) {
-				MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
 			}
 		}
-		//il a cliqué sur "Retour au menu principal"
-		else if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
 
 	}

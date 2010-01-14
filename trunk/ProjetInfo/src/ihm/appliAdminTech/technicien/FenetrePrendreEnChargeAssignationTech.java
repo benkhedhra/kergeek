@@ -336,72 +336,76 @@ public class FenetrePrendreEnChargeAssignationTech extends JFrame implements Act
 	 * @see MenuPrincipalTech
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		if(arg0.getSource()==boutonValider){
-			for(int i=0; i<panelVelos.getComponentCount(); i++){
-				if(panelVelos.getComponent(i) instanceof TextFieldLimite){
-					//on récupère tous les ids de vélos entrés dans listeIdVelos
-					listeIdVelos.add(((TextFieldLimite)panelVelos.getComponent(i)).getText());
-				}
-			}
-			ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();
-			try {
-
-				// il s'agit d'une demande d'assignation pour une station
-
-				/* si this.getDiff()<0 cela signifie qu'il faut ajouter des vélos depuis le garage vers la station
-				 * si this.getDiff()>0 c'est qu'il faudra en retirer de la station pour les mettre au garage
-				 */
-
-				if(this.getDiff()<0){
-					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, Garage.getInstance());
-				}
-				else{
-					//notons que les vélos proposés seront uniquement les vélos en station et pas en panne
-					//on imagine que le tech s'est assuré avant qu'aucun vélo n'était en panne dans la station avec la consultation des demandes d'intervention émises par les utilisateurs
-					nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, demande.getLieu());
-				}
-				System.out.println(nouvelleListeIdVelos);
-				if(nouvelleListeIdVelos.contains("")){
-					/* c'est que l'un des identifiants de vélos entrés au moins n'était pas valide
-					 * il faut donc ré-ouvrir la même fenêtre, en laissant pré-entrés dans les champs les ids entrés qui étaient valides
-					 */
-					new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos, false);
-
-				}
-				else{
-					//tous les id de vélos entrés étaient valides
-					for(String idVelo : nouvelleListeIdVelos){
-						Velo velo = DAOVelo.getVeloById(idVelo);
-						if(this.getDiff()<0){
-							//il s'agit d'un ajout de vélos
-							this.getTechnicien().rajouterVelo(velo,(Station) this.getDemande().getLieu());	
-						}
-						else{
-							//il s'agit d'un retrait de vélos
-							this.getTechnicien().retirerVelo(velo);	
-						}
-						DAOVelo.updateVelo(velo);
+		try{
+			if(arg0.getSource()==boutonValider){
+				for(int i=0; i<panelVelos.getComponentCount(); i++){
+					if(panelVelos.getComponent(i) instanceof TextFieldLimite){
+						//on récupère tous les ids de vélos entrés dans listeIdVelos
+						listeIdVelos.add(((TextFieldLimite)panelVelos.getComponent(i)).getText());
 					}
-					System.out.println("demande prise en charge");
-					demande.setPriseEnCharge(true);
-					DAODemandeAssignation.updateDemandeAssignation(demande);
-					new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 				}
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
-				new MenuPrincipalTech(this.getTechnicien());
-			} catch (SQLException e) {
-				MsgBox.affMsg("SQL Exception : " + e.getMessage());
-				new MenuPrincipalTech(this.getTechnicien());
+				ArrayList<String> nouvelleListeIdVelos = new ArrayList<String>();
+				try {
+
+					// il s'agit d'une demande d'assignation pour une station
+
+					/* si this.getDiff()<0 cela signifie qu'il faut ajouter des vélos depuis le garage vers la station
+					 * si this.getDiff()>0 c'est qu'il faudra en retirer de la station pour les mettre au garage
+					 */
+
+					if(this.getDiff()<0){
+						nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, Garage.getInstance());
+					}
+					else{
+						//notons que les vélos proposés seront uniquement les vélos en station et pas en panne
+						//on imagine que le tech s'est assuré avant qu'aucun vélo n'était en panne dans la station avec la consultation des demandes d'intervention émises par les utilisateurs
+						nouvelleListeIdVelos = UtilitaireIhm.verifieSiVelosPeuventEtreAssignes(listeIdVelos, demande.getLieu());
+					}
+					System.out.println(nouvelleListeIdVelos);
+					if(nouvelleListeIdVelos.contains("")){
+						/* c'est que l'un des identifiants de vélos entrés au moins n'était pas valide
+						 * il faut donc ré-ouvrir la même fenêtre, en laissant pré-entrés dans les champs les ids entrés qui étaient valides
+						 */
+						new FenetrePrendreEnChargeAssignationTech(this.getTechnicien(), this.getDemande(), nouvelleListeIdVelos, false);
+
+					}
+					else{
+						//tous les id de vélos entrés étaient valides
+						for(String idVelo : nouvelleListeIdVelos){
+							Velo velo = DAOVelo.getVeloById(idVelo);
+							if(this.getDiff()<0){
+								//il s'agit d'un ajout de vélos
+								this.getTechnicien().rajouterVelo(velo,(Station) this.getDemande().getLieu());	
+							}
+							else{
+								//il s'agit d'un retrait de vélos
+								this.getTechnicien().retirerVelo(velo);	
+							}
+							DAOVelo.updateVelo(velo);
+						}
+						System.out.println("demande prise en charge");
+						demande.setPriseEnCharge(true);
+						DAODemandeAssignation.updateDemandeAssignation(demande);
+						new FenetreConfirmation(this.getTechnicien().getCompte(),this);
+					}
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg("Class Not Found Exception : " + e.getMessage());
+					new MenuPrincipalTech(this.getTechnicien());
+				} catch (SQLException e) {
+					MsgBox.affMsg("SQL Exception : " + e.getMessage());
+					new MenuPrincipalTech(this.getTechnicien());
+				}
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
 			}
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+			else if(arg0.getSource()==boutonRetour){
+				new MenuPrincipalTech(this.getTechnicien());
 			}
 		}
-		else if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalTech(this.getTechnicien());
+		finally{
+			this.dispose();
 		}
 	}
 }

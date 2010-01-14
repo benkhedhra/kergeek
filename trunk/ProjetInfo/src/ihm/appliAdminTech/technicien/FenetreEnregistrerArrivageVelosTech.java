@@ -230,7 +230,6 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		try {
 			if(arg0.getSource()==boutonValider){
 				for(int k = 0;k<this.getNbVelosEntre();k++){
@@ -253,6 +252,9 @@ public class FenetreEnregistrerArrivageVelosTech extends JFrame implements Actio
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
+		}
+		finally{
+			this.dispose();
 		}
 	}
 }

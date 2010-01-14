@@ -65,7 +65,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 	private JButton boutonAfficher = new JButton ("Valider");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	
+
 	//Accesseurs utiles
 
 	public Administrateur getAdministrateur() {
@@ -75,7 +75,7 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 	public void setAdministrateur(Administrateur a) {
 		this.a = a;
 	}
-	
+
 	public Velo getVeloEntre() {
 		return veloEntre;
 	}
@@ -96,9 +96,9 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 		//Définit un titre pour votre fenêtre
 		this.setTitle("Historique d'un vélo");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -170,33 +170,37 @@ public class FenetreHistoriqueVeloAdmin extends JFrame implements ActionListener
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		if(arg0.getSource()==boutonAfficher){
-			try {
-				if(DAOVelo.existe(idVeloARemplir.getText())){
-					this.setVeloEntre(DAOVelo.getVeloById(idVeloARemplir.getText()));
-					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+		try{
+			if(arg0.getSource()==boutonAfficher){
+				try {
+					if(DAOVelo.existe(idVeloARemplir.getText())){
+						this.setVeloEntre(DAOVelo.getVeloById(idVeloARemplir.getText()));
+						new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+					}
+					else{
+						MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
+						new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
+					}
+				} 
+				catch (SQLException e) {
+					MsgBox.affMsg("SQLException"+e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ClassNotFoundException e) {
+					MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
 				}
-				else{
-					MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
-					new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
-				}
-			} 
-			catch (SQLException e) {
-				MsgBox.affMsg("SQLException"+e.getMessage());
+			}
+			else if(arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ClassNotFoundException e) {
-				MsgBox.affMsg("ClassNotFoundException"+e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
 			}
 		}
-		else if(arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
 	}
 }

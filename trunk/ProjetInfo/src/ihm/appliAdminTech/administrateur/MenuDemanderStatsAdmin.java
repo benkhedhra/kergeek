@@ -153,7 +153,6 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		if (arg0.getSource()==boutonFrequentation){
 			new FenetreFrequentationStationsAdmin(this.getAdministrateur());
 		}
@@ -166,5 +165,6 @@ public class MenuDemanderStatsAdmin extends JFrame implements ActionListener {
 		else if(arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
+		this.dispose();
 	}
 }

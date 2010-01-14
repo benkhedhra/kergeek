@@ -458,7 +458,6 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		try{
 			// différents cas possibles pour le bouton 1
 			if(arg0.getSource()==bouton1){
@@ -523,6 +522,9 @@ public class FenetreAffichageResultatsAdmin extends JFrame implements ActionList
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
+		}
+		finally{
+			this.dispose();
 		}
 	}
 }

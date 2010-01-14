@@ -94,10 +94,12 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 		/*try {
 			//il y a un problème ici : pendant les 5 secondes la fenêtre ne s'affiche même pas
 			Thread.sleep(5000);
-			this.dispose();
 			new UtilitaireIhm(false);
 		} catch (InterruptedException e) {
 			MsgBox.affMsg(e.getMessage());
+		}
+		finally{
+			this.dispose();
 		}*/
 	}
 	
@@ -109,10 +111,10 @@ public class FenetreConfirmationUtil extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		if(arg0.getSource()==boutonAuthentification){
 			new FenetreAuthentificationUtil(false);			
 		}
+		this.dispose();
 
 	}
 }
