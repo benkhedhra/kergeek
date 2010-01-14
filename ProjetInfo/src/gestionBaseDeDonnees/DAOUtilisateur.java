@@ -57,6 +57,7 @@ public class DAOUtilisateur {
 			if (DAOUtilisateur.getUtilisateurById(utilisateur.getCompte().getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On met à jour les informations spécifiques aux comptes de type Utilisateur
 				s.executeUpdate("UPDATE Compte SET "  
 						+ "nom = '" + utilisateur.getNom() + "', "
 						+ "prenom = '"+ utilisateur.getPrenom() + "', "
@@ -98,12 +99,14 @@ public class DAOUtilisateur {
 		finally{
 			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
+			//On met également à jour les informations autres informations d'un compte
 			effectue = DAOCompte.updateCompte(utilisateur.getCompte());
 		}
 		return effectue;
 	}
 
 	/** 
+	 * Obtient un objet java Utilisateur à partir d'une ligne de la table COMPTE de la base de données.
 	 * @param identifiant
 	 * @return l'instance de la classe {@link Utilisateur} dont l'identifiant correspond au paramètre.
 	 * @throws SQLException
@@ -127,6 +130,8 @@ public class DAOUtilisateur {
 				u.setBloque(res.getBoolean("bloque"));
 
 				u.setCompte(DAOCompte.getCompteById(identifiant));
+				
+				//Au cas où l'utilisateur a actuellement emprunté un vélo
 				DAOEmprunt.setEmpruntEnCoursByUtilisateur(u);
 			}
 			else {
@@ -167,6 +172,7 @@ public class DAOUtilisateur {
 	 * @see DAOCompte#getCompteByAdresseEmail(String)
 	 */
 	public static List<Utilisateur> getUtilisateurByAdresseEmail(String email) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		//plusieurs utilisateurs peuvent utiliser la même adresse email
 		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 		for (Compte c : DAOCompte.getCompteByAdresseEmail(email)){
 			listeUtilisateur.add(getUtilisateurById(c.getId()));
@@ -295,7 +301,9 @@ public class DAOUtilisateur {
 
 			if (res.next()) {
 
+				//On récupère un Timestamp
 				java.sql.Timestamp tempsDernierRetour = res.getTimestamp("dateRetour");
+				//Transformation du Timestamp en date
 				dateDernierRetour = new java.sql.Date(tempsDernierRetour.getTime());
 			}
 

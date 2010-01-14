@@ -277,6 +277,8 @@ public class Utilisateur {
 	 public Emprunt rendreVelo(Station station) throws PasDeVeloEmprunteException, PasDeDateRetourException{
 		 Emprunt emprunt = null;
 		 // cet emprunt sera une trace de l'ancien emprunt pour pallier au this.setVelo(null);
+		 
+		 // On vérifie qu'il ya bien un vélo en cours d'emprunt
 		 if (this.getEmpruntEnCours() == null){
 			 throw new PasDeVeloEmprunteException("L'utilisateur n'a actuellement pas emprunté de velo");
 		 }
@@ -287,11 +289,12 @@ public class Utilisateur {
 			 emprunt.setDateRetour(UtilitaireDate.dateCourante());
 			 emprunt.setStationRetour(station);
 			 if (emprunt.getTempsEmprunt()>Emprunt.TPS_EMPRUNT_MAX){
-				 //emprunt trop long
+				 //emprunt trop long : on bloque le compte
 				 this.setBloque(true);
 				 System.out.println("compte bloqué");
 				 System.out.println("durée de l'emprunt : " + emprunt.getTempsEmprunt());
 			 }
+			 
 			 velo.setEmpruntEnCours(null);
 			 this.setEmpruntEnCours(null);
 		 }

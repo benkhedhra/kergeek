@@ -36,11 +36,14 @@ public class DAOVelo {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-
+			// On récupère un identifiant à partir de la séquence SQL correspondante
 			ResultSet res = s.executeQuery("Select seqVelo.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
+				//On assigne l'identifiant à l'instance qui va être ajoutée à la base de données
 				velo.setId(id);
+				
+				//Insertion dans la base de données
 				if (velo.isEnPanne()){
 					s.executeUpdate("INSERT into Velo values ('" 
 							+ velo.getId() + "', '1','"+ velo.getLieu().getId() + "')");
@@ -92,6 +95,7 @@ public class DAOVelo {
 			if (DAOVelo.getVeloById(velo.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On met à jour les informations
 				s.executeUpdate("UPDATE Velo SET "
 						+ "idVelo = '" + velo.getId() + "', "
 						+ "enPanne = '" + -b.compareTo(velo.isEnPanne()) + "', "
@@ -131,6 +135,7 @@ public class DAOVelo {
 	}
 
 	/**
+	 * Obtient un objet java Velo à partir d'une ligne de la table VELO de la base de données.
 	 * @param identifiant
 	 * @return  l'instance de la classe {@link Velo} dont l'identifiant correspond au paramètre.
 	 * @throws SQLException
@@ -155,6 +160,8 @@ public class DAOVelo {
 				velo.setId(identifiant);
 				velo.setLieu(DAOLieu.getLieuById(idLieu));
 				velo.setEnPanne(enPanne);
+				
+				//Au cas où le Velo est actuellement emprunté
 				DAOEmprunt.setEmpruntEnCoursByVelo(velo);
 			}
 			else {
@@ -199,8 +206,7 @@ public class DAOVelo {
 	 * @see DAOVelo#getVeloById(String)
 	 */
 	public static List<Velo> getVelosByLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
-
-		List<String> listeIdVelos = new ArrayList<String>();
+		// Création de la liste des vélos parqués dans ce lieu
 		List<Velo> listeVelos = new ArrayList<Velo>();
 
 		Velo velo;
@@ -209,13 +215,15 @@ public class DAOVelo {
 		try {
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
+			// On récupère la liste des identifiants des interventions concernant ce vélo
+			//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
+			List<String> listeIdVelos = new ArrayList<String>();
 			ResultSet res = s.executeQuery("Select idVelo from Velo Where idLieu ='" + lieu.getId()+"'");
 			while(res.next()) {
 				idVelo = res.getString("idVelo");
 				listeIdVelos.add(idVelo);
 			}
-
+			//ajout des vélos récupérées à la liste des vélos parqués dans ce lieu
 			for(String id : listeIdVelos) {
 				velo = getVeloById(id);
 				listeVelos.add(velo);

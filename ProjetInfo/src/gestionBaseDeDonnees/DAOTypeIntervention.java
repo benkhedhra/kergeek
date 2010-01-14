@@ -32,12 +32,14 @@ public class DAOTypeIntervention {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
+			// On récupère un type à partir de la séquence SQL correspondante
 			ResultSet res = s.executeQuery("Select seqTypeIntervention.NEXTVAL as type from dual");
 			if (res.next()){
 				int type = res.getInt("type");
+				//On assigne le type à l'instance qui va être ajoutée à la base de données
 				typeIntervention.setNumero(type);
-
+				
+				//Insertion dans la base de données
 				s.executeUpdate("INSERT into TypeIntervention values ('" 
 						+ typeIntervention.getNumero() +  "', '" 
 						+ typeIntervention.getDescription()
@@ -83,6 +85,7 @@ public class DAOTypeIntervention {
 			if (DAOTypeIntervention.getTypeInterventionById(typeIntervention.getNumero()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On met à jour les informations
 				s.executeUpdate("UPDATE TypeIntervention SET "
 						+"descritpion = '" + typeIntervention.getDescription() +  "'" 
 						+ " WHERE idTypeIntervention = '" +typeIntervention.getNumero() + "'"
@@ -119,6 +122,7 @@ public class DAOTypeIntervention {
 
 
 	/**
+	 * Obtient un objet java TypeIntervention à partir d'une ligne de la table TYPEINTERVENTION de la base de données.
 	 * @param type
 	 * @return  l'instance de la classe {@link TypeIntervention} dont le type correspond au paramètre.
 	 * @throws SQLException

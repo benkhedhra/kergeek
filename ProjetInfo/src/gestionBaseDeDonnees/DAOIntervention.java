@@ -37,11 +37,14 @@ public class DAOIntervention {
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 			Statement s = ConnexionOracleViaJdbc.createStatement();
-
+			// On récupère un identifiant à partir de la séquence SQL correspondante
 			ResultSet res = s.executeQuery("Select seqIntervention.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
+				//On assigne l'identifiant à l'instance qui va être ajoutée à la base de données
 				intervention.setId(id);
+				
+				//Insertion dans la base de données
 				if (intervention.getTypeIntervention() != null){
 					s.executeUpdate("INSERT into Intervention values ("
 							+ "'"+ intervention.getId() +  "', " 
@@ -100,7 +103,7 @@ public class DAOIntervention {
 			if (DAOIntervention.getInterventionById(intervention.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
-
+				//On met à jour les informations
 				s.executeUpdate("UPDATE Intervention SET "
 						+ "dateIntervention = TO_DATE('" + UtilitaireDate.conversionPourSQL(intervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 						+ "idTypeIntervention = '"+intervention.getTypeIntervention().getNumero()+"',"
@@ -143,6 +146,7 @@ public class DAOIntervention {
 
 
 	/**
+	 * Obtient un objet java Intervention à partir d'une ligne de la table INTERVENTION de la base de données.
 	 * @param identifiant
 	 * de l'intervention recherchée
 	 * @return l'instance de la classe {@link Intervention} dont l'identifiant correspond au paramètre.
@@ -160,7 +164,9 @@ public class DAOIntervention {
 			try {
 				if (res.next()) {
 
+					//On récupère un Timestamp
 					java.sql.Timestamp tempsIntervention = res.getTimestamp("dateIntervention");
+					//Transformation du Timestamp en date
 					java.sql.Date dateIntervention = new java.sql.Date(tempsIntervention.getTime());
 					int idTypeIntervention = res.getInt("idTypeIntervention");
 					String idVelo = res.getString("idVelo");
@@ -215,6 +221,7 @@ public class DAOIntervention {
 	 * @throws ConnexionFermeeException
 	 */
 	public static List<Intervention> getInterventionsByVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
+		// Création de la liste des interventions concernant ce vélo
 		List<Intervention> liste = new ArrayList<Intervention>();
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
@@ -222,17 +229,19 @@ public class DAOIntervention {
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
 			ResultSet res = s.executeQuery("Select * from Intervention WHERE idTypeIntervention IS NOT NULL AND idVelo = '" + velo.getId() + "' ORDER BY dateIntervention DESC");
-
 			try {
-				Intervention intervention = new Intervention();
+				// On récupère la liste des identifiants des interventions concernant ce vélo
+				//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
 				List<String> listeId = new ArrayList<String>();
-
+				Intervention intervention = new Intervention();
 				while(res.next()) {
 					String idIntervention = res.getString("idIntervention");
 					listeId.add(idIntervention);
 				}
-
+				
+				//ajout des Interventions récupérées à la liste des interventions concernant ce vélo
 				for (String idI : listeId){
+					//récupération de l'instance correspondant à l'identifiant
 					intervention = getInterventionById(idI);
 					liste.add(intervention);
 				}
@@ -273,7 +282,8 @@ public class DAOIntervention {
 	 * @see DAOTypeIntervention#getAllTypesIntervention()
 	 */
 	public static List <List <Integer>> getNombresVelosParTypeIntervention(int depuisMois) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
-
+		// Création de la liste des nombres d'interventions par TypeIntervention
+		// chaque élément de la liste correspondant au nombre d'interventions pour un TypeIntervention
 		List <List <Integer>> liste = new ArrayList<List<Integer>>();
 		try {
 
@@ -281,10 +291,12 @@ public class DAOIntervention {
 			java.sql.Date dateSql = UtilitaireDate.initialisationDebutMois(dateSqlTemp);
 
 			ResultSet res = null;
+			// On fait l'inventaire de tout les TypeIntervention
 			Map<Integer, String> m = DAOTypeIntervention.getAllTypesIntervention();
-			for (Integer type : m.keySet()){
+			for (Integer type : m.keySet()){//Pour chaque TypeIntervention
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On compte le nombre d'intervention pour ce TypeIntervention
 				res = s.executeQuery("Select count(*) as nombreVelosTypeIntervention from Intervention WHERE idTypeIntervention = '" + type + "' and dateIntervention >= TO_DATE('" + UtilitaireDate.conversionPourSQL(dateSql) + "','DD-MM-YYYY HH24:MI')");
 				if (res.next()){
 					List <Integer> listeTypeNombre = new ArrayList<Integer>();
@@ -292,6 +304,7 @@ public class DAOIntervention {
 					listeTypeNombre.add(res.getInt("nombreVelosTypeIntervention"));
 					liste.add(listeTypeNombre);
 				}
+				//S'il n'y a pas d'intervention pour ce TypeIntervention
 				else{
 					List <Integer> listeTypeNombre = new ArrayList<Integer>();
 					listeTypeNombre.add(type);
@@ -333,15 +346,19 @@ public class DAOIntervention {
 	 * @throws ConnexionFermeeException
 	 * @see Velo#enPanne
 	 */
-	// la liste des vélos en panne au garage car on n'aurait pas accès à la date dans ce cas là
+	//On ne fait pas la liste des vélos en panne au garage 
+	//car on n'aurait pas accès à la date dans ce cas là
 	public static List<Intervention> getInterventionsNonTraitees() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		// La liste des Interventions non traitées
 		List<Intervention> liste = new ArrayList<Intervention>();
 		try{
 			ConnexionOracleViaJdbc.ouvrir();
 
 			Statement s = ConnexionOracleViaJdbc.createStatement();
 
-
+			// On récupère la liste des identifiants des Intervertion non prises en charges
+			//c'est-à-dire auquelles aucun TypeIntervention n'est associée
+			//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
 			ResultSet res = s.executeQuery("Select * from Intervention WHERE idTypeIntervention IS NULL ORDER BY dateIntervention DESC");
 
 			try {
@@ -352,8 +369,10 @@ public class DAOIntervention {
 					String idIntervention = res.getString("idIntervention");
 					listeId.add(idIntervention);
 				}
-
+				
+				//ajout des Intervertion non traitées récupérée à la liste des interventions non traitées
 				for (String idI : listeId){
+					//récupération de l'instance correspondant à l'identifiant
 					intervention = getInterventionById(idI);
 					liste.add(intervention);
 				}
