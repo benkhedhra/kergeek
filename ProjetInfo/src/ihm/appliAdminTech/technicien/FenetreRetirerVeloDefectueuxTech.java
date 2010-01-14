@@ -276,118 +276,114 @@ public class FenetreRetirerVeloDefectueuxTech extends JFrame implements ActionLi
 	 * @see MenuPrincipalTech#MenuPrincipalTech(Technicien)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			if (arg0.getSource()==boutonValider){
-				try {
-					List<DemandeIntervention> listeDemandes= DAODemandeIntervention.getDemandesInterventionEnAttente();
-					List<String> listeIdVelos = new LinkedList<String>();
-					for(DemandeIntervention ddeI : listeDemandes){
-						listeIdVelos.add(ddeI.getVelo().getId());
+		this.dispose();
+		if (arg0.getSource()==boutonValider){
+			try {
+				List<DemandeIntervention> listeDemandes= DAODemandeIntervention.getDemandesInterventionEnAttente();
+				List<String> listeIdVelos = new LinkedList<String>();
+				for(DemandeIntervention ddeI : listeDemandes){
+					listeIdVelos.add(ddeI.getVelo().getId());
+				}
+				if(this.getDemandeEntree()!=null && !idVeloARemplir.getText().equals("")){
+					//le technicien a à la fois sélectionné une demande et entré un id de vélo. Il doit faire l'un OU l'autre
+					MsgBox.affMsg("Vous avez sélectionné une demande ET entré un vélo : veuillez faire l'un ou l'autre");
+					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+				}
+				else if(this.getDemandeEntree()!=null){
+					//le technicien a sélectionné une demande d'intervention
+					System.out.println("Une demande d'intervention a été sélectionnée");
+					Lieu lieuOriginal = demandeEntree.getVelo().getLieu();
+					Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
+					Station stationConcernee = (Station) lieuOriginal;
+					this.getDemandeEntree().setIntervention(i);
+					if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i) && DAODemandeIntervention.updateDemandeIntervention(this.getDemandeEntree())){
+						new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 					}
-					if(this.getDemandeEntree()!=null && !idVeloARemplir.getText().equals("")){
-						//le technicien a à la fois sélectionné une demande et entré un id de vélo. Il doit faire l'un OU l'autre
-						MsgBox.affMsg("Vous avez sélectionné une demande ET entré un vélo : veuillez faire l'un ou l'autre");
+					if (DAOVelo.getVelosByLieu((Lieu)stationConcernee).isEmpty()){
+						List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
+						List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
+
+						String adresseEMail;
+						for (Technicien t : listeTech){
+							adresseEMail = t.getCompte().getAdresseEmail();
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
+						}
+						for (Administrateur a : listeAdmin){
+							adresseEMail = a.getCompte().getAdresseEmail();
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
+						}
+					}
+				}
+
+				else if(!idVeloARemplir.getText().equals("")){
+					//le technicien a entré un id de vélo
+					System.out.println("Un vélo a été entré");
+					if(listeIdVelos.contains(idVeloARemplir.getText())){
+						//l'id de vélo entré correspond déjà à une demande d'intervention : il faut qu'il sélectionne la demande
+						System.out.println("Problème : vélo entré fait déjà l'objet d'une demande d'intervention");
+						MsgBox.affMsg("Vous avez sélectionné un vélo qui fait déjà l'objet d'une demande d'intervention : veuillez selectionner la demande d'intervention en question");
 						new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
-					}
-					else if(this.getDemandeEntree()!=null){
-						//le technicien a sélectionné une demande d'intervention
-						System.out.println("Une demande d'intervention a été sélectionnée");
-						Lieu lieuOriginal = demandeEntree.getVelo().getLieu();
-						Intervention i = this.getTechnicien().intervenir(demandeEntree.getVelo());
-						Station stationConcernee = (Station) lieuOriginal;
-						this.getDemandeEntree().setIntervention(i);
-						if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i) && DAODemandeIntervention.updateDemandeIntervention(this.getDemandeEntree())){
-							new FenetreConfirmation(this.getTechnicien().getCompte(),this);
-						}
-						if (DAOVelo.getVelosByLieu((Lieu)stationConcernee).isEmpty()){
-							List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
-							List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
 
-							String adresseEMail;
-							for (Technicien t : listeTech){
-								adresseEMail = t.getCompte().getAdresseEmail();
-								try{
-									SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
-								} catch (SendFailedException e) {
-									System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
-								} catch (UnsupportedEncodingException e) {
-									System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
-								} catch (MessagingException e) {
-									MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
-								}
-							}
-							for (Administrateur a : listeAdmin){
-								adresseEMail = a.getCompte().getAdresseEmail();
-								try{
-									SendMail.sendMail(adresseEMail,"Station "+stationConcernee.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+stationConcernee.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
-								} catch (SendFailedException e) {
-									System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
-								} catch (UnsupportedEncodingException e) {
-									System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
-								} catch (MessagingException e) {
-									MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
-								}
+					}
+					else{
+						//l'id de vélo entré ne correspond à aucune demande d'intervention
+						if(DAOVelo.existe(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
+							//l'id de vélo entré est valide
+							Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
+							veloEntre.setEnPanne(true);
+							Intervention i = this.getTechnicien().intervenir(veloEntre);
+							if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i)){
+								new FenetreConfirmation(this.getTechnicien().getCompte(),this);
 							}
 						}
-					}
-
-					else if(!idVeloARemplir.getText().equals("")){
-						//le technicien a entré un id de vélo
-						System.out.println("Un vélo a été entré");
-						if(listeIdVelos.contains(idVeloARemplir.getText())){
-							//l'id de vélo entré correspond déjà à une demande d'intervention : il faut qu'il sélectionne la demande
-							System.out.println("Problème : vélo entré fait déjà l'objet d'une demande d'intervention");
-							MsgBox.affMsg("Vous avez sélectionné un vélo qui fait déjà l'objet d'une demande d'intervention : veuillez selectionner la demande d'intervention en question");
+						else if (!DAOVelo.existe(idVeloARemplir.getText())){
+							//l'id de vélo entré ne correspond à aucun vélo existant dans la bdd
+							System.out.println("Le vélo entré n'existe pas");
+							MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
 							new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
-
 						}
-						else{
-							//l'id de vélo entré ne correspond à aucune demande d'intervention
-							if(DAOVelo.existe(idVeloARemplir.getText()) &&  DAOVelo.estDisponible(idVeloARemplir.getText())){
-								//l'id de vélo entré est valide
-								Velo veloEntre = DAOVelo.getVeloById(idVeloARemplir.getText());
-								veloEntre.setEnPanne(true);
-								Intervention i = this.getTechnicien().intervenir(veloEntre);
-								if(DAOVelo.updateVelo(i.getVelo())&& DAOIntervention.createIntervention(i)){
-									new FenetreConfirmation(this.getTechnicien().getCompte(),this);
-								}
-							}
-							else if (!DAOVelo.existe(idVeloARemplir.getText())){
-								//l'id de vélo entré ne correspond à aucun vélo existant dans la bdd
-								System.out.println("Le vélo entré n'existe pas");
-								MsgBox.affMsg("Le vélo que vous avez entré n'existe pas. ");
-								new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
-							}
-							else {
-								//l'id de vélo entré correspond à un vélo qui n'est pas disponible en station
-								System.out.println("Le vélo entré n'est pas en station actuellement");
-								MsgBox.affMsg("Le vélo que vous avez entré n'est pas en station actuellement. ");
-								new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
-							}
+						else {
+							//l'id de vélo entré correspond à un vélo qui n'est pas disponible en station
+							System.out.println("Le vélo entré n'est pas en station actuellement");
+							MsgBox.affMsg("Le vélo que vous avez entré n'est pas en station actuellement. ");
+							new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
 						}
 					}
-					else {
-						System.out.println("Rien n'a été entré");
-						MsgBox.affMsg("Vous n'avez ni sélectionné de demande d'intervention, ni entré de vélo. ");
-						new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
-					}
-				} catch (SQLException e) {
-					MsgBox.affMsg("SQLException : " + e.getMessage());
-					new MenuPrincipalTech(this.getTechnicien());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg("ClassNotFoundException : " + e.getMessage());
-					new MenuPrincipalTech(this.getTechnicien());
-				} catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				} 
-			}
-			else if (arg0.getSource()==boutonRetour){
+				}
+				else {
+					System.out.println("Rien n'a été entré");
+					MsgBox.affMsg("Vous n'avez ni sélectionné de demande d'intervention, ni entré de vélo. ");
+					new FenetreRetirerVeloDefectueuxTech(this.getTechnicien());
+				}
+			} catch (SQLException e) {
+				MsgBox.affMsg("SQLException : " + e.getMessage());
 				new MenuPrincipalTech(this.getTechnicien());
-			}
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg("ClassNotFoundException : " + e.getMessage());
+				new MenuPrincipalTech(this.getTechnicien());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			} 
 		}
-		finally{
-			this.dispose();
+		else if (arg0.getSource()==boutonRetour){
+			new MenuPrincipalTech(this.getTechnicien());
 		}
 	}
 }

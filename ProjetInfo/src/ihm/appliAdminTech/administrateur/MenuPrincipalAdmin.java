@@ -42,13 +42,13 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	 * l'administrateur connecté sur la fenêtre
 	 */
 	private Administrateur admin;
-
+	
 	/**
 	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et l'endroit de l'application où il se trouve
 	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelChemin = new JLabel("Menu principal");
-
+	
 	/**
 	 * 5 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal et de changer son mot de passe
 	 */
@@ -56,18 +56,18 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	private JButton boutonComptes = new JButton("Gérer les comptes");
 	private JButton boutonStats = new JButton("Demander des statistiques");
 	private JButton boutonEtat = new JButton("Voir l'état actuel du parc");
-
+	
 	private JButton boutonChangeMdp = new JButton("Changer votre mot de passe");
-
+	
 	private JButton boutonDeconnexion = new JButton("Déconnexion");
 
-
+	
 	//Accesseurs utiles
-
+	
 	/*
 	 * attribut administrateur
 	 */
-
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -84,15 +84,15 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	public MenuPrincipalAdmin(Administrateur a){
 
 		this.setAdministrateur(a);
-
+		
 		this.setContentPane(new PanneauAdmin());
 		System.out.println("Affichage du menu principal de l'administrateur");
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu principal de l'administrateur");
 		//Définit une taille pour celle-ci
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		Rectangle bounds = env.getMaximumWindowBounds();
-		this.setBounds(bounds);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -104,7 +104,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		this.setResizable(true);
 		//pour que la fenêtre soit toujours au premier plan
 		this.setAlwaysOnTop(true);
-
+		
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(900,50));
@@ -141,7 +141,7 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 		boutonEtat.addActionListener(this);
 		center.add(boutonEtat);
 		this.getContentPane().add(center, BorderLayout.CENTER);
-
+		
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(1100,100));
 		south.setBackground(UtilitaireIhm.TRANSPARENCE);
@@ -168,37 +168,33 @@ public class MenuPrincipalAdmin extends JFrame implements ActionListener {
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-
-			if(arg0.getSource()==boutonComptes){
-				new MenuGererComptesAdmin(this.getAdministrateur());
-			}
-			else if (arg0.getSource()==boutonStats){
-				new MenuDemanderStatsAdmin(this.getAdministrateur());
-			}
-			else if (arg0.getSource()==boutonEtat){
-				new MenuVoirEtatAdmin(this.getAdministrateur());
-			}	
-			else if (arg0.getSource()==boutonChangeMdp){
-				new FenetreChangerMotDePasse(this.getAdministrateur().getCompte());
-			}
-			else if (arg0.getSource()==boutonDeconnexion){
-				try {
-					new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} catch (ConnexionFermeeException e) {
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
+		this.dispose();
+		
+		if(arg0.getSource()==boutonComptes){
+			new MenuGererComptesAdmin(this.getAdministrateur());
 		}
-		finally{
-			this.dispose();
+		else if (arg0.getSource()==boutonStats){
+			new MenuDemanderStatsAdmin(this.getAdministrateur());
+		}
+		else if (arg0.getSource()==boutonEtat){
+			new MenuVoirEtatAdmin(this.getAdministrateur());
+		}	
+		else if (arg0.getSource()==boutonChangeMdp){
+			new FenetreChangerMotDePasse(this.getAdministrateur().getCompte());
+		}
+		else if (arg0.getSource()==boutonDeconnexion){
+			try {
+				new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
+			} catch (ConnexionFermeeException e) {
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
 	}
 }

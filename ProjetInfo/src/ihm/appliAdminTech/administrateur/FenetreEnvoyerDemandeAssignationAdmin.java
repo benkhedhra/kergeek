@@ -255,6 +255,7 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 	 * @see Administrateur#demanderAssignation(int, Lieu)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		try{
 			//s'il veut envoyer cette demande d'assignation
 			if (arg0.getSource()==boutonValider){
@@ -311,9 +312,6 @@ public class FenetreEnvoyerDemandeAssignationAdmin extends JFrame implements Act
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
 			new MenuPrincipalAdmin(this.getAdministrateur());
-		}
-		finally{
-			this.dispose();
 		}
 	}
 }

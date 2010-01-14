@@ -128,9 +128,9 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Modifier informations sur un compte");
 		//Définit une taille pour celle-ci
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		Rectangle bounds = env.getMaximumWindowBounds();
-		this.setBounds(bounds);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -145,7 +145,7 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 		//on donne à la fenêtre les attributs administrateur et compte à partir des paramètres du constructeur
 		this.setAdministrateur(a);
 		this.setCompte(c);
-
+		
 		labelAdmin = new JLabel("Vous êtes connecté en tant que "+ a.getCompte().getId());
 		labelAdmin.setFont(UtilitaireIhm.POLICE4);
 		labelAdmin.setPreferredSize(new Dimension(1100,50));
@@ -378,86 +378,82 @@ public class FenetreModifCompteAdmin extends JFrame implements ActionListener {
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			//s'il a cliqué sur "valider les modifications"
-			if(arg0.getSource()==boutonValider){
-				try {
-					//si le compte en train d'être modifié est celui d'un utilisateur
-					if (compte.getType()==Compte.TYPE_UTILISATEUR){
-						//champsOk indique si les champs remplis par l'administrateur sont corrects
-						boolean champsOk = UtilitaireIhm.verifieChampsCreationUtil(Compte.TYPE_UTILISATEUR, adresseEMailCompte.getText(), nomCompte.getText(), prenomCompte.getText(), adressePostaleCompte.getText());
-						if(champsOk){
-							compte.setAdresseEmail(adresseEMailCompte.getText());
-							DAOCompte.updateCompte(compte);
-							Utilisateur u = DAOUtilisateur.getUtilisateurById(compte.getId());
-							u.setCompte(compte);
-							u.setNom(nomCompte.getText());
-							u.setPrenom(prenomCompte.getText());
-							u.setAdressePostale(adressePostaleCompte.getText());
-							u.setBloque(bloqueEntre);
-							DAOUtilisateur.updateUtilisateur(u);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-						}
-						else{
-							MsgBox.affMsg("L'un des champs au moins est incorrect");
-							new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
-						}
+		this.dispose();
+		//s'il a cliqué sur "valider les modifications"
+		if(arg0.getSource()==boutonValider){
+			try {
+				//si le compte en train d'être modifié est celui d'un utilisateur
+				if (compte.getType()==Compte.TYPE_UTILISATEUR){
+					//champsOk indique si les champs remplis par l'administrateur sont corrects
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationUtil(Compte.TYPE_UTILISATEUR, adresseEMailCompte.getText(), nomCompte.getText(), prenomCompte.getText(), adressePostaleCompte.getText());
+					if(champsOk){
+						compte.setAdresseEmail(adresseEMailCompte.getText());
+						DAOCompte.updateCompte(compte);
+						Utilisateur u = DAOUtilisateur.getUtilisateurById(compte.getId());
+						u.setCompte(compte);
+						u.setNom(nomCompte.getText());
+						u.setPrenom(prenomCompte.getText());
+						u.setAdressePostale(adressePostaleCompte.getText());
+						u.setBloque(bloqueEntre);
+						DAOUtilisateur.updateUtilisateur(u);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
 					}
-					else if (compte.getType()==Compte.TYPE_ADMINISTRATEUR){
-						boolean champsOk = UtilitaireIhm.verifieChampsCreationAdmin(Compte.TYPE_ADMINISTRATEUR, adresseEMailCompte.getText());
-						if(champsOk){
-							compte.setAdresseEmail(adresseEMailCompte.getText());
-							DAOCompte.updateCompte(compte);
-							Administrateur a = DAOAdministrateur.getAdministrateurById(compte.getId());
-							a.setCompte(compte);
-							DAOAdministrateur.updateAdministrateur(a);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-						}
-						else{
-							MsgBox.affMsg("L'un des champs au moins est incorrect");
-							new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
-						}
+					else{
+						MsgBox.affMsg("L'un des champs au moins est incorrect");
+						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
 					}
-					else if (compte.getType()==Compte.TYPE_TECHNICIEN){
-						boolean champsOk = UtilitaireIhm.verifieChampsCreationTech(Compte.TYPE_TECHNICIEN, adresseEMailCompte.getText());
-						if(champsOk){
-							compte.setAdresseEmail(adresseEMailCompte.getText());
-							DAOCompte.updateCompte(compte);
-							Technicien t = DAOTechnicien.getTechnicienById(compte.getId());
-							t.setCompte(compte);
-							DAOTechnicien.updateTechnicien(t);
-							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-						}
-						else{
-							MsgBox.affMsg("L'un des champs entrés au moins est incorrect");
-							new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
-						}
-					}
-				} 
-				catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} 
-				catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
 				}
-				catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
+				else if (compte.getType()==Compte.TYPE_ADMINISTRATEUR){
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationAdmin(Compte.TYPE_ADMINISTRATEUR, adresseEMailCompte.getText());
+					if(champsOk){
+						compte.setAdresseEmail(adresseEMailCompte.getText());
+						DAOCompte.updateCompte(compte);
+						Administrateur a = DAOAdministrateur.getAdministrateurById(compte.getId());
+						a.setCompte(compte);
+						DAOAdministrateur.updateAdministrateur(a);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+					}
+					else{
+						MsgBox.affMsg("L'un des champs au moins est incorrect");
+						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
+					}
 				}
-			}
-			//s'il a cliqué sur "résilier le compte", il y a une étape supplémentaire car l'action est irréversible
-			else if(arg0.getSource()==boutonResilier){
-				new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),this);
-			}
-			//sinon il retourne à son menu principal
-			else if (arg0.getSource()==boutonRetour){
+				else if (compte.getType()==Compte.TYPE_TECHNICIEN){
+					boolean champsOk = UtilitaireIhm.verifieChampsCreationTech(Compte.TYPE_TECHNICIEN, adresseEMailCompte.getText());
+					if(champsOk){
+						compte.setAdresseEmail(adresseEMailCompte.getText());
+						DAOCompte.updateCompte(compte);
+						Technicien t = DAOTechnicien.getTechnicienById(compte.getId());
+						t.setCompte(compte);
+						DAOTechnicien.updateTechnicien(t);
+						new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+					}
+					else{
+						MsgBox.affMsg("L'un des champs entrés au moins est incorrect");
+						new FenetreModifCompteAdmin(this.getCompte(),this.getAdministrateur());
+					}
+				}
+			} 
+			catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
+			} 
+			catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
 				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
 		}
-		finally{
-			this.dispose();
+		//s'il a cliqué sur "résilier le compte", il y a une étape supplémentaire car l'action est irréversible
+		else if(arg0.getSource()==boutonResilier){
+			new FenetreDemandeConfirmationAdmin(this.getAdministrateur(),this);
 		}
-	}
+		//sinon il retourne à son menu principal
+		else if (arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
+		}
+	}		
 }

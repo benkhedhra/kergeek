@@ -198,15 +198,11 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 			// dans l'idée l'écran ne reste affiché que 3 secondes et la fenêtre d'authentification apparaît automatiquement au terme des 5 secondes
 			/*try {
 				Thread.sleep(5000);
-				new FenetreAuthentification(false);
-			} 
-			catch (InterruptedException e) {
-				MsgBox.affMsg(e.getMessage());
-			}
-			finally{
 				this.dispose();
-			}
-			*/
+				new FenetreAuthentification(false);
+			} catch (InterruptedException e) {
+				MsgBox.affMsg(e.getMessage());
+			}*/
 		}
 		else {
 			//il ne s'agit pas du cas où l'individu vient de se déconnecter
@@ -491,6 +487,7 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		try{
 			if(fenetrePrecedente.getTitle().equals("Changer son mot de passe") && (arg0.getSource()==boutonRetour)){
 				FenetreChangerMotDePasse f = (FenetreChangerMotDePasse) fenetrePrecedente;
@@ -604,9 +601,6 @@ public class FenetreConfirmation extends JFrame implements ActionListener {
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
-		}
-		finally{
-			this.dispose();
 		}
 	}
 }

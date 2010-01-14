@@ -156,31 +156,27 @@ public class FenetreEmpruntCourtUtil extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			if(arg0.getSource()==boutonOui){
-				this.getVelo().setEnPanne(true);
-				DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),velo);
-				try {
-					DAODemandeIntervention.createDemandeIntervention(demande);
-					DAOVelo.updateVelo(this.getVelo());
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-					new FenetreAuthentificationUtil(false);
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-					new FenetreAuthentificationUtil(false);
-				} catch (ConnexionFermeeException e3){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentificationUtil(false);
-				}
-				new FenetreDefautDeclareUtil(this.getUtilisateur());
+		this.dispose();
+		if(arg0.getSource()==boutonOui){
+			this.getVelo().setEnPanne(true);
+			DemandeIntervention demande = new DemandeIntervention(this.getUtilisateur(),velo);
+			try {
+				DAODemandeIntervention.createDemandeIntervention(demande);
+				DAOVelo.updateVelo(this.getVelo());
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
+			} catch (ConnexionFermeeException e3){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentificationUtil(false);
 			}
-			else if (arg0.getSource()==boutonNon){
-				new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
-			}
+			new FenetreDefautDeclareUtil(this.getUtilisateur());
 		}
-		finally{
-			this.dispose();
+		else if (arg0.getSource()==boutonNon){
+			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
 	}
 }

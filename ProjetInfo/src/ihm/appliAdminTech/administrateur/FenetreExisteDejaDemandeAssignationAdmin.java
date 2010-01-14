@@ -163,6 +163,7 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 		 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 		 */
 		public void actionPerformed(ActionEvent arg0) {
+			this.dispose();
 			try {
 				if(arg0.getSource()==boutonOui){
 					this.getAncienneDemande().setDate(this.getNouvelleDemande().getDate());
@@ -186,9 +187,6 @@ public class FenetreExisteDejaDemandeAssignationAdmin extends JFrame implements 
 			} catch (SQLException e) {
 				MsgBox.affMsg("SQLException : "+e.getMessage());
 				new MenuPrincipalAdmin(this.getAdministrateur());
-			}
-			finally{
-				this.dispose();
 			}
 		}
 	}

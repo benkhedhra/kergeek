@@ -163,85 +163,81 @@ public class FenetreEmprunterVeloUtil extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		Velo velo;
-		try{
-			if(arg0.getSource()==boutonValider){
-				try {
-					if(!DAOVelo.existe(veloARemplir.getText())){
-						MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
-						new FenetreEmprunterVeloUtil(this.getUtilisateur());
-					}
-					else if(!DAOVelo.estDisponible(veloARemplir.getText())){
-						MsgBox.affMsg("Saisie incorrecte : le vélo entré n'est pas disponible");
-						new FenetreEmprunterVeloUtil(this.getUtilisateur());
-					}
-					else{
+		this.dispose();
+		if(arg0.getSource()==boutonValider){
+			try {
+				if(!DAOVelo.existe(veloARemplir.getText())){
+					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'existe pas");
+					new FenetreEmprunterVeloUtil(this.getUtilisateur());
+				}
+				else if(!DAOVelo.estDisponible(veloARemplir.getText())){
+					MsgBox.affMsg("Saisie incorrecte : le vélo entré n'est pas disponible");
+					new FenetreEmprunterVeloUtil(this.getUtilisateur());
+				}
+				else{
 
-						velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
-						this.idVeloAEmprunter = velo.getId();
-						Station station = (Station) velo.getLieu();
-						System.out.println(station.getAdresse());
-						System.out.println(DAOVelo.getVelosByLieu(station).size());
+					velo = gestionBaseDeDonnees.DAOVelo.getVeloById(veloARemplir.getText());
+					this.idVeloAEmprunter = velo.getId();
+					Station station = (Station) velo.getLieu();
+					System.out.println(station.getAdresse());
+					System.out.println(DAOVelo.getVelosByLieu(station).size());
 
-						this.getUtilisateur().emprunteVelo(velo);
+					this.getUtilisateur().emprunteVelo(velo);
 
-						DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
-						DAOVelo.updateVelo(velo);
+					DAOEmprunt.createEmprunt(velo.getEmpruntEnCours());
+					DAOVelo.updateVelo(velo);
 
-						if (DAOVelo.getVelosByLieu(station).isEmpty()){
-							List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
-							List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
+					if (DAOVelo.getVelosByLieu(station).isEmpty()){
+						List<Technicien> listeTech = DAOTechnicien.getAllTechniciens();
+						List<Administrateur> listeAdmin = DAOAdministrateur.getAllAdministrateurs();
 
-							String adresseEMail;
-							for (Technicien t : listeTech){
-								adresseEMail = t.getCompte().getAdresseEmail();
-								try{
-									SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
-								} catch (SendFailedException e) {
-									System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
-								} catch (UnsupportedEncodingException e) {
-									System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
-								} catch (MessagingException e) {
-									MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
-								}
-							}
-							for (Administrateur a : listeAdmin){
-								adresseEMail = a.getCompte().getAdresseEmail();
-								try{
-									SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
-								} catch (SendFailedException e) {
-									System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
-								} catch (UnsupportedEncodingException e) {
-									System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
-								} catch (MessagingException e) {
-									MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
-								}
+						String adresseEMail;
+						for (Technicien t : listeTech){
+							adresseEMail = t.getCompte().getAdresseEmail();
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+t.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez consulter les demandes d'assignation à ce sujet. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail du technicien "+t.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
 							}
 						}
-
-						new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
-						System.out.println("L'emprunt a bien été enregistré");
+						for (Administrateur a : listeAdmin){
+							adresseEMail = a.getCompte().getAdresseEmail();
+							try{
+								SendMail.sendMail(adresseEMail,"Station "+station.getAdresse()+" vide","Bonjour "+a.getCompte().getId()+"\n La station "+station.getAdresse()+" est vide. Veuillez envoyer une demande d'assignation adéquate. ");
+							} catch (SendFailedException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (UnsupportedEncodingException e) {
+								System.out.println("L'adresse e-mail de l'administrateur "+a.getCompte().getId()+" est invalide.");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
+						}
 					}
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-					new FenetreAuthentificationUtil(false);
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-					new FenetreAuthentificationUtil(false);
-				} catch (CompteBloqueException e) {
-					MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
-					new FenetreAuthentificationUtil(false);
-				} 
-				catch (ConnexionFermeeException e3){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentificationUtil(false);
+
+					new FenetreConfirmationUtil("Vous pouvez retirer le vélo "+velo.getId() +" de son emplacement. Merci et à bientôt ! ");
+					System.out.println("L'emprunt a bien été enregistré");
 				}
-			}
-			else{
-				new FenetreConfirmationUtil("Merci et à bientôt ! ");
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				new FenetreAuthentificationUtil(false);
+			} catch (CompteBloqueException e) {
+				MsgBox.affMsg("CompteBloqueException : " +e.getMessage());
+				new FenetreAuthentificationUtil(false);
+			} 
+			catch (ConnexionFermeeException e3){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentificationUtil(false);
 			}
 		}
-		finally{
-			this.dispose();
+		else{
+			new FenetreConfirmationUtil("Merci et à bientôt ! ");
 		}
 
 	}

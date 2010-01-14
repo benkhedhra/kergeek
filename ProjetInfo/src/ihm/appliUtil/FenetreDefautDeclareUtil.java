@@ -119,12 +119,12 @@ public class FenetreDefautDeclareUtil extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		if(arg0.getSource()==boutonOui){
 			new FenetreEmprunterVeloUtil(utilisateur);
 		}
 		else if (arg0.getSource()==boutonNon){
 			new FenetreConfirmationUtil("Au revoir et à bientôt ! ");
 		}
-		this.dispose();
 	}
 }
