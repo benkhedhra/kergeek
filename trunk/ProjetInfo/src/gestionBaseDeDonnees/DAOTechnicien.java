@@ -87,10 +87,10 @@ public class DAOTechnicien {
 		List<String> listeId = new ArrayList<String>();
 
 		Technicien technicien = new Technicien();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select idCompte from Compte WHERE type = '" + Compte.TYPE_TECHNICIEN + "'");
 			while(res.next()) {
 				String idCompte = res.getString("idCompte"); 

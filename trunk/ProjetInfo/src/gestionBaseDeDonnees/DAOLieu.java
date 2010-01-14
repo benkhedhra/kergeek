@@ -33,10 +33,10 @@ public class DAOLieu {
 	 */
 	public static boolean createLieu(Lieu lieu) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			if (lieu.getId() == Lieu.ID_GARAGE){
 				s.executeUpdate("INSERT into Lieu values ('" 
 						+ Garage.ID_GARAGE + "', '" 
@@ -121,10 +121,10 @@ public class DAOLieu {
 		else{// alors il ne peut s'agir que d'une station
 
 			lieu = (Station) new Station();
-
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
 			try{
+				ConnexionOracleViaJdbc.ouvrir();
+				Statement s = ConnexionOracleViaJdbc.createStatement();
+
 				ResultSet res = s.executeQuery("Select adresseLieu, capacite from Lieu Where idLieu ='" + identifiant +"'");
 				if (res.next()) {
 					lieu.setId(identifiant);
@@ -174,10 +174,10 @@ public class DAOLieu {
 		List<String> listeId = new ArrayList<String>();
 
 		Lieu lieu;
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select* from Lieu WHERE idLieu <> '" + Lieu.ID_SORTIE + "' AND idLieu <> '" + Lieu.ID_DETRUIT + "'");
 			while(res.next()) {
 				String idLieu = res.getString("idLieu"); 
@@ -189,7 +189,6 @@ public class DAOLieu {
 			}
 		}
 		catch(SQLException e1){
-			listeLieus = null;
 			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
@@ -221,9 +220,11 @@ public class DAOLieu {
 	public static List<Station> getAllStations() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Station> listeStations = new ArrayList<Station>();
 		List<Lieu> listeLieus = getStationsEtGarage();
-		for(Lieu lieu : listeLieus){
-			if (!lieu.getId().equals(Lieu.ID_GARAGE)){
-				listeStations.add((Station) lieu);
+		if (!listeLieus.isEmpty()){
+			for(Lieu lieu : listeLieus){
+				if (!lieu.getId().equals(Lieu.ID_GARAGE)){
+					listeStations.add((Station) lieu);
+				}
 			}
 		}
 		return listeStations;

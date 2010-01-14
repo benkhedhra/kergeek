@@ -34,9 +34,10 @@ public class DAOIntervention {
 	 */
 	public static boolean createIntervention(Intervention intervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select seqIntervention.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
@@ -151,10 +152,10 @@ public class DAOIntervention {
 	 */
 	public static Intervention getInterventionById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Intervention intervention = new Intervention();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select * FROM Intervention WHERE idIntervention ='" + identifiant + "'");
 			try {
 				if (res.next()) {
@@ -215,11 +216,11 @@ public class DAOIntervention {
 	 */
 	public static List<Intervention> getInterventionsByVelo(Velo velo) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Intervention> liste = new ArrayList<Intervention>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select * from Intervention WHERE idTypeIntervention IS NOT NULL AND idVelo = '" + velo.getId() + "' ORDER BY dateIntervention DESC");
 
 			try {
@@ -335,12 +336,12 @@ public class DAOIntervention {
 	// la liste des vélos en panne au garage car on n'aurait pas accès à la date dans ce cas là
 	public static List<Intervention> getInterventionsNonTraitees() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		List<Intervention> liste = new ArrayList<Intervention>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+
 			ResultSet res = s.executeQuery("Select * from Intervention WHERE idTypeIntervention IS NULL ORDER BY dateIntervention DESC");
 
 			try {

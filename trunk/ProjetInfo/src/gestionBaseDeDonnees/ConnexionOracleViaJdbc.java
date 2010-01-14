@@ -36,8 +36,9 @@ public class ConnexionOracleViaJdbc {
 	/**
 	 * connexion au serveur Oracle.
 	 * @throws ClassNotFoundException
+	 * @throws ConnexionFermeeException 
 	 */
-	private static void connecter() throws ClassNotFoundException{
+	private static void connecter() throws ClassNotFoundException, ConnexionFermeeException{
 		// création d'une connexion â€¡ une base de données		
 
 		//TODO URL Oracle
@@ -58,6 +59,9 @@ public class ConnexionOracleViaJdbc {
 		}
 		catch (SQLException e){
 			System.out.println("Echec de la tentative de connexion : " + e.getMessage());
+		}
+		catch(NullPointerException e){
+			throw new ConnexionFermeeException(e.getMessage());
 		}
 
 	}
@@ -80,8 +84,9 @@ public class ConnexionOracleViaJdbc {
 	 * ouverture de la connexion
 	 * @throws SQLException
 	 * @throws ClassNotFoundException 
+	 * @throws ConnexionFermeeException 
 	 */	
-	public static void ouvrir() throws SQLException,ClassNotFoundException{
+	public static void ouvrir() throws SQLException,ClassNotFoundException, ConnexionFermeeException{
 		
 		try{
 			if (getC() != null) {
@@ -124,14 +129,18 @@ public class ConnexionOracleViaJdbc {
 	 * création d'instructions (statements) - redéfinition de la méthode
 	 * @return  st
 	 * @throws java.lang.NullPointerException 
+	 * @throws ConnexionFermeeException 
 	 */	
-	public static Statement createStatement() throws java.lang.NullPointerException{
+	public static Statement createStatement() throws java.lang.NullPointerException, ConnexionFermeeException{
 		Statement st = null;
 		try{
 			st = c.createStatement();
 		}
 		catch(SQLException e){
 			System.out.println("Echec de la tentative de création d'instruction : " + e.getMessage());
+		}
+		catch(NullPointerException e){
+			throw new ConnexionFermeeException(e.getMessage());
 		}
 		return st;
 	}

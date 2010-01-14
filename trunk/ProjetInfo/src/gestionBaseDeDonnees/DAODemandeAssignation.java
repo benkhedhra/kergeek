@@ -33,9 +33,10 @@ public class DAODemandeAssignation {
 	 */
 	public static boolean createDemandeAssignation(DemandeAssignation ddeAssignation) throws SQLException,ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			// On récupère un identifiant pour cette DemandeAssignation à partir de la séquence correspondante
 			ResultSet res = s.executeQuery("Select seqDemandeAssignation.NEXTVAL as id from dual");
 			if (res.next()){
@@ -167,10 +168,10 @@ public class DAODemandeAssignation {
 	 */
 	public static DemandeAssignation getDemandeAssignationById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		DemandeAssignation ddeAssignation = new DemandeAssignation();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select * FROM DemandeAssignation WHERE idDemandeA ='" + identifiant + "'");
 
 			if (res.next()) {
@@ -229,10 +230,10 @@ public class DAODemandeAssignation {
 	public static List<DemandeAssignation> getDemandesAssignationEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		//Création de la liste des demandes en attente
 		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			// On récupère la liste des identifiants des DemandesAssignation non prises en charges
 			//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
 			ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0'");
@@ -243,7 +244,7 @@ public class DAODemandeAssignation {
 				String idDdeAssignation = res.getString("idDemandeA");
 				listeIdDde.add(idDdeAssignation);
 			}
-			
+
 			//On vérifie que les demandes non prises en charge n'ont pas été "compensées" 
 			//par les mouvements de vélos faits par les utilisateurs, ou les techniciens 
 			//retirant des vélos défectueux. Si une demande est toujours valable, on l'ajoute

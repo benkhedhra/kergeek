@@ -29,10 +29,10 @@ public class DAOTypeIntervention {
 	 */
 	public static boolean createTypeIntervention(TypeIntervention typeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-		
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select seqTypeIntervention.NEXTVAL as type from dual");
 			if (res.next()){
 				int type = res.getInt("type");
@@ -127,10 +127,10 @@ public class DAOTypeIntervention {
 	 */
 	public static TypeIntervention getTypeInterventionById(int type) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		TypeIntervention typeIntervention = new TypeIntervention();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
 			ResultSet res = s.executeQuery("Select * FROM TypeIntervention WHERE idTypeIntervention ='" + type + "'");
 			try {
 				if (res.next()) {
@@ -175,11 +175,11 @@ public class DAOTypeIntervention {
 	 */
 	public static Map<Integer,String> getAllTypesIntervention() throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		Map<Integer,String> typesIntervention = new HashMap<Integer,String>();
-
-		ConnexionOracleViaJdbc.ouvrir();
-		Statement s = ConnexionOracleViaJdbc.createStatement();
-
 		try {
+			ConnexionOracleViaJdbc.ouvrir();
+			Statement s = ConnexionOracleViaJdbc.createStatement();
+
+
 			ResultSet res = s.executeQuery("Select* from TypeIntervention");
 			while (res.next()) {
 				typesIntervention.put((res.getInt("idTypeIntervention")),(res.getString("description")));
