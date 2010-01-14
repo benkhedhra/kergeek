@@ -60,7 +60,8 @@ public class DAOTypeIntervention {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -78,6 +79,7 @@ public class DAOTypeIntervention {
 	public static boolean updateTypeIntervention(TypeIntervention typeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
+			//S'il existe bien déjà une ligne correspondant à cette instance dans la base données
 			if (DAOTypeIntervention.getTypeInterventionById(typeIntervention.getNumero()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -109,7 +111,8 @@ public class DAOTypeIntervention {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -158,6 +161,7 @@ public class DAOTypeIntervention {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return typeIntervention;
@@ -197,6 +201,7 @@ public class DAOTypeIntervention {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return typesIntervention;
@@ -245,6 +250,7 @@ public class DAOTypeIntervention {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return liste;

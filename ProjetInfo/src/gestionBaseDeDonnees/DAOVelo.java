@@ -67,7 +67,8 @@ public class DAOVelo {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -86,6 +87,7 @@ public class DAOVelo {
 		boolean effectue = false;
 		try{
 			Boolean b = false;
+			//S'il existe bien déjà une ligne correspondant à cette instance dans la base données
 			if (DAOVelo.getVeloById(velo.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -121,7 +123,8 @@ public class DAOVelo {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -177,7 +180,8 @@ public class DAOVelo {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return velo;
 	}
@@ -232,7 +236,8 @@ public class DAOVelo {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return listeVelos;
 	}

@@ -87,7 +87,8 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -105,6 +106,7 @@ public class DAOEmprunt {
 	public static boolean updateEmprunt(Emprunt emprunt) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
+			//S'il existe bien déjà une ligne correspondant à cette instance dans la base données
 			if (DAOEmprunt.getEmpruntById(emprunt.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
@@ -125,9 +127,9 @@ public class DAOEmprunt {
 			}
 		}
 		catch (SQLException e){
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
-		}
-		catch(NullPointerException e2){
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
+		}		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
 				throw new ConnexionFermeeException();
 			}
@@ -142,6 +144,7 @@ public class DAOEmprunt {
 			System.out.println(e3.getMessage());
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
@@ -210,6 +213,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return emprunt;
@@ -260,6 +264,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 
@@ -316,6 +321,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 
@@ -370,6 +376,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return nb;
@@ -421,6 +428,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return nb;
@@ -497,6 +505,7 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 
@@ -573,7 +582,8 @@ public class DAOEmprunt {
 			}
 		}
 		finally {
-			ConnexionOracleViaJdbc.fermer();//pour etre bien sur de se deconnecter de la bdd
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 	}
 
@@ -652,7 +662,8 @@ public class DAOEmprunt {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 	}
 }

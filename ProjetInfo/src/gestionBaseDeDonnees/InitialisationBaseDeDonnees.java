@@ -13,7 +13,8 @@ import metier.TypeIntervention;
 
 /**
  * Rassemble les méthodes static permettant d'initialiser la base de données necessaire au fonctionnement de l'application.
- * @see CreationTables
+ * @see CreerBdd
+ * @see SupprimerBdd
  * @author KerGeek
  */
 public class InitialisationBaseDeDonnees {
@@ -136,6 +137,7 @@ public class InitialisationBaseDeDonnees {
 			System.out.println(e.getMessage());
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 	}		
@@ -445,6 +447,7 @@ public class InitialisationBaseDeDonnees {
 			System.out.println(e.getMessage());
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 	}	
@@ -489,10 +492,12 @@ public class InitialisationBaseDeDonnees {
 			System.out.println("Suppression effectuee.");
 		}
 		catch (SQLException e){
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 			System.out.println(e.getMessage());
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 	}		

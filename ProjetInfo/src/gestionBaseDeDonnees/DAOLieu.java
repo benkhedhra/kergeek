@@ -94,7 +94,8 @@ public class DAOLieu {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -153,6 +154,7 @@ public class DAOLieu {
 				}
 			}
 			finally{
+				//se deconnecter de la bdd même si des exceptions sont soulevées
 				ConnexionOracleViaJdbc.fermer();
 			}
 		}
@@ -202,6 +204,7 @@ public class DAOLieu {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 
