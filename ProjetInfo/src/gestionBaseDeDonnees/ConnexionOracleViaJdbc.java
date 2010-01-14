@@ -7,20 +7,20 @@ package gestionBaseDeDonnees;
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
-	//TODO identifiants oracles
-	//pour écrire l'id et le mp pour acceder à la base de données "en dur"
-	public static final String UTILISATEUR ="id3033";
-	public static final String MOTDEPASSE ="id3033";
 
 	static private Connection c;
-	static private  String idUtilisateur =UTILISATEUR; 
-	static private  String motPasse = MOTDEPASSE;
+	static private String idUtilisateurOracle; 
+	static private String motDePasseOracle;
+	static private String urlOracle;
 
 
 	// avec un constructeur "private"
@@ -33,6 +33,8 @@ public class ConnexionOracleViaJdbc {
 	}
 
 
+
+
 	/**
 	 * connexion au serveur Oracle.
 	 * @throws ClassNotFoundException
@@ -42,16 +44,16 @@ public class ConnexionOracleViaJdbc {
 		// création d'une connexion â€¡ une base de données		
 
 		//TODO URL Oracle
-		String url = "jdbc:oracle:thin:@oraens10g:1521:ORAENS";
+		
 
 
 
 		try {
 			// Create a OracleDataSource instance and set properties
 			OracleDataSource ods = new OracleDataSource();
-			ods.setUser(idUtilisateur);
-			ods.setPassword(motPasse);
-			ods.setURL(url);
+			ods.setUser(idUtilisateurOracle);
+			ods.setPassword(motDePasseOracle);
+			ods.setURL(urlOracle);
 
 			// Connect to the database
 			c = ods.getConnection();
@@ -145,6 +147,9 @@ public class ConnexionOracleViaJdbc {
 		return st;
 	}
 
+	
+	//Accesseurs et Modificateurs
+	
 	/**
 	 * @return c
 	 */
@@ -152,12 +157,44 @@ public class ConnexionOracleViaJdbc {
 		return c;
 	}
 
-	public static void setIdUtilisateur(String idU){
-		idUtilisateur = idU;
+	public static void setIdUtilisateurOracle(String idU){
+		idUtilisateurOracle = idU;
 	}
 
-	public static void setMotDePasse(String mdp){
-		motPasse = mdp;
+	public static void setMotDePasseOracle(String mdp){
+		motDePasseOracle = mdp;
+	}
+	
+	public static void setUrlOracle(String url){
+		urlOracle = url;
+	}
+	
+	public static String getIdUtilisateurOracle() {
+		return idUtilisateurOracle;
+	}
+
+
+	public static String getMotDePasseOracle() {
+		return motDePasseOracle;
+	}
+
+
+	public static String getUrlOracle() {
+		return urlOracle;
+	}
+	
+	
+	public static void parametresConnexionOracle() throws FileNotFoundException{
+		Scanner scanner=new Scanner(new File(System.getProperty("user.dir")+"/src/ressources/parametresOracle.txt"));
+		scanner.nextLine();
+		scanner.nextLine();
+		scanner.nextLine();
+		setUrlOracle(scanner.nextLine());
+		scanner.nextLine();
+		setIdUtilisateurOracle(scanner.nextLine());
+		scanner.nextLine();
+		setMotDePasseOracle(scanner.nextLine());
+		scanner.close();
 	}
 
 }

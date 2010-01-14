@@ -15,17 +15,15 @@ public class UtilitaireSQL {
 	 * @throws ConnexionFermeeException
 	 * @author sbalmand
 	 */
-	public static void tester(String idU, String mdp) throws ExceptionAuthentification, ConnexionFermeeException{ // test de la connexion
+	public static void testerConnexionOracle() throws ExceptionAuthentification { // test de la connexion
 		try{
-			ConnexionOracleViaJdbc.setIdUtilisateur(idU);
-			ConnexionOracleViaJdbc.setMotDePasse(mdp);
 			ConnexionOracleViaJdbc.ouvrir();
 			ConnexionOracleViaJdbc.fermer();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
 		}
-		catch(NullPointerException e){
+		catch(ConnexionFermeeException e){
 			throw new ExceptionAuthentification(e.getMessage());
 		}
 		catch(ClassNotFoundException e){
