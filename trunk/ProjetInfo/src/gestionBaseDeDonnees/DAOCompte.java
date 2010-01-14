@@ -32,7 +32,7 @@ public class DAOCompte {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * @see {@link InitialisationBaseDeDonnees}
 	 */
 	public static boolean createCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		boolean effectue = false;
@@ -42,7 +42,7 @@ public class DAOCompte {
 
 		ResultSet res = null;
 		try{
-			//Si il s'agit d'un compte d'un administrateur
+			//S'il s'agit d'un compte d'un administrateur
 			if (compte.getType() == Compte.TYPE_ADMINISTRATEUR){
 				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
 				res = s.executeQuery("Select seqAdministrateur.NEXTVAL as id from dual");
@@ -50,7 +50,7 @@ public class DAOCompte {
 					String nb = res.getString("id");
 					System.out.println(nb);
 					String id = "a" + res.getString("id");
-					//On assigne l'identifiant au compte ajouté à la base de données
+					//On assigne l'identifiant au compte qui va être ajouté à la base de données
 					compte.setId(id);
 
 				}
@@ -58,7 +58,7 @@ public class DAOCompte {
 					throw new SQLException("probleme de sequence");
 				}
 			}
-			//Si il s'agit d'un compte d'un utilisateur
+			//S'il s'agit d'un compte d'un utilisateur
 			else if (compte.getType() == Compte.TYPE_UTILISATEUR){
 				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
 				res = s.executeQuery("Select seqUtilisateur.NEXTVAL as id from dual");
@@ -73,7 +73,7 @@ public class DAOCompte {
 					throw new SQLException("probleme de sequence");
 				}
 			}
-			//Si il s'agit d'un compte d'un technicien
+			//S'il s'agit d'un compte d'un technicien
 			else if (compte.getType() == Compte.TYPE_TECHNICIEN){
 				// On récupère un identifiant pour ce compte à partir de la séquence correspondante
 				res = s.executeQuery("Select seqTechnicien.NEXTVAL as id from dual");
@@ -134,7 +134,8 @@ public class DAOCompte {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -150,14 +151,16 @@ public class DAOCompte {
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 * @throws PasDansLaBaseDeDonneeException 
-	 * @see CreationTables
+	 * @see {@link InitialisationBaseDeDonnees}
 	 */
 	public static boolean updateCompte(Compte compte) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
+			//S'il existe bien déjà une ligne correspondant à cette instance dans la base données
 			if (DAOCompte.getCompteById(compte.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On met à jour les informations
 				s.executeUpdate("UPDATE Compte SET "
 						+ "motDePasse = '" + compte.getMotDePasse() + "', "
 						+ "adresseMail = '" + compte.getAdresseEmail() + "'"
@@ -197,7 +200,8 @@ public class DAOCompte {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -206,19 +210,19 @@ public class DAOCompte {
 
 
 	/**
+	 * Obtient un objet java Compte à partir d'une ligne de la table COMPTE de la base de données.
 	 * @param identifiant
 	 * du compte recherché
 	 * @return l'instance de la classe {@link Compte} dont l'identifiant correspond au paramètre.
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * @see {@link InitialisationBaseDeDonnees}
 	 */
 	public static Compte getCompteById(String identifiant) throws SQLException, ClassNotFoundException, ConnexionFermeeException {
 		Compte compte = null;
 
 		ConnexionOracleViaJdbc.ouvrir();
-
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try {
 			ResultSet res = s.executeQuery("Select motDePasse, actif, type, adresseMail from Compte Where idCompte ='" + identifiant + "'");
@@ -259,6 +263,7 @@ public class DAOCompte {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return compte;
@@ -314,6 +319,7 @@ public class DAOCompte {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return listeComptes;
@@ -328,7 +334,7 @@ public class DAOCompte {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
-	 * @see CreationTables
+	 * @see {@link InitialisationBaseDeDonnees}
 	 */
 	public static boolean estDansLaBddCompte (String id) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		return (getCompteById(id)!=null && getCompteById(id).isActif());
@@ -384,7 +390,7 @@ public class DAOCompte {
 		for (String champ : listeChamps){
 			if (champ!=null){nbChampsRemplis++;}
 		}
-		//du coup le premier de la liste est forcément non nul car il vaut une chaîne vide
+		//le premier de la liste est forcément non nul car il vaut une chaîne vide
 		nbChampsRemplis--;
 
 		List<Compte> listeComptes = new ArrayList<Compte>();
@@ -460,6 +466,7 @@ public class DAOCompte {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return listeComptes;

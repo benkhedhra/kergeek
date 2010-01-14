@@ -117,6 +117,7 @@ public class DAOTechnicien {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 

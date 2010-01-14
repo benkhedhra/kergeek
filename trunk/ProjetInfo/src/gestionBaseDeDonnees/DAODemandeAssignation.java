@@ -36,11 +36,13 @@ public class DAODemandeAssignation {
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			// On récupère un identifiant pour cette DemandeAssignation à partir de la séquence correspondante
 			ResultSet res = s.executeQuery("Select seqDemandeAssignation.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
+				//On assigne l'identifiant à la DemandeAssignation qui va être ajouté à la base de données
 				ddeAssignation.setId(id);
-
+				//Insertion de la DemandeAssignation dotée de son identifiant dans la base de données
 				if (ddeAssignation.isPriseEnCharge()){
 					s.executeUpdate("INSERT into DemandeAssignation values ("
 							+ "'" + id + "', " 
@@ -80,7 +82,8 @@ public class DAODemandeAssignation {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -98,9 +101,11 @@ public class DAODemandeAssignation {
 	public static boolean updateDemandeAssignation(DemandeAssignation ddeAssignation) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
+			//S'il existe bien déjà une ligne correspondant à cette instance dans la base données
 			if (DAODemandeAssignation.getDemandeAssignationById(ddeAssignation.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On met à jour les informations
 				if (ddeAssignation.isPriseEnCharge()){
 					s.executeUpdate("UPDATE DemandeAssignation SET "
 							+ "dateAssignation = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeAssignation.getDate()) +"','DD-MM-YYYY HH24:MI'), "
@@ -146,12 +151,14 @@ public class DAODemandeAssignation {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées	
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
 
 	/**
+	 * Obtient un objet java DemandeAssignation à partir d'une ligne de la table DEMANDEASSIGNATION de la base de données.
 	 * @param identifiant
 	 * @return l'instance de la classe {@link DemandeAssignation} dont l'identifiant correspond au paramètre.
 	 * @throws SQLException
@@ -204,6 +211,7 @@ public class DAODemandeAssignation {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return ddeAssignation;
@@ -219,22 +227,27 @@ public class DAODemandeAssignation {
 	 * @see DAODemandeAssignation#updateDemandeAssignation(DemandeAssignation)
 	 */
 	public static List<DemandeAssignation> getDemandesAssignationEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		//Création de la liste des demandes en attente
 		List<DemandeAssignation> liste = new LinkedList<DemandeAssignation>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			// On récupère la liste des identifiants des DemandesAssignation non prises en charges
+			//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
 			ResultSet res = s.executeQuery("Select idDemandeA from DemandeAssignation WHERE priseEnCharge = '0'");
-
 			DemandeAssignation ddeAssignation = new DemandeAssignation();
 			List<String> listeIdDde = new ArrayList<String>();
 			int diff;
-
 			while(res.next()) {
 				String idDdeAssignation = res.getString("idDemandeA");
 				listeIdDde.add(idDdeAssignation);
 			}
-
+			
+			//On vérifie que les demandes non prises en charge n'ont pas été "compensées" 
+			//par les mouvements de vélos faits par les utilisateurs, ou les techniciens 
+			//retirant des vélos défectueux. Si une demande est toujours valable, on l'ajoute
+			// à la liste des demandes en attentes
 			for (String idDdeA : listeIdDde){
 				ddeAssignation = getDemandeAssignationById(idDdeA);
 				diff = ddeAssignation.getNombreVelosVoulusDansLieu()-DAOVelo.getVelosByLieu(ddeAssignation.getLieu()).size();
@@ -263,6 +276,7 @@ public class DAODemandeAssignation {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 
@@ -272,13 +286,16 @@ public class DAODemandeAssignation {
 	/**
 	 * @param ddeA
 	 * @return la différence entre le nombre de {@link Velo} voulus dans le {@link Lieu} selon la DemandeAssignation et le
-	 * nombre actuel de Velo dans le Lieu (vélos pas en panne s'il s'agit du garage)
+	 * nombre actuel de Velo dans le Lieu (vélos en état de marche s'il s'agit du garage)
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws ConnexionFermeeException
 	 */
 	public static int getDiff(DemandeAssignation ddeA) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		List<Velo> velos = DAOVelo.getVelosByLieu(ddeA.getLieu());
+		// Si il s'agit du garage, on ne tient pas compte des vélos en panne
+		// car sa grande capacité ne nous limite pas  (on s'interesse donc uniquement
+		// à un ajout de vélos dans ce cas là)
 		if(ddeA.getLieu().getId().equals(Lieu.ID_GARAGE)){
 			for(int k=0;k<velos.size();k++){
 				if(velos.get(k).isEnPanne()){
@@ -305,6 +322,7 @@ public class DAODemandeAssignation {
 		try {
 			int diff = DAODemandeAssignation.getDiff(ddA);
 			String type;
+			//Selon la valeur de diff, on identifie s'il s'agit d'un ajout ou d'un retrait
 			if(diff<0){type = "ajout";}
 			else{type = "retrait";}
 			resul = resul+type+ " de "+Math.abs(diff)+" vélos - "+ddA.getDate().toString();

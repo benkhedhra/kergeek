@@ -33,13 +33,17 @@ public class DAODemandeIntervention {
 	 */
 	public static boolean createDemandeIntervention(DemandeIntervention ddeIntervention) throws SQLException, ClassNotFoundException, ConnexionFermeeException{
 		boolean effectue = false;
-			ConnexionOracleViaJdbc.ouvrir();
-			Statement s = ConnexionOracleViaJdbc.createStatement();
-			try{
+		ConnexionOracleViaJdbc.ouvrir();
+		Statement s = ConnexionOracleViaJdbc.createStatement();
+		try{
+			// On récupère un identifiant à partir de la séquence correspondante
 			ResultSet res = s.executeQuery("Select seqDemandeIntervention.NEXTVAL as id from dual");
 			if (res.next()){
 				String id = res.getString("id");
+				//On assigne l'identifiant à la DemandeIntervention qui va être ajoutée à la base de données
 				ddeIntervention.setId(id);
+
+				//Insertion de la DemandeIntervention dotée de son identifiant dans la base de données
 				if (ddeIntervention.getIntervention() != null){
 					s.executeUpdate("INSERT into DemandeIntervention values (" 
 							+ "'" + id + "',"
@@ -79,7 +83,8 @@ public class DAODemandeIntervention {
 			}
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd míme si des exceptions sont soulevées
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
@@ -97,9 +102,11 @@ public class DAODemandeIntervention {
 	public static boolean updateDemandeIntervention(DemandeIntervention ddeIntervention) throws ClassNotFoundException, SQLException, ConnexionFermeeException{
 		boolean effectue = false;
 		try{
+			//S'il existe bien déjà une ligne correspondant à cette instance dans la base données
 			if (DAODemandeIntervention.getDemandeInterventionById(ddeIntervention.getId()) != null){
 				ConnexionOracleViaJdbc.ouvrir();
 				Statement s = ConnexionOracleViaJdbc.createStatement();
+				//On met à jour les informations
 				s.executeUpdate("UPDATE DemandeIntervention SET "
 						+ "dateDemandeI = TO_DATE('" + UtilitaireDate.conversionPourSQL(ddeIntervention.getDate()) +"','DD-MM-YYYY HH24:MI'), "
 						+ "idVelo = '" + ddeIntervention.getVelo().getId() + "', "
@@ -136,13 +143,15 @@ public class DAODemandeIntervention {
 			System.out.println(e3.getMessage());
 		}
 		finally{
-			ConnexionOracleViaJdbc.fermer();//pour se deconnecter de la bdd même si des exceptions sont soulevées	
+			//se deconnecter de la bdd même si des exceptions sont soulevées
+			ConnexionOracleViaJdbc.fermer();
 		}
 		return effectue;
 	}
 
 	/**
-	 * 
+	 * Obtient un objet java DemandeIntervention à partir d'une ligne de la table
+	 * DEMANDEINTERVENTION de la base de données.
 	 * @param identifiant
 	 * @return l'instance de la classe {@link DemandeIntervention} dont l'identifiant correspond au paramètre.
 	 * @throws SQLException
@@ -158,13 +167,17 @@ public class DAODemandeIntervention {
 			ResultSet res = s.executeQuery("Select * FROM DemandeIntervention WHERE idDemandeI ='" + identifiant + "'");
 			try {
 				if (res.next()) {
+					// On récupère les informations
 
+					//On récupère un Timestamp
 					java.sql.Timestamp tempsDemandeI = res.getTimestamp("dateDemandeI");
+					//Transformation du Timestamp en date
 					java.sql.Date dateDemandeI = new java.sql.Date(tempsDemandeI.getTime());
 					String idVelo = res.getString("idVelo");
 					String idCompte = res.getString("idCompte");
 					String idIntervention = res.getString("idIntervention");
 
+					// On initialise les attributs de notre DemandeIntervention
 					ddeIntervention.setId(identifiant);
 					ddeIntervention.setDate(dateDemandeI);
 					ddeIntervention.setVelo(DAOVelo.getVeloById(idVelo));
@@ -201,6 +214,7 @@ public class DAODemandeIntervention {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 		return ddeIntervention;
@@ -216,30 +230,34 @@ public class DAODemandeIntervention {
 	 * @see DAODemandeIntervention#getDemandeInterventionById(String)
 	 */
 	public static List<DemandeIntervention> getDemandesInterventionEnAttente() throws SQLException, ClassNotFoundException, ConnexionFermeeException {
+		//Création de la liste des demandes en attente
 		List<DemandeIntervention> liste = new LinkedList<DemandeIntervention>();
 
 		ConnexionOracleViaJdbc.ouvrir();
 		Statement s = ConnexionOracleViaJdbc.createStatement();
 		try{
+			// On récupère la liste des identifiants des DemandeIntervertion non prises en charges
+			//c'est-à-dire auquelles aucune intervention n'est associée
+			//(car chaque appel à la DAO getDemandeAssignationById ferme la connexion à oracle)
+			
 			ResultSet res = s.executeQuery("Select idDemandeI from DemandeIntervention WHERE idIntervention IS NULL ORDER BY dateDemandeI ASC");
-			try {
-				DemandeIntervention ddeIntervention = new DemandeIntervention();
-				List<String> listeIdInter = new ArrayList<String>();
-
-				while(res.next()) {
-					String idDdeIntervention = res.getString("idDemandeI");
-					listeIdInter.add(idDdeIntervention);
-				}
-
-				for (String idDdeI : listeIdInter){
-					ddeIntervention = getDemandeInterventionById(idDdeI);
-					liste.add(ddeIntervention);
-				}
+			
+			List<String> listeIdInter = new ArrayList<String>();
+			while(res.next()) {
+				String idDdeIntervention = res.getString("idDemandeI");
+				listeIdInter.add(idDdeIntervention);
 			}
-			catch(SQLException e1){
-				liste = null;
-				System.out.println(e1.getMessage());
+
+			//ajout des DemandeIntervertion en attente à la liste des demandes en attentes
+			DemandeIntervention ddeIntervention = new DemandeIntervention();
+			for (String idDdeI : listeIdInter){
+				ddeIntervention = getDemandeInterventionById(idDdeI);
+				liste.add(ddeIntervention);
 			}
+		}
+		catch(SQLException e1){
+			liste = null;
+			System.out.println(e1.getMessage());
 		}
 		catch(NullPointerException e2){
 			if (ConnexionOracleViaJdbc.getC() == null){
@@ -253,6 +271,7 @@ public class DAODemandeIntervention {
 			}
 		}
 		finally{
+			//se deconnecter de la bdd même si des exceptions sont soulevées
 			ConnexionOracleViaJdbc.fermer();
 		}
 
