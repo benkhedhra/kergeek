@@ -177,10 +177,11 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
-							new FenetreAuthentificationUtil(false);
 						}catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
-							new FenetreAuthentificationUtil(false);
+						}
+						catch (ConnexionFermeeException e){
+							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 						}
 						labelMsg.setText("Station sélectionnée : " + stationEntree.getAdresse());
 						labelMsg.setFont(UtilitaireIhm.POLICE3);
