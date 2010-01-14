@@ -234,7 +234,6 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		try {
 			//s'il a cliqué sur "Valider" après avoir sélectionné un lieu (ou non)
 			if (arg0.getSource()==boutonValider){
@@ -270,6 +269,9 @@ public class FenetreVoirVelosDansLieuAdmin extends JFrame implements ActionListe
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
+		}
+		finally{
+			this.dispose();
 		}
 	}
 }

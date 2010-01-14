@@ -47,7 +47,7 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 	 * le lieu (station ou garage) sélectionné par l'administrateur
 	 */
 	private Lieu lieuEntre;
-	
+
 	/**
 	 * 2 JLabel permettant d'afficher l'id de l'{@link Administrateur} connecté et le message d'invitation à sélectionner un {@link Lieu}
 	 */
@@ -62,7 +62,7 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 	private JButton boutonRetour = new JButton("<html><center>Retour au<br>menu principal</center></html>");
 
 	// Accesseurs utiles
-	
+
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
@@ -93,9 +93,9 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Voir l'état d'un lieu");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -128,7 +128,7 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 		JPanel center = new JPanel();
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
 		center.setPreferredSize(new Dimension(1200,800));
-		
+
 		labelMsg.setPreferredSize(new Dimension(1100,100));
 		center.add(labelMsg);
 
@@ -181,7 +181,7 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 			boutonValider.setFont(UtilitaireIhm.POLICE3);
 			boutonValider.addActionListener(this);
 			centerWest.add(boutonValider);
-			
+
 			center.add(centerWest,BorderLayout.WEST);
 
 			this.getContentPane().add(center,BorderLayout.CENTER);
@@ -220,35 +220,38 @@ public class FenetreEtatLieuAdmin extends JFrame implements ActionListener {
 	 * @param arg0
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		if (arg0.getSource()==boutonValider){
-			try {
-				if(this.getLieuEntre()==null){
-					MsgBox.affMsg("Vous n'avez sélectionné aucun lieu. ");
-					new FenetreEtatLieuAdmin(this.getAdministrateur());
+		try{
+			if (arg0.getSource()==boutonValider){
+				try {
+					if(this.getLieuEntre()==null){
+						MsgBox.affMsg("Vous n'avez sélectionné aucun lieu. ");
+						new FenetreEtatLieuAdmin(this.getAdministrateur());
+					}
+					else{
+						// l'administrateur a bien sélectionné un lieu de la liste puis a validé
+						// FenetreAffichageResultatsAdmin affichera les graphiques adéquats en fonction de la fenêtre en cours
+						new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+					}
+				} 
+				catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} 
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
 				}
-				else{
-					// l'administrateur a bien sélectionné un lieu de la liste puis a validé
-					// FenetreAffichageResultatsAdmin affichera les graphiques adéquats en fonction de la fenêtre en cours
-					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
-				}
-			} 
-			catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
+			}
+			else if (arg0.getSource()==boutonRetour){
 				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} 
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
 			}
 		}
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
-
 	}
 }

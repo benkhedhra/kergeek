@@ -185,7 +185,6 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 	 * @see Administrateur#supprimerVelo(Velo)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		try {
 			//s'il est dans le contexte de la modification d'un compte
 			if(fenetrePrecedente.getTitle().equals("Modifier informations sur un compte")){
@@ -222,6 +221,9 @@ public class FenetreDemandeConfirmationAdmin extends JFrame implements ActionLis
 		} catch (ConnexionFermeeException e) {
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
+		}
+		finally{
+			this.dispose();
 		}
 	}
 }

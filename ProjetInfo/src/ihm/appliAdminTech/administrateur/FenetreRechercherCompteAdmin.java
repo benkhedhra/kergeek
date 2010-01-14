@@ -48,14 +48,14 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	 * booléen indiquant si l'on se trouve dans un contexte de recherche de statistiques sur les emprunts d'un Utilisateur ou non
 	 */
 	private boolean stat;
-	
+
 	/**
 	 * 3 JLabel permettant d'afficher l'id de l'administrateur connecté, l'endroit où il se trouve dans l'application, et le message introduisant le contenu de la fenêtre
 	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelChemin = new JLabel("");
 	private JLabel labelMsg = new JLabel("Rechercher par : ");
-	
+
 	/**
 	 * JLabel et TextFieldLimite indiquant les paramètres à remplir (ou non) pour la recherche de compte
 	 */
@@ -88,9 +88,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	private JButton boutonValider = new JButton("Lancer la recherche");
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-	
+
 	//Accesseurs utiles
-	
+
 	/*
 	 * attribut administrateur 
 	 */
@@ -172,9 +172,9 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Rechercher un compte");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -190,7 +190,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 
 		this.setAdministrateur(a);
 		this.stat=stat;
-		
+
 		if(stat){
 			labelChemin.setText("Menu principal > Demander des statistiques > Statistiques sur utilisateurs");
 		}
@@ -298,7 +298,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			adresseEMailARemplir.setMaximumSize(new Dimension(300,40));
 			panel6.add(adresseEMailARemplir);
 			centerWest.add(panel6);
-			
+
 			JPanel panel7 = new JPanel();
 			panel7.setBackground(UtilitaireIhm.TRANSPARENCE);	
 			labelNom.setPreferredSize(new Dimension(500,40));
@@ -361,7 +361,7 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 			adresseEMailARemplir.setMaximumSize(new Dimension(300,40));
 			panel6.add(adresseEMailARemplir);
 			centerWest.add(panel6);
-			
+
 			JPanel panel7 = new JPanel();
 			panel7.setBackground(UtilitaireIhm.TRANSPARENCE);	
 			labelNom.setPreferredSize(new Dimension(500,40));
@@ -447,34 +447,38 @@ public class FenetreRechercherCompteAdmin extends JFrame implements ActionListen
 	 * @see FenetreResultatsRechercheCompteAdmin#FenetreResultatsRechercheCompteAdmin(Administrateur, FenetreRechercherCompteAdmin, boolean)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		//s'il a cliqué sur "Lancer la recherche"
-		if(arg0.getSource()==boutonValider){
-			this.setTypeEntre(typeEntre);
-			//s'il n'a rien entré pour le type alors typeEntre vaudra null, ou 0 (pour un entier)
-			if(!idARemplir.getText().equals("")){
-				this.setIdEntre(idARemplir.getText());
+		try{
+			//s'il a cliqué sur "Lancer la recherche"
+			if(arg0.getSource()==boutonValider){
+				this.setTypeEntre(typeEntre);
+				//s'il n'a rien entré pour le type alors typeEntre vaudra null, ou 0 (pour un entier)
+				if(!idARemplir.getText().equals("")){
+					this.setIdEntre(idARemplir.getText());
+				}
+				if(!nomARemplir.getText().equals("")){
+					this.setNomEntre(nomARemplir.getText());
+				}
+				if(!prenomARemplir.getText().equals("")){
+					this.setPrenomEntre(prenomARemplir.getText());
+				}
+				if(!adresseEMailARemplir.getText().equals("")){
+					this.setAdresseEMailEntree(adresseEMailARemplir.getText());
+				}
+				try {
+					new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
+				} 
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
+				}
 			}
-			if(!nomARemplir.getText().equals("")){
-				this.setNomEntre(nomARemplir.getText());
-			}
-			if(!prenomARemplir.getText().equals("")){
-				this.setPrenomEntre(prenomARemplir.getText());
-			}
-			if(!adresseEMailARemplir.getText().equals("")){
-				this.setAdresseEMailEntree(adresseEMailARemplir.getText());
-			}
-			try {
-				new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(),this,stat);
-			} 
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+			//s'il a cliqué sur "Retourner au menu principal"
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
 		}
-		//s'il a cliqué sur "Retourner au menu principal"
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
 	}		
 }

@@ -300,7 +300,6 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 	 * @param arg0
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		try {
 			if(arg0.getSource()==boutonPrendreEnCharge){
 				//le technicien doit cliquer sur le bouton "prendre en charge" juste avant ou juste après avoir effectivement déplacé les vélos, de manière à être sûr qu'aucun autre technicien n'ait effectué l'opération (il a accès à l'application depuis son camion)
@@ -332,6 +331,9 @@ public class FenetreGererUneDemandeAssignationTech extends JFrame implements Act
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
+		}
+		finally{
+			this.dispose();
 		}
 	}		
 }

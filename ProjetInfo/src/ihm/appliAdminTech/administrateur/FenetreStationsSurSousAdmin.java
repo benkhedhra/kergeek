@@ -100,9 +100,9 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Stations sur et sous occupées");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -224,33 +224,37 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 	 * @see FenetreAffichageResultatsAdmin#FenetreAffichageResultatsAdmin(Administrateur, JFrame)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		//s'il a cliqué sur "Valider"
-		if (arg0.getSource()==boutonValider){
-			try {
-				if(this.getStationEntree()==null){
-					MsgBox.affMsg("Vous n'avez sélectionné aucune station. ");
-					new FenetreStationsSurSousAdmin(this.getAdministrateur());
+		try{
+			//s'il a cliqué sur "Valider"
+			if (arg0.getSource()==boutonValider){
+				try {
+					if(this.getStationEntree()==null){
+						MsgBox.affMsg("Vous n'avez sélectionné aucune station. ");
+						new FenetreStationsSurSousAdmin(this.getAdministrateur());
+					}
+					else{
+						//il a sélectionné une station valide
+						new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+					}
+				} catch (SQLException e) {
+					MsgBox.affMsg(e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
+				} catch (ClassNotFoundException e) {
+					MsgBox.affMsg(e.getMessage());
+					new MenuPrincipalAdmin(this.getAdministrateur());
 				}
-				else{
-					//il a sélectionné une station valide
-					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+				catch (ConnexionFermeeException e){
+					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+					new FenetreAuthentification(false);
 				}
-			} catch (SQLException e) {
-				MsgBox.affMsg(e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
-			} catch (ClassNotFoundException e) {
-				MsgBox.affMsg(e.getMessage());
-				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
-			catch (ConnexionFermeeException e){
-				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-				new FenetreAuthentification(false);
+			//s'il a cliqué sur "Retourner au menu principal"
+			else if (arg0.getSource()==boutonRetour){
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
 		}
-		//s'il a cliqué sur "Retourner au menu principal"
-		else if (arg0.getSource()==boutonRetour){
-			new MenuPrincipalAdmin(this.getAdministrateur());
+		finally{
+			this.dispose();
 		}
 	}
 }

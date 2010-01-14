@@ -171,7 +171,6 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 	 * @see FenetreConfirmation#FenetreConfirmation(metier.Compte, JFrame)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
 		try{
 			if(arg0.getSource()==bouton1){
 				new FenetreEnregistrerArrivageVelosTech(this.getTechnicien());
@@ -203,6 +202,9 @@ public class MenuPrincipalTech extends JFrame implements ActionListener {
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
+		}
+		finally{
+			this.dispose();
 		}
 	}
 }
