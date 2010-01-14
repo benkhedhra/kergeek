@@ -250,8 +250,5 @@ public class FenetreGererUneInterventionTech extends JFrame implements ActionLis
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
 		}
-		finally{
-			this.dispose();
-		}
 	}		
 }

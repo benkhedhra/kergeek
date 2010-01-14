@@ -217,6 +217,7 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		try{
 			if(arg0.getSource()==boutonValider){
 				String ancienMdp = UtilitaireIhm.obtenirMotDePasse(ancienMdpARemplir);
@@ -256,9 +257,6 @@ public class FenetreChangerMotDePasse extends JFrame implements ActionListener {
 		catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
-		}
-		finally{
-			this.dispose();
 		}
 	}
 }

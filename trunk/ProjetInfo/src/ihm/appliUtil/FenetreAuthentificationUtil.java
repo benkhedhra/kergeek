@@ -180,6 +180,7 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		try {
 			if(arg0.getSource()==boutonInfo){
 				new FenetreConfirmationUtil("<html><center>Bélo Breizh est un système de location de vélos sur le campus de Ker Lann. <br>Notre réseau comporte 7 stations. <br><br>Pour plus de détails, contactez-nous à l'adresse<br>kergeek@gmail.com<br><br> Pour vous inscrire et pouvoir utiliser notre réseau, veuillez vous rendre à notre agence au <br>1, rue des vélos (Bruz)<br><br>muni d'une pièce d'identité et d'une photo. <br><br>A très bientôt ! ");
@@ -224,9 +225,6 @@ public class FenetreAuthentificationUtil extends JFrame implements ActionListene
 		catch (ConnexionFermeeException e3){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentificationUtil(false);
-		}
-		finally{
-			this.dispose();
 		}
 	}
 }

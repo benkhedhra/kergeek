@@ -148,6 +148,7 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		if (arg0.getSource()==boutonCreation){
 			new FenetreCreationCompteAdmin(this.getAdministrateur());
 		}
@@ -157,7 +158,6 @@ public class MenuGererComptesAdmin extends JFrame implements ActionListener {
 		else if(arg0.getSource()==boutonRetour){
 			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
-		this.dispose();
 	}
 
 }

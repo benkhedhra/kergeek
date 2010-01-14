@@ -40,29 +40,29 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 	 * l'administrateur connecté sur la fenêtre
 	 */
 	private Administrateur admin;
-
+	
 	/**
 	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et l'endroit de l'application où il se trouve
 	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelChemin = new JLabel("Menu principal > Demander des statistiques > Maintenance");
-
+	
 	/**
 	 * 3 JButton proposant les 2 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
 	 */
 
 	private JButton boutonHistorique = new JButton("<html> <center>Historique des<br>interventions<br>sur un vélo</center></html>");
 	private JButton boutonInterventions = new JButton("<html> <center>Nombre d'interventions<br>par type<br>sur les 6 derniers mois</center></html>");
-
+	
 	private JButton boutonRetour = new JButton("Retour au menu principal");
-
-
+	
+	
 	//Accesseurs utiles
-
+	
 	/*
 	 * attribut administrateur
 	 */
-
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -154,33 +154,29 @@ public class MenuInterventionsMaintenanceAdmin extends JFrame implements ActionL
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			//s'il a cliqué sur "Voir l'historique des interventions sur un vélo"
-			if (arg0.getSource()==boutonHistorique){
-				new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
-			}
-			//s'il a cliqué sur "Voir les interventions les plus fréquentes"
-			else if (arg0.getSource()==boutonInterventions){
-				try {
-					new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
-				} catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
-			//s'il a cliqué sur "Retour au milieu principal"
-			else if(arg0.getSource()==boutonRetour){
+		this.dispose();
+		//s'il a cliqué sur "Voir l'historique des interventions sur un vélo"
+		if (arg0.getSource()==boutonHistorique){
+			new FenetreHistoriqueVeloAdmin(this.getAdministrateur());
+		}
+		//s'il a cliqué sur "Voir les interventions les plus fréquentes"
+		else if (arg0.getSource()==boutonInterventions){
+			try {
+				new FenetreAffichageResultatsAdmin(this.getAdministrateur(),this);
+			} catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
 				new MenuPrincipalAdmin(this.getAdministrateur());
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
-		finally{
-			this.dispose();
+		//s'il a cliqué sur "Retour au milieu principal"
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 	}
 }

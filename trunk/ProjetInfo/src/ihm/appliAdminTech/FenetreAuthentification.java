@@ -213,6 +213,7 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 
 		String id = idARemplir.getText();
 		try {
@@ -259,9 +260,6 @@ public class FenetreAuthentification extends JFrame implements ActionListener {
 		} catch (ConnexionFermeeException e){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentification(false);
-		}
-		finally{
-			this.dispose();
 		}
 	}
 }

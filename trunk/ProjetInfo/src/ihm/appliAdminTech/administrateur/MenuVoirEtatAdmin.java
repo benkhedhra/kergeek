@@ -31,13 +31,13 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	 * l'administrateur connecté sur la fenêtre
 	 */
 	private Administrateur admin;
-
+	
 	/**
 	 * 2 JLabel permettant d'afficher l'id de l'administrateur connecté et l'endroit de l'application où il se trouve
 	 */
 	private JLabel labelAdmin = new JLabel("");
 	private JLabel labelChemin = new JLabel("Menu principal > Voir l'état du parc");
-
+	
 	/**
 	 * 4 JButton proposant les 3 choix possibles à l'administrateur et lui permettant aussi de retourner au menu principal
 	 */
@@ -48,11 +48,11 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
 	//Accesseurs utiles
-
+	
 	/*
 	 * attribut administrateur
 	 */
-
+	
 	public Administrateur getAdministrateur() {
 		return admin;
 	}
@@ -73,9 +73,9 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Menu <voir état du parc> de l'administrateur");
 		//Définit une taille pour celle-ci
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		Rectangle bounds = env.getMaximumWindowBounds();
-		this.setBounds(bounds);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -151,39 +151,35 @@ public class MenuVoirEtatAdmin extends JFrame implements ActionListener {
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			//s'il a cliqué sur "stations sur et sous-occupées"
-			if (arg0.getSource()==boutonStationsSurSous){
-				try {
-					new FenetreStationsSurSousAdmin(this.getAdministrateur());
-				} catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
-			//s'il a cliqué sur "voir l'état d'une station ou du garage"
-			else if (arg0.getSource()==boutonEtatLieu){
-				try {
-					new FenetreEtatLieuAdmin(this.getAdministrateur());
-				} catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
-			else if (arg0.getSource()==boutonVelos){
-				try {
-					new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
-				} catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
-			else if(arg0.getSource()==boutonRetour){
-				new MenuPrincipalAdmin(this.getAdministrateur());
+		this.dispose();
+		//s'il a cliqué sur "stations sur et sous-occupées"
+		if (arg0.getSource()==boutonStationsSurSous){
+			try {
+				new FenetreStationsSurSousAdmin(this.getAdministrateur());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
-		finally{
-			this.dispose();
+		//s'il a cliqué sur "voir l'état d'une station ou du garage"
+		else if (arg0.getSource()==boutonEtatLieu){
+			try {
+				new FenetreEtatLieuAdmin(this.getAdministrateur());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
+		}
+		else if (arg0.getSource()==boutonVelos){
+			try {
+				new FenetreVoirVelosDansLieuAdmin(this.getAdministrateur());
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+			}
+		}
+		else if(arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 	}
 }

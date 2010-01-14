@@ -52,24 +52,24 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 	 * booléen indiquant si l'on se trouve dans un contexte de recherche de statistiques sur les emprunts d'un Utilisateur ou non
 	 */
 	private boolean stat;
-
+	
 	/**
 	 * attribut correspondant à la fenêtre précédente permettant de récupérer les paramètres de la recherche
 	 */
 	private FenetreRechercherCompteAdmin fenetrePrecedente;
-
+	
 	/**
 	 * 3 JLabel permettant d'afficher l'id de l'administrateur connecté, l'endroit où il se trouve dans l'application, et le message introduisant le contenu de la fenêtre
 	 */
 	private JLabel labelAdmin = new JLabel("");;
 	private JLabel labelMsg = new JLabel("");
 	private JLabel labelChemin = new JLabel("");
-
+	
 	/**
 	 * le {@link Compte} sélectionnée parmi les résultats de la recherche
 	 */
 	private Compte compteEntre;
-
+	
 	/**
 	 * 3 JButton proposant à l'Administrateur de valider sa sélection, d'effectuer une nouvelle recherche, ou de retourner à son menu principal
 	 */
@@ -77,9 +77,9 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 	private JButton boutonNouvelleRecherche = new JButton("Nouvelle recherche");	
 	private JButton boutonRetour = new JButton("Retour au menu principal");
 
-
+	
 	//Accesseurs utiles
-
+	
 	/*
 	 * attribut administrateur
 	 */
@@ -130,9 +130,9 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Résultats de la recherche");
 		//Définit une taille pour celle-ci
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		Rectangle bounds = env.getMaximumWindowBounds();
-		this.setBounds(bounds);
+	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    Rectangle bounds = env.getMaximumWindowBounds();
+	    this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -149,7 +149,7 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 		this.setAdministrateur(a);
 		fenetrePrecedente=fenetrePrec;
 		this.setStat(stat);
-
+		
 		if(this.isStat()){
 			labelChemin.setText("Menu principal > Demander des statistiques > Statistiques sur utilisateurs > Résultats de la recherche");
 		}
@@ -293,33 +293,29 @@ public class FenetreResultatsRechercheCompteAdmin extends JFrame implements Acti
 	 * @see MenuPrincipalAdmin#MenuPrincipalAdmin(Administrateur)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			//s'il a cliqué sur "Valider"
-			if (arg0.getSource()==boutonValider){
-				try {
-					if(compteEntre==null){
-						MsgBox.affMsg("Vous n'avez sélectionné aucun compte");
-						new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(), fenetrePrecedente, this.isStat());
-					}
-					else{
-						new FenetreInfoCompteAdmin(this.getAdministrateur(),compteEntre,stat);
-					}
-				} catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
+		this.dispose();
+		//s'il a cliqué sur "Valider"
+		if (arg0.getSource()==boutonValider){
+			try {
+				if(compteEntre==null){
+					MsgBox.affMsg("Vous n'avez sélectionné aucun compte");
+					new FenetreResultatsRechercheCompteAdmin(this.getAdministrateur(), fenetrePrecedente, this.isStat());
 				}
-			}
-			//s'il a cliqué sur "lancer une nouvelle recherche"
-			else if (arg0.getSource()==boutonNouvelleRecherche){
-				new FenetreRechercherCompteAdmin(this.getAdministrateur(),stat);
-			}
-			//s'il a cliqué sur "retourner au menu principal"
-			else if (arg0.getSource()==boutonRetour){
-				new MenuPrincipalAdmin(this.getAdministrateur());
+				else{
+					new FenetreInfoCompteAdmin(this.getAdministrateur(),compteEntre,stat);
+				}
+			} catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
 			}
 		}
-		finally{
-			this.dispose();
+		//s'il a cliqué sur "lancer une nouvelle recherche"
+		else if (arg0.getSource()==boutonNouvelleRecherche){
+			new FenetreRechercherCompteAdmin(this.getAdministrateur(),stat);
+		}
+		//s'il a cliqué sur "retourner au menu principal"
+		else if (arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
 		}
 	}
 }

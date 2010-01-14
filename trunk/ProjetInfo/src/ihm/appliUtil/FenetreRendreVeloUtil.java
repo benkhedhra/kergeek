@@ -235,6 +235,7 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 	 * @throws MessagingException
 	 */
 	public void actionPerformed(ActionEvent arg0) {
+		this.dispose();
 		try{
 			if (arg0.getSource()==boutonDeconnexion){
 				new FenetreConfirmationUtil("Merci et à bientôt ! ");
@@ -339,9 +340,6 @@ public class FenetreRendreVeloUtil extends JFrame implements ActionListener {
 		} catch (ConnexionFermeeException e3){
 			MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
 			new FenetreAuthentificationUtil(false);
-		}
-		finally{
-			this.dispose();
-		}
+		} 
 	}
 }

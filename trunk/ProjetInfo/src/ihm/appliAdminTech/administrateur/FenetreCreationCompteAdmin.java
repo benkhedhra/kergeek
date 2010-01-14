@@ -324,49 +324,19 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 	 * @see UtilitaireIhm#verifieChampsCreationUtil(int, String, String, String, String)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		try{
-			// s'il a cliqué sur "Valider"
-			if(arg0.getSource()==boutonValider){
-				try {
-					if (UtilitaireIhm.verifieTypeCreationCompte(typeEntre)){
-						// si c'est un compte utilisateur
-						if(typeEntre==Compte.TYPE_UTILISATEUR){
-							if(UtilitaireIhm.verifieChampsCreationUtil(typeEntre,adresseEMailARemplir.getText(),nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText())){
-								Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-								try {
-									Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
-									DAOUtilisateur.createUtilisateur(utilisateur);
-									try{
-										SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+utilisateur.getPrenom()+" "+utilisateur.getPrenom()+"\n Vous pouvez dès à présent utiliser BéloBreizh ! \nA bientôt sur les routes de KerLann ! \n\nKerGeek");
-									} catch (SendFailedException e) {
-										MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
-									} catch (UnsupportedEncodingException e) {
-										MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
-									} catch (MessagingException e) {
-										MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
-									}
-									new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-								}
-								catch (TypeCompteException e) {
-									MsgBox.affMsg(e.getMessage());
-									new FenetreCreationCompteAdmin(this.getAdministrateur());
-								}
-							}
-							else {
-								MsgBox.affMsg("Les champs entrés sont incorrects");
-								new FenetreCreationCompteAdmin(this.getAdministrateur());
-							}
-						}
-						// si c'est un compte administrateur
-						if(typeEntre==Compte.TYPE_ADMINISTRATEUR){
-							if(UtilitaireIhm.verifieChampsCreationAdmin(typeEntre,adresseEMailARemplir.getText())){
-								Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-								Administrateur administrateur;
-								administrateur = this.getAdministrateur().creerAdministrateur(compte);
-
-								DAOAdministrateur.createAdministrateur(administrateur);
+		// s'il a cliqué sur "Valider"
+		if(arg0.getSource()==boutonValider){
+			try {
+				if (UtilitaireIhm.verifieTypeCreationCompte(typeEntre)){
+					// si c'est un compte utilisateur
+					if(typeEntre==Compte.TYPE_UTILISATEUR){
+						if(UtilitaireIhm.verifieChampsCreationUtil(typeEntre,adresseEMailARemplir.getText(),nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText())){
+							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+							try {
+								Utilisateur utilisateur = this.getAdministrateur().creerUtilisateur(compte, nomARemplir.getText(), prenomARemplir.getText(), adressePostaleARemplir.getText());
+								DAOUtilisateur.createUtilisateur(utilisateur);
 								try{
-									SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant qu'administrateur de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
+									SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+utilisateur.getPrenom()+" "+utilisateur.getPrenom()+"\n Vous pouvez dès à présent utiliser BéloBreizh ! \nA bientôt sur les routes de KerLann ! \n\nKerGeek");
 								} catch (SendFailedException e) {
 									MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
 								} catch (UnsupportedEncodingException e) {
@@ -375,62 +345,100 @@ public class FenetreCreationCompteAdmin extends JFrame implements ActionListener
 									MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
 								}
 								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+								this.dispose();
 							}
-							else {
-								MsgBox.affMsg("Les champs entrés sont incorrects");
+							catch (TypeCompteException e) {
+								MsgBox.affMsg(e.getMessage());
 								new FenetreCreationCompteAdmin(this.getAdministrateur());
+								this.dispose();
 							}
 						}
-						// si c'est un compte technicien
-						if(typeEntre==Compte.TYPE_TECHNICIEN){
-							if(UtilitaireIhm.verifieChampsCreationTech(typeEntre,adresseEMailARemplir.getText())){
-								Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
-								Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
-								DAOTechnicien.createTechnicien(technicien);
-								try{
-									SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant que technicien de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
-								} catch (SendFailedException e) {
-									MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
-								} catch (UnsupportedEncodingException e) {
-									MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
-								} catch (MessagingException e) {
-									MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
-								}
-								new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
-							}
-							else {
-								MsgBox.affMsg("Les champs entrés sont incorrects");
-								new FenetreCreationCompteAdmin(this.getAdministrateur());
-							}
+						else {
+							MsgBox.affMsg("Les champs entrés sont incorrects");
+							new FenetreCreationCompteAdmin(this.getAdministrateur());
+							this.dispose();
 						}
 					}
-					else{
-						MsgBox.affMsg("Sélectionnez un type de compte");
-						new FenetreCreationCompteAdmin(this.getAdministrateur());
-					}
+					// si c'est un compte administrateur
+					if(typeEntre==Compte.TYPE_ADMINISTRATEUR){
+						if(UtilitaireIhm.verifieChampsCreationAdmin(typeEntre,adresseEMailARemplir.getText())){
+							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+							Administrateur administrateur;
+							administrateur = this.getAdministrateur().creerAdministrateur(compte);
 
-				} 
-				catch (SQLException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} catch (ClassNotFoundException e) {
-					MsgBox.affMsg(e.getMessage());
-					new MenuPrincipalAdmin(this.getAdministrateur());
-				} catch (TypeCompteException e) {
-					MsgBox.affMsg(e.getMessage());
+							DAOAdministrateur.createAdministrateur(administrateur);
+							try{
+								SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant qu'administrateur de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
+							} catch (SendFailedException e) {
+								MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
+							} catch (UnsupportedEncodingException e) {
+								MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							this.dispose();
+						}
+						else {
+							MsgBox.affMsg("Les champs entrés sont incorrects");
+							new FenetreCreationCompteAdmin(this.getAdministrateur());
+							this.dispose();
+						}
+					}
+					// si c'est un compte technicien
+					if(typeEntre==Compte.TYPE_TECHNICIEN){
+						if(UtilitaireIhm.verifieChampsCreationTech(typeEntre,adresseEMailARemplir.getText())){
+							Compte compte = this.getAdministrateur().creerCompte(typeEntre, adresseEMailARemplir.getText());
+							Technicien technicien = this.getAdministrateur().creerTechnicien(compte);
+							DAOTechnicien.createTechnicien(technicien);
+							try{
+								SendMail.sendMail(compte.getAdresseEmail(),"Votre compte a été créé","Bonjour "+compte.getId()+"\n Votre compte vient d'être créé en tant que technicien de BéloBreizh. \n Votre mot de passe est le suivant : "+compte.getMotDePasse()+". \n Nous vous invitons dès à présent à vous connecter sur l'application afin de le modifier. \nA bientôt ! \n\nKerGeek");
+							} catch (SendFailedException e) {
+								MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
+							} catch (UnsupportedEncodingException e) {
+								MsgBox.affMsg("L'adresse e-mail donnée est invalide. Veuillez la modifier ultérieurement. ");
+							} catch (MessagingException e) {
+								MsgBox.affMsg("Echec dans l'envoi de l'e-mail : "+e.getMessage());					
+							}
+							new FenetreConfirmation(this.getAdministrateur().getCompte(),this);
+							this.dispose();
+						}
+						else {
+							MsgBox.affMsg("Les champs entrés sont incorrects");
+							new FenetreCreationCompteAdmin(this.getAdministrateur());
+							this.dispose();
+						}
+					}
+				}
+				else{
+					MsgBox.affMsg("Sélectionnez un type de compte");
 					new FenetreCreationCompteAdmin(this.getAdministrateur());
+					this.dispose();
 				}
-				catch (ConnexionFermeeException e){
-					MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-					new FenetreAuthentification(false);
-				}
-			}
-			//s'il a cliqué sur "Retour au menu principal"
-			else if (arg0.getSource()==boutonRetour){
+
+			} 
+			catch (SQLException e) {
+				MsgBox.affMsg(e.getMessage());
 				new MenuPrincipalAdmin(this.getAdministrateur());
+				this.dispose();
+			} catch (ClassNotFoundException e) {
+				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
+				this.dispose();
+			} catch (TypeCompteException e) {
+				MsgBox.affMsg(e.getMessage());
+				new FenetreCreationCompteAdmin(this.getAdministrateur());
+				this.dispose();
+			}
+			catch (ConnexionFermeeException e){
+				MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+				new FenetreAuthentification(false);
+				this.dispose();
 			}
 		}
-		finally{
+		//s'il a cliqué sur "Retour au menu principal"
+		else if (arg0.getSource()==boutonRetour){
+			new MenuPrincipalAdmin(this.getAdministrateur());
 			this.dispose();
 		}
 	}
