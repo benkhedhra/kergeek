@@ -184,12 +184,13 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 					}
 					catch (ConnexionFermeeException e){
 						MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
+						new FenetreAuthentification(false);
 					}
 				}
 			});
 			center.add(combo);
 		} catch (SQLException e) {
-			MsgBox.affMsg(e.getMessage());
+			MsgBox.affMsg("SQL Exception 1" + e.getMessage());
 			new MenuPrincipalTech(this.getTechnicien());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg(e.getMessage());
@@ -245,7 +246,7 @@ public class FenetreGererDemandesAssignationTech extends JFrame implements Actio
 				new MenuPrincipalTech(this.getTechnicien());
 			}
 		} catch (SQLException e) {
-			MsgBox.affMsg(e.getMessage());
+			MsgBox.affMsg("SQL Exception : " + e.getMessage());
 			try {
 				new FenetreGererDemandesAssignationTech(this.getTechnicien());
 			} catch (ConnexionFermeeException e1) {
