@@ -172,14 +172,11 @@ public class FenetreStationsSurSousAdmin extends JFrame implements ActionListene
 							stationEntree = (Station) DAOLieu.getLieuById(idStationEntre);
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
-							new FenetreAuthentification(false);
 						} catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
-							new FenetreAuthentification(false);
 						}
 						catch (ConnexionFermeeException e){
 							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
-							new FenetreAuthentification(false);
 						}
 					}
 					repaint();
