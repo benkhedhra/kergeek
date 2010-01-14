@@ -208,8 +208,10 @@ public class FenetreInfoCompteAdmin extends JFrame implements ActionListener {
 				u = DAOUtilisateur.getUtilisateurById(c.getId());
 			} catch (SQLException e) {
 				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			} catch (ClassNotFoundException e) {
 				MsgBox.affMsg(e.getMessage());
+				new MenuPrincipalAdmin(this.getAdministrateur());
 			}
 			
 			JPanel panel5 = new JPanel();

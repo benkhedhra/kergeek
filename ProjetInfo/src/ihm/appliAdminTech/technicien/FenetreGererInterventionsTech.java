@@ -93,9 +93,9 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		//Définit un titre pour notre fenêtre
 		this.setTitle("Gérer les interventions non traitées");
 		//Définit une taille pour celle-ci
-	    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    Rectangle bounds = env.getMaximumWindowBounds();
-	    this.setBounds(bounds);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+		this.setBounds(bounds);
 		//Terminer le processus lorsqu'on clique sur "Fermer"
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Nous allons maintenant dire à notre objet de se positionner au centre
@@ -128,7 +128,7 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 		JPanel center = new JPanel();
 		center.setPreferredSize(new Dimension(1200,800));
 		center.setBackground(UtilitaireIhm.TRANSPARENCE);
-		
+
 		labelMsg.setPreferredSize(new Dimension(1100,100));
 
 		List<Intervention> listeInterventions;
@@ -174,8 +174,10 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 							repaint();
 						} catch (SQLException e) {
 							MsgBox.affMsg(e.getMessage());
+							new FenetreAuthentification(false);
 						} catch (ClassNotFoundException e) {
 							MsgBox.affMsg(e.getMessage());
+							new FenetreAuthentification(false);
 						}
 						catch (ConnexionFermeeException e){
 							MsgBox.affMsg("<html> <center>Le système rencontre actuellement un problème technique. <br>L'application n'est pas disponible. <br>Veuillez contacter votre administrateur réseau et réessayer ultérieurement. Merci</center></html>");
@@ -214,8 +216,10 @@ public class FenetreGererInterventionsTech extends JFrame implements ActionListe
 			this.setVisible(true);
 		} catch (SQLException e) {
 			MsgBox.affMsg("SQLException : "+e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		} catch (ClassNotFoundException e) {
 			MsgBox.affMsg("ClassNotFoundException : "+e.getMessage());
+			new MenuPrincipalTech(this.getTechnicien());
 		}
 	}
 
