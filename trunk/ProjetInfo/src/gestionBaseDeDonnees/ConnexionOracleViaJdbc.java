@@ -6,12 +6,14 @@ package gestionBaseDeDonnees;
  */
 
 import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
+import gestionBaseDeDonnees.exceptionsTechniques.ExceptionAuthentification;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import oracle.jdbc.pool.OracleDataSource;
@@ -39,10 +41,8 @@ public class ConnexionOracleViaJdbc {
 	 */
 	static private String urlOracle;
 
-	//TODO
-	private ConnexionOracleViaJdbc(){
-	}
-
+	
+	// Méthodes
 	/**
 	 * connexion au serveur Oracle.
 	 * @throws ClassNotFoundException
@@ -209,10 +209,12 @@ public class ConnexionOracleViaJdbc {
 	/**
 	 * On initialise les paramètre de connexion à Oracle à partir d'un fichier
 	 * @throws FileNotFoundException
+	 * @throws ExceptionAuthentification 
 	 */
-	public static void parametresConnexionOracle() throws FileNotFoundException{
+	public static void parametresConnexionOracle() throws FileNotFoundException, ExceptionAuthentification{
 		//ouverture du scanner
 		Scanner scanner=new Scanner(new File(System.getProperty("user.dir")+"/src/ressources/parametresOracle.txt"));
+		try{
 		scanner.nextLine();
 		scanner.nextLine();
 		scanner.nextLine();
@@ -230,7 +232,10 @@ public class ConnexionOracleViaJdbc {
 		
 		//initialisation du mot de passe
 		setMotDePasseOracle(scanner.nextLine());
-		
+		}
+		catch (NoSuchElementException e){
+			throw new ExceptionAuthentification(e.getMessage());
+		}
 		//fermeture du scanner
 		scanner.close();
 	}
