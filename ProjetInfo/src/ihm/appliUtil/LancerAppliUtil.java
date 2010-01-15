@@ -2,7 +2,6 @@ package ihm.appliUtil;
 
 import gestionBaseDeDonnees.ConnexionOracleViaJdbc;
 import gestionBaseDeDonnees.UtilitaireSQL;
-import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.exceptionsTechniques.ExceptionAuthentification;
 import ihm.MsgBox;
 
@@ -16,6 +15,12 @@ import java.io.FileNotFoundException;
  *
  */
 public class LancerAppliUtil {
+	
+	/**
+	 * Lancement de l'application de l'utilisateur
+	 * à condition que l'on puisse accéder à Oracle.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
 			ConnexionOracleViaJdbc.parametresConnexionOracle();
@@ -25,10 +30,12 @@ public class LancerAppliUtil {
 		} 
 		catch (ExceptionAuthentification e) {
 			MsgBox.affMsg("<html> <center>Les paramètres de connexion à Oracle ne sont pas valides " +
-					"<br> Merci de modifier le fichier " +System.getProperty("user.dir")+"\\src/ressources\\parametresOracle </center></html>");
+					"<br> Merci de modifier le fichier<br>" +System.getProperty("user.dir")+"\\src\\ressources\\parametresOracle </center></html>");
+			System.exit(0);
 		}
 		catch (FileNotFoundException e) {
 			MsgBox.affMsg("Le fichier 'parametresOracle est introuvable à l'adresse " + System.getProperty("user.dir")+"/src/ressources");
+			System.exit(0);
 		} 
 	}
 }

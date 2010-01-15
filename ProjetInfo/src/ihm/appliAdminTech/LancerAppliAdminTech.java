@@ -2,9 +2,7 @@ package ihm.appliAdminTech;
 
 import gestionBaseDeDonnees.ConnexionOracleViaJdbc;
 import gestionBaseDeDonnees.UtilitaireSQL;
-import gestionBaseDeDonnees.exceptionsTechniques.ConnexionFermeeException;
 import gestionBaseDeDonnees.exceptionsTechniques.ExceptionAuthentification;
-
 import ihm.MsgBox;
 
 import java.io.FileNotFoundException;
@@ -16,7 +14,14 @@ import java.sql.SQLException;
  *
  */
 public class LancerAppliAdminTech {
-
+	
+	/**
+	 * Lancement de l'application de l'administrateur et du technicien
+	 * à condition que l'on puisse accéder à Oracle.
+	 * @param args
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public static void main (String [] args) throws SQLException, ClassNotFoundException{
 		try {
 			ConnexionOracleViaJdbc.parametresConnexionOracle();
@@ -26,10 +31,12 @@ public class LancerAppliAdminTech {
 		} 
 		catch (ExceptionAuthentification e) {
 			MsgBox.affMsg("<html> <center>Les paramètres de connexion à Oracle ne sont pas valides " +
-					"<br> Merci de modifier le fichier " +System.getProperty("user.dir")+"/src/ressources/parametresOracle </center></html>");
+					"<br> Merci de modifier le fichier<br>" +System.getProperty("user.dir")+"\\src\\ressources\\parametresOracle </center></html>");
+			System.exit(0);
 		}
 		catch (FileNotFoundException e) {
 			MsgBox.affMsg("Le fichier 'parametresOracle' est introuvable à l'adresse " + System.getProperty("user.dir")+"/src/ressources");
+			System.exit(0);
 		}
 
 	}

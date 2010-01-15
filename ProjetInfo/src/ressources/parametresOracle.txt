@@ -1,8 +1,11 @@
 *ATTENTION : merci de ne pas modifier les lignes commençant par une '*' 
-*et de ne pas rajouter de lignes dans ce ficier 
+*et de ne pas rajouter ni ajouter de lignes dans ce fichier
+*
 *Votre url d'accès à Oracle :
 jdbc:oracle:thin:@oraens10g:1521:ORAENS
+*
 *Votre identifiant Oracle :
 id3033
+*
 *Votre mot de passe Oracle :
 id3033
