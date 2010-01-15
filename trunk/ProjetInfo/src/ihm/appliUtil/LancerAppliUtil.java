@@ -29,12 +29,14 @@ public class LancerAppliUtil {
 			f.repaint();
 		} 
 		catch (ExceptionAuthentification e) {
-			MsgBox.affMsg("<html> <center>Les paramètres de connexion à Oracle ne sont pas valides " +
-					"<br> Merci de modifier le fichier<br>" +System.getProperty("user.dir")+"\\src\\ressources\\parametresOracle </center></html>");
+			MsgBox.affMsg("<html> <center>Les paramètres de connection à Oracle ne sont pas valides. " +
+							"<br> Merci de modifier le fichier<br>" +System.getProperty("user.dir")+"\\src\\ressources\\parametresOracle<br>" +
+							"pour que l'application puisse fonctionner.</center></html>");
 			System.exit(0);
 		}
 		catch (FileNotFoundException e) {
-			MsgBox.affMsg("Le fichier 'parametresOracle est introuvable à l'adresse " + System.getProperty("user.dir")+"/src/ressources");
+			MsgBox.affMsg("Le fichier 'parametresOracle' est introuvable à l'adresse<br>" +
+							System.getProperty("user.dir")+"\\src\\ressources");
 			System.exit(0);
 		} 
 	}
