@@ -139,7 +139,7 @@ public class UtilitaireIhm {
 
 	/**
 	 * Vérifie si des vélos peuvent être assignés dans un lieu donné
-	 * @param listeVelosProposee
+	 * @param listeIdsVelosProposee 
 	 * la liste des identifiants des vélos que l'on veut assigner
 	 * @param lieu
 	 * le lieu d'origine des vélos concernés par la demande d'assignation

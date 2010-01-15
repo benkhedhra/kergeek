@@ -17,19 +17,30 @@ import java.util.Scanner;
 import oracle.jdbc.pool.OracleDataSource;
 public class ConnexionOracleViaJdbc {
 
+	//Attributs
+	
+	/**
+	 * @see Connection
+	 */
 	static private Connection c;
-	static private String idUtilisateurOracle; 
+	
+	/**
+	 * login de connection à Oracle
+	 */
+	static private String idUtilisateurOracle;
+	
+	/**
+	 *mot de passe de connection à Oracle
+	 */
 	static private String motDePasseOracle;
+	
+	/**
+	 * url de connection à Oracle
+	 */
 	static private String urlOracle;
 
-
-	// avec un constructeur "private"
-	// comme la Connection est static private, on ne pourra avoir qu'une seule connexion a la fois
-	// le constructeur ne pourra etre appele en dehors de la classe
-	// ici on ne fait pas appel au constructeur dans la classe, elle n'est donc pas instanciable
+	//TODO
 	private ConnexionOracleViaJdbc(){
-		//ConnexionOracleViaJdbc.setIdUtilisateur(identifiantBDD.UTILISATEUR);
-		//ConnexionOracleViaJdbc.setIdUtilisateur(identifiantBDD.MOTDEPASSE);
 	}
 
 
@@ -42,11 +53,6 @@ public class ConnexionOracleViaJdbc {
 	 */
 	private static void connecter() throws ClassNotFoundException, ConnexionFermeeException{
 		// création d'une connexion â€¡ une base de données		
-
-		//TODO URL Oracle
-		
-
-
 
 		try {
 			// Create a OracleDataSource instance and set properties
@@ -156,44 +162,79 @@ public class ConnexionOracleViaJdbc {
 	public static Connection getC(){
 		return c;
 	}
-
+	
+	/**
+	 * Initialisation du login de connection à Oracle
+	 * @param idU
+	 */
 	public static void setIdUtilisateurOracle(String idU){
 		idUtilisateurOracle = idU;
 	}
-
+	
+	/**
+	 * Initialisation du mot de passe de connection à Oracle
+	 * @param mdp
+	 */
 	public static void setMotDePasseOracle(String mdp){
 		motDePasseOracle = mdp;
 	}
 	
+	/**
+	 * Initialisation de l'url de connection à Oracle
+	 * @param url
+	 */
 	public static void setUrlOracle(String url){
 		urlOracle = url;
 	}
 	
+	/**
+	 * @return {@link ConnexionOracleViaJdbc#idUtilisateurOracle}
+	 * login de connection à Oracle
+	 */
 	public static String getIdUtilisateurOracle() {
 		return idUtilisateurOracle;
 	}
 
-
+	/**
+	 * @return {@link ConnexionOracleViaJdbc#motDePasseOracle}
+	 */
 	public static String getMotDePasseOracle() {
 		return motDePasseOracle;
 	}
 
-
+	/**
+	 * @return {@link ConnexionOracleViaJdbc#urlOracle}
+	 */
 	public static String getUrlOracle() {
 		return urlOracle;
 	}
 	
-	
+	/**
+	 * On initialise les paramètre de connexion à Oracle à partir d'un fichier
+	 * @throws FileNotFoundException
+	 */
 	public static void parametresConnexionOracle() throws FileNotFoundException{
+		//ouverture du scanner
 		Scanner scanner=new Scanner(new File(System.getProperty("user.dir")+"/src/ressources/parametresOracle.txt"));
 		scanner.nextLine();
 		scanner.nextLine();
 		scanner.nextLine();
+		scanner.nextLine();
+		
+		//Initialisation de l'url de connection
 		setUrlOracle(scanner.nextLine());
 		scanner.nextLine();
+		scanner.nextLine();
+		
+		//Initialisation du login
 		setIdUtilisateurOracle(scanner.nextLine());
 		scanner.nextLine();
+		scanner.nextLine();
+		
+		//initialisation du mot de passe
 		setMotDePasseOracle(scanner.nextLine());
+		
+		//fermeture du scanner
 		scanner.close();
 	}
 
