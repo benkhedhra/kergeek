@@ -43,9 +43,6 @@ public class ConnexionOracleViaJdbc {
 	private ConnexionOracleViaJdbc(){
 	}
 
-
-
-
 	/**
 	 * connexion au serveur Oracle.
 	 * @throws ClassNotFoundException
