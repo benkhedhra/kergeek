@@ -30,14 +30,14 @@ public class LancerAppliAdminTech {
 			f.repaint();
 		} 
 		catch (ExceptionAuthentification e) {
-			MsgBox.affMsg("<html> <center>Les paramètres de connection à Oracle ne sont pas valides. " +
-							"<br> Merci de modifier le fichier<br>" +System.getProperty("user.dir")+"\\src\\ressources\\parametresOracle<br>" +
+			MsgBox.affMsg("<html><center>Les paramètres de connection à Oracle ne sont pas valides. " +
+							"<br> Merci de modifier le fichier<br>" +System.getProperty("user.dir")+"\\src\\ressources\\parametresOracle.txt<br>" +
 							"pour que l'application puisse fonctionner.</center></html>");
 			System.exit(0);
 		}
 		catch (FileNotFoundException e) {
-			MsgBox.affMsg("Le fichier 'parametresOracle' est introuvable à l'adresse<br>" +
-					System.getProperty("user.dir")+"\\src\\ressources");
+			MsgBox.affMsg("<html><center>Le fichier 'parametresOracle.txt' est introuvable à l'adresse :<br>" +
+					System.getProperty("user.dir")+"\\src\\ressources</center></html>");
 			System.exit(0);
 		}
 
